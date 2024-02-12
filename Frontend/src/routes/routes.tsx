@@ -1,14 +1,14 @@
-import { createBrowserRouter } from "react-router-dom";
-import { Layout } from "../layout";
-import { Home } from "../pages";
+import { createBrowserRouter } from 'react-router-dom';
+import { Layout } from '../layout';
+import { Home } from '../pages';
 
 export const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <Layout />,
     children: [
       {
-        path: "/",
+        path: '/',
         element: <Home />,
       },
     ],

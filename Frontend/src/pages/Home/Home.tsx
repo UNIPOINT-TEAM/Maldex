@@ -1,5 +1,11 @@
+import SliderProducts from '../../components/SliderProduct/SliderProducts';
+
 const Home = () => {
-  return <div>Home</div>;
+  return (
+    <div className='px-4'>
+      <SliderProducts />
+    </div>
+  );
 };
 
 export default Home;
