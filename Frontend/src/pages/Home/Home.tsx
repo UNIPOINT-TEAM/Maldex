@@ -3,9 +3,14 @@ import image2 from "../../assets/article-bg-2.png";
 import image3 from "../../assets/article-bg-3.png";
 import image4 from "../../assets/article-bg-4.png";
 
-import { QuestForm, FAQ, Banner, Dishes } from "../../components";
-import MainCategory from "../../components/MainCategory/MainCategory";
-import RunningText from "../../components/RunningText/RunningText";
+import {
+  QuestForm,
+  FAQ,
+  Banner,
+  Dishes,
+  MainCategory,
+  RunningText,
+} from "../../components";
 
 const Home = () => {
   return (
