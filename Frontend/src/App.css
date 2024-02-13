@@ -1,7 +1,28 @@
 .container_xxl {
-  max-width: 1440px;
-  width: 100%;
-  margin: 0 auto;
+    max-width: 1440px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* CSS */
+.scrollbar-custom {
+    scrollbar-color: red;
+}
+
+.scrollbar-custom::-webkit-scrollbar {
+    width: 6px;
+}
+
+.scrollbar-custom::-webkit-scrollbar-thumb {
+    background-color: red;
+    border-radius: 10px;
+}
+
+.productCatalog:hover .nameProductCatalog {
+    color: black;
+}
+.productCatalog:hover .btnProductCatalog {
+    background-color: rgb(236 16 38);
 }
 .section-title {
   font-size: 28px;
