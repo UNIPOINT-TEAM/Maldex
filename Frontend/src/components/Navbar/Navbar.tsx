@@ -1,4 +1,5 @@
 import logo from "../../assets/images/logo.png";
+import search from "../../assets/images/search.svg";
 import mobile from "../../assets/icons/mobile.svg";
 import mail from "../../assets/icons/mail.svg";
 import location from "../../assets/icons/location.svg";
@@ -72,17 +73,17 @@ const Navbar = () => {
             placeholder="Поиск (Например: термоноски)"
           />
           <span>
-            <button className="bg-redPrimary text-white rounded-r-full p-2 focus:outline-none w-20 h-8 flex items-center justify-center">
-              {/* Search Icon */}
+            <button className="bg-redPrimary text-white rounded-r-full p-2 focus:outline-none w-16   h-8 flex items-center justify-center">
+              <img src={search} alt="" />
             </button>
           </span>
         </div>
 
         <div className="flex items-center justify-between text-sm px-2 space-x-6">
-          <span className="text-redPrimary font-semibold">
+          <span className="text-redPrimary font-semibold underline">
             new<sup>243</sup>
           </span>
-          <span className="text-greenPrimary font-semibold">
+          <span className="text-greenPrimary font-semibold underline">
             hits<sup>243</sup>
           </span>
         </div>

@@ -1,5 +1,7 @@
 import minilogo from "../../assets/images/mini-logo.png";
 import { footerLinks } from "../../mock/data";
+
+
 function Footer() {
   return (
     <>
@@ -10,14 +12,14 @@ function Footer() {
         >
           <div className="">
             <p className="text-darkSecondary">По всем вопросам</p>
-            <h1 className="w-[220px] text-fs_1 font-medium leading-50 tracking-normal text-left underline">
+            <h1 className="w-[220px] text-fs_1 font-medium leading-[50px] tracking-normal text-left underline">
               maldex @info.com</h1>
           </div>
           <div className="">
             <p className="text-darkSecondary">
               Бесплатный звонок из любой точки России
             </p>
-            <h1 className="w-[220px] text-fs_1 font-medium leading-50 tracking-normal text-left underline">
+            <h1 className="w-[220px] text-fs_1 font-medium leading-[50px] tracking-normal text-left underline">
               8-800 333-67-84
             </h1>
           </div>
@@ -109,7 +111,12 @@ function Footer() {
             </button>
           </div>
         </div>
+        
       </footer>
+
+
+    
+
     </>
   );
 }

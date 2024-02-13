@@ -1,5 +1,11 @@
+import MainCategory from "../../components/MainCategory/MainCategory";
+
 const Home = () => {
-  return <div>Home</div>;
+  return (
+    <>
+      <MainCategory />
+    </>
+  )
 };
 
 export default Home;
