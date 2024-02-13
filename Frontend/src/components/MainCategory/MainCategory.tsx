@@ -19,7 +19,7 @@ function MainCategory() {
   };
 
   const handleClose = () => {
-    // Закрываем список только если курсор ушел с кнопки и списка
+    // Закрываем список только если курсор ушел с кнопки и списк
     if (!dropdownRef.current?.contains(document.activeElement)) {
       setOpenIndex(null);
     }
