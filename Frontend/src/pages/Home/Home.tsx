@@ -1,9 +1,10 @@
-import MainCategory from "../../components/MainCategory/MainCategory";
+import { MainCategory, RunningText } from "../../components";
 
 const Home = () => {
   return (
     <>
       <MainCategory />
+      <RunningText />
     </>
   )
 };
