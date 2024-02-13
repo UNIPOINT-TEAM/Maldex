@@ -6,7 +6,7 @@ import location from "../../assets/icons/location.svg";
 const Navbar = () => {
   return (
     <header className="container_xxl">
-      <nav className="py-4 flex justify-around items-center  border-b border-gray-300">
+      <nav className="py-4 px-10 flex justify-between items-center  border-b border-gray-300">
         {/* Logo and Contact Info */}
         <div className="flex items-center">
           <img src={logo} className="mr-5" />
@@ -54,7 +54,7 @@ const Navbar = () => {
         </div>
       </nav>
 
-      <nav className="flex justify-center items-center py-2 gap-14">
+      <nav className="flex justify-between items-center py-2 mx-10 gap-14">
         <div className="flex justify-around gap-5">
           <button className="px-3 py-1 bg-redPrimary text-white focus:outline-none rounded-lg">
             ☰ Каталог
@@ -64,16 +64,18 @@ const Navbar = () => {
           </button>
         </div>
 
-        <div className="flex items-center">
+        <div className="inline-flex w-[900px]">
           <input
-            className="rounded-l-full border-[2px] border-redPrimary py-1 px-2 w-[880px] text-darkSecondary leading-tight focus:outline-none"
+            className="rounded-l-full border-[2px] border-redPrimary py-1 px-2 w-[100%]  text-darkSecondary leading-tight focus:outline-none"
             id="search"
             type="text"
             placeholder="Поиск (Например: термоноски)"
           />
-          <button className="bg-redPrimary text-white rounded-r-full p-2 focus:outline-none w-20 h-8 flex items-center justify-center">
-            {/* Search Icon */}
-          </button>
+          <span>
+            <button className="bg-redPrimary text-white rounded-r-full p-2 focus:outline-none w-20 h-8 flex items-center justify-center">
+              {/* Search Icon */}
+            </button>
+          </span>
         </div>
 
         <div className="flex items-center justify-between text-sm px-2 space-x-6">
