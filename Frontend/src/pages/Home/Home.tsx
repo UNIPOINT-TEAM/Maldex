@@ -1,5 +1,4 @@
 import MainCategory from "../../components/MainCategory/MainCategory";
-
 import image1 from "../../assets/article-bg-1.png";
 import image2 from "../../assets/article-bg-2.png";
 import image3 from "../../assets/article-bg-3.png";
@@ -19,7 +18,7 @@ const Home = () => {
                 }}
               >
                 <div className="md:w-[65%]">
-                  <h3 className="text-[24px]">2.10</h3>
+                  <h3 className="text-[24px] font-helvetica">2.10</h3>
                   <h2 className="text-[28px] font-medium ">
                     Маска для лица многоразовая из хлопка, анатомической формы
                   </h2>

@@ -13,7 +13,7 @@ export default {
         white: "#F7F7F7",
       },
       fontFamily: {
-        raleway: ["Raleway", "sans-serif"],
+        helvetica: ["Helvetica", "sans-serif"],
       },
       fontSize: {
         fs_1: "46px",
