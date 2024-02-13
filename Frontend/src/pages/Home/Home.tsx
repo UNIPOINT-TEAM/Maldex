@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import {
   MainCategory,
   QuestForm,
@@ -19,6 +20,9 @@ import image1 from "../../assets/article-bg-1.png";
 import image2 from "../../assets/article-bg-2.png";
 import image3 from "../../assets/article-bg-3.png";
 import image4 from "../../assets/article-bg-4.png";
+=======
+import { MainCategory, RunningText } from "../../components";
+>>>>>>> cad4d44 (RunnigText)
 =======
 import { MainCategory, RunningText } from "../../components";
 >>>>>>> cad4d44 (RunnigText)
@@ -56,10 +60,13 @@ const Home = () => {
 
       <MainCategory />
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 391284e (runnigtext3)
     </div>
   );
 =======
+=======
+>>>>>>> cad4d44 (RunnigText)
       <RunningText />
     </>
   )
