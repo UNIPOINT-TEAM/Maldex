@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { useEffect, useState } from "react";
 import {
   MainCategory,
@@ -114,6 +115,9 @@ import image4 from "../../assets/article-bg-4.png";
 import { MainCategory, RunningText } from "../../components";
 >>>>>>> cad4d44 (RunnigText)
 >>>>>>> 391284e (runnigtext3)
+=======
+import { MainCategory, RunningText } from "../../components";
+>>>>>>> cad4d44 (RunnigText)
 
 const Home = () => {
   return (
@@ -143,9 +147,12 @@ const Home = () => {
 =======
       <MainCategory />
 <<<<<<< HEAD
+<<<<<<< HEAD
     </div>
   );
 =======
+=======
+>>>>>>> cad4d44 (RunnigText)
       <RunningText />
     </>
   )
