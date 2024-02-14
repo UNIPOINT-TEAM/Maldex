@@ -3,7 +3,7 @@ import image2 from "../../assets/article-bg-2.png";
 import image3 from "../../assets/article-bg-3.png";
 import image4 from "../../assets/article-bg-4.png";
 
-import { MainCategory, QuestForm, FAQ, Banner, Dishes, SliderProduct } from "../../components";
+import { MainCategory, QuestForm, FAQ, Banner, Dishes, SliderProduct, RunningText } from "../../components";
 
 
 const Home = () => {
@@ -162,8 +162,15 @@ const Home = () => {
                     <QuestForm />
                 </div>
             </div>
+            <MainCategory />
+          
+        
+            <RunningText />
         </>
     );
+    
+  
+
 };
 
 export default Home;
