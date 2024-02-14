@@ -12,5 +12,7 @@ export { default as BannerBottom } from "./Banner/BannerBottom";
 export { default as CardModal } from "./Card/Card";
 export { default as MainCategory } from "./MainCategory/MainCategory";
 export { default as RunningText } from "./RunningText/RunningText";
+export { default as SaleSlider } from "./SaleSlider/SaleSlider";
+export { default as QuestForm } from "./QuestForm/QuestForm";
 
 
