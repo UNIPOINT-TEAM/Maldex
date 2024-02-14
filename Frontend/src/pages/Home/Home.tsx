@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useEffect, useState } from "react";
 import {
   MainCategory,
@@ -101,6 +102,17 @@ const Home = () => {
 >>>>>>> 530ee71 (runnigtext3)
 =======
 } from "../../components";
+=======
+<<<<<<< HEAD
+import MainCategory from "../../components/MainCategory/MainCategory";
+import image1 from "../../assets/article-bg-1.png";
+import image2 from "../../assets/article-bg-2.png";
+import image3 from "../../assets/article-bg-3.png";
+import image4 from "../../assets/article-bg-4.png";
+=======
+import { MainCategory, RunningText } from "../../components";
+>>>>>>> cad4d44 (RunnigText)
+>>>>>>> 391284e (runnigtext3)
 
 const Home = () => {
   return (
@@ -112,6 +124,7 @@ const Home = () => {
         <div className="dishes container_xxl my-10">
           <h3 className="section-title">посуда</h3>
 
+<<<<<<< HEAD
           <Dishes />
         </div>
         <div className="faq container_xxl flex  ">
@@ -126,6 +139,17 @@ const Home = () => {
     </>
   );
 >>>>>>> 4059583 (add gift and portfolio)
+=======
+      <MainCategory />
+<<<<<<< HEAD
+    </div>
+  );
+=======
+      <RunningText />
+    </>
+  )
+>>>>>>> cad4d44 (RunnigText)
+>>>>>>> 391284e (runnigtext3)
 };
 
 export default Home;
