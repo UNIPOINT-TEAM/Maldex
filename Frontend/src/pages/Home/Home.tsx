@@ -6,8 +6,6 @@ import image4 from "../../assets/article-bg-4.png";
 import {
   MainCategory,
   QuestForm,
-  RunningText,
-  SaleSlider,
   FAQ,
 } from "../../components";
 import articleBg1 from "../../assets/article-bg-1.png";
@@ -18,14 +16,13 @@ import articleBg4 from "../../assets/article-bg-4.png";
 const Home = () => {
   return (
     <>
-      <div className="home p-4">
+      <div className="home ">
         <div className="faq container_xxl flex  ">
           <h3 className="section-title">FAQ</h3>
           <FAQ />
         </div>
         <div className="articles container_xxl">
           <h3 className="section-title">статьи</h3>
-          <SaleSlider />
           <div className="home p-4">
             <div className="">
               <div className="flex flex-col gap-3 ">
@@ -150,7 +147,6 @@ const Home = () => {
 
           <MainCategory />
           <QuestForm />
-          <RunningText />
         </div>
       </div>
     </>
