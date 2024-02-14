@@ -18,7 +18,6 @@ function SaleSlider() {
 
   return (
     <>
-
     <div className=" bg-white">
     <link
         rel="stylesheet"
