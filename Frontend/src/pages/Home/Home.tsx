@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import {
   MainCategory,
   QuestForm,
@@ -66,3 +67,5 @@ const Home = () => {
 };
 
 export default Home;
+=======
+>>>>>>> 7ca5cd3 (commited)
