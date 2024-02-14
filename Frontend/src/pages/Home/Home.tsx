@@ -3,20 +3,15 @@ import image2 from "../../assets/article-bg-2.png";
 import image3 from "../../assets/article-bg-3.png";
 import image4 from "../../assets/article-bg-4.png";
 
-import {
-  MainCategory,
-  QuestForm,
-  FAQ,
-} from "../../components";
-import articleBg1 from "../../assets/article-bg-1.png";
-import articleBg2 from "../../assets/article-bg-2.png";
-import articleBg3 from "../../assets/article-bg-3.png";
-import articleBg4 from "../../assets/article-bg-4.png";
+import { MainCategory, QuestForm, FAQ, Banner } from "../../components";
 
 const Home = () => {
   return (
     <>
-      <div className="home ">
+      <div className="home">
+        <div className="banner container_xxl my-10 ">
+          <Banner />
+        </div>
         <div className="faq container_xxl flex  ">
           <h3 className="section-title">FAQ</h3>
           <FAQ />

@@ -25,8 +25,6 @@ const RunningText = () => {
           Эксклюзив на Maldex ➔
         </span>
         <img src={runicon} alt="" />
-
-
       </Marquee>
     </div>
   );

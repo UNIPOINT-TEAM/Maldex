@@ -5,5 +5,8 @@ export { default as MainCategory } from "./MainCategory/MainCategory";
 export { default as RunningText } from "./RunningText/RunningText";
 export { default as SaleSlider } from "./SaleSlider/SaleSlider";
 export { default as QuestForm } from "./QuestForm/QuestForm";
-
-
+// Banner
+export { default as Banner } from "./Banner/Banner";
+export { default as BannerSlider } from "./Banner/BannerSlider";
+export { default as BannerTop } from "./Banner/BannerTop";
+export { default as BannerBottom } from "./Banner/BannerBottom";
