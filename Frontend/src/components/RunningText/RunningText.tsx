@@ -1,10 +1,18 @@
 import Marquee from "react-fast-marquee";
+import runicon from "../../assets/icons/runningtext.svg"
 
 const RunningText = () => {
   return (
-    <div className="container_xxl bg-greenPrimary p-4">
+    <div className="container_xxl bg-greenPrimary py-4">
 <Marquee>
-            <span>Это ваш текст здесь!</span>
+            <span>Эксклюзив на Maldex ➔</span>
+            <img src={runicon} alt="" />
+            <span>Эксклюзив на Maldex ➔</span>
+            <img src={runicon} alt="" />
+            <span>Эксклюзив на Maldex ➔</span>
+            <img src={runicon} alt="" />
+            <span>Эксклюзив на Maldex ➔</span>
+            <img src={runicon} alt="" />
 </Marquee>
     </div>
   );
