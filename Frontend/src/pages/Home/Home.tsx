@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import {
   MainCategory,
   QuestForm,
@@ -9,10 +10,17 @@ import {
   GiftItem,
   MainProductFilter,
 } from "../../components";
+=======
+<<<<<<< HEAD
+import MainCategory from "../../components/MainCategory/MainCategory";
+>>>>>>> 391284e (runnigtext3)
 import image1 from "../../assets/article-bg-1.png";
 import image2 from "../../assets/article-bg-2.png";
 import image3 from "../../assets/article-bg-3.png";
 import image4 from "../../assets/article-bg-4.png";
+=======
+import { MainCategory, RunningText } from "../../components";
+>>>>>>> cad4d44 (RunnigText)
 
 const Home = () => {
   return (
@@ -21,6 +29,7 @@ const Home = () => {
       <div className="banner container_xxl px-3">
         <Banner />
       </div>
+<<<<<<< HEAD
       <div className="dishes container_xxl mt-10 hidden lg:block px-3">
         <MainCategory />
       </div>
@@ -42,8 +51,18 @@ const Home = () => {
         <MainProductFilter status="new" />
       </div>
       <QuestForm />
+=======
+
+      <MainCategory />
+<<<<<<< HEAD
+>>>>>>> 391284e (runnigtext3)
     </div>
   );
+=======
+      <RunningText />
+    </>
+  )
+>>>>>>> cad4d44 (RunnigText)
 };
 
 export default Home;
