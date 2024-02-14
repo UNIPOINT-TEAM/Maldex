@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { useEffect, useState } from "react";
 import {
   MainCategory,
@@ -153,3 +154,5 @@ const Home = () => {
 };
 
 export default Home;
+=======
+>>>>>>> 7ca5cd3 (commited)
