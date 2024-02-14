@@ -30,6 +30,7 @@ const Home = () => {
         setNewProducts(res?.data?.results);
       }
     );
+<<<<<<< HEAD
     GetProductHit(`product/?category_id=${categoryId}&is_hit=true`).then(
       (res: any) => {
         setHitProducts(res?.data?.results);
@@ -92,6 +93,11 @@ const Home = () => {
       <QuestForm />
     </div>
   );
+=======
+
+
+
+>>>>>>> 530ee71 (runnigtext3)
 };
 
 export default Home;
