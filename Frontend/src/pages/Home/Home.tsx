@@ -3,11 +3,17 @@ import image1 from "../../assets/article-bg-1.png";
 import image2 from "../../assets/article-bg-2.png";
 import image3 from "../../assets/article-bg-3.png";
 import image4 from "../../assets/article-bg-4.png";
+import { FAQ } from "../../components";
 
 const Home = () => {
   return (
     <div className="home p-4">
-      <div className="">
+      <div className="faq container_xxl flex  ">
+        <h3 className="section-title">FAQ</h3>
+        <FAQ />
+      </div>
+      <div className="articles container_xxl">
+        <h3 className="section-title">статьи</h3>
         <div className="flex flex-col gap-3 ">
           <div className="flex-grow flex gap-3">
             <div className="w-full md:w-1/2">

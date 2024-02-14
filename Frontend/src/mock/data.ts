@@ -63,3 +63,30 @@ export const footerLinks = [
     items: ["Одежда", "Ручки", "Ежедневники и блокноты", "Посуда"],
   },
 ];
+
+export const Faq = [
+  {
+    id: 1,
+    title: "О компании (сувенирная продукция в Москве)",
+    content:
+      " Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum, corporis.",
+  },
+  {
+    id: 2,
+    title: "Более 60 000 наименований",
+    content:
+      " Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum, corporis.",
+  },
+  {
+    id: 3,
+    title: "Почему maldex?",
+    content:
+      " Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum, corporis.",
+  },
+  {
+    id: 4,
+    title: "Услуги",
+    content:
+      " Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum, corporis.",
+  },
+];
