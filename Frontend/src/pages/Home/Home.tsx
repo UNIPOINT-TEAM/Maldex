@@ -8,6 +8,8 @@ import {
   News,
 } from "../../components";
 
+
+
 const Home = () => {
   return (
     <>
@@ -30,7 +32,8 @@ const Home = () => {
         <QuestForm />
       </div>
     </>
-  );
+
+  )
 };
 
 export default Home;
