@@ -30,40 +30,71 @@ const Navbar = () => {
   };
 
   return (
-    <div className="relative">
-      <header className="container_xxl relative">
-        <nav className="py-4 px-10 flex justify-between items-center  border-b border-gray-300">
-          {/* Logo and Contact Info */}
+    <div>
+    <header className="">
+      <nav className="   border-b border-gray-300">
+        {/* Logo and Contact Info */}
+        <div className="container_xxl py-4 px-10 flex justify-between items-center">
           <div className="flex items-center">
-            <img src={logo} className="mr-5" alt="maldex-logo" />
+            <img src={logo} className="mr-5" />
+
             <div className="flex items-center gap-5">
               <div className="flex items-center">
-                <img src={mobile} className="mr-2" alt="mobile-icon" />
-                <span className="text-darkPrimary text-base">
+                <img src={mobile} className="mr-2" />
+                <span className="text-darkPrimary text-fs_8 tracking-wider font-bold ">
                   8-800-333-6784
                 </span>
               </div>
+
               <div className="flex items-center">
-                <img src={mail} className="mr-2" alt="mail-icon" />
-                <span className="text-darkPrimary text-base">
+                <img src={mail} className="mr-2" />
+                <span className="text-darkPrimary text-fs_8 tracking-wider font-bold">
                   info@madex.ru
                 </span>
               </div>
+
               <div className="flex items-center">
-                <img src={location} className="mr-2" alt="location-icon" />
-                <span className="text-darkPrimary text-base">Москва</span>
+                <img src={location} className="mr-2" />
+                <span className="text-darkPrimary text-fs_8 tracking-wider font-bold">
+                  Москва
+                </span>
               </div>
             </div>
           </div>
 
-          {/* Shopping Cart */}
-          <div className=" ml-4 flex items-center bg-white w-[118px] h-[36px] rounded-full">
-            <span className=" bg-redPrimary text-white text-fs_8 h-[36px] w-[38px] rounded-full text-center ">
-              <div className="py-2">3</div>
-            </span>
-            <span className="text-darkPrimary text-fs_8 font-bold ml-1">
-              14 619,00 ₽
-            </span>
+          {/* City and Minimum Order Info */}
+          <div className="text-darkSecondary hidden md:block">
+            <span className="ml-4">Минимальный тираж от 30 шт.</span>
+          </div>
+
+          {/* Navigation Links */}
+          <div className="flex items-center">
+            <a
+              href="#"
+              className="text-darkPrimary text-fs_8 tracking-wider font-bold hover:text-redPrimary px-2"
+            >
+              Доставка
+            </a>
+            <a
+              href="#"
+              className="text-darkPrimary text-fs_8 tracking-wider font-bold hover:text-redPrimary px-2"
+            >
+              Оплата
+            </a>
+            <a
+              href="#"
+              className="text-darkPrimary text-fs_8 tracking-wider font-bold hover:text-redPrimary px-2"
+            >
+              Контакты
+            </a>
+
+            {/* Shopping Cart */}
+            <div className=" ml-4 flex items-center bg-white w-[118px] h-[36px] rounded-full">
+              <span className=" bg-redPrimary text-white text-fs_8 h-[36px] w-[38px] rounded-full text-center ">
+                <div className="py-2">3</div>
+              </span>
+              <span className="text-darkPrimary text-fs_8 font-bold ml-1">14 619,00 ₽</span>
+            </div>
           </div>
         </nav>
 
