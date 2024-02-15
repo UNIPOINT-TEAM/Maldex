@@ -3,7 +3,7 @@ import search from "../../assets/images/search.svg";
 import mobile from "../../assets/icons/mobile.svg";
 import mail from "../../assets/icons/mail.svg";
 import location from "../../assets/icons/location.svg";
-import filtr from "../../assets/icons/filtr.png";
+// import filtr from "../../assets/icons/filtr.png";
 import { useState } from "react";
 import { Categories, Product, SubCategories } from "../../mock/data";
 
