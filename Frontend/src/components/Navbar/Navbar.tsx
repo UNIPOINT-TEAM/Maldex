@@ -14,29 +14,28 @@ const Navbar = () => {
 
   const modalToggle = () => {
     setModal(!modal);
-    if (!modal) {
+    if (modal !== true) {
       setActiveItem(null);
       setActiveCategoryItem(null);
     }
-    console.log("modal");
   };
-
-  const handleCategoryClick = (id) => {
+  //@ts-ignore
+  const handleCategoryClick = (id: number) => {
+    //@ts-ignore
     setActiveItem(id);
   };
-
-  const handleCategoryItemClick = (id) => {
+  const handleCategoryItemClick = (id: number) => {
+    //@ts-ignore
     setActiveCategoryItem(id);
   };
 
   return (
-    <div>
-    <header className="">
-      <nav className="   border-b border-gray-300">
-        {/* Logo and Contact Info */}
-        <div className="container_xxl py-4 px-10 flex justify-between items-center">
+    <div className="relative">
+      <header className="container_xxl">
+        <nav className="py-4 px-10 flex justify-between items-center  border-b border-gray-300">
+          {/* Logo and Contact Info */}
           <div className="flex items-center">
-            <img src={logo} className="mr-5" />
+            <img src={logo} alt="maldex-logo" className="mr-5" />
 
             <div className="flex items-center gap-5">
               <div className="flex items-center">
