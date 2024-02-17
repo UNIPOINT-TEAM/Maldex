@@ -6,6 +6,7 @@ import location from "../../assets/icons/location.svg";
 // import filtr from "../../assets/icons/filtr.png";
 import { useState } from "react";
 import { Categories, Product, SubCategories } from "../../mock/data";
+import { CardModal } from "..";
 
 const Navbar = () => {
     const [modal, setModal] = useState(false);
@@ -18,6 +19,7 @@ const Navbar = () => {
             setActiveItem(null);
             setActiveCategoryItem(null);
         }
+        console.log("modal");
     };
     //@ts-ignore
     const handleCategoryClick = (id: number) => {
@@ -31,7 +33,7 @@ const Navbar = () => {
 
     return (
         <div className="relative">
-            <header className="container_xxl">
+            <header className="container_xxl relative">
                 <nav className="py-4 px-10 flex justify-between items-center  border-b border-gray-300">
                     {/* Logo and Contact Info */}
                     <div className="flex items-center">
@@ -90,26 +92,19 @@ const Navbar = () => {
                         </a>
 
                         {/* Shopping Cart */}
-                        <div className="ml-4 flex items-center">
-                            <span className="text-redPrimary text-base px-2">
-                                3
-                            </span>
-                            <span className="text-darkPrimary text-base">
-                                14 619,00 Р
-                            </span>
-                        </div>
+                        <CardModal />
                     </div>
                 </nav>
 
-                <nav className="flex justify-between items-center py-2 mx-10 gap-14">
+                <nav className="flex justify-between items-center py-2 mx-10 gap-14 cursor-pointer">
                     <div className="flex justify-around gap-5">
                         <button
                             onClick={modalToggle}
-                            className="px-3 py-1 bg-redPrimary text-white focus:outline-none rounded-lg"
+                            className="px-3 py-1 bg-redPrimary text-white focus:outline-none rounded-lg cursor-pointer"
                         >
                             ☰ Каталог
                         </button>
-                        <button className="px-2 py-1 text-darkSecondary focus:outline-none border border-gray-300 rounded-lg">
+                        <button className="px-2 py-1 text-darkSecondary focus:outline-none border border-gray-300 rounded-lg cursor-pointer">
                             ☰
                         </button>
                     </div>
@@ -139,10 +134,11 @@ const Navbar = () => {
                 </nav>
             </header>
             {modal ? (
-                <div className="modal absolute h-[115vh] w-full mt-4 bg-[#00000074] z-20 flex">
-                    <div className="w-[25%] bg-slate-100  px-3 py-1">
+                <div className="modal absolute h-[115vh] w-full  bg-[#00000074] z-20 flex">
+                    <div className="w-[25%] bg-white  px-3 py-1">
                         {Categories.map((i) => (
                             <div
+                                key={i.id}
                                 className={`w-[50%] flex p-1.5 gap-2 items-center hover:bg-red-300 hover:text-white rounded ${
                                     activeItem === i.id
                                         ? "bg-redPrimary text-white"
