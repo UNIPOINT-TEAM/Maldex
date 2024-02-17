@@ -49,9 +49,12 @@ const RunningText = () => {
           Эксклюзив на Maldex ➔
         </span>
         <img src={runicon} alt="" />
+<<<<<<< HEAD
 
 
 >>>>>>> bf64a73 (navbar100)
+=======
+>>>>>>> 89fc5ef (product card 20% _ gift page 10%)
       </Marquee>
     </div>
   );

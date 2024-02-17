@@ -9,10 +9,15 @@ export { default as RunningText } from "./RunningText/RunningText";
 export { default as SaleSlider } from "./SaleSlider/SaleSlider";
 export { default as QuestForm } from "./QuestForm/QuestForm";
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+// Banner
+>>>>>>> 89fc5ef (product card 20% _ gift page 10%)
 export { default as Banner } from "./Banner/Banner";
 export { default as BannerSlider } from "./Banner/BannerSlider";
 export { default as BannerTop } from "./Banner/BannerTop";
 export { default as BannerBottom } from "./Banner/BannerBottom";
+<<<<<<< HEAD
 export { default as BannerBottomMobile } from "./Banner/BannerBottomMobile";
 export { default as ProjectsSlider } from "./ProjectsSlider/ProjectsSlider";
 export { default as GiftBanner } from "./GiftBanner/GiftBanner";
@@ -49,6 +54,15 @@ export { default as MainProductFilter } from "./MainProductFilter/MainProductFil
 export { default as CompanyBanner } from "./CompanyBanner/CompanyBanner";
 export { default as CartProductCarusel } from "./Cart/CartProductCarusel";
 =======
+=======
+export { default as ProjectsSlider } from "./ProjectsSlider/ProjectsSlider";
+export { default as GiftBanner } from "./GiftBanner/GiftBanner";
+export { default as LeftAccordion } from "./GiftBanner/LeftAccordion";
+export { default as GiftBannerBottom } from "./GiftBanner/GiftBannerBottom";
+export { default as SliderProduct } from "./SliderProduct/SliderProduct";
+
+
+>>>>>>> 89fc5ef (product card 20% _ gift page 10%)
 
 
 >>>>>>> bf64a73 (navbar100)

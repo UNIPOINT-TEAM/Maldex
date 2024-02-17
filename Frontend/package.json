@@ -33,16 +33,20 @@
     "react-fast-marquee": "^1.6.4",
     "react-helmet": "^6.1.0",
 
-    "react-icons": "^5.0.1",
+
+
     "react-range-slider-input": "^3.0.7",
     "react-redux": "^9.1.0",
     "react-rnd": "^10.4.10",
-    "react-router-dom": "^6.22.0",
-    "react-slick": "^0.30.1",
+
     "react-to-pdf": "^1.0.1",
     "styletron-engine-atomic": "^1.6.2",
     "styletron-react": "^6.1.1",
     "swiper": "^11.0.6"
+    "react-icons": "^5.0.1",
+    "react-router-dom": "^6.22.0",
+    "react-slick": "^0.30.1"
+
   },
   "devDependencies": {
     "@types/aos": "^3.0.7",
