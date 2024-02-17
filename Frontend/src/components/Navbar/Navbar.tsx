@@ -8,6 +8,27 @@ import searchIcon from "../../assets/images/search.svg";
 import NavbarModal from "./NavbarModal";
 
 const Navbar = () => {
+  const [modal, setModal] = useState(false);
+  const [activeItem, setActiveItem] = useState(null);
+  const [activeCategoryItem, setActiveCategoryItem] = useState(null);
+
+  const modalToggle = () => {
+    setModal(!modal);
+    if (modal !== true) {
+      setActiveItem(null);
+      setActiveCategoryItem(null);
+    }
+  };
+  //@ts-ignore
+  const handleCategoryClick = (id: number) => {
+    //@ts-ignore
+    setActiveItem(id);
+  };
+  const handleCategoryItemClick = (id: number) => {
+    //@ts-ignore
+    setActiveCategoryItem(id);
+  };
+
   return (
     <div className=" lg:px-0">
       <header>
