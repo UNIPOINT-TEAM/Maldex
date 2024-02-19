@@ -5,7 +5,6 @@ import image4 from "../../assets/article-bg-4.png";
 
 import { MainCategory, QuestForm, FAQ, Banner, Dishes, SliderProduct } from "../../components";
 
-
 const Home = () => {
     return (
         <>
