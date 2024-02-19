@@ -18,6 +18,8 @@ export { default as GiftBanner } from "./GiftBanner/GiftBanner";
 export { default as LeftAccordion } from "./GiftBanner/LeftAccordion";
 export { default as GiftBannerBottom } from "./GiftBanner/GiftBannerBottom";
 export { default as SliderProduct } from "./SliderProduct/SliderProduct";
+export { default as ProductCard } from "./ProductCard/ProductCard";
+
 
 
 

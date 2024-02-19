@@ -18,6 +18,7 @@ function SaleSlider() {
 
   return (
     <>
+
     <div className=" bg-white">
     <link
         rel="stylesheet"
@@ -30,7 +31,10 @@ function SaleSlider() {
         href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
       />
       <div className="container_xxl flex px-10">
+      {/* @ts-ignore */}
+       
         <button onClick={() => slider?.current?.slickPrev()}>
+        
           <img src={prev} alt="" />
         </button>
 
@@ -62,6 +66,8 @@ function SaleSlider() {
           </div>
 
         </Slider>
+        {/* @ts-ignore */}
+
         <button onClick={() => slider?.current?.slickNext()}>
           <img src={next} alt="" />
         </button>
