@@ -1,6 +1,3 @@
-import { Button } from "@material-tailwind/react";
-import React from "react";
-
 const BannerSlider = () => {
   return (
     <div className="w-full h-full bg-greenPrimary flex  p-[20px] text-white">
@@ -13,7 +10,7 @@ const BannerSlider = () => {
             Бизнес сувениры <br /> для брендов{" "}
           </h2>
         </div>
-        <div className="bg-purple-300">
+        <div className="">
           <button className="border">Подробнее</button>
           <button className="border">Подробнее</button>
         </div>
