@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Layout } from "../layout";
-import { Card, Gift, Home } from "../pages";
 import CategoryDetails from "../pages/CategoryDetails/CategoryDetails";
+import { Card, Company, Gift, Home, Portfolio } from "../pages";
 
 export const router = createBrowserRouter([
   {
@@ -23,6 +23,15 @@ export const router = createBrowserRouter([
       {
         path: "category/:id",
         element: <CategoryDetails />,
+
+      },
+      {
+      path: "/portfolio",
+      element: <Portfolio />,
+    },
+      {
+        path: "/company",
+        element: <Company />,
       },
     ],
   },

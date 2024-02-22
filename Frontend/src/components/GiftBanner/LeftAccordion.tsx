@@ -14,6 +14,9 @@ const LeftAccordion = () => {
 
   return (
     <div className="">
+      <div className="w-[246px]">
+        <h1 className="text-[28px] font-black tracking-wide">Подарочные наборы</h1>
+      </div>
       <Accordion
         className="border border-lightPrimary rounded-xl my-4"
         open={open === 0} // Используйте значение open для определения открытого состояния

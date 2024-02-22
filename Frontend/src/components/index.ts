@@ -19,6 +19,11 @@ export { default as LeftAccordion } from "./GiftBanner/LeftAccordion";
 export { default as GiftBannerBottom } from "./GiftBanner/GiftBannerBottom";
 export { default as SliderProduct } from "./SliderProduct/SliderProduct";
 export { default as ProductCard } from "./ProductCard/ProductCard";
+export { default as PortfolioBannerLeft } from "./PortfolioBanner/PortfolioBannerLeft";
+export { default as PortfolioBannerRight } from "./PortfolioBanner/PortfolioBannerRight";
+export { default as News } from "./News/News";
+
+
 
 
 

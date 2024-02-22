@@ -7,7 +7,7 @@ import { ProductCard } from "..";
 
 const SliderProduct = () => {
   return (
-    <div className="">
+    <div className="container_xxl">
       <div className="relative">
         <Swiper
           className="w-full"
