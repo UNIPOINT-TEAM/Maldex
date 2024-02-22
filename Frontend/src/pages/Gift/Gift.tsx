@@ -7,8 +7,15 @@ function Gift() {
       <div>
         <div>
           <div>
-            <GiftBanner/>
-            <ProjectsSlider/>
+            <GiftBanner />
+            <div>
+              <div className="container_xxl">
+                <h1 className="text-darkSecondary uppercase text-[28px] font-black px-10 my-1">
+                  Проекты
+                </h1>
+              </div>
+              <ProjectsSlider />
+            </div>
           </div>
         </div>
       </div>

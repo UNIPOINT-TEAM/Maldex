@@ -56,21 +56,21 @@ const ProductCard = () => {
         <SwiperSlide>
           <img
             className="w-full h-64 object-cover"
-            src="https://loremflickr.com/150/150/id1"
+            src="https://loremflickr.com/150/150/id2"
             alt="Placeholder"
           />
         </SwiperSlide>
         <SwiperSlide>
           <img
             className="w-full h-64 object-cover"
-            src="https://loremflickr.com/150/150/id1"
+            src="https://loremflickr.com/150/150/id3"
             alt="Placeholder"
           />
         </SwiperSlide>
         <SwiperSlide>
           <img
             className="w-full h-64 object-cover"
-            src="https://loremflickr.com/150/150/id1"
+            src="https://loremflickr.com/150/150/id4"
             alt="Placeholder"
           />
         </SwiperSlide>
