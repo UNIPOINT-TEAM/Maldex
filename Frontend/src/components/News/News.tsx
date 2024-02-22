@@ -1,4 +1,3 @@
-import { Badge } from "..";
 import image1 from "../../assets/article-bg-1.png";
 import image2 from "../../assets/article-bg-2.png";
 import image3 from "../../assets/article-bg-3.png";
