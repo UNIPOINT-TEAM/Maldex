@@ -1,10 +1,6 @@
 import { Banner } from "../../components";
 import Tshirt from "../../assets/t-shirt.png";
 import {
-  Chip,
-  List,
-  ListItem,
-  ListItemSuffix,
   Tab,
   TabPanel,
   Tabs,
@@ -46,9 +42,13 @@ const CategoryDetails = () => {
       <div className="h-[400px]  grid grid-cols-3 my-5">
         <div className=" h-full p-5">
           <Tabs value="html">
-            <TabsHeader className="tab-header border-0 border-b rounded-none bg-[#fff]">
+            <TabsHeader
+              placeholder={<div />}
+              className="tab-header border-0 border-b rounded-none bg-[#fff]"
+            >
               {data.map(({ label, value }) => (
                 <Tab
+                  placeholder={<div />}
                   key={value}
                   value={value}
                   className="text-fs_9 uppercase w-auto"
@@ -57,44 +57,14 @@ const CategoryDetails = () => {
                 </Tab>
               ))}
             </TabsHeader>
-            <TabsBody>
+            <TabsBody placeholder={<div />}>
               {data.map(({ value }) => (
                 <TabPanel key={value} value={value}>
-                  <List>
-                    <ListItem>
-                      Inbox
-                      <ListItemSuffix>
-                        <Chip
-                          value="14"
-                          variant="ghost"
-                          size="sm"
-                          className="rounded-full"
-                        />
-                      </ListItemSuffix>
-                    </ListItem>
-                    <ListItem>
-                      Spam
-                      <ListItemSuffix>
-                        <Chip
-                          value="2"
-                          variant="ghost"
-                          size="sm"
-                          className="rounded-full"
-                        />
-                      </ListItemSuffix>
-                    </ListItem>
-                    <ListItem>
-                      Trash
-                      <ListItemSuffix>
-                        <Chip
-                          value="40"
-                          variant="ghost"
-                          size="sm"
-                          className="rounded-full"
-                        />
-                      </ListItemSuffix>
-                    </ListItem>
-                  </List>
+                  Недорогая миниатюрная беспроводная колонка Chubby порадует
+                  владельца аккуратным исполнением и высоким качеством
+                  материалов. Колонка обтянута акустической тканью популярной
+                  фактуры, имеет приятное софт-тач покрытие и демонстрирует
+                  хороший, особенно для столь компактного корпуса, звук.
                 </TabPanel>
               ))}
             </TabsBody>
@@ -116,7 +86,18 @@ const CategoryDetails = () => {
             <img src={Tshirt} alt="" />
           </div>
         </div>
-        <div className=""></div>
+        <div className="py-3 px-5">
+          <div className="">
+            <div className="">
+              <span className="border text-redPrimary border-redPrimary py-[2px] px-1 me-1 rounded-[15px] text-[12px] font-bold ">
+                NEW
+              </span>
+              <span className="border  border-darkPrimary py-[2px] px-[6px]  rounded-[15px] text-[12px] font-bold">
+                HIT
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
       <Banner />
     </div>

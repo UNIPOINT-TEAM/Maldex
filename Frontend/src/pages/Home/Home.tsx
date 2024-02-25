@@ -8,8 +8,6 @@ import {
   News,
 } from "../../components";
 
-
-
 const Home = () => {
   return (
     <>
@@ -19,7 +17,6 @@ const Home = () => {
         </div>
         <div className="dishes container_xxl my-10">
           <h3 className="section-title">посуда</h3>
-
           <Dishes />
         </div>
         <div className="faq container_xxl flex  ">
@@ -32,8 +29,7 @@ const Home = () => {
         <QuestForm />
       </div>
     </>
-
-  )
+  );
 };
 
 export default Home;
