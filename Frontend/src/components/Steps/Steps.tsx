@@ -88,7 +88,6 @@ function Steps() {
         </div>
       </div>
     </div>
-
   );
 }
 
