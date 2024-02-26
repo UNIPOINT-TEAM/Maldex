@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Layout } from "../layout";
-import { Card, Company, Gift, Home, Portfolio } from "../pages";
+import { Card, Company, Delivery, Gift, Home, NotFound, Portfolio, Tags } from "../pages";
 
 export const router = createBrowserRouter([
   {
@@ -26,6 +26,18 @@ export const router = createBrowserRouter([
       {
         path: "/company",
         element: <Company />,
+      },
+      {
+        path: "/tags",
+        element: <Tags />,
+      },
+      {
+        path: "/error",
+        element: <NotFound />,
+      },
+      {
+        path: "/delivery",
+        element: <Delivery />,
       },
     ],
   },
