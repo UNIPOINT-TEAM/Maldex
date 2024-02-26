@@ -90,6 +90,18 @@ export const router = createBrowserRouter([
           { path: "pad-printing", element: <PadPrinting /> },
         ],
       },
+      {
+        path: "/tags",
+        element: <Tags />,
+      },
+      {
+        path: "/error",
+        element: <NotFound />,
+      },
+      {
+        path: "/delivery",
+        element: <Delivery />,
+      },
     ],
   },
 ]);
