@@ -102,6 +102,18 @@ export const router = createBrowserRouter([
         path: "/delivery",
         element: <Delivery />,
       },
+      {
+        path: "/tags",
+        element: <Tags />,
+      },
+      {
+        path: "/error",
+        element: <NotFound />,
+      },
+      {
+        path: "/delivery",
+        element: <Delivery />,
+      },
     ],
   },
 ]);
