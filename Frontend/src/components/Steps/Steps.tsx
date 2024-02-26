@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // import whiteDeliveryIcon from "../../assets/CompanyIcons/free-icon-fast-delivery-3106892 1.svg";
 // import whiteDocIcon from "../../assets/CompanyIcons/free-icon-community-manager-5759296 1.svg";
 import OnasiniEmsin from "../../assets/CompanyIcons/OnasiniEmsin.svg";
@@ -6,11 +7,20 @@ import OnasiniEmsinMob from "../../assets/CompanyIcons/OnasiniEmsinMob.svg";
 // import vectorTow from "../../assets/linear/longarrow-t.svg";
 // import vectorTopMob from "../../assets/linear/arrow-mobile-top.svg";
 // import vectorBotMob from "../../assets/linear/arrow-mobile-bottom.svg";
+=======
+import check from "../../assets/CompanyIcons/check.png";
+import gift from "../../assets/CompanyIcons/gift-icon.png";
+import map from "../../assets/CompanyIcons/map-pin 1.png";
+import set from "../../assets/CompanyIcons/sliders 1.png";
+import arrowb from "../../assets/linear/longarrow-b.svg";
+import arrowt from "../../assets/linear/longarrow-t.svg";
+>>>>>>> ddec433 (add page 404)
 
 function Steps() {
   return (
     <div>
       <div className="container_xxl">
+<<<<<<< HEAD
         <div className="OrderInstruction items-center flex flex-col gap-8 ">
           <div className="flex font-Helvetica-Neue font-medium text-[22px] lg:text-[32px] gap-1">
             <p className=" text-[#0000B0] ">С Maldex просто как</p>
@@ -84,6 +94,53 @@ function Steps() {
           <div className="mb-16">
             <img src={OnasiniEmsin} alt=""  className="hidden lg:block"/>
             <img src={OnasiniEmsinMob} alt="" className="lg:hidden block"/>
+=======
+        <div className="flex justify-around items-center p-28 gap-[120px]">
+          <div className="flex gap-6 items-center">
+            <div className="bg-greenPrimary p-2 rounded-[10px]">
+              <img src={gift} alt="" />
+            </div>
+            <div className="w-[190px]">
+              <p>Выбери подарок!</p>
+            </div>
+            <div className="absolute mt-[120px] ml-6">
+              <img src={arrowb} alt="" />
+            </div>
+          </div>
+          <div className="flex gap-6 items-center">
+            <div className="bg-greenPrimary p-2 rounded-[10px]">
+              <img src={set} alt="" />
+            </div>
+            <div className="absolute mb-[130px] ml-6">
+              <img src={arrowt} alt="" />
+            </div>
+            <div className="w-[190px]">
+              <p>
+                Добавьте дополнительные нестандартные элементы упаковки,
+                фирменную наклейку или карточку-вкладыш
+              </p>
+            </div>
+          </div>
+          <div className="flex gap-6 items-center">
+            <div className="bg-greenPrimary p-2 rounded-[10px]">
+              <img src={map} alt="" />
+            </div>
+            <div className="absolute mt-[120px] ml-6">
+              <img src={arrowb} alt="" />
+            </div>
+            <div className="w-[190px]">
+              <p>Отправьте нам адреса получателей</p>
+            </div>
+          </div>
+          <div className="flex gap-6 items-center">
+            <div className="bg-greenPrimary p-2 rounded-[10px]">
+              <img src={check} alt="" />
+            </div>
+
+            <div className="w-[190px]">
+              <p>Мы позаботимся об остальном!</p>
+            </div>
+>>>>>>> ddec433 (add page 404)
           </div>
         </div>
       </div>

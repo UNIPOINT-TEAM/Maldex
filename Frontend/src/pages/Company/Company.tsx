@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import {
   AboutInfo,
   BannerBottom,
@@ -9,6 +10,17 @@ import {
   ProductNav,
   QuestForm,
   SliderProduct,
+=======
+import React from "react";
+import {
+  AboutInfo,
+  BannerSlider,
+  BannerTop,
+  Brands,
+  ProductCard,
+  ProductNav,
+  QuestForm,
+>>>>>>> ddec433 (add page 404)
   Steps,
 } from "../../components";
 import PortfolioBanner from "../../components/PortfolioBanner/PortfolioBanner";
@@ -16,6 +28,7 @@ import PortfolioBanner from "../../components/PortfolioBanner/PortfolioBanner";
 function Company() {
   return (
     <>
+<<<<<<< HEAD
       <div className="container_xxl">
         <div className="flex gap-3">
           <div className=" w-2/5 hidden lg:block">
@@ -30,15 +43,32 @@ function Company() {
           <BannerBottom />
           <BannerBottomMobile />
         </div>
+=======
+      <div className="">
+        <div className="flex gap-3">
+          <div className="w-2/5">
+            <BannerTop />
+          </div>
+          <div className="w-3/5">
+            <BannerSlider />
+          </div>
+        </div>
+>>>>>>> ddec433 (add page 404)
         <Brands />
         <div>
           <AboutInfo />
         </div>
         <div className="container_xxl">
+<<<<<<< HEAD
           {/* @ts-expect-error: This */}
           <ProductNav  color="green"  title="hits!"/>
           { /*@ts-expect-error: This */}
           <SliderProduct/>
+=======
+          hits
+          <ProductNav />
+          <ProductCard />
+>>>>>>> ddec433 (add page 404)
         </div>
         <div>
           <Steps />

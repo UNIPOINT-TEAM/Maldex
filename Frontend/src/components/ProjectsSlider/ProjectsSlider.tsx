@@ -4,12 +4,18 @@ import prev from "../../assets/icons/projectPrev.svg";
 import next from "../../assets/icons/projectNext.svg";
 import project1 from "../../assets/project 1.png";
 import project2 from "../../assets/project 2.png";
+<<<<<<< HEAD
 // import project3 from "../../assets/project 3.png";
 
 // 1import { ProductNav } from "..";
 import { Link } from "react-router-dom";
 import { Scrollbar } from "swiper/modules";
 import { GetProjects, GetTags } from "../../services/services";
+=======
+import project3 from "../../assets/project 3.png";
+import "swiper/css";
+import { ProductNav } from "..";
+>>>>>>> ddec433 (add page 404)
 
 function ProjectsSlider() {
   const swiperRef = useRef(null);
@@ -48,6 +54,7 @@ function ProjectsSlider() {
   };
 
   return (
+<<<<<<< HEAD
     <div className="container_xxl px-3 md:mb-[100px]">
       <div>
         <div className="mb-6">
@@ -98,6 +105,16 @@ function ProjectsSlider() {
             <div className="h-[410px] flex items-center">
               <button className="absolute z-50 -ml-[16px] " onClick={goPrev}>
                 <img src={prev} alt="" className="w-[32px]" />
+=======
+    <div className="container_xxl">
+      <div className="mx-10">
+        <ProductNav />
+        <div className="my-5 h-[410px]">
+          <div className="flex h-full">
+            <div className="h-[100%] flex items-center">
+              <button className="absolute z-50 -ml-[20px] " onClick={goPrev}>
+                <img src={prev} alt="" />
+>>>>>>> ddec433 (add page 404)
               </button>
             </div>
             <Swiper

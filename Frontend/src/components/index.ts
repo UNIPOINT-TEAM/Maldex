@@ -60,6 +60,22 @@ export { default as GiftBanner } from "./GiftBanner/GiftBanner";
 export { default as LeftAccordion } from "./GiftBanner/LeftAccordion";
 export { default as GiftBannerBottom } from "./GiftBanner/GiftBannerBottom";
 export { default as SliderProduct } from "./SliderProduct/SliderProduct";
+<<<<<<< HEAD
+=======
+export { default as ProductCard } from "./ProductCard/ProductCard";
+export { default as PortfolioBannerLeft } from "./PortfolioBanner/PortfolioBannerLeft";
+export { default as PortfolioBannerRight } from "./PortfolioBanner/PortfolioBannerRight";
+export { default as ProductNav } from "./ProductNav/ProductNav";
+export { default as News } from "./News/News";
+export { default as AboutInfo } from "./AboutInfo/AboutInfo";
+export { default as Steps } from "./Steps/Steps";
+export { default as Brands } from "./Brands/Brands";
+export { default as TagBanner } from "./TagBanner/TagBanner";
+export { default as TagList } from "./TagList/TagList";
+
+
+
+>>>>>>> ddec433 (add page 404)
 
 
 >>>>>>> 89fc5ef (product card 20% _ gift page 10%)

@@ -9,6 +9,7 @@ export { default as Company } from "./Company/Company";
 export { default as Tags } from "./Tags/Tags";
 export { default as NotFound } from "./NotFound/NotFound";
 export { default as Delivery } from "./Delivery/Delivery";
+<<<<<<< HEAD
 export { default as BuildSet } from "./BuildSet/BuildSet";
 export { default as Catalog } from "./Catalog/Catalog";
 export { default as CArdSet } from "./CardSet/CardSet";
@@ -22,3 +23,6 @@ export { default as Gallery } from "./Gallery/GeneralInfo";
 export { default as GalleryLayout } from "./Gallery/Layout";
 export { default as GalleryEditing } from "./Gallery/Editing";
 export { default as Tamplate } from "./Gallery/Tamplate";
+=======
+
+>>>>>>> ddec433 (add page 404)

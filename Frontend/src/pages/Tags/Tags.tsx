@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 import {
   MainProductFilter,
+=======
+import React from "react";
+import {
+>>>>>>> ddec433 (add page 404)
   ProjectsSlider,
   QuestForm,
   TagBanner,
@@ -8,6 +13,7 @@ import {
 
 function Tags() {
   return (
+<<<<<<< HEAD
     <>
       <TagBanner />
       <TagList />
@@ -17,6 +23,16 @@ function Tags() {
       </div>
       <QuestForm />
     </>
+=======
+    <div>
+      <div>
+        <TagBanner />
+        <TagList />
+        <ProjectsSlider />
+        <QuestForm />
+      </div>
+    </div>
+>>>>>>> ddec433 (add page 404)
   );
 }
 
