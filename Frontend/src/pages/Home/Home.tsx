@@ -1,11 +1,11 @@
 import {
   MainCategory,
   QuestForm,
-  FAQ,
   Banner,
   Dishes,
   SliderProduct,
   News,
+  Accordion,
 } from "../../components";
 
 const Home = () => {
@@ -21,7 +21,7 @@ const Home = () => {
         </div>
         <div className="faq container_xxl flex  ">
           <h3 className="section-title">FAQ</h3>
-          <FAQ />
+          <Accordion />
         </div>
         <News />
         <SliderProduct />

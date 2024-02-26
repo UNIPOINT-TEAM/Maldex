@@ -1,14 +1,11 @@
-import LeftAccordion from "./GiftBanner/LeftAccordion";
-
 export { default as Navbar } from "./Navbar/Navbar";
 export { default as Footer } from "./Footer/Footer";
-export { default as FAQ } from "./FAQ/FAQ";
+export { default as Accordion } from "./Accordion/Accordion";
 export { default as Dishes } from "./Dishes/Dishes";
 export { default as MainCategory } from "./MainCategory/MainCategory";
 export { default as RunningText } from "./RunningText/RunningText";
 export { default as SaleSlider } from "./SaleSlider/SaleSlider";
 export { default as QuestForm } from "./QuestForm/QuestForm";
-// Banner
 export { default as Banner } from "./Banner/Banner";
 export { default as BannerSlider } from "./Banner/BannerSlider";
 export { default as BannerTop } from "./Banner/BannerTop";
@@ -28,10 +25,3 @@ export { default as Steps } from "./Steps/Steps";
 export { default as Brands } from "./Brands/Brands";
 export { default as TagBanner } from "./TagBanner/TagBanner";
 export { default as TagList } from "./TagList/TagList";
-
-
-
-
-
-
-

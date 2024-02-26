@@ -7,4 +7,4 @@ export { default as Company } from "./Company/Company";
 export { default as Tags } from "./Tags/Tags";
 export { default as NotFound } from "./NotFound/NotFound";
 export { default as Delivery } from "./Delivery/Delivery";
-
+export { default as BuildSet } from "./BuildSet/BuildSet";

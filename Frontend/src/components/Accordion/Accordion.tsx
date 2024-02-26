@@ -7,29 +7,7 @@ import {
 import { Faq } from "../../mock/data";
 import accordionIcon from "../../assets/icons/accordion-icon.png";
 
-export const Icon = (props: { id: number; open: number }) => {
-  const { id, open } = props;
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      strokeWidth={2}
-      stroke="#00B6BA"
-      className={`${
-        id === open ? "rotate-180" : ""
-      } h-5 w-5 transition-transform`}
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-      />
-    </svg>
-  );
-};
-
-const FAQ = () => {
+const AccordionMaldex = () => {
   const [open, setOpen] = useState<number>(0);
 
   const handleOpen = (value: number) => setOpen(open === value ? 0 : value);
@@ -67,4 +45,4 @@ const FAQ = () => {
     </div>
   );
 };
-export default FAQ;
+export default AccordionMaldex;

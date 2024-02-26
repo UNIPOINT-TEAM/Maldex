@@ -1,6 +1,17 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Layout } from "../layout";
-import { Card, Company, Delivery, Gift, Home, NotFound, Portfolio, Tags } from "../pages";
+import {
+  BuildSet,
+  Card,
+  CategoryDetails,
+  Company,
+  Delivery,
+  Gift,
+  Home,
+  NotFound,
+  Portfolio,
+  Tags,
+} from "../pages";
 
 export const router = createBrowserRouter([
   {
@@ -22,12 +33,11 @@ export const router = createBrowserRouter([
       {
         path: "category/:id",
         element: <CategoryDetails />,
-
       },
       {
-      path: "/portfolio",
-      element: <Portfolio />,
-    },
+        path: "/portfolio",
+        element: <Portfolio />,
+      },
       {
         path: "/company",
         element: <Company />,
@@ -43,6 +53,10 @@ export const router = createBrowserRouter([
       {
         path: "/delivery",
         element: <Delivery />,
+      },
+      {
+        path: "build-set",
+        element: <BuildSet />,
       },
     ],
   },

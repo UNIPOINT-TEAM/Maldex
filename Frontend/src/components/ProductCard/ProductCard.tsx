@@ -1,9 +1,8 @@
 // ProductCard.jsx
-import React, { useState } from "react";
+import { useState } from "react";
 import { GoPlus } from "react-icons/go";
 import { CiHeart } from "react-icons/ci";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
 import ModalProduct from "./ModalProduct";
 
 const ProductCard = () => {
@@ -12,7 +11,7 @@ const ProductCard = () => {
   const [showSizes, setShowSizes] = useState(false);
   const [showQuant, setShowQuant] = useState(false);
   const [open, setOpen] = useState(false);
-  const [showTitle, setShowTitle] = useState(true); // Add state for title visibility
+  const [showTitle, setShowTitle] = useState(true);
 
   const handleOpenModal = () => setOpen(true);
   const handleCloseModal = () => setOpen(false);
@@ -44,7 +43,7 @@ const ProductCard = () => {
         className="w-full"
         slidesPerView={1}
         navigation={true}
-        onClick={handleOpenModal} // Open modal on click
+        onClick={handleOpenModal}
       >
         <SwiperSlide>
           <img
@@ -117,12 +116,24 @@ const ProductCard = () => {
               <div>
                 <h1 className="text-left">размеры</h1>
                 <div className="flex gap-1">
-                  <button className="border border-darkSecondary rounded-full px-1">XS</button>
-                  <button className="border border-darkSecondary rounded-full px-1">S</button>
-                  <button className="border border-darkSecondary rounded-full px-1">M</button>
-                  <button className="border border-darkSecondary rounded-full px-1">L</button>
-                  <button className="border border-darkSecondary rounded-full px-1">XL</button>
-                  <button className="border border-darkSecondary rounded-full px-1">2XL</button>
+                  <button className="border border-darkSecondary rounded-full px-1">
+                    XS
+                  </button>
+                  <button className="border border-darkSecondary rounded-full px-1">
+                    S
+                  </button>
+                  <button className="border border-darkSecondary rounded-full px-1">
+                    M
+                  </button>
+                  <button className="border border-darkSecondary rounded-full px-1">
+                    L
+                  </button>
+                  <button className="border border-darkSecondary rounded-full px-1">
+                    XL
+                  </button>
+                  <button className="border border-darkSecondary rounded-full px-1">
+                    2XL
+                  </button>
                 </div>
               </div>
             </div>
