@@ -21,7 +21,13 @@ export { default as SliderProduct } from "./SliderProduct/SliderProduct";
 export { default as ProductCard } from "./ProductCard/ProductCard";
 export { default as PortfolioBannerLeft } from "./PortfolioBanner/PortfolioBannerLeft";
 export { default as PortfolioBannerRight } from "./PortfolioBanner/PortfolioBannerRight";
+export { default as ProductNav } from "./ProductNav/ProductNav";
 export { default as News } from "./News/News";
+export { default as AboutInfo } from "./AboutInfo/AboutInfo";
+export { default as Steps } from "./Steps/Steps";
+export { default as Brands } from "./Brands/Brands";
+export { default as TagBanner } from "./TagBanner/TagBanner";
+export { default as TagList } from "./TagList/TagList";
 
 
 
