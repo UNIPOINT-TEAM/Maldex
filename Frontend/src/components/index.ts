@@ -25,3 +25,4 @@ export { default as Steps } from "./Steps/Steps";
 export { default as Brands } from "./Brands/Brands";
 export { default as TagBanner } from "./TagBanner/TagBanner";
 export { default as TagList } from "./TagList/TagList";
+export { default as Card } from "./Card/Card";

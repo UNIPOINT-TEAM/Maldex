@@ -13,12 +13,11 @@ const CardModal = () => {
     return (
         <>
             <div className={`overLay fixed w-full h-full bg-[#00000083] ${activeCard? 'block':"hidden"} top-0 right-0 z-[999]`}></div>
-            <button
-                className="ml-4 flex items-center z-[999]"
-                onClick={handleChangeCard}
-            >
-                <span className="text-redPrimary text-base px-2">3</span>
-                <span className="text-darkPrimary text-base">14 619,00 Р</span>
+            <button onClick={handleChangeCard} className=" ml-4 flex items-center bg-white w-[118px] h-[36px] rounded-full">
+              <span className=" bg-redPrimary text-white text-fs_8 h-[36px] w-[38px] rounded-full text-center ">
+                <div className="py-2">3</div>
+              </span>
+              <span className="text-darkPrimary text-fs_8 font-bold ml-1">14 619,00 ₽</span>
             </button>
             {activeCard && (
                 <div className="absolute w-[700px] z-[99999] min-h-[700px] bg-white top-0 right-0 rounded-xl">

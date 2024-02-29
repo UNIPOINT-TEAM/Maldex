@@ -8,3 +8,5 @@ export { default as Tags } from "./Tags/Tags";
 export { default as NotFound } from "./NotFound/NotFound";
 export { default as Delivery } from "./Delivery/Delivery";
 export { default as BuildSet } from "./BuildSet/BuildSet";
+export { default as Catalog } from "./Catalog/Catalog";
+export { default as CArdSet } from "./CardSet/CardSet";
