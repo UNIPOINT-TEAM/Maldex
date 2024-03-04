@@ -175,6 +175,7 @@ const CategoryDetails = () => {
             } flex justify-center items-center mt-10 w-full h-full`}
           >
             <img src={Tshirt} alt="" />
+            <div className="color-panel"></div>
           </div>
         </div>
         <div className="py-3 px-5 col-span-3">
