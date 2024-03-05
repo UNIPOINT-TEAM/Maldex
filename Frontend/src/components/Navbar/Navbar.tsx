@@ -7,6 +7,7 @@ import filtr from "../../assets/icons/filtr.png";
 import { useState } from "react";
 import { Categories, Product, SubCategories } from "../../mock/data";
 import CardModal from "../Card/Card";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
     const [modal, setModal] = useState(false);
@@ -147,142 +148,172 @@ const Navbar = () => {
             </header>
 
             {modal ? (
-                <div className="modal absolute h-[115vh] w-full  bg-[#00000074] z-20 flex">
-                    <div className="w-[25%] bg-white px-3 py-1">
-                        {Categories.map((i) => (
-                            <div
-                                className={`w-[50%] flex p-1.5 gap-2 items-center hover:bg-red-300 hover:text-white rounded ${
-                                    activeItem === i.id
-                                        ? "bg-redPrimary text-white"
-                                        : "hover:bg-redPrimary hover:text-white"
-                                }`}
-                                onClick={() => handleCategoryClick(i.id)}
-                            >
-                                <i className="fa-solid fa-pen-fancy"></i>
-                                <p className="text-lg font-bold">{i.name}</p>
-                            </div>
-                        ))}
-                    </div>
-                    {activeItem !== null ? (
-                        <div className="w-[35%] bg-[#fff]  px-3 py-1 flex flex-wrap overflow-y-scroll scrollbar-custom">
-                            {SubCategories.map((i) => (
+                <>
+                    <div className="modal absolute h-[115vh] w-full  bg-[#00000074] z-20 flex">
+                        <div className="w-[25%] bg-white px-3 py-1">
+                            {Categories.map((i) => (
                                 <div
-                                    key={i.id}
-                                    className={`w-1/2 p-1.5 gap-2  items-center `}
+                                    className={`w-[50%] flex p-1.5 gap-2 items-center hover:bg-red-300 hover:text-white rounded ${
+                                        activeItem === i.id
+                                            ? "bg-redPrimary text-white"
+                                            : "hover:bg-redPrimary hover:text-white"
+                                    }`}
+                                    onClick={() => handleCategoryClick(i.id)}
                                 >
-                                    <p className="text-lg font-bold mb-1">
-                                        {i.categoryName}
+                                    <i className="fa-solid fa-pen-fancy"></i>
+                                    <p className="text-lg font-bold">
+                                        {i.name}
                                     </p>
-                                    <div>
-                                        {i.categoryItem.map((category) => (
-                                            <p
-                                                className={`text-sm font-bold mb-1 hover:text-red-400 cursor-pointer ${
-                                                    activeCategoryItem ===
-                                                    category.id
-                                                        ? "text-redPrimary"
-                                                        : ""
-                                                }`}
-                                                onClick={() =>
-                                                    handleCategoryItemClick(
-                                                        category.id
-                                                    )
-                                                }
-                                            >
-                                                {category.name}
-                                            </p>
-                                        ))}
-                                    </div>
                                 </div>
                             ))}
                         </div>
-                    ) : (
-                        ""
-                    )}
-                    {activeCategoryItem !== null ? (
-                        <div className="w-[40%] bg-gray-200 h-[115vh] px-3 py-1 flex">
-                            <div className="h-full w-1/2 flex flex-col">
-                                <div className="w-full h-[60%] bg-slate-100 hover:bg-[#fff] flex justify-center items-center relative productCatalog cursor-pointer">
-                                    <p className="absolute top-5 left-5 text-lg nameProductCatalog text-slate-100">
-                                        {Product[0].name}
-                                    </p>
-                                    <img src={Product[0].img} alt="" />
-                                    <div className="w-full absolute bottom-5 right-5">
-                                        <button className="float-end">
-                                            <button className="py-1 px-3 rounded bg-slate-100 btnProductCatalog">
-                                                <i className="fa-solid fa-arrow-right text-slate-100 rotate-45 text-2xl iconProductCatalog"></i>
+                        {activeItem !== null ? (
+                            <div className="w-[35%] bg-[#fff]  px-3 py-1 flex flex-wrap overflow-y-scroll scrollbar-custom">
+                                {SubCategories.map((i) => (
+                                    <div
+                                        key={i.id}
+                                        className={`w-1/2 p-1.5 gap-2  items-center `}
+                                    >
+                                        <p className="text-lg font-bold mb-1">
+                                            {i.categoryName}
+                                        </p>
+                                        <div>
+                                            {i.categoryItem.map((category) => (
+                                                <p
+                                                    className={`text-sm font-bold mb-1 hover:text-red-400 cursor-pointer ${
+                                                        activeCategoryItem ===
+                                                        category.id
+                                                            ? "text-redPrimary"
+                                                            : ""
+                                                    }`}
+                                                    onClick={() =>
+                                                        handleCategoryItemClick(
+                                                            category.id
+                                                        )
+                                                    }
+                                                >
+                                                    {category.name}
+                                                </p>
+                                            ))}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        ) : (
+                            ""
+                        )}
+                        {activeCategoryItem !== null ? (
+                            <div className="w-[40%] bg-gray-200 h-[115vh] px-3 py-1 flex">
+                                <div className="h-full w-1/2 flex flex-col">
+                                    <div className="w-full h-[60%] bg-slate-100 hover:bg-[#fff] flex justify-center items-center relative productCatalog cursor-pointer">
+                                        <p className="absolute top-5 left-5 text-lg nameProductCatalog text-slate-100">
+                                            {Product[0].name}
+                                        </p>
+                                        <img src={Product[0].img} alt="" />
+                                        <div className="w-full absolute bottom-5 right-5">
+                                            <button className="float-end">
+                                                <button className="py-1 px-3 rounded bg-slate-100 btnProductCatalog">
+                                                    <i className="fa-solid fa-arrow-right text-slate-100 rotate-45 text-2xl iconProductCatalog"></i>
+                                                </button>
                                             </button>
-                                        </button>
+                                        </div>
+                                    </div>
+                                    <div className="w-full h-[30%] bg-slate-100 hover:bg-[#fff] flex justify-center items-center relative productCatalog cursor-pointer">
+                                        <p className="absolute top-5 left-5 text-lg nameProductCatalog text-slate-100">
+                                            {Product[3].name}
+                                        </p>
+                                        <img
+                                            className="w-[60%] h-[60%] object-contain"
+                                            src={Product[3].img}
+                                            alt=""
+                                        />
+                                        <div className="w-full absolute bottom-5 right-5">
+                                            <button className="float-end">
+                                                <button className="py-1 px-3 rounded bg-slate-100 btnProductCatalog">
+                                                    <i className="fa-solid fa-arrow-right text-slate-100 rotate-45 text-2xl iconProductCatalog cursor-pointer"></i>
+                                                </button>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="w-full h-[30%] bg-slate-100 hover:bg-[#fff] flex justify-center items-center relative productCatalog cursor-pointer">
-                                    <p className="absolute top-5 left-5 text-lg nameProductCatalog text-slate-100">
-                                        {Product[3].name}
-                                    </p>
-                                    <img
-                                        className="w-[60%] h-[60%] object-contain"
-                                        src={Product[3].img}
-                                        alt=""
-                                    />
-                                    <div className="w-full absolute bottom-5 right-5">
-                                        <button className="float-end">
-                                            <button className="py-1 px-3 rounded bg-slate-100 btnProductCatalog">
-                                                <i className="fa-solid fa-arrow-right text-slate-100 rotate-45 text-2xl iconProductCatalog cursor-pointer"></i>
+                                <div className="h-full w-1/2 flex flex-col">
+                                    <div className="w-full h-[30%]  hover:bg-[#fff] flex justify-center items-center relative productCatalog cursor-pointer">
+                                        <p className="absolute top-5 left-5 text-lg nameProductCatalog text-slate-100">
+                                            {Product[2].name}
+                                        </p>
+                                        <img
+                                            className="w-[60%] h-[60%] object-contain"
+                                            src={Product[2].img}
+                                            alt=""
+                                        />
+                                        <div className="w-full absolute bottom-5 right-5">
+                                            <button className="float-end">
+                                                <button className="py-1 px-3 rounded bg-slate-100 btnProductCatalog">
+                                                    <i className="fa-solid fa-arrow-right text-slate-100 rotate-45 text-2xl iconProductCatalog"></i>
+                                                </button>
                                             </button>
-                                        </button>
+                                        </div>
                                     </div>
+                                    <div className="w-full h-[30%] bbg-slate-100 hover:bg-[#fff] flex justify-center items-center relative productCatalog cursor-pointer">
+                                        <p className="absolute top-5 left-5 text-lg nameProductCatalog text-slate-100">
+                                            {Product[1].name}
+                                        </p>
+                                        <img
+                                            className="w-[50%] h-[50%]"
+                                            src={Product[1].img}
+                                            alt=""
+                                        />
+                                        <div className="w-full absolute bottom-5 right-5">
+                                            <button className="float-end">
+                                                <button className="py-1 px-3 rounded bg-slate-100 btnProductCatalog">
+                                                    <i className="fa-solid fa-arrow-right text-slate-100 rotate-45 text-2xl iconProductCatalog"></i>
+                                                </button>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <Link
+                                        onClick={modalToggle}
+                                        to={"/catalog"}
+                                        className="w-full h-[30%] bg-slate-100 hover:bg-[#fff] p-4 flex flex-col justify-between cursor-pointer"
+                                    >
+                                        <div className="text-start">
+                                            <p className="text-2xl font-bold text-redPrimary">
+                                                просмотреть <br /> все <br />{" "}
+                                                продукты
+                                            </p>
+                                        </div>
+                                        <div className="w-full">
+                                            <button className="float-end">
+                                                <i className="fa-solid fa-arrow-right text-redPrimary rotate-45 text-2xl"></i>
+                                            </button>
+                                        </div>
+                                    </Link>
                                 </div>
                             </div>
-                            <div className="h-full w-1/2 flex flex-col">
-                                <div className="w-full h-[30%]  hover:bg-[#fff] flex justify-center items-center relative productCatalog cursor-pointer">
-                                    <p className="absolute top-5 left-5 text-lg nameProductCatalog text-slate-100">
-                                        {Product[2].name}
+                        ) : (
+                            ""
+                        )}
+                    </div>
+                    {/* <div className="w-full h-[100vh] absolute bg-gray-200 z-30">
+                        <div className="w-full bg-white px-3 py-1">
+                            {Categories.map((i) => (
+                                <div
+                                    className={`w-[50%] flex p-1.5 gap-2 items-center hover:bg-red-300 hover:text-white rounded ${
+                                        activeItem === i.id
+                                            ? "bg-redPrimary text-white"
+                                            : "hover:bg-redPrimary hover:text-white"
+                                    }`}
+                                    onClick={() => handleCategoryClick(i.id)}
+                                >
+                                    <i className="fa-solid fa-pen-fancy"></i>
+                                    <p className="text-lg font-bold">
+                                        {i.name}
                                     </p>
-                                    <img
-                                        className="w-[60%] h-[60%] object-contain"
-                                        src={Product[2].img}
-                                        alt=""
-                                    />
-                                    <div className="w-full absolute bottom-5 right-5">
-                                        <button className="float-end">
-                                            <button className="py-1 px-3 rounded bg-slate-100 btnProductCatalog">
-                                                <i className="fa-solid fa-arrow-right text-slate-100 rotate-45 text-2xl iconProductCatalog"></i>
-                                            </button>
-                                        </button>
-                                    </div>
                                 </div>
-                                <div className="w-full h-[30%] bbg-slate-100 hover:bg-[#fff] flex justify-center items-center relative productCatalog cursor-pointer">
-                                    <p className="absolute top-5 left-5 text-lg nameProductCatalog text-slate-100">
-                                        {Product[1].name}
-                                    </p>
-                                    <img
-                                        className="w-[50%] h-[50%]"
-                                        src={Product[1].img}
-                                        alt=""
-                                    />
-                                    <div className="w-full absolute bottom-5 right-5">
-                                        <button className="float-end">
-                                            <button className="py-1 px-3 rounded bg-slate-100 btnProductCatalog">
-                                                <i className="fa-solid fa-arrow-right text-slate-100 rotate-45 text-2xl iconProductCatalog"></i>
-                                            </button>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div className="w-full h-[30%] bg-slate-100 hover:bg-[#fff] p-4 flex flex-col justify-between cursor-pointer">
-                                    <p className="text-2xl font-bold text-redPrimary">
-                                        просмотреть <br /> все <br /> продукты
-                                    </p>
-                                    <div className="w-full">
-                                        <button className="float-end">
-                                            <i className="fa-solid fa-arrow-right text-redPrimary rotate-45 text-2xl"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
+                            ))}
                         </div>
-                    ) : (
-                        ""
-                    )}
-                </div>
+                    </div> */}
+                </>
             ) : (
                 ""
             )}

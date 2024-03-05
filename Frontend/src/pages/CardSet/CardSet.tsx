@@ -263,7 +263,7 @@ const CardSet = () => {
                                 </div>
                             </div>
                             <div className="flex justify-between items-center px-3 py-1">
-                                <p className="text-lg">Итоговая стоимость:</p>
+                                <p className="text-ls">Итоговая стоимость:</p>
                                 <p className="text-lg">14 619,00 ₽ </p>
                             </div>
                         </div>

@@ -12,12 +12,21 @@ const CardModal = () => {
 
     return (
         <>
-            <div className={`overLay fixed w-full h-full bg-[#00000083] ${activeCard? 'block':"hidden"} top-0 right-0 z-[999]`}></div>
-            <button onClick={handleChangeCard} className=" ml-4 flex items-center bg-white w-[118px] h-[36px] rounded-full">
-              <span className=" bg-redPrimary text-white text-fs_8 h-[36px] w-[38px] rounded-full text-center ">
-                <div className="py-2">3</div>
-              </span>
-              <span className="text-darkPrimary text-fs_8 font-bold ml-1">14 619,00 ₽</span>
+            <div
+                className={`overLay fixed w-full h-full bg-[#00000083] ${
+                    activeCard ? "block" : "hidden"
+                } top-0 right-0 z-[999]`}
+            ></div>
+            <button
+                onClick={handleChangeCard}
+                className=" ml-4 flex items-center bg-white w-[118px] h-[36px] rounded-full"
+            >
+                <span className=" bg-redPrimary text-white text-fs_8 h-[36px] w-[38px] rounded-full text-center ">
+                    <div className="py-2">3</div>
+                </span>
+                <span className="text-darkPrimary text-fs_8 font-bold ml-1">
+                    14 619,00 ₽
+                </span>
             </button>
             {activeCard && (
                 <div className="absolute w-[700px] z-[99999] min-h-[700px] bg-white top-0 right-0 rounded-xl">
@@ -464,7 +473,10 @@ const CardModal = () => {
                             </div>
                         </div>
                         <Link to={"/card"}>
-                            <button className="bg-black w-1/3 text-white py-3 rounded-xl">
+                            <button
+                                onClick={handleChangeCard}
+                                className="bg-black w-1/3 text-white py-3 rounded-xl"
+                            >
                                 перейти в корзину
                             </button>
                         </Link>
