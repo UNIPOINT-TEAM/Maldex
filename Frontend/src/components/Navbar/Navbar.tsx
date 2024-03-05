@@ -294,7 +294,7 @@ const Navbar = () => {
                             ""
                         )}
                     </div>
-                    <div className="w-full h-[100vh] absolute bg-gray-200 z-30">
+                    {/* <div className="w-full h-[100vh] absolute bg-gray-200 z-30">
                         <div className="w-full bg-white px-3 py-1">
                             {Categories.map((i) => (
                                 <div
@@ -312,7 +312,7 @@ const Navbar = () => {
                                 </div>
                             ))}
                         </div>
-                    </div>
+                    </div> */}
                 </>
             ) : (
                 ""
