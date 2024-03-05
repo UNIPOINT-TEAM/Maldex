@@ -159,7 +159,7 @@ const BuildSet = () => {
           src="https://s3-alpha-sig.figma.com/img/847a/d843/177d5e0d0f6d6b28e49f3ac745be1657?Expires=1710115200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ALnudwGeqbF4p1Fscwnwv1YVMSuGJDQ841RwmWkLFhCe2R~ZZhNswAFfRef41KPdLmH-eCqrXFYvkTAHetzZYlkJZAKKLr5q8QQ9E6GxD3rMhxwN095gikCsHuO~CYVP71xNWC2f0fFXYxYtTATexDkajz3UK9CYu3QuUwX9qFu7DZMmCTKL7-qwKaORklnY-4qxD-T3vwdKeHSqKMHpyap2eQG-A9N31gwHwPHk7qGec9Si2i6HAH0xVIPdR-hmAjiWxEDnKTV9mcKXI-2TzQSvYTYXO6xLvfVmUxFNuR~ZWnFYdq8h0OqWjKusC9Tb07XGNdY76fq3UNyxk-ShYQ__"
           alt=""
         />
-        <h3 className=" p-[20px] text-center text-fs_3 font-extrabold">
+        <h3 className="p-[20px] text-center text-fs_3 font-extrabold">
           Создайте свой <br />
           подарочный <span className="text-greenPrimary">набор</span>
         </h3>
