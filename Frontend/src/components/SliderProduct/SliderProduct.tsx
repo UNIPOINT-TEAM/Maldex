@@ -115,15 +115,27 @@ export default function App() {
                                     </SwiperSlide>
                                 </Swiper>
                                 <div className="absolute z-[9999] bottom-[25px] right-[15px] flex flex-col gap-1">
-                                    {buttons.map((button) => (
-                                        <button
-                                            key={button.id}
-                                            className={`w-[${button.size}px] h-[${button.size}px] bg-${button.color} rounded-[4px]`}
-                                            onClick={() =>
-                                                handleClick(button.id)
-                                            }
-                                        />
-                                    ))}
+                                    <button
+                                        className={`w-[8px] h-[8px] bg-redPrimary rounded-[4px]`}
+                                    ></button>
+                                    <button
+                                        className={`w-[8px] h-[8px] bg-orange-600 rounded-[4px]`}
+                                    ></button>
+                                    <button
+                                        className={`w-[8px] h-[8px] bg-green-600 rounded-[4px]`}
+                                    ></button>
+                                    <button
+                                        className={`w-[8px] h-[8px] bg-greenPrimary rounded-[4px]`}
+                                    ></button>
+                                    <button
+                                        className={`w-[8px] h-[8px] bg-blue-600 rounded-[4px]`}
+                                    ></button>
+                                    <button
+                                        className={`w-[8px] h-[8px] bg-purple-600 rounded-[4px]`}
+                                    ></button>
+                                    <button
+                                        className={`w-[8px] h-[8px] bg-indigo-600 rounded-[4px]`}
+                                    ></button>
                                 </div>
                             </div>
                             <div className="h-[100px]">
@@ -200,15 +212,27 @@ export default function App() {
                                     </SwiperSlide>
                                 </Swiper>
                                 <div className="absolute z-[9999] bottom-[25px] right-[15px] flex flex-col gap-1">
-                                    {buttons.map((button) => (
-                                        <button
-                                            key={button.id}
-                                            className={`w-[${button.size}px] h-[${button.size}px] bg-${button.color} rounded-[4px]`}
-                                            onClick={() =>
-                                                handleClick(button.id)
-                                            }
-                                        />
-                                    ))}
+                                    <button
+                                        className={`w-[8px] h-[8px] bg-redPrimary rounded-[4px]`}
+                                    ></button>
+                                    <button
+                                        className={`w-[8px] h-[8px] bg-orange-600 rounded-[4px]`}
+                                    ></button>
+                                    <button
+                                        className={`w-[8px] h-[8px] bg-green-600 rounded-[4px]`}
+                                    ></button>
+                                    <button
+                                        className={`w-[8px] h-[8px] bg-greenPrimary rounded-[4px]`}
+                                    ></button>
+                                    <button
+                                        className={`w-[8px] h-[8px] bg-blue-600 rounded-[4px]`}
+                                    ></button>
+                                    <button
+                                        className={`w-[8px] h-[8px] bg-purple-600 rounded-[4px]`}
+                                    ></button>
+                                    <button
+                                        className={`w-[8px] h-[8px] bg-indigo-600 rounded-[4px]`}
+                                    ></button>
                                 </div>
                             </div>
                             <div className="h-[100px]">
@@ -285,15 +309,27 @@ export default function App() {
                                     </SwiperSlide>
                                 </Swiper>
                                 <div className="absolute z-[9999] bottom-[25px] right-[15px] flex flex-col gap-1">
-                                    {buttons.map((button) => (
-                                        <button
-                                            key={button.id}
-                                            className={`w-[${button.size}px] h-[${button.size}px] bg-${button.color} rounded-[4px]`}
-                                            onClick={() =>
-                                                handleClick(button.id)
-                                            }
-                                        />
-                                    ))}
+                                    <button
+                                        className={`w-[8px] h-[8px] bg-redPrimary rounded-[4px]`}
+                                    ></button>
+                                    <button
+                                        className={`w-[8px] h-[8px] bg-orange-600 rounded-[4px]`}
+                                    ></button>
+                                    <button
+                                        className={`w-[8px] h-[8px] bg-green-600 rounded-[4px]`}
+                                    ></button>
+                                    <button
+                                        className={`w-[8px] h-[8px] bg-greenPrimary rounded-[4px]`}
+                                    ></button>
+                                    <button
+                                        className={`w-[8px] h-[8px] bg-blue-600 rounded-[4px]`}
+                                    ></button>
+                                    <button
+                                        className={`w-[8px] h-[8px] bg-purple-600 rounded-[4px]`}
+                                    ></button>
+                                    <button
+                                        className={`w-[8px] h-[8px] bg-indigo-600 rounded-[4px]`}
+                                    ></button>
                                 </div>
                             </div>
                             <div className="h-[100px]">
@@ -370,15 +406,27 @@ export default function App() {
                                     </SwiperSlide>
                                 </Swiper>
                                 <div className="absolute z-[9999] bottom-[25px] right-[15px] flex flex-col gap-1">
-                                    {buttons.map((button) => (
-                                        <button
-                                            key={button.id}
-                                            className={`w-[${button.size}px] h-[${button.size}px] bg-${button.color} rounded-[4px]`}
-                                            onClick={() =>
-                                                handleClick(button.id)
-                                            }
-                                        />
-                                    ))}
+                                    <button
+                                        className={`w-[8px] h-[8px] bg-redPrimary rounded-[4px]`}
+                                    ></button>
+                                    <button
+                                        className={`w-[8px] h-[8px] bg-orange-600 rounded-[4px]`}
+                                    ></button>
+                                    <button
+                                        className={`w-[8px] h-[8px] bg-green-600 rounded-[4px]`}
+                                    ></button>
+                                    <button
+                                        className={`w-[8px] h-[8px] bg-greenPrimary rounded-[4px]`}
+                                    ></button>
+                                    <button
+                                        className={`w-[8px] h-[8px] bg-blue-600 rounded-[4px]`}
+                                    ></button>
+                                    <button
+                                        className={`w-[8px] h-[8px] bg-purple-600 rounded-[4px]`}
+                                    ></button>
+                                    <button
+                                        className={`w-[8px] h-[8px] bg-indigo-600 rounded-[4px]`}
+                                    ></button>
                                 </div>
                             </div>
                             <div className="h-[100px]">
@@ -455,15 +503,27 @@ export default function App() {
                                     </SwiperSlide>
                                 </Swiper>
                                 <div className="absolute z-[9999] bottom-[25px] right-[15px] flex flex-col gap-1">
-                                    {buttons.map((button) => (
-                                        <button
-                                            key={button.id}
-                                            className={`w-[${button.size}px] h-[${button.size}px] bg-${button.color} rounded-[4px]`}
-                                            onClick={() =>
-                                                handleClick(button.id)
-                                            }
-                                        />
-                                    ))}
+                                    <button
+                                        className={`w-[8px] h-[8px] bg-redPrimary rounded-[4px]`}
+                                    ></button>
+                                    <button
+                                        className={`w-[8px] h-[8px] bg-orange-600 rounded-[4px]`}
+                                    ></button>
+                                    <button
+                                        className={`w-[8px] h-[8px] bg-green-600 rounded-[4px]`}
+                                    ></button>
+                                    <button
+                                        className={`w-[8px] h-[8px] bg-greenPrimary rounded-[4px]`}
+                                    ></button>
+                                    <button
+                                        className={`w-[8px] h-[8px] bg-blue-600 rounded-[4px]`}
+                                    ></button>
+                                    <button
+                                        className={`w-[8px] h-[8px] bg-purple-600 rounded-[4px]`}
+                                    ></button>
+                                    <button
+                                        className={`w-[8px] h-[8px] bg-indigo-600 rounded-[4px]`}
+                                    ></button>
                                 </div>
                             </div>
                             <div className="h-[100px]">
@@ -540,15 +600,27 @@ export default function App() {
                                     </SwiperSlide>
                                 </Swiper>
                                 <div className="absolute z-[9999] bottom-[25px] right-[15px] flex flex-col gap-1">
-                                    {buttons.map((button) => (
-                                        <button
-                                            key={button.id}
-                                            className={`w-[${button.size}px] h-[${button.size}px] bg-${button.color} rounded-[4px]`}
-                                            onClick={() =>
-                                                handleClick(button.id)
-                                            }
-                                        />
-                                    ))}
+                                    <button
+                                        className={`w-[8px] h-[8px] bg-redPrimary rounded-[4px]`}
+                                    ></button>
+                                    <button
+                                        className={`w-[8px] h-[8px] bg-orange-600 rounded-[4px]`}
+                                    ></button>
+                                    <button
+                                        className={`w-[8px] h-[8px] bg-green-600 rounded-[4px]`}
+                                    ></button>
+                                    <button
+                                        className={`w-[8px] h-[8px] bg-greenPrimary rounded-[4px]`}
+                                    ></button>
+                                    <button
+                                        className={`w-[8px] h-[8px] bg-blue-600 rounded-[4px]`}
+                                    ></button>
+                                    <button
+                                        className={`w-[8px] h-[8px] bg-purple-600 rounded-[4px]`}
+                                    ></button>
+                                    <button
+                                        className={`w-[8px] h-[8px] bg-indigo-600 rounded-[4px]`}
+                                    ></button>
                                 </div>
                             </div>
                             <div className="h-[100px]">
@@ -579,6 +651,7 @@ export default function App() {
                             </div>
                         </div>
                     </SwiperSlide>
+
                     <div className="prev text-gray-600 hover:text-white">
                         <i className="fa-solid fa-arrow-left "></i>
                     </div>
