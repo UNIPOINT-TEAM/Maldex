@@ -13,7 +13,7 @@ function TagBanner() {
               <p>Что делает подарок maldex особенным?Естественно - Вы!</p>
             </div>
             <div>
-              <button className="bg-white p-2 rounded-lg">
+              <button className="bg-white p-2 rounded-lg uppercase font-bold">
                 соберите свой набор
               </button>
             </div>

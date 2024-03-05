@@ -23,17 +23,28 @@ function QuestForm() {
           <div>
             {isFormVisible && (
               <div>
-                <form className="flex flex-col">
-                  <input type="text" placeholder="Ваше имя" />
-                  <input type="text" placeholder="Ваш номер телефона" />
+                <form className="flex flex-col gap-4">
+                  <div>
+                    <h1>
+                      Заполните поля для отправки вопроса и наши менеджеры в
+                      скором времени ответят на него
+                    </h1>
+                  </div>
+                  <Input variant="standard" label="Ваше имя" placeholder="" />
                   <Input
                     variant="standard"
-                    label="Standard"
-                    placeholder="Standard"
+                    label="Ваш номер телефона"
+                    placeholder=""
                   />
+                  <Input variant="standard" label="Ваша почта" placeholder="" />
 
                   <textarea placeholder="Ваш вопрос" />
-                  <button type="submit">Отправить</button>
+                  <button
+                    className="bg-redPrimary text-white py-3 rounded-md"
+                    type="submit"
+                  >
+                    Отправить
+                  </button>
                 </form>
               </div>
             )}
