@@ -26,7 +26,7 @@ function ProjectsSlider() {
 
   return (
     <div className="container_xxl">
-      <div className="mx-10">
+      <div className="">
         <ProductNav />
         <div className="my-5 h-[410px]">
           <div className="flex h-full">
