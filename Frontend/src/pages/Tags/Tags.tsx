@@ -13,7 +13,6 @@ function Tags() {
         <TagBanner />
         <TagList />
         <ProjectsSlider />
-        <QuestForm />
       </div>
     </div>
   );
