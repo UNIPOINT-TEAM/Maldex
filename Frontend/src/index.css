@@ -3,14 +3,15 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: "Helvetica";
+  font-family: "HelveticaNue";
   src: url("../public/fonts/HelveticaNeueThin.otf"),
     url("../public/fonts/HelveticaNeue-Black.otf"),
-    url("../public/fonts/HelveticaNeue-Medium.otf"),
-    url("../public/fonts/");
+    url("../public/fonts/HelveticaNeue-BoldExt.otf"),
+    url("../public/fonts/HelveticaNeue-Light.otf"),
+    url("../public/fonts/HelveticaNeue-Extended.otf"),
+    url("../public/fonts/HelveticaNeue-Medium.otf");
 }
 
 body {
-  font-family: "Helvetica" !important;
-  letter-spacing: 1px;
+  font-family: "HelveticaNue" !important;
 }

@@ -4,7 +4,7 @@ interface GiftProp {
 }
 const GiftItem: React.FC<GiftProp> = ({ image, name }) => {
   return (
-    <div className="w-[70px]">
+    <div className="w-[70px] flex items-center flex-col justify-center ">
       <div className="border border-lightPrimary p-3 rounded-xl">
         <img src={image} alt={name} />
       </div>
