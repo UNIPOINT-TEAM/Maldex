@@ -1,6 +1,5 @@
 import { useRef } from "react";
 import Slider from "react-slick";
-
 import prev from "../../assets/linear/arrow-left.svg";
 import next from "../../assets/linear/arrow-right.svg";
 
@@ -13,66 +12,41 @@ function SaleSlider() {
     slidesToScroll: 1,
     arrows: false,
   };
-
-  const slider = useRef(null);
-
+  const slider = useRef<Slider>(null);
   return (
-    <>
-    <div className=" bg-white">
-    <link
-        rel="stylesheet"
-        type="text/css"
-        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
-      />
-      <link
-        rel="stylesheet"
-        type="text/css"
-        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
-      />
-      <div className="container_xxl flex px-10">
-      {/* @ts-ignore */}
-       
-        <button onClick={() => slider?.current?.slickPrev()}>
-        
-          <img src={prev} alt="" />
-        </button>
-
+    <div className="bg-white my-2">
+      <div className="container_xxl relative">
         <Slider
-          className=" w-[95%] h-[50px] m-auto "
+          className="w-full h-[40px] lg:h-[50px] "
           ref={slider}
           {...settings}
         >
-          <div className="">
-            <div>
-              <h3 className=" text-center p-3 text-fs_7 font-[700]">
-                <span className="text-redPrimary font-[700]">30%</span> Cкидка при первом заказе! 🎉
-              </h3>
-            </div>
+          <div className="py-3">
+            <h3 className="text-fs_8 lg:text-fs_7 font-extrabold text-center ">
+              <span className="text-redPrimary font-extrabold pe-1">30%</span>
+              Cкидка при первом заказе! 🎉
+            </h3>
           </div>
-          <div className="">
-            <div>
-              <h3 className=" text-center p-3 text-fs_7 font-[700]">
-                <span className="text-redPrimary font-[700]">30%</span> Cкидка при первом заказе! 🎉
-              </h3>
-            </div>
+          <div className="py-3">
+            <h3 className="text-fs_8 lg:text-fs_7 font-extrabold text-center">
+              <span className="text-redPrimary font-extrabold pe-1">30%</span>
+              Cкидка при первом заказе! 🎉
+            </h3>
           </div>
-          <div className="">
-            <div>
-              <h3 className=" text-center p-3 text-fs_7 font-[700]">
-                <span className="text-redPrimary font-[700]">30%</span> Cкидка при первом заказе! 🎉
-              </h3>
-            </div>
-          </div>
-
         </Slider>
-        {/* @ts-ignore */}
-
-        <button onClick={() => slider?.current?.slickNext()}>
-          <img src={next} alt="" />
-        </button>
+        <div className="absolute top-[30%] w-full">
+          <button onClick={() => slider?.current?.slickPrev()}>
+            <img src={prev} alt="" />
+          </button>
+          <button
+            onClick={() => slider?.current?.slickNext()}
+            className="absolute right-0"
+          >
+            <img src={next} alt="carusel-arrow" />
+          </button>
+        </div>
       </div>
     </div>
-    </>
   );
 }
 

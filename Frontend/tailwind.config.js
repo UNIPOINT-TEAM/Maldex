@@ -17,9 +17,7 @@ module.exports = withMT({
         lightSecondary: "#E1DFDA",
         white: "#F7F7F7",
       },
-      fontFamily: {
-        helvetica: ["Helvetica", "sans-serif"],
-      },
+
       fontSize: {
         fs_1: "46px",
         fs_2: "40px",

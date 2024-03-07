@@ -6,7 +6,8 @@
   font-family: "Helvetica";
   src: url("../public/fonts/HelveticaNeueThin.otf"),
     url("../public/fonts/HelveticaNeue-Black.otf"),
-    url("../public/fonts/HelveticaNeue-Medium.otf");
+    url("../public/fonts/HelveticaNeue-Medium.otf"),
+    url("../public/fonts/");
 }
 
 body {
