@@ -11,10 +11,10 @@ function QuestForm() {
   return (
     <div>
       <div className="container_xxl">
-        <div className="mx-10 my-[110px] flex justify-between">
+        <div className="mx-3 my-6 lg:my-[110px] flex flex-col lg:flex-row justify-between">
           <div>
             <h1
-              className="text-fs_2 underline w-[259px] uppercase text-darkSecondary cursor-pointer font-[800]"
+              className="text-[16px] lg:text-fs_2 underline w-[259px] uppercase text-darkSecondary cursor-pointer font-[800]"
               onClick={handleClick}
             >
               {isFormVisible ? "Ваш Вопрос" : "Хочу задать вопрос"}
@@ -37,8 +37,9 @@ function QuestForm() {
                     placeholder=""
                   />
                   <Input variant="standard" label="Ваша почта" placeholder="" />
+                  <Input variant="standard" label="Ваш вопрос" placeholder="" />
 
-                  <textarea placeholder="Ваш вопрос" />
+                  {/* <textarea placeholder="Ваш вопрос" /> */}
                   <button
                     className="bg-redPrimary text-white py-3 rounded-md"
                     type="submit"

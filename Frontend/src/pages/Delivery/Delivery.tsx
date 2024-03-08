@@ -10,6 +10,7 @@ import {
   TabsBody,
   TabsHeader,
 } from "@material-tailwind/react";
+import { QuestForm } from "../../components";
 
 function Delivery() {
   const [selectedButton, setSelectedButton] = useState(0);
@@ -55,11 +56,10 @@ function Delivery() {
     <>
       <div>
         <div className="container_xxl">
-          <div className="mx-10">
+          <div className="mx-3">
             <Tabs
               value={data[selectedButton].value}
               onChange={handleButtonClick}
-              
             >
               <TabsHeader className="tab-header border-0 border-b rounded-none bg-[#fff]">
                 {data.map(({ label, value }, index) => (
@@ -77,12 +77,25 @@ function Delivery() {
                   <TabPanel className="px-0" key={value} value={value}>
                     {value === "vue" ? (
                       <>
-                        <div className="flex">
-                          <div className="w-1/4">
-                            <p>{desc}</p>
+                        <div className="flex flex-col lg:flex-row">
+                          <div className="lg:w-1/4">
+                            <span>
+                              <p className="font-extrabold">Наши контакты</p>
+                              <p>Наш телефон:</p>
+                              <p>8 (800) 777-59-19</p>
+                              <p className="mb-4">8 (495) 760-83-28</p>
+                            </span>
+                            <span>
+                              <p>Email:</p>
+                              <p className="mb-4"> info@maldex.ru</p>
+                            </span>
+                            <span>
+                              <p>Адрес:</p>
+                              <p className="mb-4"> Москва, Варшавское шоссе, 35, стр.1</p>
+                            </span>
                           </div>
                           <div
-                            className="w-3/4"
+                            className="lg:w-3/4"
                             style={{
                               position: "relative",
                               overflow: "hidden",
@@ -129,6 +142,7 @@ function Delivery() {
               </TabsBody>
             </Tabs>
           </div>
+          <QuestForm />
         </div>
       </div>
     </>
