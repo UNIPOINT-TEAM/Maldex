@@ -9,8 +9,8 @@ const Layout = () => {
       <main className="w-100">
         <Outlet />
       </main>
-      {/* <RunningText />
-      <Footer /> */}
+      <RunningText />
+      <Footer />
     </div>
   );
 };

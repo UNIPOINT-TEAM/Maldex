@@ -11,7 +11,7 @@ function QuestForm() {
   return (
     <div>
       <div className="container_xxl">
-        <div className="mx-10 my-[110px] flex justify-between">
+        <div className="mx-3 my-[110px] flex justify-between">
           <div>
             <h1
               className="text-fs_2 underline w-[259px] uppercase text-darkSecondary cursor-pointer font-[800]"
@@ -30,7 +30,7 @@ function QuestForm() {
                       скором времени ответят на него
                     </h1>
                   </div>
-                  <Input variant="standard" label="Ваше имя" placeholder="" />
+                  <Input variant="standard" label="Ваше имя" />
                   <Input
                     variant="standard"
                     label="Ваш номер телефона"

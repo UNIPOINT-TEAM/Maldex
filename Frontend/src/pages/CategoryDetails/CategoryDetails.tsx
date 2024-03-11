@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Banner } from "../../components";
+import { Banner, SliderProduct } from "../../components";
 import Tshirt from "../../assets/t-shirt.png";
 import nasilnenie_l from "../../assets/shirt-l.png";
 import nasilnenie_r from "../../assets/shirt-r.png";
@@ -10,13 +10,14 @@ import {
   TabsBody,
   TabsHeader,
 } from "@material-tailwind/react";
-function SizeButton({ size }) {
+
+export const SizeButton: React.FC<{ size: string }> = ({ size }) => {
   return (
     <button className="w-[35px] h-[35px] py-1 text-xs font-bold text-gray-800 border border-[#d3d3d3] rounded-[50%]  focus:outline-none ">
       {size}
     </button>
   );
-}
+};
 
 const data = [
   {
@@ -53,10 +54,8 @@ const Buttons = [
 ];
 const CategoryDetails = () => {
   const [isActive, setIsActive] = useState<number>(1);
-  const [sizeValue, setSizeValue] = useState<number | null>(null);
-
   return (
-    <div>
+    <div className="container_xxl tracking-wider ">
       <div className="grid grid-cols-10 my-5">
         <div className=" h-full p-5 col-span-3">
           <Tabs value="html">
@@ -69,16 +68,16 @@ const CategoryDetails = () => {
                   placeholder={<div />}
                   key={value}
                   value={value}
-                  className="text-fs_9 uppercase w-auto"
+                  className="text-[10px] uppercase w-auto font-helvetica font-bold"
                 >
-                  {label}
+                  <p> {label}</p>
                 </Tab>
               ))}
             </TabsHeader>
             <TabsBody placeholder={<div />}>
               {data.map(({ value }) => (
                 <TabPanel key={value} value={value}>
-                  <p className="text-[#000]">
+                  <p className="text-[#000] font-helvetica font-bold">
                     Недорогая миниатюрная беспроводная колонка Chubby порадует
                     владельца аккуратным исполнением и высоким качеством
                     материалов. Колонка обтянута акустической тканью популярной
@@ -102,7 +101,7 @@ const CategoryDetails = () => {
                 {button.icon && (
                   <div
                     className={`border bottom-1 border-redPrimary text-fs_7 text-redPrimary  flex items-center justify-center w-[25px] h-[25px] rounded-[50%] ${
-                      isActive == button.id && "border-[#fff] text-white"
+                      isActive == button.id && "border-white text-white"
                     }`}
                   >
                     +
@@ -188,27 +187,26 @@ const CategoryDetails = () => {
                 HIT
               </span>
             </div>
-            <div className="">
-              <div className="container mx-auto px-4 py-8">
-                <div className=" mt-4">
-                  <h2 className="text-xl font-bold text-gray-800">
-                    Футболка женская T-bolka Lady, оранжевая
-                  </h2>
-                  <div className=" mt-4">
-                    <p className="text-gray-800">РАЗМЕР:</p>
-                    <div className="flex space-x-2">
-                      <SizeButton size="XS" />
-                      <SizeButton size="S" />
-                      <SizeButton size="M" />
-                      <SizeButton size="L" />
-                      <SizeButton size="XL" />
-                      <SizeButton size="2XL" />
-                    </div>
-                  </div>
+
+            <div className="container mx-auto px-4 py-4">
+              <h2 className="text-base font-extrabold text-gray-800 tracking-wider">
+                Футболка женская T-bolka Lady, оранжевая
+              </h2>
+              <div className=" mt-4">
+                <p className="text-darkSecondary text-fs_8 font-extrabold tracking-widest">
+                  РАЗМЕР:
+                </p>
+                <div className="flex space-x-2">
+                  <SizeButton size="XS" />
+                  <SizeButton size="S" />
+                  <SizeButton size="M" />
+                  <SizeButton size="L" />
+                  <SizeButton size="XL" />
+                  <SizeButton size="2XL" />
                 </div>
               </div>
             </div>
-            <div className="">
+            <div className="font-bold">
               <div className="flex justify-between items-center mb-5">
                 <button className="text-greenPrimary">
                   + Добавить нанесение
@@ -221,7 +219,9 @@ const CategoryDetails = () => {
                 <div className="border-b border-gray-500">
                   <div className="flex justify-between items-center  py-1">
                     <p>Количество:</p>
-                    <div className="border border-black rounded">256</div>
+                    <b className="border border-black rounded px-2 tracking-wider">
+                      256
+                    </b>
                   </div>
                   <div className="w-full px-2">
                     <input
@@ -257,10 +257,10 @@ const CategoryDetails = () => {
                   <b className="text-lg">14 619,00 ₽ </b>
                 </div>
               </div>
-              <button className="w-full py-4 bg-redPrimary text-white text-xs font-extrabold rounded-lg">
+              <button className="w-full py-4 bg-redPrimary text-white text-xs tracking-widest  font-extrabold rounded-lg">
                 В КОРЗИНУ
               </button>
-              <div className="mt-3 flex justify-between">
+              <div className="mt-3 flex justify-between ">
                 <span className="text-[10px] border border-[#666666] text-[#666666] px-5 py-[6px] rounded-lg uppercase">
                   <b>бесплатный образец</b>
                 </span>
@@ -272,6 +272,7 @@ const CategoryDetails = () => {
           </div>
         </div>
       </div>
+      <SliderProduct />
       <Banner />
     </div>
   );
