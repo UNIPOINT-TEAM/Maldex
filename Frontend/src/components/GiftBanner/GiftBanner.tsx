@@ -2,13 +2,13 @@ import { BannerSlider, BannerTop, GiftBannerBottom, LeftAccordion } from "..";
 
 const GiftBanner = () => {
   return (
-    <div className="container_xxl px-10 my-10">
-      <div className="flex gap-3">
-        <div className="w-1/5">
+    <div className="container_xxl px-3 my-10">
+      <div className="lg:flex gap-3">
+        <div className="w-1/5 hidden lg:block">
           <LeftAccordion />
         </div>
-        <div className="flex flex-col gap-2.5 w-4/5 ">
-          <div className="h-[430px]">
+        <div className="flex flex-col gap-2.5 lg:w-4/5 ">
+          <div className=" lg:h-[430px]">
             <BannerSlider />
           </div>
           <GiftBannerBottom />

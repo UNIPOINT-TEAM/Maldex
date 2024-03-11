@@ -26,10 +26,10 @@ function ProjectsSlider() {
 
   return (
     <div className="container_xxl">
-      <div className="">
+      <div className="mx-3">
         <ProductNav />
-        <div className="my-5 h-[410px]">
-          <div className="flex h-full">
+        <div className="my-5 lg:h-[410px]">
+          <div className="flex h-full hidden lg:flex">
             <div className="h-[100%] flex items-center">
               <button className="absolute z-50 -ml-[20px] " onClick={goPrev}>
                 <img src={prev} alt="" />
@@ -85,6 +85,16 @@ function ProjectsSlider() {
               <button className="absolute z-50 -ml-[20px]" onClick={goNext}>
                 <img src={next} alt="" />
               </button>
+            </div>
+          </div>
+
+          {/* Mobile */}
+          <div className="block lg:hidden">
+            <div >
+              <img src={project1} alt="" />
+            </div>
+            <div >
+              <img src={project2} alt="" />
             </div>
           </div>
         </div>

@@ -8,40 +8,85 @@ import {
 } from "@material-tailwind/react";
 
 const LeftAccordion = () => {
-  const [open, setOpen] = useState<number>(1);
+  const [openAccordionIndex, setOpenAccordionIndex] = useState<number | null>(
+    null
+  );
 
-  const handleOpen = (value: number) => setOpen(open === value ? 0 : value);
+  const handleAccordionClick = (index: number) => {
+    setOpenAccordionIndex((prevIndex) => (prevIndex === index ? null : index));
+  };
+
+  // Массив данных
+  const data = [
+    {
+      title: "Для кого",
+      products: [{ name: "Товар 1" }, { name: "Товар 2" }, { name: "Товар 3" }],
+    },
+    {
+      title: "Поводы",
+      products: [{ name: "Товар 4" }, { name: "Товар 5" }, { name: "Товар 6" }],
+    },
+    {
+      title: "От 1000 до 3000",
+      products: [{ name: "Товар 4" }, { name: "Товар 5" }, { name: "Товар 6" }],
+    },
+    {
+      title: "От 3000 до 5000",
+      products: [{ name: "Товар 4" }, { name: "Товар 5" }, { name: "Товар 6" }],
+    },
+    {
+      title: "От 5000 до 10000",
+      products: [{ name: "Товар 4" }, { name: "Товар 5" }, { name: "Товар 6" }],
+    },
+    {
+      title: "От 10000",
+      products: [{ name: "Товар 4" }, { name: "Товар 5" }, { name: "Товар 6" }],
+    },
+    {
+      title: "Наборы",
+      products: [{ name: "Товар 4" }, { name: "Товар 5" }, { name: "Товар 6" }],
+    },
+  ];
 
   return (
     <div className="">
       <div className="w-[246px]">
-        <h1 className="text-[28px] font-black tracking-wide">Подарочные наборы</h1>
+        <h1 className="text-[28px] font-black tracking-wide">
+          Подарочные наборы
+        </h1>
       </div>
-      <Accordion
-        className="border border-lightPrimary rounded-xl my-4"
-        open={open === 0} // Используйте значение open для определения открытого состояния
-        icon={
-          <img
-            className={`${open === 1 ? "rotate-180" : ""} transition-transform`}
-            src={accordionIcon}
-            alt="Accordion Icon"
-          />
-        }
-        placeholder={<div />}
-      >
-        <AccordionHeader
-          className="border-0 p-4"
-          onClick={() => handleOpen(1)}
+      {data.map((category, index) => (
+        <Accordion
+          key={index}
+          className="my-4"
+          open={openAccordionIndex === index}
+          icon={
+            <img
+              className={`${
+                openAccordionIndex === index ? "rotate-180" : ""
+              } transition-transform`}
+              src={accordionIcon}
+              alt="Accordion Icon"
+            />
+          }
           placeholder={<div />}
         >
-          <h3 className="font-helvetica -tracking-tighter text-fs_4 text-darkSecondary">
-            Title
-          </h3>
-        </AccordionHeader>
-        <AccordionBody className="p-4" placeholder={<div />}>
-          Amir
-        </AccordionBody>
-      </Accordion>
+          <AccordionHeader
+            className="border-0  cursor-pointer"
+            onClick={() => handleAccordionClick(index)}
+            placeholder={<div />}
+          >
+            <h3 className="font-helvetica -tracking-tighter text-fs_4 text-darkSecondary">
+              {category.title}
+            </h3>
+          </AccordionHeader>
+          <AccordionBody className="" placeholder={<div />}>
+            {category.products.map((product, productIndex) => (
+              <div key={productIndex}>{product.name}</div>
+            ))}
+          </AccordionBody>
+        </Accordion>
+      ))}
     </div>
   );
 };

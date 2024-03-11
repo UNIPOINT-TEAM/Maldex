@@ -1,4 +1,5 @@
 import error from "../../assets/images/box404.png";
+import { QuestForm, TagList } from "../../components";
 
 function NotFound() {
   return (
@@ -16,6 +17,10 @@ function NotFound() {
             <p>Но есть много других полезных страниц</p>
           </div>
         </div>
+
+        <TagList />
+
+        <QuestForm />
       </div>
     </div>
   );

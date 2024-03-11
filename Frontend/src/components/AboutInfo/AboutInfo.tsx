@@ -4,7 +4,7 @@ function AboutInfo() {
     <>
       <div className="container_xxl">
         <div className="flex gap-12">
-          <div className="bg-greenPrimary w-1/3">
+          <div className="bg-greenPrimary w-1/3 hidden lg:block">
             <img className="h-full" src={aboutinfo} alt="" />
           </div>
           <div className="w-2/3">

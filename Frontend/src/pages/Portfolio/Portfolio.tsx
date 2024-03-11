@@ -5,7 +5,7 @@ import { News, ProjectsSlider, QuestForm } from '../../components'
 function Portfolio() {
   return (
     <>
-    <div>
+    <div className="container_xxl">
       <PortfolioBanner/>
       <News/>
       <ProjectsSlider/>

@@ -23,30 +23,28 @@ function Delivery() {
     {
       label: "доставка",
       value: "html",
-      desc: `Доставка 
-      Компания «Maldex» бесплатно осуществит доставку заказа и
-      образцов продукции: По Москве в пределах МКАД До Транспортной
-      компании Самовывоз доступен в центральном офисе в Москве, по
-      адресу: м. Нагатинская, Варшавское шоссе 35 стр 1, тел.
-      8-800-777-59-19.`,
+      desc: `Доставка `,
+      desc1: `Компания «Maldex» бесплатно осуществит доставку заказа и образцов продукции:
+      По Москве в пределах МКАД
+      До Транспортной компании.`,
+
+      desc2: `Самовывоз доступен в центральном офисе в Москве, по адресу: м. Нагатинская, Варшавское шоссе 35 стр 1, тел. 8-800-777-59-19`,
     },
     {
       label: "оплата",
       value: "react",
-      desc: `Оплата
-      Мы работаем с юридическими и физическими лицами по безналичному и наличному расчету. 
-      Минимальная сумма заказа составляет 30 000 рублей.
-      
-      При оформлении заказа менеджер ответит на вопросы, рассчитает стоимость, уточнит детали 
+      desc: `Оплата`,
+      desc1: `Мы работаем с юридическими и физическими лицами  по безналичному и наличному расчету. 
+      Минимальная сумма заказа составляет 30 000 рублей.`,
+
+      desc2: `При оформлении заказа менеджер ответит на вопросы, рассчитает стоимость, уточнит детали 
       заказа и выставит счет на оплату. Отчетные документы: акт выполненных работ, счет-фактуру, 
       договор мы подготовим и предоставим при отгрузке заказа.`,
     },
     {
       label: "контакты",
       value: "vue",
-      desc: `We're not always in the position that we want to be at.
-      We're constantly growing. We're constantly making mistakes. We're
-      constantly trying to express ourselves and actualize our dreams.`,
+      desc: "",
       // mapLink: "https://yandex.uz/maps/10330/bukhara/?utm_medium=mapframe&utm_source=maps",
       // mapIframe: `<iframe src="https://yandex.uz/map-widget/v1/?ll=64.439753%2C39.774226&mode=search&ol=geo&ouri=ymapsbm1%3A%2F%2Fgeo%3Fdata%3DCgk3NzEyNzMzOTUSFE_Ku3piZWtpc3RvbiwgQnV4b3JvIgoN7NeAQhVmEh9C&z=12.66" width="100%" height="246" frameBorder="1" allowFullScreen={true} style={{ position: "relative" }}></iframe>`,
     },
@@ -73,7 +71,7 @@ function Delivery() {
                 ))}
               </TabsHeader>
               <TabsBody className="">
-                {data.map(({ value, desc }) => (
+                {data.map(({ value, desc, desc1, desc2 }) => (
                   <TabPanel className="px-0" key={value} value={value}>
                     {value === "vue" ? (
                       <>
@@ -91,7 +89,10 @@ function Delivery() {
                             </span>
                             <span>
                               <p>Адрес:</p>
-                              <p className="mb-4"> Москва, Варшавское шоссе, 35, стр.1</p>
+                              <p className="mb-4">
+                                {" "}
+                                Москва, Варшавское шоссе, 35, стр.1
+                              </p>
                             </span>
                           </div>
                           <div
@@ -135,7 +136,11 @@ function Delivery() {
                         </div>
                       </>
                     ) : (
-                      <p>{desc}</p>
+                      <div>
+                        <p className="font-extrabold">{desc}</p>
+                        <p className="mb-4">{desc1}</p>
+                        <p>{desc2}</p>
+                      </div>
                     )}
                   </TabPanel>
                 ))}
