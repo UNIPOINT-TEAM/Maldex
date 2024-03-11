@@ -13,8 +13,10 @@ import {
 
 export const SizeButton: React.FC<{ size: string }> = ({ size }) => {
   return (
-    <button className=" w-[30
-    px] lg:w-[35px] h-[30px] lg:h-[35px] py-1 text-xs font-bold text-gray-800 border border-[#d3d3d3] rounded-[50%]  focus:outline-none ">
+    <button
+      className=" w-[30
+    px] lg:w-[35px] h-[30px] lg:h-[35px] py-1 text-xs font-bold text-gray-800 border border-[#d3d3d3] rounded-[50%]  focus:outline-none "
+    >
       {size}
     </button>
   );
@@ -58,7 +60,7 @@ const CategoryDetails = () => {
   return (
     <div className="container_xxl tracking-wider ">
       <div className="grid grid-cols-3 lg:grid-cols-10 my-5">
-        <div className="h-full p-5 col-span-3 order-3">
+        <div className="h-full p-5 col-span-3 ">
           <Tabs value="html">
             <TabsHeader
               placeholder={<div />}
@@ -262,10 +264,10 @@ const CategoryDetails = () => {
                 В КОРЗИНУ
               </button>
               <div className="mt-3 flex justify-between ">
-                <span className="text-[10px] border border-[#666666] text-[#666666] px-5 py-[6px] rounded-lg uppercase">
+                <span className="text-[9px] lg:text-[10px] border border-[#666666] text-[#666666] px-2 lg:px-5 py-[6px] rounded-lg uppercase">
                   <b>бесплатный образец</b>
                 </span>
-                <span className="text-[10px] border border-[#666666] text-[#666666] px-5 py-[6px] rounded-lg uppercase">
+                <span className="text-[9px] lg:text-[10px] border border-[#666666] text-[#666666] px-5 py-[6px] rounded-lg uppercase">
                   <b>бесплатный дизайн макет</b>
                 </span>
               </div>
