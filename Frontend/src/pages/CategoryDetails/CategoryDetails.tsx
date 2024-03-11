@@ -13,7 +13,8 @@ import {
 
 export const SizeButton: React.FC<{ size: string }> = ({ size }) => {
   return (
-    <button className="w-[35px] h-[35px] py-1 text-xs font-bold text-gray-800 border border-[#d3d3d3] rounded-[50%]  focus:outline-none ">
+    <button className=" w-[30
+    px] lg:w-[35px] h-[30px] lg:h-[35px] py-1 text-xs font-bold text-gray-800 border border-[#d3d3d3] rounded-[50%]  focus:outline-none ">
       {size}
     </button>
   );
@@ -56,8 +57,8 @@ const CategoryDetails = () => {
   const [isActive, setIsActive] = useState<number>(1);
   return (
     <div className="container_xxl tracking-wider ">
-      <div className="grid grid-cols-10 my-5">
-        <div className=" h-full p-5 col-span-3">
+      <div className="grid grid-cols-3 lg:grid-cols-10 my-5">
+        <div className="h-full p-5 col-span-3 order-3">
           <Tabs value="html">
             <TabsHeader
               placeholder={<div />}
@@ -89,12 +90,12 @@ const CategoryDetails = () => {
             </TabsBody>
           </Tabs>
         </div>
-        <div className="bg-white flex flex-col items-start p-5 col-span-4 relative">
+        <div className="bg-white flex flex-col items-start p-2 lg:p-5 col-span-3 lg:col-span-4 relative">
           <div className="flex gap-2 font-bold uppercase">
             {Buttons.map((button) => (
               <div
                 onClick={() => setIsActive(button.id)}
-                className={`bg-[#fff] flex gap-3 items-center cursor-pointer py-[13px] px-[15px] tracking-widest text-fs_9 rounded-lg ${
+                className={`bg-[#fff] flex gap-3 items-center cursor-pointer py-[9px] lg:py-[13px] px-[15px] tracking-widest text-fs_9 rounded-lg ${
                   isActive == button.id && "bg-redPrimary text-[#fff]"
                 }`}
               >
@@ -108,6 +109,7 @@ const CategoryDetails = () => {
                   </div>
                 )}
                 <span
+                  className=" text-[8px] lg:text-fs_9"
                   dangerouslySetInnerHTML={{
                     __html: button.name,
                   }}
@@ -115,37 +117,37 @@ const CategoryDetails = () => {
               </div>
             ))}
           </div>
-          <div className="absolute rounded-s-xl right-5 translate-y-[50%] top-[15%] bg-[#fff] px-3 py-5">
+          <div className="absolute rounded-s-xl right-2 lg:right-5 lg:translate-y-[50%] top-[30%]  lg:top-[15%] bg-[#fff] px-3 py-5">
             <div className="flex flex-col gap-2">
               <input
                 type="radio"
                 name="color"
-                className={`w-5 h-5 rounded-full appearance-none bg-[#2b395c] `}
+                className={`w-4 lg:w-5 h-4 lg:h-5 rounded-full appearance-none bg-[#2b395c] `}
               />
               <input
                 type="radio"
                 name="color"
-                className={`w-5 h-5 rounded-full appearance-none bg-[#F0503B] `}
+                className={`w-4 lg:w-5 h-4 lg:h-5 rounded-full appearance-none bg-[#F0503B] `}
               />
               <input
                 type="radio"
                 name="color"
-                className={`w-5 h-5 rounded-full appearance-none bg-[#D9D9D9] `}
+                className={`w-4 lg:w-5 h-4 lg:h-5 rounded-full appearance-none bg-[#D9D9D9] `}
               />
               <input
                 type="radio"
                 name="color"
-                className={`w-5 h-5 rounded-full appearance-none bg-[#43AD58] `}
+                className={`w-4 lg:w-5 h-4 lg:h-5 rounded-full appearance-none bg-[#43AD58] `}
               />
               <input
                 type="radio"
                 name="color"
-                className={`w-5 h-5 rounded-full appearance-none bg-[#ECE04C] `}
+                className={`w-4 lg:w-5 h-4 lg:h-5 rounded-full appearance-none bg-[#ECE04C] `}
               />
               <input
                 type="radio"
                 name="color"
-                className={`w-5 h-5 rounded-full appearance-none bg-[#2B395C] `}
+                className={`w-4 lg:w-5 h-4 lg:h-5 rounded-full appearance-none bg-[#2B395C] `}
               />
             </div>
           </div>
@@ -154,7 +156,7 @@ const CategoryDetails = () => {
               isActive !== 1 && "hidden"
             }`}
           >
-            <img src={Tshirt} alt="" className="w-[260px]" />
+            <img src={Tshirt} alt="" className="w-[200px] lg:w-[260px]" />
           </div>
           <div
             className={`${
@@ -177,9 +179,9 @@ const CategoryDetails = () => {
             <div className="color-panel"></div>
           </div>
         </div>
-        <div className="py-3 px-5 col-span-3">
-          <div className="">
-            <div className="">
+        <div className="py-3 px-3 lg:px-5 col-span-3">
+          <div>
+            <div>
               <span className="border text-redPrimary border-redPrimary py-[2px] px-1 me-1 rounded-[15px] text-[12px] font-bold ">
                 NEW
               </span>
@@ -187,8 +189,7 @@ const CategoryDetails = () => {
                 HIT
               </span>
             </div>
-
-            <div className="container mx-auto px-4 py-4">
+            <div className="container mx-auto lg:px-4 py-4">
               <h2 className="text-base font-extrabold text-gray-800 tracking-wider">
                 Футболка женская T-bolka Lady, оранжевая
               </h2>
@@ -272,7 +273,7 @@ const CategoryDetails = () => {
           </div>
         </div>
       </div>
-      <SliderProduct />
+      {/* <SliderProduct /> */}
       <Banner />
     </div>
   );
