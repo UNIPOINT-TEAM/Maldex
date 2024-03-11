@@ -30,7 +30,7 @@ function QuestForm() {
                       скором времени ответят на него
                     </h1>
                   </div>
-                  <Input variant="standard" label="Ваше имя" placeholder="" />
+                  <Input variant="standard" label="Ваше имя" />
                   <Input
                     variant="standard"
                     label="Ваш номер телефона"
