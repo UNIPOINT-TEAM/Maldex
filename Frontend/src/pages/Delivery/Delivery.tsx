@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import {
-  Chip,
-  List,
-  ListItem,
-  ListItemSuffix,
+
   Tab,
   TabPanel,
   Tabs,
