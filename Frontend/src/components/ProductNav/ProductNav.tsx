@@ -3,7 +3,7 @@ import React from "react";
 function ProductNav() {
   return (
     <div className="">
-      <div className="border border-darkSecondary rounded-md text-fs_8 uppercase text-darkSecondary font-extrabold tracking-wider">
+      <div className="border border-darkSecondary rounded-md text-fs_8 uppercase text-darkSecondary font-semibold tracking-wider">
         <div className="flex justify-between items-center px-7 py-0">
           <div className="overflow-auto">
             <ul className="flex gap-5 whitespace-nowrap">
@@ -28,8 +28,8 @@ function ProductNav() {
             </ul>
           </div>
           <div>
-            <button className="uppercase font-extrabold tracking-wider p-[6px] border border-redPrimary rounded-md text-redPrimary hidden ss:block">
-              Все проекты
+            <button className="uppercase font-semibold tracking-wide p-[6px] border border-redPrimary rounded-md text-redPrimary hidden ss:block">
+              Все топ-товары
             </button>
           </div>
         </div>

@@ -27,7 +27,7 @@ const Navbar = () => {
     <div className="relative">
       <header>
         <Topbar />
-        <nav className="container_xxl px-3">
+        <nav className="container_xxl ">
           <div className="flex justify-between items-center py-2 gap-3 lg:gap-5">
             <div className="flex justify-around gap-5">
               <button
@@ -35,17 +35,17 @@ const Navbar = () => {
                 className="px-3 h-[36px] w-auto lg:w-[125px] bg-redPrimary rounded-lg flex items-center gap-2"
               >
                 <img src={menu} alt="bars-btn" className="min-w-[17px]" />
-                <span className="text-white font-extrabold tracking-widest hidden lg:block">
+                <span className="text-white tracking-widest hidden lg:block font-helvetica-neue">
                   Каталог
                 </span>
               </button>
-              <button className="px-2 text-darkSecondary border border-gray-300 rounded-lg hidden lg:block">
-                <img src={filtr} alt="filtr-icon" />
+              <button className="px-2 w-8 border border-gray-300 rounded-lg hidden lg:block">
+                <img src={filtr} alt="filtr-icon" className="mx-auto" />
               </button>
             </div>
             <div className="flex items-center w-full rounded-xl bg-redPrimary h-[36px]">
               <input
-                className="rounded-xl w-full h-full border-2 border-redPrimary  px-3 text-darkPrimary font-extrabold focus:outline-none text-fs_8 lg:text-fs_7  placeholder:font-extrabold"
+                className="rounded-xl w-full h-full border-2 border-redPrimary px-3 text-darkPrimary focus:outline-none font-medium text-fs_9 lg:text-fs_7 tracking-wide"
                 id="search"
                 type="text"
                 placeholder="Поиск (Например: термоноски)"
@@ -56,13 +56,13 @@ const Navbar = () => {
                 </button>
               </span>
             </div>
-            <div className="items-center justify-between text-fs_3 gap-5 hidden md:flex">
-              <div className="text-redPrimary">
-                <span className="font-semibold underline mr-2">new</span>
-                <sup className=" font-bold text-fs_7">243</sup>
+            <div className="items-center justify-between text-fs_3 gap-5 hidden md:flex font-medium">
+              <div className="text-redPrimary ">
+                <span className="underline mr-2">new</span>
+                <sup className="font-bold text-fs_7">243</sup>
               </div>
               <div className="text-greenPrimary">
-                <span className="font-semibold underline mr-2">hits</span>
+                <span className="underline mr-2">hits</span>
                 <sup className="font-bold text-fs_7">243</sup>
               </div>
             </div>

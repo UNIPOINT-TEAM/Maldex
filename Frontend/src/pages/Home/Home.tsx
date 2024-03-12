@@ -13,9 +13,6 @@ import {
 } from "../../components";
 
 const Home = () => {
-  useEffect(() => {
-    fetch("http://192.168.0.163:8000/product/").then((res) => console.log(res));
-  }, []);
   return (
     <>
       <div className="home">
