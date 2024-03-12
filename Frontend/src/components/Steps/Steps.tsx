@@ -58,9 +58,9 @@ function Steps() {
         </div>
 
         {/* Mobile */}
-        <div className="flex text-[10px] flex-col justify-around items-center my-7 lg:hidden">
+        <div className="flex text-[10px] flex-col  my-7 lg:hidden">
           <div className="flex">
-            <div className="flex flex-1 items-center">
+            <div className="flex   items-center">
               <div className="bg-greenPrimary  p-2 rounded-[10px]">
                 <img src={gift} alt="" />
               </div>
@@ -71,9 +71,9 @@ function Steps() {
                 <img src={arrowb} alt="" />
               </div> */}
             </div>
-            <div className="flex flex-1 items-center">
-              <div className="bg-greenPrimary  p-2 rounded-[10px]">
-                <img src={set} alt="" />
+            <div className="flex  items-center">
+             <div className="bg-greenPrimary  p-2 rounded-[10px]">
+                <img src={set} alt=""  className=""/>
               </div>
               {/* <div className="absolute mb-[130px] ml-6">
                 <img src={arrowt} alt="" />
@@ -95,7 +95,7 @@ function Steps() {
               <div className="absolute mt-[120px] ml-6">
                 <img src={arrowb} alt="" />
               </div>
-              <div className="w-[190px]">
+              <div className="w-">
                 <p>Отправьте нам адреса получателей</p>
               </div>
             </div>
@@ -104,7 +104,7 @@ function Steps() {
                 <img src={check} alt="" />
               </div>
 
-              <div className="w-[190px]">
+              <div className="">
                 <p>Мы позаботимся об остальном!</p>
               </div>
             </div>
