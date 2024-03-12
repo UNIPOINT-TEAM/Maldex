@@ -13,7 +13,7 @@ const CardCatalog: React.FC<CardCatalogProps> = ({ item }) => {
         <div className="catalog">
             <div className="relative h-3/5 w-full catalogImgBox">
                 <img className="mb-2 h-full w-full" src={img} alt="" />
-                <div className="catalogabout absolute w-3/5 h-full bg-[#00B6BA] top-0 px-3 right-[0] overflow-hidden py-2">
+                <div className="hidden md:flex flex-col justify-center catalogabout absolute w-3/5 h-full bg-[#00B6BA] top-0 px-3 right-[0] py-2  ">
                     <p className="text-xs ml-3 mb-3 text-white">В наборе:</p>
                     <p className="text-xs ml-3 mb-3 text-white">
                         Ручка-роллер Deluxe <br /> Metal — черная
@@ -28,8 +28,8 @@ const CardCatalog: React.FC<CardCatalogProps> = ({ item }) => {
                     <button className="w-full border text-white py-2 rounded-lg">
                         подробнее
                     </button>
+                    <div className="catalogabout w-[30px] h-[30px] bg-[#00B6BA] absolute top-[30px] rotate-[45deg] left-[-10px]  z-10"></div>
                 </div>
-                <div className="catalogabout w-[30px] h-[30px] bg-[#00B6BA] absolute top-[30px] rotate-[45deg] right-[145px] z-10"></div>
             </div>
             <p className="text-black text-lg mb-2">{title}</p>
             <p className="text-gray-400 text-sm mb-2">{description}</p>
