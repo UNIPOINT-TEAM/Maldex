@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Banner, SliderProduct } from "../../components";
-import Tshirt from "../../assets/t-shirt.png";
+import Tshirt from "../../assets/t-shirt.svg";
 import nasilnenie_l from "../../assets/shirt-l.png";
 import nasilnenie_r from "../../assets/shirt-r.png";
 import {
@@ -77,9 +77,9 @@ const CategoryDetails = () => {
                 </Tab>
               ))}
             </TabsHeader>
-            <TabsBody placeholder={<div />}>
+            <TabsBody placeholder={<div />} className="p-0 m-0">
               {data.map(({ value }) => (
-                <TabPanel key={value} value={value}>
+                <TabPanel key={value} value={value} className="p-0 m-0">
                   <p className="text-[#000] font-helvetica font-bold">
                     Недорогая миниатюрная беспроводная колонка Chubby порадует
                     владельца аккуратным исполнением и высоким качеством

@@ -85,7 +85,7 @@ const SliderProduct = () => {
             </div>
           </div>
           <div className="h-[100px]">
-            <p className="text-lg">
+            <p className="text-fs_7 tracking-wide">
               Маска для лица многоразовая из хлопка, анатомической формы
             </p>
           </div>

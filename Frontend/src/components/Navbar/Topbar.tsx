@@ -5,7 +5,7 @@ import CardModal from "../Card/Card";
 
 const Topbar = () => {
   return (
-    <nav className="border-0 lg:border-b border-lightSecondary px-3  ">
+    <nav className="border-0 lg:border-b border-lightSecondary px-3 ">
       <div className="py-4 container_xxl flex justify-between items-center">
         <div className="flex items-center justify-between w-full md:w-auto">
           <img
@@ -18,7 +18,7 @@ const Topbar = () => {
               <li className={`${i == 2 && "hidden lg:block"}`}>
                 <Link to={item.path} className="flex items-center">
                   <img src={item.icon} className="mr-2 w-[20px]" />
-                  <span className="hidden text-darkPrimary text-fs_8 tracking-wider font-bold lg:block">
+                  <span className="hidden text-darkPrimary text-fs_8 tracking-wider lg:block ">
                     {item.name}
                   </span>
                 </Link>
@@ -27,7 +27,7 @@ const Topbar = () => {
           </ul>
         </div>
         <div className="text-darkSecondary hidden md:block">
-          <span className="ml-4 text-fs_8">
+          <span className="ml-4 text-fs_8 tracking-wider">
             Минимальная сумма заказа от 30 тыс рублей
           </span>
         </div>
@@ -37,7 +37,7 @@ const Topbar = () => {
               <li>
                 <Link
                   to={item.path}
-                  className="text-darkPrimary text-fs_8 tracking-wider font-bold hover:text-redPrimary px-2"
+                  className="text-darkPrimary font-helvetica-neue-bold-condensed text-fs_8 tracking-wider font-medium hover:text-redPrimary px-2"
                 >
                   {item.name}
                 </Link>

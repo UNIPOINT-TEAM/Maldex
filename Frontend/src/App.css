@@ -3,16 +3,12 @@
   width: 100%;
   margin: 0 auto;
 }
-
-/* CSS */
 .scrollbar-custom {
   scrollbar-color: red;
 }
-
 .scrollbar-custom::-webkit-scrollbar {
   width: 6px;
 }
-
 .scrollbar-custom::-webkit-scrollbar-thumb {
   background-color: red;
   border-radius: 10px;
@@ -26,7 +22,7 @@
 }
 .section-title {
   font-size: 28px;
-  font-weight: 800;
+  font-weight: 500;
   color: #9d9c98;
   text-transform: uppercase;
   margin: 20px 0;
@@ -39,34 +35,6 @@
 .content:hover .moreContent {
   display: block;
   z-index: 9999;
-}
-
-/* CSS */
-.scrollbar-custom {
-  scrollbar-color: red;
-}
-
-.scrollbar-custom::-webkit-scrollbar {
-  width: 6px;
-}
-
-.scrollbar-custom::-webkit-scrollbar-thumb {
-  background-color: red;
-  border-radius: 10px;
-}
-
-.productCatalog:hover .nameProductCatalog {
-  color: black;
-}
-.productCatalog:hover .btnProductCatalog {
-  background-color: rgb(236 16 38);
-}
-.section-title {
-  font-size: 28px;
-  font-weight: 800;
-  color: #9d9c98;
-  text-transform: uppercase;
-  margin: 20px 0;
 }
 
 .catalog .catalog_btns {
@@ -99,12 +67,6 @@
   transition: 400ms;
 }
 
-.productCatalog:hover .nameProductCatalog {
-  color: black;
-}
-.productCatalog:hover .btnProductCatalog {
-  background-color: rgb(236 16 38);
-}
 .section-title {
   font-size: 28px;
   font-weight: 800;
@@ -112,7 +74,6 @@
   text-transform: uppercase;
   margin: 20px 0;
 }
-
 .mySwiper .swiper-wrapper {
   display: flex;
   align-items: center;
@@ -279,18 +240,6 @@
   color: black !important;
 }
 
-@keyframes animeCorner {
-  0% {
-    width: 0;
-    height: 0;
-  }
-
-  1000% {
-    width: 50%;
-    height: 100%;
-  }
-}
-
 @media (min-width: 1400px) {
   .mySwiper_services .swiper-wrapper .swiper-slide-active {
     /* margin-right: 70px !important; */
@@ -316,7 +265,6 @@
   .why-us .card-wrapp {
     margin-top: 50px;
     height: 1300px;
-    /* background: url("./assets/Group48413.png") no-repeat center; */
     background-size: cover;
   }
 
@@ -324,7 +272,6 @@
     margin: 0;
   }
 
-  /* swiper new */
   .mySwiper_services .swiper-wrapper .swiper-slide-active {
     width: 100% !important;
   }
@@ -340,7 +287,6 @@
     display: none;
   }
 
-  /* swiper left */
   .mySwiper_services_left .swiper-wrapper .swiper-slide-active {
     width: 100% !important;
   }

@@ -22,14 +22,16 @@ function SaleSlider() {
           {...settings}
         >
           <div className="py-3">
-            <h3 className="text-fs_8 lg:text-fs_7 font-extrabold text-center ">
-              <span className="text-redPrimary font-extrabold pe-1">30%</span>
+            <h3 className="text-fs_8 lg:text-fs_7 font-helvetica-neue-black-condensed  text-center ">
+              <span className="text-redPrimary pe-1">30%</span>
               Cкидка при первом заказе! 🎉
             </h3>
           </div>
           <div className="py-3">
-            <h3 className="text-fs_8 lg:text-fs_7 font-extrabold text-center">
-              <span className="text-redPrimary font-extrabold pe-1">30%</span>
+            <h3 className="text-fs_8 lg:text-fs_7 font-helvetica-neue-black-condensed  text-center">
+              <span className="text-redPrimary font-helvetica-neue-black-condensed   pe-1">
+                30%
+              </span>
               Cкидка при первом заказе! 🎉
             </h3>
           </div>

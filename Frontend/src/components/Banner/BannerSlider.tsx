@@ -1,21 +1,21 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import SlideItem from "../../assets/images/slider-item.png";
-import { Navigation, Pagination } from "swiper/modules";
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 const BannerSlider = () => {
   return (
-    <div className="banner-carusel relative w-full h-full bg-greenPrimary flex  p-[12px] lg:p-[20px] text-white">
+    <div className="banner-carusel relative w-full h-full bg-greenPrimary flex  p-[12px] lg:p-[20px] text-white font-helvetica-neue">
       <div className="w-[55%] flex flex-col justify-between">
         <div>
           <span className="border text-[8px] lg:text-[11px] uppercase p-1 tracking-[1px] rounded-md">
             корпоративные подарки
           </span>
-          <h2 className="font-helveticaNeue text-fs_6 lg:text-[28px] m-0 font-extrabold tracking-[1.5px] leading-none lg:leading-none mt-2 lg:mt-4">
+          <h2 className="font-helvetica-neue-bold-condensed font-medium text-fs_6 lg:text-[30px] m-0  tracking-[1.5px] leading-none lg:leading-none mt-2 lg:mt-4">
             Бизнес сувениры <br /> для брендов
           </h2>
         </div>
-        <div className="mt-auto flex gap-1 lg:gap-3 text-[9px] lg:text-fs_8 font-extrabold">
-          <button className="border px-2 w-auto lg:w-[160px] py-[7px] lg:py-[10px] uppercase tracking-widest rounded-lg  hover:bg-[rgba(0,0,0,0.11)]  duration-300">
+        <div className="mt-auto flex gap-1 lg:gap-3 text-[9px] lg:text-fs_8 font-semibold">
+          <button className="border px-2 w-auto lg:w-[160px] py-[7px] lg:py-[10px] uppercase tracking-wider rounded-lg  hover:bg-[rgba(0,0,0,0.11)]  duration-300">
             Подробнее
           </button>
           <button className="border px-2 w-auto lg:w-[160px] py-[7px] lg:py-[10px]  uppercase tracking-widest rounded-lg hover:bg-[rgba(0,0,0,0.11)]  duration-300">
@@ -27,6 +27,10 @@ const BannerSlider = () => {
         <Swiper
           centeredSlides
           loop
+          autoplay={{
+            delay: 3000,
+            disableOnInteraction: false,
+          }}
           pagination={{
             clickable: true,
           }}
@@ -34,16 +38,16 @@ const BannerSlider = () => {
             prevEl: ".prev-arrow",
             nextEl: ".next-arrow",
           }}
-          modules={[Navigation, Pagination]}
+          modules={[Navigation, Pagination, Autoplay]}
         >
           <SwiperSlide>
-            <img src={SlideItem} alt="" className="h-[160px]  lg:h-[300px]" />
+            <img src={SlideItem} alt="" className="h-[160px] lg:h-[300px]" />
           </SwiperSlide>
           <SwiperSlide>
-            <img src={SlideItem} alt="" className="h-[160px]  lg:h-[300px]" />
+            <img src={SlideItem} alt="" className="h-[160px] lg:h-[300px]" />
           </SwiperSlide>
           <SwiperSlide>
-            <img src={SlideItem} alt="" className="h-[160px]  lg:h-[300px]" />
+            <img src={SlideItem} alt="" className="h-[160px] lg:h-[300px]" />
           </SwiperSlide>
         </Swiper>
         <div className="navigation-box absolute right-3 lg:right-6 bottom-3 lg:bottom-5 z-[9] flex gap-2">
