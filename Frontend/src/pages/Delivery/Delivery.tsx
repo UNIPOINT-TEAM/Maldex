@@ -12,9 +12,28 @@ import { QuestForm } from "../../components";
 function Delivery() {
   const [selectedButton, setSelectedButton] = useState(0);
   //@ts ignor
+  // const handleButtonClick = (buttonIndex) => {
+  //   setSelectedButton(buttonIndex);
+  // };
+
   const handleButtonClick = (buttonIndex) => {
     setSelectedButton(buttonIndex);
+    // Navigate to the appropriate tab on the Delivery page
+    switch (buttonIndex) {
+      case 0:
+        window.location.href = "/delivery";
+        break;
+      case 1:
+        window.location.href = "/delivery#payment";
+        break;
+      case 2:
+        window.location.href = "/delivery#contacts";
+        break;
+      default:
+        break;
+    }
   };
+  
 
   const data = [
     {
