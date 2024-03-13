@@ -55,20 +55,20 @@ const MainCategory = () => {
         <>
             <div className="w-full py-3 flex flex-wrap gap-2 justify-between items-center">
                 {categories.map((category) => (
-                    <div key={category.id} className="w-1/6 py-5 relative content hover:bg-redPrimary">
-                        <img className="w-1/5 mb-5" src={category.logo} alt="" />
+                    <div key={category?.id} className="w-1/6 py-5 relative content hover:bg-redPrimary">
+                        <img className="w-1/5 mb-5" src={category?.logo} alt="" />
                         <p className="text-lg mb-3">{category.name}</p>
-                        {category.children && category.children.length > 0 && (
+                        {category?.children && category.children?.length > 0 && (
                             <>
-                                <p>{category.children[0].name}</p>
-                                <p>{category.children[0].children[0].name}</p>
+                                <p>{category?.children[0].name}</p>
+                                {/* <p>{category?.children[0].children[0].name}</p> */}
                                 {/* Render additional children if needed */}
                             </>
                         )}
                         <div className="absolute w-full min-h-[400px] bg-[#fff] shadow-lg shadow-gray-400 top-0 left-0 right-0 moreContent p-3">
-                            <img className="w-1/5 mb-5" src={category.logo} alt="" />
-                            <p className="text-lg mb-3">{category.name}</p>
-                            {category.children && category.children.map((childCategory) => (
+                            <img className="w-1/5 mb-5" src={category?.logo} alt="" />
+                            <p className="text-lg mb-3">{category?.name}</p>
+                            {category?.children && category.children.map((childCategory) => (
                                 <div key={childCategory.id} className="rounded hover:bg-greenPrimary hover:text-white py-1 px-2">
                                     <p>{childCategory.name}</p>
                                 </div>
