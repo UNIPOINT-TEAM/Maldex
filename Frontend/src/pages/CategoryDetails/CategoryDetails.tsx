@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Banner, SliderProduct } from "../../components";
 import Tshirt from "../../assets/t-shirt.svg";
 import nasilnenie_l from "../../assets/shirt-l.png";
@@ -13,10 +13,7 @@ import {
 
 export const SizeButton: React.FC<{ size: string }> = ({ size }) => {
   return (
-    <button
-      className=" w-[30
-    px] lg:w-[35px] h-[30px] lg:h-[35px] py-1 text-xs font-bold text-gray-800 border border-[#d3d3d3] rounded-[50%]  focus:outline-none "
-    >
+    <button className=" w-[30px] lg:w-[35px] h-[30px] lg:h-[35px] py-1 text-xs font-bold text-gray-800 border border-[#d3d3d3] rounded-[50%]  focus:outline-none ">
       {size}
     </button>
   );
@@ -57,23 +54,31 @@ const Buttons = [
 ];
 const CategoryDetails = () => {
   const [isActive, setIsActive] = useState<number>(1);
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }, []);
   return (
     <div className="container_xxl tracking-wider ">
       <div className="grid grid-cols-3 lg:grid-cols-10 my-5">
-        <div className="h-full p-5 col-span-3 ">
+        <div className="h-full py-5 col-span-3 ">
           <Tabs value="html">
             <TabsHeader
               placeholder={<div />}
-              className="tab-header border-0 border-b rounded-none bg-[#fff]"
+              className="bg-transparent"
+              indicatorProps={{
+                className:
+                  "bg-transparent border-b-2 border-redPrimary shadow-none rounded-none",
+              }}
             >
               {data.map(({ label, value }) => (
                 <Tab
                   placeholder={<div />}
                   key={value}
                   value={value}
-                  className="text-[10px] uppercase w-auto font-helvetica font-bold"
+                  activeClassName="text-[#fff]"
+                  className="text-[11px] uppercase h-[40px] text-darkSecondary w-auto font-helvetica-neue font-bold"
                 >
-                  <p> {label}</p>
+                  <p>{label}</p>
                 </Tab>
               ))}
             </TabsHeader>
@@ -275,7 +280,7 @@ const CategoryDetails = () => {
           </div>
         </div>
       </div>
-      {/* <SliderProduct /> */}
+      <SliderProduct />
       <Banner />
     </div>
   );

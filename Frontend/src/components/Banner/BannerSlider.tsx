@@ -2,6 +2,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import SlideItem from "../../assets/images/slider-item.png";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
+import { Link } from "react-router-dom";
+
 const BannerSlider = () => {
   return (
     <div className="banner-carusel relative w-full h-full bg-greenPrimary flex  p-[12px] lg:p-[20px] text-white font-helvetica-neue">
@@ -15,12 +17,18 @@ const BannerSlider = () => {
           </h2>
         </div>
         <div className="mt-auto flex gap-1 lg:gap-3 text-[9px] lg:text-fs_8 font-semibold">
-          <button className="border px-2 w-auto lg:w-[160px] py-[7px] lg:py-[10px] uppercase tracking-wider rounded-lg  hover:bg-[rgba(0,0,0,0.11)]  duration-300">
+          <Link
+            to={"/gift"}
+            className="border text-center px-2 w-auto lg:w-[160px] py-[7px] lg:py-[10px] uppercase tracking-wider rounded-lg  hover:bg-[rgba(0,0,0,0.11)]  duration-300"
+          >
             Подробнее
-          </button>
-          <button className="border px-2 w-auto lg:w-[160px] py-[7px] lg:py-[10px]  uppercase tracking-widest rounded-lg hover:bg-[rgba(0,0,0,0.11)]  duration-300">
+          </Link>
+          <Link
+            to={"/gift"}
+            className="border text-center px-2 w-auto lg:w-[160px] py-[7px] lg:py-[10px]  uppercase tracking-widest rounded-lg hover:bg-[rgba(0,0,0,0.11)]  duration-300"
+          >
             заказать
-          </button>
+          </Link>
         </div>
       </div>
       <div className="w-[50%] h-full">

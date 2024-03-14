@@ -12,8 +12,9 @@ const AccordionMaldex = () => {
   const handleOpen = (value: number) => setOpen(open === value ? 0 : value);
   return (
     <div className="max-w-[1200px] w-full pl-0 lg:pl-[150px]">
-      {Faq.map((item) => (
+      {Faq.map((item, i) => (
         <Accordion
+          key={i}
           className="border border-lightPrimary rounded-xl  my-4"
           open={open === item.id}
           icon={

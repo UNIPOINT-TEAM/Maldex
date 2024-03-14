@@ -17,7 +17,6 @@ interface SliderProps {
 }
 
 const Slider: React.FC<SliderProps> = ({ SliderItems, sliderTime }) => {
-  console.log(sliderTime);
   return (
     <Swiper
       centeredSlides

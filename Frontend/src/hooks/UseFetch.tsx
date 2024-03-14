@@ -1,36 +1,28 @@
-import { useState, useEffect } from "react";
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useState, useCallback } from "react";
+import axios, { AxiosRequestConfig } from "axios";
+import { BASE_URL } from "../utils";
 
-interface FetchState<T> {
-  data: T | null;
-  loading: boolean;
-  error: string | null;
-}
+const api = axios.create({
+  baseURL: BASE_URL,
+});
 
-const useFetch = <T,>(
-  url: string,
-  options?: AxiosRequestConfig
-): FetchState<T> => {
-  const [data, setData] = useState<T | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
+export const useFetchHook = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [response, setResponse] = useState<any[]>([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const response: AxiosResponse<T> = await axios(url, options);
-        setData(response.data);
-      } catch (error) {
-        setError(error?.message || "An error occurred");
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, [url, options]);
+  const fetchData = useCallback(async (configobj: AxiosRequestConfig) => {
+    try {
+      setIsLoading(true);
+      const any = await api(configobj);
+      setIsLoading(false);
+      const data = any.data as any[];
+      setResponse(data);
+    } catch (error) {
+      setIsLoading(false);
+      console.log(error);
+    }
+  }, []);
 
-  return { data, loading, error };
+  return { isLoading, response, fetchData };
 };
-
-export default useFetch;

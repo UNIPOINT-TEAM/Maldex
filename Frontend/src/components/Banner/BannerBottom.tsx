@@ -1,58 +1,127 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import Slider from "./Slider";
+import arrowRight from "../../assets/icons/arrow-right.png";
+import { Link } from "react-router-dom";
 
 const BannerBottom: React.FC<any> = ({ BannerData }) => {
   return (
     <div className="hidden lg:grid grid-rows-9 grid-cols-5 grid-flow-col gap-3 my-3">
-      <div className="row-span-9 bg-white h-[670px] flex items-center">
+      <Link
+        to={"category/1"}
+        className="group row-span-9 bg-white h-[670px] flex flex-col justify-between cursor-pointer hover:bg-[#fff] duration-200"
+      >
+        <h2 className="text-fs_7 tracking-wider font-semibold opacity-0 group-hover:opacity-100 duration-200">
+          Бутылки для воды
+        </h2>
         <div className="h-[400px] w-full flex items-center justify-center">
           <Slider SliderItems={BannerData && BannerData[4]} sliderTime={3000} />
         </div>
-      </div>
+        <div className="flex justify-end opacity-0 group-hover:opacity-100 duration-200">
+          <button className="bg-redPrimary p-1 rounded-lg">
+            <img src={arrowRight} alt="arrow icon" className="" />
+          </button>
+        </div>
+      </Link>
       <div className=" col-span-4 row-span-5">
         <div className="grid grid-cols-12 h-full gap-3">
-          <div className="col-span-5 bg-white flex items-center justify-center ">
+          <Link
+            to={"category/1"}
+            className="group  col-span-5 bg-white flex flex-col justify-between cursor-pointer hover:bg-[#fff] duration-200 "
+          >
+            <h2 className="text-fs_7 tracking-wider font-semibold opacity-0 group-hover:opacity-100 duration-200">
+              Бутылки для воды
+            </h2>
             <div className="w-[200px] flex items-center justify-center">
               <Slider
                 SliderItems={BannerData && BannerData[5]}
                 sliderTime={4000}
               />
             </div>
-          </div>
-          <div className="col-span-2 bg-white flex items-center justify-center">
+            <div className="flex justify-end opacity-0 group-hover:opacity-100 duration-200">
+              <button className="bg-redPrimary p-1 rounded-lg">
+                <img src={arrowRight} alt="arrow icon" className="" />
+              </button>
+            </div>
+          </Link>
+          <Link
+            to={"category/1"}
+            className="group  col-span-2 bg-white flex flex-col justify-between cursor-pointer hover:bg-[#fff] duration-200"
+          >
+            <h2 className="text-fs_7 tracking-wider font-semibold opacity-0 group-hover:opacity-100 duration-200">
+              Бутылки для воды
+            </h2>
             <div className="w-full flex items-center justify-center">
               <Slider
                 SliderItems={BannerData && BannerData[6]}
                 sliderTime={4000}
               />
             </div>
-          </div>
-          <div className="col-span-3 bg-white flex items-center justify-center">
+            <div className="flex justify-end opacity-0 group-hover:opacity-100 duration-200">
+              <button className="bg-redPrimary p-1 rounded-lg">
+                <img src={arrowRight} alt="arrow icon" className="" />
+              </button>
+            </div>
+          </Link>
+          <Link
+            to={"category/1"}
+            className="group  col-span-3 bg-white flex flex-col justify-between cursor-pointer hover:bg-[#fff] duration-200"
+          >
+            <h2 className="text-fs_7 tracking-wider font-semibold opacity-0 group-hover:opacity-100 duration-200">
+              Бутылки для воды
+            </h2>
             <div className="w-full flex items-center justify-center">
               <Slider
                 SliderItems={BannerData && BannerData[7]}
                 sliderTime={4000}
               />
             </div>
-          </div>
+            <div className="flex justify-end opacity-0 group-hover:opacity-100 duration-200">
+              <button className="bg-redPrimary p-1 rounded-lg">
+                <img src={arrowRight} alt="arrow icon" className="" />
+              </button>
+            </div>
+          </Link>
           <div className="col-span-2">
             <div className="grid grid-rows-2 h-full gap-3 w-full">
-              <div className="bg-white w-full flex items-center justify-center">
+              <Link
+                to={"category/1"}
+                className="group  bg-white w-full flex flex-col justify-between cursor-pointer hover:bg-[#fff] duration-200"
+              >
+                <h2 className="text-fs_7 tracking-wider font-semibold opacity-0 group-hover:opacity-100 duration-200">
+                  Бутылки для воды
+                </h2>
                 <div className="w-[150px] flex items-center justify-center">
                   <Slider
                     SliderItems={BannerData && BannerData[8]}
                     sliderTime={3000}
                   />
                 </div>
-              </div>
-              <div className="bg-white flex items-center justify-center">
+                <div className="flex justify-end opacity-0 group-hover:opacity-100 duration-200">
+                  <button className="bg-redPrimary p-1 rounded-lg">
+                    <img src={arrowRight} alt="arrow icon" className="w-6" />
+                  </button>
+                </div>
+              </Link>
+              <Link
+                to={"category/1"}
+                className="group bg-white flex flex-col justify-between cursor-pointer hover:bg-[#fff] duration-200 "
+              >
+                <h2 className="text-fs_7 tracking-wider font-semibold opacity-0 group-hover:opacity-100 duration-200">
+                  Бутылки для воды
+                </h2>
                 <div className="w-[150px] flex items-center justify-center">
                   <Slider
                     SliderItems={BannerData && BannerData[8]}
                     sliderTime={3000}
                   />
                 </div>
-              </div>
+                <div className="flex justify-end opacity-0 group-hover:opacity-100 duration-200">
+                  <button className="bg-redPrimary p-1 rounded-lg">
+                    <img src={arrowRight} alt="arrow icon" className="w-6 " />
+                  </button>
+                </div>
+              </Link>
             </div>
           </div>
         </div>
