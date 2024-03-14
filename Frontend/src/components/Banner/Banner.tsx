@@ -14,7 +14,11 @@ const Banner = () => {
         <div className="w-2/5 hidden lg:block">
           <BannerTop BannerData={response} />
         </div>
-        <div className="w-full lg:w-3/5 ">
+        <div
+          className="w-full lg:w-3/5 "
+          data-aos="fade-left"
+          data-aos-delay="100"
+        >
           <BannerSlider />
         </div>
       </div>

@@ -1,5 +1,11 @@
-import React from "react";
-import { GiftBanner, ProjectsSlider, QuestForm, TagBanner } from "../../components";
+import React, { useEffect } from "react";
+
+import {
+  GiftBanner,
+  ProjectsSlider,
+  QuestForm,
+  TagBanner,
+} from "../../components";
 
 function Gift() {
   return (
@@ -7,7 +13,9 @@ function Gift() {
       <div>
         <div>
           <div>
-            <GiftBanner />
+            <div data-aos="fade">
+              <GiftBanner />
+            </div>
             <div>
               <div className="container_xxl flex justify-between">
                 <h1 className="text-darkSecondary uppercase text-[28px] font-black px-3 my-1">
@@ -18,8 +26,8 @@ function Gift() {
                 </button>
               </div>
               <ProjectsSlider />
-              <TagBanner/>
-              <QuestForm/>
+              <TagBanner /> {/* Пример использования анимации */}
+              <QuestForm />
             </div>
           </div>
         </div>

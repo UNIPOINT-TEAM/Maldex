@@ -13,6 +13,7 @@ export { default as BannerBottom } from "./Banner/BannerBottom";
 export { default as BannerBottomMobile } from "./Banner/BannerBottomMobile";
 export { default as ProjectsSlider } from "./ProjectsSlider/ProjectsSlider";
 export { default as GiftBanner } from "./GiftBanner/GiftBanner";
+export { default as GiftBannerSlider } from "./GiftBanner/GiftBannerSlider";
 export { default as LeftAccordion } from "./GiftBanner/LeftAccordion";
 export { default as GiftBannerBottom } from "./GiftBanner/GiftBannerBottom";
 export { default as SliderProduct } from "./SliderProduct/SliderProduct";

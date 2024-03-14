@@ -2,8 +2,8 @@ import img_tag from "../../assets/images/tagbanner.png";
 
 function TagBanner() {
   return (
-    <div>
-      <div className="bg-greenPrimary py-5">
+    <div className="container_xxl">
+      <div className="bg-greenPrimary py-5 mx-3">
         <div className="flex flex-col lg:flex-row justify-center items-center gap-0 lg:gap-[57px]">
           <div className="px-[81px] lg:px-0">
             <img src={img_tag} alt="" />

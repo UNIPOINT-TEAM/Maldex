@@ -1,4 +1,4 @@
-import { BannerSlider, BannerTop, GiftBannerBottom, LeftAccordion } from "..";
+import { BannerSlider, BannerTop, GiftBannerBottom, GiftBannerSlider, LeftAccordion } from "..";
 
 const GiftBanner = () => {
   return (
@@ -9,7 +9,7 @@ const GiftBanner = () => {
         </div>
         <div className="flex flex-col gap-2.5 lg:w-4/5 ">
           <div className=" lg:h-[430px]">
-            <BannerSlider />
+            <GiftBannerSlider />
           </div>
           <GiftBannerBottom />
         </div>

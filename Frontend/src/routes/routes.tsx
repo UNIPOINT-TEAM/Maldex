@@ -16,6 +16,7 @@ import {
   Tags,
 } from "../pages";
 import CardSet from "../pages/CardSet/CardSet";
+import Company2 from "../pages/Company2/Company2";
 
 export const router = createBrowserRouter([
   {
@@ -45,6 +46,10 @@ export const router = createBrowserRouter([
       {
         path: "/company",
         element: <Company />,
+      },
+      {
+        path: "/company2",
+        element: <Company2 />,
       },
       {
         path: "/tags",

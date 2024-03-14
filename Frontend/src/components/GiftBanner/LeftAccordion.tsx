@@ -44,45 +44,77 @@ const LeftAccordion = () => {
     },
     {
       title: "Наборы",
-      products: [{ name: "Товар 4" }, { name: "Товар 5" }, { name: "Товар 6" }],
+      products: [
+        { name: "Личные" },
+        { name: "Мужские аксессуары" },
+        { name: "Одежда" },
+        { name: "Для офиса" },
+        { name: "Пишушие инструменты" },
+        { name: "Сумки" },
+        { name: "Вкусные подарки" },
+        { name: "Товары для детей" },
+        { name: "Электроника" },
+      ],
     },
   ];
 
   return (
     <div className="">
-      <div className="w-[246px]">
-        <h1 className="text-[28px] font-black tracking-wide">
+      <div className="pl-2 w-[246px]">
+        <h1 className="text-[28px] font-medium font-black leading-7 tracking-wide mb-8">
           Подарочные наборы
         </h1>
       </div>
       {data.map((category, index) => (
         <Accordion
           key={index}
-          className="my-4"
+          className="pr-2"
           open={openAccordionIndex === index}
           icon={
-            <img
-              className={`${
-                openAccordionIndex === index ? "rotate-180" : ""
-              } transition-transform`}
-              src={accordionIcon}
+            <svg
+            className={` ${
+              openAccordionIndex === index ? "rotate-180 " : ""
+            } transition-transform`}              src={accordionIcon}
               alt="Accordion Icon"
-            />
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="12"
+              viewBox="0 0 18 12"
+              fill="none"
+            >
+              <path
+                d="M2 1L9 9L16 1"
+                stroke={openAccordionIndex === index ? "white" : "black"}
+                strokeWidth="3"
+              />
+            </svg>
           }
           placeholder={<div />}
         >
           <AccordionHeader
-            className="border-0  cursor-pointer"
+            className={`border-0 px-2 py-2 cursor-pointer ${
+              openAccordionIndex === index ? "bg-redPrimary  rounded-xl" : ""
+            }`}
             onClick={() => handleAccordionClick(index)}
             placeholder={<div />}
           >
-            <h3 className="font-helvetica -tracking-tighter text-fs_4 text-darkSecondary">
+            <h3 className={`font-helvetica -tracking-tighter text-fs_4 font-bold text-darkPrimary ${
+              openAccordionIndex === index ? "text-white" : ""
+            }`}>
               {category.title}
             </h3>
           </AccordionHeader>
-          <AccordionBody className="" placeholder={<div />}>
+          <AccordionBody
+            className={`${openAccordionIndex === index ? "" : ""}`}
+            placeholder={<div />}
+          >
             {category.products.map((product, productIndex) => (
-              <div key={productIndex}>{product.name}</div>
+              <div
+                className="my-2 pl-3 text-[16px] font-medium cursor-pointer hover:text-redPrimary"
+                key={productIndex}
+              >
+                {product.name}
+              </div>
             ))}
           </AccordionBody>
         </Accordion>
