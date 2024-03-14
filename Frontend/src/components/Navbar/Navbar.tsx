@@ -5,6 +5,7 @@ import search from "../../assets/images/search.svg";
 import filtr from "../../assets/icons/filtr.png";
 import menu from "../../assets/icons/menu.png";
 import Topbar from "./Topbar";
+import { MoreFilter } from "..";
 
 const Navbar = () => {
     const [modal, setModal] = useState(false);
@@ -16,6 +17,7 @@ const Navbar = () => {
     const navigation = useNavigate();
     const handleCategoryClick = (id: number) => setActiveItem(id);
     const handleCategoryItemClick = (id: number) => setActiveCategoryItem(id);
+    const [filter, setFilter] = useState(false);
 
     const modalToggle = () => {
         setModal(!modal);
@@ -23,6 +25,10 @@ const Navbar = () => {
             setActiveItem(null);
             setActiveCategoryItem(null);
         }
+    };
+
+    const handleFilter = () => {
+        setFilter(!filter);
     };
 
     const changeMobileModal = () => {
@@ -54,13 +60,7 @@ const Navbar = () => {
                                     Каталог
                                 </span>
                             </button>
-                            <button className="px-2 w-8 border border-gray-300 rounded-lg hidden lg:block">
-                                <img
-                                    src={filtr}
-                                    alt="filtr-icon"
-                                    className="mx-auto"
-                                />
-                            </button>
+                            <MoreFilter />
                         </div>
                         <div className="flex items-center w-full rounded-xl bg-redPrimary h-[36px]">
                             <input
@@ -76,7 +76,10 @@ const Navbar = () => {
                             </span>
                         </div>
                         <div className="items-center justify-between text-fs_3 gap-5 hidden md:flex font-medium">
-                            <Link to={'category/1'} className="text-redPrimary ">
+                            <Link
+                                to={"category/1"}
+                                className="text-redPrimary "
+                            >
                                 <span className="underline mr-2">new</span>
                                 <sup className="font-bold text-fs_7">243</sup>
                             </Link>
@@ -205,7 +208,10 @@ const Navbar = () => {
                                             </button>
                                         </div>
                                     </div>
-                                    <div onClick={productDetail} className="w-full h-[30%] bbg-slate-100 hover:bg-[#fff] flex justify-center items-center relative productCatalog cursor-pointer">
+                                    <div
+                                        onClick={productDetail}
+                                        className="w-full h-[30%] bbg-slate-100 hover:bg-[#fff] flex justify-center items-center relative productCatalog cursor-pointer"
+                                    >
                                         <p className="absolute top-5 left-5 text-lg nameProductCatalog text-slate-100">
                                             {Product[1].name}
                                         </p>
