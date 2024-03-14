@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Categories, Product, SubCategories } from "../../mock/data";
 import search from "../../assets/images/search.svg";
 import filtr from "../../assets/icons/filtr.png";
@@ -13,6 +13,7 @@ const Navbar = () => {
     const [activeCategoryItem, setActiveCategoryItem] = useState<number | null>(
         null
     );
+    const navigation = useNavigate();
     const handleCategoryClick = (id: number) => setActiveItem(id);
     const handleCategoryItemClick = (id: number) => setActiveCategoryItem(id);
 
@@ -26,6 +27,11 @@ const Navbar = () => {
 
     const changeMobileModal = () => {
         setActiveMobileItem(!activeMobileItem);
+    };
+
+    const productDetail = () => {
+        setModal(false);
+        navigation("category/1");
     };
 
     return (
@@ -70,10 +76,10 @@ const Navbar = () => {
                             </span>
                         </div>
                         <div className="items-center justify-between text-fs_3 gap-5 hidden md:flex font-medium">
-                            <div className="text-redPrimary ">
+                            <Link to={'category/1'} className="text-redPrimary ">
                                 <span className="underline mr-2">new</span>
                                 <sup className="font-bold text-fs_7">243</sup>
-                            </div>
+                            </Link>
                             <div className="text-greenPrimary">
                                 <span className="underline mr-2">hits</span>
                                 <sup className="font-bold text-fs_7">243</sup>
@@ -141,7 +147,10 @@ const Navbar = () => {
                         {activeCategoryItem !== null ? (
                             <div className="w-[40%] bg-gray-200 h-[115vh] px-3 py-1 flex">
                                 <div className="h-full w-1/2 flex flex-col">
-                                    <div className="w-full h-[60%] bg-slate-100 hover:bg-[#fff] flex justify-center items-center relative productCatalog cursor-pointer">
+                                    <div
+                                        onClick={productDetail}
+                                        className="w-full h-[60%] bg-slate-100 hover:bg-[#fff] flex justify-center items-center relative productCatalog cursor-pointer"
+                                    >
                                         <p className="absolute top-5 left-5 text-lg nameProductCatalog text-slate-100">
                                             {Product[0].name}
                                         </p>
@@ -154,7 +163,10 @@ const Navbar = () => {
                                             </button>
                                         </div>
                                     </div>
-                                    <div className="w-full h-[30%] bg-slate-100 hover:bg-[#fff] flex justify-center items-center relative productCatalog cursor-pointer">
+                                    <div
+                                        onClick={productDetail}
+                                        className="w-full h-[30%] bg-slate-100 hover:bg-[#fff] flex justify-center items-center relative productCatalog cursor-pointer"
+                                    >
                                         <p className="absolute top-5 left-5 text-lg nameProductCatalog text-slate-100">
                                             {Product[3].name}
                                         </p>
@@ -173,7 +185,10 @@ const Navbar = () => {
                                     </div>
                                 </div>
                                 <div className="h-full w-1/2 flex flex-col">
-                                    <div className="w-full h-[30%]  hover:bg-[#fff] flex justify-center items-center relative productCatalog cursor-pointer">
+                                    <div
+                                        onClick={productDetail}
+                                        className="w-full h-[30%]  hover:bg-[#fff] flex justify-center items-center relative productCatalog cursor-pointer"
+                                    >
                                         <p className="absolute top-5 left-5 text-lg nameProductCatalog text-slate-100">
                                             {Product[2].name}
                                         </p>
@@ -190,7 +205,7 @@ const Navbar = () => {
                                             </button>
                                         </div>
                                     </div>
-                                    <div className="w-full h-[30%] bbg-slate-100 hover:bg-[#fff] flex justify-center items-center relative productCatalog cursor-pointer">
+                                    <div onClick={productDetail} className="w-full h-[30%] bbg-slate-100 hover:bg-[#fff] flex justify-center items-center relative productCatalog cursor-pointer">
                                         <p className="absolute top-5 left-5 text-lg nameProductCatalog text-slate-100">
                                             {Product[1].name}
                                         </p>
