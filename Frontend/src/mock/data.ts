@@ -565,3 +565,11 @@ export const CategoryItems = [
     ],
   },
 ];
+
+export const ProductColor = [
+  { id: 1, color: "#2b395c" },
+  { id: 2, color: "#F0503B" },
+  { id: 3, color: "#F0503B" },
+  { id: 4, color: "#43AD58" },
+  { id: 5, color: "#ECE04C" },
+];

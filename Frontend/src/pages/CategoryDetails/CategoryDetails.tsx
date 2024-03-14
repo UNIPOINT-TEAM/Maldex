@@ -1,51 +1,57 @@
 import { useEffect, useState } from "react";
-import { Banner, SliderProduct } from "../../components";
+import { Banner, SliderProduct, TabList } from "../../components";
 import Tshirt from "../../assets/t-shirt.svg";
 import nasilnenie_l from "../../assets/shirt-l.png";
 import nasilnenie_r from "../../assets/shirt-r.png";
+import tabImages from "../../assets/images/tab-image.png";
 import {
+  Slider,
   Tab,
   TabPanel,
   Tabs,
   TabsBody,
   TabsHeader,
+  Tooltip,
+  Typography,
 } from "@material-tailwind/react";
+import { IoMdHeart, IoMdHeartEmpty } from "react-icons/io";
+import ProductSize from "../../components/CategoryDetails/ProductSize";
+import {
+  TabDescription,
+  TabFour,
+  TabSizeTable,
+} from "../../components/CategoryDetails";
+import { ProductColor } from "../../mock/data";
 
-export const SizeButton: React.FC<{ size: string }> = ({ size }) => {
-  return (
-    <button className=" w-[30px] lg:w-[35px] h-[30px] lg:h-[35px] py-1 text-xs font-bold text-gray-800 border border-[#d3d3d3] rounded-[50%]  focus:outline-none ">
-      {size}
-    </button>
-  );
-};
-
-const data = [
+const CategoryTabs = [
   {
     label: "Описание",
-    value: "html",
-    desc: `It really matters and then like it really doesn't matter.
-    What matters is the people who are sparked by it. And the people 
-    who are like offended by it, it doesn't matter.`,
+    value: "Описание",
+    content: <TabDescription />,
   },
   {
     label: "Характеристики",
-    value: "react",
-    desc: `Because it's about motivating the doers. Because I'm here
-    to follow my dreams and inspire other people to follow their dreams, too.`,
+    value: "Характеристики",
+    content: <TabList />,
   },
   {
     label: "таблица размеров",
-    value: "vue",
-    desc: `We're not always in the position that we want to be at.
-    We're constantly growing. We're constantly making mistakes. We're
-    constantly trying to express ourselves and actualize our dreams.`,
+    value: "таблица размеров",
+    content: <TabSizeTable />,
   },
   {
     label: "виды нанесения",
-    value: "angular",
-    desc: `Because it's about motivating the doers. Because I'm here
-    to follow my dreams and inspire other people to follow their dreams, too.`,
+    value: "виды нанесения",
+    content: <TabFour />,
   },
+];
+
+const btnSize = [
+  { id: 1, size: "XS" },
+  { id: 2, size: "S" },
+  { id: 3, size: "M" },
+  { id: 4, size: "L" },
+  { id: 5, size: "XL" },
 ];
 const Buttons = [
   { id: 1, name: "Фото", icon: false },
@@ -54,6 +60,9 @@ const Buttons = [
 ];
 const CategoryDetails = () => {
   const [isActive, setIsActive] = useState<number>(1);
+  const [isFavorite, setIsFavorite] = useState<boolean>(false);
+  const [productColor, setproductColor] = useState<number>(1);
+  const [btnActiveSize, setbtnActiveSize] = useState<number>(1);
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, []);
@@ -61,7 +70,8 @@ const CategoryDetails = () => {
     <div className="container_xxl tracking-wider ">
       <div className="grid grid-cols-3 lg:grid-cols-10 my-5">
         <div className="h-full py-5 col-span-3 ">
-          <Tabs value="html">
+          <img src={tabImages} alt="icon" className="w-[70px] py-5" />
+          <Tabs value="Описание">
             <TabsHeader
               placeholder={<div />}
               className="bg-transparent"
@@ -70,7 +80,7 @@ const CategoryDetails = () => {
                   "bg-transparent border-b-2 border-redPrimary shadow-none rounded-none",
               }}
             >
-              {data.map(({ label, value }) => (
+              {CategoryTabs.map(({ label, value }) => (
                 <Tab
                   placeholder={<div />}
                   key={value}
@@ -82,16 +92,18 @@ const CategoryDetails = () => {
                 </Tab>
               ))}
             </TabsHeader>
-            <TabsBody placeholder={<div />} className="p-0 m-0">
-              {data.map(({ value }) => (
-                <TabPanel key={value} value={value} className="p-0 m-0">
-                  <p className="text-[#000] font-helvetica font-bold">
-                    Недорогая миниатюрная беспроводная колонка Chubby порадует
-                    владельца аккуратным исполнением и высоким качеством
-                    материалов. Колонка обтянута акустической тканью популярной
-                    фактуры, имеет приятное софт-тач покрытие и демонстрирует
-                    хороший, особенно для столь компактного корпуса, звук.
-                  </p>
+            <TabsBody
+              animate={{
+                initial: { y: 250 },
+                mount: { y: 0 },
+                unmount: { y: 250 },
+              }}
+              placeholder={<div />}
+              className="p-0 m-0"
+            >
+              {CategoryTabs.map((item) => (
+                <TabPanel value={item.value} className="p-0 m-0 py-2">
+                  {item.content}
                 </TabPanel>
               ))}
             </TabsBody>
@@ -126,36 +138,17 @@ const CategoryDetails = () => {
           </div>
           <div className="absolute rounded-s-xl right-2 lg:right-5 lg:translate-y-[50%] top-[30%]  lg:top-[15%] bg-[#fff] px-3 py-5">
             <div className="flex flex-col gap-2">
-              <input
-                type="radio"
-                name="color"
-                className={`w-4 lg:w-5 h-4 lg:h-5 rounded-full appearance-none bg-[#2b395c] `}
-              />
-              <input
-                type="radio"
-                name="color"
-                className={`w-4 lg:w-5 h-4 lg:h-5 rounded-full appearance-none bg-[#F0503B] `}
-              />
-              <input
-                type="radio"
-                name="color"
-                className={`w-4 lg:w-5 h-4 lg:h-5 rounded-full appearance-none bg-[#D9D9D9] `}
-              />
-              <input
-                type="radio"
-                name="color"
-                className={`w-4 lg:w-5 h-4 lg:h-5 rounded-full appearance-none bg-[#43AD58] `}
-              />
-              <input
-                type="radio"
-                name="color"
-                className={`w-4 lg:w-5 h-4 lg:h-5 rounded-full appearance-none bg-[#ECE04C] `}
-              />
-              <input
-                type="radio"
-                name="color"
-                className={`w-4 lg:w-5 h-4 lg:h-5 rounded-full appearance-none bg-[#2B395C] `}
-              />
+              {ProductColor.map((item) => (
+                <input
+                  onClick={() => setproductColor(item.id)}
+                  type="radio"
+                  name="input"
+                  style={{ accentColor: item.color, background: item.color }}
+                  className={`w-4 lg:w-5 h-4 lg:h-5 bg-[${item.color}] ${
+                    productColor !== item.id && "appearance-none"
+                  } rounded-full  cursor-pointer`}
+                />
+              ))}
             </div>
           </div>
           <div
@@ -188,70 +181,117 @@ const CategoryDetails = () => {
         </div>
         <div className="py-3 px-3 lg:px-5 col-span-3">
           <div>
-            <div>
-              <span className="border text-redPrimary border-redPrimary py-[2px] px-1 me-1 rounded-[15px] text-[12px] font-bold ">
-                NEW
-              </span>
-              <span className="border  border-darkPrimary py-[2px] px-[6px]  rounded-[15px] text-[12px] font-bold">
-                HIT
-              </span>
+            <div className="flex justify-between">
+              <div>
+                <span className="border tracking-normal  text-redPrimary border-redPrimary py-[2px] px-1 me-1 rounded-[15px] text-[12px] font-bold ">
+                  NEW
+                </span>
+                <span className="border tracking-normal border-darkPrimary py-[2px] px-[6px]  rounded-[15px] text-[12px] font-bold">
+                  HIT
+                </span>
+              </div>
+              {isFavorite ? (
+                <IoMdHeart
+                  color="red"
+                  size={20}
+                  onClick={() => setIsFavorite((prev) => !prev)}
+                />
+              ) : (
+                <IoMdHeartEmpty
+                  size={20}
+                  onClick={() => setIsFavorite((prev) => !prev)}
+                />
+              )}
             </div>
             <div className="container mx-auto lg:px-4 py-4">
-              <h2 className="text-base font-extrabold text-gray-800 tracking-wider">
+              <h2 className="text-base font-semibold  tracking-wider">
                 Футболка женская T-bolka Lady, оранжевая
               </h2>
               <div className=" mt-4">
-                <p className="text-darkSecondary text-fs_8 font-extrabold tracking-widest">
+                <p className="text-darkSecondary text-fs_8 tracking-wide font-semibold">
                   РАЗМЕР:
                 </p>
                 <div className="flex space-x-2">
-                  <SizeButton size="XS" />
-                  <SizeButton size="S" />
-                  <SizeButton size="M" />
-                  <SizeButton size="L" />
-                  <SizeButton size="XL" />
-                  <SizeButton size="2XL" />
+                  {btnSize.map((item, i) => (
+                    <ProductSize
+                      {...item}
+                      onActiveSize={setbtnActiveSize}
+                      btnActiveSize={btnActiveSize}
+                      key={i}
+                    />
+                  ))}
                 </div>
               </div>
             </div>
-            <div className="font-bold">
+            <div className="">
               <div className="flex justify-between items-center mb-5">
-                <button className="text-greenPrimary">
+                <button className="text-greenPrimary font-bold">
                   + Добавить нанесение
                 </button>
-                <button>
-                  <i className="fa-solid fa-circle-info text-gray-400"></i>
-                </button>
+                <Tooltip
+                  placement="bottom"
+                  className="border w-[400px] px-10 -translate-x-14 border-blue-gray-50 bg-white  py-3 shadow-xl shadow-black/10"
+                  content={
+                    <div className="w-full">
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-bold font-helvetica-neue text-center"
+                      >
+                        Точную сумму нанесения вам сообщит менеджер после
+                        оформления заказа
+                      </Typography>
+                    </div>
+                  }
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    className="h-5 w-5 cursor-pointer text-blue-gray-500"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"
+                    />
+                  </svg>
+                </Tooltip>
               </div>
               <div className="bg-gray-200 rounded-xs py-2 px-3 mb-5">
                 <div className="border-b border-gray-500">
-                  <div className="flex justify-between items-center  py-1">
-                    <p>Количество:</p>
-                    <b className="border border-black rounded px-2 tracking-wider">
-                      256
-                    </b>
-                  </div>
-                  <div className="w-full px-2">
+                  <div className="flex justify-between items-center py-1">
+                    <p className="font-normal">Количество:</p>
                     <input
-                      type="range"
-                      className="w-full appearance-none bg-[#CBCAC6] h-1"
+                      value={1000}
+                      className="border w-[50px] bg-transparent text-fs_7 border-black rounded-md outline-none px-2 tracking-wider font-normal"
                     />
-                    <div className="flex justify-between text-[10px]">
+                  </div>
+                  <div className="w-full px-2 py-2">
+                    <Slider
+                      defaultValue={50}
+                      color="red"
+                      size="sm"
+                      placeholder={<input />}
+                    />
+                    <div className="flex justify-between text-[10px] font-normal py-2">
                       <p>
                         3% <br />
                         30 шт.
                       </p>
-                      <p>
+                      <p className="text-center">
                         5% <br />
                         100 шт.
                       </p>
-                      <p>
+                      <p className="text-end">
                         7% <br />
                         300 шт.
                       </p>
                     </div>
                   </div>
-                  <div className="flex justify-between items-center py-1">
+                  <div className="flex justify-between items-center py-1 font-normal">
                     <p>Стоимость тиража:</p>
                     <p>80 619,00 ₽ </p>
                   </div>
@@ -260,19 +300,19 @@ const CategoryDetails = () => {
                     <p>5% </p>
                   </div>
                 </div>
-                <div className="flex justify-between items-center px-3 py-1 font-extrabold">
-                  <b className="text-lg">Итоговая стоимость:</b>
-                  <b className="text-lg">14 619,00 ₽ </b>
+                <div className="flex justify-between items-center px-3 py-1 text-base">
+                  <b className="">Итоговая стоимость:</b>
+                  <b className="">14 619,00 ₽ </b>
                 </div>
               </div>
-              <button className="w-full py-4 bg-redPrimary text-white text-xs tracking-widest  font-extrabold rounded-lg">
+              <button className="w-full py-4 bg-redPrimary text-white text-xs tracking-wide rounded-lg">
                 В КОРЗИНУ
               </button>
-              <div className="mt-3 flex justify-between ">
-                <span className="text-[9px] lg:text-[10px] border border-[#666666] text-[#666666] px-2 lg:px-5 py-[6px] rounded-lg uppercase">
+              <div className="mt-3 flex justify-between text-darkSecondary">
+                <span className="text-[9px] lg:text-[10px] border border-darkSecondary px-2 lg:px-4 py-[6px] rounded-lg uppercase">
                   <b>бесплатный образец</b>
                 </span>
-                <span className="text-[9px] lg:text-[10px] border border-[#666666] text-[#666666] px-5 py-[6px] rounded-lg uppercase">
+                <span className="text-[9px] lg:text-[10px] border border-darkSecondary px-4 py-[6px] rounded-lg uppercase">
                   <b>бесплатный дизайн макет</b>
                 </span>
               </div>

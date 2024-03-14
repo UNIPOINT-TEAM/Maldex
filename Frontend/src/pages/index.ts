@@ -10,4 +10,5 @@ export { default as Delivery } from "./Delivery/Delivery";
 export { default as BuildSet } from "./BuildSet/BuildSet";
 export { default as Catalog } from "./Catalog/Catalog";
 export { default as CArdSet } from "./CardSet/CardSet";
-
+export { default as Sidebar } from "./Applying/Sidebar";
+export { default as Applying } from "./Applying/Applying";

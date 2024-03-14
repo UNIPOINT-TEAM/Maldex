@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Layout } from "../layout";
 import {
+  Applying,
   BuildSet,
   Card,
   Catalog,
@@ -11,6 +12,7 @@ import {
   Home,
   NotFound,
   Portfolio,
+  Sidebar,
   Tags,
 } from "../pages";
 import CardSet from "../pages/CardSet/CardSet";
@@ -67,6 +69,11 @@ export const router = createBrowserRouter([
       {
         path: "/cardset",
         element: <CardSet />,
+      },
+      {
+        path: "/applying-type",
+        element: <Sidebar />,
+        children: [{ path: "apply", element: <Applying /> }],
       },
     ],
   },

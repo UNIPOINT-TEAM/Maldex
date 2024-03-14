@@ -31,3 +31,4 @@ export { default as GiftItem } from "./GiftItem/GiftItem";
 export { default as Badge } from "./Badge/Badge";
 export { default as CompanyBottomBanner } from "./CompanyBottomBanner/CompanyBottomBanner";
 export { default as MoreFilter } from "./MoreFilter/MoreFilter";
+export { default as TabList } from "./CategoryDetails/TabContents/TabList";
