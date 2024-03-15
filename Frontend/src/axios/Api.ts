@@ -1,4 +1,4 @@
-export const URL = "http://192.168.0.163:8000/";
+export const URL = "http://5.35.82.80:8000";
 import axios from "axios";
 
 const api = axios.create({

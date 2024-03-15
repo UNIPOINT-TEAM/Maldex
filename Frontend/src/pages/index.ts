@@ -12,3 +12,4 @@ export { default as Catalog } from "./Catalog/Catalog";
 export { default as CArdSet } from "./CardSet/CardSet";
 export { default as Sidebar } from "./Applying/Sidebar";
 export { default as Applying } from "./Applying/Applying";
+export { default as AdminPanel } from "./AdminPanel/AdminPanel";

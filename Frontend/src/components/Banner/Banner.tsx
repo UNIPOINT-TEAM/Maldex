@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { BannerBottom, BannerBottomMobile, BannerSlider, BannerTop } from "..";
 import { useFetchHook } from "../../hooks/UseFetch";
+import { BannerBottom, BannerBottomMobile, BannerSlider, BannerTop } from "..";
 
 const Banner = () => {
   const { fetchData, response } = useFetchHook();

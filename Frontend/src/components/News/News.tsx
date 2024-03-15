@@ -8,7 +8,7 @@ import arrowRight from "../../assets/icons/arrow-right.png";
 function News() {
   return (
     <div className="articles container_xxl py-5 px-3">
-      <h3 className="section-title">статьи</h3>
+      <h3 className="section-title ">статьи</h3>
       <div className="flex flex-col gap-3">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 ">
           <div

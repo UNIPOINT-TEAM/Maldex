@@ -14,10 +14,10 @@ function QuestForm() {
         <div className="mx-3 my-6 lg:my-[110px] flex flex-col lg:flex-row justify-between">
           <div>
             <h1
-              className="text-[16px] lg:text-fs_2 underline w-[259px] uppercase text-darkSecondary cursor-pointer font-[800]"
+              className="text-[16px] lg:text-fs_2 underline  uppercase text-darkSecondary cursor-pointer font-[500]"
               onClick={handleClick}
             >
-              {isFormVisible ? "Ваш Вопрос" : "Хочу задать вопрос"}
+              {isFormVisible ? <span>Ваш <br /> вопрос</span> : <span>Хочу задать <br /> вопрос</span> }
             </h1>
           </div>
           <div>

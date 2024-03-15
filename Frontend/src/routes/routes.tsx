@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Layout } from "../layout";
 import {
+  AdminPanel,
   Applying,
   BuildSet,
   Card,
@@ -27,6 +28,7 @@ export const router = createBrowserRouter([
         path: "/",
         element: <Home />,
       },
+
       {
         path: "/gift",
         element: <Gift />,
@@ -74,6 +76,12 @@ export const router = createBrowserRouter([
       {
         path: "/cardset",
         element: <CardSet />,
+      },
+
+
+      {
+        path: "/admin",
+        element: <AdminPanel />,
       },
       {
         path: "/applying-type",

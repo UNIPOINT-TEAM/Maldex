@@ -29,7 +29,7 @@ const Home = () => {
         <MainCategory />
       </div>
       <div className="container_xxl">
-        <p className="text-4xl text-greenPrimary">Hits</p>
+        <p className="text-4xl text-greenPrimary">hits!</p>
         <div className="my-5">
           <ProductNav />
         </div>
@@ -49,7 +49,25 @@ const Home = () => {
         <Accordion />
       </div>
       <News />
-      <ProjectsSlider />
+      <div>
+        <div className="container_xxl flex justify-between">
+          <h1 className="text-darkSecondary uppercase text-[28px] leading-[64px] font-medium px-3 my-1">
+            Проекты
+          </h1>
+          <button className="mx-3 uppercase font-medium tracking-wider p-[6px] border border-redPrimary rounded-md text-redPrimary block ss:hidden">
+            Все проекты
+          </button>
+        </div>
+        <ProjectsSlider />
+      </div>
+
+      <div className="container_xxl">
+        <p className="text-4xl text-redPrimary">new!</p>
+        <div className="my-5">
+          <ProductNav />
+        </div>
+        <SliderProduct />
+      </div>
       <QuestForm />
     </div>
   );
