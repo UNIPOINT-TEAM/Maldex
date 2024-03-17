@@ -18,6 +18,7 @@ import {
 } from "../pages";
 import CardSet from "../pages/CardSet/CardSet";
 import Company2 from "../pages/Company2/Company2";
+import { PadPrinting } from "../pages/Applying";
 
 export const router = createBrowserRouter([
   {
@@ -78,7 +79,6 @@ export const router = createBrowserRouter([
         element: <CardSet />,
       },
 
-
       {
         path: "/admin",
         element: <AdminPanel />,
@@ -86,7 +86,10 @@ export const router = createBrowserRouter([
       {
         path: "/applying-type",
         element: <Sidebar />,
-        children: [{ path: "apply", element: <Applying /> }],
+        children: [
+          { path: "apply", element: <Applying /> },
+          { path: "pad-printing", element: <PadPrinting /> },
+        ],
       },
     ],
   },

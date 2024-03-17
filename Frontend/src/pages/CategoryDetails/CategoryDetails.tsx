@@ -17,11 +17,13 @@ import {
 import { IoMdHeart, IoMdHeartEmpty } from "react-icons/io";
 import ProductSize from "../../components/CategoryDetails/ProductSize";
 import {
+  FreeSample,
   TabDescription,
   TabFour,
   TabSizeTable,
 } from "../../components/CategoryDetails";
 import { ProductColor } from "../../mock/data";
+import ProductPerviewModal from "../../components/CategoryDetails/ProductPerviewModal";
 
 const CategoryTabs = [
   {
@@ -61,7 +63,7 @@ const Buttons = [
 const CategoryDetails = () => {
   const [isActive, setIsActive] = useState<number>(1);
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
-  const [productColor, setproductColor] = useState<number>(1);
+  const [productColor, setproductColor] = useState<number>(0);
   const [btnActiveSize, setbtnActiveSize] = useState<number>(1);
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
@@ -156,7 +158,7 @@ const CategoryDetails = () => {
               isActive !== 1 && "hidden"
             }`}
           >
-            <img src={Tshirt} alt="" className="w-[200px] lg:w-[260px]" />
+            <ProductPerviewModal />
           </div>
           <div
             className={`${
@@ -235,6 +237,7 @@ const CategoryDetails = () => {
                     <div className="w-full">
                       {/* @ts-ignore */}
                       <Typography
+                        placeholder={<h2 />}
                         variant="small"
                         color="blue-gray"
                         className="font-bold font-helvetica-neue text-center"
@@ -310,9 +313,7 @@ const CategoryDetails = () => {
                 В КОРЗИНУ
               </button>
               <div className="mt-3 flex justify-between text-darkSecondary">
-                <span className="text-[9px] lg:text-[10px] border border-darkSecondary px-2 lg:px-4 py-[6px] rounded-lg uppercase">
-                  <b>бесплатный образец</b>
-                </span>
+                <FreeSample />
                 <span className="text-[9px] lg:text-[10px] border border-darkSecondary px-4 py-[6px] rounded-lg uppercase">
                   <b>бесплатный дизайн макет</b>
                 </span>

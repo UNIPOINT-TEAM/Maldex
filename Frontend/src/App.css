@@ -406,3 +406,8 @@
   width: 20px !important;
   border-radius: 30px !important;
 }
+
+.apply-sidebar a.active {
+  background-color: #ec1026;
+  color: #fff;
+}
