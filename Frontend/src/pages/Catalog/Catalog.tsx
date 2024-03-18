@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { SaleSlider } from "../../components";
+import { SaleSlider, SliderProduct } from "../../components";
 import { CardCatalogData } from "../../mock/data";
 import CardCatalog from "../../components/CardCatalog/CardCatalog";
 
@@ -241,6 +241,9 @@ const Catalog = () => {
                             <i className="fa-solid fa-arrow-right text-gray-400"></i>
                         </button>
                     </div>
+                </div>
+                <div className="container_xxl mb-8">
+                    <SliderProduct />
                 </div>
             </div>
         </div>
