@@ -2,6 +2,7 @@ import React from "react";
 
 interface BadgeProps {
   name: string;
+  type: "NEW"|"HIT"
 }
 const Badge: React.FC<BadgeProps> = ({ name }) => {
   return (
