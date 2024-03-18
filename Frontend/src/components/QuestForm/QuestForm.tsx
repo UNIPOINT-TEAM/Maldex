@@ -57,6 +57,7 @@ function QuestForm() {
 
                   {/* <textarea placeholder="Ваш вопрос" /> */}
                   <span>
+                    {/* @ts-ignore */}
                     <Checkbox className="m-0 " color="red" defaultChecked />
                     Согласен в обработкой персональных данных и политикой
                     конфиденциальности

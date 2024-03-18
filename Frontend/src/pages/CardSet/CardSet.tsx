@@ -1,11 +1,11 @@
-import  { useState, useRef} from "react";
+import  { useState} from "react";
 
 import Photo1 from "../../assets/images/catalog1.png";
 import Photo2 from "../../assets/images/catalog2.png";
 import CarouselImg from "../../assets/images/carouselImg.png";
 import HandSock from "../../assets/images/handSock.png";
 import { Link } from "react-router-dom";
-import { Navigation, Pagination } from "swiper/modules";
+import {  Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import filtr from "../../assets/icons/filtr.png";
 
@@ -13,10 +13,10 @@ const CardSet = () => {
     const [mainPhoto, setMainPhoto] = useState(Photo1);
     const [activeButton, setActiveButton] = useState("photo1");
 
-    const [progress, setProgress] = useState(0);
-    const [isDragging, setIsDragging] = useState(false);
-    const [positionX, setPositionX] = useState(0);
-    const progressBarRef = useRef(null);
+    // const [progress, setProgress] = useState(0);
+    // const [isDragging, setIsDragging] = useState(false);
+    // const [positionX, setPositionX] = useState(0);
+    // const progressBarRef = useRef(null);
     const [menu, setMenu] = useState(0);
     const handleButtonClick = (photo: any) => {
         setMainPhoto(photo);

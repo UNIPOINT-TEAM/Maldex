@@ -18,7 +18,7 @@ const Home = () => {
       <div className="banner container_xxl px-3">
         <Banner />
       </div>
-      <div className="dishes container_xxl my-10">
+      <div className="dishes container_xxl my-10 hidden lg:block">
         <MainCategory />
       </div>
       <div className="container_xxl">

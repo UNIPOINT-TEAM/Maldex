@@ -18,6 +18,7 @@ const Navbar = () => {
   const navigation = useNavigate();
   const handleCategoryClick = (id: number) => setActiveItem(id);
   const handleCategoryItemClick = (id: number) => setActiveCategoryItem(id);
+// @ts-ignore
   const [filter, setFilter] = useState(false);
   const { fetchData, response } = useFetchHook();
   useEffect(() => {

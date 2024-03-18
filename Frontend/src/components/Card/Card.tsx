@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Product1 from "../../assets/images/product4.png";
-import { SliderProduct } from "..";
 
 const CardModal = () => {
     const [activeCard, setActiveCard] = useState(false);
