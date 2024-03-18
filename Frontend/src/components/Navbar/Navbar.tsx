@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Categories, Product, SubCategories } from "../../mock/data";
 import search from "../../assets/images/search.svg";
@@ -6,6 +6,7 @@ import search from "../../assets/images/search.svg";
 import menu from "../../assets/icons/menu.png";
 import Topbar from "./Topbar";
 import { MoreFilter } from "..";
+import { useFetchHook } from "../../hooks/UseFetch";
 
 const Navbar = () => {
     const [modal, setModal] = useState(false);
@@ -18,6 +19,13 @@ const Navbar = () => {
     const handleCategoryClick = (id: number) => setActiveItem(id);
     const handleCategoryItemClick = (id: number) => setActiveCategoryItem(id);
     const [filter, setFilter] = useState(false);
+    const { fetchData, response } = useFetchHook();
+    useEffect(() => {
+        fetchData({ method: "GET", url: "/product/categories/" });
+    }, []);
+
+    console.log(response);
+
 
     const modalToggle = () => {
         setModal(!modal);

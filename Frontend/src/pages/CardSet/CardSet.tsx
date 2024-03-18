@@ -3,13 +3,21 @@ import  { useState } from "react";
 import Photo1 from "../../assets/images/catalog1.png";
 import Photo2 from "../../assets/images/catalog2.png";
 import CarouselImg from "../../assets/images/carouselImg.png";
+import HandSock from "../../assets/images/handSock.png";
+import { Link } from "react-router-dom";
+import { Navigation, Pagination } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import filtr from "../../assets/icons/filtr.png";
 
 const CardSet = () => {
     const [mainPhoto, setMainPhoto] = useState(Photo1);
     const [activeButton, setActiveButton] = useState("photo1");
 
-
-
+    const [progress, setProgress] = useState(0);
+    const [isDragging, setIsDragging] = useState(false);
+    const [positionX, setPositionX] = useState(0);
+    const progressBarRef = useRef(null);
+    const [menu, setMenu] = useState(0);
     const handleButtonClick = (photo: any) => {
         setMainPhoto(photo);
         setActiveButton(photo === Photo1 ? "photo1" : "photo2");
@@ -31,8 +39,8 @@ const CardSet = () => {
                 </div>
                 <div className="card container_xxl flex flex-col sm:flex-row">
                     <div className="w-full md:w-[75%]">
-                        <div className="flex">
-                            <div className="h-[400px] w-1/2 hidden md:flex flex-col justify-center gap-5 p-5">
+                        <div className="flex mb-10">
+                            <div className="h-[400px] w-1/2 hidden md:flex flex-col justify-center gap-5 py-5">
                                 <div>
                                     <p className="text-black text lg">
                                         Изменение состава
@@ -157,6 +165,747 @@ const CardSet = () => {
                                     </button>
                                 </div>
                             </div>
+                        </div>
+                        <div className="hidden md:block w-full py-2">
+                            <div className="flex justify-start items-center gap-10 border-b-2 mb-5">
+                                <button
+                                    onClick={() => setMenu(0)}
+                                    className={`text-xl py-3 border-b-[4px] ${
+                                        menu == 0
+                                            ? " border-redPrimary text-redPrimary"
+                                            : "border-[#fff] "
+                                    }`}
+                                >
+                                    описание
+                                </button>
+                                <button
+                                    onClick={() => setMenu(1)}
+                                    className={`text-xl py-3 border-b-[4px] ${
+                                        menu == 1
+                                            ? " border-redPrimary text-redPrimary"
+                                            : "border-[#fff]"
+                                    }`}
+                                >
+                                    изменить набор
+                                </button>
+                                <button
+                                    onClick={() => setMenu(2)}
+                                    className={`text-xl py-3 border-b-[4px] ${
+                                        menu == 2
+                                            ? " border-redPrimary text-redPrimary"
+                                            : "border-[#fff]"
+                                    }`}
+                                >
+                                    добавить товар
+                                </button>
+                            </div>
+                            {menu == 0 ? (
+                                <div>
+                                    <p className="text-4xl mb-5">
+                                        We Adore S'mores Gift Set
+                                    </p>
+                                    <p className="mb-5">
+                                        Если вы думаете о s'mores как о чем-то,
+                                        что нельзя отправить по почте, подумайте
+                                        еще раз! Этот подарочный набор
+                                        превращает всеми любимую закуску у
+                                        костра в изысканную форму искусства, и
+                                        он не для случайных любителей. Конечно,
+                                        потребуется некоторая сборка, но все
+                                        знают, что это часть удовольствия. В эту
+                                        коллекцию лакомств входят хрустящие
+                                        крекеры с корицей, темный шоколад и
+                                        нежный зефир, готовый к обжарке до того
+                                        оттенка поджаристости, которого вы
+                                        жаждете. Мы включили в комплект набор из
+                                        двух выдвижных палочек для запекания
+                                        зефира, которые помогут вам получить
+                                        идеально клейкий зефир, не обжигая
+                                        пальцы и не поджигая его до хрустящей
+                                        корочки — если, конечно, они вам не
+                                        нравятся. Книга рецептов S'mores добавит
+                                        веселья, предлагая более 60 различных
+                                        способов приготовления идеальных
+                                        S'mores. (Поднос и блюдо в комплект не
+                                        входят.)
+                                    </p>
+                                    <p className="mb-5 text-lg text-bold">
+                                        Подарочный набор содержит:
+                                    </p>
+                                    <ul className="list-disc mb-20">
+                                        <li className="ml-8">
+                                            2 батончика темного шоколада Theo
+                                            Chocolate Classic по 3 унции каждый
+                                        </li>
+                                        <li className="ml-8">
+                                            Hudson Valley Marshmallow Company
+                                            Крекеры Грэма с корицей и сахаром, 5
+                                            унций, прибл. 9 крекеров
+                                        </li>
+                                        <li className="ml-8">
+                                            Hudson Valley Marshmallow Company
+                                            Зефир для гурманов с ванильными
+                                            бобами, 4 унции, прибл. 20 зефиров
+                                        </li>
+                                        <li className="ml-8">
+                                            Палочки для запекания Rolla Roaster
+                                            из нержавеющей стали, набор длиной
+                                            2,42 дюйма в полностью выдвинутом
+                                            состоянии
+                                        </li>
+                                        <li className="ml-8">
+                                            S'mores Лизы Адамс, твердый
+                                            переплет, 128 страниц, ширина 7,1
+                                            дюйма x высота 7,2 дюйма.
+                                        </li>
+                                    </ul>
+                                    <div className="flex justify-between items-start border-b-2 py-5 gap-20">
+                                        <div className="w-1/4">
+                                            <img src={HandSock} alt="" />
+                                        </div>
+                                        <div className="w-3/4">
+                                            <p className="text-2xl mb-3">
+                                                Бейсболка “Poly”
+                                            </p>
+                                            <p className="mb-3">107045356</p>
+                                            <div className="relative mb-3">
+                                                <p className="text-xl">
+                                                    45.
+                                                    <span className="text-xs absolute top-0">
+                                                        00
+                                                    </span>
+                                                    <span className="ml-4 mr-1">
+                                                        RUB
+                                                    </span>
+                                                    <span className="text-xs absolute top-0 line-through text-redPrimary">
+                                                        7 545
+                                                    </span>
+                                                </p>
+                                            </div>
+                                            <p>
+                                                Если вы думаете о s'mores как о
+                                                чем-то, что нельзя отправить по
+                                                почте, подумайте еще раз! Этот
+                                                подарочный набор превращает
+                                                всеми любимую закуску у костра в
+                                                изысканную форму искусства, и он
+                                                не для случайных любителей.
+                                                Конечно, потребуется некоторая
+                                                сборка, но все знают, что это
+                                                часть удовольствия.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div className="flex justify-between items-start border-b-2 py-5 gap-20">
+                                        <div className="w-1/4">
+                                            <img src={HandSock} alt="" />
+                                        </div>
+                                        <div className="w-3/4">
+                                            <p className="text-2xl mb-3">
+                                                Бейсболка “Poly”
+                                            </p>
+                                            <p className="mb-3">107045356</p>
+                                            <div className="relative mb-3">
+                                                <p className="text-xl">
+                                                    45.
+                                                    <span className="text-xs absolute top-0">
+                                                        00
+                                                    </span>
+                                                    <span className="ml-4 mr-1">
+                                                        RUB
+                                                    </span>
+                                                    <span className="text-xs absolute top-0 line-through text-redPrimary">
+                                                        7 545
+                                                    </span>
+                                                </p>
+                                            </div>
+                                            <p>
+                                                Если вы думаете о s'mores как о
+                                                чем-то, что нельзя отправить по
+                                                почте, подумайте еще раз! Этот
+                                                подарочный набор превращает
+                                                всеми любимую закуску у костра в
+                                                изысканную форму искусства, и он
+                                                не для случайных любителей.
+                                                Конечно, потребуется некоторая
+                                                сборка, но все знают, что это
+                                                часть удовольствия.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div className="flex justify-between items-start border-b-2 py-5 gap-20">
+                                        <div className="w-1/4">
+                                            <img src={HandSock} alt="" />
+                                        </div>
+                                        <div className="w-3/4">
+                                            <p className="text-2xl mb-3">
+                                                Бейсболка “Poly”
+                                            </p>
+                                            <p className="mb-3">107045356</p>
+                                            <div className="relative mb-3">
+                                                <p className="text-xl">
+                                                    45.
+                                                    <span className="text-xs absolute top-0">
+                                                        00
+                                                    </span>
+                                                    <span className="ml-4 mr-1">
+                                                        RUB
+                                                    </span>
+                                                    <span className="text-xs absolute top-0 line-through text-redPrimary">
+                                                        7 545
+                                                    </span>
+                                                </p>
+                                            </div>
+                                            <p>
+                                                Если вы думаете о s'mores как о
+                                                чем-то, что нельзя отправить по
+                                                почте, подумайте еще раз! Этот
+                                                подарочный набор превращает
+                                                всеми любимую закуску у костра в
+                                                изысканную форму искусства, и он
+                                                не для случайных любителей.
+                                                Конечно, потребуется некоторая
+                                                сборка, но все знают, что это
+                                                часть удовольствия.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            ) : menu == 1 ? (
+                                <div className="flex flex-wrap">
+                                    <div className="setProduct flex justify-between items-center py-5 pr-5  w-1/2">
+                                        <div className=" block sm:flex justify-start items-start gap-3 w-full">
+                                            <div className="w-1/3">
+                                                <img
+                                                    className=" object-contain"
+                                                    src={HandSock}
+                                                    alt=""
+                                                />
+                                            </div>
+
+                                            <div className="flex flex-col gap-1">
+                                                <p className="text-lg">
+                                                    Инновационный очиститель
+                                                </p>
+                                                <p>107045356</p>
+                                                <div className="relative mb-3 pt-5">
+                                                    <p className="text-xl">
+                                                        45.
+                                                        <span className="text-xs absolute">
+                                                            00
+                                                        </span>
+                                                        <span className="ml-4 mr-1">
+                                                            RUB
+                                                        </span>
+                                                        <span className="text-xs absolute line-through text-redPrimary">
+                                                            7 545
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className=" justify-center items-center gap-2 setBtns hidden sm:flex sm:flex-col">
+                                            <button>
+                                                <i className="fa-solid fa-xmark text-gray-400"></i>
+                                            </button>
+                                            <button>
+                                                <i className="fa-solid fa-plus text-gray-400"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="setProduct flex justify-between items-center py-5 pr-5   w-1/2">
+                                        <div className=" block sm:flex justify-start items-start gap-3 w-full">
+                                            <div className="w-1/3">
+                                                <img
+                                                    className=" object-contain"
+                                                    src={HandSock}
+                                                    alt=""
+                                                />
+                                            </div>
+
+                                            <div className="flex flex-col gap-1">
+                                                <p className="text-lg">
+                                                    Инновационный очиститель
+                                                </p>
+                                                <p>107045356</p>
+                                                <div className="relative mb-3 pt-5">
+                                                    <p className="text-xl">
+                                                        45.
+                                                        <span className="text-xs absolute">
+                                                            00
+                                                        </span>
+                                                        <span className="ml-4 mr-1">
+                                                            RUB
+                                                        </span>
+                                                        <span className="text-xs absolute line-through text-redPrimary">
+                                                            7 545
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className=" justify-center items-center gap-2 setBtns hidden sm:flex sm:flex-col">
+                                            <button>
+                                                <i className="fa-solid fa-xmark text-gray-400"></i>
+                                            </button>
+                                            <button>
+                                                <i className="fa-solid fa-plus text-gray-400"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="setProduct flex justify-between items-center py-5 pr-5   w-1/2">
+                                        <div className=" block sm:flex justify-start items-start gap-3 w-full">
+                                            <div className="w-1/3">
+                                                <img
+                                                    className=" object-contain"
+                                                    src={HandSock}
+                                                    alt=""
+                                                />
+                                            </div>
+
+                                            <div className="flex flex-col gap-1">
+                                                <p className="text-lg">
+                                                    Инновационный очиститель
+                                                </p>
+                                                <p>107045356</p>
+                                                <div className="relative mb-3 pt-5">
+                                                    <p className="text-xl">
+                                                        45.
+                                                        <span className="text-xs absolute">
+                                                            00
+                                                        </span>
+                                                        <span className="ml-4 mr-1">
+                                                            RUB
+                                                        </span>
+                                                        <span className="text-xs absolute line-through text-redPrimary">
+                                                            7 545
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className=" justify-center items-center gap-2 setBtns hidden sm:flex sm:flex-col">
+                                            <button>
+                                                <i className="fa-solid fa-xmark text-gray-400"></i>
+                                            </button>
+                                            <button>
+                                                <i className="fa-solid fa-plus text-gray-400"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="setProduct flex justify-between items-center py-5 pr-5   w-1/2">
+                                        <div className=" block sm:flex justify-start items-start gap-3 w-full">
+                                            <div className="w-1/3">
+                                                <img
+                                                    className=" object-contain"
+                                                    src={HandSock}
+                                                    alt=""
+                                                />
+                                            </div>
+
+                                            <div className="flex flex-col gap-1">
+                                                <p className="text-lg">
+                                                    Инновационный очиститель
+                                                </p>
+                                                <p>107045356</p>
+                                                <div className="relative mb-3 pt-5">
+                                                    <p className="text-xl">
+                                                        45.
+                                                        <span className="text-xs absolute">
+                                                            00
+                                                        </span>
+                                                        <span className="ml-4 mr-1">
+                                                            RUB
+                                                        </span>
+                                                        <span className="text-xs absolute line-through text-redPrimary">
+                                                            7 545
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className=" justify-center items-center gap-2 setBtns hidden sm:flex sm:flex-col">
+                                            <button>
+                                                <i className="fa-solid fa-xmark text-gray-400"></i>
+                                            </button>
+                                            <button>
+                                                <i className="fa-solid fa-plus text-gray-400"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="setProduct flex justify-between items-center py-5 pr-5  w-1/2">
+                                        <div className=" block sm:flex justify-start items-start gap-3 w-full">
+                                            <div className="w-1/3">
+                                                <img
+                                                    className=" object-contain"
+                                                    src={HandSock}
+                                                    alt=""
+                                                />
+                                            </div>
+
+                                            <div className="flex flex-col gap-1">
+                                                <p className="text-lg">
+                                                    Инновационный очиститель
+                                                </p>
+                                                <p>107045356</p>
+                                                <div className="relative mb-3 pt-5">
+                                                    <p className="text-xl">
+                                                        45.
+                                                        <span className="text-xs absolute">
+                                                            00
+                                                        </span>
+                                                        <span className="ml-4 mr-1">
+                                                            RUB
+                                                        </span>
+                                                        <span className="text-xs absolute line-through text-redPrimary">
+                                                            7 545
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className=" justify-center items-center gap-2 setBtns hidden sm:flex sm:flex-col">
+                                            <button>
+                                                <i className="fa-solid fa-xmark text-gray-400"></i>
+                                            </button>
+                                            <button>
+                                                <i className="fa-solid fa-plus text-gray-400"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="setProduct flex justify-between items-center py-5 pr-5   w-1/2">
+                                        <div className=" block sm:flex justify-start items-start gap-3 w-full">
+                                            <div className="w-1/3">
+                                                <img
+                                                    className=" object-contain"
+                                                    src={HandSock}
+                                                    alt=""
+                                                />
+                                            </div>
+
+                                            <div className="flex flex-col gap-1">
+                                                <p className="text-lg">
+                                                    Инновационный очиститель
+                                                </p>
+                                                <p>107045356</p>
+                                                <div className="relative mb-3 pt-5">
+                                                    <p className="text-xl">
+                                                        45.
+                                                        <span className="text-xs absolute">
+                                                            00
+                                                        </span>
+                                                        <span className="ml-4 mr-1">
+                                                            RUB
+                                                        </span>
+                                                        <span className="text-xs absolute line-through text-redPrimary">
+                                                            7 545
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className=" justify-center items-center gap-2 setBtns hidden sm:flex sm:flex-col">
+                                            <button>
+                                                <i className="fa-solid fa-xmark text-gray-400"></i>
+                                            </button>
+                                            <button>
+                                                <i className="fa-solid fa-plus text-gray-400"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            ) : (
+                                <div>
+                                    <div className="flex mb-5">
+                                        <div className="w-full flex gap-5 justify-between">
+                                            <div className="w-[70%] border h-[34px] rounded-lg p-1 flex">
+                                                <div className="h-full w-[30px] flex justify-center items-center">
+                                                    <i className="fa-solid fa-magnifying-glass text-gray-400"></i>
+                                                </div>
+                                                <input
+                                                    className="w-[95%] outline-0"
+                                                    placeholder="поиск"
+                                                />
+                                            </div>
+                                            <div className="w-[10%] border h-[34px] rounded-lg p-1 flex">
+                                                <div className="h-full w-[30px] flex justify-center items-center">
+                                                    <i className="fa-solid fa-bars text-gray-400"></i>
+                                                </div>
+                                                <p className="text-gray-500">Каталог</p>
+                                            </div>
+                                            <div className="w-[18%] border h-[34px] rounded-lg p-1 flex">
+                                                <div className="h-full w-[30px] flex justify-center items-center">
+                                                    <img src={filtr} alt="" />
+                                                </div>
+                                                <p className="text-gray-500">Все фильтры </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="flex justify-between">
+                                        <div className="catalog px-1 w-1/5">
+                                            <div className="relative w-full catalogImgBox h-[220px]">
+                                                <Swiper
+                                                    pagination={true}
+                                                    modules={[Pagination]}
+                                                    className="swiper-item h-full"
+                                                >
+                                                    <SwiperSlide>
+                                                        <div className="relative h-full">
+                                                            <div className="flex justify-center items-center h-full">
+                                                                <img
+                                                                    className="mb-2 object-cover"
+                                                                    src={
+                                                                        CarouselImg
+                                                                    }
+                                                                    alt=""
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    </SwiperSlide>
+                                                </Swiper>
+                                                <div className="absolute z-[9999] bottom-[25px] right-[15px] flex flex-col gap-1">
+                                                    <button
+                                                        className={`w-[8px] h-[8px] bg-redPrimary rounded-[4px]`}
+                                                    ></button>
+                                                    <button
+                                                        className={`w-[8px] h-[8px] bg-orange-600 rounded-[4px]`}
+                                                    ></button>
+                                                    <button
+                                                        className={`w-[8px] h-[8px] bg-green-600 rounded-[4px]`}
+                                                    ></button>
+                                                    <button
+                                                        className={`w-[8px] h-[8px] bg-greenPrimary rounded-[4px]`}
+                                                    ></button>
+                                                    <button
+                                                        className={`w-[8px] h-[8px] bg-blue-600 rounded-[4px]`}
+                                                    ></button>
+                                                    <button
+                                                        className={`w-[8px] h-[8px] bg-purple-600 rounded-[4px]`}
+                                                    ></button>
+                                                    <button
+                                                        className={`w-[8px] h-[8px] bg-indigo-600 rounded-[4px]`}
+                                                    ></button>
+                                                </div>
+                                            </div>
+
+                                            <div className="default">
+                                                <div className="mb-5">
+                                                    <p className="text-fs_7 tracking-wide">
+                                                        Маска для лица
+                                                    </p>
+                                                </div>
+                                                <p className="mb-2">
+                                                    Lorem ipsum dolor sit amet.
+                                                </p>
+                                                <div className="relative mb-2">
+                                                    <p className="text-xl">
+                                                        88888
+                                                        <span className="text-xs absolute top-0">
+                                                            12
+                                                        </span>
+                                                        <span className="ml-4 mr-1">
+                                                            RUB
+                                                        </span>
+                                                        <span className="text-xs absolute top-0 line-through text-redPrimary">
+                                                            234
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                                <div className="flex justify-between catalog_btns">
+                                                    <button className="bg-redPrimary px-4 py-2 text-white rounded-lg shadow-lg shadow-gray-400">
+                                                        + В корзину
+                                                    </button>
+
+                                                    <button className="bg-gray-300 px-3 py-1 rounded-lg text-gray-700">
+                                                        <Link
+                                                            to={"category/1"}
+                                                            className="w-full h-full flex justify-center items-center"
+                                                        >
+                                                            <i className="fa-solid fa-magnifying-glass"></i>
+                                                        </Link>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="catalog px-1 w-1/5">
+                                            <div className="relative w-full catalogImgBox h-[220px]">
+                                                <Swiper
+                                                    pagination={true}
+                                                    modules={[Pagination]}
+                                                    className="swiper-item h-full"
+                                                >
+                                                    <SwiperSlide>
+                                                        <div className="relative h-full">
+                                                            <div className="flex justify-center items-center h-full">
+                                                                <img
+                                                                    className="mb-2 object-cover"
+                                                                    src={
+                                                                        CarouselImg
+                                                                    }
+                                                                    alt=""
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    </SwiperSlide>
+                                                </Swiper>
+                                                <div className="absolute z-[9999] bottom-[25px] right-[15px] flex flex-col gap-1">
+                                                    <button
+                                                        className={`w-[8px] h-[8px] bg-redPrimary rounded-[4px]`}
+                                                    ></button>
+                                                    <button
+                                                        className={`w-[8px] h-[8px] bg-orange-600 rounded-[4px]`}
+                                                    ></button>
+                                                    <button
+                                                        className={`w-[8px] h-[8px] bg-green-600 rounded-[4px]`}
+                                                    ></button>
+                                                    <button
+                                                        className={`w-[8px] h-[8px] bg-greenPrimary rounded-[4px]`}
+                                                    ></button>
+                                                    <button
+                                                        className={`w-[8px] h-[8px] bg-blue-600 rounded-[4px]`}
+                                                    ></button>
+                                                    <button
+                                                        className={`w-[8px] h-[8px] bg-purple-600 rounded-[4px]`}
+                                                    ></button>
+                                                    <button
+                                                        className={`w-[8px] h-[8px] bg-indigo-600 rounded-[4px]`}
+                                                    ></button>
+                                                </div>
+                                            </div>
+
+                                            <div className="default">
+                                                <div className="mb-5">
+                                                    <p className="text-fs_7 tracking-wide">
+                                                        Маска для лица
+                                                    </p>
+                                                </div>
+                                                <p className="mb-2">
+                                                    Lorem ipsum dolor sit amet.
+                                                </p>
+                                                <div className="relative mb-2">
+                                                    <p className="text-xl">
+                                                        88888
+                                                        <span className="text-xs absolute top-0">
+                                                            12
+                                                        </span>
+                                                        <span className="ml-4 mr-1">
+                                                            RUB
+                                                        </span>
+                                                        <span className="text-xs absolute top-0 line-through text-redPrimary">
+                                                            234
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                                <div className="flex justify-between catalog_btns">
+                                                    <button className="bg-redPrimary px-4 py-2 text-white rounded-lg shadow-lg shadow-gray-400">
+                                                        + В корзину
+                                                    </button>
+
+                                                    <button className="bg-gray-300 px-3 py-1 rounded-lg text-gray-700">
+                                                        <Link
+                                                            to={"category/1"}
+                                                            className="w-full h-full flex justify-center items-center"
+                                                        >
+                                                            <i className="fa-solid fa-magnifying-glass"></i>
+                                                        </Link>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="catalog px-1 w-1/5">
+                                            <div className="relative w-full catalogImgBox h-[220px]">
+                                                <Swiper
+                                                    pagination={true}
+                                                    modules={[Pagination]}
+                                                    className="swiper-item h-full"
+                                                >
+                                                    <SwiperSlide>
+                                                        <div className="relative h-full">
+                                                            <div className="flex justify-center items-center h-full">
+                                                                <img
+                                                                    className="mb-2 object-cover"
+                                                                    src={
+                                                                        CarouselImg
+                                                                    }
+                                                                    alt=""
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    </SwiperSlide>
+                                                </Swiper>
+                                                <div className="absolute z-[9999] bottom-[25px] right-[15px] flex flex-col gap-1">
+                                                    <button
+                                                        className={`w-[8px] h-[8px] bg-redPrimary rounded-[4px]`}
+                                                    ></button>
+                                                    <button
+                                                        className={`w-[8px] h-[8px] bg-orange-600 rounded-[4px]`}
+                                                    ></button>
+                                                    <button
+                                                        className={`w-[8px] h-[8px] bg-green-600 rounded-[4px]`}
+                                                    ></button>
+                                                    <button
+                                                        className={`w-[8px] h-[8px] bg-greenPrimary rounded-[4px]`}
+                                                    ></button>
+                                                    <button
+                                                        className={`w-[8px] h-[8px] bg-blue-600 rounded-[4px]`}
+                                                    ></button>
+                                                    <button
+                                                        className={`w-[8px] h-[8px] bg-purple-600 rounded-[4px]`}
+                                                    ></button>
+                                                    <button
+                                                        className={`w-[8px] h-[8px] bg-indigo-600 rounded-[4px]`}
+                                                    ></button>
+                                                </div>
+                                            </div>
+
+                                            <div className="default">
+                                                <div className="mb-5">
+                                                    <p className="text-fs_7 tracking-wide">
+                                                        Маска для лица
+                                                    </p>
+                                                </div>
+                                                <p className="mb-2">
+                                                    Lorem ipsum dolor sit amet.
+                                                </p>
+                                                <div className="relative mb-2">
+                                                    <p className="text-xl">
+                                                        88888
+                                                        <span className="text-xs absolute top-0">
+                                                            12
+                                                        </span>
+                                                        <span className="ml-4 mr-1">
+                                                            RUB
+                                                        </span>
+                                                        <span className="text-xs absolute top-0 line-through text-redPrimary">
+                                                            234
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                                <div className="flex justify-between catalog_btns">
+                                                    <button className="bg-redPrimary px-4 py-2 text-white rounded-lg shadow-lg shadow-gray-400">
+                                                        + В корзину
+                                                    </button>
+
+                                                    <button className="bg-gray-300 px-3 py-1 rounded-lg text-gray-700">
+                                                        <Link
+                                                            to={"category/1"}
+                                                            className="w-full h-full flex justify-center items-center"
+                                                        >
+                                                            <i className="fa-solid fa-magnifying-glass"></i>
+                                                        </Link>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     </div>
                     <div className="w-full sm:w-[25%] pl-0 sm:pl-[50px]">

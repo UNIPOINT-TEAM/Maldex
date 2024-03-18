@@ -82,6 +82,13 @@
   height: auto;
 }
 
+.swiper-product img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 /* .mySwiper .swiper-wrapper .swiper-slide-active {
     width: 920px !important;
     height: 550px;
@@ -101,30 +108,30 @@
 }
 
 .next {
-  position: absolute;
-  z-index: 999;
-  top: 200px;
-  right: 0;
-  border: 2px solid gray;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 6px;
+    position: absolute;
+    z-index: 999;
+    top: 140px;
+    right: 0;
+    border: 2px solid gray;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
 }
 .prev {
-  position: absolute;
-  z-index: 999;
-  top: 200px;
-  left: 0;
-  border: 2px solid gray;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 6px;
+    position: absolute;
+    z-index: 999;
+    top: 140px;
+    left: 0;
+    border: 2px solid gray;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
 }
 
 .next:hover {
@@ -258,14 +265,14 @@
     font-size: 35px;
   }
 
-  .why-us .card-wrapp {
-    margin-top: 50px;
-    height: 1300px;
-    background-size: cover;
-  }
-  .catalog .catalog_btns {
-    opacity: 1;
-  }
+    .why-us .card-wrapp {
+        margin-top: 50px;
+        height: 1300px;
+        background-size: cover;
+    }
+    .catalog .catalog_btns {
+        opacity: 1;
+    }
 
   .why-us .card-wrapp {
     margin-top: 50px;
@@ -274,9 +281,9 @@
     background-size: cover;
   }
 
-  .mySwiper_services .swiper-wrapper .swiper-slide-active {
-    width: 100% !important;
-  }
+    .mySwiper_services .swiper-wrapper .swiper-slide-active {
+        width: 100% !important;
+    }
 
   /* swiper new */
   .mySwiper_services .swiper-wrapper .swiper-slide-active {
@@ -288,9 +295,9 @@
     height: 500px;
   }
 
-  .mySwiper_services_left .swiper-wrapper .swiper-slide-active {
-    width: 100% !important;
-  }
+    .mySwiper_services_left .swiper-wrapper .swiper-slide-active {
+        width: 100% !important;
+    }
 
   /* swiper left */
   .mySwiper_services_left .swiper-wrapper .swiper-slide-active {
