@@ -1,17 +1,10 @@
-import React from "react";
-import cart from "../../assets/CompanyIcons/cart.png";
-import china from "../../assets/CompanyIcons/china.png";
-import check from "../../assets/CompanyIcons/check.png";
+
 import comment from "../../assets/CompanyIcons/comment.png";
 import country from "../../assets/CompanyIcons/country.png";
-import delivery from "../../assets/CompanyIcons/delivery.png";
-import europe from "../../assets/CompanyIcons/europe.png";
-import gifticon from "../../assets/CompanyIcons/gift-icon.png";
+
 import giftPurple from "../../assets/CompanyIcons/giftPurple.png";
 import guarant from "../../assets/CompanyIcons/guarant.png";
-import mapPin from "../../assets/CompanyIcons/map-pin 1.png";
-import megafon from "../../assets/CompanyIcons/megafon.png";
-import settings from "../../assets/CompanyIcons/sliders 1.png";
+
 import task from "../../assets/CompanyIcons/task.png";
 
 import partner1 from "../../assets/partners/partner (1).png";
@@ -77,6 +70,7 @@ function Company2() {
       <div className="container_xxl">
         <div className="flex gap-3">
           <div className=" w-2/5 hidden lg:block">
+            {/* @ts-ignore */}
             <BannerTop />
           </div>
           <div className="w-full lg:w-3/5">
@@ -196,6 +190,7 @@ function Company2() {
         </div>
         <div>
           <div className="flex flex-wrap justify-between">
+            {/* @ts-ignore */}
             {partners.map((partner, index) => (
               <div>
                 <img src={partner} alt="Partner" />

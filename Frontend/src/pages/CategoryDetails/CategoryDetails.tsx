@@ -233,6 +233,7 @@ const CategoryDetails = () => {
                   className="border w-[400px] px-10 -translate-x-14 border-blue-gray-50 bg-white  py-3 shadow-xl shadow-black/10"
                   content={
                     <div className="w-full">
+                      {/* @ts-ignore */}
                       <Typography
                         variant="small"
                         color="blue-gray"

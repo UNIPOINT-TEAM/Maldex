@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { Input } from "@material-tailwind/react";
 
 function QuestForm() {
@@ -17,7 +17,15 @@ function QuestForm() {
               className="text-[16px] lg:text-fs_2 underline  uppercase text-darkSecondary cursor-pointer font-[500]"
               onClick={handleClick}
             >
-              {isFormVisible ? <span>Ваш <br /> вопрос</span> : <span>Хочу задать <br /> вопрос</span> }
+              {isFormVisible ? (
+                <span>
+                  Ваш <br /> вопрос
+                </span>
+              ) : (
+                <span>
+                  Хочу задать <br /> вопрос
+                </span>
+              )}
             </h1>
           </div>
           <div>
@@ -30,13 +38,21 @@ function QuestForm() {
                       скором времени ответят на него
                     </h1>
                   </div>
+
+                  {/*  @ts-ignore */}
                   <Input variant="standard" label="Ваше имя" />
+                  {/*  @ts-ignore */}
+
                   <Input
-                    variant="standard"
                     label="Ваш номер телефона"
                     placeholder=""
+                    type="text"
                   />
+                  {/*  @ts-ignore */}
+
                   <Input variant="standard" label="Ваша почта" placeholder="" />
+                  {/*  @ts-ignore */}
+
                   <Input variant="standard" label="Ваш вопрос" placeholder="" />
 
                   {/* <textarea placeholder="Ваш вопрос" /> */}

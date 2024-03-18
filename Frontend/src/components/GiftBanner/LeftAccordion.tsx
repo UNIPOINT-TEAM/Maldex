@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import accordionIcon from "../../assets/icons/accordion-icon.png";
+import { useState } from "react";
 
 import {
   Accordion,
@@ -72,10 +71,11 @@ const LeftAccordion = () => {
           open={openAccordionIndex === index}
           icon={
             <svg
-            className={` ${
-              openAccordionIndex === index ? "rotate-180 " : ""
-            } transition-transform`}              src={accordionIcon}
-              alt="Accordion Icon"
+              className={` ${
+                openAccordionIndex === index ? "rotate-180 " : ""
+              } transition-transform`}
+              
+              
               xmlns="http://www.w3.org/2000/svg"
               width="18"
               height="12"
@@ -98,9 +98,11 @@ const LeftAccordion = () => {
             onClick={() => handleAccordionClick(index)}
             placeholder={<div />}
           >
-            <h3 className={`font-helvetica -tracking-tighter text-fs_4 font-bold text-darkPrimary ${
-              openAccordionIndex === index ? "text-white" : ""
-            }`}>
+            <h3
+              className={`font-helvetica -tracking-tighter text-fs_4 font-bold text-darkPrimary ${
+                openAccordionIndex === index ? "text-white" : ""
+              }`}
+            >
               {category.title}
             </h3>
           </AccordionHeader>

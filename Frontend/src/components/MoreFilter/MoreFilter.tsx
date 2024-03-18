@@ -5,8 +5,8 @@ import {
     AccordionHeader,
     AccordionBody,
 } from "@material-tailwind/react";
-import accordionIcon from "../../assets/icons/accordion-icon.png";
-
+// import accordionIcon from "../../assets/icons/accordion-icon.png";
+{/* @ts-ignore */}
 function Icon({ id, open }) {
     return (
         <svg
@@ -32,7 +32,7 @@ const MoreFilter = () => {
     const [activeCard, setActiveCard] = useState(false);
     const [filter, setFilter] = useState(false);
     const [open, setOpen] = useState(1);
-
+//@ts-ignore
     const handleOpen = (value) => setOpen(open === value ? 0 : value);
 
     const handleFilter = () => {
@@ -123,10 +123,13 @@ const MoreFilter = () => {
                                 </button>
                             </div>
                             <div className="h-full pr-2 mb-5">
+                                {/* @ts-ignore */}
                                 <Accordion
                                     open={open === 1}
                                     icon={<Icon id={1} open={open} />}
                                 >
+                                {/* @ts-ignore */}
+
                                     <AccordionHeader
                                         className="border-none"
                                         onClick={() => handleOpen(1)}
@@ -156,10 +159,14 @@ const MoreFilter = () => {
                                         </div>
                                     </AccordionBody>
                                 </Accordion>
+                                {/* @ts-ignore */}
+
                                 <Accordion
                                     open={open === 2}
                                     icon={<Icon id={2} open={open} />}
                                 >
+                                {/* @ts-ignore */}
+
                                     <AccordionHeader
                                         className="border-none"
                                         onClick={() => handleOpen(2)}
@@ -176,10 +183,14 @@ const MoreFilter = () => {
                                         />
                                     </AccordionBody>
                                 </Accordion>
+                                {/* @ts-ignore */}
+
                                 <Accordion
                                     open={open === 3}
                                     icon={<Icon id={3} open={open} />}
                                 >
+                                {/* @ts-ignore */}
+
                                     <AccordionHeader
                                         className="border-none"
                                         onClick={() => handleOpen(3)}
@@ -215,10 +226,14 @@ const MoreFilter = () => {
                                         </div>
                                     </AccordionBody>
                                 </Accordion>
+                                {/* @ts-ignore */}
+
                                 <Accordion
                                     open={open === 4}
                                     icon={<Icon id={4} open={open} />}
                                 >
+                                {/* @ts-ignore */}
+
                                     <AccordionHeader
                                         className="border-none"
                                         onClick={() => handleOpen(4)}
@@ -242,10 +257,14 @@ const MoreFilter = () => {
                                         </div>
                                     </AccordionBody>
                                 </Accordion>
+                                {/* @ts-ignore */}
+
                                 <Accordion
                                     open={open === 5}
                                     icon={<Icon id={5} open={open} />}
                                 >
+                                {/* @ts-ignore */}
+
                                     <AccordionHeader
                                         className="border-none"
                                         onClick={() => handleOpen(5)}
@@ -281,10 +300,14 @@ const MoreFilter = () => {
                                         </div>
                                     </AccordionBody>
                                 </Accordion>
+                                {/* @ts-ignore */}
+
                                 <Accordion
                                     open={open === 6}
                                     icon={<Icon id={6} open={open} />}
                                 >
+                                {/* @ts-ignore */}
+
                                     <AccordionHeader
                                         className="border-none"
                                         onClick={() => handleOpen(6)}
@@ -332,10 +355,14 @@ const MoreFilter = () => {
                                         </div>
                                     </AccordionBody>
                                 </Accordion>
+                                {/* @ts-ignore */}
+
                                 <Accordion
                                     open={open === 7}
                                     icon={<Icon id={7} open={open} />}
                                 >
+                                {/* @ts-ignore */}
+
                                     <AccordionHeader
                                         className="border-none"
                                         onClick={() => handleOpen(7)}
@@ -353,10 +380,14 @@ const MoreFilter = () => {
                                         </div>
                                     </AccordionBody>
                                 </Accordion>
+                                {/* @ts-ignore */}
+
                                 <Accordion
                                     open={open === 8}
                                     icon={<Icon id={8} open={open} />}
                                 >
+                                {/* @ts-ignore */}
+
                                     <AccordionHeader
                                         className="border-none"
                                         onClick={() => handleOpen(8)}
@@ -374,10 +405,14 @@ const MoreFilter = () => {
                                         </div>
                                     </AccordionBody>
                                 </Accordion>
+                                {/* @ts-ignore */}
+
                                 <Accordion
                                     open={open === 9}
                                     icon={<Icon id={9} open={open} />}
                                 >
+                                {/* @ts-ignore */}
+
                                     <AccordionHeader
                                         className="border-none"
                                         onClick={() => handleOpen(9)}

@@ -1,4 +1,3 @@
-import React from "react";
 import onbesh from "../../assets/CompanyIcons/15.png";
 import giftRed from "../../assets/CompanyIcons/giftRed.png";
 import globus from "../../assets/CompanyIcons/globus.png";
