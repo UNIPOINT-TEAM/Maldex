@@ -20,9 +20,9 @@ function Portfolio() {
             }}
           >
             <div className="md:w-[65%]">
-              <Badge name="NEW" />
-              <Badge name="HIT" />
-              <h3 className="text-fs_6 lg:text-fs_3 text-darkPrimary font-medium ">
+              <Badge name="NEW" type="NEW" />
+              <Badge name="HIT" type="HIT" />
+              <h3 className="text-fs_6 lg:text-[50px] leading-[54px] text-darkPrimary font-medium ">
                 welcome pack, <br /> для милых дам
               </h3>
             </div>
@@ -37,7 +37,7 @@ function Portfolio() {
             >
               <div className="">
                 <h3 className="text-fs_5 lg:text-fs_3  font-helvetica">2.10</h3>
-                <h2 className="text-[10px] lg:text-fs_3 lg:pr-36  font-medium ">
+                <h2 className="text-[10px] lg:text-fs_3   font-medium ">
                   Маска для лица <br /> многоразовая из хлопка,
                   <br /> анатомической формы{" "}
                 </h2>
@@ -46,16 +46,16 @@ function Portfolio() {
               </div>
             </div>
             <div>
-              <img src={image3} alt="" />
+              <img src={image3} alt="" className="w-full h-full" />
             </div>
             <div>
-              <img src={image4} alt="" />
+              <img src={image4} alt="" className="w-full h-full"/>
             </div>
             <div>
-              <img src={image5} alt="" />
+              <img src={image5} alt="" className="w-full h-full"/>
             </div>
             <div>
-              <img src={image6} alt="" />
+              <img src={image6} alt="" className="w-full h-full"/>
             </div>
             <div>
               <div className="bg-blue-gray-200"></div>
