@@ -11,6 +11,7 @@ interface BannerProp {
       productID: {
         id: string;
         image: string;
+        name: string;
       };
     }[];
   }[];
@@ -24,9 +25,9 @@ const BannerTop: React.FC<BannerProp> = ({ BannerData }) => {
         className="group flex flex-col justify-between col-span-4 bg-white h-[200px] cursor-pointer hover:bg-[#fff] transition-all duration-200"
       >
         <h2 className="text-fs_7 tracking-wider font-semibold opacity-0 group-hover:opacity-100 duration-200 ">
-          Бутылки для воды
+          {BannerData[0]?.product_set[0]?.productID?.name}
         </h2>
-        <div className="h-[110px] max-w-[300px] w-full flex items-center justify-center">
+        <div className="h-[110px] max-w-[300px] mx-auto w-full flex items-center justify-center">
           <Slider SliderItems={BannerData && BannerData[0]} sliderTime={2500} />
         </div>
         <div className="flex justify-end opacity-0 group-hover:opacity-100 duration-200">
@@ -42,7 +43,7 @@ const BannerTop: React.FC<BannerProp> = ({ BannerData }) => {
         <h2 className="text-fs_8 tracking-wider font-semibold opacity-0 group-hover:opacity-100 duration-200">
           Бутылки для воды
         </h2>
-        <div className="h-[70px] max-w-[70px] w-full flex items-center justify-center">
+        <div className="mx-auto h-[70px] max-w-[70px] w-full flex items-center justify-center">
           <Slider SliderItems={BannerData && BannerData[1]} sliderTime={3000} />
         </div>
         <div className="flex justify-end opacity-0 group-hover:opacity-100 duration-200">
@@ -58,7 +59,7 @@ const BannerTop: React.FC<BannerProp> = ({ BannerData }) => {
         <h2 className="text-fs_8 tracking-wider font-semibold opacity-0 group-hover:opacity-100 duration-200">
           Бутылки для воды
         </h2>
-        <div className="h-[70px] max-w-[70px] w-full flex items-center justify-center">
+        <div className="mx-auto h-[70px] max-w-[70px] w-full flex items-center justify-center">
           <Slider SliderItems={BannerData && BannerData[2]} sliderTime={3500} />
         </div>
         <div className="flex justify-end opacity-0 group-hover:opacity-100 duration-200">
@@ -74,7 +75,7 @@ const BannerTop: React.FC<BannerProp> = ({ BannerData }) => {
         <h2 className="text-fs_8 tracking-wider font-semibold opacity-0 group-hover:opacity-100 duration-200">
           Бутылки для воды
         </h2>
-        <div className="h-[70px] max-w-[70px] w-full flex items-center justify-center">
+        <div className="mx-auto h-[70px] max-w-[70px] w-full flex items-center justify-center">
           <Slider SliderItems={BannerData && BannerData[3]} sliderTime={2000} />
         </div>
         <div className="flex justify-end opacity-0 group-hover:opacity-100 duration-200">
@@ -90,7 +91,7 @@ const BannerTop: React.FC<BannerProp> = ({ BannerData }) => {
         <h2 className="text-fs_8 tracking-wider font-semibold opacity-0 group-hover:opacity-100 duration-200">
           Бутылки для воды
         </h2>
-        <div className="h-[70px] max-w-[70px] w-full flex items-center justify-center">
+        <div className="mx-auto h-[70px] max-w-[70px] w-full flex items-center justify-center">
           <Slider SliderItems={BannerData && BannerData[4]} sliderTime={4000} />
         </div>
         <div className="flex justify-end opacity-0 group-hover:opacity-100 duration-200">

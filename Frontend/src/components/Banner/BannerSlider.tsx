@@ -1,10 +1,18 @@
-import { Swiper, SwiperSlide } from "swiper/react";
-import SlideItem from "../../assets/images/slider-item.png";
-import { Autoplay, Navigation, Pagination } from "swiper/modules";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import { useFetchHook } from "../../hooks/UseFetch";
+import { BASE_URL } from "../../utils";
 
 const BannerSlider = () => {
+  const { fetchData, response } = useFetchHook();
+  useEffect(() => {
+    fetchData({ method: "GET", url: "/banner/carousel/" });
+  }, []);
+  console.log(response);
+
   return (
     <div className="banner-carusel relative w-full h-full bg-greenPrimary flex  p-[12px] lg:p-[20px] text-white font-helvetica-neue">
       <div className="w-[55%] flex flex-col justify-between">
@@ -13,7 +21,7 @@ const BannerSlider = () => {
             корпоративные подарки
           </span>
           <h2 className="font-helvetica-neue-bold-condensed font-medium text-fs_6 lg:text-[30px] m-0  tracking-[1.5px] leading-none lg:leading-none mt-2 lg:mt-4">
-            Бизнес сувениры <br /> для брендов
+            {response[0]?.product_set[0]?.productCarouselID?.name}
           </h2>
         </div>
         <div className="mt-auto flex gap-1 lg:gap-3 text-[9px] lg:text-fs_8 font-semibold">
@@ -48,15 +56,15 @@ const BannerSlider = () => {
           }}
           modules={[Navigation, Pagination, Autoplay]}
         >
-          <SwiperSlide>
-            <img src={SlideItem} alt="" className="h-[160px] lg:h-[300px]" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src={SlideItem} alt="" className="h-[160px] lg:h-[300px]" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src={SlideItem} alt="" className="h-[160px] lg:h-[300px]" />
-          </SwiperSlide>
+          {response?.map((item) => (
+            <SwiperSlide>
+              <img
+                src={`${BASE_URL}${item?.product_set[0]?.productCarouselID?.image}`}
+                alt=""
+                className="h-[160px] lg:h-[300px]"
+              />
+            </SwiperSlide>
+          ))}
         </Swiper>
         <div className="navigation-box absolute right-3 lg:right-6 bottom-3 lg:bottom-5 z-[9] flex gap-2">
           <button className="prev-arrow p-2 border border-[#fff] rounded-lg">

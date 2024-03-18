@@ -6,10 +6,10 @@ import { Link } from "react-router-dom";
 
 const BannerBottom: React.FC<any> = ({ BannerData }) => {
   return (
-    <div className="hidden lg:grid grid-rows-9 grid-cols-5 grid-flow-col gap-3 my-3">
+    <div className="hidden lg:grid grid-rows-9 h-[760px] grid-cols-5 grid-flow-col gap-3 my-3">
       <Link
         to={"category/1"}
-        className="group row-span-9 bg-white h-[670px] flex flex-col justify-between cursor-pointer hover:bg-[#fff] duration-200"
+        className="group row-span-9 bg-white  flex flex-col justify-between cursor-pointer hover:bg-[#fff] duration-200"
       >
         <h2 className="text-fs_7 tracking-wider font-semibold opacity-0 group-hover:opacity-100 duration-200">
           Бутылки для воды
@@ -32,7 +32,7 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
             <h2 className="text-fs_7 tracking-wider font-semibold opacity-0 group-hover:opacity-100 duration-200">
               Бутылки для воды
             </h2>
-            <div className="w-[200px] flex items-center justify-center">
+            <div className="w-[200px] mx-auto flex items-center justify-center">
               <Slider
                 SliderItems={BannerData && BannerData[5]}
                 sliderTime={4000}
@@ -73,7 +73,7 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
             <div className="w-full flex items-center justify-center">
               <Slider
                 SliderItems={BannerData && BannerData[7]}
-                sliderTime={4000}
+                sliderTime={3000}
               />
             </div>
             <div className="flex justify-end opacity-0 group-hover:opacity-100 duration-200">
@@ -91,7 +91,7 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
                 <h2 className="text-fs_7 tracking-wider font-semibold opacity-0 group-hover:opacity-100 duration-200">
                   Бутылки для воды
                 </h2>
-                <div className="w-[150px] flex items-center justify-center">
+                <div className="w-[150px] mx-auto flex items-center justify-center">
                   <Slider
                     SliderItems={BannerData && BannerData[8]}
                     sliderTime={3000}
@@ -110,7 +110,7 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
                 <h2 className="text-fs_7 tracking-wider font-semibold opacity-0 group-hover:opacity-100 duration-200">
                   Бутылки для воды
                 </h2>
-                <div className="w-[150px] flex items-center justify-center">
+                <div className="w-[150px] mx-auto flex items-center justify-center">
                   <Slider
                     SliderItems={BannerData && BannerData[8]}
                     sliderTime={3000}

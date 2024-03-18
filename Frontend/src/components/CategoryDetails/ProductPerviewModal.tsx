@@ -5,6 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Controller, FreeMode, Navigation, Thumbs } from "swiper/modules";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import SwiperCore from "swiper";
+import { IoClose } from "react-icons/io5";
 
 const ProductPerviewModal = () => {
   const [open, setOpen] = React.useState(false);
@@ -23,6 +24,7 @@ const ProductPerviewModal = () => {
   return (
     <div>
       <Card
+        placeholder={<div />}
         className="h-64 w-96 border-0 shadow-none cursor-pointer overflow-hidden "
         onClick={handleOpen}
       >
@@ -32,8 +34,20 @@ const ProductPerviewModal = () => {
           src={sliderImg}
         />
       </Card>
-      <Dialog size="xxl" open={open} handler={handleOpen} className="bg-[#fff]">
-        <DialogBody className="p-0  bg-[#fff]">
+      <Dialog
+        size="xxl"
+        open={open}
+        handler={handleOpen}
+        className="bg-[#fff]"
+        placeholder={<div />}
+      >
+        <DialogBody className="p-0 relative bg-[#fff]" placeholder={<div />}>
+          <button
+            className="absolute border-0 text-black top-6 right-6"
+            onClick={handleOpen}
+          >
+            <IoClose size={"25px"} />
+          </button>
           <div className="z-[999] container_xxl relative px-5">
             <Swiper
               loop
@@ -46,7 +60,7 @@ const ProductPerviewModal = () => {
                   thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null,
               }}
               modules={[FreeMode, Navigation, Thumbs, Controller]}
-              className="w-full h-screen "
+              className="w-full h-screen py-14"
             >
               <SwiperSlide>
                 <img
