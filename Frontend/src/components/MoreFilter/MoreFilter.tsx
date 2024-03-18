@@ -46,6 +46,13 @@ const MoreFilter = () => {
                     className={`overLay fixed w-full h-full bg-[#00000083] ${
                         activeCard ? "block" : "hidden"
                     } top-0 right-0 z-[999]`}
+                    onClick={() => setActiveCard(false)}
+                ></div>
+                <div
+                    className={`overLay fixed w-full h-full ${
+                        filter ? "block" : "hidden"
+                    } top-0 right-0 z-10`}
+                    onClick={() => setFilter(false)}
                 ></div>
                 <button className="px-2 w-8 border h-full border-gray-300 rounded-lg hidden lg:block relative">
                     <img
@@ -55,7 +62,7 @@ const MoreFilter = () => {
                         className="mx-auto"
                     />
                     {filter && (
-                        <div className="w-[350px] h-[250px] border border-gray-500 z-20 absolute bg-white rounded-xl top-[50px] left-0">
+                        <div className="w-[350px] h-[250px] border border-gray-500 z-50 absolute bg-white rounded-xl top-[50px] left-0 ">
                             <span className="w-[20px] h-[20px] bg-white border border-gray-500 rotate-45 top-[-4px] left-[10px] absolute"></span>
                             <div className="absolute w-full h-full bg-white rounded-2xl flex flex-col justify-start items-start p-5">
                                 <p className="mb-2">Цена</p>

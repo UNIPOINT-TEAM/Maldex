@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Product1 from "../../assets/images/product4.png";
+import { SliderProduct } from "..";
 
 const CardModal = () => {
     const [activeCard, setActiveCard] = useState(false);
@@ -22,6 +23,7 @@ const CardModal = () => {
                     className={`overLay fixed w-full h-full bg-[#00000083] ${
                         activeCard ? "block" : "hidden"
                     } top-0 right-0 z-[999]`}
+                    onClick={() => setActiveCard(false)}
                 ></div>
                 <button
                     onClick={() => setActiveCard(!activeCard)}
@@ -493,6 +495,7 @@ const CardModal = () => {
                                 </button>
                             </Link>
                         </div>
+                        {/* <SliderProduct /> */}
                     </div>
                 )}
             </div>
