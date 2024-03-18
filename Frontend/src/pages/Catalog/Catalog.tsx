@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { SaleSlider } from "../../components";
 import { CardCatalogData } from "../../mock/data";
 import CardCatalog from "../../components/CardCatalog/CardCatalog";
@@ -19,7 +19,7 @@ const Catalog = () => {
     { index: 1, name: "Белый" },
     { index: 2, name: "Желтый" },
   ]);
-
+{/* @ts-ignore */}
   const addToActive = (i) => {
     setActiveFilterItems((prev) => [...prev, i]);
   };

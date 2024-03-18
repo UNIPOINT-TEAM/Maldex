@@ -7,7 +7,7 @@ interface CardCatalogProps {
 }
 
 const CardCatalog: React.FC<CardCatalogProps> = ({ item }) => {
-    const { title, description, price, img, id, money, index1, index2 } = item;
+    const { title, description, price, img,  money, index1, index2 } = item;
 
     return (
         <div className="catalog">

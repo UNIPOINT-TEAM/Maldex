@@ -1,4 +1,3 @@
-import React from "react";
 import BannerSlider from "../Banner/BannerSlider";
 import { PortfolioBannerLeft, PortfolioBannerRight } from "..";
 

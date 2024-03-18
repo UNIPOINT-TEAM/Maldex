@@ -1,7 +1,5 @@
-import React from "react";
 import {
   ProjectsSlider,
-  QuestForm,
   TagBanner,
   TagList,
 } from "../../components";

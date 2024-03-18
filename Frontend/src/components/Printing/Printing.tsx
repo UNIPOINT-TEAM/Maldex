@@ -1,4 +1,3 @@
-import React from "react";
 import Pimg1 from "../../assets/pachat/Pimg1.png";
 import Pimg2 from "../../assets/pachat/Pimg2.png";
 import Pimg3 from "../../assets/pachat/Pimg3.png";
@@ -57,7 +56,7 @@ export default function Printing() {
         </div>
         <img src={Pimg11} alt="" />
         <div className="flex flex-col gap-5">
-          <Link><img src={Pimg12} alt="" /></Link>
+          <Link to='/'> <img src={Pimg12} alt="" /></Link>
           <img src={Pimg13} alt="" />
         </div>
       </div>

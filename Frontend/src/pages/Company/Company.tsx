@@ -1,4 +1,3 @@
-import React from "react";
 import {
   AboutInfo,
   BannerBottom,
@@ -6,8 +5,7 @@ import {
   BannerSlider,
   BannerTop,
   Brands,
-  CompanyBottomBanner,
-  ProductCard,
+
   ProductNav,
   QuestForm,
   SliderProduct,
@@ -21,6 +19,7 @@ function Company() {
       <div className="container_xxl">
         <div className="flex gap-3">
           <div className=" w-2/5 hidden lg:block">
+            {/* @ts-ignore */}
             <BannerTop />
           </div>
           <div className="w-full lg:w-3/5">

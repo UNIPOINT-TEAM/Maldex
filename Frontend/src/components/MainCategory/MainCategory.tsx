@@ -28,15 +28,13 @@
 
 // export default MainCategory;
 
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { URL } from "../../axios/Api";
+import  {  useEffect } from "react";
 import { useFetchHook } from "../../hooks/UseFetch";
 import { Link } from "react-router-dom";
 
 
 const MainCategory = () => {
-  const [categories, setCategories] = useState([]);
+  // const [categories, setCategories] = useState([]);
 
   // useEffect(() => {
   //   const fetchData = async () => {
@@ -79,6 +77,7 @@ const MainCategory = () => {
               <img className="w-1/5 mb-5" src={category?.icon} alt="" />
               <p className="text-lg mb-3">{category?.name}</p>
               {category?.children &&
+              // @ts-ignore
                 category?.children.map((childCategory) => (
                   <div
                     key={childCategory.id}

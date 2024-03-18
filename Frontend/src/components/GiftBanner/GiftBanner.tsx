@@ -1,4 +1,4 @@
-import { BannerSlider, BannerTop, GiftBannerBottom, GiftBannerSlider, LeftAccordion } from "..";
+import {  GiftBannerBottom, GiftBannerSlider, LeftAccordion } from "..";
 
 const GiftBanner = () => {
   return (

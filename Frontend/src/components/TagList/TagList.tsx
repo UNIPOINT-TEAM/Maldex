@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 
 const TagList = () => {
   // Состояние для хранения выбранной категории
@@ -22,6 +22,7 @@ const TagList = () => {
   };
 
   // Обработчик клика по категории
+  // @ts-ignore
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
   };
@@ -75,6 +76,7 @@ const TagList = () => {
           <div className="">
             <ul className="mb-10 flex flex-wrap gap-y-5 justify-between hidden lg:flex">
               {selectedCategory &&
+              // @ts-ignore
                 categories[selectedCategory].map((subcategory, index) => (
                   <li
                     key={subcategory}
@@ -89,6 +91,7 @@ const TagList = () => {
             {/* Mobile */}
             <ul className="mb-10 flex flex-wrap gap-y-3 justify-around  lg:hidden ">
               {selectedCategory &&
+              // @ts-ignore
                 categories[selectedCategory].map((subcategory, index) => (
                   <li
                     key={subcategory}

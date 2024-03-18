@@ -5,7 +5,7 @@ import {
   AccordionHeader,
 } from "@material-tailwind/react";
 import accordionIcon from "../../assets/icons/accordion-icon.png";
-import { ProductCard, SliderProduct } from "../../components";
+import {  SliderProduct } from "../../components";
 
 const BuildSet = () => {
   const [open, setOpen] = useState<number>(0);

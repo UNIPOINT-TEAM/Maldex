@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { Input, Checkbox } from "@material-tailwind/react";
 
 function QuestForm() {
@@ -38,13 +38,21 @@ function QuestForm() {
                       менеджеры <br /> в скором времени ответят на него
                     </h1>
                   </div>
+
+                  {/*  @ts-ignore */}
                   <Input variant="standard" label="Ваше имя" />
+                  {/*  @ts-ignore */}
+
                   <Input
-                    variant="standard"
                     label="Ваш номер телефона"
                     placeholder=""
+                    type="text"
                   />
+                  {/*  @ts-ignore */}
+
                   <Input variant="standard" label="Ваша почта" placeholder="" />
+                  {/*  @ts-ignore */}
+
                   <Input variant="standard" label="Ваш вопрос" placeholder="" />
 
                   {/* <textarea placeholder="Ваш вопрос" /> */}

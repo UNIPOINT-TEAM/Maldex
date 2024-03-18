@@ -22,7 +22,11 @@ function News() {
               <h2 className="text-fs_6 lg:text-fs_3  font-medium ">
                 Маска для лица многоразовая из хлопка, анатомической формы
               </h2>
+              {/* @ts-ignore */}
+
               <Badge name="NEW" />
+              {/* @ts-ignore */}
+
               <Badge name="HIT" />
             </div>
           </div>
@@ -37,7 +41,9 @@ function News() {
               <h2 className="text-fs_6 lg:text-fs_3  font-medium ">
                 Маска для лица многоразовая из хлопка, анатомической формы
               </h2>
+                                {/* @ts-ignore */}
               <Badge name="NEW" />
+              {/* @ts-ignore */}
               <Badge name="HIT" />
             </div>
           </div>
@@ -53,7 +59,9 @@ function News() {
             <h2 className="text-[28px] font-medium ">
               Маска для лица многоразовая из хлопка, анатомической формы
             </h2>
+            {/* @ts-ignore */}
             <Badge name="NEW" />
+            {/* @ts-ignore */}
             <Badge name="HIT" />
           </div>
           <div
@@ -66,7 +74,9 @@ function News() {
             <h2 className="text-[28px] font-medium ">
               Маска для лица многоразовая из хлопка, анатомической формы
             </h2>
+            {/* @ts-ignore */}
             <Badge name="NEW" />
+            {/* @ts-ignore */}
             <Badge name="HIT" />
           </div>
           <div
@@ -79,7 +89,9 @@ function News() {
             <h2 className="text-fs_6 lg:text-fs_3  font-medium ">
               Маска для лица многоразовая из хлопка
             </h2>
+            {/* @ts-ignore */}
             <Badge name="NEW" />
+            {/* @ts-ignore */}
             <Badge name="HIT" />
           </div>
           <div className="p-3 lg:p-5 h-full flex flex-col justify-between bg-white">

@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import { CardCatalog, SaleSlider } from "../../components";
-import { CardCatalogData } from "../../mock/data";
+import  { useState } from "react";
+
 import Photo1 from "../../assets/images/catalog1.png";
 import Photo2 from "../../assets/images/catalog2.png";
 import CarouselImg from "../../assets/images/carouselImg.png";
@@ -9,10 +8,7 @@ const CardSet = () => {
     const [mainPhoto, setMainPhoto] = useState(Photo1);
     const [activeButton, setActiveButton] = useState("photo1");
 
-    const [progress, setProgress] = useState(0);
-    const [isDragging, setIsDragging] = useState(false);
-    const [positionX, setPositionX] = useState(0);
-    const progressBarRef = useRef(null);
+
 
     const handleButtonClick = (photo: any) => {
         setMainPhoto(photo);

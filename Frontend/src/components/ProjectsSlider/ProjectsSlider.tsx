@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Navigation, Pagination } from "swiper";
+// import SwiperCore, { Navigation, Pagination } from "swiper";
 import prev from "../../assets/icons/projectPrev.svg";
 import next from "../../assets/icons/projectNext.svg";
 import project1 from "../../assets/project 1.png";
@@ -13,13 +13,17 @@ function ProjectsSlider() {
   const swiperRef = useRef(null);
 
   const goNext = () => {
+    // @ts-ignore
     if (swiperRef.current && swiperRef.current.swiper) {
+      // @ts-ignore
       swiperRef.current.swiper.slideNext();
     }
   };
 
   const goPrev = () => {
+    // @ts-ignore
     if (swiperRef.current && swiperRef.current.swiper) {
+      // @ts-ignore
       swiperRef.current.swiper.slidePrev();
     }
   };

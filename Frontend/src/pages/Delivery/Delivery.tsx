@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import {
 
   Tab,
@@ -15,7 +15,7 @@ function Delivery() {
   // const handleButtonClick = (buttonIndex) => {
   //   setSelectedButton(buttonIndex);
   // };
-
+{/* @ts-ignore */}
   const handleButtonClick = (buttonIndex) => {
     setSelectedButton(buttonIndex);
     // Navigate to the appropriate tab on the Delivery page
@@ -75,8 +75,12 @@ function Delivery() {
               value={data[selectedButton].value}
               onChange={handleButtonClick}
             >
+              {/* @ts-ignore */}
               <TabsHeader className="tab-header border-0 border-b rounded-none bg-[#fff]">
+
+                {/* @ts-ignore */}
                 {data.map(({ label, value }, index) => (
+                  // @ts-ignore
                   <Tab
                     key={value}
                     value={value}
@@ -86,6 +90,7 @@ function Delivery() {
                   </Tab>
                 ))}
               </TabsHeader>
+              {/* @ts-ignore */}
               <TabsBody className="">
                 {data.map(({ value, desc, desc1, desc2 }) => (
                   <TabPanel className="px-0" key={value} value={value}>

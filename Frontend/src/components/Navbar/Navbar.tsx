@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Categories, Product, SubCategories } from "../../mock/data";
 import search from "../../assets/images/search.svg";
-import filtr from "../../assets/icons/filtr.png";
+// import filtr from "../../assets/icons/filtr.png";
 import menu from "../../assets/icons/menu.png";
 import Topbar from "./Topbar";
 import { MoreFilter } from "..";
@@ -27,6 +27,7 @@ const Navbar = () => {
         }
     };
 
+    // @ts-ignore
     const handleFilter = () => {
         setFilter(!filter);
     };

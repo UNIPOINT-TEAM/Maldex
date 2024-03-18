@@ -1,5 +1,5 @@
-import { Banner, Dishes, FAQ, MainCategory, QuestForm } from "../../components";
-import { CardModal } from "../../components/index";
+// import { Banner, Dishes, FAQ, MainCategory, QuestForm } from "../../components";
+// import { CardModal } from "../../components/index";
 import Product1 from "../../assets/images/machine.png";
 
 const Card = () => {

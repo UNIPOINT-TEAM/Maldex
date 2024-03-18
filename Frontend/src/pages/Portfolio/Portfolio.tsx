@@ -1,11 +1,9 @@
-import React from "react";
 import image1 from "../../assets/portfolio/image1.jpg";
 import image2 from "../../assets/portfolio/image2.png";
 import image3 from "../../assets/portfolio/image3.png";
 import image4 from "../../assets/portfolio/image4.png";
 import image5 from "../../assets/portfolio/image5.png";
 import image6 from "../../assets/portfolio/image6.png";
-import PortfolioBanner from "../../components/PortfolioBanner/PortfolioBanner";
 import { Badge, News, ProjectsSlider, QuestForm } from "../../components";
 
 function Portfolio() {
@@ -20,9 +18,11 @@ function Portfolio() {
             }}
           >
             <div className="md:w-[65%]">
-              <Badge name="NEW" type="NEW" />
-              <Badge name="HIT" type="HIT" />
-              <h3 className="text-fs_6 lg:text-[50px] leading-[54px] text-darkPrimary font-medium ">
+            {/* @ts-ignore */}
+              <Badge name="NEW" />
+              {/* @ts-ignore */}
+              <Badge name="HIT" />
+              <h3 className="text-fs_6 lg:text-fs_3 text-darkPrimary font-medium ">
                 welcome pack, <br /> для милых дам
               </h3>
             </div>
@@ -41,7 +41,9 @@ function Portfolio() {
                   Маска для лица <br /> многоразовая из хлопка,
                   <br /> анатомической формы{" "}
                 </h2>
+                {/* @ts-ignore */}
                 <Badge name="NEW" />
+                {/* @ts-ignore */}
                 <Badge name="HIT" />
               </div>
             </div>

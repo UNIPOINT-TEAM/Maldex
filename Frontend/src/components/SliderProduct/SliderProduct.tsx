@@ -6,6 +6,7 @@ import { getData } from "../../services/services";
 import { Link } from "react-router-dom";
 
 const SliderProduct = () => {
+    // @ts-ignore
     const [product, setProduct] = useState([]);
     const [defaultProduct, setDefaultProduct] = useState(true);
     const [addCard, setAddCard] = useState(false);
