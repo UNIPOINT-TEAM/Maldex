@@ -81,7 +81,7 @@ function Company2() {
           <BannerBottom />
           <BannerBottomMobile />
         </div>
-        <Brands />
+        {/* <Brands /> */}
         <div>
           <WhoWe />
         </div>

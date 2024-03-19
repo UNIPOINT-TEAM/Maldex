@@ -3,6 +3,7 @@ import { Layout } from "../layout";
 import {
   AdminPanel,
   Applying,
+  Articles,
   BuildSet,
   Card,
   Catalog,
@@ -82,6 +83,10 @@ export const router = createBrowserRouter([
       {
         path: "/admin",
         element: <AdminPanel />,
+      },
+      {
+        path: "/articles",
+        element: <Articles />,
       },
       {
         path: "/applying-type",

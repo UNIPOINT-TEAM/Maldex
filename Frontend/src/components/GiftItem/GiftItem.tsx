@@ -51,9 +51,12 @@ const GiftItem = () => {
                 </p>
               </Link>
             </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+            <p className="text-center px-1 text-[11px] font-medium font-helvetica-neue-black-condensed">
+              {item.name}
+            </p>
+          </Link>
+        </div>
+      ))}
     </div>
   );
 };
