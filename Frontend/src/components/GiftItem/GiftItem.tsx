@@ -26,7 +26,7 @@ const GiftItem = () => {
                 className="w-full h-full object-contain "
               />
             </div>
-            <p className="text-center px-1 text-fs_8 font-semibold">
+            <p className="text-center px-1 text-[11px] font-medium font-helvetica-neue-black-condensed">
               {item.name}
             </p>
           </Link>

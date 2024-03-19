@@ -1,3 +1,61 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+
+
+
+/* @font-face {
+  font-family: "Helvetica-Neue";
+  src: url("../public/fonts/HelveticaNeue-01.ttf") format("truetype"),
+    url("../public/fonts/HelveticaNeue-Bold-02.ttf") format("truetype"),
+    url("../public/fonts/HelveticaNeue-BoldItalic-04.ttf") format("truetype"),
+    url("../public/fonts/HelveticaNeue-CondensedBlack-10.ttf")
+      format("truetype"),
+    url("../public/fonts/HelveticaNeue-CondensedBold-05.ttf") format("truetype"),
+    url("../public/fonts/HelveticaNeue-Italic-03.ttf") format("truetype"),
+    url("../public/fonts/HelveticaNeue-Light-08.ttf") format("truetype"),
+    url("../public/fonts/HelveticaNeue-LightItalic-09.ttf") format("truetype"),
+    url("../public/fonts/HelveticaNeue-Medium-11.ttf") format("truetype"),
+    url("../public/fonts/HelveticaNeue-MediumItalic-12.ttf") format("truetype"),
+    url("../public/fonts/HelveticaNeue-Thin-13.ttf") format("truetype"),
+    url("../public/fonts/HelveticaNeue-ThinItalic-14.ttf") format("truetype"),
+    url("../public/fonts/HelveticaNeue-UltraLight-06.ttf") format("truetype"),
+    url("../public/fonts/HelveticaNeue-UltraLightItalic-07.ttf")
+      format("truetype"),
+    url("../public/fonts/HelveticaNeueBoldCondensed.ttf") format("truetype"),
+    url("../public/fonts/HelveticaNeueBlackCondensed.ttf") format("truetype");
+} */
+
+@font-face {
+  font-family: "Helvetica-Neue";
+  src: url("../public/fonts/HelveticaNeue-Light-08.ttf") format("truetype");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "Helvetica-Neue";
+  src: url("../public/fonts/HelveticaNeue-01.ttf") format("truetype");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Helvetica-Neue";
+  src: url("../public/fonts/HelveticaNeue-Medium-11.ttf") format("truetype");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Helvetica-Neue";
+  src: url("../public/fonts/HelveticaNeue-Bold-02.ttf") format("truetype");
+  font-weight: 700;
+}
+
+
+
+* {
+  font-family: "Helvetica-Neue", sans-serif !important;
+}
+
+

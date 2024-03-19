@@ -19,9 +19,9 @@ function Portfolio() {
           >
             <div className="md:w-[65%]">
             {/* @ts-ignore */}
-              <Badge name="NEW" />
+              <Badge name="NEW" type="NEW"/>
               {/* @ts-ignore */}
-              <Badge name="HIT" />
+              <Badge name="HIT" type="HIT"/>
               <h3 className="text-fs_6 lg:text-fs_3 text-darkPrimary font-medium ">
                 welcome pack, <br /> для милых дам
               </h3>

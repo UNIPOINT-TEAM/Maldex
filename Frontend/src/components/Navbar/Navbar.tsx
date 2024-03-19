@@ -45,10 +45,10 @@ const Navbar = () => {
   };
 
   return (
-    <div className="relative">
+    <div className="relative container_xxl">
       <header>
         <Topbar />
-        <nav className="container_xxl ">
+        <nav className=" px-3">
           <div className="flex justify-between items-center py-2 gap-3 lg:gap-5">
             <div className="flex justify-around gap-5">
               <button

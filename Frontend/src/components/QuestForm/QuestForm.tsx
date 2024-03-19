@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import { useState } from "react";
 import { Input, Checkbox } from "@material-tailwind/react";
 
 function QuestForm() {
@@ -44,6 +44,7 @@ function QuestForm() {
                   {/*  @ts-ignore */}
 
                   <Input
+                    variant="standard"
                     label="Ваш номер телефона"
                     placeholder=""
                     type="text"
