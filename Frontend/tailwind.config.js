@@ -18,12 +18,7 @@ module.exports = withMT({
         white: "#F7F7F7",
       },
       fontFamily: {
-        "helvetica-neue": [
-          "HelveticaNeue",
-          "Helvetica Neue",
-          "Arial",
-          "sans-serif",
-        ],
+        "helvetica-neue": ["HelveticaNeue", "sans-serif"],
         "helvetica-neue-black-condensed": [
           "HelveticaNeueBlackCondensed",
           "Helvetica Neue Black Condensed",

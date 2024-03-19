@@ -42,11 +42,6 @@ const BannerSlider = () => {
       <div className="w-[50%] h-full">
         <Swiper
           centeredSlides
-          loop
-          autoplay={{
-            delay: 3000,
-            disableOnInteraction: false,
-          }}
           pagination={{
             clickable: true,
           }}
@@ -66,7 +61,7 @@ const BannerSlider = () => {
             </SwiperSlide>
           ))}
         </Swiper>
-        <div className="navigation-box absolute right-3 lg:right-6 bottom-3 lg:bottom-5 z-[9] flex gap-2">
+        <div className="navigation-box bg-greenPrimary absolute right-3 lg:right-6 bottom-3 lg:bottom-5 z-[9] flex gap-2">
           <button className="prev-arrow p-2 border border-[#fff] rounded-lg">
             <FaArrowLeft className="text-fs_8 lg:text-fs_7" />
           </button>
