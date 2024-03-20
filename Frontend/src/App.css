@@ -106,30 +106,31 @@
 }
 
 .next {
-  position: absolute;
-  z-index: 999;
-  top: 140px;
-  right: 0;
-  border: 2px solid gray;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 6px;
+    position: absolute;
+    z-index: 999 !important;
+    top: 140px;
+    right: -10px;
+    border: 1px solid black;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+
 }
 .prev {
-  position: absolute;
-  z-index: 999;
-  top: 140px;
-  left: 0;
-  border: 2px solid gray;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 6px;
+    position: absolute;
+    z-index: 999 !important;
+    top: 140px;
+    left: -10px;
+    border: 1px solid black;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
 }
 
 .next:hover {

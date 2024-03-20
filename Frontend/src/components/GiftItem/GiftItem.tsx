@@ -2,15 +2,16 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useFetchHook } from "../../hooks/UseFetch";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { GoCodescanCheckmark } from "react-icons/go";
 
 const GiftItem = () => {
-  const { fetchData, response } = useFetchHook();
-  useEffect(() => {
-    fetchData({
-      method: "GET",
-      url: "/product/categories/?new_category=true",
-    });
-  }, []);
+    const { fetchData, response } = useFetchHook();
+    useEffect(() => {
+        fetchData({
+            method: "GET",
+            url: "/product/categories/?new_category=true",
+        });
+    }, []);
 
   return (
     <div className="gift-category container_xxl py-3 flex items-start gap-6 overflow-auto">
