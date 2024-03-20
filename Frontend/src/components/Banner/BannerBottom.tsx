@@ -3,8 +3,8 @@ import React from "react";
 import Slider from "./Slider";
 import arrowRight from "../../assets/icons/arrow-right.png";
 import { Link } from "react-router-dom";
-import statya from '../../assets/statya.png'
-import statya2 from '../../assets/statya2.png'
+import statya from "../../assets/statya.png";
+import statya2 from "../../assets/statya2.png";
 
 const BannerBottom: React.FC<any> = ({ BannerData }) => {
   return (
@@ -72,7 +72,7 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
             <h2 className="text-fs_7 tracking-wider font-semibold opacity-0 group-hover:opacity-100 duration-200">
               Бутылки для воды
             </h2>
-            <div className="w-full flex items-center justify-center">
+            <div className="w-full h-[300px] flex items-center justify-center">
               <Slider
                 SliderItems={BannerData && BannerData[7]}
                 sliderTime={3000}
@@ -93,7 +93,7 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
                 <h2 className="text-fs_7 tracking-wider font-semibold opacity-0 group-hover:opacity-100 duration-200">
                   Бутылки для воды
                 </h2>
-                <div className="w-[150px] mx-auto flex items-center justify-center">
+                <div className="w-[150px] h-[140px] mx-auto flex items-center justify-center">
                   <Slider
                     SliderItems={BannerData && BannerData[8]}
                     sliderTime={3000}
@@ -112,7 +112,7 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
                 <h2 className="text-fs_7 tracking-wider font-semibold opacity-0 group-hover:opacity-100 duration-200">
                   Бутылки для воды
                 </h2>
-                <div className="w-[150px] mx-auto flex items-center justify-center">
+                <div className="w-[150px] h-[140px] mx-auto flex items-center justify-center">
                   <Slider
                     SliderItems={BannerData && BannerData[8]}
                     sliderTime={3000}
@@ -131,7 +131,9 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
       <div className="col-span-4 row-span-4 ">
         <div className="grid grid-cols-2 h-full gap-3">
           <div
-            className="bg-cover bg-center flex p-3" data-aos="fade-left" data-aos-delay="50" 
+            className="bg-cover bg-center flex p-3"
+            data-aos="fade-left"
+            data-aos-delay="50"
             style={{
               backgroundImage: `url(${statya})`, // Обратите внимание на использование обратных кавычек и ${...} для вставки переменной statya
             }}
@@ -141,7 +143,8 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
             </p>
           </div>
           <div
-          data-aos="fade-down" data-aos-delay="50"
+            data-aos="fade-down"
+            data-aos-delay="50"
             className="bg-cover bg-center flex p-3"
             style={{
               backgroundImage: `url(${statya2})`, // Обратите внимание на использование обратных кавычек и ${...} для вставки переменной statya

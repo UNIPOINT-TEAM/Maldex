@@ -31,12 +31,12 @@ const Slider: React.FC<SliderProps> = ({ SliderItems, sliderTime }) => {
       {SliderItems?.product_set.map((item) => (
         <SwiperSlide
           key={item.id}
-          className="flex w-[300px] items-center justify-center"
+          className="flex w-full h-full items-center justify-center"
         >
           <img
             src={`${BASE_URL}${item.productID.image}`}
             alt=""
-            className="w-full h-full object-cover"
+            className="w-full h-full object-center  object-contain"
           />
         </SwiperSlide>
       ))}
