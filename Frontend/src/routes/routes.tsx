@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Layout } from "../layout";
+<<<<<<< HEAD
 import {
   AdminPanel,
   Applying,
@@ -20,6 +21,9 @@ import {
 import CardSet from "../pages/CardSet/CardSet";
 import Company2 from "../pages/Company2/Company2";
 import { PadPrinting } from "../pages/Applying";
+=======
+import { Card, Company, Delivery, Gift, Home, NotFound, Portfolio, Tags } from "../pages";
+>>>>>>> b72aced1b1de90f432cd87926d1b10d68b2f90bf
 
 export const router = createBrowserRouter([
   {
@@ -30,7 +34,10 @@ export const router = createBrowserRouter([
         path: "/",
         element: <Home />,
       },
+<<<<<<< HEAD
 
+=======
+>>>>>>> b72aced1b1de90f432cd87926d1b10d68b2f90bf
       {
         path: "/gift",
         element: <Gift />,
@@ -40,16 +47,23 @@ export const router = createBrowserRouter([
         element: <Card />,
       },
       {
+<<<<<<< HEAD
         path: "category/:id",
         element: <CategoryDetails />,
       },
       {
+=======
+>>>>>>> b72aced1b1de90f432cd87926d1b10d68b2f90bf
         path: "/portfolio",
         element: <Portfolio />,
       },
       {
         path: "/company",
+<<<<<<< HEAD
         element: <Company2 />,
+=======
+        element: <Company />,
+>>>>>>> b72aced1b1de90f432cd87926d1b10d68b2f90bf
       },
       {
         path: "/tags",
@@ -63,6 +77,7 @@ export const router = createBrowserRouter([
         path: "/delivery",
         element: <Delivery />,
       },
+<<<<<<< HEAD
       {
         path: "build-set",
         element: <BuildSet />,
@@ -91,6 +106,8 @@ export const router = createBrowserRouter([
           { path: "pad-printing", element: <PadPrinting /> },
         ],
       },
+=======
+>>>>>>> b72aced1b1de90f432cd87926d1b10d68b2f90bf
     ],
   },
 ]);

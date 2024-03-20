@@ -59,6 +59,7 @@ const LeftAccordion = () => {
 
   return (
     <div className="">
+<<<<<<< HEAD
       <div className="pl-2 w-[246px]">
         <h1 className="text-[28px] font-medium font-black leading-7 tracking-wide mb-8">
           Подарочные наборы
@@ -89,6 +90,26 @@ const LeftAccordion = () => {
               />
             </svg>
           }
+=======
+      <div className="w-[246px]">
+        <h1 className="text-[28px] font-black tracking-wide">Подарочные наборы</h1>
+      </div>
+      <Accordion
+        className="border border-lightPrimary rounded-xl my-4"
+        open={open === 0} // Используйте значение open для определения открытого состояния
+        icon={
+          <img
+            className={`${open === 1 ? "rotate-180" : ""} transition-transform`}
+            src={accordionIcon}
+            alt="Accordion Icon"
+          />
+        }
+        placeholder={<div />}
+      >
+        <AccordionHeader
+          className="border-0 p-4"
+          onClick={() => handleOpen(1)}
+>>>>>>> b72aced1b1de90f432cd87926d1b10d68b2f90bf
           placeholder={<div />}
         >
           <AccordionHeader
