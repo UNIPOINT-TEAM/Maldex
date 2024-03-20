@@ -17,6 +17,7 @@ import {
   ProductNav,
   GiftItem,
 } from "../../components";
+<<<<<<< HEAD
 import {
   GetCategory,
   GetProductHit,
@@ -204,6 +205,12 @@ const Home = () => {
 =======
 
 import { MainCategory, QuestForm, FAQ, Banner, Dishes, SliderProduct } from "../../components";
+=======
+// import image1 from "../../assets/article-bg-1.png";
+// import image2 from "../../assets/article-bg-2.png";
+// import image3 from "../../assets/article-bg-3.png";
+// import image4 from "../../assets/article-bg-4.png";
+>>>>>>> db87467 (restart branch 3)
 
 const Home = () => {
     return (
