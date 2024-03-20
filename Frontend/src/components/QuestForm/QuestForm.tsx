@@ -57,7 +57,7 @@ function QuestForm() {
                   <Input variant="standard" label="Ваш вопрос" placeholder="" />
 
                   {/* <textarea placeholder="Ваш вопрос" /> */}
-                  <span>
+                  <span className="flex items-center">
                     {/* @ts-ignore */}
                     <Checkbox className="m-0 " color="red" defaultChecked />
                     Согласен в обработкой персональных данных и политикой

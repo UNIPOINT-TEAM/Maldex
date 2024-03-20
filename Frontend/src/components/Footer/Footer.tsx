@@ -16,8 +16,8 @@ function Footer() {
                 maldex <br /> @info.com
               </h1>
             </div>
-            <div className="">
-              <p className="text-darkSecondary text-fs_8">
+            <div className="mr-24">
+              <p className="text-darkSecondary  text-fs_8">
                 Бесплатный звонок <br /> из любой точки России
               </p>
               <h1 className="lg:w-[220px] text-fs_8 lg:text-fs_1 font-medium leading-[50px] tracking-normal text-left underline">

@@ -14,7 +14,8 @@ const GiftItem = () => {
     }, []);
 
   return (
-    <div className="gift-category container_xxl py-3 flex items-start gap-6 overflow-auto">
+<div className="container_xxl">
+<div className="gift-category p-3 flex items-start gap-6 overflow-auto">
       <Swiper
         slidesPerView={3}
         breakpoints={{
@@ -60,6 +61,7 @@ const GiftItem = () => {
           ))}
       </Swiper>
     </div>
+</div>
   );
 };
 

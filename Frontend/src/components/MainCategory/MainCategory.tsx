@@ -58,7 +58,7 @@ const MainCategory = () => {
 
   return (
     <>
-      <div className="w-full py-3 flex flex-wrap gap-2 justify-between items-center">
+      <div className="w-full p-3 flex flex-wrap gap-2 justify-between items-center">
         {response.map((category) => (
           <div
             key={category.id}

@@ -21,7 +21,7 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
         </div>
         <div className="flex justify-end opacity-0 group-hover:opacity-100 duration-200">
           <button className="bg-redPrimary p-1 rounded-lg">
-            <img src={arrowRight} alt="arrow icon" className="" />
+            <img src={arrowRight} alt="arrow icon" className="w-full" />
           </button>
         </div>
       </Link>
@@ -40,7 +40,7 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
                 sliderTime={4000}
               />
             </div>
-            <div className="flex justify-end opacity-0 group-hover:opacity-100 duration-200">
+            <div className="flex justify-end opacity-0 group-hover:opacity-100 duration-200 ">
               <button className="bg-redPrimary p-1 rounded-lg">
                 <img src={arrowRight} alt="arrow icon" className="" />
               </button>
@@ -55,7 +55,7 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
             </h2>
             <div className="w-full flex items-center justify-center">
               <Slider
-                SliderItems={BannerData && BannerData[6]}
+                // SliderItems={BannerData && BannerData[6]}
                 sliderTime={4000}
               />
             </div>
@@ -74,7 +74,7 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
             </h2>
             <div className="w-full h-[300px] flex items-center justify-center">
               <Slider
-                SliderItems={BannerData && BannerData[7]}
+                // SliderItems={BannerData && BannerData[7]}
                 sliderTime={3000}
               />
             </div>
@@ -95,7 +95,7 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
                 </h2>
                 <div className="w-[150px] h-[140px] mx-auto flex items-center justify-center">
                   <Slider
-                    SliderItems={BannerData && BannerData[8]}
+                    // SliderItems={BannerData && BannerData[8]}
                     sliderTime={3000}
                   />
                 </div>
@@ -114,7 +114,7 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
                 </h2>
                 <div className="w-[150px] h-[140px] mx-auto flex items-center justify-center">
                   <Slider
-                    SliderItems={BannerData && BannerData[8]}
+                    // SliderItems={BannerData && BannerData[8]}
                     sliderTime={3000}
                   />
                 </div>

@@ -8,6 +8,7 @@ import project2 from "../../assets/project 2.png";
 import project3 from "../../assets/project 3.png";
 import "swiper/css";
 import { ProductNav } from "..";
+import { Link } from "react-router-dom";
 
 function ProjectsSlider() {
   const swiperRef = useRef(null);
@@ -49,39 +50,49 @@ function ProjectsSlider() {
               pagination={{ clickable: true }}
             >
               <SwiperSlide>
-                <div className="">
-                  <div>
-                    <img src={project1} alt="" />
+                <Link to="/portfolio">
+                  <div className="">
+                    <div>
+                      <img src={project1} alt="" />
+                    </div>
                   </div>
-                </div>
+                </Link>
               </SwiperSlide>
               <SwiperSlide>
-                <div className="">
-                  <div>
-                    <img src={project2} alt="" />
+                <Link to="/portfolio">
+                  <div className="">
+                    <div>
+                      <img src={project2} alt="" />
+                    </div>
                   </div>
-                </div>
+                </Link>
               </SwiperSlide>
               <SwiperSlide>
-                <div className="">
-                  <div>
-                    <img src={project3} alt="" />
+                <Link to="/portfolio">
+                  <div className="">
+                    <div>
+                      <img src={project3} alt="" />
+                    </div>
                   </div>
-                </div>
+                </Link>
               </SwiperSlide>
               <SwiperSlide>
-                <div className="">
-                  <div>
-                    <img src={project3} alt="" />
+                <Link to="/portfolio">
+                  <div className="">
+                    <div>
+                      <img src={project3} alt="" />
+                    </div>
                   </div>
-                </div>
+                </Link>
               </SwiperSlide>
               <SwiperSlide>
-                <div className="">
-                  <div>
-                    <img src={project3} alt="" />
+                <Link to="/portfolio">
+                  <div className="">
+                    <div>
+                      <img src={project3} alt="" />
+                    </div>
                   </div>
-                </div>
+                </Link>
               </SwiperSlide>
               {/* Add more slides if needed */}
             </Swiper>
@@ -94,10 +105,10 @@ function ProjectsSlider() {
 
           {/* Mobile */}
           <div className="block lg:hidden">
-            <div >
+            <div>
               <img src={project1} alt="" />
             </div>
-            <div >
+            <div>
               <img src={project2} alt="" />
             </div>
           </div>
