@@ -1,6 +1,15 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Link } from "react-router-dom";
+=======
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+// @ts-ignore
+import { Categories, Product, SubCategories } from "../../mock/data";
+// import filtr from "../../assets/icons/filtr.png";
+import menu from "../../assets/icons/menu.png";
+>>>>>>> db87467 (restart branch 3)
 import Topbar from "./Topbar";
 import { MoreFilter } from "..";
 import SearchModal from "../SearchModal/SearchModal";
@@ -134,6 +143,7 @@ const Navbar = () => {
                 </span>
               </div>
 
+<<<<<<< HEAD
               <div className="flex items-center">
                 <img src={location} className="mr-2" />
                 <span className="text-darkPrimary text-fs_8 tracking-wider font-bold">
@@ -142,6 +152,47 @@ const Navbar = () => {
               </div>
             </div>
           </div>
+=======
+    return (
+        <div className="relative">
+            <header>
+                <Topbar />
+                <nav className="container_xxl ">
+                    <div className="flex justify-between items-center py-2 px-3 gap-3 lg:gap-5">
+                        <div className="flex justify-around gap-5">
+                            <button
+                                onClick={modalToggle}
+                                className="px-3 h-[36px] w-auto lg:w-[125px] bg-redPrimary rounded-lg flex items-center gap-2"
+                            >
+                                <img
+                                    src={menu}
+                                    alt="bars-btn"
+                                    className="min-w-[17px]"
+                                />
+                                <span className="text-white tracking-widest hidden lg:block font-helvetica-neue">
+                                    Каталог
+                                </span>
+                            </button>
+                            <MoreFilter />
+                        </div>
+                        <SearchModal />
+                        <div className="items-center justify-between text-fs_3 gap-5 hidden md:flex font-medium">
+                            <Link
+                                to={"category/1"}
+                                className="text-redPrimary "
+                            >
+                                <span className="underline mr-2">new</span>
+                                <sup className="font-bold text-fs_7">243</sup>
+                            </Link>
+                            <div className="text-greenPrimary">
+                                <span className="underline mr-2">hits</span>
+                                <sup className="font-bold text-fs_7">243</sup>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </header>
+>>>>>>> db87467 (restart branch 3)
 
           {/* City and Minimum Order Info */}
           <div className="text-darkSecondary hidden md:block">

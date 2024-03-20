@@ -1,7 +1,11 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
+<<<<<<< HEAD
 import { useFetchHook } from "../../hooks/UseFetch";
+=======
+// import { GoCodescanCheckmark } from "react-icons/go";
+>>>>>>> db87467 (restart branch 3)
 
 const GiftItem = () => {
   const { fetchData, response } = useFetchHook();

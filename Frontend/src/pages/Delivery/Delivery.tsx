@@ -166,6 +166,7 @@ function Delivery() {
                         </div>
                       </>
                     ) : (
+<<<<<<< HEAD
                       <div className="text-darkPrimary text-fs_6">
                         <p className="font-bold font-Helvetica-Neue  ">
                           {desc}
@@ -174,6 +175,16 @@ function Delivery() {
                         <p className="font-Helvetica-Neue font-normal " dangerouslySetInnerHTML={{ __html: desc1 }} />
                         {/* @ts-ignore */}
                         <p className="font-Helvetica-Neue font-normal" dangerouslySetInnerHTML={{ __html: desc2 }} />
+=======
+                      <div>
+                        <p className="font-extrabold">{desc}</p>
+                        {/* @ts-ignore */}
+                        <div dangerouslySetInnerHTML={{ __html: desc1 }} />
+                        {/* @ts-ignore */}
+                        <div dangerouslySetInnerHTML={{ __html: desc2 }} />
+
+                        {/* <p>{desc2}</p> */}
+>>>>>>> db87467 (restart branch 3)
                       </div>
                     )}
                   </TabPanel>

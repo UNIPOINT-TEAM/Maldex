@@ -65,6 +65,7 @@ function Company() {
         <div className="container_xxl">
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
           {/* @ts-expect-error: This */}
           <ProductNav  color="green"  title="hits!"/>
           { /*@ts-expect-error: This */}
@@ -77,6 +78,10 @@ function Company() {
 =======
           hits
           <ProductNav />
+=======
+          
+          <ProductNav color="green"  title="hits!"/>
+>>>>>>> db87467 (restart branch 3)
           <SliderProduct/>
 >>>>>>> 0facdc4 (restart branch 2)
         </div>
