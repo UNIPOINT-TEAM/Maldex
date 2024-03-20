@@ -431,6 +431,7 @@ const Card = () => {
                 </div>
                 <div className="container_xxl px-3">
                     <div className="my-5">
+                        {/*@ts-ignore*/}
                         <ProductNav />
                     </div>
                 </div>

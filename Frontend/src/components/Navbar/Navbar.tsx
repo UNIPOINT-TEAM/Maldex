@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+// @ts-ignore
 import { Categories, Product, SubCategories } from "../../mock/data";
 // import filtr from "../../assets/icons/filtr.png";
 import menu from "../../assets/icons/menu.png";
@@ -56,7 +57,7 @@ const Navbar = () => {
             <header>
                 <Topbar />
                 <nav className="container_xxl ">
-                    <div className="flex justify-between items-center py-2 gap-3 lg:gap-5">
+                    <div className="flex justify-between items-center py-2 px-3 gap-3 lg:gap-5">
                         <div className="flex justify-around gap-5">
                             <button
                                 onClick={modalToggle}

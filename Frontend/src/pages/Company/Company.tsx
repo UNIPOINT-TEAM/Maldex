@@ -35,8 +35,8 @@ function Company() {
           <AboutInfo />
         </div>
         <div className="container_xxl">
-          hits
-          <ProductNav />
+          
+          <ProductNav color="green"  title="hits!"/>
           <SliderProduct/>
         </div>
         <div>

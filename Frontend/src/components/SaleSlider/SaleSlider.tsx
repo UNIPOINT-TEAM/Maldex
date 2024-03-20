@@ -43,7 +43,7 @@ function SaleSlider() {
             </button>
             <button
               onClick={() => slider?.current?.slickNext()}
-              className="absolute right-0"
+              className="absolute right-0 mr-6"
             >
               <img src={next} alt="carusel-arrow" />
             </button>

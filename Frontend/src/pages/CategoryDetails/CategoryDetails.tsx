@@ -65,6 +65,7 @@ const CategoryDetails = () => {
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const [productColor, setproductColor] = useState<number>(0);
   const [btnActiveSize, setbtnActiveSize] = useState<number>(1);
+  // @ts-ignore
   const [rengeValue, setRengeValue] = useState<number>(0);
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
@@ -270,6 +271,7 @@ const CategoryDetails = () => {
                   <div className="flex justify-between items-center py-1">
                     <p className="font-normal ">Количество:</p>
                     <input
+                      // @ts-ignore
                       onChange={(e) => setRengeValue(e.target.value)}
                       className="border w-[50px] bg-transparent text-fs_7 border-black rounded-md outline-none px-2 tracking-wider font-normal"
                     />

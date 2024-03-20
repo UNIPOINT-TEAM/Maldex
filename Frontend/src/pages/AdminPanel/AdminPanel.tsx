@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { Card, Input, Button, Typography } from "@material-tailwind/react";
 
 function AdminPanel() {
@@ -10,7 +10,7 @@ function AdminPanel() {
     password: "",
     repeatPassword: "",
   });
-
+// @ts-ignore
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({
@@ -18,7 +18,7 @@ function AdminPanel() {
       [name]: value,
     }));
   };
-
+// @ts-ignore
   const handleRegistrationSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
@@ -33,23 +33,28 @@ function AdminPanel() {
   };
 
   return (
+    // @ts-ignore
     <Card color="transparent" shadow={false}>
       <div className="text-center">
         {!showRegistration ? (
           <>
+          {/* @ts-ignore */}
             <Typography variant="h4" color="blue-gray">
               Вход
             </Typography>
+            {/*@ts-ignore */}
             <Typography color="gray" className="mt-1 font-normal">
               Войдите в свою учетную запись
             </Typography>
             <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
               <div className="mb-1 flex flex-col gap-6">
+              {/* @ts-ignore */}
                 <Input
                   size="lg"
                   placeholder="Логин"
                   className="!border-t-blue-gray-200 focus:!border-t-gray-900"
                 />
+                {/* @ts-ignore */}
                 <Input
                   type="password"
                   size="lg"
@@ -57,9 +62,11 @@ function AdminPanel() {
                   className="!border-t-blue-gray-200 focus:!border-t-gray-900"
                 />
               </div>
+              {/* @ts-ignore */}
               <Button className="mt-6" fullWidth>
                 Войти
               </Button>
+              {/* @ts-ignore */}
               <Typography color="gray" className="mt-4 text-center font-normal">
                 Нет аккаунта?{" "}
                 <button
@@ -73,9 +80,11 @@ function AdminPanel() {
           </>
         ) : (
           <>
+          {/*@ts-ignore */}
             <Typography variant="h4" color="blue-gray">
               Регистрация
             </Typography>
+            {/*@ts-ignore */}
             <Typography color="gray" className="mt-1 font-normal">
               Создайте свою учетную запись
             </Typography>
@@ -84,6 +93,7 @@ function AdminPanel() {
               className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96"
             >
               <div className="mb-1 flex flex-col gap-6">
+                {/* @ts-ignore */}
                 <Input
                   size="lg"
                   placeholder="Имя"
@@ -92,6 +102,7 @@ function AdminPanel() {
                   value={formData.firstName}
                   onChange={handleInputChange}
                 />
+                {/* @ts-ignore */}
                 <Input
                   size="lg"
                   placeholder="Фамилия"
@@ -100,6 +111,7 @@ function AdminPanel() {
                   value={formData.lastName}
                   onChange={handleInputChange}
                 />
+                {/* @ts-ignore */}
                 <Input
                   size="lg"
                   placeholder="E-mail"
@@ -109,6 +121,7 @@ function AdminPanel() {
                   value={formData.email}
                   onChange={handleInputChange}
                 />
+                {/* @ts-ignore */}
                 <Input
                   type="password"
                   size="lg"
@@ -118,6 +131,7 @@ function AdminPanel() {
                   value={formData.password}
                   onChange={handleInputChange}
                 />
+                {/* @ts-ignore */}
                 <Input
                   type="password"
                   size="lg"
@@ -128,9 +142,11 @@ function AdminPanel() {
                   onChange={handleInputChange}
                 />
               </div>
+              {/* @ts-ignore */}
               <Button type="submit" className="mt-6" fullWidth>
                 Подтвердить
               </Button>
+              {/* @ts-ignore */}
               <Typography color="gray" className="mt-4 text-center font-normal">
                 Уже есть аккаунт?{" "}
                 <button

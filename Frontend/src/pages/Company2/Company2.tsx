@@ -33,7 +33,6 @@ import {
   BannerBottomMobile,
   BannerSlider,
   BannerTop,
-  Brands,
   Printing,
   QuestForm,
   Steps,
