@@ -1,7 +1,30 @@
+import React from "react";
 
-function ProductNav() {
+interface ProductNavProps {
+  title: string;
+  color: "green" | "red" | "gray";
+}
+
+const ProductNav: React.FC<ProductNavProps> = ({ title, color }) => {
+  let titleStyle = "text-4xl";
+
+  // Добавляем стили в зависимости от типа бейджа
+  if (color === "green") {
+    titleStyle += "font-medium text-[40px]  text-greenPrimary";
+  } else if (color === "red") {
+    titleStyle += "font-medium text-[40px] text-redPrimary";
+  } else if (color === "gray") {
+    titleStyle += "font-medium text-[32px] text-darkSecondary";
+  }
+
   return (
     <div className="">
+      <div className="mb-5 flex justify-between">
+        <p className={titleStyle}>{title}</p>
+        <button className="mx-3 uppercase font-extrabold tracking-wider p-[6px] border border-redPrimary rounded-md text-redPrimary block ss:hidden">
+          Все проекты
+        </button>
+      </div>
       <div className="border border-darkSecondary rounded-md text-fs_8 uppercase text-darkSecondary font-semibold tracking-wider">
         <div className="flex justify-between items-center px-7 py-0">
           <div className="overflow-auto">
@@ -35,6 +58,6 @@ function ProductNav() {
       </div>
     </div>
   );
-}
+};
 
 export default ProductNav;

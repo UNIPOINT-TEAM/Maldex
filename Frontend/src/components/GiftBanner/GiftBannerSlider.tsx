@@ -16,14 +16,11 @@ const BannerSlider = () => {
           </h2>
         </div>
         <div className="mt-auto flex gap-1 lg:gap-3 text-[9px] lg:text-fs_8 font-extrabold">
-          <Link to='/build-set'>
-            <button className="border text-[12px] px-0 w-auto lg:w-[160px] py-[7px] lg:py-[10px] uppercase tracking-widest rounded-lg  hover:bg-[rgba(0,0,0,0.11)]  duration-300">
+          <Link to="/build-set">
+            <button className="border font-bold text-[12px] px-0 w-auto lg:w-[160px] py-[7px] lg:py-[10px] uppercase  rounded-lg  hover:bg-[rgba(0,0,0,0.11)]  duration-300">
               собери свой набор
             </button>
           </Link>
-          {/* <button className="border px-2 w-auto lg:w-[160px] py-[7px] lg:py-[10px]  uppercase tracking-widest rounded-lg hover:bg-[rgba(0,0,0,0.11)]  duration-300">
-            заказать
-          </button> */}
         </div>
       </div>
       <div className="w-[50%] h-full">

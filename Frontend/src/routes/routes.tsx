@@ -49,10 +49,6 @@ export const router = createBrowserRouter([
       },
       {
         path: "/company",
-        element: <Company />,
-      },
-      {
-        path: "/company2",
         element: <Company2 />,
       },
       {
@@ -79,7 +75,6 @@ export const router = createBrowserRouter([
         path: "/cardset",
         element: <CardSet />,
       },
-
       {
         path: "/admin",
         element: <AdminPanel />,

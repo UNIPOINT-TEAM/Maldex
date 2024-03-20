@@ -32,12 +32,12 @@ function ProjectsSlider() {
   return (
     <div className="container_xxl">
       <div className="mx-3">
-        <ProductNav />
+        <ProductNav title="ПРОЕКТЫ" color="gray"/>
         <div className="my-5 lg:h-[410px]">
           <div className="flex h-full hidden lg:flex">
             <div className="h-[100%] flex items-center">
-              <button className="absolute z-50 -ml-[20px] " onClick={goPrev}>
-                <img src={prev} alt="" />
+              <button className="absolute z-50 -ml-[10px] " onClick={goPrev}>
+                <img src={prev} alt="" className="w-[32px]"/>
               </button>
             </div>
             <Swiper
@@ -98,7 +98,7 @@ function ProjectsSlider() {
             </Swiper>
             <div className="h-[100%] flex items-center">
               <button className="absolute z-50 -ml-[20px]" onClick={goNext}>
-                <img src={next} alt="" />
+                <img src={next} alt="" className="w-[32px]"/>
               </button>
             </div>
           </div>

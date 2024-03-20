@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import image1 from "../../assets/portfolio/image1.jpg";
 import image2 from "../../assets/portfolio/image2.png";
 import image3 from "../../assets/portfolio/image3.png";
@@ -12,17 +13,17 @@ function Portfolio() {
       <div className="container_xxl">
         <div className="mx-3">
           <div
-            className="p-3 mb-5 lg:p-5  bg-cover text-white h-[180px] sm:h-[550px]"
+            className="p-3 mb-5 lg:p-5  bg-cover text-white h-[180px] sm:h-[550px] "
             style={{
               backgroundImage: `url(${image1})`,
             }}
           >
             <div className="md:w-[65%]">
-            {/* @ts-ignore */}
-              <Badge name="NEW" type="NEW"/>
               {/* @ts-ignore */}
-              <Badge name="HIT" type="HIT"/>
-              <h3 className="text-fs_6 lg:text-fs_3 text-darkPrimary font-medium ">
+              <Badge name="NEW" type="NEW" />
+              {/* @ts-ignore */}
+              <Badge name="HIT" type="HIT" />
+              <h3 className="text-fs_7 lg:text-[50px] text-darkPrimary font-medium ">
                 welcome pack, <br /> для милых дам
               </h3>
             </div>
@@ -51,16 +52,37 @@ function Portfolio() {
               <img src={image3} alt="" className="w-full h-full" />
             </div>
             <div>
-              <img src={image4} alt="" className="w-full h-full"/>
+              <img src={image4} alt="" className="w-full h-full" />
             </div>
             <div>
-              <img src={image5} alt="" className="w-full h-full"/>
+              <img src={image5} alt="" className="w-full h-full" />
             </div>
             <div>
-              <img src={image6} alt="" className="w-full h-full"/>
+              <img src={image6} alt="" className="w-full h-full" />
             </div>
             <div>
-              <div className="bg-blue-gray-200"></div>
+              <div className="bg-white h-full w-full flex flex-col justify-between">
+                <div className="pl-5 lg:pt-16 lg:pr-40">
+                  <span className="font-medium">Cостав:</span>
+                  <br />
+                  <span>
+                    бутылка для воды рюкзак ручка чехол для пропуска блокнот для
+                    записей А5 контейнер для еды со столовым прибором ланъярд
+                  </span>
+                </div>
+                <div className="flex items-center justify-center pb-5 gap-3">
+                  <Link to="/build-set">
+                    <button className="border font-bold text-[11px] text-white hover:text-greenPrimary px-0 w-auto lg:w-[160px] py-[7px] lg:py-[10px] uppercase  rounded-lg bg-greenPrimary  hover:bg-[rgb(255,255,255)]  duration-300">
+                    хочу также
+                    </button>
+                  </Link>
+                  <Link to="/build-set">
+                    <button className="border font-bold text-[11px] text-white hover:text-greenPrimary px-0 w-auto lg:w-[160px] py-[7px] lg:py-[10px] uppercase  rounded-lg bg-greenPrimary  hover:bg-[rgb(255,255,255)]  duration-300">
+                    посмотреть похожее
+                    </button>
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
           {/* <PortfolioBanner /> */}
