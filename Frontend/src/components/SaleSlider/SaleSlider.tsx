@@ -15,10 +15,10 @@ function SaleSlider() {
   const slider = useRef<Slider>(null);
   return (
     <div className="bg-white my-2">
-      <div className="container_xxl relative">
-        <div className="px-3">
+      <div className="container_xxl relative px-3 lg:px-0">
+        <div className="w-full ">
           <Slider
-            className="w-full h-[40px] lg:h-[50px] "
+            className="h-[40px] lg:h-[50px] w-full "
             ref={slider}
             {...settings}
           >
@@ -37,7 +37,7 @@ function SaleSlider() {
               </h3>
             </div>
           </Slider>
-          <div className="absolute top-[30%] w-full">
+          <div className="absolute top-[30%] left-0 w-full">
             <button onClick={() => slider?.current?.slickPrev()}>
               <img src={prev} alt="" />
             </button>

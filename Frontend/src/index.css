@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
-
-
 /* @font-face {
   font-family: "Helvetica-Neue";
   src: url("../public/fonts/HelveticaNeue-01.ttf") format("truetype"),
@@ -52,10 +48,22 @@
   font-weight: 700;
 }
 
-
-
 * {
   font-family: "Helvetica-Neue", sans-serif !important;
 }
-
-
+.range-slider {
+  height: 5px;
+}
+.range-slider .range-slider__range {
+  background: #ec1026;
+  border-radius: 6px !important;
+}
+.range-slider .range-slider__thumb[data-lower] {
+  width: 0;
+}
+.range-slider .range-slider__thumb[data-upper] {
+  width: 15px;
+  height: 15px;
+  background: url("./assets//icons/Slider.svg") center no-repeat;
+  background-size: cover;
+}

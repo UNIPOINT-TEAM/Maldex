@@ -4,25 +4,25 @@ import { TopbarLink } from "../../mock/data";
 import CardModal from "../Card/Card";
 
 const Topbar = () => {
-    const location = useLocation();
-    const currentPath = location.pathname;
+  const location = useLocation();
+  const currentPath = location.pathname;
 
-    return (
-        <div className="container_xxl">
-            <nav className="border-0  lg:border-b border-lightSecondary px-3 ">
-                <div className="py-4 container_xxl flex justify-between items-center">
-                    <div className="flex items-center justify-between w-full md:w-auto">
-                        <Link to="/">
-                            <img
-                                src={MaldexLogo}
-                                alt="maldex-logo"
-                                className="mr-5 w-[100px] lg:w-auto"
-                            />
-                        </Link>
+  return (
+    <div className="container_xxl">
+      <nav className="border-0 lg:border-b border-lightSecondary">
+        <div className="py-4 container_xxl flex justify-between items-center">
+          <div className="flex items-center justify-between w-full md:w-auto">
+            <Link to="/">
+              <img
+                src={MaldexLogo}
+                alt="maldex-logo"
+                className="mr-5 w-[100px] lg:w-auto"
+              />
+            </Link>
 
             <ul className="flex items-center gap-1 lg:gap-5 ">
               {TopbarLink?.Topbar_l?.map((item, i) => (
-                <li className={`${i == 2 && "hidden lg:block"}`}>
+                <li key={i} className={`${i == 2 && "hidden lg:block"}`}>
                   <Link to={item.path} className="flex items-center">
                     <img src={item.icon} className="mr-2 w-[20px]" />
                     <span className="hidden text-darkPrimary text-fs_8 tracking-wider lg:block ">
@@ -42,8 +42,8 @@ const Topbar = () => {
             {currentPath === "/admin" ? (
               <div>
                 <ul className="hidden items-center md:flex gap-2 pr-2">
-                  {TopbarLink.Topbar_r.map((item) => (
-                    <li>
+                  {TopbarLink.Topbar_r.map((item, i) => (
+                    <li key={i}>
                       <Link
                         to={item.path}
                         className="text-darkPrimary font-helvetica-neue-bold-condensed text-fs_8 tracking-wider font-medium hover:text-redPrimary px-2"
@@ -95,8 +95,8 @@ const Topbar = () => {
             ) : (
               <div>
                 <ul className="hidden items-center md:flex">
-                  {TopbarLink.Topbar_r.map((item) => (
-                    <li>
+                  {TopbarLink.Topbar_r.map((item, i) => (
+                    <li key={i}>
                       <Link
                         to={item.link}
                         className="text-darkPrimary font-helvetica-neue-bold-condensed text-fs_8 tracking-wider font-medium hover:text-redPrimary px-2"
@@ -108,13 +108,12 @@ const Topbar = () => {
                 </ul>
               </div>
             )}
-
-                        <CardModal />
-                    </div>
-                </div>
-            </nav>
+            <CardModal />
+          </div>
         </div>
-    );
+      </nav>
+    </div>
+  );
 };
 
 export default Topbar;
