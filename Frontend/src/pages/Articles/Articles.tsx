@@ -136,10 +136,8 @@ function Articles() {
                   Маска для лица многоразовая из хлопка, анатомической формы
                 </h2>
                 {/* @ts-ignore */}
-
                 <Badge name="NEW" />
                 {/* @ts-ignore */}
-
                 <Badge name="HIT" />
               </div>
             </div>
