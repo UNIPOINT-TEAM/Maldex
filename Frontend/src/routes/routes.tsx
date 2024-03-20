@@ -18,7 +18,6 @@ import {
   Tags,
 } from "../pages";
 import CardSet from "../pages/CardSet/CardSet";
-import Company2 from "../pages/Company2/Company2";
 import { PadPrinting } from "../pages/Applying";
 
 export const router = createBrowserRouter([
@@ -30,6 +29,7 @@ export const router = createBrowserRouter([
         path: "/",
         element: <Home />,
       },
+
       {
         path: "/gift",
         element: <Gift />,
@@ -48,7 +48,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/company",
-        element: <Company2 />,
+        element: <Company />
       },
       {
         path: "/tags",
@@ -91,10 +91,6 @@ export const router = createBrowserRouter([
         ],
       },
       {
-        path: "/tags",
-        element: <Tags />,
-      },
-      {
         path: "/error",
         element: <NotFound />,
       },
@@ -102,6 +98,7 @@ export const router = createBrowserRouter([
         path: "/delivery",
         element: <Delivery />,
       },
+
     ],
   },
 ]);

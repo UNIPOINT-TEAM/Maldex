@@ -39,6 +39,7 @@ function Brands() {
     brand18,
   ];
 
+<<<<<<< HEAD
   // const firstColumn = brands.slice(0, 9);
   // const secondColumn = brands.slice(9);
   return (
@@ -56,6 +57,38 @@ function Brands() {
               className="w-full h-auto"
             />
           ))}
+=======
+  const firstColumn = brands.slice(0, 9);
+  const secondColumn = brands.slice(9);
+  return (
+    <>
+      <div>
+        <div className="container_xxl">
+          <div>
+            <h1>Наши бренды</h1>
+          </div>
+
+          <div className="flex justify-between">
+            {firstColumn.map((brand, index) => (
+              <img
+                key={index}
+                src={brand}
+                alt={`Brand ${index + 1}`}
+                // className="w-full h-auto mb-2"
+              />
+            ))}
+          </div>
+          <div className="flex justify-between">
+            {secondColumn.map((brand, index) => (
+              <img
+                key={index}
+                src={brand}
+                alt={`Brand ${index + 10}`}
+                // className="w-full h-auto mb-2"
+              />
+            ))}
+          </div>
+>>>>>>> b72aced1b1de90f432cd87926d1b10d68b2f90bf
         </div>
       </div>
     </>
