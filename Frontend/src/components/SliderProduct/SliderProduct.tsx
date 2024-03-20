@@ -24,7 +24,6 @@ import {
 import { useFetchHook } from "../../hooks/UseFetch";
 
 const SliderProduct = () => {
-<<<<<<< HEAD
     // @ts-ignore
     const [product, setProduct] = useState([]);
     const [productModal, setProductModal] = useState(false);
@@ -32,37 +31,6 @@ const SliderProduct = () => {
     const [addCard, setAddCard] = useState(false);
     const { fetchData, response } = useFetchHook();
     const [size, setSize] = useState(null);
-=======
-  return (
-    <div className="container_xxl">
-      <div className="relative">
-        <Swiper
-          className="w-full"
-          spaceBetween={50}
-          slidesPerView={5}
-          onSlideChange={() => console.log("slide change")}
-          onSwiper={(swiper) => console.log(swiper)}
-          pagination={{ clickable: true }}
-          navigation={true}
-          breakpoints={{
-            320: { slidesPerView: 1 },
-            640: { slidesPerView: 2 },
-            768: { slidesPerView: 3 },
-            1024: { slidesPerView: 4 },
-            1280: { slidesPerView: 5 },
-          }}
-          modules={[Navigation]}
-        >
-          <SwiperSlide>
-            <ProductCard /> 
-          </SwiperSlide>
-        </Swiper>
-        <div className="swiper-pagination"></div>
-      </div>
-    </div>
-  );
-};
->>>>>>> b72aced1b1de90f432cd87926d1b10d68b2f90bf
 
     useEffect(() => {
         fetchData({ method: "GET", url: "/product/" });

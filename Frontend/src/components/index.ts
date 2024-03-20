@@ -29,7 +29,6 @@ export { default as Steps } from "./Steps/Steps";
 export { default as Brands } from "./Brands/Brands";
 export { default as TagBanner } from "./TagBanner/TagBanner";
 export { default as TagList } from "./TagList/TagList";
-<<<<<<< HEAD
 export { default as Card } from "./Card/Card";
 export { default as GiftItem } from "./GiftItem/GiftItem";
 export { default as Badge } from "./Badge/Badge";
@@ -38,12 +37,3 @@ export { default as MoreFilter } from "./MoreFilter/MoreFilter";
 export { default as TabList } from "./CategoryDetails/TabContents/TabList";
 export { default as WhoWe } from "./WhoWe/WhoWe";
 export { default as Printing } from "./Printing/Printing";
-=======
-
-
-
-
-
-
-
->>>>>>> b72aced1b1de90f432cd87926d1b10d68b2f90bf

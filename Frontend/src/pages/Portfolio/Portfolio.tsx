@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { Link } from "react-router-dom";
 import image1 from "../../assets/portfolio/image1.jpg";
 import image2 from "../../assets/portfolio/image2.png";
@@ -7,16 +6,10 @@ import image4 from "../../assets/portfolio/image4.png";
 import image5 from "../../assets/portfolio/image5.png";
 import image6 from "../../assets/portfolio/image6.png";
 import { Badge, News, ProjectsSlider, QuestForm } from "../../components";
-=======
-import React from 'react'
-import PortfolioBanner from '../../components/PortfolioBanner/PortfolioBanner'
-import { News, ProjectsSlider, QuestForm } from '../../components'
->>>>>>> b72aced1b1de90f432cd87926d1b10d68b2f90bf
 
 function Portfolio() {
   return (
     <>
-<<<<<<< HEAD
       <div className="container_xxl">
         <div className="mx-3">
           <div
@@ -103,16 +96,3 @@ function Portfolio() {
 }
 
 export default Portfolio;
-=======
-    <div>
-      <PortfolioBanner/>
-      <News/>
-      <ProjectsSlider/>
-      <QuestForm/>
-    </div>
-    </>
-  )
-}
-
-export default Portfolio
->>>>>>> b72aced1b1de90f432cd87926d1b10d68b2f90bf
