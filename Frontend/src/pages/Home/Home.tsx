@@ -22,9 +22,8 @@ const Home = () => {
                 <MainCategory />
             </div>
             <div className="container_xxl px-3">
-                <p className="text-4xl text-greenPrimary">hits!</p>
-                <div className="my-5">
-                    <ProductNav />
+                <div className="">
+                    <ProductNav title="hits!" color="green" />
                 </div>
             </div>
             <div className="w-full">
@@ -46,9 +45,8 @@ const Home = () => {
             <News />
             <ProjectsSlider />
             <div className="container_xxl px-3">
-                <p className="text-4xl text-redPrimary">new!</p>
-                <div className="my-5">
-                    <ProductNav />
+                <div className="">
+                    <ProductNav title="new!" color="red"/>
                 </div>
             </div>
             <div className="w-full">
