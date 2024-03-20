@@ -1,13 +1,14 @@
 // Assuming CardCatalog.tsx
 import React from "react";
 import { Catalog } from "../../types/types";
+import SearchIcon from "../../assets/icons/searchIcon.png";
 
 interface CardCatalogProps {
     item: Catalog;
 }
 
 const CardCatalog: React.FC<CardCatalogProps> = ({ item }) => {
-    const { title, description, price, img,  money, index1, index2 } = item;
+    const { title, description, price, img, money, index1, index2 } = item;
 
     return (
         <div className="catalog">
@@ -48,7 +49,7 @@ const CardCatalog: React.FC<CardCatalogProps> = ({ item }) => {
                     + В корзину
                 </button>
                 <button className="bg-gray-300 px-3 py-1 flex justify-center items-center rounded-lg text-gray-700">
-                    <i className="fa-solid fa-magnifying-glass"></i>
+                    <img src={SearchIcon} alt="" />
                 </button>
             </div>
         </div>

@@ -13,7 +13,7 @@ import location from "../assets/icons/location.svg";
 import megafon from "../assets/CompanyIcons/megafon.png";
 import cart from "../assets/CompanyIcons/cart.png";
 import delivery from "../assets/CompanyIcons/delivery.png";
- 
+
 
 export const TopbarLink = {
   Topbar_l: [
@@ -23,7 +23,7 @@ export const TopbarLink = {
   ],
   Topbar_r: [
     { path: "", name: "Доставка", link: "/delivery" },
-    { path: "", name: "Оплата", link: "/delivery#payment" }, 
+    { path: "", name: "Оплата", link: "/delivery#payment" },
     { path: "", name: "Контакты", link: "/delivery#contacts" },
   ],
 };

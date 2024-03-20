@@ -5,8 +5,10 @@ import {
     AccordionHeader,
     AccordionBody,
 } from "@material-tailwind/react";
-// import accordionIcon from "../../assets/icons/accordion-icon.png";
-{/* @ts-ignore */}
+import Close from "../../assets/icons/close.png";
+{
+    /* @ts-ignore */
+}
 function Icon({ id, open }) {
     return (
         <svg
@@ -32,7 +34,7 @@ const MoreFilter = () => {
     const [activeCard, setActiveCard] = useState(false);
     const [filter, setFilter] = useState(false);
     const [open, setOpen] = useState(1);
-//@ts-ignore
+    //@ts-ignore
     const handleOpen = (value) => setOpen(open === value ? 0 : value);
 
     const handleFilter = () => {
@@ -54,13 +56,13 @@ const MoreFilter = () => {
                     } top-0 right-0 z-10`}
                     onClick={() => setFilter(false)}
                 ></div>
-                <button className="px-2 w-8 border h-full border-gray-300 rounded-lg hidden lg:block relative">
-                    <img
+                <button className=" w-8 border h-full border-gray-300 rounded-lg hidden lg:block relative">
+                    <div
                         onClick={handleFilter}
-                        src={filtr}
-                        alt="filtr-icon"
-                        className="mx-auto"
-                    />
+                        className="w-full px-2 h-full flex justify-center items-center"
+                    >
+                        <img src={filtr} alt="filtr-icon" className="mx-auto" />
+                    </div>
                     {filter && (
                         <div className="w-[350px] h-[250px] border border-gray-500 z-50 absolute bg-white rounded-xl top-[50px] left-0 ">
                             <span className="w-[20px] h-[20px] bg-white border border-gray-500 rotate-45 top-[-4px] left-[10px] absolute"></span>
@@ -126,7 +128,7 @@ const MoreFilter = () => {
                                         setActiveCard(!activeCard);
                                     }}
                                 >
-                                    <i className="fa-solid fa-xmark text-xl"></i>
+                                    <img src={Close} alt="" />
                                 </button>
                             </div>
                             <div className="h-full pr-2 mb-5">
@@ -135,7 +137,7 @@ const MoreFilter = () => {
                                     open={open === 1}
                                     icon={<Icon id={1} open={open} />}
                                 >
-                                {/* @ts-ignore */}
+                                    {/* @ts-ignore */}
 
                                     <AccordionHeader
                                         className="border-none"
@@ -172,7 +174,7 @@ const MoreFilter = () => {
                                     open={open === 2}
                                     icon={<Icon id={2} open={open} />}
                                 >
-                                {/* @ts-ignore */}
+                                    {/* @ts-ignore */}
 
                                     <AccordionHeader
                                         className="border-none"
@@ -196,7 +198,7 @@ const MoreFilter = () => {
                                     open={open === 3}
                                     icon={<Icon id={3} open={open} />}
                                 >
-                                {/* @ts-ignore */}
+                                    {/* @ts-ignore */}
 
                                     <AccordionHeader
                                         className="border-none"
@@ -239,7 +241,7 @@ const MoreFilter = () => {
                                     open={open === 4}
                                     icon={<Icon id={4} open={open} />}
                                 >
-                                {/* @ts-ignore */}
+                                    {/* @ts-ignore */}
 
                                     <AccordionHeader
                                         className="border-none"
@@ -270,7 +272,7 @@ const MoreFilter = () => {
                                     open={open === 5}
                                     icon={<Icon id={5} open={open} />}
                                 >
-                                {/* @ts-ignore */}
+                                    {/* @ts-ignore */}
 
                                     <AccordionHeader
                                         className="border-none"
@@ -313,7 +315,7 @@ const MoreFilter = () => {
                                     open={open === 6}
                                     icon={<Icon id={6} open={open} />}
                                 >
-                                {/* @ts-ignore */}
+                                    {/* @ts-ignore */}
 
                                     <AccordionHeader
                                         className="border-none"
@@ -368,7 +370,7 @@ const MoreFilter = () => {
                                     open={open === 7}
                                     icon={<Icon id={7} open={open} />}
                                 >
-                                {/* @ts-ignore */}
+                                    {/* @ts-ignore */}
 
                                     <AccordionHeader
                                         className="border-none"
@@ -393,7 +395,7 @@ const MoreFilter = () => {
                                     open={open === 8}
                                     icon={<Icon id={8} open={open} />}
                                 >
-                                {/* @ts-ignore */}
+                                    {/* @ts-ignore */}
 
                                     <AccordionHeader
                                         className="border-none"
@@ -418,7 +420,7 @@ const MoreFilter = () => {
                                     open={open === 9}
                                     icon={<Icon id={9} open={open} />}
                                 >
-                                {/* @ts-ignore */}
+                                    {/* @ts-ignore */}
 
                                     <AccordionHeader
                                         className="border-none"

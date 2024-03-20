@@ -28,7 +28,8 @@ const Navbar = () => {
     console.log(response);
 
     const handleCategoryClick = (index: any) => {
-        setActiveItem(index), console.log(index);
+        setActiveItem(index);
+        setActiveMobileItem(!activeMobileItem);
     };
 
     const modalToggle = () => {
@@ -39,9 +40,11 @@ const Navbar = () => {
         }
     };
 
-    const changeMobileModal = () => {
-        setActiveMobileItem(!activeMobileItem);
-    };
+    // const changeMobileModal = (index: any) => {
+    //     setActiveItem(index);
+
+    // };
+    console.log(activeItem);
 
     const productDetail = () => {
         setModal(false);
@@ -90,7 +93,8 @@ const Navbar = () => {
 
             {modal ? (
                 <>
-                    <div className="modal absolute h-[115vh] w-full  bg-[#00000074] z-20  hidden md:flex">
+                    <div className="modal absolute h-[115vh] w-full bg-[#00000074] z-20  hidden md:flex">
+
                         <div className="w-[25%] bg-white px-3 py-1">
                             {response.map((i, index) => (
                                 <div
@@ -254,6 +258,7 @@ const Navbar = () => {
                         ) : (
                             ""
                         )}
+
                     </div>
                     <div className="md:hidden absolute h-[115vh] w-full  bg-[#00000074] z-20">
                         <div
@@ -264,18 +269,22 @@ const Navbar = () => {
                                     activeMobileItem ? "10%" : "100%"
                                 }]`}
                             >
-                                {Categories.map((i) => (
+                                {response?.map((i, index) => (
                                     <div className={`flex`}>
                                         <button
-                                            onClick={changeMobileModal}
+                                        onClick={()=>handleCategoryClick(index)}
                                             className={`w-full
                                     } flex p-3 gap-2 items-center hover:text-white h-[40px] ${
-                                        activeItem === i.id
+                                        activeItem === index
                                             ? "bg-redPrimary text-white"
                                             : "hover:bg-redPrimary hover:text-white"
                                     }`}
                                         >
-                                            <i className="fa-solid fa-pen-fancy"></i>
+                                            <img
+                                                src={i.icon}
+                                                className="w-[20px] h-[20px]"
+                                                alt=""
+                                            />
                                             {!activeMobileItem && (
                                                 <p className="text-lg font-bold">
                                                     {i.name}
@@ -290,35 +299,44 @@ const Navbar = () => {
                                     activeMobileItem ? "w-[90%]" : "hidden"
                                 }`}
                             >
-                                {SubCategories.map((i) => (
-                                    <div
-                                        key={i.id}
-                                        className={`w-1/2 px-3 gap-2  items-center `}
-                                    >
-                                        <p className="text-lg font-bold mb-1">
-                                            {i.categoryName}
-                                        </p>
-                                        <div>
-                                            {i.categoryItem.map((category) => (
-                                                <p
-                                                    className={`text-sm font-bold mb-1 ${
-                                                        activeCategoryItem ===
-                                                        category.id
-                                                            ? "text-redPrimary"
-                                                            : ""
-                                                    }`}
-                                                    onClick={() =>
-                                                        handleCategoryItemClick(
-                                                            category.id
-                                                        )
-                                                    }
+                                {
+                                    //@ts-ignore
+
+                                    response && response[activeItem]?.children?.map((i) => (
+                                                <div
+                                                    key={i.id}
+                                                    className={`w-full px-3 gap-2 mb-2 items-center `}
                                                 >
-                                                    {category.name}
-                                                </p>
-                                            ))}
-                                        </div>
-                                    </div>
-                                ))}
+                                                    <p className="text-lg font-bold mb-1">
+                                                        {i.name}
+                                                    </p>
+                                                    <div>
+                                                        {/* {i?.categoryItem.map(
+                                                            (category) => (
+                                                                <p
+                                                                    className={`text-sm font-bold mb-1 ${
+                                                                        activeCategoryItem ===
+                                                                        category.id
+                                                                            ? "text-redPrimary"
+                                                                            : ""
+                                                                    }`}
+                                                                    onClick={() =>
+                                                                        handleCategoryItemClick(
+                                                                            category.id
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    {
+                                                                        category.name
+                                                                    }
+                                                                </p>
+                                                            )
+                                                        )} */}
+                                                    </div>
+                                                </div>
+                                            )
+                                        )
+                                }
                             </div>
                         </div>
                     </div>

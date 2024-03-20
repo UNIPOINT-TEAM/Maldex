@@ -1,14 +1,13 @@
-import {
-
-    SliderProduct,
-} from "../../components";
+import { ProductNav, SliderProduct } from "../../components";
 import Product1 from "../../assets/images/machine.png";
+import Trash from "../../assets/icons/trash.png";
+import QuestionIcon from "../../assets/icons/questionIcon.png";
 
 const Card = () => {
     return (
         <>
             <div className="home">
-                <div className="card container_xxl my-10 px-3 sm:px-0">
+                <div className="card container_xxl my-10 px-3">
                     <div className="flex items-center">
                         <p className="text-4xl">06</p> &nbsp;
                         <div className="flex flex-col">
@@ -89,7 +88,7 @@ const Card = () => {
                                         </div>
                                         <div className="col-span-1">
                                             <button>
-                                                <i className="fa-solid fa-trash-can text-xl text-gray-500"></i>
+                                                <img src={Trash} alt="" />
                                             </button>
                                         </div>
                                     </div>
@@ -162,7 +161,7 @@ const Card = () => {
                                         </div>
                                         <div className="col-span-1">
                                             <button>
-                                                <i className="fa-solid fa-trash-can text-xl text-gray-500"></i>
+                                                <img src={Trash} alt="" />
                                             </button>
                                         </div>
                                     </div>
@@ -235,7 +234,7 @@ const Card = () => {
                                         </div>
                                         <div className="col-span-1">
                                             <button>
-                                                <i className="fa-solid fa-trash-can text-xl text-gray-500"></i>
+                                                <img src={Trash} alt="" />{" "}
                                             </button>
                                         </div>
                                     </div>
@@ -269,7 +268,7 @@ const Card = () => {
                                         </div>
                                         <div className="w-1/3 flex flex-col justify-between h-full items-end">
                                             <button>
-                                                <i className="fa-solid fa-trash-can text-xl text-gray-500"></i>
+                                                <img src={Trash} alt="" />
                                             </button>
                                             <div>
                                                 <p className="text-lg text-black-900 mb-1">
@@ -318,7 +317,7 @@ const Card = () => {
                                         </div>
                                         <div className="w-1/3 flex flex-col justify-between h-full items-end">
                                             <button>
-                                                <i className="fa-solid fa-trash-can text-xl text-gray-500"></i>
+                                                <img src={Trash} alt="" />
                                             </button>
                                             <div>
                                                 <p className="text-lg text-black-900 mb-1">
@@ -367,7 +366,7 @@ const Card = () => {
                                         </div>
                                         <div className="w-1/3 flex flex-col justify-between h-full items-end">
                                             <button>
-                                                <i className="fa-solid fa-trash-can text-xl text-gray-500"></i>
+                                                <img src={Trash} alt="" />
                                             </button>
                                             <div>
                                                 <p className="text-lg text-black-900 mb-1">
@@ -409,7 +408,7 @@ const Card = () => {
                                 <p className="text-lg text-teal-200">
                                     + Добавить нанесение
                                 </p>
-                                <i className="fa-regular fa-circle-question text-gray-300"></i>
+                                <img src={QuestionIcon} alt="" />
                             </div>
                             <div className="flex justify-between items-center w-full mb-5">
                                 <p className="text-xl">Итоговая стоимость:</p>
@@ -429,7 +428,14 @@ const Card = () => {
                         </div>
                     </div>
                     <p className="section-title ">Вам точно понравится</p>
-                    <SliderProduct />
+                </div>
+                <div className="container_xxl px-3">
+                    <div className="my-5">
+                        <ProductNav />
+                    </div>
+                </div>
+                <SliderProduct />
+                <div className="container_xxl px-3">
                     <p className="section-title underline">
                         хочу задать <br />
                         вопрос
