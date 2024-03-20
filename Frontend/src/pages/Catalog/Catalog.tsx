@@ -1,7 +1,18 @@
 import { useState } from "react";
-import { SaleSlider, SliderProduct } from "../../components";
+import { ProductNav, SaleSlider, SliderProduct } from "../../components";
 import { CardCatalogData } from "../../mock/data";
 import CardCatalog from "../../components/CardCatalog/CardCatalog";
+import Close from "../../assets/icons/close.png";
+import { FaArrowLeftLong } from "react-icons/fa6";
+import { FaArrowRightLong } from "react-icons/fa6";
+import SearchIcon from "../../assets/icons/searchIcon.png";
+import { CiSearch } from "react-icons/ci";
+import { CiHeart } from "react-icons/ci";
+import { FaCheck } from "react-icons/fa";
+import Filter from "../../assets/icons/filtr.png";
+import { IoIosArrowDown } from "react-icons/io";
+import { IoIosArrowForward } from "react-icons/io";
+import { Accordion } from "../../components";
 
 const Catalog = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
@@ -47,9 +58,9 @@ const Catalog = () => {
                 <div className="card container_xxl my-0 sm:my-10 ">
                     <p className="text-3xl mb-5">подарочные наборы</p>
                     <div className="flex justify-between items-center border-b-[1px] pb-2">
-                        <button className="border-[1px] border-black px-3 py-1 rounded">
-                            Все фильтры (2) &nbsp;
-                            <i className="fa-solid fa-arrow-down-wide-short text-black "></i>
+                        <button className="border-[1px] border-black px-3 py-1 rounded flex items-center">
+                            <p>Все фильтры (2) &nbsp;</p>
+                            <img src={Filter} alt="" />
                         </button>
                         <div className="w-[70%] flex flex-wrap">
                             {activeFilterItems.map((i, index) => (
@@ -60,7 +71,11 @@ const Catalog = () => {
                                     >
                                         <p>{i.name}</p>
                                         <button>
-                                            <i className="fa-solid fa-xmark text-md"></i>
+                                            <img
+                                                className="w-[12px]"
+                                                src={Close}
+                                                alt=""
+                                            />
                                         </button>
                                     </div>
                                     {index == activeFilterItems.length - 1 && (
@@ -108,16 +123,16 @@ const Catalog = () => {
                         </div>
                         <div className="relative">
                             <button
-                                className="text-xl px-4 py-2 rounded-md"
+                                className="text-xl px-4 py-2 rounded-md flex items-center"
                                 onClick={() =>
                                     setIsDropdownOpen(!isDropdownOpen)
                                 }
                             >
-                                Популярные &nbsp;
+                                <p>Популярные &nbsp;</p>
                                 {isDropdownOpen ? (
-                                    <i className="fa-solid fa-caret-up"></i>
+                                    <IoIosArrowDown />
                                 ) : (
-                                    <i className="fa-solid fa-caret-down"></i>
+                                    <IoIosArrowForward />
                                 )}
                             </button>
                             {isDropdownOpen && (
@@ -229,20 +244,29 @@ const Catalog = () => {
                         ))}
                     </div>
                     <div className="flex justify-center items-center gap-3">
-                        <button>
-                            <i className="fa-solid fa-arrow-left text-gray-400"></i>
+                        <button className="text-gray-500">
+                            <FaArrowLeftLong />
                         </button>
                         <p className="text-gray-400">страница</p>
                         <button className="text-gray-400 border border-gray-400 rounded px-4 m-0">
                             1
                         </button>
                         <p className="text-gray-400">из 10</p>
-                        <button>
-                            <i className="fa-solid fa-arrow-right text-gray-400"></i>
+                        <button className="text-gray-500">
+                            <FaArrowRightLong />
                         </button>
                     </div>
                 </div>
-                <div className="container_xxl mb-8">
+                <div className="faq container_xxl flex flex-col px-3 mb-10">
+                    <h3 className="section-title">FAQ</h3>
+                    <Accordion />
+                </div>
+                <div className="container_xxl px-3">
+                    <div className="">
+                        <ProductNav title="hit!" color="green" />
+                    </div>
+                </div>
+                <div className="w-full">
                     <SliderProduct />
                 </div>
             </div>
