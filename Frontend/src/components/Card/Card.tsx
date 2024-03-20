@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Product1 from "../../assets/images/product4.png";
+import Close from "../../assets/icons/close.png";
+import Trash from "../../assets/icons/trash.png";
+import QuestionIcon from "../../assets/icons/questionIcon.png";
 
 const CardModal = () => {
     const [activeCard, setActiveCard] = useState(false);
@@ -43,7 +46,7 @@ const CardModal = () => {
                                 <button
                                     onClick={() => setActiveCard(!activeCard)}
                                 >
-                                    <i className="fa-solid fa-xmark text-xl"></i>
+                                    <img src={Close} alt="" />
                                 </button>
                             </div>
                             <div className="overflow-y-scroll h-[500px] scrollbar-custom pr-3 mb-5">
@@ -119,7 +122,7 @@ const CardModal = () => {
                                         </div>
                                         <div className="col-span-1">
                                             <button>
-                                                <i className="fa-solid fa-trash-can text-xl text-gray-500"></i>
+                                                <img src={Trash} alt="" />
                                             </button>
                                         </div>
                                     </div>
@@ -196,7 +199,7 @@ const CardModal = () => {
                                         </div>
                                         <div className="col-span-1">
                                             <button>
-                                                <i className="fa-solid fa-trash-can text-xl text-gray-500"></i>
+                                                <img src={Trash} alt="" />
                                             </button>
                                         </div>
                                     </div>
@@ -273,7 +276,7 @@ const CardModal = () => {
                                         </div>
                                         <div className="col-span-1">
                                             <button>
-                                                <i className="fa-solid fa-trash-can text-xl text-gray-500"></i>
+                                                <img src={Trash} alt="" />
                                             </button>
                                         </div>
                                     </div>
@@ -350,7 +353,7 @@ const CardModal = () => {
                                         </div>
                                         <div className="col-span-1">
                                             <button>
-                                                <i className="fa-solid fa-trash-can text-xl text-gray-500"></i>
+                                                <img src={Trash} alt="" />
                                             </button>
                                         </div>
                                     </div>
@@ -427,7 +430,7 @@ const CardModal = () => {
                                         </div>
                                         <div className="col-span-1">
                                             <button>
-                                                <i className="fa-solid fa-trash-can text-xl text-gray-500"></i>
+                                                <img src={Trash} alt="" />
                                             </button>
                                         </div>
                                     </div>
@@ -442,8 +445,12 @@ const CardModal = () => {
                                         <p className="row-span-1">
                                             Общий тираж
                                         </p>
-                                        <div className="row-span-1 w-1/4 flex justify-center items-center border border-slate-500 rounded-lg">
-                                            <p className="">20</p>
+                                        <div className="row-span-1 w-1/4 flex justify-center items-center ">
+                                            <input
+                                                type="text"
+                                                placeholder="20"
+                                                className="w-[40px] h-[30px] border border-gray-500 rounded-lg outline-none px-2"
+                                            />
                                         </div>
                                     </div>
                                 </div>
@@ -463,7 +470,7 @@ const CardModal = () => {
                                 <div className="col-span-2 row-span-1">
                                     <div className="grid grid-cols-1 grid-rows-4 h-full">
                                         <p className="row-span-2 text-lg">
-                                            <i className="fa-regular fa-circle-question text-gray-400"></i>
+                                            <img src={QuestionIcon} alt="" />
                                         </p>
                                         <p className="row-span-1">
                                             Общая скидка

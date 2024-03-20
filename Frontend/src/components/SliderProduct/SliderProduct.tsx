@@ -6,7 +6,14 @@ import { getData } from "../../services/services";
 import { Link } from "react-router-dom";
 import prev from "../../assets/icons/projectPrev.svg";
 import next from "../../assets/icons/projectNext.svg";
-import Close from "../../assets/icons/close.png"
+import Close from "../../assets/icons/close.png";
+import { FaArrowLeftLong } from "react-icons/fa6";
+import { FaArrowRightLong } from "react-icons/fa6";
+import SearchIcon from "../../assets/icons/searchIcon.png";
+import { CiSearch } from "react-icons/ci";
+import { CiHeart } from "react-icons/ci";
+import { FaCheck } from "react-icons/fa";
+
 import {
     Button,
     Dialog,
@@ -33,14 +40,6 @@ const SliderProduct = () => {
         setDefaultProduct(!defaultProduct);
     };
 
-    useEffect(() => {
-        if (productModal) {
-            document.body.style.overflow = "hidden";
-        } else {
-            document.body.style.overflow = "auto";
-        }
-    }, [productModal]);
-
     const handleOpen = (value: string) => setSize(value);
 
     return (
@@ -56,7 +55,7 @@ const SliderProduct = () => {
                 }
                 size={size || "md"}
                 handler={handleOpen}
-                className="px-4 py-2"
+                className="px-4 py-2 text-black"
             >
                 <button
                     className="flex ml-auto outline-none"
@@ -64,17 +63,30 @@ const SliderProduct = () => {
                 >
                     <img src={Close} alt="" />
                 </button>
-                <div className="flex justify-between items-center gap-5 px-10 mb-6">
+                <div className="flex flex-col md:flex md:flex-row justify-between items-center gap-5 px-2 md:px-10 mb-6">
                     <div className="w-1/3 py-2 flex flex-col items-center ">
-                        <div className="h-[200px] w-[200px] mb-3">
+                        <div className="h-[200px] w-[300px] mb-3 relative">
+                            <div className="prevModal flex justify-center items-center">
+                                <FaArrowLeftLong />
+                            </div>
+                            <div className="nextModal flex justify-center items-center">
+                                <FaArrowRightLong />
+                            </div>
                             <Swiper
                                 navigation={{
-                                    prevEl: ".prevProduct",
-                                    nextEl: ".nextProduct",
+                                    prevEl: ".prevModal",
+                                    nextEl: ".nextModal",
                                 }}
                                 modules={[Navigation]}
-                                className="swiper-product"
+                                className="swiper-item-modal w-[200px]"
                             >
+                                <SwiperSlide>
+                                    <img
+                                        className=""
+                                        src={CarouselImg}
+                                        alt="no img"
+                                    />
+                                </SwiperSlide>
                                 <SwiperSlide>
                                     <img
                                         className=""
@@ -89,6 +101,7 @@ const SliderProduct = () => {
                                 <p>Количество</p>
                                 <input
                                     type="text"
+                                    placeholder="20"
                                     className="border border-black w-[40px] h-[24px] rounded flex px-1 outline-none"
                                 />
                             </div>
@@ -109,7 +122,7 @@ const SliderProduct = () => {
                             </button>
                         </div>
                     </div>
-                    <div className="w-2/3  py-2 px-10">
+                    <div className="w-full md:w-2/3  py-2  md:px-10 h-[400px] md:h-auto overflow-y-scroll scrollbar-custom">
                         <p className="text-2xl mb-3">Бейсболка “Poly”</p>
                         <p className="text-sm mb-5">107045356</p>
                         <p className="text-xl mb-3">Выбор цвета</p>
@@ -199,13 +212,13 @@ const SliderProduct = () => {
                         <div className="catalog">
                             <div className="relative w-full catalogImgBox h-[220px] mb-4 bg-gray-200">
                                 <Swiper
-                                    pagination={true}
-                                    modules={[Pagination]}
+                                    pagination={{ clickable: true }}
+                                    modules={[Navigation, Pagination]}
                                     className="swiper-item h-full"
                                 >
                                     <SwiperSlide>
                                         <div
-                                            onClick={() => handleOpen("lg")}
+                                            onClick={() => handleOpen("xl")}
                                             className="relative h-full"
                                         >
                                             <div className="flex justify-center items-center h-full">
@@ -290,7 +303,7 @@ const SliderProduct = () => {
                                                 to={"category/1"}
                                                 className="w-full h-full flex justify-center items-center"
                                             >
-                                                <i className="fa-solid fa-magnifying-glass"></i>
+                                                <CiSearch />
                                             </Link>
                                         </button>
                                     </div>
@@ -334,16 +347,16 @@ const SliderProduct = () => {
                                         <div className="flex justify-between catalog_btns">
                                             <button
                                                 onClick={() => setAddCard(true)}
-                                                className=" bg-redPrimary px-3 py-2 text-white rounded-lg shadow-lg shadow-gray-400"
+                                                className=" bg-redPrimary px-3 py-3 text-white rounded-lg shadow-lg shadow-gray-400"
                                             >
-                                                <i className="fa-solid fa-check text-xl"></i>
+                                                <FaCheck />
                                             </button>
                                             <button className="bg-gray-300 px-3 py-1 rounded-lg text-gray-700">
                                                 <Link
                                                     to={"category/1"}
                                                     className="w-full h-full flex justify-center items-center"
                                                 >
-                                                    <i className="fa-solid fa-magnifying-glass"></i>
+                                                    <CiSearch />
                                                 </Link>
                                             </button>
                                         </div>
@@ -356,7 +369,7 @@ const SliderProduct = () => {
                                                 + добавить
                                             </button>
                                             <button className="px-3 py-1 flex justify-center items-center rounded-lg text-gray-700">
-                                                <i className="fa-regular fa-heart text-xl"></i>
+                                                <CiHeart />
                                             </button>
                                         </div>
                                     )}
@@ -367,10 +380,10 @@ const SliderProduct = () => {
                 ))}
             </Swiper>
             <div className="hidden lg:flex prev text-black  hover:text-white">
-                <img src={prev} alt="" />
+                <FaArrowLeftLong />
             </div>
             <div className="hidden lg:flex next text-black hover:text-white">
-                <img src={next} alt="" />
+                <FaArrowRightLong />
             </div>
         </div>
     );

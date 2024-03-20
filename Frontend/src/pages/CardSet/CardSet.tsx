@@ -1,14 +1,17 @@
-import  { useState} from "react";
+import { useState } from "react";
 
 import Photo1 from "../../assets/images/catalog1.png";
 import Photo2 from "../../assets/images/catalog2.png";
 import CarouselImg from "../../assets/images/carouselImg.png";
 import HandSock from "../../assets/images/handSock.png";
 import { Link } from "react-router-dom";
-import {  Pagination } from "swiper/modules";
+import { Pagination, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import filtr from "../../assets/icons/filtr.png";
-
+import { IoClose } from "react-icons/io5";
+import QuestionIcon from "../../assets/icons/questionIcon.png";
+import SearchIcon from "../../assets/icons/searchIcon.png";
+import MenuIcon from "../../assets/icons/menuIcon.png";
 const CardSet = () => {
     const [mainPhoto, setMainPhoto] = useState(Photo1);
     const [activeButton, setActiveButton] = useState("photo1");
@@ -27,7 +30,7 @@ const CardSet = () => {
         <>
             <div className="home mb-5">
                 <div className="border-b-2 py-3">
-                    <div className="container_xxl hidden md:block">
+                    <div className="container_xxl hidden md:block px-3">
                         <p className="m-0 p-0 text-gray-500">
                             Промо одежда / Портативные колонки / Беспроводная
                             колонка Chubby /{" "}
@@ -37,7 +40,7 @@ const CardSet = () => {
                         </p>
                     </div>
                 </div>
-                <div className="card container_xxl flex flex-col sm:flex-row">
+                <div className="card container_xxl flex flex-col sm:flex-row px-3">
                     <div className="w-full md:w-[75%]">
                         <div className="flex mb-10">
                             <div className="h-[400px] w-1/2 hidden md:flex flex-col justify-center gap-5 py-5">
@@ -261,7 +264,31 @@ const CardSet = () => {
                                     </ul>
                                     <div className="flex justify-between items-start border-b-2 py-5 gap-20">
                                         <div className="w-1/4">
-                                            <img src={HandSock} alt="" />
+                                            <Swiper
+                                                pagination={{ clickable: true }}
+                                                modules={[
+                                                    Navigation,
+                                                    Pagination,
+                                                ]}
+                                                className=""
+                                            >
+                                                <SwiperSlide>
+                                                    <img
+                                                        className=""
+                                                        //@ts-ignore
+                                                        src={HandSock}
+                                                        alt=""
+                                                    />
+                                                </SwiperSlide>
+                                                <SwiperSlide>
+                                                    <img
+                                                        className=""
+                                                        //@ts-ignore
+                                                        src={HandSock}
+                                                        alt=""
+                                                    />
+                                                </SwiperSlide>
+                                            </Swiper>
                                         </div>
                                         <div className="w-3/4">
                                             <p className="text-2xl mb-3">
@@ -298,7 +325,31 @@ const CardSet = () => {
                                     </div>
                                     <div className="flex justify-between items-start border-b-2 py-5 gap-20">
                                         <div className="w-1/4">
-                                            <img src={HandSock} alt="" />
+                                            <Swiper
+                                                pagination={{ clickable: true }}
+                                                modules={[
+                                                    Navigation,
+                                                    Pagination,
+                                                ]}
+                                                className=""
+                                            >
+                                                <SwiperSlide>
+                                                    <img
+                                                        className=""
+                                                        //@ts-ignore
+                                                        src={HandSock}
+                                                        alt=""
+                                                    />
+                                                </SwiperSlide>
+                                                <SwiperSlide>
+                                                    <img
+                                                        className=""
+                                                        //@ts-ignore
+                                                        src={HandSock}
+                                                        alt=""
+                                                    />
+                                                </SwiperSlide>
+                                            </Swiper>
                                         </div>
                                         <div className="w-3/4">
                                             <p className="text-2xl mb-3">
@@ -335,7 +386,31 @@ const CardSet = () => {
                                     </div>
                                     <div className="flex justify-between items-start border-b-2 py-5 gap-20">
                                         <div className="w-1/4">
-                                            <img src={HandSock} alt="" />
+                                            <Swiper
+                                                pagination={{ clickable: true }}
+                                                modules={[
+                                                    Navigation,
+                                                    Pagination,
+                                                ]}
+                                                className=""
+                                            >
+                                                <SwiperSlide>
+                                                    <img
+                                                        className=""
+                                                        //@ts-ignore
+                                                        src={HandSock}
+                                                        alt=""
+                                                    />
+                                                </SwiperSlide>
+                                                <SwiperSlide>
+                                                    <img
+                                                        className=""
+                                                        //@ts-ignore
+                                                        src={HandSock}
+                                                        alt=""
+                                                    />
+                                                </SwiperSlide>
+                                            </Swiper>
                                         </div>
                                         <div className="w-3/4">
                                             <p className="text-2xl mb-3">
@@ -376,11 +451,33 @@ const CardSet = () => {
                                     <div className="setProduct flex justify-between items-center py-5 pr-5  w-1/2">
                                         <div className=" block sm:flex justify-start items-start gap-3 w-full">
                                             <div className="w-1/3">
-                                                <img
-                                                    className=" object-contain"
-                                                    src={HandSock}
-                                                    alt=""
-                                                />
+                                                <Swiper
+                                                    pagination={{
+                                                        clickable: true,
+                                                    }}
+                                                    modules={[
+                                                        Navigation,
+                                                        Pagination,
+                                                    ]}
+                                                    className=""
+                                                >
+                                                    <SwiperSlide>
+                                                        <img
+                                                            className=""
+                                                            //@ts-ignore
+                                                            src={HandSock}
+                                                            alt=""
+                                                        />
+                                                    </SwiperSlide>
+                                                    <SwiperSlide>
+                                                        <img
+                                                            className=""
+                                                            //@ts-ignore
+                                                            src={HandSock}
+                                                            alt=""
+                                                        />
+                                                    </SwiperSlide>
+                                                </Swiper>
                                             </div>
 
                                             <div className="flex flex-col gap-1">
@@ -407,7 +504,7 @@ const CardSet = () => {
 
                                         <div className=" justify-center items-center gap-2 setBtns hidden sm:flex sm:flex-col">
                                             <button>
-                                                <i className="fa-solid fa-xmark text-gray-400"></i>
+                                                <IoClose />
                                             </button>
                                             <button>
                                                 <i className="fa-solid fa-plus text-gray-400"></i>
@@ -417,11 +514,33 @@ const CardSet = () => {
                                     <div className="setProduct flex justify-between items-center py-5 pr-5   w-1/2">
                                         <div className=" block sm:flex justify-start items-start gap-3 w-full">
                                             <div className="w-1/3">
-                                                <img
-                                                    className=" object-contain"
-                                                    src={HandSock}
-                                                    alt=""
-                                                />
+                                                <Swiper
+                                                    pagination={{
+                                                        clickable: true,
+                                                    }}
+                                                    modules={[
+                                                        Navigation,
+                                                        Pagination,
+                                                    ]}
+                                                    className=""
+                                                >
+                                                    <SwiperSlide>
+                                                        <img
+                                                            className=""
+                                                            //@ts-ignore
+                                                            src={HandSock}
+                                                            alt=""
+                                                        />
+                                                    </SwiperSlide>
+                                                    <SwiperSlide>
+                                                        <img
+                                                            className=""
+                                                            //@ts-ignore
+                                                            src={HandSock}
+                                                            alt=""
+                                                        />
+                                                    </SwiperSlide>
+                                                </Swiper>
                                             </div>
 
                                             <div className="flex flex-col gap-1">
@@ -448,7 +567,7 @@ const CardSet = () => {
 
                                         <div className=" justify-center items-center gap-2 setBtns hidden sm:flex sm:flex-col">
                                             <button>
-                                                <i className="fa-solid fa-xmark text-gray-400"></i>
+                                                <IoClose />
                                             </button>
                                             <button>
                                                 <i className="fa-solid fa-plus text-gray-400"></i>
@@ -458,11 +577,33 @@ const CardSet = () => {
                                     <div className="setProduct flex justify-between items-center py-5 pr-5   w-1/2">
                                         <div className=" block sm:flex justify-start items-start gap-3 w-full">
                                             <div className="w-1/3">
-                                                <img
-                                                    className=" object-contain"
-                                                    src={HandSock}
-                                                    alt=""
-                                                />
+                                                <Swiper
+                                                    pagination={{
+                                                        clickable: true,
+                                                    }}
+                                                    modules={[
+                                                        Navigation,
+                                                        Pagination,
+                                                    ]}
+                                                    className=""
+                                                >
+                                                    <SwiperSlide>
+                                                        <img
+                                                            className=""
+                                                            //@ts-ignore
+                                                            src={HandSock}
+                                                            alt=""
+                                                        />
+                                                    </SwiperSlide>
+                                                    <SwiperSlide>
+                                                        <img
+                                                            className=""
+                                                            //@ts-ignore
+                                                            src={HandSock}
+                                                            alt=""
+                                                        />
+                                                    </SwiperSlide>
+                                                </Swiper>
                                             </div>
 
                                             <div className="flex flex-col gap-1">
@@ -489,7 +630,7 @@ const CardSet = () => {
 
                                         <div className=" justify-center items-center gap-2 setBtns hidden sm:flex sm:flex-col">
                                             <button>
-                                                <i className="fa-solid fa-xmark text-gray-400"></i>
+                                                <IoClose />
                                             </button>
                                             <button>
                                                 <i className="fa-solid fa-plus text-gray-400"></i>
@@ -499,11 +640,33 @@ const CardSet = () => {
                                     <div className="setProduct flex justify-between items-center py-5 pr-5   w-1/2">
                                         <div className=" block sm:flex justify-start items-start gap-3 w-full">
                                             <div className="w-1/3">
-                                                <img
-                                                    className=" object-contain"
-                                                    src={HandSock}
-                                                    alt=""
-                                                />
+                                                <Swiper
+                                                    pagination={{
+                                                        clickable: true,
+                                                    }}
+                                                    modules={[
+                                                        Navigation,
+                                                        Pagination,
+                                                    ]}
+                                                    className=""
+                                                >
+                                                    <SwiperSlide>
+                                                        <img
+                                                            className=""
+                                                            //@ts-ignore
+                                                            src={HandSock}
+                                                            alt=""
+                                                        />
+                                                    </SwiperSlide>
+                                                    <SwiperSlide>
+                                                        <img
+                                                            className=""
+                                                            //@ts-ignore
+                                                            src={HandSock}
+                                                            alt=""
+                                                        />
+                                                    </SwiperSlide>
+                                                </Swiper>
                                             </div>
 
                                             <div className="flex flex-col gap-1">
@@ -530,7 +693,7 @@ const CardSet = () => {
 
                                         <div className=" justify-center items-center gap-2 setBtns hidden sm:flex sm:flex-col">
                                             <button>
-                                                <i className="fa-solid fa-xmark text-gray-400"></i>
+                                                <IoClose />
                                             </button>
                                             <button>
                                                 <i className="fa-solid fa-plus text-gray-400"></i>
@@ -540,11 +703,33 @@ const CardSet = () => {
                                     <div className="setProduct flex justify-between items-center py-5 pr-5  w-1/2">
                                         <div className=" block sm:flex justify-start items-start gap-3 w-full">
                                             <div className="w-1/3">
-                                                <img
-                                                    className=" object-contain"
-                                                    src={HandSock}
-                                                    alt=""
-                                                />
+                                                <Swiper
+                                                    pagination={{
+                                                        clickable: true,
+                                                    }}
+                                                    modules={[
+                                                        Navigation,
+                                                        Pagination,
+                                                    ]}
+                                                    className=""
+                                                >
+                                                    <SwiperSlide>
+                                                        <img
+                                                            className=""
+                                                            //@ts-ignore
+                                                            src={HandSock}
+                                                            alt=""
+                                                        />
+                                                    </SwiperSlide>
+                                                    <SwiperSlide>
+                                                        <img
+                                                            className=""
+                                                            //@ts-ignore
+                                                            src={HandSock}
+                                                            alt=""
+                                                        />
+                                                    </SwiperSlide>
+                                                </Swiper>
                                             </div>
 
                                             <div className="flex flex-col gap-1">
@@ -571,7 +756,7 @@ const CardSet = () => {
 
                                         <div className=" justify-center items-center gap-2 setBtns hidden sm:flex sm:flex-col">
                                             <button>
-                                                <i className="fa-solid fa-xmark text-gray-400"></i>
+                                                <IoClose />{" "}
                                             </button>
                                             <button>
                                                 <i className="fa-solid fa-plus text-gray-400"></i>
@@ -581,11 +766,33 @@ const CardSet = () => {
                                     <div className="setProduct flex justify-between items-center py-5 pr-5   w-1/2">
                                         <div className=" block sm:flex justify-start items-start gap-3 w-full">
                                             <div className="w-1/3">
-                                                <img
-                                                    className=" object-contain"
-                                                    src={HandSock}
-                                                    alt=""
-                                                />
+                                                <Swiper
+                                                    pagination={{
+                                                        clickable: true,
+                                                    }}
+                                                    modules={[
+                                                        Navigation,
+                                                        Pagination,
+                                                    ]}
+                                                    className=""
+                                                >
+                                                    <SwiperSlide>
+                                                        <img
+                                                            className=""
+                                                            //@ts-ignore
+                                                            src={HandSock}
+                                                            alt=""
+                                                        />
+                                                    </SwiperSlide>
+                                                    <SwiperSlide>
+                                                        <img
+                                                            className=""
+                                                            //@ts-ignore
+                                                            src={HandSock}
+                                                            alt=""
+                                                        />
+                                                    </SwiperSlide>
+                                                </Swiper>
                                             </div>
 
                                             <div className="flex flex-col gap-1">
@@ -612,7 +819,7 @@ const CardSet = () => {
 
                                         <div className=" justify-center items-center gap-2 setBtns hidden sm:flex sm:flex-col">
                                             <button>
-                                                <i className="fa-solid fa-xmark text-gray-400"></i>
+                                                <IoClose />
                                             </button>
                                             <button>
                                                 <i className="fa-solid fa-plus text-gray-400"></i>
@@ -626,7 +833,10 @@ const CardSet = () => {
                                         <div className="w-full flex gap-5 justify-between">
                                             <div className="w-[70%] border h-[34px] rounded-lg p-1 flex">
                                                 <div className="h-full w-[30px] flex justify-center items-center">
-                                                    <i className="fa-solid fa-magnifying-glass text-gray-400"></i>
+                                                    <img
+                                                        src={SearchIcon}
+                                                        alt=""
+                                                    />
                                                 </div>
                                                 <input
                                                     className="w-[95%] outline-0"
@@ -635,15 +845,22 @@ const CardSet = () => {
                                             </div>
                                             <div className="w-[10%] border h-[34px] rounded-lg p-1 flex">
                                                 <div className="h-full w-[30px] flex justify-center items-center">
-                                                    <i className="fa-solid fa-bars text-gray-400"></i>
+                                                    <img
+                                                        src={MenuIcon}
+                                                        alt=""
+                                                    />{" "}
                                                 </div>
-                                                <p className="text-gray-500">Каталог</p>
+                                                <p className="text-gray-500">
+                                                    Каталог
+                                                </p>
                                             </div>
                                             <div className="w-[18%] border h-[34px] rounded-lg p-1 flex">
                                                 <div className="h-full w-[30px] flex justify-center items-center">
                                                     <img src={filtr} alt="" />
                                                 </div>
-                                                <p className="text-gray-500">Все фильтры </p>
+                                                <p className="text-gray-500">
+                                                    Все фильтры{" "}
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
@@ -719,7 +936,7 @@ const CardSet = () => {
                                                 </div>
                                                 <div className="flex justify-between catalog_btns">
                                                     <button className="bg-redPrimary px-4 py-2 text-white rounded-lg shadow-lg shadow-gray-400">
-                                                        + В корзину
+                                                        добавить
                                                     </button>
 
                                                     <button className="bg-gray-300 px-3 py-1 rounded-lg text-gray-700">
@@ -727,7 +944,10 @@ const CardSet = () => {
                                                             to={"category/1"}
                                                             className="w-full h-full flex justify-center items-center"
                                                         >
-                                                            <i className="fa-solid fa-magnifying-glass"></i>
+                                                            <img
+                                                                src={SearchIcon}
+                                                                alt=""
+                                                            />
                                                         </Link>
                                                     </button>
                                                 </div>
@@ -804,7 +1024,7 @@ const CardSet = () => {
                                                 </div>
                                                 <div className="flex justify-between catalog_btns">
                                                     <button className="bg-redPrimary px-4 py-2 text-white rounded-lg shadow-lg shadow-gray-400">
-                                                        + В корзину
+                                                        добавить
                                                     </button>
 
                                                     <button className="bg-gray-300 px-3 py-1 rounded-lg text-gray-700">
@@ -812,7 +1032,10 @@ const CardSet = () => {
                                                             to={"category/1"}
                                                             className="w-full h-full flex justify-center items-center"
                                                         >
-                                                            <i className="fa-solid fa-magnifying-glass"></i>
+                                                            <img
+                                                                src={SearchIcon}
+                                                                alt=""
+                                                            />
                                                         </Link>
                                                     </button>
                                                 </div>
@@ -889,7 +1112,7 @@ const CardSet = () => {
                                                 </div>
                                                 <div className="flex justify-between catalog_btns">
                                                     <button className="bg-redPrimary px-4 py-2 text-white rounded-lg shadow-lg shadow-gray-400">
-                                                        + В корзину
+                                                        добавить
                                                     </button>
 
                                                     <button className="bg-gray-300 px-3 py-1 rounded-lg text-gray-700">
@@ -897,7 +1120,10 @@ const CardSet = () => {
                                                             to={"category/1"}
                                                             className="w-full h-full flex justify-center items-center"
                                                         >
-                                                            <i className="fa-solid fa-magnifying-glass"></i>
+                                                            <img
+                                                                src={SearchIcon}
+                                                                alt=""
+                                                            />
                                                         </Link>
                                                     </button>
                                                 </div>
@@ -939,7 +1165,7 @@ const CardSet = () => {
 
                                     <div className=" justify-center items-center gap-2 setBtns hidden sm:flex sm:flex-col">
                                         <button>
-                                            <i className="fa-solid fa-xmark text-gray-400"></i>
+                                            <IoClose />
                                         </button>
                                         <button>
                                             <i className="fa-solid fa-plus text-gray-400"></i>
@@ -971,7 +1197,7 @@ const CardSet = () => {
 
                                     <div className=" justify-center items-center gap-2 setBtns hidden sm:flex sm:flex-col">
                                         <button>
-                                            <i className="fa-solid fa-xmark text-gray-400"></i>
+                                            <IoClose />
                                         </button>
                                         <button>
                                             <i className="fa-solid fa-plus text-gray-400"></i>
@@ -1003,7 +1229,7 @@ const CardSet = () => {
 
                                     <div className=" justify-center items-center gap-2 setBtns hidden sm:flex sm:flex-col">
                                         <button>
-                                            <i className="fa-solid fa-xmark text-gray-400"></i>
+                                            <IoClose />
                                         </button>
                                         <button>
                                             <i className="fa-solid fa-plus text-gray-400"></i>
@@ -1035,7 +1261,7 @@ const CardSet = () => {
 
                                     <div className=" justify-center items-center gap-2 setBtns hidden sm:flex sm:flex-col">
                                         <button>
-                                            <i className="fa-solid fa-xmark text-gray-400"></i>
+                                            <IoClose />
                                         </button>
                                         <button>
                                             <i className="fa-solid fa-plus text-gray-400"></i>
@@ -1050,7 +1276,7 @@ const CardSet = () => {
                                 + Добавить нанесение
                             </button>
                             <button>
-                                <i className="fa-solid fa-circle-info text-gray-400"></i>
+                                <img src={QuestionIcon} alt="" />
                             </button>
                         </div>
                         <div className="sm:bg-gray-200 rounded-xs py-2 mb-5 px-2">
