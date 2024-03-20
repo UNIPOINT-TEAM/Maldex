@@ -7,6 +7,7 @@ import Topbar from "./Topbar";
 import { MoreFilter } from "..";
 import { useFetchHook } from "../../hooks/UseFetch";
 import SearchModal from "../SearchModal/SearchModal";
+import Arrow from "../../assets/icons/arrow-right.png";
 
 const Navbar = () => {
     const [modal, setModal] = useState(false);
@@ -162,11 +163,11 @@ const Navbar = () => {
                                         </p>
                                         <img src={Product[0].img} alt="" />
                                         <div className="w-full absolute bottom-5 right-5">
-                                            <button className="float-end">
-                                                <button className="py-1 px-3 rounded bg-slate-100 btnProductCatalog">
-                                                    <i className="fa-solid fa-arrow-right text-slate-100 rotate-45 text-2xl iconProductCatalog"></i>
+                                            <div className="float-end">
+                                                <button className="p-1 rounded bg-slate-100 btnProductCatalog">
+                                                    <img src={Arrow} alt="" />
                                                 </button>
-                                            </button>
+                                            </div>
                                         </div>
                                     </div>
                                     <div
@@ -182,11 +183,11 @@ const Navbar = () => {
                                             alt=""
                                         />
                                         <div className="w-full absolute bottom-5 right-5">
-                                            <button className="float-end">
-                                                <button className="py-1 px-3 rounded bg-slate-100 btnProductCatalog">
-                                                    <i className="fa-solid fa-arrow-right text-slate-100 rotate-45 text-2xl iconProductCatalog cursor-pointer"></i>
+                                            <div className="float-end">
+                                                <button className="p-1 rounded bg-slate-100 btnProductCatalog">
+                                                    <img src={Arrow} alt="" />
                                                 </button>
-                                            </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -204,11 +205,11 @@ const Navbar = () => {
                                             alt=""
                                         />
                                         <div className="w-full absolute bottom-5 right-5">
-                                            <button className="float-end">
-                                                <button className="py-1 px-3 rounded bg-slate-100 btnProductCatalog">
-                                                    <i className="fa-solid fa-arrow-right text-slate-100 rotate-45 text-2xl iconProductCatalog"></i>
+                                            <div className="float-end">
+                                                <button className="p-1 rounded bg-slate-100 btnProductCatalog">
+                                                    <img src={Arrow} alt="" />
                                                 </button>
-                                            </button>
+                                            </div>
                                         </div>
                                     </div>
                                     <div
@@ -224,11 +225,11 @@ const Navbar = () => {
                                             alt=""
                                         />
                                         <div className="w-full absolute bottom-5 right-5">
-                                            <button className="float-end">
-                                                <button className="py-1 px-3 rounded bg-slate-100 btnProductCatalog">
-                                                    <i className="fa-solid fa-arrow-right text-slate-100 rotate-45 text-2xl iconProductCatalog"></i>
+                                            <div className="float-end">
+                                                <button className="p-1 rounded bg-slate-100 btnProductCatalog">
+                                                    <img src={Arrow} alt="" />
                                                 </button>
-                                            </button>
+                                            </div>
                                         </div>
                                     </div>
                                     <Link
@@ -243,8 +244,8 @@ const Navbar = () => {
                                             </p>
                                         </div>
                                         <div className="w-full">
-                                            <button className="float-end">
-                                                <i className="fa-solid fa-arrow-right text-redPrimary rotate-45 text-2xl"></i>
+                                            <button className="p-1 float-end bg-redPrimary rounded">
+                                                <img src={Arrow} alt="" />
                                             </button>
                                         </div>
                                     </Link>

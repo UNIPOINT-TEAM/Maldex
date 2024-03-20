@@ -4,6 +4,8 @@ import { Navigation, Pagination } from "swiper/modules";
 import { useState, useEffect } from "react";
 import { getData } from "../../services/services";
 import { Link } from "react-router-dom";
+import prev from "../../assets/icons/projectPrev.svg";
+import next from "../../assets/icons/projectNext.svg";
 import {
     Button,
     Dialog,
@@ -20,144 +22,40 @@ const SliderProduct = () => {
     const [defaultProduct, setDefaultProduct] = useState(true);
     const [addCard, setAddCard] = useState(false);
     const { fetchData, response } = useFetchHook();
+    const [size, setSize] = useState(null);
 
     useEffect(() => {
         fetchData({ method: "GET", url: "/product/" });
-        //@ts-ignore
-        setProduct(response.results);
-        if (productModal) {
-            document.body.style.overflow = "hidden";
-        } else {
-            document.body.style.overflow = "auto";
-        }
     }, []);
-
-    console.log(response.results);
 
     const changeStatus = () => {
         setDefaultProduct(!defaultProduct);
     };
 
-    useEffect(() => {
-        if (productModal) {
-            document.body.style.overflow = "hidden";
-        } else {
-            document.body.style.overflow = "auto";
-        }
-    }, [productModal]);
+    // useEffect(() => {
+    //     if (productModal) {
+    //         document.body.style.overflow = "hidden";
+    //     } else {
+    //         document.body.style.overflow = "auto";
+    //     }
+    // }, []);
 
-    const [open, setOpen] = useState(false);
-
-    const handleOpen = () => setOpen(!open);
+    const handleOpen = (value: string) => setSize(value);
 
     return (
         <div className="container_xxl relative px-3">
-            <Dialog open={open} handler={handleOpen} className="px-5 py-2">
-                <button
-                    className="flex ml-auto outline-none"
-                    onClick={handleOpen}
-                >
-                    <i className="fa-solid fa-xmark text-2xl"></i>
-                </button>
-                <div className="flex justify-between items-center gap-5 px-10 mb-6">
-                    <div className="w-1/3 py-2 flex flex-col items-center ">
-                        <div className="h-[200px] w-[200px] mb-3">
-                            <Swiper
-                                navigation={{
-                                    prevEl: ".prevProduct",
-                                    nextEl: ".nextProduct",
-                                }}
-                                modules={[Navigation]}
-                                className="swiper-product"
-                            >
-                                <SwiperSlide>
-                                    <img
-                                        className=""
-                                        src={CarouselImg}
-                                        alt="no img"
-                                    />
-                                </SwiperSlide>
-                            </Swiper>
-                        </div>
-                        <div className="w-[200px] ">
-                            <div className="flex justify-between mb-3">
-                                <p>Количество</p>
-                                <input
-                                    type="text"
-                                    className="border border-black w-[40px] h-[24px] rounded flex px-1 outline-none"
-                                />
-                            </div>
-                            <div className="relative mb-2">
-                                <p className="text-xl">
-                                    45.
-                                    <span className="text-xs absolute top-0">
-                                        00
-                                    </span>
-                                    <span className="ml-4 mr-1">RUB</span>
-                                    <span className="text-xs absolute top-0 line-through text-redPrimary">
-                                        7 545
-                                    </span>
-                                </p>
-                            </div>
-                            <button className="bg-redPrimary px-4 py-2 text-white rounded-lg shadow-lg shadow-gray-400">
-                                + В корзину
-                            </button>
-                        </div>
-                    </div>
-                    <div className="w-2/3  py-2 px-10">
-                        <p className="text-2xl mb-3">Бейсболка “Poly”</p>
-                        <p className="text-sm mb-5">107045356</p>
-                        <p className="text-xl mb-3">Выбор цвета</p>
-                        <div className="flex gap-3 mb-3">
-                            <button className="bg-redPrimary w-[30px] h-[30px] rounded-[15px]"></button>
-                            <button className="bg-redPrimary w-[30px] h-[30px] rounded-[15px]"></button>
-                            <button className="bg-redPrimary w-[30px] h-[30px] rounded-[15px]"></button>
-                            <button className="bg-redPrimary w-[30px] h-[30px] rounded-[15px]"></button>
-                            <button className="bg-redPrimary w-[30px] h-[30px] rounded-[15px]"></button>
-                            <button className="bg-redPrimary w-[30px] h-[30px] rounded-[15px]"></button>
-                            <button className="bg-redPrimary w-[30px] h-[30px] rounded-[15px]"></button>
-                            <button className="bg-redPrimary w-[30px] h-[30px] rounded-[15px]"></button>
-                            <button className="bg-redPrimary w-[30px] h-[30px] rounded-[15px]"></button>
-                        </div>
-                        <p className="text-sm mb-3 text-gray-400">Размер:</p>
-                        <div className="flex justify-start items-center gap-1 mb-3">
-                            <button className="w-[34px] h-[34px] border border-gray-400 rounded-[17px] text-xs hover:border-redPrimary hover:text-redPrimary">
-                                XS
-                            </button>
-                            <button className="w-[34px] h-[34px] border border-gray-400 rounded-[17px] text-xs hover:border-redPrimary hover:text-redPrimary">
-                                S
-                            </button>
-                            <button className="w-[34px] h-[34px] border border-gray-400 rounded-[17px] text-xs hover:border-redPrimary hover:text-redPrimary">
-                                M
-                            </button>
-                            <button className="w-[34px] h-[34px] border border-gray-400 rounded-[17px] text-xs hover:border-redPrimary hover:text-redPrimary">
-                                L
-                            </button>
-                            <button className="w-[34px] h-[34px] border border-gray-400 rounded-[17px] text-xs hover:border-redPrimary hover:text-redPrimary">
-                                XL
-                            </button>
-                            <button className="w-[34px] h-[34px] border border-gray-400 rounded-[17px] text-xs hover:border-redPrimary hover:text-redPrimary">
-                                2XL
-                            </button>
-                        </div>
-                        <p className="text-2xl font-light mb-3">
-                            Материал: <span className="font-bold">Сатин</span>
-                        </p>
-                        <p className="text-2xl font-light mb-3">
-                            Вес: <span className="font-bold">157 гр.</span>
-                        </p>
-                        <p className="text-lg">
-                            Если вы думаете о s'mores как о чем-то, что нельзя
-                            отправить по почте, подумайте еще раз! Этот
-                            подарочный набор превращает всеми любимую закуску у
-                            костра в изысканную форму искусства, и он не для
-                            случайных любителей. Конечно, потребуется некоторая
-                            сборка, но все знают, что это часть удовольствия.
-                        </p>
-                    </div>
-                </div>
-            </Dialog>
-
+            <Dialog
+                open={
+                    size === "xs" ||
+                    size === "sm" ||
+                    size === "md" ||
+                    size === "lg" ||
+                    size === "xl" ||
+                    size === "xxl"
+                }
+                size={size || "md"}
+                handler={handleOpen}
+            ></Dialog>
             <Swiper
                 slidesPerView={1}
                 spaceBetween={10}
@@ -189,10 +87,10 @@ const SliderProduct = () => {
                 modules={[Navigation]}
                 className="mySwiper  overscroll-x-auto h-[500px]"
             >
-                {product?.map((item) => (
+                {response.results?.map((item:any) => (
                     <SwiperSlide>
                         <div className="catalog">
-                            <div className="relative w-full catalogImgBox h-[220px] mb-4">
+                            <div className="relative w-full catalogImgBox h-[220px] mb-4 bg-gray-200">
                                 <Swiper
                                     pagination={true}
                                     modules={[Pagination]}
@@ -200,12 +98,12 @@ const SliderProduct = () => {
                                 >
                                     <SwiperSlide>
                                         <div
-                                            onClick={handleOpen}
+                                            onClick={() => handleOpen("lg")}
                                             className="relative h-full"
                                         >
                                             <div className="flex justify-center items-center h-full">
                                                 <img
-                                                    className="mb-2 object-contain"
+                                                    className="mb-2 object-contain product-img"
                                                     //@ts-ignore
                                                     src={item.image}
                                                     alt=""
@@ -255,7 +153,9 @@ const SliderProduct = () => {
                                             }
                                         </p>
                                     </div>
-                                    <p className="mb-2">Lorem ipsum dolor</p>
+                                    <p className="mb-2 text-gray-600">
+                                        {item.vendor_code}
+                                    </p>
                                     <div className="relative mb-2">
                                         <p className="text-xl">
                                             {item.price}
@@ -360,10 +260,10 @@ const SliderProduct = () => {
                 ))}
             </Swiper>
             <div className="hidden lg:flex prev text-black  hover:text-white">
-                <i className="fa-solid fa-arrow-left "></i>
+                <img src={prev} alt="" />
             </div>
             <div className="hidden lg:flex next text-black hover:text-white">
-                <i className="fa-solid fa-arrow-right"></i>
+                <img src={next} alt="" />
             </div>
         </div>
     );

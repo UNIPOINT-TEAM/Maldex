@@ -22,7 +22,7 @@ const Home = () => {
                 <MainCategory />
             </div>
             <div className="container_xxl px-3">
-                <p className="text-4xl text-greenPrimary">Hits</p>
+                <p className="text-4xl text-greenPrimary">hits!</p>
                 <div className="my-5">
                     <ProductNav />
                 </div>
@@ -45,6 +45,15 @@ const Home = () => {
             </div>
             <News />
             <ProjectsSlider />
+            <div className="container_xxl px-3">
+                <p className="text-4xl text-redPrimary">new!</p>
+                <div className="my-5">
+                    <ProductNav />
+                </div>
+            </div>
+            <div className="w-full">
+                <SliderProduct />
+            </div>
             <QuestForm />
         </div>
     );
