@@ -6,6 +6,7 @@ import { ProductCard } from "..";
 
 
 const SliderProduct = () => {
+<<<<<<< HEAD
   return (
     <div className="container_xxl">
       <div className="relative">
@@ -35,5 +36,14 @@ const SliderProduct = () => {
     </div>
   );
 };
+=======
+    // @ts-ignore
+    const [product, setProduct] = useState([]);
+    const [productModal, setProductModal] = useState(false);
+    const [defaultProduct, setDefaultProduct] = useState(true);
+    const [addCard, setAddCard] = useState(false);
+    const { fetchData, response } = useFetchHook();
+    const [size, setSize] = useState(null);
+>>>>>>> 0facdc4 (restart branch 2)
 
 export default SliderProduct;

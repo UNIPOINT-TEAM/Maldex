@@ -1,5 +1,5 @@
-<<<<<<< HEAD
 import {
+<<<<<<< HEAD
   MainProductFilter,
 =======
 import React from "react";
@@ -7,6 +7,9 @@ import {
 >>>>>>> ddec433 (add page 404)
   ProjectsSlider,
   QuestForm,
+=======
+  ProjectsSlider,
+>>>>>>> 0facdc4 (restart branch 2)
   TagBanner,
   TagList,
 } from "../../components";
@@ -29,7 +32,10 @@ function Tags() {
         <TagBanner />
         <TagList />
         <ProjectsSlider />
+<<<<<<< HEAD
         <QuestForm />
+=======
+>>>>>>> 0facdc4 (restart branch 2)
       </div>
     </div>
 >>>>>>> ddec433 (add page 404)

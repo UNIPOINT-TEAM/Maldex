@@ -39,7 +39,6 @@ function Brands() {
     brand18,
   ];
 
-<<<<<<< HEAD
   // const firstColumn = brands.slice(0, 9);
   // const secondColumn = brands.slice(9);
   return (
@@ -57,6 +56,7 @@ function Brands() {
               className="w-full h-auto"
             />
           ))}
+<<<<<<< HEAD
 =======
   const firstColumn = brands.slice(0, 9);
   const secondColumn = brands.slice(9);
@@ -89,6 +89,8 @@ function Brands() {
             ))}
           </div>
 >>>>>>> ddec433 (add page 404)
+=======
+>>>>>>> 0facdc4 (restart branch 2)
         </div>
       </div>
     </>

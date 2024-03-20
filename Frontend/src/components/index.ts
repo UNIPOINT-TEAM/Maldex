@@ -72,6 +72,7 @@ export { default as Steps } from "./Steps/Steps";
 export { default as Brands } from "./Brands/Brands";
 export { default as TagBanner } from "./TagBanner/TagBanner";
 export { default as TagList } from "./TagList/TagList";
+<<<<<<< HEAD
 
 
 
@@ -82,3 +83,13 @@ export { default as TagList } from "./TagList/TagList";
 
 
 >>>>>>> bf64a73 (navbar100)
+=======
+export { default as Card } from "./Card/Card";
+export { default as GiftItem } from "./GiftItem/GiftItem";
+export { default as Badge } from "./Badge/Badge";
+export { default as CompanyBottomBanner } from "./CompanyBottomBanner/CompanyBottomBanner";
+export { default as MoreFilter } from "./MoreFilter/MoreFilter";
+export { default as TabList } from "./CategoryDetails/TabContents/TabList";
+export { default as WhoWe } from "./WhoWe/WhoWe";
+export { default as Printing } from "./Printing/Printing";
+>>>>>>> 0facdc4 (restart branch 2)

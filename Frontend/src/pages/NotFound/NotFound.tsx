@@ -1,9 +1,14 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { useEffect, useState } from "react";
 import error from "../../assets/images/box404.png";
 import { QuestForm } from "../../components";
 import { useFetchHook } from "../../hooks/UseFetch";
 import { Link } from "react-router-dom";
+=======
+import error from "../../assets/images/box404.png";
+import { QuestForm, TagList } from "../../components";
+>>>>>>> 0facdc4 (restart branch 2)
 
 function NotFound() {
   const [selectedCategory, setSelectedCategory] = useState("Для неё");
@@ -85,6 +90,7 @@ console.log(subcategories)
           </div>
         </div>
         <QuestForm />
+<<<<<<< HEAD
 =======
 import error from "../../assets/images/box404.png";
 
@@ -103,6 +109,8 @@ function NotFound() {
           </div>
         </div>
 >>>>>>> ddec433 (add page 404)
+=======
+>>>>>>> 0facdc4 (restart branch 2)
       </div>
     </div>
   );
