@@ -185,7 +185,7 @@ const SliderProduct = () => {
         className="mySwiper px-5 overscroll-x-auto h-[500px]"
       >
         {/* {product?.map((item) => ( */}
-        <SwiperSlide className="min-w-[200px]">
+        <SwiperSlide className="">
           <div className="catalog px-1 ">
             <div className="relative w-full catalogImgBox h-[220px]">
               <Swiper
