@@ -6,9 +6,9 @@ import {
     AccordionBody,
 } from "@material-tailwind/react";
 import Close from "../../assets/icons/close.png";
-{
-    /* @ts-ignore */
-}
+
+    // @ts-ignore
+
 function Icon({ id, open }) {
     return (
         <svg

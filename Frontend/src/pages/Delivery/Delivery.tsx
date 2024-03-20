@@ -163,7 +163,9 @@ function Delivery() {
                     ) : (
                       <div>
                         <p className="font-extrabold">{desc}</p>
+                        {/* @ts-ignore */}
                         <div dangerouslySetInnerHTML={{ __html: desc1 }} />
+                        {/* @ts-ignore */}
                         <div dangerouslySetInnerHTML={{ __html: desc2 }} />
 
                         {/* <p>{desc2}</p> */}

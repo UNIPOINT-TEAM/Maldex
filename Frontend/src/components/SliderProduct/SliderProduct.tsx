@@ -2,9 +2,12 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import CarouselImg from "../../assets/images/carouselImg.png";
 import { Navigation, Pagination } from "swiper/modules";
 import { useState, useEffect } from "react";
+// @ts-ignore
 import { getData } from "../../services/services";
 import { Link } from "react-router-dom";
+// @ts-ignore
 import prev from "../../assets/icons/projectPrev.svg";
+// @ts-ignore
 import next from "../../assets/icons/projectNext.svg";
 import Close from "../../assets/icons/close.png";
 import {

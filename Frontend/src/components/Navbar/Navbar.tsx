@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+// @ts-ignore
 import { Categories, Product, SubCategories } from "../../mock/data";
 import menu from "../../assets/icons/menu.png";
 import Topbar from "./Topbar";
