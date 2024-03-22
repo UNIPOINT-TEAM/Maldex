@@ -29,7 +29,7 @@ const ProductNav: React.FC<ProductNavProps> = ({ title, color }) => {
   ];
 
   return (
-    <div>
+    <div className="mb-6">
       <div className="mb-5 flex justify-between">
         <p className={titleStyle}>{title}</p>
         <button className="mx-3 uppercase font-extrabold tracking-wider p-[6px] border border-redPrimary rounded-md text-redPrimary block ss:hidden">

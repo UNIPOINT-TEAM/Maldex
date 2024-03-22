@@ -57,12 +57,12 @@ const Catalog = () => {
                 </div>
                 <div className="card container_xxl my-0 sm:my-10 ">
                     <p className="text-3xl mb-5">подарочные наборы</p>
-                    <div className="flex justify-between items-center border-b-[1px] pb-2">
+                    <div className="flex justify-between items-center md:border-b-[1px] pb-2">
                         <button className="border-[1px] border-black px-3 py-1 rounded flex items-center">
                             <p>Все фильтры (2) &nbsp;</p>
                             <img src={Filter} alt="" />
                         </button>
-                        <div className="w-[70%] flex flex-wrap">
+                        <div className="hidden md:flex w-[70%] flex-wrap">
                             {activeFilterItems.map((i, index) => (
                                 <div className="flex">
                                     <div
@@ -176,6 +176,58 @@ const Catalog = () => {
                                 </div>
                             )}
                         </div>
+                    </div>
+                    <div className="w-full overflow-x-scroll flex flex-wrap relative md:hidden pb-4 mb-2 border-b">
+                        {activeFilterItems.map((i, index) => (
+                            <div className="flex">
+                                <div
+                                    key={i.id}
+                                    className="px-2 py-2 rounded-md bg-gray-100 text-sm border border-l-gray-800 flex gap-2"
+                                >
+                                    <p>{i.name}</p>
+                                    <button>
+                                        <img
+                                            className="w-[12px]"
+                                            src={Close}
+                                            alt=""
+                                        />
+                                    </button>
+                                </div>
+                                {index == activeFilterItems.length - 1 && (
+                                    <div className="relative">
+                                        <button
+                                            onClick={openFilter}
+                                            className="bg-redPrimary text-white px-4 rounded-md absolute h-full"
+                                        >
+                                            +
+                                        </button>
+                                        {filter && (
+                                            <div className="w-[200px] h-[350px] border border-gray-500 absolute z-30 top-[-150px] left-[60px]  rounded-md">
+                                                <div className="w-[20px] h-[20px] z-40 border border-gray-500 bg-white  rotate-45 absolute top-[45%] left-[-6px]"></div>
+                                                <div className="w-full h-full bg-white z-50 absolute rounded-md flex flex-col justify-start py-5 px-2">
+                                                    <p className="text-xl mb-5">
+                                                        Цвет
+                                                    </p>
+                                                    {filterItems.map((i) => (
+                                                        <button
+                                                            onClick={() =>
+                                                                addToActive(i)
+                                                            }
+                                                            className="text-sm mb-2 text-start"
+                                                        >
+                                                            {i.name} &nbsp;
+                                                            <span className="text-gray-500">
+                                                                {i.count}
+                                                            </span>
+                                                        </button>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
+                            </div>
+                        ))}
                     </div>
                     <div className="flex w-100 overflow-scroll sm:flex sm:flex-wrap py-2 gap-2">
                         <button className="border-[1px] border-gray-400 px-2 text-gray-500 min-w-[300px] sm:min-w-0 py-1 rounded">
