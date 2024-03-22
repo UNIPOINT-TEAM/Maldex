@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 interface ProductNavProps {
   title: string;
@@ -7,18 +7,29 @@ interface ProductNavProps {
 
 const ProductNav: React.FC<ProductNavProps> = ({ title, color }) => {
   let titleStyle = "text-4xl";
+  const [selectedItem, setSelectedItem] = useState(0); // Добавляем состояние для отслеживания выбранного элемента
 
-  // Добавляем стили в зависимости от типа бейджа
+  // Добавляем стили в зависимости от цвета
   if (color === "green") {
-    titleStyle += "font-medium text-[40px]  text-greenPrimary";
+    titleStyle += " font-medium text-[40px]  text-greenPrimary";
   } else if (color === "red") {
-    titleStyle += "font-medium text-[40px] text-redPrimary";
+    titleStyle += " font-medium text-[40px] text-redPrimary";
   } else if (color === "gray") {
-    titleStyle += "font-medium text-[32px] text-darkSecondary";
+    titleStyle += " font-medium text-[32px] text-darkSecondary";
   }
 
+  // Массив элементов для упрощения рендера списка
+  const items = [
+    "Одежда",
+    "Сумки, портфели, рюкзаки",
+    "Ручки",
+    "Кухня и бар",
+    "Гаджеты",
+    "Новый год и рождество",
+  ];
+
   return (
-    <div className="">
+    <div>
       <div className="mb-5 flex justify-between">
         <p className={titleStyle}>{title}</p>
         <button className="mx-3 uppercase font-extrabold tracking-wider p-[6px] border border-redPrimary rounded-md text-redPrimary block ss:hidden">
@@ -29,24 +40,19 @@ const ProductNav: React.FC<ProductNavProps> = ({ title, color }) => {
         <div className="flex justify-between items-center px-7 py-0">
           <div className="overflow-auto">
             <ul className="flex gap-5 whitespace-nowrap">
-              <li className="cursor-pointer py-4 border-b-2 border-transparent hover:text-redPrimary hover:border-b-2 hover:border-redPrimary">
-                Одежда
-              </li>
-              <li className="cursor-pointer py-4 border-b-2 border-transparent hover:text-redPrimary hover:border-b-2 hover:border-redPrimary">
-                Сумки, портфели, рюкзаки
-              </li>
-              <li className="cursor-pointer py-4 border-b-2 border-transparent hover:text-redPrimary hover:border-b-2 hover:border-redPrimary">
-                Ручки
-              </li>
-              <li className="cursor-pointer py-4 border-b-2 border-transparent hover:text-redPrimary hover:border-b-2 hover:border-redPrimary">
-                Кухня и бар
-              </li>
-              <li className="cursor-pointer py-4 border-b-2 border-transparent hover:text-redPrimary hover:border-b-2 hover:border-redPrimary">
-                Гаджеты
-              </li>
-              <li className="cursor-pointer py-4 border-b-2 border-transparent hover:text-redPrimary hover:border-b-2 hover:border-redPrimary">
-                Новый год и рождество
-              </li>
+              {items.map((item, index) => (
+                <li
+                  key={index}
+                  className={`cursor-pointer py-4 border-b-2 ${
+                    selectedItem === index
+                      ? "border-redPrimary text-redPrimary"
+                      : "border-transparent hover:text-redPrimary hover:border-b-2 hover:border-redPrimary"
+                  }`}
+                  onClick={() => setSelectedItem(index)} // Устанавливаем элемент как выбранный при клике
+                >
+                  {item}
+                </li>
+              ))}
             </ul>
           </div>
           <div>

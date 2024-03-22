@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Tab,
   TabPanel,
@@ -10,25 +10,46 @@ import { QuestForm } from "../../components";
 
 function Delivery() {
   const [selectedButton, setSelectedButton] = useState(0);
-  //@ts ignor
-  // const handleButtonClick = (buttonIndex) => {
-  //   setSelectedButton(buttonIndex);
-  // };
 
-  /* @ts-ignore */
+  useEffect(() => {
+    // Инициализация выбранной вкладки при загрузке страницы
+    handleHashChange();
+
+    // Обработка изменения hash
+    window.addEventListener("hashchange", handleHashChange);
+
+    // Убираем обработчик при размонтировании компонента
+    return () => {
+      window.removeEventListener("hashchange", handleHashChange);
+    };
+  }, []);
+
+  const handleHashChange = () => {
+    const hash = window.location.hash;
+    switch (hash) {
+      case "#payment":
+        setSelectedButton(1);
+        break;
+      case "#contacts":
+        setSelectedButton(2);
+        break;
+      default:
+        setSelectedButton(0);
+        break;
+    }
+  };
 
   const handleButtonClick = (buttonIndex) => {
     setSelectedButton(buttonIndex);
-    // Navigate to the appropriate tab on the Delivery page
     switch (buttonIndex) {
       case 0:
-        window.location.href = "/delivery";
+        window.location.hash = "";
         break;
       case 1:
-        window.location.href = "/delivery#payment";
+        window.location.hash = "payment";
         break;
       case 2:
-        window.location.href = "/delivery#contacts";
+        window.location.hash = "contacts";
         break;
       default:
         break;
@@ -72,6 +93,8 @@ function Delivery() {
     },
   ];
 
+  
+
   return (
     <>
       <div>
@@ -82,14 +105,21 @@ function Delivery() {
               onChange={handleButtonClick}
             >
               {/* @ts-ignore */}
-              <TabsHeader className="tab-header border-0 border-b rounded-none bg-[#fff]">
+              <TabsHeader
+                placeholder={<div />}
+                className="bg-transparent"
+                indicatorProps={{
+                  className:
+                    "bg-transparent border-b-2 border-redPrimary shadow-none rounded-none",
+                }}
+              >
                 {/* @ts-ignore */}
                 {data.map(({ label, value }, index) => (
                   // @ts-ignore
                   <Tab
                     key={value}
                     value={value}
-                    className="text-[28px] z-0 mr-[73px] w-auto"
+                    className="text-[9px] lg:text-[28px] font-Helvetica-Neue z-0 mr-[15px] lg:mr-[73px] uppercase lg:lowercase w-auto"
                   >
                     {label}
                   </Tab>
@@ -162,7 +192,7 @@ function Delivery() {
                       </>
                     ) : (
                       <div>
-                        <p className="font-extrabold">{desc}</p>
+                        <p className="font-extrabold ">{desc}</p>
                         {/* @ts-ignore */}
                         <div dangerouslySetInnerHTML={{ __html: desc1 }} />
                         {/* @ts-ignore */}

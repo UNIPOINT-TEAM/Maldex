@@ -7,8 +7,10 @@ import project1 from "../../assets/project 1.png";
 import project2 from "../../assets/project 2.png";
 import project3 from "../../assets/project 3.png";
 import "swiper/css";
+import "swiper/css/scrollbar";
 import { ProductNav } from "..";
 import { Link } from "react-router-dom";
+import { Scrollbar } from "swiper/modules";
 
 function ProjectsSlider() {
   const swiperRef = useRef(null);
@@ -32,22 +34,24 @@ function ProjectsSlider() {
   return (
     <div className="container_xxl">
       <div className="mx-3">
-        <ProductNav title="ПРОЕКТЫ" color="gray"/>
-        <div className="my-5 lg:h-[410px]">
+        <ProductNav title="ПРОЕКТЫ" color="gray" />
+        <div className="my-5 lg:h-[440px]">
           <div className="flex h-full hidden lg:flex">
-            <div className="h-[100%] flex items-center">
+            <div className="h-[410px] flex items-center">
               <button className="absolute z-50 -ml-[10px] " onClick={goPrev}>
-                <img src={prev} alt="" className="w-[32px]"/>
+                <img src={prev} alt="" className="w-[32px]" />
               </button>
             </div>
             <Swiper
               ref={swiperRef}
-              className="w-full"
+              className="w-full "
               slidesPerView={3.5}
               loop={true}
               spaceBetween={10}
               navigation
               pagination={{ clickable: true }}
+              modules={[Scrollbar]} // Добавьте модуль Scrollbar здесь
+              scrollbar={{ draggable: true }} 
             >
               <SwiperSlide>
                 <Link to="/portfolio">
@@ -94,11 +98,10 @@ function ProjectsSlider() {
                   </div>
                 </Link>
               </SwiperSlide>
-              {/* Add more slides if needed */}
             </Swiper>
-            <div className="h-[100%] flex items-center">
+            <div className="h-[410px] flex items-center">
               <button className="absolute z-50 -ml-[20px]" onClick={goNext}>
-                <img src={next} alt="" className="w-[32px]"/>
+                <img src={next} alt="" className="w-[32px]" />
               </button>
             </div>
           </div>

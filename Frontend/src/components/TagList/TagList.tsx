@@ -1,10 +1,9 @@
-import  { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const TagList = () => {
-  // Состояние для хранения выбранной категории
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState("Для неё"); // Установите "Для неё" по умолчанию
+  const [selectedSubcategory, setSelectedSubcategory] = useState(null);
 
-  // Список категорий и их соответствующих подкатегорий
   const categories = {
     "Для неё": [
       "Care Package",
@@ -21,20 +20,26 @@ const TagList = () => {
     "Для учёбы": ["Подкатегория5-1", "Подкатегория5-2", "Подкатегория5-3"],
   };
 
-  // Обработчик клика по категории
-  // @ts-ignore
+  // useEffect(() => {
+  //   // Установите первую подкатегорию из "Для неё" как выбранную по умолчанию
+  //   if (selectedCategory === "Для неё") {
+  //     setSelectedSubcategory(categories[selectedCategory][0]);
+  //   }
+  // }, [selectedCategory]);
+
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
+  };
+
+  const handleSubcategoryClick = (subcategory) => {
+    setSelectedSubcategory(subcategory);
   };
 
   return (
     <div className="container_xxl">
       <div>
         <div className="flex flex-col ">
-          {/* Блок категорий */}
           <div className="">
-
-            {/* Desktop */}
             <ul className="mt-10 mb-6 justify-around hidden lg:flex">
               {Object.keys(categories).map((category) => (
                 <li
@@ -50,8 +55,6 @@ const TagList = () => {
                 </li>
               ))}
             </ul>
-
-            {/* Mobile */}
             <ul className="mt-7 flex flex-wrap justify-around block lg:hidden">
               {Object.keys(categories).map((category) => (
                 <li
@@ -69,33 +72,31 @@ const TagList = () => {
               ))}
             </ul>
           </div>
-
-          {/* Блок подкатегорий */}
-
-          {/* Desktop */}
           <div className="">
             <ul className="mb-10 flex flex-wrap gap-y-5 justify-between hidden lg:flex">
               {selectedCategory &&
-              // @ts-ignore
-                categories[selectedCategory].map((subcategory, index) => (
+                categories[selectedCategory].map((subcategory) => (
                   <li
                     key={subcategory}
-                    className="cursor-pointer py-2 border rounded-xl px-4 text-center"
+                    onClick={() => handleSubcategoryClick(subcategory)}
+                    className={`cursor-pointer py-2 border rounded-xl px-4 text-center ${
+                      selectedSubcategory === subcategory
+                        ? "font-bold bg-redPrimary text-white"
+                        : "bg-white"
+                    }`}
                     style={{ width: "18%" }}
                   >
                     {subcategory}
                   </li>
                 ))}
             </ul>
-
-            {/* Mobile */}
-            <ul className="mb-10 flex flex-wrap gap-y-3 justify-around  lg:hidden ">
+            <ul className="mb-10 flex flex-wrap gap-y-3 justify-around lg:hidden ">
               {selectedCategory &&
-              // @ts-ignore
-                categories[selectedCategory].map((subcategory, index) => (
+                categories[selectedCategory].map((subcategory) => (
                   <li
                     key={subcategory}
-                    className="cursor-pointer py-2 border rounded-xl px-4 text-center"
+                    onClick={() => handleSubcategoryClick(subcategory)}
+                    className={`cursor-pointer py-2 border rounded-xl px-4 text-center `}
                     style={{ width: "40%" }}
                   >
                     {subcategory}

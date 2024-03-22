@@ -452,3 +452,13 @@
   background: url("./assets/icons/Slider.svg") center no-repeat;
   background-size: cover;
 }
+
+/* scroll.css */
+.swiper-scrollbar {
+  left: 0 !important;
+  width: 100% !important;
+}
+
+.swiper-scrollbar-drag {
+  background-color: #ec1026 !important ; 
+}

@@ -1,6 +1,6 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import CarouselImg from "../../assets/images/carouselImg.png";
-import { Navigation, Pagination } from "swiper/modules";
+import { Navigation, Pagination, Scrollbar } from "swiper/modules";
 import { useState, useEffect } from "react";
 // @ts-ignore
 import { getData } from "../../services/services";
@@ -18,6 +18,8 @@ import {
   DialogFooter,
 } from "@material-tailwind/react";
 import { useFetchHook } from "../../hooks/UseFetch";
+import "swiper/css/scrollbar";
+
 
 const SliderProduct = () => {
   // @ts-ignore
@@ -184,7 +186,8 @@ const SliderProduct = () => {
             spaceBetween: 50,
           },
         }}
-        modules={[Navigation]}
+        scrollbar={{ draggable: true }} 
+        modules={[Navigation, Scrollbar]}
         className="mySwiper  overscroll-x-auto h-[500px]"
       >
         {response.results?.map((item) => (

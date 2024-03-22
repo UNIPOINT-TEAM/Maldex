@@ -62,15 +62,15 @@ function Portfolio() {
             </div>
             <div>
               <div className="bg-white h-full w-full flex flex-col justify-between">
-                <div className="pl-5 lg:pt-16 lg:pr-40">
+                <div className="lg:pl-5 pl-1 lg:pt-16 lg:pr-40">
                   <span className="font-medium">Cостав:</span>
                   <br />
-                  <span>
+                  <span className="text-[12px] lg:text-[14px] tracking-tighter">
                     бутылка для воды рюкзак ручка чехол для пропуска блокнот для
                     записей А5 контейнер для еды со столовым прибором ланъярд
                   </span>
                 </div>
-                <div className="flex items-center justify-center pb-5 gap-3">
+                <div className="hidden lg:flex items-center justify-center pb-5 gap-3 ">
                   <Link to="/build-set">
                     <button className="border font-bold text-[11px] text-white hover:text-greenPrimary px-0 w-auto lg:w-[160px] py-[7px] lg:py-[10px] uppercase  rounded-lg bg-greenPrimary  hover:bg-[rgb(255,255,255)]  duration-300">
                     хочу также
