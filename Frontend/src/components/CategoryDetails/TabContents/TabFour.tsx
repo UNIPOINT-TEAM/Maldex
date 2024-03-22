@@ -14,13 +14,13 @@ const buttons = [
 const TabFour = () => {
   return (
     <div className="flex flex-col items-start gap-2">
-      {buttons.map((item) => (
-        <Link to={"/applying-type"}>
+      {buttons.map((item, i) => (
+        <Link to={"/applying-type"} key={i}>
           <Button
             placeholder={<button />}
-            className="bg-transparent text-greenPrimary p-3 px-4 shadow-none hover:shadow-none border font-medium rounded-full border-greenPrimary"
+            className="bg-transparent text-greenPrimary p-3 px-4 shadow-none hover:shadow-none border font-normal rounded-full border-greenPrimary"
           >
-            <span className="text-fs_7 tracking-wide">{item}</span>
+            <span className="text-fs_7 tracking-wider">{item}</span>
           </Button>
         </Link>
       ))}

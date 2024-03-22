@@ -38,20 +38,20 @@ const Dishes = () => {
           <div className="grid grid-rows-2 grid-cols-1 gap-4 h-full">
             <div className="row-span-1 col-span-1 flex flex-col gap-1">
               {DishesCategories[0].categoryItem.map((i) => (
-                <p className="text-bs font-extrabold">
+                <p className="text-bs font-medium">
                   {i.name}
-                  <b className="text-sm text-redPrimary ms-1 font-extrabold">
+                  <b className="text-sm text-redPrimary ms-1 font-medium">
                     {i.number}
                   </b>
                 </p>
               ))}
             </div>
             <div className="row-span-1 col-span-1">
-              <p className="text-base font-extrabold uppercase">
+              <p className="text-base font-bold uppercase">
                 {DishesCategories[1].categoryName}
               </p>
               {DishesCategories[1].categoryItem.map((i) => (
-                <p className="my-2 text-base font-extrabold">
+                <p className="my-2 text-base font-medium">
                   {i.name}
                   <span className="text-sm text-redPrimary  ms-1">
                     {i.number}

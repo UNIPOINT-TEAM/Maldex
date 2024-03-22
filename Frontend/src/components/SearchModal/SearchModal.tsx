@@ -44,21 +44,30 @@ const SearchModal = () => {
         {modalVisible && (
           <>
             <div className="absolute left-0 max-w-[855px] w-full  bg-[#fff] top-[40px] z-[999] border border-darkSecondary rounded-lg p-6">
-              <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-3  font-medium">
                 <h2 className="text-fs_6 tracking-wide text-darkSecondary">
                   Кружка
                 </h2>
                 <h2 className="text-fs_6 tracking-wide text-redPrimary">
                   Термокружка
                 </h2>
+                <h2 className="text-fs_6 tracking-wide text-darkSecondary">
+                  Кружка для сублимации
+                </h2>
+                <h2 className="text-fs_6 tracking-wide text-darkSecondary">
+                  Кружка софт тач
+                </h2>
+                <h2 className="text-fs_6 tracking-wide text-darkSecondary">
+                  Кружка белая
+                </h2>
               </div>
               <div className="w-full h-[1px] bg-lightSecondary my-6"></div>
-              <div className="text-fs_6 tracking-wide ">
-                <h3>Категории</h3>
+              <div className=" tracking-wide ">
+                <h3 className="font-bold text-fs_8 uppercase">Категории</h3>
                 <SearchCategory />
               </div>
               <Button
-                className="bg-redPrimary shadow-none hover:shadow-none text-fs_8 text-[#fff]"
+                className="bg-redPrimary my-5 py-5 font-bold tracking-wide rounded-xl shadow-none hover:shadow-none text-fs_8 text-[#fff]"
                 placeholder={<button />}
               >
                 все результаты поиска

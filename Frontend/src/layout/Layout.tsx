@@ -3,7 +3,7 @@ import { Footer, Navbar, RunningText, SaleSlider } from "../components";
 
 const Layout = () => {
   return (
-    <div>
+    <div className="font-Helvetica-Neue">
       <Navbar />
       <SaleSlider />
       <main className="w-100">

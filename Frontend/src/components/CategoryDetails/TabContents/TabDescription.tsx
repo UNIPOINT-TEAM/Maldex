@@ -1,6 +1,6 @@
 const TabDescription = () => {
   return (
-    <p className="font-helvetica-neue text-black">
+    <p className=" font-normal text-black mt-1">
       Недорогая миниатюрная беспроводная колонка Chubby порадует владельца
       аккуратным исполнением и высоким качеством материалов. Колонка обтянута
       акустической тканью популярной фактуры, имеет приятное софт-тач покрытие и

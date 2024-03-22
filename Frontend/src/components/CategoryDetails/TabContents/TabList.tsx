@@ -32,7 +32,7 @@ const TabList = () => {
       className="w-full shadow-none p-0 m-0 bg-transparent"
       placeholder={<div />}
     >
-      <List placeholder={<div />} className="text-fs_7 font-bold p-0">
+      <List placeholder={<div />} className="text-fs_7 font-medium p-0">
         {listData.map((item, i) => (
           <ListItem
             key={i}

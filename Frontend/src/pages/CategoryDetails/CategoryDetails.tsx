@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
+import RangeSlider from "react-range-slider-input";
+import "react-range-slider-input/dist/style.css";
 import { Banner, SliderProduct, TabList } from "../../components";
 import Tshirt from "../../assets/t-shirt.svg";
 import nasilnenie_l from "../../assets/shirt-l.png";
 import nasilnenie_r from "../../assets/shirt-r.png";
 import tabImages from "../../assets/images/tab-image.png";
+
 import {
-  Slider,
   Tab,
   TabPanel,
   Tabs,
@@ -65,10 +67,51 @@ const CategoryDetails = () => {
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const [productColor, setproductColor] = useState<number>(0);
   const [btnActiveSize, setbtnActiveSize] = useState<number>(1);
-  const [rengeValue, setRengeValue] = useState<number>(0);
+  const [product, setProduct] = useState({
+    quantity: 50,
+    price: 100,
+    discount: 0,
+    discountedPrice: 0,
+    discountRange: 0,
+    totalPrice: 0,
+  });
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, []);
+  function calculateDiscount(quantity: number, price: number) {
+    let discount = 0;
+    if (quantity >= 300) {
+      discount = 0.07;
+      setProduct((prev) => ({ ...prev, discount: 7, discountRange: 100 }));
+    } else if (quantity >= 100) {
+      discount = 0.05;
+      setProduct((prev) => ({ ...prev, discount: 5, discountRange: 50 }));
+    } else if (quantity >= 30) {
+      discount = 0.03;
+      setProduct((prev) => ({ ...prev, discount: 3, discountRange: 0 }));
+    } else if (quantity < 30) {
+      discount = 0.03;
+      setProduct((prev) => ({ ...prev, discount: 3, discountRange: 0 }));
+    }
+    const discountedPrice = price * (1 - discount);
+    return discountedPrice;
+  }
+
+  function calculateTotal() {
+    const discountedPrice = calculateDiscount(product.quantity, product.price);
+    const discountedTotalPrice = discountedPrice * product.quantity;
+    const totalPrice = product.price * product.quantity;
+    console.log(totalPrice);
+    setProduct((prev) => ({
+      ...prev,
+      discountedPrice: discountedTotalPrice,
+      totalPrice,
+    }));
+  }
+  useEffect(() => {
+    calculateTotal();
+  }, [product.quantity]);
+
   return (
     <div className="container_xxl tracking-wider ">
       <div className="grid grid-cols-3 lg:grid-cols-10 my-5">
@@ -89,7 +132,7 @@ const CategoryDetails = () => {
                   key={value}
                   value={value}
                   activeClassName="text-[#fff]"
-                  className="text-[11px] uppercase h-[40px] text-darkSecondary w-auto font-helvetica-neue font-bold"
+                  className="text-[9px] p-0 me-[8px] uppercase h-[25px] text-darkSecondary w-auto font-helvetica-neue font-bold text-start"
                 >
                   <p>{label}</p>
                 </Tab>
@@ -104,8 +147,12 @@ const CategoryDetails = () => {
               placeholder={<div />}
               className="p-0 m-0"
             >
-              {CategoryTabs.map((item) => (
-                <TabPanel value={item.value} className="p-0 m-0 py-2">
+              {CategoryTabs.map((item, i) => (
+                <TabPanel
+                  key={i}
+                  value={item.value}
+                  className="p-0 m-0 py-2 mt-4"
+                >
                   {item.content}
                 </TabPanel>
               ))}
@@ -116,6 +163,7 @@ const CategoryDetails = () => {
           <div className="flex gap-2 font-bold uppercase">
             {Buttons.map((button) => (
               <div
+                key={button.id}
                 onClick={() => setIsActive(button.id)}
                 className={`bg-[#fff] flex gap-3 items-center cursor-pointer py-[9px] lg:py-[13px] px-[15px] tracking-widest text-fs_9 rounded-lg ${
                   isActive == button.id && "bg-redPrimary text-[#fff]"
@@ -131,7 +179,7 @@ const CategoryDetails = () => {
                   </div>
                 )}
                 <span
-                  className=" text-[8px] lg:text-fs_9"
+                  className=" text-[7px] lg:text-[9px]"
                   dangerouslySetInnerHTML={{
                     __html: button.name,
                   }}
@@ -143,6 +191,7 @@ const CategoryDetails = () => {
             <div className="flex flex-col gap-2">
               {ProductColor.map((item) => (
                 <input
+                  key={item.id}
                   onClick={() => setproductColor(item.id)}
                   type="radio"
                   name="input"
@@ -270,17 +319,22 @@ const CategoryDetails = () => {
                   <div className="flex justify-between items-center py-1">
                     <p className="font-normal ">Количество:</p>
                     <input
-                      onChange={(e) => setRengeValue(e.target.value)}
+                      value={product.quantity}
+                      onChange={(e) =>
+                        setProduct((prev: any) => ({
+                          ...prev,
+                          quantity: e.target.value,
+                        }))
+                      }
                       className="border w-[50px] bg-transparent text-fs_7 border-black rounded-md outline-none px-2 tracking-wider font-normal"
                     />
                   </div>
                   <div className="w-full px-2 py-2">
-                    <Slider
-                      max={100}
-                      defaultValue={10}
-                      color="red"
-                      size="sm"
-                      placeholder={<input />}
+                    <RangeSlider
+                      color={"red"}
+                      value={[0, product.discountRange]}
+                      thumbsDisabled={[false, false]}
+                      rangeSlideDisabled={true}
                     />
                     <div className="flex justify-between text-[10px] font-normal py-2">
                       <p>
@@ -299,16 +353,16 @@ const CategoryDetails = () => {
                   </div>
                   <div className="flex justify-between items-center py-1 font-normal">
                     <p>Стоимость тиража:</p>
-                    <p>80 619,00 ₽ </p>
+                    <p>{product.totalPrice} ₽ </p>
                   </div>
                   <div className="flex justify-between items-center py-1">
                     <p>Скидка:</p>
-                    <p>5% </p>
+                    <p>{product.discount}% </p>
                   </div>
                 </div>
                 <div className="flex justify-between items-center px-3 py-1 text-base">
                   <b className="">Итоговая стоимость:</b>
-                  <b className="">14 619,00 ₽ </b>
+                  <b className="">{product.discountedPrice} ₽ </b>
                 </div>
               </div>
               <button className="w-full py-4 bg-redPrimary text-white text-xs tracking-wide rounded-lg">
