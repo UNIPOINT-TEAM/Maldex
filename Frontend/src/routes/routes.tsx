@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Layout } from "../layout";
 import {
+  AdminLogin,
   AdminPanel,
   Applying,
   Articles,
@@ -76,6 +77,10 @@ export const router = createBrowserRouter([
       },
       {
         path: "/admin",
+        element: <AdminLogin />,
+      },
+      {
+        path: "/adminpanel",
         element: <AdminPanel />,
       },
       {
