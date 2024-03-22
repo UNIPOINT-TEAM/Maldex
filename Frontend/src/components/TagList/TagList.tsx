@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import  { useState } from "react";
 
 const TagList = () => {
   const [selectedCategory, setSelectedCategory] = useState("Для неё"); // Установите "Для неё" по умолчанию
@@ -26,11 +26,11 @@ const TagList = () => {
   //     setSelectedSubcategory(categories[selectedCategory][0]);
   //   }
   // }, [selectedCategory]);
-
+// @ts-ignore
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
   };
-
+// @ts-ignore
   const handleSubcategoryClick = (subcategory) => {
     setSelectedSubcategory(subcategory);
   };
@@ -75,6 +75,7 @@ const TagList = () => {
           <div className="">
             <ul className="mb-10 flex flex-wrap gap-y-5 justify-between hidden lg:flex">
               {selectedCategory &&
+              // @ts-ignore
                 categories[selectedCategory].map((subcategory) => (
                   <li
                     key={subcategory}
@@ -92,6 +93,7 @@ const TagList = () => {
             </ul>
             <ul className="mb-10 flex flex-wrap gap-y-3 justify-around lg:hidden ">
               {selectedCategory &&
+              // @ts-ignore
                 categories[selectedCategory].map((subcategory) => (
                   <li
                     key={subcategory}

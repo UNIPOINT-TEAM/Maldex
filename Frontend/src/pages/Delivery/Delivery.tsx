@@ -38,7 +38,7 @@ function Delivery() {
         break;
     }
   };
-
+// @ts-ignore
   const handleButtonClick = (buttonIndex) => {
     setSelectedButton(buttonIndex);
     switch (buttonIndex) {

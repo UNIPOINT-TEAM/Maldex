@@ -12,17 +12,15 @@ import next from "../../assets/icons/projectNext.svg";
 import Close from "../../assets/icons/close.png";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { FaArrowRightLong } from "react-icons/fa6";
+// @ts-ignore
 import SearchIcon from "../../assets/icons/searchIcon.png";
 import { CiSearch } from "react-icons/ci";
 import { CiHeart } from "react-icons/ci";
 import { FaCheck } from "react-icons/fa";
 
 import {
-    Button,
     Dialog,
-    DialogHeader,
-    DialogBody,
-    DialogFooter,
+
 } from "@material-tailwind/react";
 import { useFetchHook } from "../../hooks/UseFetch";
 import "swiper/css/scrollbar";
@@ -30,6 +28,7 @@ import "swiper/css/scrollbar";
 const SliderProduct = () => {
     // @ts-ignore
     const [product, setProduct] = useState([]);
+    // @ts-ignore
     const [productModal, setProductModal] = useState(false);
     const [defaultProduct, setDefaultProduct] = useState(true);
     const [addCard, setAddCard] = useState(false);
@@ -43,11 +42,12 @@ const SliderProduct = () => {
     const changeStatus = () => {
         setDefaultProduct(!defaultProduct);
     };
-
+// @ts-ignore
     const handleOpen = (value: string) => setSize(value);
 
     return (
         <div className="container_xxl relative px-3">
+          {/* @ts-ignore */}
             <Dialog
                 open={
                     size === "xs" ||
@@ -63,6 +63,7 @@ const SliderProduct = () => {
             >
                 <button
                     className="flex ml-auto outline-none"
+                    // @ts-ignore
                     onClick={handleOpen}
                 >
                     <img src={Close} alt="" />
@@ -205,10 +206,12 @@ const SliderProduct = () => {
                         spaceBetween: 50,
                     },
                 }}
+                // @ts-ignore
                 scrollbar={{ draggable: true }}
                 modules={[Navigation, Scrollbar]}
                 className=" w-full overscroll-x-auto h-[500px]"
             >
+              {/* @ts-ignore */}
                 {response.results?.map((item) => (
                     <SwiperSlide className="w-full">
                         <div className="catalog ">

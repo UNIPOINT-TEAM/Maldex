@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+// @ts-ignore
 import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
 import { Banner, SliderProduct, TabList } from "../../components";

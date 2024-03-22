@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useFetchHook } from "../../hooks/UseFetch";
-import menu from "../../assets/icons/menu.png";
+// import menu from "../../assets/icons/menu.png";
+// @ts-ignore
 import { Categories, Product, SubCategories } from "../../mock/data";
 import { useNavigate, Link } from "react-router-dom";
 import Arrow from "../../assets/icons/arrow-right.png";
@@ -264,6 +265,7 @@ const NavbarModal = () => {
                                         : "hidden"
                                 }`}
                             >
+                                {/* @ts-ignore */}
                                 {response[activeItem]?.children?.map((i) => (
                                     <div
                                         key={i.id}

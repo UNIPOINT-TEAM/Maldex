@@ -9,7 +9,7 @@ import {
   Card,
   Catalog,
   CategoryDetails,
-  Company,
+  // Company,
   Delivery,
   Gift,
   Home,

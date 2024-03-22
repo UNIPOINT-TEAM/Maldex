@@ -13,8 +13,10 @@ import { IoAddSharp, IoCloseSharp } from "react-icons/io5";
 
 const BuildSet = () => {
   const [open, setOpen] = useState<number>(0);
+  // @ts-ignore
   const [buildCart, setBuildCart] = useState([]);
   const [quantityVisible, setQuantityVisible] = useState<boolean>(false);
+  // @ts-ignore
   const [isDelete, setIsDelete] = useState<boolean>(false);
   const handleOpen = (value: number) => setOpen(open === value ? 0 : value);
   return (

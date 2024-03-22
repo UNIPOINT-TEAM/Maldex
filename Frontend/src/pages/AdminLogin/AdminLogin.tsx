@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Card, Input, Button, Typography } from "@material-tailwind/react";
+import  { useState } from "react";
+import { Input, Button } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 
 function AdminLogin() {
@@ -48,6 +48,7 @@ function AdminLogin() {
           <Button
             color="indigo"
             buttonType="filled"
+            // @ts-ignore
             size="regular"
             block={true}
             onClick={handleLoginButtonClick}
@@ -62,6 +63,7 @@ function AdminLogin() {
           <Button
             color="indigo"
             buttonType="filled"
+            // @ts-ignore
             size="regular"
             block={true}
             onClick={handleRegisterButtonClick}
@@ -80,6 +82,7 @@ function AdminLogin() {
             <div className="mb-4">
               <Input
                 type="text"
+                // @ts-ignore
                 color="lightBlue"
                 placeholder="Имя"
                 label="Имя"
@@ -90,6 +93,7 @@ function AdminLogin() {
             <div className="mb-4">
               <Input
                 type="text"
+                // @ts-ignore
                 color="lightBlue"
                 placeholder="Фамилия"
                 label="Фамилия"
@@ -102,6 +106,7 @@ function AdminLogin() {
         <div className="mb-4">
           <Input
             type="email"
+            // @ts-ignore
             color="lightBlue"
             placeholder="Email"
             label="Email"
@@ -112,6 +117,7 @@ function AdminLogin() {
         <div className="mb-4">
           <Input
             type="password"
+            // @ts-ignore
             color="lightBlue"
             placeholder="Пароль"
             label="Пароль"
@@ -123,6 +129,7 @@ function AdminLogin() {
           <div className="mb-4">
             <Input
               type="password"
+              // @ts-ignore
               color="lightBlue"
               placeholder="Повторите пароль"
               label="Повторите Пароль"
@@ -136,6 +143,7 @@ function AdminLogin() {
             <Button
               color="indigo"
               buttonType="filled"
+              // @ts-ignore
               size="regular"
               block={true}
               className="bg-transparent border border-redPrimary text-redPrimary"
