@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 function News() {
   return (
-    <div className="articles container_xxl py-5 px-3 lg:px-0">
+    <div className="articles container_xxl py-5 px-3 lg:px-0 md:mb-[100px]">
       <h3 className="section-title ">статьи</h3>
       <div className="flex flex-col gap-3">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 ">

@@ -32,7 +32,7 @@ function ProjectsSlider() {
   };
 
   return (
-    <div className="container_xxl">
+    <div className="container_xxl md:mb-[100px]">
       <div className="mx-3">
         <ProductNav title="ПРОЕКТЫ" color="gray" />
         <div className="my-5 lg:h-[440px]">
@@ -51,7 +51,7 @@ function ProjectsSlider() {
               navigation
               pagination={{ clickable: true }}
               modules={[Scrollbar]} // Добавьте модуль Scrollbar здесь
-              scrollbar={{ draggable: true }} 
+              scrollbar={{ draggable: true }}
             >
               <SwiperSlide>
                 <Link to="/portfolio">
