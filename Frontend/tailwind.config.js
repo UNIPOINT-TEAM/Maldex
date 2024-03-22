@@ -18,7 +18,8 @@ module.exports = withMT({
         white: "#F7F7F7",
       },
       fontFamily: {
-        
+        Articulat: ["Articulat CF,serif"],
+        "Helvetica-Neue": ["Helvetica-Neue,serif"],
       },
       fontSize: {
         fs_1: "46px",

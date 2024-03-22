@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import MaldexLogo from "../../assets/images/Maldex-logo.png";
+import MaldexLogo from "../../assets/images/Maldex-logo.svg";
 import { TopbarLink } from "../../mock/data";
 import CardModal from "../Card/Card";
 
@@ -16,7 +16,7 @@ const Topbar = () => {
               <img
                 src={MaldexLogo}
                 alt="maldex-logo"
-                className="mr-5 w-[100px] lg:w-auto"
+                className="mr-5 w-[100px] lg:w-[130px]"
               />
             </Link>
 
@@ -34,7 +34,7 @@ const Topbar = () => {
             </ul>
           </div>
           <div className="text-darkSecondary hidden md:block">
-            <span className="ml-4 text-fs_8 tracking-wider">
+            <span className="ml-4 text-fs_8 tracking-wider font-medium font-Articulat">
               Минимальная сумма заказа от 30 тыс рублей
             </span>
           </div>
