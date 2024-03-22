@@ -8,7 +8,7 @@ import statya2 from "../../assets/statya2.png";
 
 const BannerBottom: React.FC<any> = ({ BannerData }) => {
   return (
-    <div className="hidden lg:grid grid-rows-9 h-[760px] grid-cols-5 grid-flow-col gap-3 my-3">
+    <div className="hidden lg:grid grid-rows-9 h-[760px] grid-cols-5  gap-[9px] my-[9px] ">
       <Link
         to={"category/1"}
         className="group row-span-9 bg-white  flex flex-col justify-between cursor-pointer hover:bg-[#fff] duration-200"
@@ -25,11 +25,11 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
           </button>
         </div>
       </Link>
-      <div className=" col-span-4 row-span-5">
-        <div className="grid grid-cols-12 h-full gap-3">
+      <div className="col-span-4 row-span-5">
+        <div className="grid grid-cols-11 h-full gap-[9px]">
           <Link
             to={"category/1"}
-            className="group  col-span-5 bg-white flex flex-col justify-between cursor-pointer hover:bg-[#fff] duration-200 "
+            className="group  col-span-4 bg-white flex flex-col justify-between cursor-pointer hover:bg-[#fff] duration-200 "
           >
             <h2 className="text-fs_7 tracking-wider font-semibold opacity-0 group-hover:opacity-100 duration-200">
               Бутылки для воды
@@ -85,7 +85,7 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
             </div>
           </Link>
           <div className="col-span-2">
-            <div className="grid grid-rows-2 h-full gap-3 w-full">
+            <div className="grid grid-rows-2 h-full gap-[9px] w-full">
               <Link
                 to={"category/1"}
                 className="group  bg-white w-full flex flex-col justify-between cursor-pointer hover:bg-[#fff] duration-200"
@@ -128,8 +128,8 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
           </div>
         </div>
       </div>
-      <div className="col-span-4 row-span-4 ">
-        <div className="grid grid-cols-2 h-full gap-3">
+      <div className="col-span-4 row-span-4">
+        <div className="grid grid-cols-2 h-full gap-[9px]">
           <div
             className="bg-cover bg-center flex p-3"
             data-aos="fade-left"
@@ -138,7 +138,7 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
               backgroundImage: `url(${statya})`, // Обратите внимание на использование обратных кавычек и ${...} для вставки переменной statya
             }}
           >
-            <p className="text-[#fff] mt-auto tracking-wider text-fs_6">
+            <p className="text-[#fff] mt-auto tracking-wider text-fs_3 m-0">
               Идеи подарков
             </p>
           </div>
@@ -150,7 +150,7 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
               backgroundImage: `url(${statya2})`, // Обратите внимание на использование обратных кавычек и ${...} для вставки переменной statya
             }}
           >
-            <p className="text-[#fff] tracking-wider text-fs_6">
+            <p className="text-[#fff] tracking-wider text-fs_3">
               Разработка дизайна
             </p>
           </div>

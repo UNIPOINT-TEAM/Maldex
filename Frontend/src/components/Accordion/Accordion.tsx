@@ -32,14 +32,17 @@ const AccordionMaldex = () => {
             onClick={() => handleOpen(item.id)}
             placeholder={<div />}
           >
-            <h3 className="font-normal text-fs_4 lg:text-fs_4 text-darkSecondary ">
+            <h3 className="font-normal font-Helvetica-Neue text-fs_4 lg:text-fs_4 text-darkSecondary ">
               {item.title}
             </h3>
           </AccordionHeader>
           <AccordionBody className="p-4" placeholder={<div />}>
-            <p className="font-helvetica font-medium tracking-wide text-fs_9 lg:text-base">
-              {item.content}
-            </p>
+            <p
+              dangerouslySetInnerHTML={{
+                __html: item.content,
+              }}
+              className="font-Helvetica-Neue font-medium  text-fs_9 lg:text-base"
+            />
           </AccordionBody>
         </Accordion>
       ))}

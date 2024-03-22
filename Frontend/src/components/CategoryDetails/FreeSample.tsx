@@ -21,7 +21,7 @@ const FreeSample = () => {
     <>
       <button
         onClick={handleOpen}
-        className="text-[9px] lg:text-[10px] shadow-none opacity-100 border bg-transparent border-darkSecondary px-2 lg:px-4 py-[6px] rounded-lg uppercase"
+        className="text-[9px] font-bold lg:text-[10px] text-[#666666] shadow-none opacity-100 border bg-transparent border-[#666666] px-[2px] lg:px-4 py-[6px] rounded-lg uppercase"
       >
         бесплатный образец
       </button>

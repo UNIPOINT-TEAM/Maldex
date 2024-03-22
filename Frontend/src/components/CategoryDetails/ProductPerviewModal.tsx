@@ -25,12 +25,12 @@ const ProductPerviewModal = () => {
     <div>
       <Card
         placeholder={<div />}
-        className="h-64 w-96 border-0 shadow-none cursor-pointer overflow-hidden "
+        className="h-auto w-full lg:w-96 border-0 shadow-none cursor-pointer overflow-hidden "
         onClick={handleOpen}
       >
         <img
           alt="nature"
-          className="h-full w-full object-contain object-center"
+          className="h-full w-[200px] lg:w-full object-contain object-center"
           src={sliderImg}
         />
       </Card>

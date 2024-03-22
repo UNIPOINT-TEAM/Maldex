@@ -1,7 +1,8 @@
 .container_xxl {
-    max-width: 1440px;
-    width: 100%;
-    margin: 0 auto;
+  max-width: 1440px;
+  width: 100%;
+  padding: 0 20px;
+  margin: 0 auto;
 }
 .scrollbar-custom {
   scrollbar-color: red;
@@ -460,5 +461,5 @@
 }
 
 .swiper-scrollbar-drag {
-  background-color: #ec1026 !important ; 
+  background-color: #ec1026 !important ;
 }

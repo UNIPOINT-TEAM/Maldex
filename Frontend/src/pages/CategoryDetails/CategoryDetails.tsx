@@ -114,9 +114,9 @@ const CategoryDetails = () => {
 
   
   return (
-    <div className="container_xxl tracking-wider ">
+    <div className="container_xxl tracking-wider overflow-hidden">
       <div className="grid grid-cols-3 lg:grid-cols-10 my-5">
-        <div className="h-full py-5 col-span-3 ">
+        <div className="h-full py-5 col-span-3 order-3 lg:order-1 ">
           <img src={tabImages} alt="icon" className="w-[70px] py-5" />
           <Tabs value="Описание">
             <TabsHeader
@@ -133,7 +133,7 @@ const CategoryDetails = () => {
                   key={value}
                   value={value}
                   activeClassName="text-[#fff]"
-                  className="text-[9px] p-0 me-[8px] uppercase h-[25px] text-darkSecondary w-auto font-helvetica-neue font-bold text-start"
+                  className="text-[9px] p-0 me-[8px] font-Helvetica-Neue uppercase h-[25px] text-darkSecondary w-auto font-helvetica-neue font-bold text-start"
                 >
                   <p>{label}</p>
                 </Tab>
@@ -152,7 +152,7 @@ const CategoryDetails = () => {
                 <TabPanel
                   key={i}
                   value={item.value}
-                  className="p-0 m-0 py-2 mt-4"
+                  className="p-0 m-0 py-2 mt-4 font-Helvetica-Neue"
                 >
                   {item.content}
                 </TabPanel>
@@ -160,13 +160,13 @@ const CategoryDetails = () => {
             </TabsBody>
           </Tabs>
         </div>
-        <div className="bg-white flex flex-col items-start p-2 lg:p-5 col-span-3 lg:col-span-4 relative">
+        <div className="bg-white order-1 lg:order-2 flex flex-col items-start p-2 lg:p-5 col-span-3 lg:col-span-4 relative">
           <div className="flex gap-2 font-bold uppercase">
             {Buttons.map((button) => (
               <div
                 key={button.id}
                 onClick={() => setIsActive(button.id)}
-                className={`bg-[#fff] flex gap-3 items-center cursor-pointer py-[9px] lg:py-[13px] px-[15px] tracking-widest text-fs_9 rounded-lg ${
+                className={`bg-[#fff] flex gap-2 items-center cursor-pointer py-[8px] lg:py-[13px] px-[8px] lg:px-[15px] tracking-widest text-fs_9 rounded-lg ${
                   isActive == button.id && "bg-redPrimary text-[#fff]"
                 }`}
               >
@@ -180,7 +180,7 @@ const CategoryDetails = () => {
                   </div>
                 )}
                 <span
-                  className=" text-[7px] lg:text-[9px]"
+                  className=" text-[7px] font-bold lg:text-[9px]"
                   dangerouslySetInnerHTML={{
                     __html: button.name,
                   }}
@@ -214,7 +214,7 @@ const CategoryDetails = () => {
           <div
             className={`${
               isActive !== 2 && "hidden"
-            } grid grid-cols-2 items-center h-full w-full`}
+            } grid grid-cols-2 items-center my-3 h-full w-full`}
           >
             <div className="box-l flex justify-end">
               <img src={nasilnenie_r} alt="" className="w-[260px]" />
@@ -232,7 +232,7 @@ const CategoryDetails = () => {
             <div className="color-panel"></div>
           </div>
         </div>
-        <div className="py-3 px-3 lg:px-5 col-span-3">
+        <div className="py-3 px-0 order-1 lg:order-2 lg:px-5 col-span-3">
           <div>
             <div className="flex justify-between">
               <div>
@@ -283,15 +283,14 @@ const CategoryDetails = () => {
                 </button>
                 <Tooltip
                   placement="bottom"
-                  className="border w-[400px] px-10 -translate-x-14 border-blue-gray-50 bg-white  py-3 shadow-xl shadow-black/10"
+                  className="border w-full lg:w-[380px] px-10 translate-x-0  lg:-translate-x-20 border-blue-gray-50 bg-white  py-3 shadow-xl shadow-black/10"
                   content={
                     <div className="w-full">
-                      {/* @ts-ignore */}
                       <Typography
                         placeholder={<h2 />}
                         variant="small"
                         color="blue-gray"
-                        className="font-bold font-helvetica-neue text-center"
+                        className="font-medium font-Helvetica-Neue text-center"
                       >
                         Точную сумму нанесения вам сообщит менеджер после
                         оформления заказа
@@ -366,12 +365,12 @@ const CategoryDetails = () => {
                   <b className="">{product.discountedPrice} ₽ </b>
                 </div>
               </div>
-              <button className="w-full py-4 bg-redPrimary text-white text-xs tracking-wide rounded-lg">
+              <button className="w-full py-4 bg-redPrimary text-white text-[11px] lg:text-xs tracking-wide rounded-lg">
                 В КОРЗИНУ
               </button>
               <div className="mt-3 flex justify-between text-darkSecondary">
                 <FreeSample />
-                <span className="text-[9px] lg:text-[10px] border border-darkSecondary px-4 py-[6px] rounded-lg uppercase">
+                <span className="text-[9px] lg:text-[10px] text-[#666666] border border-[#666666] px-1 lg:px-4 py-[6px] rounded-lg uppercase">
                   <b>бесплатный дизайн макет</b>
                 </span>
               </div>
@@ -380,7 +379,9 @@ const CategoryDetails = () => {
         </div>
       </div>
       <SliderProduct />
-      <Banner />
+      <div className="my-5">
+        <Banner />
+      </div>
     </div>
   );
 };

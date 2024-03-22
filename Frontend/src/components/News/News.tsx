@@ -20,15 +20,11 @@ function News() {
             }}
           >
             <div className="md:w-[65%]">
-              <h3 className="text-fs_5 lg:text-fs_3  font-helvetica">2.10</h3>
-              <h2 className="text-fs_6 lg:text-fs_3  font-medium ">
+              <h3 className="text-fs_5 lg:text-fs_3 opacity-50">2.10</h3>
+              <h2 className="text-fs_6 lg:text-fs_3 leading-tight font-medium mt-2">
                 Маска для лица многоразовая из хлопка, анатомической формы
               </h2>
-              {/* @ts-ignore */}
-
               <Badge name="NEW" />
-              {/* @ts-ignore */}
-
               <Badge name="HIT" />
             </div>
           </Link>
@@ -40,13 +36,11 @@ function News() {
             }}
           >
             <div className="md:w-[65%]">
-              <h3 className="text-fs_5 lg:text-fs_3 font-helvetica">2.10</h3>
-              <h2 className="text-fs_6 lg:text-fs_3 font-medium ">
+              <h3 className="text-fs_5 lg:text-fs_3 opacity-50">2.10</h3>
+              <h2 className="text-fs_6 lg:text-[28px] leading-tight font-medium mt-2">
                 Маска для лица многоразовая из хлопка, анатомической формы
               </h2>
-              {/* @ts-ignore */}
               <Badge name="NEW" />
-              {/* @ts-ignore */}
               <Badge name="HIT" />
             </div>
           </Link>
@@ -54,18 +48,16 @@ function News() {
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 h-[180px] sm:h-[340px]">
           <Link
             to={"/articles"}
-            className="p-3 lg:p-5 bg-cover text-white hidden lg:block"
+            className="p-3 lg:p-5 bg-cover text-white hidden lg:block h-full"
             style={{
               backgroundImage: `url(${image3})`,
             }}
           >
-            <h3 className="text-[24px]">2.10</h3>
-            <h2 className="text-[28px] font-medium ">
+            <h3 className="text-fs_5 lg:text-fs_3 opacity-50">2.10</h3>
+            <h2 className="text-[28px] font-medium leading-tight mt-2">
               Маска для лица многоразовая из хлопка, анатомической формы
             </h2>
-            {/* @ts-ignore */}
             <Badge name="NEW" />
-            {/* @ts-ignore */}
             <Badge name="HIT" />
           </Link>
           <Link
@@ -75,13 +67,11 @@ function News() {
               backgroundImage: `url(${image4})`,
             }}
           >
-            <h3 className="text-[24px]">2.10</h3>
-            <h2 className="text-[28px] font-medium ">
+            <h3 className="text-fs_5 lg:text-fs_3 opacity-50">2.10</h3>
+            <h2 className="text-[28px] font-medium leading-tight mt-2">
               Маска для лица многоразовая из хлопка, анатомической формы
             </h2>
-            {/* @ts-ignore */}
             <Badge name="NEW" />
-            {/* @ts-ignore */}
             <Badge name="HIT" />
           </Link>
           <Link
@@ -91,20 +81,18 @@ function News() {
               backgroundImage: `url(${image4})`,
             }}
           >
-            <h3 className="text-fs_5 lg:text-fs_3  font-helvetica">2.10</h3>
-            <h2 className="text-fs_6 lg:text-fs_3  font-medium ">
-              Маска для лица многоразовая из хлопка
+            <h3 className="text-fs_5 lg:text-fs_3 opacity-50">2.10</h3>
+            <h2 className="text-fs_6 lg:text-[28px] font-medium leading-tight mt-2">
+              Маска для лица многоразовая из хлопка, анатомической формы
             </h2>
-            {/* @ts-ignore */}
             <Badge name="NEW" />
-            {/* @ts-ignore */}
             <Badge name="HIT" />
           </Link>
           <Link
             to={"/articles"}
             className="group p-3 lg:p-5 h-full flex flex-col justify-between bg-white hover:bg-redPrimary cursor-pointer duration-300"
           >
-            <h2 className="group-hover:text-[#fff] text-fs_6 lg:text-fs_3 font-extrabold tracking-wide text-redPrimary">
+            <h2 className="group-hover:text-[#fff] mt-7 text-fs_6 lg:text-[28px] leading-tight font-medium tracking-wide text-redPrimary">
               Все <br /> статьи
             </h2>
             <div className="flex justify-end">

@@ -73,7 +73,7 @@ const SearchModal = () => {
                 все результаты поиска
               </Button>
             </div>
-            <div className="bg-[#00000058] w-full h-full top-[130px]  left-0 z-[9] fixed"></div>
+            <div className="bg-[#00000058] w-full h-full top-[120px]  left-0 z-[9] fixed"></div>
           </>
         )}
       </div>

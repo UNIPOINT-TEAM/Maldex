@@ -19,7 +19,7 @@ interface BannerProp {
 
 const BannerTop: React.FC<BannerProp> = ({ BannerData }) => {
   return (
-    <div className="grid grid-cols-4 gap-3">
+    <div className="grid grid-cols-4 gap-[9px]">
       <Link
         to={"category/1"}
         className="group flex flex-col justify-between col-span-4 bg-white h-[200px] cursor-pointer hover:bg-[#fff] transition-all duration-200"

@@ -18,11 +18,11 @@ const BuildSet = () => {
   const [isDelete, setIsDelete] = useState<boolean>(false);
   const handleOpen = (value: number) => setOpen(open === value ? 0 : value);
   return (
-    <div className="container_xxl">
+    <div className="">
       <div className="grid grid-cols-10">
-        <div className="col-span-8">
+        <div className="col-span-10 lg:col-span-8">
           <div className="bg-greenPrimary h-[75px] flex items-center justify-center ">
-            <h1 className="text-[30px] text-[#fff]">
+            <h1 className=" text-[22px] lg:text-[30px] text-[#fff]">
               Создайте идеальный подарок
             </h1>
           </div>
@@ -159,7 +159,7 @@ const BuildSet = () => {
             </Accordion>
           </div>
         </div>
-        <div className="col-span-2 mb-6">
+        <div className="col-span-2 mb-6 hidden lg:block">
           {buildCart.length < 0 ? (
             <div>
               <img className="w-full" src={GiftBanner} alt="img" />

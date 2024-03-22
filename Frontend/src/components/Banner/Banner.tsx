@@ -10,7 +10,7 @@ const Banner = () => {
 
   return (
     <>
-      <div className="flex gap-3">
+      <div className="flex gap-[9px]">
         <div className="w-2/5 hidden lg:block">
           <BannerTop BannerData={response} />
         </div>
@@ -23,7 +23,7 @@ const Banner = () => {
         </div>
       </div>
       <BannerBottom BannerData={response} />
-      <BannerBottomMobile />
+      <BannerBottomMobile BannerData={response} />
     </>
   );
 };

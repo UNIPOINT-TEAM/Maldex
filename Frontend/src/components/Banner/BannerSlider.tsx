@@ -16,29 +16,29 @@ const BannerSlider = () => {
     <div className="banner-carusel relative w-full h-full bg-greenPrimary flex  p-[12px] lg:p-[20px] text-white font-helvetica-neue">
       <div className="w-[55%] flex flex-col justify-between">
         <div>
-          <span className="border text-[8px] lg:text-[11px] uppercase p-1 tracking-[1px] rounded-md">
+          <span className="border text-[8px] lg:text-[11px] uppercase p-1 tracking-wide rounded-md">
             корпоративные подарки
           </span>
-          <h2 className="font-helvetica-neue-bold-condensed font-medium text-fs_6 lg:text-[30px] m-0  tracking-[1.5px] leading-none lg:leading-none mt-2 lg:mt-4">
+          <h2 className="font-bold lg:font-medium text-base lg:text-[30px] m-0  tracking-wide leading-none lg:leading-none mt-2 lg:mt-4">
             {response[0]?.product_set[0]?.productCarouselID?.name}
           </h2>
         </div>
-        <div className="mt-auto flex gap-1 lg:gap-3 text-[9px] lg:text-fs_8 font-semibold">
+        <div className="mt-auto flex gap-1 lg:gap-3 text-fs_8 font-semibold">
           <Link
             to={"/gift"}
-            className="border text-center px-2 w-auto lg:w-[160px] py-[7px] lg:py-[10px] uppercase tracking-wider rounded-lg  hover:bg-[rgba(0,0,0,0.11)]  duration-300"
+            className="border text-center px-2 w-auto lg:w-[160px] py-[7px] lg:py-[10px] capitalize lg:uppercase font-medium tracking-wider rounded-lg  hover:bg-[rgba(0,0,0,0.11)]  duration-300"
           >
             Подробнее
           </Link>
           <Link
             to={"/gift"}
-            className="border text-center px-2 w-auto lg:w-[160px] py-[7px] lg:py-[10px]  uppercase tracking-widest rounded-lg hover:bg-[rgba(0,0,0,0.11)]  duration-300"
+            className="border font-medium text-center px-2 w-auto lg:w-[160px] py-[7px] lg:py-[10px]  capitalize lg:uppercase  tracking-widest rounded-lg hover:bg-[rgba(0,0,0,0.11)]  duration-300"
           >
             заказать
           </Link>
         </div>
       </div>
-      <div className="w-[50%] h-full">
+      <div className="w-[45%] h-full ps-2">
         <Swiper
           centeredSlides
           pagination={{
@@ -49,18 +49,19 @@ const BannerSlider = () => {
             nextEl: ".next-arrow",
           }}
           modules={[Navigation, Pagination, Autoplay]}
+          className="w-full "
         >
           {response?.map((item) => (
-            <SwiperSlide>
+            <SwiperSlide className="w-full">
               <img
                 src={`${BASE_URL}${item?.product_set[0]?.productCarouselID?.image}`}
                 alt=""
-                className="h-[160px] lg:h-[300px]"
+                className="h-[160px]  lg:h-[300px]"
               />
             </SwiperSlide>
           ))}
         </Swiper>
-        <div className="navigation-box bg-greenPrimary absolute right-3 lg:right-6 bottom-3 lg:bottom-5 z-[9] flex gap-2">
+        <div className="navigation-box  absolute right-3 lg:right-6 bottom-3 lg:bottom-5 z-[9] flex gap-2">
           <button className="prev-arrow p-2 border border-[#fff] rounded-lg">
             <FaArrowLeft className="text-fs_8 lg:text-fs_7" />
           </button>

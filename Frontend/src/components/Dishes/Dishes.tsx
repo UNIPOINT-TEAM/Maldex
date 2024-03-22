@@ -9,12 +9,12 @@ const Dishes = () => {
     <div className="w-full mb-[80px]">
       <div className="grid grid-rows-3 grid-cols-12 grid-flow-col gap-4">
         <div className="col-span-12 lg:col-span-9 h-full row-span-3">
-          <div className="grid grid-cols-5 md:grid-cols-11 h-full gap-3">
+          <div className="grid grid-cols-5 md:grid-cols-11 h-full gap-[10px]">
             <div className="col-span-3 bg-white flex items-center justify-center">
               <img src={Product3} alt="" />
             </div>
             <div className="col-span-2 lg:col-span-4">
-              <div className="grid grid-rows-2 grid-cols-1 lg:grid-cols-2 h-full gap-3">
+              <div className="grid grid-rows-2 grid-cols-1 lg:grid-cols-2 h-full gap-[10px]">
                 <div className="bg-white flex items-center justify-center">
                   <img src={Product2} alt="" />
                 </div>
@@ -36,9 +36,9 @@ const Dishes = () => {
         </div>
         <div className="row-span-3 col-span-3 hidden lg:block">
           <div className="grid grid-rows-2 grid-cols-1 gap-4 h-full">
-            <div className="row-span-1 col-span-1 flex flex-col gap-1">
+            <div className="row-span-1 col-span-1 flex flex-col gap-[3px]">
               {DishesCategories[0].categoryItem.map((i) => (
-                <p className="text-bs font-medium">
+                <p className="text-[14px] font-medium">
                   {i.name}
                   <b className="text-sm text-redPrimary ms-1 font-medium">
                     {i.number}
@@ -46,12 +46,12 @@ const Dishes = () => {
                 </p>
               ))}
             </div>
-            <div className="row-span-1 col-span-1">
-              <p className="text-base font-bold uppercase">
+            <div className="row-span-1 col-span-1 mt-5">
+              <p className="text-fs_8 font-bold uppercase my-3">
                 {DishesCategories[1].categoryName}
               </p>
               {DishesCategories[1].categoryItem.map((i) => (
-                <p className="my-2 text-base font-medium">
+                <p className=" text-fs_7 font-medium">
                   {i.name}
                   <span className="text-sm text-redPrimary  ms-1">
                     {i.number}
