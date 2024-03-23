@@ -4,13 +4,10 @@ import { footerLinks } from "../../mock/data";
 function Footer() {
   return (
     <>
-      <footer className=" bg-black">
-        <div className="container_xxl">
-          <div
-            className="text-white flex justify-between mx-3 lg:mx-0 pt-8
-        "
-          >
-            <div className="">
+      <footer className="bg-black">
+        <div className="container_xxl px-3">
+          <div className="text-white flex justify-between  lg:mx-0 pt-8">
+            <div>
               <p className="text-darkSecondary mb-8 lg:mb-0 text-fs_8">
                 По всем вопросам
               </p>
@@ -33,7 +30,7 @@ function Footer() {
             </div>
           </div>
           <div className="border-b border-gray-300 py-14 ">
-            <div className="flex justify-between gap-4 mx-3 lg:mx-0 text-fs_8">
+            <div className="flex justify-between gap-4  lg:mx-0 text-fs_8">
               <div className="w-[168px] footer-column w-1/5 hidden lg:block">
                 <h3 className="text-darkSecondary uppercase">
                   {footerLinks[0].title}
@@ -99,7 +96,7 @@ function Footer() {
               </div>
             </div>
           </div>
-          <div className="flex gap-10 lg:gap-52 flex-col-reverse lg:flex-row lg:justify-between mx-3 lg:mx-0 py-3 ">
+          <div className="flex gap-10 lg:gap-52 flex-col-reverse lg:flex-row lg:justify-between  lg:mx-0 py-3 ">
             <p className="text-darkSecondary">
               © 2023 Maldex. Все права защищены.
             </p>

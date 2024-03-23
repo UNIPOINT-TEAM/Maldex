@@ -10,8 +10,8 @@ function QuestForm() {
 
   return (
     <div>
-      <div className="container_xxl">
-        <div className="mx-3 lg:mx-0 my-6 lg:my-[110px] flex flex-col lg:flex-row justify-between">
+      <div className="container_xxl px-3">
+        <div className="lg:mx-0 my-6 lg:my-[110px] flex flex-col lg:flex-row justify-between">
           <div className="lg:w-1/2">
             <h1
               className="text-[16px] lg:text-fs_2 underline  uppercase text-darkSecondary cursor-pointer font-[500]"

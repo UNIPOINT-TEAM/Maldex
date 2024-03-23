@@ -67,15 +67,13 @@ const LeftAccordion = () => {
       {data.map((category, index) => (
         <Accordion
           key={index}
-          className="pr-2"
+          className="pr-2 font-Helvetica-Neue"
           open={openAccordionIndex === index}
           icon={
             <svg
               className={` ${
                 openAccordionIndex === index ? "rotate-180 " : ""
               } transition-transform`}
-              
-              
               xmlns="http://www.w3.org/2000/svg"
               width="18"
               height="12"
@@ -92,14 +90,14 @@ const LeftAccordion = () => {
           placeholder={<div />}
         >
           <AccordionHeader
-            className={`border-0 px-2 py-2 cursor-pointer ${
+            className={`border-0 px-2 py-2 cursor-pointer  ${
               openAccordionIndex === index ? "bg-redPrimary  rounded-xl" : ""
             }`}
             onClick={() => handleAccordionClick(index)}
             placeholder={<div />}
           >
             <h3
-              className={`font-helvetica -tracking-tighter text-fs_4 font-bold text-darkPrimary ${
+              className={`font-Helvetica-Neue -tracking-tighter text-fs_4 font-bold text-darkPrimary ${
                 openAccordionIndex === index ? "text-white" : ""
               }`}
             >
@@ -112,10 +110,12 @@ const LeftAccordion = () => {
           >
             {category.products.map((product, productIndex) => (
               <div
-                className="my-2 pl-3 text-[16px] font-medium cursor-pointer hover:text-redPrimary"
+                className="my-2 pl-3 text-base font-Helvetica-Neue  cursor-pointer hover:text-redPrimary"
                 key={productIndex}
               >
-                {product.name}
+                <h4 className="font-Helvetica-Neue font-medium text-black">
+                  {product.name}
+                </h4>
               </div>
             ))}
           </AccordionBody>

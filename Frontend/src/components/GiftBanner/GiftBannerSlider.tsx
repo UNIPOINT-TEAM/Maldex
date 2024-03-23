@@ -11,7 +11,7 @@ const BannerSlider = () => {
           <span className="border text-[8px] lg:text-[11px] uppercase p-1 tracking-[1px] rounded-md">
             Подарочные Наборы
           </span>
-          <h2 className="font-helveticaNeue text-fs_6 lg:text-[28px] m-0 font-extrabold tracking-[1.5px] leading-none lg:leading-none mt-2 lg:mt-4">
+          <h2 className=" text-fs_6 lg:text-[28px] m-0 font-medium tracking-[1.5px] leading-none lg:leading-none mt-2 lg:mt-4">
             Уникальные идеи подарков <br /> чтобы радовать всех и каждого
           </h2>
         </div>

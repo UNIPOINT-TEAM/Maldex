@@ -6,7 +6,7 @@ interface ProductNavProps {
 }
 
 const ProductNav: React.FC<ProductNavProps> = ({ title, color }) => {
-  let titleStyle = "text-4xl";
+  let titleStyle = "text-4xl traking-wide";
   const [selectedItem, setSelectedItem] = useState(0); // Добавляем состояние для отслеживания выбранного элемента
 
   // Добавляем стили в зависимости от цвета
@@ -31,7 +31,7 @@ const ProductNav: React.FC<ProductNavProps> = ({ title, color }) => {
   return (
     <div className="mb-6">
       <div className="mb-5 flex justify-between">
-        <p className={titleStyle}>{title}</p>
+        <h2 className={titleStyle}>{title}</h2>
         <button className="mx-3 uppercase font-extrabold tracking-wider p-[6px] border border-redPrimary rounded-md text-redPrimary block ss:hidden">
           Все проекты
         </button>
@@ -43,7 +43,7 @@ const ProductNav: React.FC<ProductNavProps> = ({ title, color }) => {
               {items.map((item, index) => (
                 <li
                   key={index}
-                  className={`cursor-pointer py-4 border-b-2 ${
+                  className={`cursor-pointer font-medium py-4 border-b-2 ${
                     selectedItem === index
                       ? "border-redPrimary text-redPrimary"
                       : "border-transparent hover:text-redPrimary hover:border-b-2 hover:border-redPrimary"
@@ -56,7 +56,7 @@ const ProductNav: React.FC<ProductNavProps> = ({ title, color }) => {
             </ul>
           </div>
           <div>
-            <button className="uppercase font-semibold tracking-wide p-[6px] border border-redPrimary rounded-md text-redPrimary hidden ss:block">
+            <button className="uppercase text-[10px] font-bold tracking-wide h-7  px-3 border border-redPrimary rounded-[8px] text-redPrimary hidden ss:block">
               Все топ-товары
             </button>
           </div>

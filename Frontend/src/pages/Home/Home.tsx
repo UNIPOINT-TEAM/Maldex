@@ -10,10 +10,6 @@ import {
   ProductNav,
   GiftItem,
 } from "../../components";
-// import image1 from "../../assets/article-bg-1.png";
-// import image2 from "../../assets/article-bg-2.png";
-// import image3 from "../../assets/article-bg-3.png";
-// import image4 from "../../assets/article-bg-4.png";
 
 const Home = () => {
   return (
@@ -26,9 +22,7 @@ const Home = () => {
         <MainCategory />
       </div>
       <div className="container_xxl px-3">
-        <div className="">
-          <ProductNav title="hits!" color="green" />
-        </div>
+        <ProductNav title="hits!" color="green" />
       </div>
       <div className="w-full">
         <SliderProduct />
@@ -46,12 +40,10 @@ const Home = () => {
         <h3 className="section-title">FAQ</h3>
         <Accordion />
       </div>
-      <News />
+      <News title="статьи" />
       <ProjectsSlider />
       <div className="container_xxl px-3">
-        <div className="">
-          <ProductNav title="new!" color="red" />
-        </div>
+        <ProductNav title="new!" color="red" />
       </div>
       <div className="w-full">
         <SliderProduct />

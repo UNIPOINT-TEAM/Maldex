@@ -48,13 +48,13 @@ function SaleSlider() {
           <div className="bg-black h-0 absolute w-full left-0 top-[35%] ">
             <button
               onClick={() => slider?.current?.slickPrev()}
-              className="absolute left-[17px]"
+              className="absolute ps-3"
             >
               <img src={prev} alt="" />
             </button>
             <button
               onClick={() => slider?.current?.slickNext()}
-              className="absolute right-[17px]"
+              className="absolute right-0 pe-3"
             >
               <img src={next} alt="carusel-arrow" />
             </button>

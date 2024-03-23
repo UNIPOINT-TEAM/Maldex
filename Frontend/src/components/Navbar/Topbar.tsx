@@ -9,7 +9,7 @@ const Topbar = () => {
 
   return (
     <nav className="border-0 lg:border-b border-lightSecondary">
-      <div className="py-3 container_xxl flex justify-between items-center">
+      <div className="p-3 container_xxl flex justify-between items-center">
         <div className="flex items-center justify-between w-full md:w-auto">
           <Link to="/">
             <img
@@ -18,7 +18,6 @@ const Topbar = () => {
               className="mr-5 w-[100px] lg:w-[130px]"
             />
           </Link>
-
           <ul className="flex items-center gap-1 lg:gap-5 ">
             {TopbarLink?.Topbar_l?.map((item, i) => (
               <li key={i} className={`${i == 2 && "hidden lg:block"}`}>

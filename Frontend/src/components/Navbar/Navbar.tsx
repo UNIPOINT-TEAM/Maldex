@@ -8,10 +8,10 @@ import NavbarModal from "./NavbarModal";
 
 const Navbar = () => {
   return (
-    <div className=" px-3 lg:px-0">
+    <div className=" lg:px-0">
       <header>
         <Topbar />
-        <nav className="container_xxl ">
+        <nav className="container_xxl px-3">
           <div className="flex justify-between items-center py-2 gap-3 lg:gap-5">
             <div className="flex justify-around gap-5 ">
               <NavbarModal />

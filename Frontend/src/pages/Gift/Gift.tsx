@@ -14,7 +14,7 @@ function Gift() {
             <div>
               <GiftBanner />
             </div>
-            <div>
+            <div className="">
               <ProjectsSlider />
               <TagBanner />
               <QuestForm />

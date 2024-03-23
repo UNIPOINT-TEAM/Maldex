@@ -32,8 +32,8 @@ function ProjectsSlider() {
   };
 
   return (
-    <div className="container_xxl md:mb-[100px]">
-      <div className="">
+    <div className="container_xxl px-3 md:mb-[100px]">
+      <div>
         <ProductNav title="ПРОЕКТЫ" color="gray" />
         <div className="my-5 lg:h-[440px]">
           <div className="h-full hidden lg:flex">

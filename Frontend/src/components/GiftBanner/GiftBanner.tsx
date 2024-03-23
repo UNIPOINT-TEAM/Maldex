@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import {  GiftBannerBottom, GiftBannerSlider, LeftAccordion } from "..";
+import { GiftBannerBottom, GiftBannerSlider, LeftAccordion } from "..";
 import { useFetchHook } from "../../hooks/UseFetch";
 
 const GiftBanner = () => {
@@ -14,7 +14,7 @@ const GiftBanner = () => {
           <LeftAccordion />
         </div>
         <div className="flex flex-col gap-2.5 lg:w-4/5 ">
-          <div className=" lg:h-[430px]">
+          <div className="lg:h-[430px]">
             <GiftBannerSlider />
           </div>
           <GiftBannerBottom BannerData={response} />

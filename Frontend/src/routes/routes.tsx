@@ -56,7 +56,7 @@ export const router = createBrowserRouter([
         element: <Tags />,
       },
       {
-        path: "/error",
+        path: "*",
         element: <NotFound />,
       },
       {
@@ -64,7 +64,7 @@ export const router = createBrowserRouter([
         element: <Delivery />,
       },
       {
-        path: "build-set",
+        path: "/build-set",
         element: <BuildSet />,
       },
       {
@@ -94,30 +94,6 @@ export const router = createBrowserRouter([
           { path: "apply", element: <Applying /> },
           { path: "pad-printing", element: <PadPrinting /> },
         ],
-      },
-      {
-        path: "/tags",
-        element: <Tags />,
-      },
-      {
-        path: "/error",
-        element: <NotFound />,
-      },
-      {
-        path: "/delivery",
-        element: <Delivery />,
-      },
-      {
-        path: "/tags",
-        element: <Tags />,
-      },
-      {
-        path: "/error",
-        element: <NotFound />,
-      },
-      {
-        path: "/delivery",
-        element: <Delivery />,
       },
     ],
   },

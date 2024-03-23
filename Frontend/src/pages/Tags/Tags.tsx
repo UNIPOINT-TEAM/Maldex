@@ -1,18 +1,12 @@
-import {
-  ProjectsSlider,
-  TagBanner,
-  TagList,
-} from "../../components";
+import { ProjectsSlider, TagBanner, TagList } from "../../components";
 
 function Tags() {
   return (
-    <div>
-      <div>
-        <TagBanner />
-        <TagList />
-        <ProjectsSlider />
-      </div>
-    </div>
+    <>
+      <TagBanner />
+      <TagList />
+      <ProjectsSlider />
+    </>
   );
 }
 

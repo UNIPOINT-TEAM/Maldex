@@ -1,3 +1,4 @@
+import React from "react";
 import { GoArrowDownRight } from "react-icons/go";
 import { Badge } from "..";
 import image1 from "../../assets/article-bg-1.png";
@@ -6,10 +7,10 @@ import image3 from "../../assets/article-bg-3.png";
 import image4 from "../../assets/article-bg-4.png";
 import { Link } from "react-router-dom";
 
-function News() {
+const News: React.FC<{ title: string }> = ({ title }) => {
   return (
-    <div className="articles container_xxl py-5 px-3 lg:px-0 md:mb-[100px]">
-      <h3 className="section-title ">статьи</h3>
+    <div className="articles container_xxl py-5 px-3  md:mb-[100px]">
+      <h3 className="section-title ">{title}</h3>
       <div className="flex flex-col gap-3">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 ">
           <Link
@@ -105,6 +106,6 @@ function News() {
       </div>
     </div>
   );
-}
+};
 
 export default News;

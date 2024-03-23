@@ -5,7 +5,13 @@ import image3 from "../../assets/portfolio/image3.png";
 import image4 from "../../assets/portfolio/image4.png";
 import image5 from "../../assets/portfolio/image5.png";
 import image6 from "../../assets/portfolio/image6.png";
-import { Badge, News, ProjectsSlider, QuestForm } from "../../components";
+import {
+  Badge,
+  News,
+  ProductNav,
+  QuestForm,
+  SliderProduct,
+} from "../../components";
 
 function Portfolio() {
   return (
@@ -19,16 +25,13 @@ function Portfolio() {
             }}
           >
             <div className="md:w-[65%]">
-              {/* @ts-ignore */}
               <Badge name="NEW" type="NEW" />
-              {/* @ts-ignore */}
               <Badge name="HIT" type="HIT" />
-              <h3 className="text-fs_7 lg:text-[50px] text-darkPrimary font-medium ">
+              <h3 className="text-fs_7 lg:text-[50px] text-[#475259] leading-tight font-medium ">
                 welcome pack, <br /> для милых дам
               </h3>
             </div>
           </div>
-          {/* <div className="flex flex-wrap gap-3 justify-between"> */}
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
             <div
               className="p-3 lg:p-5 bg-cover text-white "
@@ -37,14 +40,12 @@ function Portfolio() {
               }}
             >
               <div className="">
-                <h3 className="text-fs_5 lg:text-fs_3  font-helvetica">2.10</h3>
-                <h2 className="text-[10px] lg:text-fs_3   font-medium ">
+                <h3 className="text-fs_5 lg:text-[28px] opacity-50">2.10</h3>
+                <h2 className="text-[10px] lg:text-[28px] font-medium ">
                   Маска для лица <br /> многоразовая из хлопка,
                   <br /> анатомической формы{" "}
                 </h2>
-                {/* @ts-ignore */}
                 <Badge name="NEW" />
-                {/* @ts-ignore */}
                 <Badge name="HIT" />
               </div>
             </div>
@@ -62,23 +63,30 @@ function Portfolio() {
             </div>
             <div>
               <div className="bg-white h-full w-full flex flex-col justify-between">
-                <div className="lg:pl-5 pl-1 lg:pt-16 lg:pr-40">
-                  <span className="font-medium">Cостав:</span>
+                <div className="lg:pl-5 pl-1 lg:pt-16 lg:pr-40 font-Articulat tracking-wider">
+                  <span className="font-semibold">Cостав:</span>
                   <br />
-                  <span className="text-[12px] lg:text-[14px] tracking-tighter">
-                    бутылка для воды рюкзак ручка чехол для пропуска блокнот для
-                    записей А5 контейнер для еды со столовым прибором ланъярд
-                  </span>
+                  <div className="text-[12px] lg:text-[14px] tracking-wide font-medium leading-snug">
+                    <ul>
+                      <li>бутылка для воды</li>
+                      <li>рюкзак</li>
+                      <li>ручка</li>
+                      <li>чехол для пропуска</li>
+                      <li>блокнот для записей А5</li>
+                      <li>контейнер для еды со столовым прибором</li>
+                      <li>ланъярд</li>
+                    </ul>
+                  </div>
                 </div>
-                <div className="hidden lg:flex items-center justify-center pb-5 gap-3 ">
+                <div className="hidden lg:flex items-center justify-center pb-5 gap-3 font-bold text-[11px]">
                   <Link to="/build-set">
-                    <button className="border font-bold text-[11px] text-white hover:text-greenPrimary px-0 w-auto lg:w-[160px] py-[7px] lg:py-[10px] uppercase  rounded-lg bg-greenPrimary  hover:bg-[rgb(255,255,255)]  duration-300">
-                    хочу также
+                    <button className="border text-white hover:text-greenPrimary  w-auto lg:w-[160px]  h-[55px]  uppercase  rounded-xl bg-greenPrimary  hover:bg-[#ffffff]  duration-300">
+                      хочу также
                     </button>
                   </Link>
                   <Link to="/build-set">
-                    <button className="border font-bold text-[11px] text-white hover:text-greenPrimary px-0 w-auto lg:w-[160px] py-[7px] lg:py-[10px] uppercase  rounded-lg bg-greenPrimary  hover:bg-[rgb(255,255,255)]  duration-300">
-                    посмотреть похожее
+                    <button className="border text-greenPrimary hover:text-white  w-auto lg:w-[160px]  h-[55px]  uppercase  rounded-xl bg-[#fff]  hover:bg-greenPrimary border-greenPrimary  duration-300">
+                      посмотреть похожее
                     </button>
                   </Link>
                 </div>
@@ -86,8 +94,13 @@ function Portfolio() {
             </div>
           </div>
           {/* <PortfolioBanner /> */}
-          <News />
-          <ProjectsSlider />
+          <News title="Новинки" />
+          <div className="container_xxl px-3">
+            <ProductNav title="sale!" color="red" />
+          </div>
+          <div className="w-full">
+            <SliderProduct />
+          </div>
           <QuestForm />
         </div>
       </div>
