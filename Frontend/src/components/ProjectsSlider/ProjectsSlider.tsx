@@ -33,24 +33,24 @@ function ProjectsSlider() {
 
   return (
     <div className="container_xxl md:mb-[100px]">
-      <div className="mx-3">
+      <div className="">
         <ProductNav title="ПРОЕКТЫ" color="gray" />
         <div className="my-5 lg:h-[440px]">
           <div className="h-full hidden lg:flex">
             <div className="h-[410px] flex items-center">
-              <button className="absolute z-50 -ml-[10px] " onClick={goPrev}>
+              <button className="absolute z-50 -ml-[16px] " onClick={goPrev}>
                 <img src={prev} alt="" className="w-[32px]" />
               </button>
             </div>
             <Swiper
               ref={swiperRef}
-              className="w-full "
+              className="w-full p-0"
               slidesPerView={3.5}
               loop={true}
               spaceBetween={10}
               navigation
               pagination={{ clickable: true }}
-              modules={[Scrollbar]} // Добавьте модуль Scrollbar здесь
+              modules={[Scrollbar]}
               scrollbar={{ draggable: true }}
             >
               <SwiperSlide>
@@ -100,7 +100,7 @@ function ProjectsSlider() {
               </SwiperSlide>
             </Swiper>
             <div className="h-[410px] flex items-center">
-              <button className="absolute z-50 -ml-[20px]" onClick={goNext}>
+              <button className="absolute z-50 -ml-[15px]" onClick={goNext}>
                 <img src={next} alt="" className="w-[32px]" />
               </button>
             </div>

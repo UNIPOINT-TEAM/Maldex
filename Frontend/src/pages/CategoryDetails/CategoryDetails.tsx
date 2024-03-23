@@ -7,7 +7,8 @@ import Tshirt from "../../assets/t-shirt.svg";
 import nasilnenie_l from "../../assets/shirt-l.png";
 import nasilnenie_r from "../../assets/shirt-r.png";
 import tabImages from "../../assets/images/tab-image.png";
-
+import arrowT from "../../assets/icons/arrow-t.svg";
+import arrowB from "../../assets/icons/arrow-b.svg";
 import {
   Tab,
   TabPanel,
@@ -64,6 +65,7 @@ const Buttons = [
   { id: 3, name: "примеры", icon: false },
 ];
 const CategoryDetails = () => {
+  const [activeTab, setActiveTab] = useState("Описание");
   const [isActive, setIsActive] = useState<number>(1);
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const [productColor, setproductColor] = useState<number>(0);
@@ -102,7 +104,6 @@ const CategoryDetails = () => {
     const discountedPrice = calculateDiscount(product.quantity, product.price);
     const discountedTotalPrice = discountedPrice * product.quantity;
     const totalPrice = product.price * product.quantity;
-    console.log(totalPrice);
     setProduct((prev) => ({
       ...prev,
       discountedPrice: discountedTotalPrice,
@@ -113,13 +114,12 @@ const CategoryDetails = () => {
     calculateTotal();
   }, [product.quantity]);
 
-
   return (
     <div className="container_xxl tracking-wider overflow-hidden">
       <div className="grid grid-cols-3 lg:grid-cols-10 my-5">
-        <div className="h-full py-5 col-span-3 order-3 lg:order-1 ">
+        <div className="h-full py-5 lg:pr-6 col-span-3 order-3 lg:order-1 ">
           <img src={tabImages} alt="icon" className="w-[70px] py-5" />
-          <Tabs value="Описание">
+          <Tabs value={activeTab}>
             <TabsHeader
               placeholder={<div />}
               className="bg-transparent"
@@ -133,10 +133,19 @@ const CategoryDetails = () => {
                   placeholder={<div />}
                   key={value}
                   value={value}
+                  onClick={() => setActiveTab(value)}
                   activeClassName="text-[#fff]"
                   className="text-[9px] p-0 me-[8px] font-Helvetica-Neue uppercase h-[25px] text-darkSecondary w-auto font-helvetica-neue font-bold text-start"
                 >
-                  <p>{label}</p>
+                  <p
+                    className={`${
+                      activeTab === value
+                        ? "text-redPrimary"
+                        : "text-darkSecondary"
+                    }`}
+                  >
+                    {label}
+                  </p>
                 </Tab>
               ))}
             </TabsHeader>
@@ -162,32 +171,42 @@ const CategoryDetails = () => {
           </Tabs>
         </div>
         <div className="bg-white order-1 lg:order-2 flex flex-col items-start p-2 lg:p-5 col-span-3 lg:col-span-4 relative">
-          <div className="flex gap-2 font-bold uppercase">
-            {Buttons.map((button) => (
-              <div
-                key={button.id}
-                onClick={() => setIsActive(button.id)}
-                className={`bg-[#fff] flex gap-2 items-center cursor-pointer py-[8px] lg:py-[13px] px-[8px] lg:px-[15px] tracking-widest text-fs_9 rounded-lg ${
-                  isActive == button.id && "bg-redPrimary text-[#fff]"
-                }`}
-              >
-                {button.icon && (
-                  <div
-                    className={`border bottom-1 border-redPrimary text-fs_7 text-redPrimary  flex items-center justify-center w-[25px] h-[25px] rounded-[50%] ${
-                      isActive == button.id && "border-white text-white"
-                    }`}
-                  >
-                    +
-                  </div>
-                )}
-                <span
-                  className=" text-[7px] font-bold lg:text-[9px]"
-                  dangerouslySetInnerHTML={{
-                    __html: button.name,
-                  }}
-                />
-              </div>
-            ))}
+          <div className="flex justify-between w-full">
+            <div className="flex gap-2 font-bold uppercase">
+              {Buttons.map((button) => (
+                <div
+                  key={button.id}
+                  onClick={() => setIsActive(button.id)}
+                  className={`bg-[#fff] flex gap-2 items-center cursor-pointer py-[8px] lg:py-[13px] px-[8px] lg:px-[15px] tracking-widest text-fs_9 rounded-lg ${
+                    isActive == button.id && "bg-redPrimary text-[#fff]"
+                  }`}
+                >
+                  {button.icon && (
+                    <div
+                      className={`border bottom-1 border-redPrimary text-fs_7 text-redPrimary  flex items-center justify-center w-[25px] h-[25px] rounded-[50%] ${
+                        isActive == button.id && "border-white text-white"
+                      }`}
+                    >
+                      +
+                    </div>
+                  )}
+                  <span
+                    className=" text-[7px] font-bold lg:text-[9px]"
+                    dangerouslySetInnerHTML={{
+                      __html: button.name,
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
+            <div className="flex gap-1">
+              <button className="rounded-full w-[27px] h-[27px] bg-[#fff] flex items-center justify-center">
+                <img src={arrowT} alt="img" />
+              </button>
+              <button className="rounded-full w-[27px] h-[27px] bg-redPrimary flex items-center justify-center">
+                <img src={arrowB} alt="img" />
+              </button>
+            </div>
           </div>
           <div className="absolute rounded-s-xl right-2 lg:right-5 lg:translate-y-[50%] top-[30%]  lg:top-[15%] bg-[#fff] px-3 py-5">
             <div className="flex flex-col gap-2">
@@ -244,18 +263,20 @@ const CategoryDetails = () => {
                   HIT
                 </span>
               </div>
-              {isFavorite ? (
-                <IoMdHeart
-                  color="red"
-                  size={20}
-                  onClick={() => setIsFavorite((prev) => !prev)}
-                />
-              ) : (
-                <IoMdHeartEmpty
-                  size={20}
-                  onClick={() => setIsFavorite((prev) => !prev)}
-                />
-              )}
+              <div className="cursor-pointer">
+                {isFavorite ? (
+                  <IoMdHeart
+                    color="red"
+                    size={20}
+                    onClick={() => setIsFavorite((prev) => !prev)}
+                  />
+                ) : (
+                  <IoMdHeartEmpty
+                    size={20}
+                    onClick={() => setIsFavorite((prev) => !prev)}
+                  />
+                )}
+              </div>
             </div>
             <div className="container mx-auto lg:px-4 py-4">
               <h2 className="text-base font-semibold  tracking-wider">
