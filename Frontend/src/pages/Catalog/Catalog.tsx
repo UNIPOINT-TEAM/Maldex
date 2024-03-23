@@ -5,10 +5,6 @@ import CardCatalog from "../../components/CardCatalog/CardCatalog";
 import Close from "../../assets/icons/close.png";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { FaArrowRightLong } from "react-icons/fa6";
-// import SearchIcon from "../../assets/icons/searchIcon.png";
-// import { CiSearch } from "react-icons/ci";
-// import { CiHeart } from "react-icons/ci";
-// import { FaCheck } from "react-icons/fa";
 import Filter from "../../assets/icons/filtr.png";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
@@ -89,7 +85,7 @@ const Catalog = () => {
                                             {filter && (
                                                 <div className="w-[200px] h-[350px] border border-gray-500 bg-white absolute z-30 top-[-150px] left-[60px] rounded-md">
                                                     <div className="w-[20px] h-[20px] z-40 border border-gray-500 bg-white  rotate-45 absolute top-[45%] left-[-6px]"></div>
-                                                    <div className="w-full h-full bg-white z-50 absolute rounded-md flex flex-col justify-start py-5 px-2">
+                                                    <div className="w-full h-full bg-white z-50 absolute rounded-md flex flex-col justify-start py-5 px-2 overflow-y-scroll">
                                                         <p className="text-xl mb-5">
                                                             Цвет
                                                         </p>
@@ -177,7 +173,7 @@ const Catalog = () => {
                             )}
                         </div>
                     </div>
-                    <div className="w-full overflow-x-scroll flex flex-wrap relative md:hidden pb-4 mb-2 border-b">
+                    <div className="w-full overflow-x-scroll flex flex-wrap relative md:hidden md:overflow-hidden pb-4 mb-2 border-b">
                         {activeFilterItems.map((i, index) => (
                             <div className="flex">
                                 <div
@@ -229,46 +225,56 @@ const Catalog = () => {
                             </div>
                         ))}
                     </div>
-                    <div className="flex w-100 overflow-scroll sm:flex sm:flex-wrap py-2 gap-2">
-                        <button className="border-[1px] border-gray-400 px-2 text-gray-500 min-w-[300px] sm:min-w-0 py-1 rounded">
+                    <div className="flex w-100 overflow-scroll md:overflow-hidden sm:flex sm:flex-wrap items-center py-2 gap-2">
+                        <button className="border-[1px] border-gray-400 px-2 text-[12px] text-gray-500 min-w-[300px] sm:min-w-0 py-1 rounded">
                             Автомобильные зарядники
                         </button>
-                        <button className="border-[1px] border-gray-400 px-2 text-gray-500 min-w-[300px] sm:min-w-0 py-1 rounded">
+                        <button className="border-[1px] border-gray-400 px-2 text-[12px] text-gray-500 min-w-[300px] sm:min-w-0 py-1 rounded">
                             Экозарядники + RPET
                         </button>
-                        <button className="border-[1px] border-gray-400 px-2 text-gray-500 min-w-[300px] sm:min-w-0 py-1 rounded">
+                        <button className="border-[1px] border-gray-400 px-2 text-[12px] text-gray-500 min-w-[300px] sm:min-w-0 py-1 rounded">
                             Наборы с зарядными устройствами
                         </button>
-                        <button className="border-[1px] border-gray-400 px-2 text-gray-500 min-w-[300px] sm:min-w-0 py-1 rounded">
+                        <button className="border-[1px] border-gray-400 px-2 text-[12px] text-gray-500 min-w-[300px] sm:min-w-0 py-1 rounded">
                             Беспроводные зарядки
                         </button>
-                        <button className="border-[1px] border-gray-400 px-2 text-gray-500 min-w-[300px] sm:min-w-0 py-1 rounded">
+                        <button className="border-[1px] border-gray-400 px-2 text-[12px] text-gray-500 min-w-[300px] sm:min-w-0 py-1 rounded">
                             Док-станции с логотипами
                         </button>
-                        <button className="border-[1px] border-gray-400 px-2 text-gray-500 min-w-[300px] sm:min-w-0 py-1 rounded">
+                        <button className="border-[1px] border-gray-400 px-2 text-[12px] text-gray-500 min-w-[300px] sm:min-w-0 py-1 rounded">
                             Зарядные устройства с часами
                         </button>
-                        <button className="border-[1px] border-gray-400 px-2 text-gray-500 min-w-[300px] sm:min-w-0 py-1 rounded">
+                        <button className="border-[1px] border-gray-400 px-2 text-[12px] text-gray-500 min-w-[300px] sm:min-w-0 py-1 rounded">
                             Органайзер на стол с ЗУ
                         </button>
-                        <button className="border-[1px] border-gray-400 px-2 text-gray-500 min-w-[300px] sm:min-w-0 py-1 rounded">
+                        <button className="border-[1px] border-gray-400 px-2 text-[12px] text-gray-500 min-w-[300px] sm:min-w-0 py-1 rounded">
                             Лампы с ЗУ
                         </button>
-                        <button className="border-[1px] border-gray-400 px-2 text-gray-500 min-w-[300px] sm:min-w-0 py-1 rounded">
+                        <button className="border-[1px] border-gray-400 px-2 text-[12px] text-gray-500 min-w-[300px] sm:min-w-0 py-1 rounded">
                             Деревянные зарядки
                         </button>
-                        <button className="border-[1px] border-gray-400 px-2 text-gray-500 min-w-[300px] sm:min-w-0 py-1 rounded">
+                        <button className="border-[1px] border-gray-400 px-2 text-[12px] text-gray-500 min-w-[300px] sm:min-w-0 py-1 rounded">
                             Наборы с зарядными устройствами
                         </button>
-                        <button className="border-[1px] border-gray-400 px-2 text-gray-500 min-w-[300px] sm:min-w-0 py-1 rounded">
+                        <button className="border-[1px] border-gray-400 px-2 text-[12px] text-gray-500 min-w-[300px] sm:min-w-0 py-1 rounded">
                             Док-станции с логотипами
                         </button>
-                        <button className="border-[1px] border-gray-400 px-2 text-gray-500 min-w-[300px] sm:min-w-0 py-1 rounded">
+                        <button className="border-[1px] border-gray-400 px-2 text-[12px] text-gray-500 min-w-[300px] sm:min-w-0 py-1 rounded">
                             Автомобильные зарядники
                         </button>
-                        <button className="border-[1px] border-gray-400 px-2 text-gray-500 min-w-[300px] sm:min-w-0 py-1 rounded">
+                        <button className="border-[1px] border-gray-400 px-2 text-[12px] text-gray-500 min-w-[300px] sm:min-w-0 py-1 rounded">
                             Лампы с ЗУ
                         </button>
+
+                        <div className="border border-redPrimary text-[10px] text-redPrimary h-[22px] rounded-xl px-2 flex items-center">
+                            <p>NEW</p>
+                        </div>
+                        <div className="border border-greenPrimary text-[10px] text-greenPrimary rounded-xl px-2 h-[22px] flex items-center">
+                            <p>HIT</p>
+                        </div>
+                        <div className="border border-redPrimary text-[10px] text-redPrimary h-[22px] rounded-xl px-2 flex items-center">
+                            <p>SALE</p>
+                        </div>
                     </div>
                     <div className="flex gap-2 flex-wrap py-2 justify-between">
                         {CardCatalogData.map((i) => (

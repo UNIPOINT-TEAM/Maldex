@@ -34,22 +34,7 @@ import { Link } from "react-router-dom";
 
 
 const MainCategory = () => {
-  // const [categories, setCategories] = useState([]);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get(`${URL}/product/categories/`);
-  //       setCategories(response.data);
-  //       console.log(response);
-        
-  //     } catch (error) {
-  //       console.error("Error fetching categories:", error);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
 
   const { fetchData, response } = useFetchHook();
   useEffect(() => {
@@ -81,7 +66,7 @@ const MainCategory = () => {
                 category?.children.map((childCategory) => (
                   <div
                     key={childCategory.id}
-                    className="rounded hover:bg-greenPrimary hover:text-white py-1 px-2"
+                    className="rounded hover:bg-greenPrimary hover:text-white py-1 "
                   >
                     <Link to='/catalog'>
                     <p>{childCategory.name}</p>

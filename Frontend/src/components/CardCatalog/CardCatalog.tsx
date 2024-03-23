@@ -14,16 +14,16 @@ const CardCatalog: React.FC<CardCatalogProps> = ({ item }) => {
         <div className="catalog">
             <div className="relative h-3/5 w-full catalogImgBox">
                 <img className="mb-2 h-full w-full" src={img} alt="" />
-                <div className="hidden md:flex flex-col justify-center catalogabout absolute w-3/5 h-full bg-[#00B6BA] top-0 px-3 right-[0] py-2  ">
-                    <p className="text-xs ml-3 mb-3 text-white">В наборе:</p>
-                    <p className="text-xs ml-3 mb-3 text-white">
+                <div className="hidden md:flex flex-col justify-center catalogabout absolute w-3/5 h-full bg-[#00B6BA] top-0 px-3 right-[0] py-5 gap-2 ">
+                    <p className="text-xs ml-3  text-white">В наборе:</p>
+                    <p className="text-xs ml-3  text-white">
                         Ручка-роллер Deluxe <br /> Metal — черная
                     </p>
-                    <p className="text-xs ml-3 mb-3 text-white">
+                    <p className="text-xs ml-3  text-white">
                         Керамическая кружка <br />
                         Black Palm Desert
                     </p>
-                    <p className="text-xs ml-3 mb-8 text-white">
+                    <p className="text-xs ml-3 text-white">
                         Подарок содержит <br /> еще 2 предмета
                     </p>
                     <button className="w-full border text-white py-2 rounded-lg">

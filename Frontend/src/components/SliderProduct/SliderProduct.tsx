@@ -17,11 +17,9 @@ import SearchIcon from "../../assets/icons/searchIcon.png";
 import { CiSearch } from "react-icons/ci";
 import { CiHeart } from "react-icons/ci";
 import { FaCheck } from "react-icons/fa";
+import { IoMdHeart } from "react-icons/io";
 
-import {
-    Dialog,
-
-} from "@material-tailwind/react";
+import { Dialog } from "@material-tailwind/react";
 import { useFetchHook } from "../../hooks/UseFetch";
 import "swiper/css/scrollbar";
 
@@ -34,6 +32,7 @@ const SliderProduct = () => {
     const [addCard, setAddCard] = useState(false);
     const { fetchData, response } = useFetchHook();
     const [size, setSize] = useState(null);
+    const [like, setLike] = useState(false);
 
     useEffect(() => {
         fetchData({ method: "GET", url: "/product/" });
@@ -42,12 +41,12 @@ const SliderProduct = () => {
     const changeStatus = () => {
         setDefaultProduct(!defaultProduct);
     };
-// @ts-ignore
+    // @ts-ignore
     const handleOpen = (value: string) => setSize(value);
 
     return (
         <div className="container_xxl relative px-3">
-          {/* @ts-ignore */}
+            {/* @ts-ignore */}
             <Dialog
                 open={
                     size === "xs" ||
@@ -211,15 +210,15 @@ const SliderProduct = () => {
                 modules={[Navigation, Scrollbar]}
                 className=" w-full overscroll-x-auto h-[500px]"
             >
-              {/* @ts-ignore */}
+                {/* @ts-ignore */}
                 {response.results?.map((item) => (
                     <SwiperSlide className="w-full">
                         <div className="catalog ">
-                            <div className="relative  h-[220px] mb-4 bg-gray-200">
+                            <div className="relative swiper-top-container h-[220px] mb-4 bg-gray-200">
                                 <Swiper
                                     pagination={{ clickable: true }}
                                     modules={[Navigation, Pagination]}
-                                    className="swiper-item  h-full"
+                                    className="  h-full"
                                 >
                                     <SwiperSlide className="w-full h-full">
                                         <div
@@ -237,7 +236,7 @@ const SliderProduct = () => {
                                         </div>
                                     </SwiperSlide>
                                 </Swiper>
-                                <div className="absolute z-[9999] bottom-[25px] right-[15px] flex flex-col gap-1">
+                                <div className="absolute z-[9999] bottom-[25px] right-[15px] flex flex-col gap-1 swiper-opacity">
                                     <button
                                         className={`w-[8px] h-[8px] bg-redPrimary rounded-[4px]`}
                                     ></button>
@@ -260,10 +259,28 @@ const SliderProduct = () => {
                                         className={`w-[8px] h-[8px] bg-indigo-600 rounded-[4px]`}
                                     ></button>
                                 </div>
+                                <div
+                                    onClick={() => setLike(!like)}
+                                    className="absolute z-[999] top-2 right-2 swiper-opacity"
+                                >
+                                    {like ? (
+                                        <IoMdHeart size={24} color="red" />
+                                    ) : (
+                                        <CiHeart size={24} color="gray" />
+                                    )}
+                                </div>
+                                <div className="absolute z-[999] top-2 left-2 flex gap-2">
+                                    <div className="border border-redPrimary text-[10px] text-redPrimary rounded-lg px-1">
+                                        NEW
+                                    </div>
+                                    <div className="border border-black text-[10px] text-black rounded-lg px-1">
+                                        HIT
+                                    </div>
+                                </div>
                             </div>
                             {defaultProduct ? (
                                 <div className="default">
-                                    <div className="mb-5 min-h-[50px]">
+                                    <div className="mb-5 min-h-[70px] ">
                                         <p className="text-fs_7 tracking-wide">
                                             {
                                                 //@ts-ignore

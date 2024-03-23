@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Photo1 from "../../assets/images/catalog1.png";
 import Photo2 from "../../assets/images/catalog2.png";
@@ -12,9 +12,62 @@ import { IoClose } from "react-icons/io5";
 import QuestionIcon from "../../assets/icons/questionIcon.png";
 import SearchIcon from "../../assets/icons/searchIcon.png";
 import MenuIcon from "../../assets/icons/menuIcon.png";
+import RangeSlider from "react-range-slider-input";
+
 const CardSet = () => {
     const [mainPhoto, setMainPhoto] = useState(Photo1);
     const [activeButton, setActiveButton] = useState("photo1");
+    const [product, setProduct] = useState({
+        quantity: 50,
+        price: 100,
+        discount: 0,
+        discountedPrice: 0,
+        discountRange: 0,
+        totalPrice: 0,
+    });
+    useEffect(() => {
+        window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    }, []);
+    function calculateDiscount(quantity: number, price: number) {
+        let discount = 0;
+        if (quantity >= 300) {
+            discount = 0.07;
+            setProduct((prev) => ({
+                ...prev,
+                discount: 7,
+                discountRange: 100,
+            }));
+        } else if (quantity >= 100) {
+            discount = 0.05;
+            setProduct((prev) => ({ ...prev, discount: 5, discountRange: 50 }));
+        } else if (quantity >= 30) {
+            discount = 0.03;
+            setProduct((prev) => ({ ...prev, discount: 3, discountRange: 0 }));
+        } else if (quantity < 30) {
+            discount = 0.03;
+            setProduct((prev) => ({ ...prev, discount: 3, discountRange: 0 }));
+        }
+        const discountedPrice = price * (1 - discount);
+        return discountedPrice;
+    }
+
+    function calculateTotal() {
+        const discountedPrice = calculateDiscount(
+            product.quantity,
+            product.price
+        );
+        const discountedTotalPrice = discountedPrice * product.quantity;
+        const totalPrice = product.price * product.quantity;
+        console.log(totalPrice);
+        setProduct((prev) => ({
+            ...prev,
+            discountedPrice: discountedTotalPrice,
+            totalPrice,
+        }));
+    }
+    useEffect(() => {
+        calculateTotal();
+    }, [product.quantity]);
 
     // const [progress, setProgress] = useState(0);
     // const [isDragging, setIsDragging] = useState(false);
@@ -173,7 +226,7 @@ const CardSet = () => {
                             <div className="flex justify-start items-center gap-10 border-b-2 mb-5">
                                 <button
                                     onClick={() => setMenu(0)}
-                                    className={`text-xl py-3 border-b-[4px] ${
+                                    className={`text-xl py-3 border-b-[4px] outline-none ${
                                         menu == 0
                                             ? " border-redPrimary text-redPrimary"
                                             : "border-[#fff] "
@@ -183,7 +236,7 @@ const CardSet = () => {
                                 </button>
                                 <button
                                     onClick={() => setMenu(1)}
-                                    className={`text-xl py-3 border-b-[4px] ${
+                                    className={`text-xl py-3 border-b-[4px] outline-none ${
                                         menu == 1
                                             ? " border-redPrimary text-redPrimary"
                                             : "border-[#fff]"
@@ -193,7 +246,7 @@ const CardSet = () => {
                                 </button>
                                 <button
                                     onClick={() => setMenu(2)}
-                                    className={`text-xl py-3 border-b-[4px] ${
+                                    className={`text-xl py-3 border-b-[4px] outline-none ${
                                         menu == 2
                                             ? " border-redPrimary text-redPrimary"
                                             : "border-[#fff]"
@@ -448,7 +501,7 @@ const CardSet = () => {
                                 </div>
                             ) : menu == 1 ? (
                                 <div className="flex flex-wrap">
-                                    <div className="setProduct flex justify-between items-center py-5 pr-5  w-1/2">
+                                    <div className="setProduct flex justify-between pb-4  pr-5 w-1/2 border-b-2">
                                         <div className=" block sm:flex justify-start items-start gap-3 w-full">
                                             <div className="w-1/3">
                                                 <Swiper
@@ -481,12 +534,14 @@ const CardSet = () => {
                                             </div>
 
                                             <div className="flex flex-col gap-1">
-                                                <p className="text-lg">
+                                                <p className="text-[16px]">
                                                     Инновационный очиститель
                                                 </p>
-                                                <p>107045356</p>
+                                                <p className="text-[12px]">
+                                                    107045356
+                                                </p>
                                                 <div className="relative mb-3 pt-5">
-                                                    <p className="text-xl">
+                                                    <p className="text-[20px]">
                                                         45.
                                                         <span className="text-xs absolute">
                                                             00
@@ -494,7 +549,7 @@ const CardSet = () => {
                                                         <span className="ml-4 mr-1">
                                                             RUB
                                                         </span>
-                                                        <span className="text-xs absolute line-through text-redPrimary">
+                                                        <span className="text-[12px] absolute line-through text-redPrimary">
                                                             7 545
                                                         </span>
                                                     </p>
@@ -511,7 +566,7 @@ const CardSet = () => {
                                             </button>
                                         </div>
                                     </div>
-                                    <div className="setProduct flex justify-between items-center py-5 pr-5   w-1/2">
+                                    <div className="setProduct flex justify-between pb-4 pl-4 w-1/2 border-l-2 border-b-2">
                                         <div className=" block sm:flex justify-start items-start gap-3 w-full">
                                             <div className="w-1/3">
                                                 <Swiper
@@ -544,12 +599,14 @@ const CardSet = () => {
                                             </div>
 
                                             <div className="flex flex-col gap-1">
-                                                <p className="text-lg">
+                                                <p className="text-[16px]">
                                                     Инновационный очиститель
                                                 </p>
-                                                <p>107045356</p>
+                                                <p className="text-[12px]">
+                                                    107045356
+                                                </p>
                                                 <div className="relative mb-3 pt-5">
-                                                    <p className="text-xl">
+                                                    <p className="text-[20px]">
                                                         45.
                                                         <span className="text-xs absolute">
                                                             00
@@ -557,7 +614,7 @@ const CardSet = () => {
                                                         <span className="ml-4 mr-1">
                                                             RUB
                                                         </span>
-                                                        <span className="text-xs absolute line-through text-redPrimary">
+                                                        <span className="text-[12px] absolute line-through text-redPrimary">
                                                             7 545
                                                         </span>
                                                     </p>
@@ -574,7 +631,7 @@ const CardSet = () => {
                                             </button>
                                         </div>
                                     </div>
-                                    <div className="setProduct flex justify-between items-center py-5 pr-5   w-1/2">
+                                    <div className="setProduct flex justify-between pb-4 pr-5 pt-4 border-b-2 w-1/2">
                                         <div className=" block sm:flex justify-start items-start gap-3 w-full">
                                             <div className="w-1/3">
                                                 <Swiper
@@ -607,12 +664,14 @@ const CardSet = () => {
                                             </div>
 
                                             <div className="flex flex-col gap-1">
-                                                <p className="text-lg">
+                                                <p className="text-[16px]">
                                                     Инновационный очиститель
                                                 </p>
-                                                <p>107045356</p>
+                                                <p className="text-[12px]">
+                                                    107045356
+                                                </p>
                                                 <div className="relative mb-3 pt-5">
-                                                    <p className="text-xl">
+                                                    <p className="text-[20px]">
                                                         45.
                                                         <span className="text-xs absolute">
                                                             00
@@ -620,7 +679,7 @@ const CardSet = () => {
                                                         <span className="ml-4 mr-1">
                                                             RUB
                                                         </span>
-                                                        <span className="text-xs absolute line-through text-redPrimary">
+                                                        <span className="text-[12px] absolute line-through text-redPrimary">
                                                             7 545
                                                         </span>
                                                     </p>
@@ -637,7 +696,7 @@ const CardSet = () => {
                                             </button>
                                         </div>
                                     </div>
-                                    <div className="setProduct flex justify-between items-center py-5 pr-5   w-1/2">
+                                    <div className="setProduct flex justify-between pb-4 pl-4 pt-4 border-l-2 border-b-2  w-1/2">
                                         <div className=" block sm:flex justify-start items-start gap-3 w-full">
                                             <div className="w-1/3">
                                                 <Swiper
@@ -670,12 +729,14 @@ const CardSet = () => {
                                             </div>
 
                                             <div className="flex flex-col gap-1">
-                                                <p className="text-lg">
+                                                <p className="text-[16px]">
                                                     Инновационный очиститель
                                                 </p>
-                                                <p>107045356</p>
+                                                <p className="text-[12px]">
+                                                    107045356
+                                                </p>
                                                 <div className="relative mb-3 pt-5">
-                                                    <p className="text-xl">
+                                                    <p className="text-[20px]">
                                                         45.
                                                         <span className="text-xs absolute">
                                                             00
@@ -683,7 +744,7 @@ const CardSet = () => {
                                                         <span className="ml-4 mr-1">
                                                             RUB
                                                         </span>
-                                                        <span className="text-xs absolute line-through text-redPrimary">
+                                                        <span className="text-[12px] absolute line-through text-redPrimary">
                                                             7 545
                                                         </span>
                                                     </p>
@@ -700,7 +761,7 @@ const CardSet = () => {
                                             </button>
                                         </div>
                                     </div>
-                                    <div className="setProduct flex justify-between items-center py-5 pr-5  w-1/2">
+                                    <div className="setProduct flex justify-between pb-4 pr-5 pt-4 w-1/2">
                                         <div className=" block sm:flex justify-start items-start gap-3 w-full">
                                             <div className="w-1/3">
                                                 <Swiper
@@ -733,12 +794,14 @@ const CardSet = () => {
                                             </div>
 
                                             <div className="flex flex-col gap-1">
-                                                <p className="text-lg">
+                                                <p className="text-[16px]">
                                                     Инновационный очиститель
                                                 </p>
-                                                <p>107045356</p>
+                                                <p className="text-[12px]">
+                                                    107045356
+                                                </p>
                                                 <div className="relative mb-3 pt-5">
-                                                    <p className="text-xl">
+                                                    <p className="text-[20px]">
                                                         45.
                                                         <span className="text-xs absolute">
                                                             00
@@ -746,7 +809,7 @@ const CardSet = () => {
                                                         <span className="ml-4 mr-1">
                                                             RUB
                                                         </span>
-                                                        <span className="text-xs absolute line-through text-redPrimary">
+                                                        <span className="text-[12px] absolute line-through text-redPrimary">
                                                             7 545
                                                         </span>
                                                     </p>
@@ -763,7 +826,7 @@ const CardSet = () => {
                                             </button>
                                         </div>
                                     </div>
-                                    <div className="setProduct flex justify-between items-center py-5 pr-5   w-1/2">
+                                    <div className="setProduct flex justify-between pb-4 pr-5 pt-4 pl-4 border-l-2 w-1/2">
                                         <div className=" block sm:flex justify-start items-start gap-3 w-full">
                                             <div className="w-1/3">
                                                 <Swiper
@@ -796,12 +859,14 @@ const CardSet = () => {
                                             </div>
 
                                             <div className="flex flex-col gap-1">
-                                                <p className="text-lg">
+                                                <p className="text-[16px]">
                                                     Инновационный очиститель
                                                 </p>
-                                                <p>107045356</p>
+                                                <p className="text-[12px]">
+                                                    107045356
+                                                </p>
                                                 <div className="relative mb-3 pt-5">
-                                                    <p className="text-xl">
+                                                    <p className="text-[20px]">
                                                         45.
                                                         <span className="text-xs absolute">
                                                             00
@@ -809,7 +874,7 @@ const CardSet = () => {
                                                         <span className="ml-4 mr-1">
                                                             RUB
                                                         </span>
-                                                        <span className="text-xs absolute line-through text-redPrimary">
+                                                        <span className="text-[12px] absolute line-through text-redPrimary">
                                                             7 545
                                                         </span>
                                                     </p>
@@ -1279,26 +1344,55 @@ const CardSet = () => {
                                 <img src={QuestionIcon} alt="" />
                             </button>
                         </div>
-                        <div className="sm:bg-gray-200 rounded-xs py-2 mb-5 px-2">
+                        <div className="bg-gray-200 rounded-xs py-2 px-3 mb-5">
                             <div className="border-b border-gray-500">
-                                <div className="flex justify-between items-center px-3 py-1">
-                                    <p>Количество:</p>
-                                    <div className="border border-black px-2 rounded">
-                                        256
+                                <div className="flex justify-between items-center py-1">
+                                    <p className="font-normal ">Количество:</p>
+                                    <input
+                                        value={product.quantity}
+                                        onChange={(e) =>
+                                            setProduct((prev: any) => ({
+                                                ...prev,
+                                                quantity: e.target.value,
+                                            }))
+                                        }
+                                        className="border w-[50px] bg-transparent text-fs_7 border-black rounded-md outline-none px-2 tracking-wider font-normal"
+                                    />
+                                </div>
+                                <div className="w-full px-2 py-2">
+                                    <RangeSlider
+                                        color={"red"}
+                                        value={[0, product.discountRange]}
+                                        thumbsDisabled={[false, false]}
+                                        rangeSlideDisabled={true}
+                                    />
+                                    <div className="flex justify-between text-[10px] font-normal py-2">
+                                        <p>
+                                            3% <br />
+                                            30 шт.
+                                        </p>
+                                        <p className="text-center">
+                                            5% <br />
+                                            100 шт.
+                                        </p>
+                                        <p className="text-end">
+                                            7% <br />
+                                            300 шт.
+                                        </p>
                                     </div>
                                 </div>
-                                <div className="flex justify-between items-center px-3 py-1">
+                                <div className="flex justify-between items-center py-1 font-normal">
                                     <p>Стоимость тиража:</p>
-                                    <p>80 619,00 ₽ </p>
+                                    <p>{product.totalPrice} ₽ </p>
                                 </div>
-                                <div className="flex justify-between items-center px-3 py-1">
+                                <div className="flex justify-between items-center py-1">
                                     <p>Скидка:</p>
-                                    <p>5% </p>
+                                    <p>{product.discount}% </p>
                                 </div>
                             </div>
-                            <div className="flex justify-between items-center px-3 py-1">
-                                <p className="text-ls">Итоговая стоимость:</p>
-                                <p className="text-lg">14 619,00 ₽ </p>
+                            <div className="flex justify-between items-center px-3 py-1 text-base">
+                                <b className="">Итоговая стоимость:</b>
+                                <b className="">{product.discountedPrice} ₽ </b>
                             </div>
                         </div>
                         <div className="px-2 sm:px-0">

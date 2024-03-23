@@ -7,7 +7,7 @@ import {
 } from "@material-tailwind/react";
 import Close from "../../assets/icons/close.png";
 
-    // @ts-ignore
+// @ts-ignore
 
 function Icon({ id, open }) {
     return (
@@ -56,12 +56,18 @@ const MoreFilter = () => {
                     } top-0 right-0 z-10`}
                     onClick={() => setFilter(false)}
                 ></div>
-                <button className=" w-8 border h-full border-gray-300 rounded-lg hidden lg:block relative">
+                <button className="filter-btn w-8 border h-full border-gray-300 rounded-lg hidden lg:block relative">
                     <div
                         onClick={handleFilter}
                         className="w-full px-2 h-full flex justify-center items-center"
                     >
                         <img src={filtr} alt="filtr-icon" className="mx-auto" />
+                    </div>
+                    <div className=" hidden md:block w-[70px] h-[30px] border border-gray-400 z-50 absolute bg-white rounded-lg shadow-md top-[45px] left-0 filter-opac">
+                        <span className="w-[20px] h-[20px] bg-white border border-gray-400 rotate-45 top-[-4px] left-[5px] absolute"></span>
+                        <div className="absolute w-full h-full bg-white rounded-lg flex justify-center items-center ">
+                            <p className="text-[12px]">Фильтры</p>
+                        </div>
                     </div>
                     {filter && (
                         <div className="w-[350px] h-[250px] border border-gray-500 z-50 absolute bg-white rounded-xl top-[50px] left-0 ">

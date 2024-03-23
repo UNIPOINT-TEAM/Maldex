@@ -7,6 +7,7 @@ import { useNavigate, Link } from "react-router-dom";
 import Arrow from "../../assets/icons/arrow-right.png";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoClose } from "react-icons/io5";
+import Kepka from "../../assets/images/kepka.png";
 
 const NavbarModal = () => {
     const [activeItem, setActiveItem] = useState(null);
@@ -58,10 +59,10 @@ const NavbarModal = () => {
             {modal && (
                 <>
                     <div className="modal top-[115px] absolute left-0 h-[115vh] w-full  bg-[#00000074] z-20  hidden md:flex">
-                        <div className="w-[25%] bg-white px-3 py-1">
+                        <div className="w-[25%] bg-white px-3 py-1 flex flex-col items-start">
                             {response.map((i, index) => (
                                 <div
-                                    className={`w-full flex p-1.5 gap-[15px] items-center hover:bg-red-300 hover:text-white rounded-[8px] mb-[15px] ${
+                                    className={`flex p-1.5 gap-[15px] items-center hover:bg-red-300 hover:text-white rounded-[8px] mb-[15px] px-3 ${
                                         activeItem === index
                                             ? "bg-redPrimary text-white"
                                             : "hover:bg-redPrimary hover:text-white"
@@ -141,12 +142,12 @@ const NavbarModal = () => {
                                         onClick={productDetail}
                                         className="w-full h-[30%] bg-slate-100 hover:bg-[#fff] flex justify-center items-center relative productCatalog cursor-pointer"
                                     >
-                                        <p className="absolute top-5 left-5 text-lg nameProductCatalog text-slate-100">
+                                        <p className="absolute top-5 left-5 text-lg nameProductCatalog ">
                                             {Product[3].name}
                                         </p>
                                         <img
-                                            className="w-[60%] h-[60%] object-contain"
-                                            src={Product[3].img}
+                                            className="w-[50%] h-[50%] object-contain"
+                                            src={Kepka}
                                             alt=""
                                         />
                                         <div className="w-full absolute bottom-5 right-5">
@@ -206,8 +207,8 @@ const NavbarModal = () => {
                                     >
                                         <div className="text-start">
                                             <p className="text-2xl font-bold text-redPrimary">
-                                                просмотреть <br /> все <br />{" "}
-                                                продукты
+                                                смотреть <br /> все <br />{" "}
+                                                товары
                                             </p>
                                         </div>
                                         <div className="w-full">

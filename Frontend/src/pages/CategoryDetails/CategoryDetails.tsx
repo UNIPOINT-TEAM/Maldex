@@ -113,7 +113,7 @@ const CategoryDetails = () => {
     calculateTotal();
   }, [product.quantity]);
 
-  
+
   return (
     <div className="container_xxl tracking-wider overflow-hidden">
       <div className="grid grid-cols-3 lg:grid-cols-10 my-5">

@@ -64,8 +64,8 @@ const Card = () => {
                                                 <div className="row-span-1"></div>
                                             </div>
                                         </div>
-                                        <div className="col-span-2 ">
-                                            <div className="grid grid-rows-5 ">
+                                        <div className="col-span-2">
+                                            <div className="grid grid-rows-5 h-full">
                                                 <div className="row-span-1">
                                                     <p className="text-[16px] teext-slate-950">
                                                         Размер
@@ -80,19 +80,20 @@ const Card = () => {
                                                     <p className="text-xs teext-slate-950 row-span-1 mb-1">
                                                         Количество
                                                     </p>
-                                                    <div className="w-1/2 flex justify-center items-center border border-slate-500 rounded-xl">
-                                                        <p className="">20</p>
+                                                    <div className="w-[50px] flex justify-center items-center rounded-xl">
+                                                        <input className="border border-black w-[50px] rounded-md px-1 outline-none" placeholder="20" type="text" />
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="col-span-1">
+                                        <div className="col-span-1 flex items-start justify-end">
                                             <button>
                                                 <img src={Trash} alt="" />
                                             </button>
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                             <div className="sm:hidden mb-5">
                                 <div className="CardItem border-t-2 w-full border-gray-400 mt-2 mb-[40px] py-5">
@@ -204,7 +205,7 @@ const Card = () => {
                                                 />
                                             </div>
                                         </div>
-                                        <div className="w-1/3 flex flex-col justify-between h-full">
+                                        <div className="w-1/3 flex flex-col justify-between h-full bg-redPrimary">
                                             <p className="text-lg teext-slate-950">
                                                 15 185.55 ₽
                                             </p>
@@ -275,7 +276,7 @@ const Card = () => {
                                 <button className="text-sm rounded-xl border-2 px-2 py-1 border-teal-200 text-teal-200">
                                     Поделиться корзиной{" "}
                                 </button>
-                                <button className="hidden sm-block text-sm rounded-xl border-2 px-2 py-1 border-teal-200 text-teal-200">
+                                <button className="hidden sm:block text-sm rounded-xl border-2 px-2 py-1 border-teal-200 text-teal-200">
                                     создать кп
                                 </button>
                             </div>
