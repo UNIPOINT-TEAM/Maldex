@@ -36,7 +36,7 @@ function ProjectsSlider() {
       <div className="mx-3">
         <ProductNav title="ПРОЕКТЫ" color="gray" />
         <div className="my-5 lg:h-[440px]">
-          <div className="flex h-full hidden lg:flex">
+          <div className="h-full hidden lg:flex">
             <div className="h-[410px] flex items-center">
               <button className="absolute z-50 -ml-[10px] " onClick={goPrev}>
                 <img src={prev} alt="" className="w-[32px]" />
