@@ -58,7 +58,7 @@ const NavbarModal = () => {
             </button>
             {modal && (
                 <>
-                    <div className="modal top-[115px] absolute left-0 h-[115vh] w-full  bg-[#00000074] z-20  hidden md:flex">
+                    <div className="modal top-[115px] absolute left-0 h-[115vh] w-full  bg-[#00000074] z-50  hidden md:flex">
                         <div className="w-[25%] bg-white px-3 py-1 flex flex-col items-start">
                             {response.map((i, index) => (
                                 <div
