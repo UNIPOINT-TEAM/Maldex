@@ -197,7 +197,7 @@ const SliderProduct = () => {
         // @ts-ignore
         scrollbar={{ draggable: true }}
         modules={[Navigation, Scrollbar]}
-        className=" w-full overscroll-x-auto h-[500px]"
+        className=" w-full overscroll-x-auto h-[400px] md:h-[500px]"
       >
         {/* @ts-ignore */}
         {response.results?.map((item) => (
@@ -269,7 +269,7 @@ const SliderProduct = () => {
               </div>
               {defaultProduct ? (
                 <div className="default">
-                  <div className="mb-5 min-h-[70px] ">
+                  <div className="mb-2 md:mb-5 min-h-[40px] md:min-h-[70px] ">
                     <p className="text-fs_7 tracking-wide">
                       {
                         //@ts-ignore
@@ -285,7 +285,7 @@ const SliderProduct = () => {
                     {item.vendor_code}
                   </p>
                   <div className="relative mb-2">
-                    <p className="text-fs_4">
+                    <p className="text-[16px] md:text-fs_4">
                       {item.price}
                       <span className="text-xs absolute top-0">12</span>
                       <span className="ml-4 mr-1">{item.price_type}</span>
