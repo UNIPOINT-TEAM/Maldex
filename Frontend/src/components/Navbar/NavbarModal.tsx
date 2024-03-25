@@ -57,9 +57,9 @@ const NavbarModal = () => {
                 </span>
             </button>
             {modal && (
-                <>
-                    <div className="modal top-[115px] absolute left-0 h-[115vh] w-full  bg-[#00000074] z-50  hidden md:flex">
-                        <div className="w-[25%] bg-white px-3 py-1 flex flex-col items-start">
+                <div className="">
+                    <div className="modal top-[115px] absolute bg-[#fff] left-0 h-full w-full z-[9999]  hidden md:flex">
+                        <div className="w-[25%] bg-white h-full   px-3 py-1 flex flex-col items-start z-[999] overflow-y-scroll scrollbar-custom">
                             {response.map((i, index) => (
                                 <div
                                     className={`flex p-1.5 gap-[15px] items-center hover:bg-red-300 hover:text-white rounded-[8px] mb-[15px] px-3 ${
@@ -120,7 +120,7 @@ const NavbarModal = () => {
                             ""
                         )}
                         {activeItem !== null ? (
-                            <div className="w-[40%] bg-gray-200 h-[115vh] px-3 py-1 flex">
+                            <div className="w-[40%] bg-gray-200 h-[80vh] px-3 py-1 flex">
                                 <div className="h-full w-1/2 flex flex-col">
                                     <div
                                         onClick={productDetail}
@@ -133,7 +133,7 @@ const NavbarModal = () => {
                                         <div className="w-full absolute bottom-5 right-5">
                                             <div className="float-end">
                                                 <button className="p-1 rounded bg-slate-100 btnProductCatalog">
-                                                    <img src={Arrow} alt="" />
+                                                    <img className="object-contain" src={Arrow} alt="" />
                                                 </button>
                                             </div>
                                         </div>
@@ -153,7 +153,7 @@ const NavbarModal = () => {
                                         <div className="w-full absolute bottom-5 right-5">
                                             <div className="float-end">
                                                 <button className="p-1 rounded bg-slate-100 btnProductCatalog">
-                                                    <img src={Arrow} alt="" />
+                                                    <img src={Arrow} alt="" className="object-contain" />
                                                 </button>
                                             </div>
                                         </div>
@@ -188,7 +188,7 @@ const NavbarModal = () => {
                                             {Product[1].name}
                                         </p>
                                         <img
-                                            className="w-[50%] h-[50%]"
+                                            className="w-[50%] h-[80%] object-contan"
                                             src={Product[1].img}
                                             alt=""
                                         />
@@ -299,7 +299,7 @@ const NavbarModal = () => {
                             </div>
                         </div>
                     </div>
-                </>
+                </div>
             )}
         </>
     );
