@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 // @ts-ignore
 import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
-import { Banner, SliderProduct, TabList } from "../../components";
+import { Banner, QuestForm, SliderProduct, TabList } from "../../components";
 import Tshirt from "../../assets/t-shirt.svg";
 import nasilnenie_l from "../../assets/shirt-l.png";
 import nasilnenie_r from "../../assets/shirt-r.png";
@@ -432,10 +432,14 @@ const CategoryDetails = () => {
                     </div>
                 </div>
             </div>
-            <SliderProduct />
+            <div className="mb-16 mt-16">
+                <SliderProduct />
+            </div>
+
             <div className="my-5">
                 <Banner />
             </div>
+            <QuestForm />
         </div>
     );
 };

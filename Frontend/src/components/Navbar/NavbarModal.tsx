@@ -63,8 +63,8 @@ const NavbarModal = () => {
             </button>
             {modal && (
                 <div className="">
-                    <div className="modal top-[115px] absolute bg-[#fff] left-0 h-[85vh] w-full z-[9999]  hidden md:flex">
-                        <div className="w-[25%] bg-white h-full  px-3 py-1 flex flex-col items-start z-[999] overflow-y-scroll scrollbar-custom">
+                    <div className="modal top-[115px] absolute bg-[#fff] left-0 h-[90vh] w-full z-[9999]  hidden md:flex mb-5">
+                        <div className="w-[25%] bg-white h-full  px-3 py-1 flex flex-col items-start z-[999] overflow-y-scroll scrollbar-custom ">
                             {response.map((i, index) => (
                                 <div
                                     className={`flex p-1.5 gap-[15px] items-center hover:bg-red-300 hover:text-white rounded-[8px] mb-[15px] px-3 ${
@@ -125,7 +125,7 @@ const NavbarModal = () => {
                             ""
                         )}
                         {activeItem !== null ? (
-                            <div className="w-[40%] bg-gray-200 h-[80vh] px-3 py-1 flex">
+                            <div className="w-[40%] bg-gray-200 h-full px-3 py-1 flex">
                                 <div className="h-full w-1/2 flex flex-col">
                                     <div
                                         onClick={productDetail}

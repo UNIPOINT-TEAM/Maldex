@@ -335,6 +335,7 @@ const Catalog = () => {
                     <SliderProduct />
                 </div>
             </div>
+            <QuestForm />
         </div>
     );
 };
