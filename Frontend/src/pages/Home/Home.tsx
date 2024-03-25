@@ -18,10 +18,10 @@ const Home = () => {
       <div className="banner container_xxl px-3">
         <Banner />
       </div>
-      <div className="dishes container_xxl my-10 hidden lg:block px-3">
+      <div className="dishes container_xxl mt-10 hidden lg:block px-3">
         <MainCategory />
       </div>
-      <div className="container_xxl px-3">
+      <div className="container_xxl px-3  mt-16">
         <ProductNav title="hits!" color="green" />
       </div>
       <div className="w-full">
@@ -30,7 +30,7 @@ const Home = () => {
       <div className="dishes container_xxl my-10 px-3">
         <div className="flex items-center justify-between">
           <h3 className="section-title">посуда</h3>
-          <button className="border block md:hidden rounded-lg border-redPrimary py-1 px-2 text-redPrimary font-extrabold">
+          <button className="mx-3 uppercase text-fs_8 font-bold p-[6px] tracking-wide  border border-redPrimary rounded-lg text-redPrimary block ss:hidden">
             Все товары
           </button>
         </div>
@@ -40,9 +40,11 @@ const Home = () => {
         <h3 className="section-title">FAQ</h3>
         <Accordion />
       </div>
-      <News title="статьи" />
+      <div className="mb-10">
+        <News title="статьи" />
+      </div>
       <ProjectsSlider />
-      <div className="container_xxl px-3">
+      <div className="container_xxl px-3 mt-10">
         <ProductNav title="new!" color="red" />
       </div>
       <div className="w-full">

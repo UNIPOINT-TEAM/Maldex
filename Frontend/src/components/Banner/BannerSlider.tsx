@@ -16,7 +16,7 @@ const BannerSlider = () => {
     <div className="banner-carusel relative w-full h-full bg-greenPrimary flex  p-[12px] lg:p-[20px] text-white font-helvetica-neue">
       <div className="w-[55%] flex flex-col justify-between">
         <div>
-          <span className="border text-[8px] lg:text-[11px] uppercase p-1 tracking-wide rounded-md">
+          <span className="border  font-medium text-[8px] lg:text-[11px] uppercase p-1 tracking-wide rounded-md">
             корпоративные подарки
           </span>
           <h2 className="font-bold lg:font-medium text-base lg:text-[30px] m-0  tracking-wide leading-none lg:leading-none mt-2 lg:mt-4">

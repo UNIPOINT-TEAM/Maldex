@@ -197,7 +197,7 @@ const SliderProduct = () => {
         // @ts-ignore
         scrollbar={{ draggable: true }}
         modules={[Navigation, Scrollbar]}
-        className=" w-full overscroll-x-auto h-[400px] md:h-[500px]"
+        className=" w-full overscroll-x-auto h-[430px] md:h-[500px]"
       >
         {/* @ts-ignore */}
         {response.results?.map((item) => (
@@ -209,6 +209,21 @@ const SliderProduct = () => {
                   modules={[Navigation, Pagination]}
                   className="  h-full"
                 >
+                  <SwiperSlide className="w-full h-full">
+                    <div
+                      onClick={() => handleOpen("xl")}
+                      className="relative  h-full"
+                    >
+                      <div className="flex justify-center items-center h-full">
+                        <img
+                          className="mb-2 w-[50px] h-[50px] object-contain product-img"
+                          //@ts-ignore
+                          src={item.image}
+                          alt=""
+                        />
+                      </div>
+                    </div>
+                  </SwiperSlide>
                   <SwiperSlide className="w-full h-full">
                     <div
                       onClick={() => handleOpen("xl")}
@@ -269,7 +284,7 @@ const SliderProduct = () => {
               </div>
               {defaultProduct ? (
                 <div className="default">
-                  <div className="mb-2 md:mb-5 min-h-[40px] md:min-h-[70px] ">
+                  <div className="mb-2 md:mb-5  min-h-[70px] ">
                     <p className="text-fs_7 tracking-wide">
                       {
                         //@ts-ignore

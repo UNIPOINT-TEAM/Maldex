@@ -32,7 +32,7 @@ const AccordionMaldex = () => {
             onClick={() => handleOpen(item.id)}
             placeholder={<div />}
           >
-            <h3 className="font-normal font-Helvetica-Neue text-fs_4 lg:text-fs_4 text-darkSecondary ">
+            <h3 className="font-normal font-Helvetica-Neue text-fs_8 lg:text-fs_4 text-darkSecondary ">
               {item.title}
             </h3>
           </AccordionHeader>

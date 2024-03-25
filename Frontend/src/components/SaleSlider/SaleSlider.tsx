@@ -15,7 +15,7 @@ function SaleSlider() {
   const slider = useRef<Slider>(null);
   return (
     <div className="bg-white my-2 sale-slider">
-      <div className="container_xxl  px-3 lg:px-0">
+      <div className="container_xxl  px-3 ">
         <div className="w-full relative">
           <Slider
             className="h-[40px] lg:h-[50px] px-10 font-normal cursor-pointer"
@@ -48,13 +48,13 @@ function SaleSlider() {
           <div className="bg-black h-0 absolute w-full left-0 top-[35%] ">
             <button
               onClick={() => slider?.current?.slickPrev()}
-              className="absolute ps-3"
+              className="absolute "
             >
               <img src={prev} alt="" />
             </button>
             <button
               onClick={() => slider?.current?.slickNext()}
-              className="absolute right-0 pe-3"
+              className="absolute right-0 "
             >
               <img src={next} alt="carusel-arrow" />
             </button>
