@@ -2,9 +2,9 @@ import {
   Card,
   List,
   ListItem,
-  ListItemPrefix,
-  ListItemSuffix,
+
 } from "@material-tailwind/react";
+
 
 const AdminPanel = () => {
   return (
@@ -18,40 +18,32 @@ const AdminPanel = () => {
         <List>
           {/* @ts-ignore */}
           <ListItem>
-            {/* @ts-ignore */}
-            <ListItemPrefix></ListItemPrefix>
+
+
             настройки
           </ListItem>
-          {/* @ts-ignore */}
+{/* @ts-ignore */}
           <ListItem>
-            {/* @ts-ignore */}
-            <ListItemPrefix></ListItemPrefix>
+
+
             конструктор предложений          </ListItem>
-            {/* @ts-ignore */}
+{/* @ts-ignore */}
           <ListItem>
-            {/* @ts-ignore */}
-            <ListItemPrefix></ListItemPrefix>
+
             регистрация/вход
-            {/* @ts-ignore */}
-            <ListItemSuffix>
-              {/* <Chip value="14" size="sm" variant="ghost" color="blue-gray" className="rounded-full" /> */}
-            </ListItemSuffix>
+
+
           </ListItem>
           {/* @ts-ignore */}
           <ListItem>
-            {/* @ts-ignore */}
-            <ListItemPrefix></ListItemPrefix>
             выйти из лк
           </ListItem>
           {/* @ts-ignore */}
           <ListItem>
             {/* @ts-ignore */}
-            <ListItemPrefix></ListItemPrefix>
             файлы и прайсы          </ListItem>
             {/* @ts-ignore */}
           <ListItem>
-            {/* @ts-ignore */}
-            <ListItemPrefix></ListItemPrefix>
             Log Out
           </ListItem>
         </List>
