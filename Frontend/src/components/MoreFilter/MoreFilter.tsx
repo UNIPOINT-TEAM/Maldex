@@ -63,12 +63,15 @@ const MoreFilter = () => {
                     >
                         <img src={filtr} alt="filtr-icon" className="mx-auto" />
                     </div>
-                    <div className=" hidden md:block w-[70px] h-[30px] border border-gray-400 z-50 absolute bg-white rounded-lg shadow-md top-[45px] left-0 filter-opac">
-                        <span className="w-[20px] h-[20px] bg-white border border-gray-400 rotate-45 top-[-4px] left-[5px] absolute"></span>
-                        <div className="absolute w-full h-full bg-white rounded-lg flex justify-center items-center ">
-                            <p className="text-[12px]">Фильтры</p>
+                    {!filter && (
+                        <div className=" hidden md:block w-[70px] h-[30px] border border-gray-400 z-50 absolute bg-white rounded-lg shadow-md top-[45px] left-0 filter-opac">
+                            <span className="w-[20px] h-[20px] bg-white border border-gray-400 rotate-45 top-[-4px] left-[5px] absolute"></span>
+                            <div className="absolute w-full h-full bg-white rounded-lg flex justify-center items-center ">
+                                <p className="text-[12px]">Фильтры</p>
+                            </div>
                         </div>
-                    </div>
+                    )}
+
                     {filter && (
                         <div className="w-[350px] h-[250px] border border-gray-500 z-50 absolute bg-white rounded-xl top-[50px] left-0 ">
                             <span className="w-[20px] h-[20px] bg-white border border-gray-500 rotate-45 top-[-4px] left-[10px] absolute"></span>
