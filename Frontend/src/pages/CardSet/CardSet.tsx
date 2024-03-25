@@ -223,7 +223,193 @@ const CardSet = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="hidden md:block w-full py-2">
+                        <div className="md:hidden w-full sm:w-[25%] pl-0 sm:pl-[50px]">
+                            <div className=" border-0 sm:border-l-2 sm:pl-5 py-3 mb-5 ">
+                                <p className="text-xl my-3">
+                                    Ваш набор <span>Майя</span>
+                                </p>
+                                <div className="flex flex-wrap sm:flex-col sm:flex-nowrap justify-between gap-2">
+                                    <div className="setProduct w-[48%] flex justify-between items-center py-5 sm:border-b-2">
+                                        <div className="w-full sm:w-[90%] block sm:flex justify-start items-center gap-3 ">
+                                            <img
+                                                className="w-full sm:w-[100px] object-contain mb-2"
+                                                src={CarouselImg}
+                                                alt=""
+                                            />
+                                            <div className="flex flex-col gap-1">
+                                                <p className="text-[12px]">
+                                                    Инновационный <br />{" "}
+                                                    очиститель
+                                                </p>
+                                                <p className="text-xs mb-3">
+                                                    15 185.55 ₽
+                                                </p>
+                                                <p className="text-[10px] text-gray-600">
+                                                    107045356
+                                                </p>
+                                            </div>
+                                            <div className="flex justify-between items-center py-1 sm:hidden gap-3">
+                                                <p>Количество</p>
+                                                <button className="border-2 border-gray-800 px-4 rounded flex justify-center items-center">
+                                                    20
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div className=" justify-center items-center gap-2 setBtns hidden sm:flex sm:flex-col">
+                                            <button>
+                                                <IoClose />
+                                            </button>
+                                            <button>
+                                                <i className="fa-solid fa-plus text-gray-400"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="setProduct w-[48%] flex justify-between items-center py-5 sm:border-b-2">
+                                        <div className="w-full sm:w-[90%] block sm:flex justify-start items-center gap-3 ">
+                                            <img
+                                                className="w-full sm:w-[100px] object-contain mb-2"
+                                                src={CarouselImg}
+                                                alt=""
+                                            />
+                                            <div className="flex flex-col gap-1">
+                                                <p className="text-[12px]">
+                                                    Инновационный <br />{" "}
+                                                    очиститель
+                                                </p>
+                                                <p className="text-xs mb-3">
+                                                    15 185.55 ₽
+                                                </p>
+                                                <p className="text-[10px] text-gray-600">
+                                                    107045356
+                                                </p>
+                                            </div>
+                                            <div className="flex justify-between items-center py-1 sm:hidden gap-3">
+                                                <p>Количество</p>
+                                                <button className="border-2 border-gray-800 px-4 rounded flex justify-center items-center">
+                                                    20
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div className=" justify-center items-center gap-2 setBtns hidden sm:flex sm:flex-col">
+                                            <button>
+                                                <IoClose />
+                                            </button>
+                                            <button>
+                                                <i className="fa-solid fa-plus text-gray-400"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="setProduct w-[48%] flex justify-between items-center py-5 sm:border-b-2">
+                                        <div className="w-full sm:w-[90%] block sm:flex justify-start items-center gap-3 ">
+                                            <img
+                                                className="w-full sm:w-[100px] object-contain mb-2"
+                                                src={CarouselImg}
+                                                alt=""
+                                            />
+                                            <div className="flex flex-col gap-1">
+                                                <p className="text-[12px]">
+                                                    Инновационный <br />{" "}
+                                                    очиститель
+                                                </p>
+                                                <p className="text-xs mb-3">
+                                                    15 185.55 ₽
+                                                </p>
+                                                <p className="text-[10px] text-gray-600">
+                                                    107045356
+                                                </p>
+                                            </div>
+                                            <div className="flex justify-between items-center py-1 sm:hidden gap-3">
+                                                <p>Количество</p>
+                                                <button className="border-2 border-gray-800 px-4 rounded flex justify-center items-center">
+                                                    20
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div className=" justify-center items-center gap-2 setBtns hidden sm:flex sm:flex-col">
+                                            <button>
+                                                <IoClose />
+                                            </button>
+                                            <button>
+                                                <i className="fa-solid fa-plus text-gray-400"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="flex justify-between items-center mb-5">
+                                <button className="text-greenPrimary">
+                                    + Добавить нанесение
+                                </button>
+                                <button>
+                                    <img src={QuestionIcon} alt="" />
+                                </button>
+                            </div>
+                            <div className="bg-gray-200 rounded-xs py-2 px-3 mb-5">
+                                <div className="border-b border-gray-500">
+                                    <div className="flex justify-between items-center py-1">
+                                        <p className="font-normal ">
+                                            Количество:
+                                        </p>
+                                        <input
+                                            value={product.quantity}
+                                            onChange={(e) =>
+                                                setProduct((prev: any) => ({
+                                                    ...prev,
+                                                    quantity: e.target.value,
+                                                }))
+                                            }
+                                            className="border w-[50px] bg-transparent text-fs_7 border-black rounded-md outline-none px-2 tracking-wider font-normal"
+                                        />
+                                    </div>
+                                    <div className="w-full px-2 py-2">
+                                        <RangeSlider
+                                            color={"red"}
+                                            value={[0, product.discountRange]}
+                                            thumbsDisabled={[false, false]}
+                                            rangeSlideDisabled={true}
+                                        />
+                                        <div className="flex justify-between text-[10px] font-normal py-2">
+                                            <p>
+                                                3% <br />
+                                                30 шт.
+                                            </p>
+                                            <p className="text-center">
+                                                5% <br />
+                                                100 шт.
+                                            </p>
+                                            <p className="text-end">
+                                                7% <br />
+                                                300 шт.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div className="flex justify-between items-center py-1 font-normal">
+                                        <p>Стоимость тиража:</p>
+                                        <p>{product.totalPrice} ₽ </p>
+                                    </div>
+                                    <div className="flex justify-between items-center py-1">
+                                        <p>Скидка:</p>
+                                        <p>{product.discount}% </p>
+                                    </div>
+                                </div>
+                                <div className="flex justify-between items-center px-3 py-1 text-base">
+                                    <b className="">Итоговая стоимость:</b>
+                                    <b className="">
+                                        {product.discountedPrice} ₽{" "}
+                                    </b>
+                                </div>
+                            </div>
+                            <div className=" sm:px-0">
+                                <button className="w-full py-4 bg-redPrimary text-white text-xs rounded">
+                                    В КОРЗИНУ
+                                </button>
+                            </div>
+                        </div>
+                        <div className=" w-full py-2">
                             <div className="flex justify-start items-center gap-10 border-b-2 mb-5">
                                 <button
                                     onClick={() => setMenu(0)}
@@ -237,7 +423,7 @@ const CardSet = () => {
                                 </button>
                                 <button
                                     onClick={() => setMenu(1)}
-                                    className={`text-xl py-3 border-b-[4px] outline-none ${
+                                    className={`hidden md:block text-xl py-3 border-b-[4px] outline-none ${
                                         menu == 1
                                             ? " border-redPrimary text-redPrimary"
                                             : "border-[#fff]"
@@ -316,7 +502,7 @@ const CardSet = () => {
                                             дюйма x высота 7,2 дюйма.
                                         </li>
                                     </ul>
-                                    <div className="mb-10">
+                                    <div className="hidden md:block mb-10">
                                         <div className="flex justify-between items-start border-b-2 py-5 gap-20">
                                             <div className="w-1/4">
                                                 <Swiper
@@ -919,8 +1105,8 @@ const CardSet = () => {
                             ) : (
                                 <div>
                                     <div className="flex mb-5">
-                                        <div className="w-full flex gap-5 justify-between">
-                                            <div className="w-[70%] border h-[34px] rounded-lg p-1 flex">
+                                        <div className="w-full flex flex-col md:flex-row gap-5 justify-between">
+                                            <div className="w-full md:w-[70%] border h-[34px] rounded-lg p-1 flex">
                                                 <div className="h-full w-[30px] flex justify-center items-center">
                                                     <img
                                                         src={SearchIcon}
@@ -932,29 +1118,34 @@ const CardSet = () => {
                                                     placeholder="поиск"
                                                 />
                                             </div>
-                                            <div className="w-[10%] border h-[34px] rounded-lg p-1 flex">
-                                                <div className="h-full w-[30px] flex justify-center items-center">
-                                                    <img
-                                                        src={MenuIcon}
-                                                        alt=""
-                                                    />{" "}
+                                            <div className="flex md:w-[30%] gap-5">
+                                                <div className="w-1/3 md:w-[40%] border h-[34px] rounded-lg p-1 flex">
+                                                    <div className="h-full w-[30px] flex justify-center items-center">
+                                                        <img
+                                                            src={MenuIcon}
+                                                            alt=""
+                                                        />{" "}
+                                                    </div>
+                                                    <p className="text-gray-500">
+                                                        Каталог
+                                                    </p>
                                                 </div>
-                                                <p className="text-gray-500">
-                                                    Каталог
-                                                </p>
-                                            </div>
-                                            <div className="w-[18%] border h-[34px] rounded-lg p-1 flex">
-                                                <div className="h-full w-[30px] flex justify-center items-center">
-                                                    <img src={filtr} alt="" />
+                                                <div className="w-1/2 md:w-[50%] border h-[34px] rounded-lg p-1 flex">
+                                                    <div className="h-full w-[30px] flex justify-center items-center">
+                                                        <img
+                                                            src={filtr}
+                                                            alt=""
+                                                        />
+                                                    </div>
+                                                    <p className="text-gray-500">
+                                                        Все фильтры{" "}
+                                                    </p>
                                                 </div>
-                                                <p className="text-gray-500">
-                                                    Все фильтры{" "}
-                                                </p>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="flex justify-between">
-                                        <div className="catalog px-1 w-1/5">
+                                    <div className="flex flex-wrap justify-between">
+                                        <div className="catalog px-1 w-1/2 md:w-1/5">
                                             <div className="relative w-full catalogImgBox h-[220px]">
                                                 <Swiper
                                                     pagination={true}
@@ -1042,7 +1233,7 @@ const CardSet = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="catalog px-1 w-1/5">
+                                        <div className="catalog px-1 w-1/2 md:w-1/5">
                                             <div className="relative w-full catalogImgBox h-[220px]">
                                                 <Swiper
                                                     pagination={true}
@@ -1130,7 +1321,95 @@ const CardSet = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="catalog px-1 w-1/5">
+                                        <div className="catalog px-1 w-1/2 md:w-1/5">
+                                            <div className="relative w-full catalogImgBox h-[220px]">
+                                                <Swiper
+                                                    pagination={true}
+                                                    modules={[Pagination]}
+                                                    className="swiper-item h-full"
+                                                >
+                                                    <SwiperSlide>
+                                                        <div className="relative h-full">
+                                                            <div className="flex justify-center items-center h-full">
+                                                                <img
+                                                                    className="mb-2 object-cover"
+                                                                    src={
+                                                                        CarouselImg
+                                                                    }
+                                                                    alt=""
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    </SwiperSlide>
+                                                </Swiper>
+                                                <div className="absolute z-[9999] bottom-[25px] right-[15px] flex flex-col gap-1">
+                                                    <button
+                                                        className={`w-[8px] h-[8px] bg-redPrimary rounded-[4px]`}
+                                                    ></button>
+                                                    <button
+                                                        className={`w-[8px] h-[8px] bg-orange-600 rounded-[4px]`}
+                                                    ></button>
+                                                    <button
+                                                        className={`w-[8px] h-[8px] bg-green-600 rounded-[4px]`}
+                                                    ></button>
+                                                    <button
+                                                        className={`w-[8px] h-[8px] bg-greenPrimary rounded-[4px]`}
+                                                    ></button>
+                                                    <button
+                                                        className={`w-[8px] h-[8px] bg-blue-600 rounded-[4px]`}
+                                                    ></button>
+                                                    <button
+                                                        className={`w-[8px] h-[8px] bg-purple-600 rounded-[4px]`}
+                                                    ></button>
+                                                    <button
+                                                        className={`w-[8px] h-[8px] bg-indigo-600 rounded-[4px]`}
+                                                    ></button>
+                                                </div>
+                                            </div>
+
+                                            <div className="default">
+                                                <div className="mb-5">
+                                                    <p className="text-fs_7 tracking-wide">
+                                                        Маска для лица
+                                                    </p>
+                                                </div>
+                                                <p className="mb-2">
+                                                    Lorem ipsum dolor sit amet.
+                                                </p>
+                                                <div className="relative mb-2">
+                                                    <p className="text-xl">
+                                                        88888
+                                                        <span className="text-xs absolute top-0">
+                                                            12
+                                                        </span>
+                                                        <span className="ml-4 mr-1">
+                                                            RUB
+                                                        </span>
+                                                        <span className="text-xs absolute top-0 line-through text-redPrimary">
+                                                            234
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                                <div className="flex justify-between catalog_btns">
+                                                    <button className="bg-redPrimary px-4 py-2 text-white rounded-lg shadow-lg shadow-gray-400">
+                                                        добавить
+                                                    </button>
+
+                                                    <button className="bg-gray-300 px-3 py-1 rounded-lg text-gray-700">
+                                                        <Link
+                                                            to={"category/1"}
+                                                            className="w-full h-full flex justify-center items-center"
+                                                        >
+                                                            <img
+                                                                src={SearchIcon}
+                                                                alt=""
+                                                            />
+                                                        </Link>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="catalog px-1 w-1/2 md:w-1/5">
                                             <div className="relative w-full catalogImgBox h-[220px]">
                                                 <Swiper
                                                     pagination={true}
@@ -1223,28 +1502,31 @@ const CardSet = () => {
                             )}
                         </div>
                     </div>
-                    <div className="w-full sm:w-[25%] pl-0 sm:pl-[50px]">
+                    <div className="hidden md:block w-full sm:w-[25%] pl-0 sm:pl-[50px]">
                         <div className=" border-0 sm:border-l-2 sm:pl-5 py-3 mb-5 px-2">
                             <p className="text-xl my-3">
                                 Ваш набор <span>Майя</span>
                             </p>
-                            <div className="flex flex-wrap sm:flex-col sm:flex-nowrap justify-start gap-2">
-                                <div className="setProduct flex justify-between items-center py-5 sm:border-b-2">
+                            <div className="flex flex-wrap sm:flex-col sm:flex-nowrap justify-between gap-2">
+                                <div className="setProduct w-[48%] flex justify-between items-center py-5 sm:border-b-2">
                                     <div className="w-full sm:w-[90%] block sm:flex justify-start items-center gap-3 ">
                                         <img
-                                            className="w-full sm:w-[100px] object-contain"
+                                            className="w-full sm:w-[100px] object-contain mb-2"
                                             src={CarouselImg}
                                             alt=""
                                         />
                                         <div className="flex flex-col gap-1">
-                                            <p className="text-xs">
+                                            <p className="text-[12px]">
                                                 Инновационный <br /> очиститель
                                             </p>
-                                            <p className="text-xs">
+                                            <p className="text-xs mb-3">
                                                 15 185.55 ₽
                                             </p>
+                                            <p className="text-[10px] text-gray-600">
+                                                107045356
+                                            </p>
                                         </div>
-                                        <div className="flex justify-between items-center py-3 sm:hidden gap-3">
+                                        <div className="flex justify-between items-center py-1 sm:hidden gap-3">
                                             <p>Количество</p>
                                             <button className="border-2 border-gray-800 px-4 rounded flex justify-center items-center">
                                                 20
@@ -1261,22 +1543,25 @@ const CardSet = () => {
                                         </button>
                                     </div>
                                 </div>
-                                <div className="setProduct flex justify-between items-center py-5 sm:border-b-2">
+                                <div className="setProduct w-[48%] flex justify-between items-center py-5 sm:border-b-2">
                                     <div className="w-full sm:w-[90%] block sm:flex justify-start items-center gap-3 ">
                                         <img
-                                            className="w-full sm:w-[100px] object-contain"
+                                            className="w-full sm:w-[100px] object-contain mb-2"
                                             src={CarouselImg}
                                             alt=""
                                         />
                                         <div className="flex flex-col gap-1">
-                                            <p className="text-xs">
+                                            <p className="text-[12px]">
                                                 Инновационный <br /> очиститель
                                             </p>
-                                            <p className="text-xs">
+                                            <p className="text-xs mb-3">
                                                 15 185.55 ₽
                                             </p>
+                                            <p className="text-[10px] text-gray-600">
+                                                107045356
+                                            </p>
                                         </div>
-                                        <div className="flex justify-between items-center py-3 sm:hidden gap-3">
+                                        <div className="flex justify-between items-center py-1 sm:hidden gap-3">
                                             <p>Количество</p>
                                             <button className="border-2 border-gray-800 px-4 rounded flex justify-center items-center">
                                                 20
@@ -1293,54 +1578,25 @@ const CardSet = () => {
                                         </button>
                                     </div>
                                 </div>
-                                <div className="setProduct flex justify-between items-center py-5 sm:border-b-2">
+                                <div className="setProduct w-[48%] flex justify-between items-center py-5 sm:border-b-2">
                                     <div className="w-full sm:w-[90%] block sm:flex justify-start items-center gap-3 ">
                                         <img
-                                            className="w-full sm:w-[100px] object-contain"
+                                            className="w-full sm:w-[100px] object-contain mb-2"
                                             src={CarouselImg}
                                             alt=""
                                         />
                                         <div className="flex flex-col gap-1">
-                                            <p className="text-xs">
+                                            <p className="text-[12px]">
                                                 Инновационный <br /> очиститель
                                             </p>
-                                            <p className="text-xs">
+                                            <p className="text-xs mb-3">
                                                 15 185.55 ₽
                                             </p>
-                                        </div>
-                                        <div className="flex justify-between items-center py-3 sm:hidden gap-3">
-                                            <p>Количество</p>
-                                            <button className="border-2 border-gray-800 px-4 rounded flex justify-center items-center">
-                                                20
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    <div className=" justify-center items-center gap-2 setBtns hidden sm:flex sm:flex-col">
-                                        <button>
-                                            <IoClose />
-                                        </button>
-                                        <button>
-                                            <i className="fa-solid fa-plus text-gray-400"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div className="setProduct flex justify-between items-center py-5 sm:border-b-2">
-                                    <div className="w-full sm:w-[90%] block sm:flex justify-start items-center gap-3 ">
-                                        <img
-                                            className="w-full sm:w-[100px] object-contain"
-                                            src={CarouselImg}
-                                            alt=""
-                                        />
-                                        <div className="flex flex-col gap-1">
-                                            <p className="text-xs">
-                                                Инновационный <br /> очиститель
-                                            </p>
-                                            <p className="text-xs">
-                                                15 185.55 ₽
+                                            <p className="text-[10px] text-gray-600">
+                                                107045356
                                             </p>
                                         </div>
-                                        <div className="flex justify-between items-center py-3 sm:hidden gap-3">
+                                        <div className="flex justify-between items-center py-1 sm:hidden gap-3">
                                             <p>Количество</p>
                                             <button className="border-2 border-gray-800 px-4 rounded flex justify-center items-center">
                                                 20
