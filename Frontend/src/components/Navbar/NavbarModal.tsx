@@ -28,7 +28,12 @@ const NavbarModal = () => {
     const { fetchData, response } = useFetchHook();
     useEffect(() => {
         fetchData({ method: "GET", url: "/product/categories/" });
-    }, []);
+        if (modal) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "auto";
+        }
+    }, [modal]);
 
     const handleCategoryClick = (index: any) => {
         setActiveItem(index);
@@ -58,8 +63,8 @@ const NavbarModal = () => {
             </button>
             {modal && (
                 <div className="">
-                    <div className="modal top-[115px] absolute bg-[#fff] left-0 h-full w-full z-[9999]  hidden md:flex">
-                        <div className="w-[25%] bg-white h-full   px-3 py-1 flex flex-col items-start z-[999] overflow-y-scroll scrollbar-custom">
+                    <div className="modal top-[115px] absolute bg-[#fff] left-0 h-[85vh] w-full z-[9999]  hidden md:flex">
+                        <div className="w-[25%] bg-white h-full  px-3 py-1 flex flex-col items-start z-[999] overflow-y-scroll scrollbar-custom">
                             {response.map((i, index) => (
                                 <div
                                     className={`flex p-1.5 gap-[15px] items-center hover:bg-red-300 hover:text-white rounded-[8px] mb-[15px] px-3 ${
@@ -133,7 +138,11 @@ const NavbarModal = () => {
                                         <div className="w-full absolute bottom-5 right-5">
                                             <div className="float-end">
                                                 <button className="p-1 rounded bg-slate-100 btnProductCatalog">
-                                                    <img className="object-contain" src={Arrow} alt="" />
+                                                    <img
+                                                        className="object-contain"
+                                                        src={Arrow}
+                                                        alt=""
+                                                    />
                                                 </button>
                                             </div>
                                         </div>
@@ -153,7 +162,11 @@ const NavbarModal = () => {
                                         <div className="w-full absolute bottom-5 right-5">
                                             <div className="float-end">
                                                 <button className="p-1 rounded bg-slate-100 btnProductCatalog">
-                                                    <img src={Arrow} alt="" className="object-contain" />
+                                                    <img
+                                                        src={Arrow}
+                                                        alt=""
+                                                        className="object-contain"
+                                                    />
                                                 </button>
                                             </div>
                                         </div>
