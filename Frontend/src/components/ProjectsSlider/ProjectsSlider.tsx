@@ -6,8 +6,7 @@ import next from "../../assets/icons/projectNext.svg";
 import project1 from "../../assets/project 1.png";
 import project2 from "../../assets/project 2.png";
 import project3 from "../../assets/project 3.png";
-import "swiper/css";
-import "swiper/css/scrollbar";
+
 import { ProductNav } from "..";
 import { Link } from "react-router-dom";
 import { Scrollbar } from "swiper/modules";

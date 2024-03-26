@@ -13,8 +13,8 @@ const GiftItem = () => {
   }, []);
 
   return (
-    <div className="container_xxl px-3">
-      <div className="gift-category py-3 flex items-start gap-6 overflow-auto">
+    <div className="container_xxl px-3 ">
+      <div className="gift-category py-3 hidden md:flex items-start gap-6 overflow-auto">
         <Swiper
           slidesPerView={3}
           breakpoints={{
@@ -56,6 +56,30 @@ const GiftItem = () => {
               </SwiperSlide>
             ))}
         </Swiper>
+      </div>
+      <div className="grid md:hidden grid-cols-3 gap-y-[10px] mt-5 mb-10">
+        {response &&
+          response.map((item) => (
+            <div className=" flex items-start justify-center">
+              <div className=" flex w-[70px] items-center justify-center">
+                <Link
+                  to={"/catalog"}
+                  className=" flex items-center flex-col justify-center gap-1 "
+                >
+                  <div className="border w-[70px] h-[70px] border-lightPrimary p-3 rounded-xl hover:bg-white duration-300">
+                    <img
+                      src={item.logo}
+                      alt={item.name}
+                      className="w-full h-full object-contain "
+                    />
+                  </div>
+                  <p className="text-center px-1 text-[12px] font-Helvetica-Neue font-medium">
+                    {item.name}
+                  </p>
+                </Link>
+              </div>
+            </div>
+          ))}
       </div>
     </div>
   );

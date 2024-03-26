@@ -11,11 +11,12 @@ const ProductNav: React.FC<ProductNavProps> = ({ title, color }) => {
 
   // Добавляем стили в зависимости от цвета
   if (color === "green") {
-    titleStyle += " font-medium text-[40px]  text-greenPrimary";
+    titleStyle +=
+      " font-medium text-[40px] border-b-2 lg:border-0 border-greenPrimary  text-greenPrimary";
   } else if (color === "red") {
-    titleStyle += " font-medium text-[40px] text-redPrimary";
+    titleStyle += " font-medium  text-[40px] text-redPrimary";
   } else if (color === "gray") {
-    titleStyle += " font-medium text-[32px] text-darkSecondary";
+    titleStyle += " font-medium text-base lg:text-[32px] text-darkSecondary";
   }
 
   // Массив элементов для упрощения рендера списка
@@ -30,14 +31,14 @@ const ProductNav: React.FC<ProductNavProps> = ({ title, color }) => {
 
   return (
     <div className="mb-6">
-      <div className="mb-5 flex justify-between">
+      <div className="mb-5 flex items-center justify-between">
         <h2 className={titleStyle}>{title}</h2>
-        <button className="mx-3 uppercase font-extrabold tracking-wider p-[6px] border border-redPrimary rounded-md text-redPrimary block ss:hidden">
-          Все проекты
+        <button className="mx-3 uppercase text-fs_8 font-medium p-[6px] tracking-wide  border border-redPrimary rounded-lg text-redPrimary block ss:hidden">
+          Все топ-товары
         </button>
       </div>
-      <div className="border border-darkSecondary rounded-md text-fs_8 uppercase text-darkSecondary font-semibold tracking-wider">
-        <div className="flex justify-between items-center px-7 py-0">
+      <div className="border border-lightSecondary rounded-xl text-fs_8 uppercase text-darkSecondary font-semibold tracking-wider">
+        <div className="flex justify-between items-center px-3 lg:px-7 py-0">
           <div className="overflow-auto">
             <ul className="flex gap-5 whitespace-nowrap">
               {items.map((item, index) => (
@@ -48,7 +49,7 @@ const ProductNav: React.FC<ProductNavProps> = ({ title, color }) => {
                       ? "border-redPrimary text-redPrimary"
                       : "border-transparent hover:text-redPrimary hover:border-b-2 hover:border-redPrimary"
                   }`}
-                  onClick={() => setSelectedItem(index)} // Устанавливаем элемент как выбранный при клике
+                  onClick={() => setSelectedItem(index)}
                 >
                   {item}
                 </li>

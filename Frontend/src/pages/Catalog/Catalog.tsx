@@ -322,7 +322,7 @@ const Catalog = () => {
                         </button>
                     </div>
                 </div>
-                <div className="faq container_xxl flex  px-3 mb-10">
+                <div className="faq container_xxl flex flex-col md:flex-row  px-3 mb-10">
                     <h3 className="section-title">FAQ</h3>
                     <Accordion />
                 </div>

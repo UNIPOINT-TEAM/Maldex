@@ -7,7 +7,7 @@ import Product4 from "../../assets/images/product4.png";
 const Dishes = () => {
   return (
     <div className="w-full mb-[80px]">
-      <div className="grid grid-rows-3 grid-cols-12 grid-flow-col gap-4">
+      <div className="grid grid-rows-3 h-[360px] grid-cols-12 grid-flow-col gap-4">
         <div className="col-span-12 lg:col-span-9 h-full row-span-3">
           <div className="grid grid-cols-5 md:grid-cols-11 h-full gap-[10px]">
             <div className="col-span-3 bg-white flex items-center justify-center">
