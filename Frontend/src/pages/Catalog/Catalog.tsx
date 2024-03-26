@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {
+    News,
     ProductNav,
     QuestForm,
     SaleSlider,
@@ -57,8 +58,10 @@ const Catalog = () => {
                     </div>
                 </div>
                 <div className="card container_xxl px-3 my-0 sm:my-10 ">
-                    <p className="text-3xl mb-5">подарочные наборы</p>
-                    <div className="flex justify-between items-center md:border-b-[1px] pb-2">
+                    <p className="text-3xl mb-5 mt-5 md:mt-0">
+                        подарочные наборы
+                    </p>
+                    <div className="flex justify-between items-center md:border-b-[1px] pb-2 mb-3">
                         <button className="border-[1px] border-black px-3 py-1 rounded flex items-center">
                             <h2 className="font-bold">
                                 Все фильтры (2) &nbsp;
@@ -180,7 +183,7 @@ const Catalog = () => {
                             )}
                         </div>
                     </div>
-                    <div className="w-full overflow-x-scroll flex flex-wrap relative md:hidden md:overflow-hidden pb-4 mb-2 border-b">
+                    <div className="w-full overflow-x-scroll flex flex-wrap relative md:hidden md:overflow-hidden pb-6 mb-2 border-b">
                         {activeFilterItems.map((i, index) => (
                             <div className="flex">
                                 <div
@@ -332,6 +335,17 @@ const Catalog = () => {
                     </div>
                 </div>
                 <div className="w-full">
+                    <SliderProduct />
+                </div>
+                <div className="md:hidden mb-5">
+                    <News title="новинки" />
+                </div>
+                <div className="container_xxl px-3 md:hidden">
+                    <div className="">
+                        <ProductNav title="Sale!" color="red" />
+                    </div>
+                </div>
+                <div className="w-full md:hidden">
                     <SliderProduct />
                 </div>
             </div>

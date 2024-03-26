@@ -239,7 +239,7 @@ const NavbarModal = () => {
                     <div className="md:hidden  h-[115vh] w-full top-[115px] absolute left-0 bg-[#00000074] z-[999]">
                         <div className={`w-full bg-white flex items-start`}>
                             <div
-                                className={`w-[${
+                                className={`h-[115vh] overflow-y-scroll w-[${
                                     activeMobileItem ? "10%" : "100%"
                                 }]`}
                             >
@@ -250,7 +250,7 @@ const NavbarModal = () => {
                                                 handleCategoryClick(index)
                                             }
                                             className={`w-full
-                                    } flex p-3 gap-2 items-center  h-[40px] ${
+                                    } flex p-3 gap-1 items-center  h-[30px] ${
                                         activeItem === index
                                             ? "bg-redPrimary text-white"
                                             : ""
@@ -258,13 +258,13 @@ const NavbarModal = () => {
                                         >
                                             <div>
                                                 <img
-                                                    className="w-[24px] h-[24px] object-contain"
+                                                    className="w-[18px] h-[18px] object-contain"
                                                     src={i.icon}
                                                     alt=""
                                                 />
                                             </div>
                                             {!activeMobileItem && (
-                                                <p className="text-lg font-bold">
+                                                <p className="text-[12px] font-bold">
                                                     {i.name}
                                                 </p>
                                             )}

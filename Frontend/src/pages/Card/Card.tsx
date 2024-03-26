@@ -81,7 +81,11 @@ const Card = () => {
                                                         Количество
                                                     </p>
                                                     <div className="w-[50px] flex justify-center items-center rounded-xl">
-                                                        <input className="border border-black w-[50px] rounded-md px-1 outline-none" placeholder="20" type="text" />
+                                                        <input
+                                                            className="border border-black w-[50px] rounded-md px-1 outline-none"
+                                                            placeholder="20"
+                                                            type="text"
+                                                        />
                                                     </div>
                                                 </div>
                                             </div>
@@ -93,31 +97,30 @@ const Card = () => {
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                             <div className="sm:hidden mb-5">
                                 <div className="CardItem border-t-2 w-full border-gray-400 mt-2 mb-[40px] py-5">
                                     <div className="flex justify-between items-center gap-4 h-[120px] mb-3">
                                         <div className="w-1/3">
-                                            <div className="border border-gray-400 rounded-md w-[140px] h-[140px]">
+                                            <div className="border border-gray-400 rounded-md w-[120px] h-[120px]">
                                                 <img
-                                                    className="w-[140px] h-[140px]"
+                                                    className="w-[120px] h-[120px]"
                                                     src={Product1}
                                                     alt=""
                                                 />
                                             </div>
                                         </div>
                                         <div className="w-1/3 flex flex-col justify-between h-full">
-                                            <p className="text-lg teext-slate-950">
+                                            <p className="text-[16px] text-slate-950 font-bold">
                                                 15 185.55 ₽
                                             </p>
-                                            <p className="text-xs teext-slate-950 row-span-1">
+                                            <p className="text-[12px] text-slate-950 row-span-1">
                                                 7% Скидка{" "}
                                             </p>
-                                            <p className="text-lg teext-slate-950">
+                                            <p className="text-[16px] font-[400] teext-slate-950">
                                                 Размер
                                             </p>
-                                            <p className="text-lg teext-slate-950">
+                                            <p className="text-[16px] font-bold text-slate-950">
                                                 M
                                             </p>
                                         </div>
@@ -129,114 +132,17 @@ const Card = () => {
                                                 <p className="text-lg text-black-900 mb-1">
                                                     Количество
                                                 </p>
-                                                <button className="border border-gray-400 px-3 rounded">
-                                                    20
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <p className="text-lg teext-slate-950">
-                                        Инновационный очиститель
-                                    </p>
-                                    <p className="text-sm teext-slate-950 mb-2">
-                                        обеззараживатель, озонатор воздуха
-                                    </p>
-                                    <p className="text-xs teext-slate-950 row-span-1">
-                                        Артикул: 107045356
-                                    </p>
-                                </div>
-                                <div className="CardItem border-t-2 w-full border-gray-400 mt-2 mb-[40px] py-5">
-                                    <div className="flex justify-between items-center gap-4 h-[120px] mb-3">
-                                        <div className="w-1/3">
-                                            <div className="border border-gray-400 rounded-md w-[140px] h-[140px]">
-                                                <img
-                                                    className="w-[140px] h-[140px]"
-                                                    src={Product1}
-                                                    alt=""
+                                                <input
+                                                    placeholder="20"
+                                                    className="border border-gray-700 px-1 rounded w-[40px] outline-none"
                                                 />
                                             </div>
                                         </div>
-                                        <div className="w-1/3 flex flex-col justify-between h-full">
-                                            <p className="text-lg teext-slate-950">
-                                                15 185.55 ₽
-                                            </p>
-                                            <p className="text-xs teext-slate-950 row-span-1">
-                                                7% Скидка{" "}
-                                            </p>
-                                            <p className="text-lg teext-slate-950">
-                                                Размер
-                                            </p>
-                                            <p className="text-lg teext-slate-950">
-                                                M
-                                            </p>
-                                        </div>
-                                        <div className="w-1/3 flex flex-col justify-between h-full items-end">
-                                            <button>
-                                                <img src={Trash} alt="" />
-                                            </button>
-                                            <div>
-                                                <p className="text-lg text-black-900 mb-1">
-                                                    Количество
-                                                </p>
-                                                <button className="border border-gray-400 px-3 rounded">
-                                                    20
-                                                </button>
-                                            </div>
-                                        </div>
                                     </div>
-                                    <p className="text-lg teext-slate-950">
+                                    <p className="text-[14px] font-bold teext-slate-950">
                                         Инновационный очиститель
                                     </p>
-                                    <p className="text-sm teext-slate-950 mb-2">
-                                        обеззараживатель, озонатор воздуха
-                                    </p>
-                                    <p className="text-xs teext-slate-950 row-span-1">
-                                        Артикул: 107045356
-                                    </p>
-                                </div>
-                                <div className="CardItem border-t-2 w-full border-gray-400 mt-2 mb-[40px] py-5">
-                                    <div className="flex justify-between items-center gap-4 h-[120px] mb-3">
-                                        <div className="w-1/3">
-                                            <div className="border border-gray-400 rounded-md w-[140px] h-[140px]">
-                                                <img
-                                                    className="w-[140px] h-[140px]"
-                                                    src={Product1}
-                                                    alt=""
-                                                />
-                                            </div>
-                                        </div>
-                                        <div className="w-1/3 flex flex-col justify-between h-full bg-redPrimary">
-                                            <p className="text-lg teext-slate-950">
-                                                15 185.55 ₽
-                                            </p>
-                                            <p className="text-xs teext-slate-950 row-span-1">
-                                                7% Скидка{" "}
-                                            </p>
-                                            <p className="text-lg teext-slate-950">
-                                                Размер
-                                            </p>
-                                            <p className="text-lg teext-slate-950">
-                                                M
-                                            </p>
-                                        </div>
-                                        <div className="w-1/3 flex flex-col justify-between h-full items-end">
-                                            <button>
-                                                <img src={Trash} alt="" />
-                                            </button>
-                                            <div>
-                                                <p className="text-lg text-black-900 mb-1">
-                                                    Количество
-                                                </p>
-                                                <button className="border border-gray-400 px-3 rounded">
-                                                    20
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <p className="text-lg teext-slate-950">
-                                        Инновационный очиститель
-                                    </p>
-                                    <p className="text-sm teext-slate-950 mb-2">
+                                    <p className="text-[14px] font-[400] teext-slate-950 mb-2">
                                         обеззараживатель, озонатор воздуха
                                     </p>
                                     <p className="text-xs teext-slate-950 row-span-1">
@@ -246,48 +152,63 @@ const Card = () => {
                             </div>
                         </div>
                         <div className="w-full sm:w-1/4 mx-0 sm:mx-5 ">
-                            <p className="text-2xl mb-5">Ваш заказ</p>
+                            <p className="text-[22px] font-[400] mb-5">
+                                Ваш заказ
+                            </p>
                             <div className="flex justify-between items-center w-full mb-3">
-                                <p className="text-lg">Общий тираж:</p>
-                                <p className="text-lg">256</p>
+                                <p className="text-sm font-[400]">
+                                    Общий тираж:
+                                </p>
+                                <p className="text-sm font-[400]">256</p>
                             </div>
                             <div className="flex justify-between items-center w-full mb-3">
-                                <p className="text-lg">Стоимость тиража:</p>
-                                <p className="text-lg">80 619,00 ₽ </p>
+                                <p className="text-sm font-[400]">
+                                    Стоимость тиража:
+                                </p>
+                                <p className="text-sm font-[400]">
+                                    80 619,00 ₽{" "}
+                                </p>
                             </div>
                             <div className="flex justify-between items-center w-full mb-3">
-                                <p className="text-lg">Общая скидка:</p>
-                                <p className="text-lg">5% </p>
+                                <p className="text-sm font-[400]">
+                                    Общая скидка:
+                                </p>
+                                <p className="text-sm font-[400]">5% </p>
                             </div>
                             <div className="flex justify-between items-center w-full pb-8 mb-5 border-b-2 border-gray-500">
-                                <p className="text-lg text-teal-200">
-                                    + Добавить нанесение
-                                </p>
+                                <button>
+                                    <p className="text-[12px] font-bold text-teal-200">
+                                        + Добавить нанесение
+                                    </p>
+                                </button>
                                 <img src={QuestionIcon} alt="" />
                             </div>
                             <div className="flex justify-between items-center w-full mb-5">
-                                <p className="text-xl">Итоговая стоимость:</p>
-                                <p className="text-xl">14 619,00 ₽ </p>
+                                <p className="text-[16px] font-bold">
+                                    Итоговая стоимость:
+                                </p>
+                                <p className="text-[16px] font-bold">
+                                    14 619,00 ₽{" "}
+                                </p>
                             </div>
                             <button className="w-full rounded-xl bg-black text-white p-3 text-lg mb-2">
                                 оформить
                             </button>
                             <div className="flex justify-center items-center w-full mb-5 gap-4">
-                                <button className="text-sm rounded-xl border-2 px-2 py-1 border-teal-200 text-teal-200">
-                                    Поделиться корзиной{" "}
+                                <button className="text-[10px] rounded-lg border px-2 py-1 border-teal-200 text-teal-200 font-bold">
+                                    Поделиться корзиной
                                 </button>
-                                <button className="hidden sm:block text-sm rounded-xl border-2 px-2 py-1 border-teal-200 text-teal-200">
+                                <button className="hidden sm:block text-[10px] rounded-lg border px-2 py-1 border-teal-200 text-teal-200 font-bold">
                                     создать кп
                                 </button>
                             </div>
                         </div>
                     </div>
-                    <p className="section-title ">Вам точно понравится</p>
                 </div>
                 <div className="container_xxl px-3">
                     <div className="">
                         {/*@ts-ignore */}
-                        <ProductNav />
+                        <ProductNav title="ВАМ ТОЧНО ПОНРАВИТСЯ" color="gray" />
                     </div>
                 </div>
                 <SliderProduct />
