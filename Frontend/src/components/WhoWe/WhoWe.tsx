@@ -14,7 +14,7 @@ function WhoWe() {
           <span className="text-[#0000b0] text-[32px] leading-[64px] font-medium">
             Кто мы ?
           </span>
-          <div className="px-[70px]">
+          <div className="px-0 lg:px-[70px]">
             <span className="text-[22px] leading-[64px] font-normal">
               Позвольте нам представить себя:
             </span>
@@ -46,105 +46,129 @@ function WhoWe() {
           <span className="text-[#E94B67] text-[32px] leading-[64px] font-medium">
             Почему мы? Всё под 1 крышей!
           </span>
-          <div className="px-[70px] flex gap-[140px] justify-between">
-            <div className="w-1/3">
-              {services.map((service, index) => (
-                <div key={index} className="">
-                  <img src={service.icon} alt="" /> {/* Выводим изображение */}
-                  <div>
-                    <h1 className="my-5 text-[22px] font-medium text-[#0000B0]">
-                      {service.title}
-                    </h1>
-                    {/* Выводим заголовок */}
-                    <ul>
-                      {/* Используем map для вывода списка услуг */}
-                      {service.items.map((item, itemIndex) => (
-                        <li key={itemIndex} className="mb-4">
-                          <span style={{ color: "#0000B0" , marginRight: "5px" }}>&bull;</span>
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="w-1/3 flex flex-col gap-5 ">
-              {services_two.map((service, index) => (
-                <div key={index} className="">
-                  <div>
-                    <img src={service.icon} alt="" />
+          <div className="lg:px-[70px] flex flex-col lg:flex-row lg:gap-[0px] justify-between ">
+            <div className="flex lg:gap-28">
+              <div className="">
+                {services.map((service, index) => (
+                  <div key={index} className="">
+                    <img src={service.icon} alt="" />{" "}
+                    {/* Выводим изображение */}
                     <div>
-                      <h1
-                        className={`my-5 text-[22px] font-medium text-[${service.color}]`}
-                      >
+                      <h1 className="my-5 text-[22px] font-medium text-[#0000B0]">
                         {service.title}
                       </h1>
+                      {/* Выводим заголовок */}
                       <ul>
+                        {/* Используем map для вывода списка услуг */}
                         {service.items.map((item, itemIndex) => (
                           <li key={itemIndex} className="mb-4">
-                            <span style={{ color: service.color , marginRight: "5px" }}>&bull;</span>
+                            <span
+                              style={{ color: "#0000B0", marginRight: "5px" }}
+                            >
+                              &bull;
+                            </span>
                             {item}
                           </li>
                         ))}
                       </ul>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
-            <div className="w-1/3 flex flex-col gap-10">
-              <div>
-                <img src={globus} alt="" />
-                <div>
-                  <span className="text-[#F7CE46]">Брендинг</span>
-                  <ul>
-                    <li>
-                      <span style={{ color: "#F7CE46", marginRight: "5px" }}>&bull;</span> Более 1
-                      000 000 наименований
-                    </li>
-                  </ul>
-                  <div>
-                    <div className="flex flex-wrap">
-                      <div className="flex items-center gap-3 w-1/2 mb-3">
-                        <img src={russia} alt="" />
-                        <span> Россия</span>
-                      </div>
-                      <div className="flex items-center gap-3 w-1/2 mb-3">
-                        <img src={usa} alt="" />
-                        <span> Россия</span>
-                      </div>
-                      <div className="flex items-center gap-3 w-1/2">
-                        <img src={usa} alt="" />
-                        <span> Россия</span>
-                      </div>
-                      <div className="flex items-center gap-3 w-1/2">
-                        <img src={usa} alt="" />
-                        <span> Россия</span>
+                ))}
+              </div>
+
+              <div className=" flex flex-col gap-5 ">
+                {services_two.map((service, index) => (
+                  <div key={index} className="">
+                    <div>
+                      <img src={service.icon} alt="" />
+                      <div>
+                        <h1
+                          className={`my-5 text-[22px] font-medium text-[${service.color}]`}
+                        >
+                          {service.title}
+                        </h1>
+                        <ul>
+                          {service.items.map((item, itemIndex) => (
+                            <li key={itemIndex} className="mb-4">
+                              <span className="flex">
+                                <span
+                                  style={{
+                                    color: service.color,
+                                    marginRight: "5px",
+                                  }}
+                                >
+                                  &bull;
+                                </span>
+                                <div
+                                  dangerouslySetInnerHTML={{ __html: item }}
+                                />
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
                       </div>
                     </div>
-                    <div></div>
                   </div>
-                </div>
+                ))}
               </div>
-              <div>
+            </div>
+            <div className="flex flex-col lg:flex-row">
+              <div className=" flex flex-col gap-10">
                 <div>
-                  <img src={giftRed} alt="" />
+                  <img src={globus} alt="" />
                   <div>
-                    <span className="text-[#E94B67]">
-                      Дизайн макеты бесплатно
-                    </span>
+                    <span className="text-[#F7CE46]">Брендинг</span>
                     <ul>
-                      <li> &bull; Тампопечать</li>
+                      <li>
+                        <span style={{ color: "#F7CE46", marginRight: "5px" }}>
+                          &bull;
+                        </span>{" "}
+                        Более 1 000 000 наименований
+                      </li>
                     </ul>
+                    <div>
+                      <div className="flex flex-wrap">
+                        <div className="flex items-center gap-3 w-1/2 mb-3">
+                          <img src={russia} alt="" />
+                          <span> Россия</span>
+                        </div>
+                        <div className="flex items-center gap-3 w-1/2 mb-3">
+                          <img src={usa} alt="" />
+                          <span> Россия</span>
+                        </div>
+                        <div className="flex items-center gap-3 w-1/2">
+                          <img src={usa} alt="" />
+                          <span> Россия</span>
+                        </div>
+                        <div className="flex items-center gap-3 w-1/2">
+                          <img src={usa} alt="" />
+                          <span> Россия</span>
+                        </div>
+                      </div>
+                      <div></div>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div>
-                <div className="flex items-center gap-4">
-                  <img src={onbesh} alt="" />
-                  <span>лет на рынке</span>
+              <div className=" flex flex-col gap-10">
+                <div>
+                  <div>
+                    <img src={giftRed} alt="" />
+                    <div>
+                      <span className="text-[#E94B67]">
+                        Дизайн макеты бесплатно
+                      </span>
+                      {/* <ul>
+                        <li> &bull; Тампопечать</li>
+                      </ul> */}
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div className="flex items-center gap-4">
+                    <img src={onbesh} alt="" />
+                    <span>лет на рынке</span>
+                  </div>
                 </div>
               </div>
             </div>

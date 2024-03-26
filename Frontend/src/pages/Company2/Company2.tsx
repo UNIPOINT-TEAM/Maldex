@@ -95,8 +95,8 @@ function Company2() {
             <h1 className="text-[#0000B0] text-[32px] leading-[64px] font-medium">
               С заботой о клиентах{" "}
             </h1>
-            <div className="px-[70px] flex gap-32 justify-between">
-              <div className="flex flex-col gap-8 w-1/3">
+            <div className="lg:px-[70px] flex flex-col lg:flex-row gap-8 lg:gap-32 justify-center items-center lg:justify-between">
+              <div className="flex lg:flex-col justify-center gap-8 lg:w-1/3">
                 <div>
                   <img src={task} alt="" />
                   <h1 className="my-5 text-[22px] font-medium text-[#52B5A1]">
@@ -133,7 +133,7 @@ function Company2() {
                   </ul>
                 </div>
               </div>
-              <div className="flex flex-col gap-8 w-1/3">
+              <div className="flex  lg:flex-col justify-center  gap-8 lg:w-1/3">
                 <div>
                   <img src={comment} alt="" />
                   <h1 className="my-5 text-[22px] font-medium text-[#F7CE46]">
@@ -164,7 +164,7 @@ function Company2() {
                   </ul>
                 </div>
               </div>
-              <div className="flex flex-col gap-8 w-1/3">
+              <div className="flex flex-col gap-8 lg:w-1/3">
                 <div>
                   <img src={country} alt="" />
                   <h1 className="my-5 text-[22px] font-medium text-[#E94B67]">
@@ -199,7 +199,11 @@ function Company2() {
               {/* @ts-ignore */}
               {partners.map((partner, index) => (
                 <div>
-                  <img src={partner} alt="Partner" />
+                  <img
+                    className="w-36 lg:w-full object-contain"
+                    src={partner}
+                    alt="Partner"
+                  />
                 </div>
               ))}
             </div>
@@ -207,7 +211,7 @@ function Company2() {
           <Steps />
           <Printing />
         </div>
-          <QuestForm />
+        <QuestForm />
       </div>
     </>
   );

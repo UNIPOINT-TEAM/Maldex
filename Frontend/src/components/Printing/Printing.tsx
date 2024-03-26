@@ -14,11 +14,10 @@ import Pimg13 from "../../assets/pachat/Pimg13.png";
 import Pimg14 from "../../assets/pachat/Pimg14.png";
 import { Link } from "react-router-dom";
 
-
 export default function Printing() {
   return (
     <div className="ImagesProduct flex flex-col justify-center items-start gap-5 ">
-      <div className="w-full flex gap-5">
+      <div className="w-full flex flex-col lg:flex-row gap-5">
         <div className="flex flex-col justify-center items-start gap-6">
           <div className="flex flex-col justify-center items-start gap-6">
             <p className="text-[#E94B67] text-4xl fontMedium">
@@ -43,21 +42,32 @@ export default function Printing() {
           <img src={Pimg5} alt="" />
         </div>
       </div>
-      <div className="w-full flex gap-5">
+      <div className="w-full flex lg:flex-row flex-col gap-5">
         <img src={Pimg6} alt="" />
         <img src={Pimg7} alt="" />
         <img src={Pimg8} alt="" />
       </div>
-      <div className="w-full flex gap-5">
-        <img src={Pimg9} alt="" />
-        <div className="flex flex-col gap-5">
-          <img src={Pimg10} alt="" />
-          <img src={Pimg14} alt="" />
+      <div className="w-full flex flex-col lg:flex-row gap-5">
+        <div className="flex lg:gap-5 gap-3">
+          <img
+            src={Pimg9}
+            alt=""
+            className="lg:w-full w-[239px] lg:h-full h-[129px]"
+          />
+          <div className="flex flex-col gap-5">
+            <img src={Pimg10} alt="" />
+            <img src={Pimg14} alt="" />
+          </div>
         </div>
-        <img src={Pimg11} alt="" />
-        <div className="flex flex-col gap-5">
-          <Link to='/'> <img src={Pimg12} alt="" /></Link>
-          <img src={Pimg13} alt="" />
+        <div className="flex gap-5">
+          <img src={Pimg11} alt="" />
+          <div className="flex flex-col gap-5">
+            <Link to="/">
+              {" "}
+              <img src={Pimg12} alt="" />
+            </Link>
+            <img src={Pimg13} alt="" />
+          </div>
         </div>
       </div>
     </div>

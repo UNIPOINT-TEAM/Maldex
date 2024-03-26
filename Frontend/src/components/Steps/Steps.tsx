@@ -16,9 +16,9 @@ function Steps() {
         <p className=" text-[#0000B0]">три</p>
       </div>
 
-      <div className="flex justify-center items-start gap-28 ml-24 my-20 fontRoman relative">
-        <img src={vectorOne} alt="" className="absolute -bottom-14 left-[125px]" />
-        <img src={vectorTow} alt="" className="absolute -top-14 right-[336px]" />
+      <div className="flex flex-col lg:flex-row justify-center items-start gap-28 ml-24 my-20 fontRoman relative">
+        <img src={vectorOne} alt="" className="lg:absolute -bottom-14 left-[115px] hidden lg:block" />
+        <img src={vectorTow} alt="" className="lg:absolute -top-14 right-[326px] hidden lg:block" />
         <div className="flex justify-center items-center gap-6">
           <div className="flex justify-center items-center w-24 h-24 bg-[#E94B67] rounded-xl">
             <img src={taskList} alt="" />
