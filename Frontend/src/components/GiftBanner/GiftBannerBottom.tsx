@@ -21,7 +21,7 @@ interface GiftBannerBottomProp {
 
 const GiftBannerBottom: React.FC<GiftBannerBottomProp> = ({ BannerData }) => {
   return (
-    <div className="grid grid-cols-4 h-[200px] lg:grid-cols-5 gap-[10px] lg:h-[410px]">
+    <div className="grid grid-cols-4 h-[400px] lg:grid-cols-5 gap-[10px] lg:h-[410px]">
       {/* Первый блок */}
 
       <Link
