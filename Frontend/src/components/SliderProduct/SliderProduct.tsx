@@ -2,32 +2,20 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import CarouselImg from "../../assets/images/carouselImg.png";
 import { Navigation, Pagination, Scrollbar } from "swiper/modules";
 import { useState, useEffect } from "react";
-// @ts-ignore
-import { getData } from "../../services/services";
 import { Link } from "react-router-dom";
-// @ts-ignore
-import prev from "../../assets/icons/projectPrev.svg";
-// @ts-ignore
-import next from "../../assets/icons/projectNext.svg";
 import Close from "../../assets/icons/close.png";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { FaArrowRightLong } from "react-icons/fa6";
-// @ts-ignore
-import SearchIcon from "../../assets/icons/searchIcon.png";
 import { CiSearch } from "react-icons/ci";
 import { CiHeart } from "react-icons/ci";
 import { FaCheck } from "react-icons/fa";
 import { IoMdHeart } from "react-icons/io";
-
 import { Dialog } from "@material-tailwind/react";
 import { useFetchHook } from "../../hooks/UseFetch";
-import "swiper/css/scrollbar";
+import { MdOutlineAdd } from "react-icons/md";
+import { CgSearch } from "react-icons/cg";
 
 const SliderProduct = () => {
-  // @ts-ignore
-  const [product, setProduct] = useState([]);
-  // @ts-ignore
-  const [productModal, setProductModal] = useState(false);
   const [defaultProduct, setDefaultProduct] = useState(true);
   const [addCard, setAddCard] = useState(false);
   const { fetchData, response } = useFetchHook();
@@ -217,7 +205,6 @@ const SliderProduct = () => {
                       <div className="flex justify-center items-center h-full">
                         <img
                           className="mb-2 w-[50px] h-[50px] object-contain product-img"
-                          //@ts-ignore
                           src={item.image}
                           alt=""
                         />
@@ -232,7 +219,6 @@ const SliderProduct = () => {
                       <div className="flex justify-center items-center h-full">
                         <img
                           className="mb-2 w-[50px] h-[50px] object-contain product-img"
-                          //@ts-ignore
                           src={item.image}
                           alt=""
                         />
@@ -312,17 +298,17 @@ const SliderProduct = () => {
                   <div className="flex justify-between catalog_btns">
                     <button
                       onClick={changeStatus}
-                      className="bg-redPrimary px-4 py-2 text-white rounded-lg shadow-lg text-sm shadow-gray-400 w-[120px]"
+                      className="bg-redPrimary flex justify-between items-center uppercase  p-2 text-white rounded-lg font-bold tracking-wider text-fs_8 lg:text-sm gap-1 lg:w-[130px]"
                     >
-                      + В корзину
+                      <MdOutlineAdd className="text-fs_4" />В корзину
                     </button>
 
-                    <button className="bg-gray-300 px-3 py-1 rounded-lg text-gray-700">
+                    <button className="bg-white px-2 lg:px-3 py-1 rounded-lg text-darkSecondary">
                       <Link
                         to={"category/1"}
                         className="w-full h-full flex justify-center items-center"
                       >
-                        <CiSearch />
+                        <CgSearch className="text-fs_4" />
                       </Link>
                     </button>
                   </div>

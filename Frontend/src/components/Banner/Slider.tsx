@@ -36,7 +36,7 @@ const Slider: React.FC<SliderProps> = ({ SliderItems, sliderTime }) => {
           <img
             src={`${BASE_URL}${item.productID.image}`}
             alt=""
-            className="w-full h-full object-center  object-contain"
+            className="w-full h-full object-center object-cover"
           />
         </SwiperSlide>
       ))}

@@ -7,19 +7,17 @@ interface ProductNavProps {
 
 const ProductNav: React.FC<ProductNavProps> = ({ title, color }) => {
   let titleStyle = "text-4xl traking-wide";
-  const [selectedItem, setSelectedItem] = useState(0); // Добавляем состояние для отслеживания выбранного элемента
+  const [selectedItem, setSelectedItem] = useState(0);
 
-  // Добавляем стили в зависимости от цвета
   if (color === "green") {
     titleStyle +=
-      " font-medium text-[40px] border-b-2 lg:border-0 border-greenPrimary  text-greenPrimary";
+      " font-medium text-[30px] lg:text-[40px] border-b-2 lg:border-0 border-greenPrimary text-greenPrimary";
   } else if (color === "red") {
-    titleStyle += " font-medium  text-[40px] text-redPrimary";
+    titleStyle += " font-medium text-[30px] lg:text-[40px] text-redPrimary";
   } else if (color === "gray") {
-    titleStyle += " font-medium text-base lg:text-[32px] text-darkSecondary";
+    titleStyle += " font-medium text-base lg:text-[28px] text-darkSecondary";
   }
 
-  // Массив элементов для упрощения рендера списка
   const items = [
     "Одежда",
     "Сумки, портфели, рюкзаки",
@@ -37,17 +35,17 @@ const ProductNav: React.FC<ProductNavProps> = ({ title, color }) => {
           Все топ-товары
         </button>
       </div>
-      <div className="border border-lightSecondary rounded-xl text-fs_8 uppercase text-darkSecondary font-semibold tracking-wider">
+      <div className="border border-lightSecondary rounded-xl  uppercase text-darkSecondary font-semibold tracking-wider">
         <div className="flex justify-between items-center px-3 lg:px-7 py-0">
-          <div className="overflow-auto">
+          <div className="overflow-x-auto product-nav">
             <ul className="flex gap-5 whitespace-nowrap">
               {items.map((item, index) => (
                 <li
                   key={index}
-                  className={`cursor-pointer font-medium py-4 border-b-2 ${
+                  className={`cursor-pointer font-medium text-[10px] lg:text-fs_8 py-4 border-b-2 ${
                     selectedItem === index
                       ? "border-redPrimary text-redPrimary"
-                      : "border-transparent hover:text-redPrimary hover:border-b-2 hover:border-redPrimary"
+                      : "border-transparent hover:text-redPrimary "
                   }`}
                   onClick={() => setSelectedItem(index)}
                 >

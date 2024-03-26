@@ -5,7 +5,7 @@ import statya2 from "../../assets/statya2.png";
 const BannerBottomMobile: React.FC<any> = ({ BannerData }) => {
   return (
     <div className="grid grid-cols-2 mt-2 gap-2 lg:hidden">
-      <div className="grid grid-cols-2 gap- ">
+      <div className="grid grid-cols-2 gap-[9px] ">
         <div className="col-span-2 bg-white h-[65px]  flex items-center justify-center py-3">
           <div className="h-full w-[100px]">
             <Slider

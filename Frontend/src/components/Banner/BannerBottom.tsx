@@ -16,7 +16,7 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
         <h2 className="text-fs_7 tracking-wider font-semibold opacity-0 group-hover:opacity-100 duration-200">
           Бутылки для воды
         </h2>
-        <div className="h-[400px] w-full flex items-center justify-center">
+        <div className="h-[350px] w-[90%] flex items-center justify-center">
           <Slider SliderItems={BannerData && BannerData[4]} sliderTime={3000} />
         </div>
         <div className="flex justify-end opacity-0 group-hover:opacity-100 duration-200">

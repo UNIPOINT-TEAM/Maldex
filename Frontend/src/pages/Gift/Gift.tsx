@@ -7,22 +7,14 @@ import {
 
 function Gift() {
   return (
-    <>
+    <div>
+      <GiftBanner />
       <div>
-        <div>
-          <div>
-            <div>
-              <GiftBanner />
-            </div>
-            <div className="">
-              <ProjectsSlider />
-              <TagBanner />
-              <QuestForm />
-            </div>
-          </div>
-        </div>
+        <ProjectsSlider />
+        <TagBanner />
+        <QuestForm />
       </div>
-    </>
+    </div>
   );
 }
 

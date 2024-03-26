@@ -27,7 +27,7 @@ const Home = () => {
       <div className="w-full">
         <SliderProduct />
       </div>
-      <div className="dishes container_xxl my-10 px-3">
+      <div className="dishes container_xxl my-5 lg:my-10 px-3">
         <div className="flex items-center justify-between">
           <h3 className="section-title">посуда</h3>
           <button className="mx-3 uppercase text-fs_8 font-bold p-[6px] tracking-wide  border border-redPrimary rounded-lg text-redPrimary block ss:hidden">

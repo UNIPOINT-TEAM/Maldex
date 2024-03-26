@@ -443,7 +443,7 @@
 
 @media only screen and (max-width: 425px) {
     .section-title {
-        font-size: 18px;
+        font-size: 16px;
     }
 
     .title {
@@ -533,4 +533,7 @@
 
 .swiper-scrollbar-drag {
     background-color: #ec1026 !important;
+}
+.product-nav::-webkit-scrollbar {
+    display: none
 }
