@@ -1,23 +1,27 @@
 import {
-    ProjectsSlider,
-    QuestForm,
-    SliderProduct,
-    TagBanner,
-    TagList,
+    ProductNav,
+  ProjectsSlider,
+  QuestForm,
+  SliderProduct,
+  TagBanner,
+  TagList,
 } from "../../components";
 
 function Tags() {
-    return (
-        <>
-            <TagBanner />
-            <TagList />
-            <ProjectsSlider />
-            <div className="mb-16">
-                <SliderProduct />
-            </div>
-            <QuestForm />
-        </>
-    );
+  return (
+    <>
+      <TagBanner />
+      <TagList />
+      <ProjectsSlider />
+      <div className="container_xxl px-3 mt-10">
+        <ProductNav title="new!" color="red" />
+      </div>
+      <div className="w-full">
+        <SliderProduct />
+      </div>
+      <QuestForm />
+    </>
+  );
 }
 
 export default Tags;

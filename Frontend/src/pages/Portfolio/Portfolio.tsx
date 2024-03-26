@@ -63,7 +63,7 @@ function Portfolio() {
             </div>
             <div>
               <div className="bg-white h-full w-full flex flex-col justify-between">
-                <div className="lg:pl-5 pl-1 lg:pt-16 lg:pr-40 font-Articulat tracking-wider">
+                <div className="lg:pl-5 pl-1.5 pt-1  lg:pt-16 lg:pr-40 font-Articulat tracking-wider">
                   <span className="font-semibold">Cостав:</span>
                   <br />
                   <div className="text-[12px] lg:text-[14px] tracking-wide font-medium leading-snug">

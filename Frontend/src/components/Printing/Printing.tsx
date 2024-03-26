@@ -52,7 +52,7 @@ export default function Printing() {
           <img
             src={Pimg9}
             alt=""
-            className="lg:w-full w-[239px] lg:h-full h-[129px]"
+            className="lg:w-[540px] w-[239px] lg:h-full h-[129px]"
           />
           <div className="flex flex-col gap-5">
             <img src={Pimg10} alt="" />
@@ -60,10 +60,13 @@ export default function Printing() {
           </div>
         </div>
         <div className="flex gap-5">
-          <img src={Pimg11} alt="" />
+          <img
+            src={Pimg11}
+            alt=""
+            className="lg:w-[340px] w-[239px] lg:h-full h-[129px]"
+          />
           <div className="flex flex-col gap-5">
             <Link to="/">
-              {" "}
               <img src={Pimg12} alt="" />
             </Link>
             <img src={Pimg13} alt="" />

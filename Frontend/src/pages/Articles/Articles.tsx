@@ -6,6 +6,7 @@ import image3 from "../../assets/article-bg-3.png";
 import image4 from "../../assets/article-bg-4.png";
 import arrowRight from "../../assets/icons/arrow-right.png";
 import { useEffect } from "react";
+import { FaArrowLeftLong, FaArrowRightLong } from "react-icons/fa6";
 
 function Articles() {
   useEffect(() => {
@@ -219,6 +220,19 @@ function Articles() {
               </div>
             </div>
           </div>
+        </div>
+        <div className="flex justify-center items-center gap-3 my-5">
+          <button className="text-gray-500">
+            <FaArrowLeftLong />
+          </button>
+          <p className="text-gray-400">страница</p>
+          <button className="text-gray-400 border border-gray-400 rounded px-4 m-0">
+            1
+          </button>
+          <p className="text-gray-400">из 10</p>
+          <button className="text-gray-500">
+            <FaArrowRightLong />
+          </button>
         </div>
       </div>
     </>

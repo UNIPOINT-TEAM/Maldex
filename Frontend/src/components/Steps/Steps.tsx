@@ -11,11 +11,11 @@ function Steps() {
     <div>
       <div className="container_xxl">
         <div className="OrderInstruction flex flex-col gap-8 ">
-          <div className="flex font-Helvetica-Neue font-bold text-3xl gap-1">
-            <p className=" text-[#0000B0] text-[22px]">С Maldex просто как</p>
-            <p className=" text-[#E94B67] text-[22px]">раз</p>
-            <p className=" text-[#F7CE46] text-[22px]">два</p>
-            <p className=" text-[#52B5A1] text-[22px]">три</p>
+          <div className="flex font-Helvetica-Neue font-medium text-[22px] lg:text-[32px] gap-1">
+            <p className=" text-[#0000B0] ">С Maldex просто как</p>
+            <p className=" text-[#E94B67] ">раз</p>
+            <p className=" text-[#F7CE46] ">два</p>
+            <p className=" text-[#52B5A1] ">три</p>
           </div>
 
           <div className="flex flex-col lg:flex-row justify-center ite lg:items-start  gap-28 mx-10 lg:mx-0 lg:ml-0 my-20 fontRoman relative">

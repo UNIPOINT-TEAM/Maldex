@@ -2,6 +2,8 @@ import onbesh from "../../assets/CompanyIcons/15.png";
 import giftRed from "../../assets/CompanyIcons/giftRed.png";
 import globus from "../../assets/CompanyIcons/globus.png";
 import russia from "../../assets/CompanyIcons/russia.png";
+import europe from "../../assets/CompanyIcons/europe.png";
+import china from "../../assets/CompanyIcons/china.png";
 import usa from "../../assets/CompanyIcons/usa.png";
 
 import { whoWe, services, services_two } from "../../mock/data";
@@ -47,7 +49,7 @@ function WhoWe() {
             Почему мы? Всё под 1 крышей!
           </span>
           <div className="lg:px-[70px] flex flex-col lg:flex-row lg:gap-[0px] justify-between ">
-            <div className="flex lg:gap-28">
+            <div className="flex lg:gap-24">
               <div className="">
                 {services.map((service, index) => (
                   <div key={index} className="">
@@ -112,12 +114,14 @@ function WhoWe() {
                 ))}
               </div>
             </div>
-            <div className="flex flex-col lg:flex-row">
+            <div className="flex flex-col lg:gap-24 lg:flex-row justify-end">
               <div className=" flex flex-col gap-10">
                 <div>
                   <img src={globus} alt="" />
                   <div>
-                    <span className="text-[#F7CE46]">Брендинг</span>
+                    <h1 className="text-[#F7CE46] my-5 text-[22px] font-medium">
+                      Брендинг
+                    </h1>
                     <ul>
                       <li>
                         <span style={{ color: "#F7CE46", marginRight: "5px" }}>
@@ -127,22 +131,26 @@ function WhoWe() {
                       </li>
                     </ul>
                     <div>
-                      <div className="flex flex-wrap">
-                        <div className="flex items-center gap-3 w-1/2 mb-3">
-                          <img src={russia} alt="" />
-                          <span> Россия</span>
+                      <div className="flex flex-col mt-3">
+                        <div className="flex">
+                          <div className="flex items-center gap-3 w-1/2 mb-3">
+                            <img src={russia} alt="" />
+                            <span> Россия</span>
+                          </div>
+                          <div className="flex items-center gap-3 w-1/2 mb-3">
+                            <img src={china} alt="" />
+                            <span> Китай</span>
+                          </div>
                         </div>
-                        <div className="flex items-center gap-3 w-1/2 mb-3">
-                          <img src={usa} alt="" />
-                          <span> Россия</span>
-                        </div>
-                        <div className="flex items-center gap-3 w-1/2">
-                          <img src={usa} alt="" />
-                          <span> Россия</span>
-                        </div>
-                        <div className="flex items-center gap-3 w-1/2">
-                          <img src={usa} alt="" />
-                          <span> Россия</span>
+                        <div className="flex">
+                          <div className="flex items-center gap-3 w-1/2">
+                            <img src={usa} alt="" />
+                            <span> Америка</span>
+                          </div>
+                          <div className="flex items-center gap-3 w-1/2">
+                            <img src={europe} alt="" />
+                            <span> Европа</span>
+                          </div>
                         </div>
                       </div>
                       <div></div>
@@ -155,9 +163,9 @@ function WhoWe() {
                   <div>
                     <img src={giftRed} alt="" />
                     <div>
-                      <span className="text-[#E94B67]">
+                      <h1 className="text-[#E94B67] my-5 text-[22px] font-medium">
                         Дизайн макеты бесплатно
-                      </span>
+                      </h1>
                       {/* <ul>
                         <li> &bull; Тампопечать</li>
                       </ul> */}
