@@ -396,7 +396,7 @@ const CardSet = () => {
                                         <p>{product.discount}% </p>
                                     </div>
                                 </div>
-                                <div className="flex justify-between items-center px-3 py-1 text-base">
+                                <div className="flex justify-between items-center  py-1 text-base">
                                     <b className="">Итоговая стоимость:</b>
                                     <b className="">
                                         {product.discountedPrice} ₽{" "}

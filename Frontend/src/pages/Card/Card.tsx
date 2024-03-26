@@ -204,12 +204,11 @@ const Card = () => {
                             </div>
                         </div>
                     </div>
-                    <p className="section-title ">Вам точно понравится</p>
                 </div>
                 <div className="container_xxl px-3">
                     <div className="">
                         {/*@ts-ignore */}
-                        <ProductNav />
+                        <ProductNav title="ВАМ ТОЧНО ПОНРАВИТСЯ" color="gray" />
                     </div>
                 </div>
                 <SliderProduct />
