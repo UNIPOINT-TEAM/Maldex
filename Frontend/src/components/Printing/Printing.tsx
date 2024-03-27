@@ -12,7 +12,7 @@ import Pimg11 from "../../assets/pachat/Pimg11.png";
 import Pimg12 from "../../assets/pachat/Pimg12.png";
 import Pimg13 from "../../assets/pachat/Pimg13.png";
 import Pimg14 from "../../assets/pachat/Pimg14.png";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 export default function Printing() {
   return (

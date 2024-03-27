@@ -1,10 +1,11 @@
-import whiteDeliveryIcon from "../../assets/CompanyIcons/free-icon-fast-delivery-3106892 1.svg";
-import whiteDocIcon from "../../assets/CompanyIcons/free-icon-community-manager-5759296 1.svg";
-import taskList from "../../assets/CompanyIcons/fluent_task-list-20-regular.svg";
-import vectorOne from "../../assets/linear/longarrow-b.svg";
-import vectorTow from "../../assets/linear/longarrow-t.svg";
-import vectorTopMob from "../../assets/linear/arrow-mobile-top.svg";
-import vectorBotMob from "../../assets/linear/arrow-mobile-bottom.svg";
+// import whiteDeliveryIcon from "../../assets/CompanyIcons/free-icon-fast-delivery-3106892 1.svg";
+// import whiteDocIcon from "../../assets/CompanyIcons/free-icon-community-manager-5759296 1.svg";
+import OnasiniEmsin from "../../assets/CompanyIcons/OnasiniEmsin.svg";
+import OnasiniEmsinMob from "../../assets/CompanyIcons/OnasiniEmsinMob.svg";
+// import vectorOne from "../../assets/linear/longarrow-b.svg";
+// import vectorTow from "../../assets/linear/longarrow-t.svg";
+// import vectorTopMob from "../../assets/linear/arrow-mobile-top.svg";
+// import vectorBotMob from "../../assets/linear/arrow-mobile-bottom.svg";
 
 function Steps() {
   return (
@@ -18,7 +19,7 @@ function Steps() {
             <p className=" text-[#52B5A1] ">три</p>
           </div>
 
-          <div className="flex flex-col lg:flex-row justify-center items-center lg:items-start  gap-28 mx-10 lg:mx-0 lg:ml-0 my-20 fontRoman relative">
+          {/* <div className="flex flex-col lg:flex-row justify-center items-center lg:items-start  gap-28 mx-10 lg:mx-0 lg:ml-0 my-20 fontRoman relative">
             <div className="flex items-center">
               <img
                 src={vectorOne}
@@ -78,10 +79,16 @@ function Steps() {
                 </span>
               </div>
             </div>
+          </div> */}
+
+          <div className="mb-16">
+            <img src={OnasiniEmsin} alt=""  className="hidden lg:block"/>
+            <img src={OnasiniEmsinMob} alt="" className="lg:hidden block"/>
           </div>
         </div>
       </div>
     </div>
+
   );
 }
 
