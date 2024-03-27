@@ -95,7 +95,7 @@ function Company2() {
             <h1 className="text-[#0000B0] text-[32px] leading-[64px] font-medium">
               С заботой о клиентах{" "}
             </h1>
-            <div className="lg:px-[70px] flex flex-col lg:flex-row gap-8 lg:gap-32 justify-center  lg:justify-between">
+            <div className="lg:px-[70px] flex flex-col lg:flex-row gap-8 lg:gap-32 justify-center items-center lg:items-start lg:justify-between">
               <div className="flex lg:flex-col justify-center gap-8 lg:w-1/3">
                 <div>
                   <img src={task} alt="" />

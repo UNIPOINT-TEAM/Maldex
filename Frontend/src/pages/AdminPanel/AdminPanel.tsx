@@ -18,17 +18,19 @@ const AdminPanel = () => {
           {/* @ts-ignore */}
           <ListItem><img src={lk_icon2} alt="" /> настройки</ListItem>
           {/* @ts-ignore */}
-          <ListItem>конструктор предложений </ListItem>
+          <ListItem><img src={lk_icon3} alt="" />конструктор предложений </ListItem>
 
           {/* @ts-ignore */}
-          <ListItem>выйти из лк</ListItem>
+          <ListItem><img src={lk_icon4} alt="" />выйти из лк</ListItem>
           {/* @ts-ignore */}
           <ListItem>
             {/* @ts-ignore */}
-            файлы и прайсы
+            <img src={lk_icon5} alt="" /> файлы и прайсы
           </ListItem>
           {/* @ts-ignore */}
-          <ListItem>выйти из лк</ListItem>
+          <ListItem><img src={lk_icon1} alt="" />выйти из лк</ListItem>
+          {/* @ts-ignore */}
+          <ListItem><img src={lk_icon6} alt="" />выйти из лк</ListItem>
         </List>
       </Card>
     </div>
