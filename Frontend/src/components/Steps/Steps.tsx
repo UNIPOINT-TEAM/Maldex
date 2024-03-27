@@ -10,7 +10,7 @@ function Steps() {
   return (
     <div>
       <div className="container_xxl">
-        <div className="OrderInstruction flex flex-col gap-8 ">
+        <div className="OrderInstruction items-center flex flex-col gap-8 ">
           <div className="flex font-Helvetica-Neue font-medium text-[22px] lg:text-[32px] gap-1">
             <p className=" text-[#0000B0] ">С Maldex просто как</p>
             <p className=" text-[#E94B67] ">раз</p>
@@ -18,28 +18,30 @@ function Steps() {
             <p className=" text-[#52B5A1] ">три</p>
           </div>
 
-          <div className="flex flex-col lg:flex-row justify-center ite lg:items-start  gap-28 mx-10 lg:mx-0 lg:ml-0 my-20 fontRoman relative">
-            <img
-              src={vectorOne}
-              alt=""
-              className="lg:absolute -bottom-14 left-[205px] hidden lg:block"
-            />
-            <img
-              src={vectorTow}
-              alt=""
-              className="lg:absolute -top-14 right-[400px] hidden lg:block"
-            />
-            <img
-              src={vectorBotMob}
-              alt=""
-              className="absolute bottom-28 left-[50px] lg:hidden block"
-            />
-            <img
-              src={vectorTopMob}
-              alt=""
-              className="absolute top-28 right-[42px] lg:hidden block"
-            />
-            <div className="flex justify-start items-center gap-6">
+          <div className="flex flex-col lg:flex-row justify-center items-center lg:items-start  gap-28 mx-10 lg:mx-0 lg:ml-0 my-20 fontRoman relative">
+            <div className="flex items-center">
+              <img
+                src={vectorOne}
+                alt=""
+                className="lg:absolute -bottom-14 left-[150px] hidden lg:block"
+              />
+              <img
+                src={vectorTow}
+                alt=""
+                className="lg:absolute -top-14 right-[242px] hidden lg:block"
+              />
+              <img
+                src={vectorBotMob}
+                alt=""
+                className="absolute bottom-28 left-[50px] lg:hidden block"
+              />
+              <img
+                src={vectorTopMob}
+                alt=""
+                className="absolute top-60 right-[70px] lg:hidden block"
+              />
+            </div>
+            <div className="flex justify-start items-center gap-6 lg:mr-0 mr-0">
               <div className="flex justify-center items-center w-24 h-24 bg-[#E94B67] rounded-xl">
                 <img src={taskList} alt="" />
               </div>
