@@ -33,48 +33,61 @@ import { useFetchHook } from "../../hooks/UseFetch";
 import { Link } from "react-router-dom";
 
 const MainCategory = () => {
-  const { fetchData, response } = useFetchHook();
-  useEffect(() => {
-    fetchData({ method: "GET", url: "/product/categories/" });
-  }, []);
+    const { fetchData, response } = useFetchHook();
+    useEffect(() => {
+        fetchData({ method: "GET", url: "/product/categories/" });
+    }, []);
 
-  return (
-    <>
-      <div className="w-full py-3 flex flex-wrap gap-2 justify-between items-center">
-        {response.map((category) => (
-          <div
-            key={category.id}
-            className="w-1/6 py-5 relative content hover:bg-redPrimary"
-          >
-            <img className="w-1/5 mb-5" src={category.icon} alt="" />
-            <p className="text-lg mb-3">{category?.name}</p>
-            {category?.children && category?.children?.length > 0 && (
-              <>
-                <p>{category?.children[0]?.name}</p>
-                <p>{category?.children[0]?.children[0]?.name}</p>
-              </>
-            )}
-            <div className="absolute w-full min-h-[400px] bg-[#fff] shadow-lg shadow-gray-400 top-0 left-0 right-0 moreContent p-3">
-              <img className="w-1/5 mb-5" src={category?.icon} alt="" />
-              <p className="text-lg mb-3">{category?.name}</p>
-              {category?.children &&
-                // @ts-ignore
-                category?.children.map((childCategory) => (
-                  <div
-                    key={childCategory.id}
-                    className="rounded hover:bg-greenPrimary hover:text-white py-1 "
-                  >
-                    <Link to="/catalog">
-                      <p>{childCategory.name}</p>
-                    </Link>
-                  </div>
+    return (
+        <>
+            <div className="w-full py-3 flex flex-wrap gap-2 justify-between items-center">
+                {response.map((category) => (
+                    <div
+                        key={category.id}
+                        className="w-1/6 py-5 relative content hover:bg-redPrimary"
+                    >
+                        <img
+                            className="w-1/5 mb-5"
+                            src={category.icon}
+                            alt=""
+                        />
+                        <p className="text-lg mb-3">{category?.name}</p>
+                        {category?.children &&
+                            category?.children?.length > 0 && (
+                                <>
+                                    <p className="h-[50px]">
+                                        {category?.children[0]?.name}
+                                    </p>
+                                    <p className="h-[50px]">
+                                        {category?.children[1]?.name}
+                                    </p>
+                                </>
+                            )}
+                        <div className="absolute w-full min-h-[400px] bg-[#fff] shadow-lg shadow-gray-400 top-0 left-0 right-0 moreContent p-3">
+                            <img
+                                className="w-1/5 mb-5"
+                                src={category?.icon}
+                                alt=""
+                            />
+                            <p className="text-lg mb-3">{category?.name}</p>
+                            {category?.children &&
+                                // @ts-ignore
+                                category?.children.map((childCategory) => (
+                                    <div
+                                        key={childCategory.id}
+                                        className="rounded hover:bg-greenPrimary hover:text-white py-1 "
+                                    >
+                                        <Link to="/catalog">
+                                            <p>{childCategory.name}</p>
+                                        </Link>
+                                    </div>
+                                ))}
+                        </div>
+                    </div>
                 ))}
             </div>
-          </div>
-        ))}
-      </div>
-    </>
-  );
+        </>
+    );
 };
 
 export default MainCategory;
