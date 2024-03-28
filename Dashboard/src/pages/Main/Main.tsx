@@ -22,6 +22,12 @@ const Main: React.FC = () => {
       <div className="w-full">
         <SliderProduct />
       </div>
+      <div className="container_xxl px-3 mt-10">
+        <ProductNav title="hits!" color="green" />
+      </div>
+      <div className="w-full">
+        <SliderProduct />
+      </div>
     </DefaultLayout>
   );
 };
