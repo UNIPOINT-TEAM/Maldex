@@ -25,6 +25,7 @@ const SliderProduct = () => {
   useEffect(() => {
     fetchData({ method: "GET", url: "/product/" });
   }, []);
+  console.log(response);
 
   const changeStatus = () => {
     setDefaultProduct(!defaultProduct);
@@ -195,36 +196,24 @@ const SliderProduct = () => {
                 <Swiper
                   pagination={{ clickable: true }}
                   modules={[Navigation, Pagination]}
-                  className="  h-full"
+                  className="h-full"
                 >
-                  <SwiperSlide className="w-full h-full">
-                    <div
-                      onClick={() => handleOpen("xl")}
-                      className="relative  h-full"
-                    >
-                      <div className="flex justify-center items-center h-full">
-                        <img
-                          className="mb-2 w-[50px] h-[50px] object-contain product-img"
-                          src={item.image}
-                          alt=""
-                        />
+                  {item.images_set.map((item) => (
+                    <SwiperSlide className="w-full h-full">
+                      <div
+                        onClick={() => handleOpen("xl")}
+                        className="relative  h-full"
+                      >
+                        <div className="flex justify-center items-center h-full">
+                          <img
+                            className="mb-2 w-[50px] h-[50px] object-contain product-img"
+                            src={item?.big_url}
+                            alt=""
+                          />
+                        </div>
                       </div>
-                    </div>
-                  </SwiperSlide>
-                  <SwiperSlide className="w-full h-full">
-                    <div
-                      onClick={() => handleOpen("xl")}
-                      className="relative  h-full"
-                    >
-                      <div className="flex justify-center items-center h-full">
-                        <img
-                          className="mb-2 w-[50px] h-[50px] object-contain product-img"
-                          src={item.image}
-                          alt=""
-                        />
-                      </div>
-                    </div>
-                  </SwiperSlide>
+                    </SwiperSlide>
+                  ))}
                 </Swiper>
                 <div className="absolute z-[9999] bottom-[25px] right-[15px] flex flex-col gap-1 swiper-opacity">
                   <button

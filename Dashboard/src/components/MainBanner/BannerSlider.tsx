@@ -20,23 +20,9 @@ const BannerSlider = () => {
           <span className="border  font-medium text-[8px] lg:text-[11px] uppercase p-1 tracking-wide rounded-md">
             корпоративные подарки
           </span>
-          <h2 className="font-bold lg:font-medium text-base lg:text-[30px] m-0  tracking-wide leading-none lg:leading-none mt-2 lg:mt-4">
+          <h2 className="font-bold lg:font-medium text-base lg:text-[26px] m-0  tracking-wide leading-none lg:leading-none mt-2 lg:mt-4">
             {sliderData[0]?.product_set[0]?.productCarouselID?.name}
           </h2>
-        </div>
-        <div className="mt-auto flex gap-1 lg:gap-3 text-fs_8 font-semibold">
-          <Link
-            to={'/gift'}
-            className="border text-center px-2 w-auto lg:w-[160px] py-[7px] lg:py-[10px] capitalize lg:uppercase font-medium tracking-wider rounded-lg  hover:bg-[rgba(0,0,0,0.11)]  duration-300"
-          >
-            Подробнее
-          </Link>
-          <Link
-            to={'/gift'}
-            className="border font-medium text-center px-2 w-auto lg:w-[160px] py-[7px] lg:py-[10px]  capitalize lg:uppercase  tracking-widest rounded-lg hover:bg-[rgba(0,0,0,0.11)]  duration-300"
-          >
-            заказать
-          </Link>
         </div>
       </div>
       <div className="w-[45%] h-full ps-2">
@@ -52,7 +38,10 @@ const BannerSlider = () => {
           {sliderData?.map((item) => (
             <SwiperSlide className="w-full">
               <img
-                src={`${BASE_URL}${item?.product_set[0]?.productCarouselID?.image}`}
+                src={
+                  item?.product_set[0]?.productCarouselID?.images_set[0]
+                    ?.big_url
+                }
                 alt=""
                 className="h-[160px]  lg:h-[300px]"
               />

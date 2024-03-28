@@ -25,7 +25,7 @@ const MainBanner = () => {
           <BannerSlider />
         </div>
       </div>
-      {/* <BannerBottom BannerData={mainBannerData} /> */}
+      <BannerBottom BannerData={mainBannerData} />
     </>
   );
 };

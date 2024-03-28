@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import {
   Dialog,
   Card,
@@ -6,12 +6,13 @@ import {
   CardFooter,
   Typography,
   Input,
-  Select,
-  Option,
 } from '@material-tailwind/react';
 import { BiSolidEditAlt } from 'react-icons/bi';
-const EditCategory = () => {
+import { IoIosAddCircle } from 'react-icons/io';
+const BannerEditModal: React.FC<any> = ({ bannberItems }) => {
   const [open, setOpen] = useState(false);
+  const [productData, setProductData] = useState({ ...bannberItems });
+  console.log(productData);
 
   const handleOpen = () => setOpen(!open);
   return (
@@ -34,39 +35,43 @@ const EditCategory = () => {
               Изменить логотип категории
             </Typography>
             <div className="grid grid-cols-2 gap-4">
-              <div className="col-span-1">
+              <div className="col-span-2">
                 <Typography className="mb-2">
                   <span className="font-satoshi text-fs-6 font-medium">
                     Название категории
                   </span>
                 </Typography>
-                <Input label="Название категории" />
-              </div>
-              <div className="col-span-1">
-                <Typography className="mb-2">
-                  <span className="font-satoshi text-fs-6 font-medium">
-                    Название категории
-                  </span>
-                </Typography>
-                <Select label="Select Version">
-                  <Option>Material Tailwind HTML</Option>
-                  <Option>Material Tailwind React</Option>
-                </Select>
+                <input
+                  placeholder="Название категории"
+                  className="w-full text-boxdark placeholder:font-normal font-medium border border-boxdark     rounded-md px-2 py-2 outline-0"
+                />
               </div>
             </div>
-            <div className="">
-              <label
-                htmlFor="cover"
-                className="flex h-[100px] cursor-pointer border-dashed items-center justify-center gap-2 rounded-xl border border-b py-1 px-2 text-sm font-medium  hover:bg-opacity-90 xsm:px-4"
-              >
-                <input
-                  type="file"
-                  name="cover"
-                  id="cover"
-                  className="sr-only"
-                />
-                <p className="text-fs-6">Добавить логотип категории</p>
-              </label>
+            <h2 className="font-medium text-title-sm mt-4">
+              Изображения в карусели
+            </h2>
+            <div className="grid grid-cols-4 gap-2">
+              {bannberItems?.product_set.map((item) => (
+                <label
+                  htmlFor="cover"
+                  className="flex group relative col-span-1 w-full h-[120px] cursor-pointer border-dashed items-center justify-center gap-2 rounded-xl border  text-sm font-medium  hover:bg-opacity-90 "
+                >
+                  <input
+                    type="file"
+                    name="cover"
+                    id="cover"
+                    className="sr-only"
+                  />
+                  <img
+                    src={item?.productID?.images_set[0]?.big_url}
+                    alt=""
+                    className="w-full h-full rounded-xl object-cover"
+                  />
+                  <div className="absolute opacity-0 duration-300 group-hover:opacity-100 rounded-xl flex items-center justify-center w-full h-full bg-white">
+                    <IoIosAddCircle className="text-title-xl" />
+                  </div>
+                </label>
+              ))}
             </div>
           </CardBody>
           <CardFooter className="pt-0 font-satoshi flex justify-end gap-4">
@@ -89,4 +94,4 @@ const EditCategory = () => {
   );
 };
 
-export default EditCategory;
+export default BannerEditModal;

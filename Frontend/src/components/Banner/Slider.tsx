@@ -1,7 +1,6 @@
 import React from "react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { BASE_URL } from "../../utils";
 interface SliderProps {
   SliderItems: {
     id: string;
@@ -9,7 +8,9 @@ interface SliderProps {
       id: string;
       productID: {
         id: string;
-        image: string;
+        images_set: {
+          big_url: string;
+        }[];
       };
     }[];
   };
@@ -34,9 +35,9 @@ const Slider: React.FC<SliderProps> = ({ SliderItems, sliderTime }) => {
           className="flex w-full h-full items-center justify-center"
         >
           <img
-            src={`${BASE_URL}${item.productID.image}`}
+            src={item?.productID?.images_set[0]?.big_url}
             alt=""
-            className="w-full h-full object-center object-cover"
+            className="w-full h-full object-center object-contain"
           />
         </SwiperSlide>
       ))}

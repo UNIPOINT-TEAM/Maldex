@@ -54,7 +54,10 @@ const BannerSlider = () => {
           {response?.map((item) => (
             <SwiperSlide className="w-full">
               <img
-                src={`${BASE_URL}${item?.product_set[0]?.productCarouselID?.image}`}
+                src={
+                  item?.product_set[0]?.productCarouselID?.images_set[0]
+                    ?.big_url
+                }
                 alt=""
                 className="h-[160px]  lg:h-[300px]"
               />
