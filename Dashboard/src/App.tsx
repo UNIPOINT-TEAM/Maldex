@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import Loader from './common/Loader';
 import { Gifts, Main, SignIn, SignUp } from './pages';
+import 'swiper/css';
+import 'swiper/css/scrollbar';
+import 'swiper/css/pagination';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
