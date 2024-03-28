@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import Loader from './common/Loader';
-import { Gifts, Main } from './pages';
+import { Gifts, Main, SignIn, SignUp } from './pages';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -21,7 +21,9 @@ function App() {
     <>
       <Routes>
         <Route index element={<Main />} />
-        <Route path="gifts" element={<Gifts />} />
+        <Route path="/gifts" element={<Gifts />} />
+        <Route path="/auth/sign-in" element={<SignIn />} />
+        <Route path="/auth/sign-up" element={<SignUp />} />
       </Routes>
     </>
   );

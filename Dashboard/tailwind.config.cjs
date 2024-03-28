@@ -1,8 +1,13 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
 
-/** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+const withMT = require('@material-tailwind/react/utils/withMT');
+module.exports = withMT({
+  content: [
+    './index.html',
+    './src/**/*.{vue,js,ts,jsx,tsx}',
+    'path-to-your-node_modules/@material-tailwind/react/components/**/*.{js,ts,jsx,tsx}',
+    'path-to-your-node_modules/@material-tailwind/react/theme/components/**/*.{js,ts,jsx,tsx}',
+  ],
   darkMode: 'class',
   theme: {
     fontFamily: {
@@ -51,6 +56,13 @@ module.exports = {
         success: '#219653',
         danger: '#D34053',
         warning: '#FFA70B',
+        'green-primary': '#00B6BA',
+        'red-primary': '#EC1026',
+        'dark-primary': '#222220',
+        'dark-secondary': '#9D9C98',
+        'light-primary': '#E5E5E5',
+        'light-secondary': '#E1DFDA',
+        'light-thirsty': '#F7F7F7',
       },
       fontSize: {
         'title-xxl': ['44px', '55px'],
@@ -61,6 +73,21 @@ module.exports = {
         'title-md2': ['26px', '30px'],
         'title-sm': ['20px', '26px'],
         'title-xsm': ['18px', '24px'],
+        'fs-1': '46px',
+        'fs-2': '40px',
+        'fs-3': '24px',
+        'fs-4': '20px',
+        'fs-5': '19px',
+        'fs-6': '18px',
+        'fs-7': '14px',
+        'fs-8': '12px',
+        'fs-9': '11px',
+      },
+      fontWeight: {
+        light: '300',
+        regular: '400',
+        medium: '500',
+        bold: '700',
       },
       spacing: {
         4.5: '1.125rem',
@@ -251,4 +278,4 @@ module.exports = {
     },
   },
   plugins: [],
-};
+});
