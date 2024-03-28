@@ -2,13 +2,16 @@ import React from 'react';
 import DefaultLayout from '../../layout/DefaultLayout';
 import { GiftItem } from '../../components';
 import MainBanner from '../../components/MainBanner/MainBanner';
-
-import { Link } from 'react-router-dom';
 import ProductNav from '../../components/ProductNav/ProductNav';
 import SliderProduct from '../../components/SliderProduct/SliderProduct';
+
+import { Dishes, Faq, MainCatalog } from '../../components';
 const Main: React.FC = () => {
   return (
     <DefaultLayout>
+      <MainCatalog />
+      <Dishes />
+      <Faq />
       <div className="my-4 border-0 border-b px-4 md:px-6 2xl:px-10">
         <GiftItem />
       </div>
