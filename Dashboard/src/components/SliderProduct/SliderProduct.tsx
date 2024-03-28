@@ -16,13 +16,13 @@ import { MdDelete, MdEdit, MdOutlineAdd } from 'react-icons/md';
 import { CgSearch } from 'react-icons/cg';
 
 import './SliderProduct.css';
+import { GetProduct } from '../../services/main';
 
 const SliderProduct = () => {
   const [defaultProduct, setDefaultProduct] = useState(true);
   const [addCard, setAddCard] = useState(false);
   // const { fetchData, response } = useFetchHook();
   const [size, setSize] = useState(null);
-  const [like, setLike] = useState(false);
 
   // useEffect(() => {
   //   fetchData({ method: "GET", url: "/product/" });
@@ -31,6 +31,14 @@ const SliderProduct = () => {
   const changeStatus = () => {
     setDefaultProduct(!defaultProduct);
   };
+
+  const [addProduct, setAddProduct] = useState<SliderProduct[]>([]);
+  useEffect(() => {
+    GetProduct().then((res) => {
+      console.log(res);
+      setAddProduct(res);
+    });
+  }, []);
   // @ts-ignore
   const handleOpen = (value: string) => setSize(value);
 
@@ -76,15 +84,12 @@ const SliderProduct = () => {
               >
                 <SwiperSlide>
                   {/* <img className="" src={CarouselImg} alt="no img" /> */}
-                  <div>
-                    amir2
-                  </div>
+
                 </SwiperSlide>
                 <SwiperSlide>
                   {/* <img className="" src={CarouselImg} alt="no img" /> */}
-                  <div>
-                    amir
-                  </div>
+                  
+
                 </SwiperSlide>
               </Swiper>
             </div>
@@ -196,7 +201,7 @@ const SliderProduct = () => {
         className=" w-full overscroll-x-auto h-[430px] md:h-[500px]"
       >
         {/* @ts-ignore */}
-        {/* {response.results?.map((item) => ( */}
+        {addProduct.results?.map((item) => (
         <SwiperSlide className="w-full">
           <div className="catalog ">
             <div className="relative swiper-top-container h-[220px] mb-4 bg-gray-200">
@@ -211,14 +216,12 @@ const SliderProduct = () => {
                     className="relative  h-full"
                   >
                     <div className="flex justify-center items-center h-full">
-                      {/* <img
+                      <img
                         className="mb-2 w-[50px] h-[50px] object-contain product-img"
-                        // src={item.image}
+                        src={item.image}
                         alt=""
-                      /> */}
-                                        <div>
-                    amir2
-                  </div>
+                      />
+
                     </div>
                   </div>
                 </SwiperSlide>
@@ -228,14 +231,12 @@ const SliderProduct = () => {
                     className="relative  h-full"
                   >
                     <div className="flex justify-center items-center h-full">
-                      {/* <img
+                      <img
                         className="mb-2 w-[50px] h-[50px] object-contain product-img"
-                        // src={item.image}
+                        src={item.image}
                         alt=""
-                      /> */}
-                                        <div>
-                    amir2
-                  </div>
+                      />
+
                     </div>
                   </div>
                 </SwiperSlide>
@@ -263,28 +264,17 @@ const SliderProduct = () => {
                   className={`w-[8px] h-[8px] bg-indigo-600 rounded-[4px]`}
                 ></button>
               </div>
-              {/* <div
-                onClick={() => setLike(!like)}
-                className="absolute z-[999] top-2 right-2 swiper-opacity"
-              >
-                {like ? (
-                  <IoMdHeart size={24} color="red" />
-                ) : (
-                  <CiHeart size={24} color="gray" />
-                )}
-              </div> */}
+
               <div className="absolute z-[999] top-2 left-2 flex gap-2">
                 <div className="border border-red-primary text-[10px] text-red-primary rounded-lg px-1">
                   NEW
                 </div>
-                {/* <div className="border border-black text-[10px] text-black rounded-lg px-1">
-                  HIT
-                </div> */}
+
               </div>
             </div>
             {/* {defaultProduct ? ( */}
               <div className="default">
-                {/* <div className="mb-2 md:mb-5  min-h-[70px] ">
+                <div className="mb-2 md:mb-5  min-h-[70px] ">
                   <p className="text-fs_7 tracking-wide">
                     {
                         //@ts-ignore
@@ -295,19 +285,17 @@ const SliderProduct = () => {
                             item.name
                       }
                   </p>
-                </div> */}
+                </div>
                 <p className="mb-2 text-gray-600 text-fs_8">
-                  {/* {item.vendor_code} */}
-                  йцук322345
+                  {item.vendor_code}
                 </p>
                 <div className="relative mb-2">
                   <p className="text-[16px] md:text-fs_4">
-                    {/* {item.price} */}
-                    123456
+                    {item.price}
                     <span className="text-xs absolute top-0">12</span>
                     <span className="ml-4 mr-1">
-                      {/* {item.price_type} */}
-                      234кап
+                      {item.price_type}
+                      
                     </span>
                     <span className="text-xs absolute top-0 line-through text-red-primary">
                       234
@@ -322,34 +310,12 @@ const SliderProduct = () => {
                     Удалить
                   </button>
 
-                  {/* <button
-                    onClick={() => handleOpen('sm')}
-                    className="p-1 bg-red-600 h-[30px] w-[30px] rounded flex justify-center items-center"
-                  >
-                    <MdDelete color="white" />
-                  </button>
-
-                  <button
-                    onClick={handleOpen}
-                    className="p-1 bg-yellow-400 h-[30px] w-[30px] rounded flex justify-center items-center"
-                  >
-                    <MdEdit color="black" />
-                  </button> */}
-
-                  {/* <button className="bg-white px-2 lg:px-3 py-1 rounded-lg text-darkSecondary">
-                    <Link
-                      to={'category/1'}
-                      className="w-full h-full flex justify-center items-center"
-                    >
-                      <CgSearch className="text-fs_4" />
-                    </Link>
-                  </button> */}
                 </div>
               </div>
             
           </div>
         </SwiperSlide>
-        {/* ))} */}
+        ))} 
       </Swiper>
       <div className="hidden lg:flex prev text-black  hover:text-white">
         <FaArrowLeftLong />
@@ -361,3 +327,7 @@ const SliderProduct = () => {
   );
 };
 export default SliderProduct;
+
+
+
+

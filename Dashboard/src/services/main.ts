@@ -12,3 +12,9 @@ export const GetMainBannerSlider = async () => {
   const response = await api.get(`/banner/carousel`);
   return response.data;
 };
+
+export const GetProduct
+ = async () => {
+  const response = await api.get(`/product`);
+  return response.data;
+};
