@@ -9,16 +9,9 @@ import { Dishes, Faq, MainCatalog } from '../../components';
 const Main: React.FC = () => {
   return (
     <DefaultLayout>
-      <MainCatalog />
-      <Dishes />
-      <Faq />
-      <div className="my-4 border-0 border-b px-4 md:px-6 2xl:px-10">
-        <GiftItem />
+      <div className="container_xxl px-3 mt-10">
+        <MainCatalog />
       </div>
-      <div className=" border-0 border-b px-4 md:px-6 2xl:px-10">
-        <MainBanner />
-      </div>
-      Banner
       <div className="container_xxl px-3 mt-10">
         <ProductNav title="new!" color="red" />
       </div>
@@ -26,9 +19,16 @@ const Main: React.FC = () => {
         <SliderProduct />
       </div>
       <div className="container_xxl px-3 mt-10">
+        <Dishes />
+      </div>
+      <div className="container_xxl px-3 mt-10">
+        <Faq />
+      </div>
+
+      <div className="container_xxl px-3 mt-10 ">
         <ProductNav title="hits!" color="green" />
       </div>
-      <div className="w-full">
+      <div className="w-full mb-10">
         <SliderProduct />
       </div>
     </DefaultLayout>
