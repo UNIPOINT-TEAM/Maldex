@@ -21,7 +21,7 @@ const DefaultLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
 
           {/* <!-- ===== Main Content Start ===== --> */}
           <main>
-            <div className="">{children}</div>
+            <div className="px-4">{children}</div>
           </main>
           {/* <!-- ===== Main Content End ===== --> */}
         </div>
