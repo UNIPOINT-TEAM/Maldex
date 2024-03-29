@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { GetMainCatalog } from '../../services/maincatalog';
 import { Link } from 'react-router-dom';
 import '../../css/main.css';
@@ -9,7 +9,7 @@ const MainCatalog = () => {
 
   useEffect(() => {
     GetMainCatalog().then((res) => {
-      setCategories(res), console.log(res);
+      setCategories(res);
     });
   }, []);
   return (

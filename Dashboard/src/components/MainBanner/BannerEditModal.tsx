@@ -5,14 +5,11 @@ import {
   CardBody,
   CardFooter,
   Typography,
-  Input,
 } from '@material-tailwind/react';
 import { BiSolidEditAlt } from 'react-icons/bi';
 import { IoIosAddCircle } from 'react-icons/io';
 const BannerEditModal: React.FC<any> = ({ bannberItems }) => {
   const [open, setOpen] = useState(false);
-  const [productData, setProductData] = useState({ ...bannberItems });
-  console.log(productData);
 
   const handleOpen = () => setOpen(!open);
   return (

@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import SidebarLinkGroup from './SidebarLinkGroup';
 import Logo from '../../images/logo/Maldex-logo.svg';
 import MiniLogo from '../../images/logo/Logo-mini.svg';
 import { Sidenavs } from './Sidenavs';
@@ -109,6 +108,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               {/* <!-- Menu Item Dashboard --> */}
               {Sidenavs.map((item) => (
                 <NavLink
+                  key={item.id}
                   to={item.path}
                   className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
                     pathname === item.path && 'bg-graydark dark:bg-meta-4'

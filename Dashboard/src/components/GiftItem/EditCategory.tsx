@@ -10,10 +10,24 @@ import {
   Option,
 } from '@material-tailwind/react';
 import { BiSolidEditAlt } from 'react-icons/bi';
-const EditCategory = () => {
+const EditCategory = ({ handleImageChange, id, name, logo }) => {
   const [open, setOpen] = useState(false);
 
+  const [isEditedData, setIsEditedData] = useState({ name, logo });
+
   const handleOpen = () => setOpen(!open);
+
+  const handleFileInputChange = (event) => {
+    const file = event.target.files[0];
+    const imageUrl = URL.createObjectURL(file);
+    setIsEditedData((prev) => ({ ...prev, logo: imageUrl }));
+  };
+
+  const handleSave = () => {
+    handleImageChange(id, isEditedData.logo, isEditedData.name);
+    handleOpen();
+  };
+
   return (
     <>
       <button
@@ -40,7 +54,16 @@ const EditCategory = () => {
                     Название категории
                   </span>
                 </Typography>
-                <Input label="Название категории" />
+                <Input
+                  label="Название категории"
+                  value={isEditedData.name}
+                  onChange={(e) =>
+                    setIsEditedData((prev) => ({
+                      ...prev,
+                      name: e.target.value,
+                    }))
+                  }
+                />
               </div>
               <div className="col-span-1">
                 <Typography className="mb-2">
@@ -64,6 +87,7 @@ const EditCategory = () => {
                   name="cover"
                   id="cover"
                   className="sr-only"
+                  onChange={handleFileInputChange}
                 />
                 <p className="text-fs-6">Добавить логотип категории</p>
               </label>
@@ -77,7 +101,7 @@ const EditCategory = () => {
               Отмена
             </button>
             <button
-              onClick={handleOpen}
+              onClick={handleSave}
               className="inline-flex tracking-wide items-center justify-center rounded-md bg-success py-2 px-6 text-center font-medium text-white hover:bg-opacity-90 "
             >
               Сохранять

@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa6';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import { GetMainBannerSlider } from '../../services/main';
-import { BASE_URL } from '../../utils/BaseUrl';
 
 const BannerSlider = () => {
   const [sliderData, setSliderData] = useState([]);
@@ -36,7 +34,7 @@ const BannerSlider = () => {
           className="w-full "
         >
           {sliderData?.map((item) => (
-            <SwiperSlide className="w-full">
+            <SwiperSlide className="w-full" key={item?.id}>
               <img
                 src={
                   item?.product_set[0]?.productCarouselID?.images_set[0]
