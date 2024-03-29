@@ -18,9 +18,9 @@ const AddMainCatalog = () => {
       <div className="flex gap-3 w-full">
         <button
           onClick={handleOpen}
-          className=" bg-cyan-400 text-white px-4 py-2 rounded-md"
+          className="inline-flex items-center justify-center rounded-md bg-primary py-2 px-6 text-center font-medium text-white hover:bg-opacity-90 "
         >
-          добавить категорию
+          Добавить категорию
         </button>
       </div>
       <Dialog

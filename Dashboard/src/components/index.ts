@@ -19,3 +19,4 @@ export { default as TagList} from './TagList/TagList';
 export { default as SliderProduct} from './SliderProduct/SliderProduct';
 
 
+export { default as DeleteFaq } from './Faq/DeleteFaq';
