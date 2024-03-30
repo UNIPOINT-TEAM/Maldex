@@ -7,3 +7,5 @@ export { default as AddMainCatalog } from './MainCatalog/AddMainCatalog';
 export { default as Dishes } from './Dishes/Dishes';
 export { default as EditDishes } from './Dishes/EditDishes';
 export { default as Faq } from './Faq/Faq';
+export { default as ProjectsSlider } from './ProjectsSlider/ProjectsSlider';
+

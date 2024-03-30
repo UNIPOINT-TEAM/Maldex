@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-// import prev from "../../assets/icons/projectPrev.svg";
-// import next from "../../assets/icons/projectNext.svg";
+import prev from '../../assets/icons/projectPrev.svg';
+import next from '../../assets/icons/projectNext.svg';
 import project1 from '../../assets/project 1.png';
 import project2 from '../../assets/project 2.png';
 import project3 from '../../assets/project 3.png';
@@ -10,6 +10,7 @@ import project3 from '../../assets/project 3.png';
 import { Link } from 'react-router-dom';
 import { Scrollbar } from 'swiper/modules';
 import { FaArrowRightLong } from 'react-icons/fa6';
+import ProductNav from '../ProductNav/ProductNav';
 
 function ProjectsSlider() {
   const swiperRef = useRef(null);
@@ -33,7 +34,7 @@ function ProjectsSlider() {
   return (
     <div className="container_xxl px-3 md:mb-[100px]">
       <div>
-        {/* <ProductNav title="ПРОЕКТЫ" color="gray" /> */}
+        <ProductNav title="ПРОЕКТЫ" color="gray" />
         <div className="my-5 lg:h-[440px]">
           <div className="h-full hidden lg:flex">
             <div className="h-[410px] flex items-center">
@@ -105,13 +106,8 @@ function ProjectsSlider() {
             </Swiper>
             <div className="h-[410px] flex items-center">
               <button className="absolute z-50 -ml-[15px]" onClick={goNext}>
-              <FaArrowRightLong className="w-[32px]" />
- className="w-[32px]"
-              </button>{' '}
-
-              <div className="hidden lg:flex next text-black hover:text-white">
-                <FaArrowRightLong />
-              </div>
+                <img src={next} alt="" className="w-[32px]" />
+              </button>
             </div>
           </div>
 
