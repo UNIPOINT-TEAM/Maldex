@@ -37,7 +37,7 @@ const Topbar = () => {
           </span>
         </div>
         <div className="flex items-center">
-          {currentPath === "/admin" ? (
+          {currentPath === "/admin" || currentPath.includes("admin") ? (
             <div>
               <ul className="hidden items-center md:flex gap-2 pr-2">
                 {TopbarLink.Topbar_r.map((item, i) => (

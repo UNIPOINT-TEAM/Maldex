@@ -8,10 +8,13 @@ import {
 } from '@material-tailwind/react';
 import { BiSolidEditAlt } from 'react-icons/bi';
 import { IoIosAddCircle } from 'react-icons/io';
-const BannerEditModal: React.FC<any> = ({ bannberItems }) => {
+const BannerEditModal: React.FC<any> = ({ bannberItems, onImageChange }) => {
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(!open);
+  const handleEdit = () => {
+    onImageChange()
+  };
   return (
     <>
       <button

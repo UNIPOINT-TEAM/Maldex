@@ -11,6 +11,7 @@ import {
   CategoryDetails,
   // Company,
   Delivery,
+  Gallery,
   Gift,
   Home,
   NotFound,
@@ -21,6 +22,7 @@ import {
 import CardSet from "../pages/CardSet/CardSet";
 import Company2 from "../pages/Company2/Company2";
 import { PadPrinting } from "../pages/Applying";
+import Layout2 from "../layout/Layout2";
 
 export const router = createBrowserRouter([
   {
@@ -94,6 +96,16 @@ export const router = createBrowserRouter([
           { path: "apply", element: <Applying /> },
           { path: "pad-printing", element: <PadPrinting /> },
         ],
+      },
+    ],
+  },
+  {
+    path: "/admin",
+    element: <Layout2 />,
+    children: [
+      {
+        path: "gallery",
+        element: <Gallery />,
       },
     ],
   },

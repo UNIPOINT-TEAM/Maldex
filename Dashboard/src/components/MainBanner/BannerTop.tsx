@@ -15,14 +15,18 @@ interface BannerProp {
       };
     }[];
   }[];
+  handleImageChange: () => void;
 }
 
-const BannerTop: React.FC<BannerProp> = ({ BannerData }) => {
+const BannerTop: React.FC<BannerProp> = ({ BannerData, handleImageChange }) => {
   return (
     <div className="grid grid-cols-4 gap-[9px]">
       <div className="group flex relative flex-col justify-center col-span-4 bg-white h-[200px] cursor-pointer hover:bg-[#fff] transition-all duration-200">
         <div className="absolute z-10 opacity-0 group-hover:opacity-100 duration-300 flex gap-2 p-2 right-0 top-0">
-          <BannerEditModal bannberItems={BannerData && BannerData[0]} />
+          <BannerEditModal
+            bannberItems={BannerData && BannerData[0]}
+            onImageChange={handleImageChange}
+          />
           <DeleteItemBanner />
         </div>
         <div className="h-[110px]  w-[300px] mx-auto   flex items-center justify-center">

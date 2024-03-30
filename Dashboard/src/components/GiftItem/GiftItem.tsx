@@ -13,8 +13,11 @@ interface Category {
 const GiftItem = () => {
   const [newCategoryData, setNewCategoryData] = useState<Category[]>([]);
   const [isBtnDisabled, setIsBtnDisabled] = useState<boolean>(true);
-  useEffect(() => {
+  const getData = () => {
     GetNewCategory().then((res) => setNewCategoryData(res));
+  };
+  useEffect(() => {
+    getData();
   }, []);
   const handleImageChange = (id: string, newUrl: string, name: string) => {
     setNewCategoryData((prevData) =>
@@ -63,6 +66,7 @@ const GiftItem = () => {
       </div>
       <div className="flex justify-end gap-2 px-4 w-full">
         <Button
+          onClick={getData}
           size="lg"
           className="font-satoshi inline-flex capitalize text-fs-5 items-center justify-center rounded-md border text-body border-body shadow-none py-2 px-6 text-center font-medium hover:bg-opacity-90 "
         >
