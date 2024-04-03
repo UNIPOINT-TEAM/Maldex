@@ -35,3 +35,6 @@ export { default as MoreFilter } from "./MoreFilter/MoreFilter";
 export { default as TabList } from "./CategoryDetails/TabContents/TabList";
 export { default as WhoWe } from "./WhoWe/WhoWe";
 export { default as Printing } from "./Printing/Printing";
+export { default as SettingsPanel } from "./AdminSidebar/SettingsPanel";
+export { default as ConstructorPanel } from "./AdminSidebar/ConstructorPanel";
+export { default as FileAndPrice } from "./AdminSidebar/FileAndPrice";

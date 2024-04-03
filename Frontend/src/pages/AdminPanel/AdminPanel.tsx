@@ -1,4 +1,6 @@
+import { useNavigate, Routes, Route } from "react-router-dom";
 import { Card, List, ListItem } from "@material-tailwind/react";
+import { SettingsPanel, ConstructorPanel, FileAndPrice } from '../../components'
 
 import lk_icon1 from "../../assets/lk_icons/lk_icon (1).svg";
 import lk_icon2 from "../../assets/lk_icons/lk_icon (2).svg";
@@ -7,32 +9,36 @@ import lk_icon4 from "../../assets/lk_icons/lk_icon (4).svg";
 import lk_icon5 from "../../assets/lk_icons/lk_icon (5).svg";
 import lk_icon6 from "../../assets/lk_icons/lk_icon (6).svg";
 
+
 const AdminPanel = () => {
+  const navigate = useNavigate();
   return (
-    <div className="container_xxl">
+    <div className="container_xxl flex items-start gap-x-[52px]">
       {/* @ts-ignore */}
       <Card className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
-        <div className="mb-2 p-4"></div>
+        {/* <div className="mb-2 p-4"></div> */}
         {/* @ts-ignore */}
         <List>
           {/* @ts-ignore */}
-          <ListItem><img src={lk_icon2} alt="" /> настройки</ListItem>
+          <ListItem onClick={() => navigate('/adminpanel/settings')}><img src={lk_icon2} alt="" />настройки</ListItem>
           {/* @ts-ignore */}
-          <ListItem><img src={lk_icon3} alt="" />конструктор предложений </ListItem>
-
+          <ListItem onClick={() => navigate('/adminpanel/constructor')}><img src={lk_icon3} alt="" />конструктор предложений </ListItem>
           {/* @ts-ignore */}
           <ListItem><img src={lk_icon4} alt="" />выйти из лк</ListItem>
           {/* @ts-ignore */}
-          <ListItem>
-            {/* @ts-ignore */}
-            <img src={lk_icon5} alt="" /> файлы и прайсы
-          </ListItem>
+          <ListItem onClick={() => navigate('/adminpanel/files')}><img src={lk_icon5} alt="" /> файлы и прайсы</ListItem>
           {/* @ts-ignore */}
           <ListItem><img src={lk_icon1} alt="" />выйти из лк</ListItem>
           {/* @ts-ignore */}
           <ListItem><img src={lk_icon6} alt="" />выйти из лк</ListItem>
         </List>
       </Card>
+
+      <Routes>
+        <Route path="settings" element={<SettingsPanel />} />
+        <Route path="constructor" element={<ConstructorPanel />} />
+        <Route path="files" element={<FileAndPrice />} />
+      </Routes>
     </div>
   );
 };

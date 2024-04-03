@@ -24,6 +24,9 @@ import Company2 from "../pages/Company2/Company2";
 import { PadPrinting } from "../pages/Applying";
 import Layout2 from "../layout/Layout2";
 
+// admin panel
+import { SettingsPanel, ConstructorPanel, FileAndPrice } from "../components";
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -81,10 +84,18 @@ export const router = createBrowserRouter([
         path: "/admin",
         element: <AdminLogin />,
       },
+
+      //admin panel route is changed by Yusuf 
       {
         path: "/adminpanel",
         element: <AdminPanel />,
+        children: [
+          { path: "settings", element: <SettingsPanel /> },
+          { path: "constructor", element: <ConstructorPanel /> },
+          { path: "files", element: <FileAndPrice /> },
+        ],
       },
+      
       {
         path: "/articles",
         element: <Articles />,

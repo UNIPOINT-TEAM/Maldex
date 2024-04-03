@@ -25,7 +25,7 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
             <div className="absolute z-10 opacity-0 group-hover:opacity-100 duration-300 flex gap-2 p-2 right-0 top-0">
               <BannerEditModal bannberItems={BannerData && BannerData[5]} />
               <DeteleteItem />
-            </div>
+ 903112888           </div>
             <div className="w-[200px] mx-auto flex items-center justify-center">
               <Slider
                 SliderItems={BannerData && BannerData[5]}
