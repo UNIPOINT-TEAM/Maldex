@@ -7,7 +7,7 @@ import image3 from "../../assets/article-bg-3.png";
 import image4 from "../../assets/article-bg-4.png";
 import { Link } from "react-router-dom";
 
-const News: React.FC<{ title: string }> = ({ title }) => {
+const   News: React.FC<{ title: string }> = ({ title }) => {
     return (
         <div className="articles container_xxl py-5 px-3  md:mb-[100px]">
             <h3 className="section-title ">{title}</h3>

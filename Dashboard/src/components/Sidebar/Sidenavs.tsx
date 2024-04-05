@@ -9,4 +9,9 @@ export const Sidenavs = [
     path: '/gifts',
     title: 'Подарочные наборы',
   },
+  {
+    id: 3,
+    path: '/catalog',
+    title: 'Каталог',
+  },
 ];

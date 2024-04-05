@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import Loader from './common/Loader';
-import { Gifts, Main, SignIn, SignUp } from './pages';
+import { Catalog, Gifts, Main, SignIn, SignUp } from './pages';
 import 'swiper/css';
 import 'swiper/css/scrollbar';
 import 'swiper/css/pagination';
@@ -25,6 +25,7 @@ function App() {
       <Routes>
         <Route index element={<Main />} />
         <Route path="/gifts" element={<Gifts />} />
+        <Route path="/catalog" element={<Catalog />} />
         <Route path="/auth/sign-in" element={<SignIn />} />
         <Route path="/auth/sign-up" element={<SignUp />} />
       </Routes>

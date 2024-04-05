@@ -13,4 +13,7 @@ export { default as GiftBanner } from './GiftBanner/GiftBanner';
 export { default as GiftBannerBottom } from './GiftBanner/GiftBannerBottom';
 export { default as GiftBannerSlider } from './GiftBanner/GiftBannerSlider';
 export { default as LeftAccordion } from './GiftBanner/LeftAccordion';
+export { default as ProductNav} from './ProductNav/ProductNav';
+export { default as SaleSlider} from './SaleSlider/SaleSlider';
+
 

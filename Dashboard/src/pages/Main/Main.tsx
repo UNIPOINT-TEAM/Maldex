@@ -1,6 +1,6 @@
 import React from 'react';
 import DefaultLayout from '../../layout/DefaultLayout';
-import { GiftItem, ProjectsSlider } from '../../components';
+import { GiftItem, ProjectsSlider, SaleSlider } from '../../components';
 import ProductNav from '../../components/ProductNav/ProductNav';
 import SliderProduct from '../../components/SliderProduct/SliderProduct';
 
@@ -9,6 +9,7 @@ import MainBanner from '../../components/MainBanner/MainBanner';
 const Main: React.FC = () => {
   return (
     <DefaultLayout>
+
       <div className=" my-4">
         <GiftItem />
       </div>
@@ -30,9 +31,9 @@ const Main: React.FC = () => {
       <div className="container_xxl px-3 mt-10">
         <Faq />
       </div>
-<div>
-  <ProjectsSlider/>
-</div>
+      <div>
+        <ProjectsSlider />
+      </div>
       <div className="container_xxl px-3 mt-10 ">
         <ProductNav title="hits!" color="green" />
       </div>
