@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import { Layout } from "../layout";
+import { AdminLayout, Layout } from "../layout";
 import {
   AdminLogin,
   AdminPanel,
@@ -12,17 +12,21 @@ import {
   // Company,
   Delivery,
   Gallery,
+  GalleryEditing,
+  GalleryLayout,
   Gift,
   Home,
   NotFound,
   Portfolio,
   Sidebar,
   Tags,
+  Tamplate,
 } from "../pages";
 import CardSet from "../pages/CardSet/CardSet";
 import Company2 from "../pages/Company2/Company2";
 import { PadPrinting } from "../pages/Applying";
-import Layout2 from "../layout/Layout2";
+
+import GallerySidebar from "../pages/Gallery/GallerySidebar";
 
 // admin panel
 import { SettingsPanel, ConstructorPanel, FileAndPrice } from "../components";
@@ -112,11 +116,29 @@ export const router = createBrowserRouter([
   },
   {
     path: "/admin",
-    element: <Layout2 />,
+    element: <AdminLayout />,
     children: [
       {
         path: "gallery",
-        element: <Gallery />,
+        element: <GallerySidebar />,
+        children: [
+          {
+            path: "general-information",
+            element: <Gallery />,
+          },
+          {
+            path: "layout",
+            element: <GalleryLayout />,
+          },
+          {
+            path: "editing",
+            element: <GalleryEditing />,
+          },
+          {
+            path: "tamplate",
+            element: <Tamplate />,
+          },
+        ],
       },
     ],
   },

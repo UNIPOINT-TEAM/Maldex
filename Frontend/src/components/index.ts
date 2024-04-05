@@ -38,3 +38,5 @@ export { default as Printing } from "./Printing/Printing";
 export { default as SettingsPanel } from "./AdminSidebar/SettingsPanel";
 export { default as ConstructorPanel } from "./AdminSidebar/ConstructorPanel";
 export { default as FileAndPrice } from "./AdminSidebar/FileAndPrice";
+export { default as Galleryslider } from "./Gallery/Galleryslider";
+export { default as LayoutSideCard } from "./Gallery/LayoutSideCard";

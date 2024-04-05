@@ -6,7 +6,7 @@ const Layout2 = () => {
     <div className="font-Helvetica-Neue">
       <Navbar />
       <SaleSlider />
-      <main className="w-100 container_xxl">
+      <main className="">
         <Outlet />
       </main>
     </div>

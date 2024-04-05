@@ -14,7 +14,7 @@ function SaleSlider() {
   };
   const slider = useRef<Slider>(null);
   return (
-    <div className="bg-white my-2 sale-slider">
+    <div className="bg-white mt-2 sale-slider">
       <div className="container_xxl  px-3 ">
         <div className="w-full relative">
           <Slider

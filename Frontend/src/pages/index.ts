@@ -16,4 +16,7 @@ export { default as AdminLogin } from "./AdminLogin/AdminLogin";
 export { default as AdminPanel } from "./AdminPanel/AdminPanel";
 export { default as Articles } from "./Articles/Articles";
 // Admin
-export { default as Gallery } from "./Gallery/Gallery";
+export { default as Gallery } from "./Gallery/GeneralInfo";
+export { default as GalleryLayout } from "./Gallery/Layout";
+export { default as GalleryEditing } from "./Gallery/Editing";
+export { default as Tamplate } from "./Gallery/Tamplate";

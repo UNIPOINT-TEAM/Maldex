@@ -1,0 +1,16 @@
+.gallery .swiper-slide-thumb-active {
+     position: relative;
+     border: 1px solid #ec1026;
+}
+.gallery .swiper-slide-thumb-active::before {
+     position: absolute;
+     content: "";
+     width: 100%;
+     height: 1px;
+     left: 0;
+     bottom: 0;
+     margin-bottom: -16.5px;
+     z-index: 999;
+     background: #ec1026;
+
+}
