@@ -10,7 +10,7 @@ import { SliderProduct } from "../../components";
 import GiftBanner from "../../assets/gift_builder_banner.png";
 import ProductCart from "../../assets/images/machine.png";
 import { IoAddSharp, IoCloseSharp } from "react-icons/io5";
-
+  
 const BuildSet = () => {
   const [open, setOpen] = useState<number>(0);
   // @ts-ignore
