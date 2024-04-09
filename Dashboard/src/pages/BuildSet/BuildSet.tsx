@@ -26,13 +26,13 @@ const BuildSet = () => {
         <div className="grid grid-cols-10">
           <div className="col-span-10 lg:col-span-10">
             <div className="bg-greenPrimary h-[75px] flex items-center justify-center ">
-              <h1 className=" text-[22px] lg:text-[30px] text-[#fff]">
+              <h1 className=" text-[22px] lg:text-[30px] text-red-primary">
                 Создайте идеальный подарок
               </h1>
             </div>
             <div className="w-full">
               <Accordion
-                className=" border border-l-0 px-5 border-lightPrimary my-4"
+                className=" border px-5 border-lightPrimary my-4"
                 open={open === 1}
                 icon={
                   <img
@@ -58,7 +58,7 @@ const BuildSet = () => {
                 </AccordionBody>
               </Accordion>
               <Accordion
-                className=" border border-l-0 border-lightPrimary px-5 my-4"
+                className=" border  border-lightPrimary px-5 my-4"
                 open={open === 2}
                 icon={
                   <img
@@ -84,7 +84,7 @@ const BuildSet = () => {
                 </AccordionBody>
               </Accordion>
               <Accordion
-                className=" border border-l-0 border-lightPrimary px-5 my-4"
+                className=" border  border-lightPrimary px-5 my-4"
                 open={open === 3}
                 icon={
                   <img
@@ -110,7 +110,7 @@ const BuildSet = () => {
                 </AccordionBody>
               </Accordion>
               <Accordion
-                className=" border border-l-0 border-lightPrimary px-5 my-4"
+                className=" border  border-lightPrimary px-5 my-4"
                 open={open === 4}
                 icon={
                   <img
@@ -136,7 +136,7 @@ const BuildSet = () => {
                 </AccordionBody>
               </Accordion>
               <Accordion
-                className=" border border-l-0 border-lightPrimary px-5 my-4"
+                className=" border  border-lightPrimary px-5 my-4"
                 open={open === 5}
                 icon={
                   <img

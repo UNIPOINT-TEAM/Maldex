@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import Loader from './common/Loader';
-import { BuildSet, Catalog, Gifts, Main, SignIn, SignUp, Tags } from './pages';
+import { BuildSet, Catalog, CatalogGifts, Gifts, Main, SignIn, SignUp, Tags } from './pages';
 import 'swiper/css';
 import 'swiper/css/scrollbar';
 import 'swiper/css/pagination';
+import Portfolio from './pages/Portfolio/Portfolio';
+import Admin from './pages/Admin/Admin';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -28,6 +30,9 @@ function App() {
         <Route path="/tags" element={<Tags />} />
         <Route path="/catalog" element={<Catalog />} />
         <Route path="/build-set" element={<BuildSet />} />
+        <Route path="/catalog-gift" element={<CatalogGifts />} />
+        <Route path="/portfolio" element={<Portfolio />} />
+        <Route path="/admin" element={<Admin />} />
         <Route path="/auth/sign-in" element={<SignIn />} />
         <Route path="/auth/sign-up" element={<SignUp />} />
       </Routes>

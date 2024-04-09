@@ -26,17 +26,17 @@ export const Sidenavs = [
   },
   {
     id: 6,
-    path: '/build-set',
+    path: '/catalog-gift',
     title: 'Каталог Подарочный набор',
   },
   {
     id: 7,
-    path: '/build-set',
+    path: '/portfolio',
     title: 'Портфолио',
   },
   {
     id: 8,
-    path: '/build-set',
+    path: '/admin',
     title: 'Админкачё',
   },
 
