@@ -30,3 +30,11 @@
   border-radius: 4px;
   cursor: pointer;
 }
+
+
+.blur {
+  filter: blur(2px) !important; 
+  transition: filter 1s ease; 
+  /* background-color: white !important;
+  border: 1px solid gray; */
+}
