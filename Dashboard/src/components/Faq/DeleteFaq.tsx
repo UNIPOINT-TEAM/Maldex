@@ -11,19 +11,23 @@ import {
 } from '@material-tailwind/react';
 import { MdEdit, MdDelete } from 'react-icons/md';
 
-const DeleteMainCatalog = () => {
+const DeleteFaq = ({ id, onRemove }) => {
   const [size, setSize] = React.useState(null);
 
   const handleOpen = (value: any) => setSize(value);
+  const handleDelete = () => {
+    onRemove(id);
+    handleOpen();
+  };
 
   return (
     <>
       <div className="flex gap-3">
         <button
           onClick={() => handleOpen('sm')}
-          className="p-1 bg-red-600 h-[30px] w-[30px] rounded flex justify-center items-center"
+          className="p-1 bg-danger h-[30px] w-[30px] rounded flex justify-center items-center"
         >
-          <MdDelete color="white" />
+          <MdDelete color="white" size={16} />
         </button>
       </div>
       <Dialog
@@ -43,9 +47,7 @@ const DeleteMainCatalog = () => {
             <h2 className="font-satoshi text-title-lg font-medium text-center text-danger">
               Удалить этот элемент
             </h2>
-            <div className=" flex items-center gap-5 py-2">
-              
-            </div>
+            <div className=" flex items-center gap-5 py-2"></div>
           </CardBody>
           <CardFooter className="pt-0 font-satoshi flex justify-end gap-4">
             <button
@@ -54,7 +56,10 @@ const DeleteMainCatalog = () => {
             >
               Отмена
             </button>
-            <button className="inline-flex tracking-wide items-center justify-center rounded-md bg-danger py-2 px-6 text-center font-medium text-white hover:bg-opacity-90 ">
+            <button
+              onClick={handleDelete}
+              className="inline-flex tracking-wide items-center justify-center rounded-md bg-danger py-2 px-6 text-center font-medium text-white hover:bg-opacity-90 "
+            >
               Удалить
             </button>
           </CardFooter>
@@ -64,4 +69,4 @@ const DeleteMainCatalog = () => {
   );
 };
 
-export default DeleteMainCatalog;
+export default DeleteFaq;

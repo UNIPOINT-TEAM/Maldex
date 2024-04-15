@@ -13,4 +13,12 @@ export { default as GiftBanner } from './GiftBanner/GiftBanner';
 export { default as GiftBannerBottom } from './GiftBanner/GiftBannerBottom';
 export { default as GiftBannerSlider } from './GiftBanner/GiftBannerSlider';
 export { default as LeftAccordion } from './GiftBanner/LeftAccordion';
+export { default as ProductNav} from './ProductNav/ProductNav';
+export { default as SaleSlider} from './SaleSlider/SaleSlider';
+export { default as TagList} from './TagList/TagList';
+export { default as SliderProduct} from './SliderProduct/SliderProduct';
 
+
+export { default as DeleteFaq } from './Faq/DeleteFaq';
+export { default as News } from './News/News';
+export { default as EditNews } from './News/EditNews';
