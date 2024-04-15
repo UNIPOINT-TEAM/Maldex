@@ -8,6 +8,7 @@ import {
 import accordionIcon from '../../assets/icons/accordion-icon.png';
 import { IoMdAdd } from 'react-icons/io';
 import { DeleteFaq } from '..';
+import { MdEdit } from 'react-icons/md';
 
 export const Icon = (props: { id: number; open: number }) => {
   const { id, open } = props;
@@ -131,6 +132,7 @@ const Faq = () => {
       <div className="max-w-[1200px] w-full pl-[150px]">
         {faq.map((item) => (
           <Accordion
+            id={item.id}
             className="border border-lightPrimary rounded-xl  my-4"
             open={open === item.id}
             icon={
@@ -155,9 +157,9 @@ const Faq = () => {
                 <div className="flex gap-1 items-center">
                   <button
                     onClick={() => startEdit(item.id)}
-                    className="bg-yellow-500 rounded w-[30px] h-[30px] flex justify-center items-center"
+                    className="bg-warning rounded w-[30px] h-[30px] flex justify-center items-center"
                   >
-                    e
+                    <MdEdit size={16} color={'white'} />
                   </button>
                   <DeleteFaq {...item} onRemove={removeFaq} />
                 </div>
@@ -191,7 +193,13 @@ const Faq = () => {
               className="w-full border outline-none rounded h-[40px] mb-3 px-3 py-1"
               onChange={(e) => setFaqBody(e.target.value)}
             />
-            <div className="flex justify-center items-start">
+            <div className="flex justify-center items-start gap-3">
+              <button
+                onClick={() => setFaqStatus(0)}
+                className="bg-red-400 text-white w-[200px] h-[40px] rounded"
+              >
+                cancel
+              </button>
               <button
                 onClick={addFaq}
                 className="bg-blue-400 text-white w-[200px] h-[40px] rounded"
@@ -216,18 +224,18 @@ const Faq = () => {
               className="w-full border outline-none rounded h-[40px] mb-3 px-3 py-1"
               onChange={(e) => setNewContent(e.target.value)}
             />
-            <div className="flex justify-center items-start">
+            <div className="flex justify-center items-start gap-3">
+              <button
+                onClick={cancelEdit}
+                className="bg-red-400 text-white w-[200px] h-[40px] rounded"
+              >
+                cancel
+              </button>
               <button
                 onClick={saveEdit}
                 className="bg-blue-400 text-white w-[200px] h-[40px] rounded"
               >
                 Save
-              </button>
-              <button
-                onClick={cancelEdit}
-                className="bg-blue-400 text-white w-[200px] h-[40px] rounded"
-              >
-                cancel
               </button>
             </div>
           </div>
@@ -238,3 +246,4 @@ const Faq = () => {
 };
 
 export default Faq;
+

@@ -25,9 +25,9 @@ const DeleteFaq = ({ id, onRemove }) => {
       <div className="flex gap-3">
         <button
           onClick={() => handleOpen('sm')}
-          className="p-1 bg-red-600 h-[30px] w-[30px] rounded flex justify-center items-center"
+          className="p-1 bg-danger h-[30px] w-[30px] rounded flex justify-center items-center"
         >
-          <MdDelete color="white" />
+          <MdDelete color="white" size={16} />
         </button>
       </div>
       <Dialog

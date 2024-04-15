@@ -7,10 +7,10 @@
 }
 
 .file-input-container {
+  z-index: 9;
   position: relative;
   display: inline-block;
 }
-
 .file-input {
   position: absolute;
   top: 0;

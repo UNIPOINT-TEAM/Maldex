@@ -20,3 +20,5 @@ export { default as SliderProduct} from './SliderProduct/SliderProduct';
 
 
 export { default as DeleteFaq } from './Faq/DeleteFaq';
+export { default as News } from './News/News';
+export { default as EditNews } from './News/EditNews';
