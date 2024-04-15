@@ -9,6 +9,7 @@ import {
   DialogFooter,
   DialogHeader,
 } from '@material-tailwind/react';
+import { Reorder } from 'framer-motion'; // Импорт из Framer Motion
 import accordionIcon from '../../assets/icons/accordion-icon.png';
 import { SliderProduct } from '../../components';
 import { IoAddSharp, IoCloseSharp } from 'react-icons/io5';
@@ -24,36 +25,42 @@ const BuildSet = () => {
     number | null
   >(null);
   const [editedAccordionTitle, setEditedAccordionTitle] = useState<string>('');
+  const [order, setOrder] = useState(() => [...Array(accordionCount).keys()]); // Инициализация порядка
 
   const handleOpen = (value: number) => setOpen(open === value ? 0 : value);
 
+  const handleReorder = (newOrder: number[]) => setOrder(newOrder); // Обработчик изменения порядка
+
   const addAccordion = () => {
+    const newIndex = accordionCount;
     setAccordionCount((prevCount) => prevCount + 1);
+    setOrder((prevOrder) => [...prevOrder, newIndex]); // Добавление нового индекса в порядок
   };
 
   const editAccordion = (index: number, event: React.MouseEvent) => {
-    event.stopPropagation(); // Остановить распространение события
-    setIsDialogOpen({
-      isOpen: true,
-      editedIndex: index,
-      editedTitle: `Аккордеон ${index + 1}`,
-    });
+    event.stopPropagation();
+    setIsDialogOpen(true);
+    setEditedAccordionIndex(index);
+    setEditedAccordionTitle(`Аккордеон ${index + 1}`);
   };
 
   const saveEditedAccordion = () => {
     const updatedAccordions = [...buildCart];
-    updatedAccordions[editedAccordionIndex!] = {
-      ...updatedAccordions[editedAccordionIndex!],
-      title: editedAccordionTitle,
-    };
-    setBuildCart(updatedAccordions);
-    setIsDialogOpen(false);
+    if (editedAccordionIndex !== null) {
+      updatedAccordions[editedAccordionIndex] = {
+        ...updatedAccordions[editedAccordionIndex],
+        title: editedAccordionTitle,
+      };
+      setBuildCart(updatedAccordions);
+      setIsDialogOpen(false);
+    }
   };
 
   const deleteAccordion = (index: number) => {
     const updatedAccordions = buildCart.filter((_, idx) => idx !== index);
     setBuildCart(updatedAccordions);
     setAccordionCount((prevCount) => prevCount - 1);
+    setOrder((prevOrder) => prevOrder.filter((item) => item !== index)); // Обновление порядка
   };
 
   return (
@@ -67,67 +74,71 @@ const BuildSet = () => {
               </h1>
             </div>
             <div className="w-[96%]">
-              {[...Array(accordionCount)].map((_, index) => (
-                <>
-                  <div className="flex item-center">
-                    <Accordion
-                      key={index}
-                      className="border border-lightPrimary px-5 my-4"
-                      open={open === index + 1}
-                      icon={
-                        <img
-                          className={`${
-                            open === index + 1 ? 'rotate-180' : ''
-                          } transition-transform w-[18px]`}
-                          src={accordionIcon}
-                        />
-                      }
-                      placeholder={<div />}
-                    >
-                      <AccordionHeader
-                        className="border-0 p-4"
-                        onClick={() => handleOpen(index + 1)}
+              <Reorder.Group
+                axis="y"
+                values={order}
+                onReorder={handleReorder}
+                className="mt-10 mb-6 justify-around flex flex-wrap"
+              >
+                {order.map((index) => (
+                  <Reorder.Item key={index} value={index} className="relative">
+                    <div className="flex item-center">
+                      <Accordion
+                        className="border border-lightPrimary px-5 my-4"
+                        open={open === index + 1}
+                        icon={
+                          <img
+                            className={`${
+                              open === index + 1 ? 'rotate-180' : ''
+                            } transition-transform w-[18px]`}
+                            src={accordionIcon}
+                          />
+                        }
                         placeholder={<div />}
                       >
-                        <h2 className="font-helvetica tracking-wide text-fs_6 font-normal text-greenPrimary">
-                          {index + 1}. Заголовок аккордеона
-                        </h2>
-                      </AccordionHeader>
-                      <AccordionBody className="p-4" placeholder={<div />}>
-                        <SliderProduct />
-                      </AccordionBody>
-                    </Accordion>
-                    <div className="flex flex-col justify-center mt-2">
-                      <Button
-                        // color="blue"
-                        buttonType="filled"
-                        size="regular"
-                        rounded={false}
-                        block={false}
-                        iconOnly={true}
-                        ripple="light"
-                        onClick={(event) => editAccordion(index, event)}
-                        className="bg-yellow-400"
-                      >
-                        <MdEdit />
-                      </Button>
-
-                      <Button
-                        color="red"
-                        buttonType="filled"
-                        size="regular"
-                        rounded={false}
-                        block={false}
-                        iconOnly={true}
-                        ripple="light"
-                        onClick={() => deleteAccordion(index)}
-                      >
-                        <MdDelete />
-                      </Button>
+                        <AccordionHeader
+                          className="border-0 p-4"
+                          onClick={() => handleOpen(index + 1)}
+                          placeholder={<div />}
+                        >
+                          <h2 className="font-helvetica tracking-wide text-fs_6 font-normal text-greenPrimary">
+                            {index + 1}. Заголовок аккордеона
+                          </h2>
+                        </AccordionHeader>
+                        <AccordionBody className="p-4" placeholder={<div />}>
+                          <SliderProduct />
+                        </AccordionBody>
+                      </Accordion>
+                      <div className="flex flex-col justify-center mt-2">
+                        <Button
+                          buttonType="filled"
+                          size="regular"
+                          rounded={false}
+                          block={false}
+                          iconOnly={true}
+                          ripple="light"
+                          onClick={(event) => editAccordion(index, event)}
+                          className="bg-yellow-400"
+                        >
+                          <MdEdit />
+                        </Button>
+                        <Button
+                          color="red"
+                          buttonType="filled"
+                          size="regular"
+                          rounded={false}
+                          block={false}
+                          iconOnly={true}
+                          ripple="light"
+                          onClick={() => deleteAccordion(index)}
+                        >
+                          <MdDelete />
+                        </Button>
+                      </div>
                     </div>
-                  </div>
-                </>
-              ))}
+                  </Reorder.Item>
+                ))}
+              </Reorder.Group>
 
               {/* Диалоговое окно для редактирования названия аккордеона */}
               {isDialogOpen && (

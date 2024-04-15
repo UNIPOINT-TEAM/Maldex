@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import Loader from './common/Loader';
-import { BuildSet, Catalog, CatalogGifts, Gifts, Main, SignIn, SignUp, Tags } from './pages';
+import { Articles, BuildSet, Catalog, CatalogGifts, Gifts, Main, Print, SignIn, SignUp, Tags } from './pages';
 import 'swiper/css';
 import 'swiper/css/scrollbar';
 import 'swiper/css/pagination';
@@ -33,6 +33,8 @@ function App() {
         <Route path="/catalog-gift" element={<CatalogGifts />} />
         <Route path="/portfolio" element={<Portfolio />} />
         <Route path="/admin" element={<Admin />} />
+        <Route path="/articles" element={<Articles />} />
+        <Route path="/print" element={<Print />} />
         <Route path="/auth/sign-in" element={<SignIn />} />
         <Route path="/auth/sign-up" element={<SignUp />} />
       </Routes>
