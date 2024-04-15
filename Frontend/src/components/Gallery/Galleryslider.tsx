@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { useLayoutEffect, useRef, useState } from "react";
 import sliderImg from "../../assets/cap.png";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -7,7 +8,7 @@ import deleteIcon from "../../assets/icons/Delete.svg";
 import "swiper/css";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 
-const Galleryslider = () => {
+const Galleryslider = ({ items }) => {
   const [products, setProducts] = useState({
     name: "Бейсболка «Poly»",
     price: "45.00 ₽",
@@ -41,6 +42,7 @@ const Galleryslider = () => {
     setProducts((prev) => ({ ...prev, [name]: value }));
     handleTextareaResize(event);
   };
+  console.log(items);
   return (
     <div className="">
       <div className="flex mt-4 w-full">
@@ -75,8 +77,8 @@ const Galleryslider = () => {
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M4.167 2.5h6.666c.92 0 1.667.746 1.667 1.667v.416h-1.25v-.416a.417.417 0 0 0-.417-.417H4.167a.417.417 0 0 0-.417.417V12.5c0 .23.187.417.417.417H6.25v1.25H4.167c-.92 0-1.667-.746-1.667-1.667V4.167c0-.92.746-1.667 1.667-1.667Zm5 4.583a.417.417 0 0 0-.417.417v8.333c0 .23.187.417.417.417h6.666c.23 0 .417-.186.417-.417V7.5a.417.417 0 0 0-.417-.417H9.167Zm6.666-1.25H9.167c-.92 0-1.667.747-1.667 1.667v8.333c0 .92.746 1.667 1.667 1.667h6.666c.92 0 1.667-.746 1.667-1.667V7.5c0-.92-.746-1.667-1.667-1.667Z"
                 fill="currentColor"
               ></path>
@@ -186,87 +188,6 @@ const Galleryslider = () => {
               </div>
             </div>
           </SwiperSlide>
-          <SwiperSlide className="h-[500px] w-[300px]">
-            <div className="w-auto grid grid-cols-7 h-full border p-3 rounded-lg border-darkSecondary">
-              <div className="col-span-3 p-8 flex items-center">
-                <img
-                  src={sliderImg}
-                  alt="slider-img"
-                  className="w-[400px] object-contain object-center h-auto"
-                />
-              </div>
-              <div className="col-span-4 flex flex-col justify-center">
-                <div className="heading">
-                  <input
-                    type="text"
-                    name="name"
-                    onChange={handleChange}
-                    value={products.name}
-                    className="text-[36px] font-medium p-[6px] rounded-lg focus:outline outline-[#e99125]"
-                  />
-                </div>
-                <div className="grid grid-cols-12 gap-4 my-2 pe-10">
-                  <div className="flex col-span-3 flex-col gap-3">
-                    <h3 className="text-[#222220] opacity-70 font-medium">
-                      Цена (руб)
-                    </h3>
-                    <input
-                      type="text"
-                      name="price"
-                      onChange={handleChange}
-                      value={products.price}
-                      className="text-fs_4 w-auto font-medium  p-[6px] rounded-lg focus:outline outline-[#e99125]"
-                    />
-                  </div>
-                  <div className="flex flex-col gap-3 col-span-3">
-                    <h3 className="text-[#222220] opacity-70 font-medium">
-                      Тираж (шт)
-                    </h3>
-                    <input
-                      type="text"
-                      name="circulation"
-                      onChange={handleChange}
-                      value={products.circulation}
-                      className="text-fs_4 w-auto font-medium  p-[6px] rounded-lg focus:outline outline-[#e99125]"
-                    />
-                  </div>
-                  <div className="flex flex-col items-end gap-3 col-span-6">
-                    <h3 className="text-[#222220] opacity-70 font-medium">
-                      Итого
-                    </h3>
-                    <input
-                      type="text"
-                      name="total"
-                      onChange={handleChange}
-                      value={products.total}
-                      className="text-fs_4 w-auto text-end font-medium  p-[6px] rounded-lg focus:outline outline-[#e99125]"
-                    />
-                  </div>
-                </div>
-                <div className="flex my-3">
-                  <textarea
-                    className="w-full resize-none rounded-lg max-h-[300px] font-normal p-[6px] overflow-hidden leading-tight focus:outline outline-[#e99125]"
-                    name="characteristics"
-                    onChange={handleChange}
-                    rows={6}
-                    value={products.characteristics.replace(
-                      /<br\s*\/?>/g,
-                      "\n"
-                    )}
-                  ></textarea>
-                </div>
-                <div>
-                  <textarea
-                    className="w-full  resize-none rounded-lg max-h-[300px]  font-normal p-[6px] overflow-hidden leading-tight focus:outline outline-[#e99125]"
-                    name="description"
-                    rows={4}
-                    onChange={handleChange}
-                    value={products.description}
-                  />
-                </div>
-              </div>
-            </div>
-          </SwiperSlide>
         </Swiper>
         <Swiper
           spaceBetween={20}
@@ -284,20 +205,13 @@ const Galleryslider = () => {
               className=" object-contain object-center h-full"
             />
           </SwiperSlide>
-          <SwiperSlide className="h-[90px] rounded-lg p-2 w-[145px] border">
-            <img
-              src={sliderImg}
-              alt="slider-img"
-              className=" object-contain object-center h-full"
-            />
-          </SwiperSlide>
         </Swiper>
         <div className="navigation-box absolute z-[9] flex items-center gap-2 font-medium">
           <button className="prev-arrow-g flex justify-center items-center w-[40px] h-[40px] border border-darkPrimary hover:bg-redPrimary hover:text-[#fff] hover:border-redPrimary rounded-[10px] duration-200">
             <FaArrowLeft className="text-fs_8 lg:text-fs_7" />
           </button>
           <p className="text-fs_6">
-            <span className="text-redPrimary">{activeIndex + 1}</span> из 2
+            <span className="text-redPrimary">{activeIndex + 1}</span> из 20
           </p>
           <button className="next-arrow-g flex justify-center items-center w-[40px] h-[40px] border border-darkPrimary hover:bg-redPrimary hover:text-[#fff] hover:border-redPrimary rounded-[10px] duration-200">
             <FaArrowRight className="text-fs_8 lg:text-fs_7" />
