@@ -11,6 +11,7 @@ export interface CategoryListProps {
   onCategorySelect: (category: string) => void;
   onCategoryDelete: (category: string) => void;
   onCategoryAdd: (categoryName: string) => void;
+  onReorderCategories: (newOrder: string[]) => void;
 
 }
 

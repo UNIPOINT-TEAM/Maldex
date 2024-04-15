@@ -39,5 +39,15 @@ export const Sidenavs = [
     path: '/admin',
     title: 'Админкачё',
   },
+  {
+    id: 8,
+    path: '/articles',
+    title: 'Статьи',
+  },
+  {
+    id: 9,
+    path: '/print',
+    title: 'Принты',
+  },
 
 ];

@@ -1,8 +1,8 @@
-// CategoryList.tsx
 import React, { useState } from 'react';
 import { CategoryListProps } from '../types';
 import { Button } from '@material-tailwind/react';
 import { MdEdit, MdDelete } from 'react-icons/md';
+import { Reorder, motion } from 'framer-motion';
 
 const CategoryList: React.FC<CategoryListProps> = ({
   categories,
@@ -14,14 +14,25 @@ const CategoryList: React.FC<CategoryListProps> = ({
 }) => {
   const [newCategory, setNewCategory] = React.useState('');
   const [editCategoryInput, setEditCategoryInput] = useState<string>('');
-  const [isEditingCategory, setIsEditingCategory] = useState<boolean>(false); // Добавленное состояние
+  const [isEditingCategory, setIsEditingCategory] = useState<boolean>(false);
+  const [order, setOrder] = useState(Object.keys(categories)); // Хранение порядка элементов
+
+  // const handleEditCategory = (oldCategoryName: string) => {
+  //   if (editCategoryInput && oldCategoryName !== editCategoryInput) {
+  //     onCategoryEdit(oldCategoryName, editCategoryInput);
+  //     setEditCategoryInput('');
+  //     setIsEditingCategory(false);
+  //   }
+  //   console.log('red');
+  // };
 
   const handleEditCategory = (oldCategoryName: string) => {
-    if (editCategoryInput && oldCategoryName !== editCategoryInput) {
+    if (editCategoryInput) {
       onCategoryEdit(oldCategoryName, editCategoryInput);
       setEditCategoryInput('');
-      setIsEditingCategory(false); // Устанавливаем состояние редактирования в false после сохранения
+      setIsEditingCategory(false);
     }
+    console.log('red');
   };
 
   const addCategory = () => {
@@ -29,6 +40,10 @@ const CategoryList: React.FC<CategoryListProps> = ({
       onCategoryAdd(newCategory);
       setNewCategory('');
     }
+  };
+
+  const handleReorder = (newOrder: string[]) => {
+    setOrder(newOrder); // Обновление порядка элементов
   };
 
   return (
@@ -45,10 +60,15 @@ const CategoryList: React.FC<CategoryListProps> = ({
           Добавить
         </Button>
       </div>
-      <ul className="mt-10 mb-6 justify-around flex flex-wrap">
-        {Object.keys(categories).map((category) => (
-          <div key={category} className="relative">
-            {selectedCategory === category && isEditingCategory ? ( // Используем isEditingCategory
+      <Reorder.Group
+        axis="x"
+        values={order}
+        onReorder={handleReorder}
+        className="mt-10 mb-6 justify-around flex flex-wrap"
+      >
+        {order.map((category) => (
+          <Reorder.Item key={category} value={category} className="relative">
+            {selectedCategory === category && isEditingCategory ? (
               <div>
                 <input
                   type="text"
@@ -64,7 +84,7 @@ const CategoryList: React.FC<CategoryListProps> = ({
                     Сохранить
                   </button>
                   <button
-                    onClick={() => setIsEditingCategory(false)} // Устанавливаем isEditingCategory в false при отмене
+                    onClick={() => setIsEditingCategory(false)}
                     className="ml-2 p-2 border rounded-lg bg-red-500 text-white"
                   >
                     Отмена
@@ -87,7 +107,7 @@ const CategoryList: React.FC<CategoryListProps> = ({
                   <button
                     onClick={() => {
                       setEditCategoryInput(category);
-                      setIsEditingCategory(true); // Устанавливаем isEditingCategory в true при нажатии на кнопку редактирования
+                      setIsEditingCategory(true);
                     }}
                     className="shadow-lg rounded-lg p-2 text-sm text-white bg-yellow-400"
                   >
@@ -102,9 +122,9 @@ const CategoryList: React.FC<CategoryListProps> = ({
                 </div>
               </>
             )}
-          </div>
+          </Reorder.Item>
         ))}
-      </ul>
+      </Reorder.Group>
     </div>
   );
 };
