@@ -10,6 +10,11 @@ export const Sidenavs = [
     title: 'Подарочные наборы',
   },
   {
+    id: 9,
+    path: '/product',
+    title: 'Продукт',
+  },
+  {
     id: 3,
     path: '/catalog',
     title: 'Каталог',
@@ -24,6 +29,7 @@ export const Sidenavs = [
     path: '/build-set',
     title: 'Собери свой набор',
   },
+
   {
     id: 6,
     path: '/catalog-gift',
@@ -49,5 +55,4 @@ export const Sidenavs = [
     path: '/print',
     title: 'Принты',
   },
-
 ];
