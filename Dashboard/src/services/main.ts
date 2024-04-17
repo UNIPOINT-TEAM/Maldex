@@ -1,4 +1,6 @@
 import { api } from '../axios/Api';
+import axios from 'axios';
+import { BASE_URL } from '../utils/BaseUrl';
 
 export const GetNewCategory = async () => {
   const response = await api.get(`/product/categories/?new_category=true`);
@@ -13,8 +15,7 @@ export const GetMainBannerSlider = async () => {
   return response.data;
 };
 
-export const GetProduct
- = async () => {
+export const GetProduct = async () => {
   const response = await api.get(`/product`);
   return response.data;
 };

@@ -1,12 +1,26 @@
 import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import Loader from './common/Loader';
-import { Articles, BuildSet, Catalog, CatalogGifts, Gifts, Main, Print, SignIn, SignUp, Tags } from './pages';
+
+import {
+  BuildSet,
+  Catalog,
+  CatalogGifts,
+  Gifts,
+  Main,
+  Product,
+  SignIn,
+  SignUp,
+  Tags,
+  Articles,
+  Print,
+} from './pages';
 import 'swiper/css';
 import 'swiper/css/scrollbar';
 import 'swiper/css/pagination';
 import Portfolio from './pages/Portfolio/Portfolio';
 import Admin from './pages/Admin/Admin';
+import AddProduct from './pages/Product/AddProduct';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -32,6 +46,9 @@ function App() {
         <Route path="/build-set" element={<BuildSet />} />
         <Route path="/catalog-gift" element={<CatalogGifts />} />
         <Route path="/portfolio" element={<Portfolio />} />
+        <Route path="/product" element={<Product />} />
+
+        <Route path="/product/add" element={<AddProduct />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/articles" element={<Articles />} />
         <Route path="/print" element={<Print />} />
