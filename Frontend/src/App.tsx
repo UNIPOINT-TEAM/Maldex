@@ -9,6 +9,7 @@ import "swiper/css/pagination";
 import "./App.css";
 import { Provider } from "react-redux";
 import store from "./store";
+import { DesignEditorProvider } from "./context/DesignEditor";
 
 function App() {
   useEffect(() => {
@@ -19,7 +20,9 @@ function App() {
   }, []);
   return (
     <Provider store={store}>
-      <RouterProvider router={router}></RouterProvider>
+      <DesignEditorProvider>
+        <RouterProvider router={router}></RouterProvider>
+      </DesignEditorProvider>
     </Provider>
   );
 }
