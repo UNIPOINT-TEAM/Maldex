@@ -8,13 +8,13 @@ const Canvas = () => {
     >
       <LayerhubCanvas
         config={{
-          background: "#6577bd",
+          background: "#f1f2f6",
           controlsPosition: {
             rotation: "BOTTOM",
           },
           shadow: {
             blur: 4,
-            color: "#fcfcfc",
+            color: "#eb3131",
             offsetX: 0,
             offsetY: 0,
           },

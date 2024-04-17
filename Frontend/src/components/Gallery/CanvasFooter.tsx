@@ -33,6 +33,7 @@ const CanvasFooter = () => {
     currentDesign,
   } = React.useContext(DesignEditorContext);
   const editor = useEditor();
+  console.log(editor);
   const [currentPreview, setCurrentPreview] = React.useState("");
   const frame = useFrame();
   const [draggedScene, setDraggedScene] = React.useState<IScene | null>(null);
@@ -220,7 +221,7 @@ const CanvasFooter = () => {
             >
               <div
                 onClick={addScene}
-                className="w-[56px] h-[56px] cursor-pointer bg-[#f3f4f6] flex items-center justify-center"
+                className="w-[100px] h-[56px] cursor-pointer bg-[#f3f4f6] flex items-center justify-center"
               >
                 Add
               </div>
