@@ -78,7 +78,7 @@ const BuildSet = () => {
                 axis="y"
                 values={order}
                 onReorder={handleReorder}
-                className="mt-10 mb-6 justify-around flex flex-wrap"
+                className="mt-10 mb-6 justify-around flex flex-col"
               >
                 {order.map((index) => (
                   <Reorder.Item key={index} value={index} className="relative">

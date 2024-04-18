@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Accordion,
   AccordionHeader,
@@ -7,8 +7,7 @@ import {
 } from '@material-tailwind/react';
 import accordionIcon from '../../assets/icons/accordion-icon.png';
 import { IoMdAdd } from 'react-icons/io';
-import { DeleteFaq } from '..';
-import { MdEdit } from 'react-icons/md';
+import { GetFaqHome, PostFaqHome, delFaqHome, editFaqHome } from '../../services/main';
 
 export const Icon = (props: { id: number; open: number }) => {
   const { id, open } = props;
@@ -33,122 +32,169 @@ export const Icon = (props: { id: number; open: number }) => {
 };
 
 const Faq = () => {
-  const [faqStatus, setFaqStatus] = useState(0);
+  type FaqItem = {
+    id: number;
+    title: string;
+    body: string;
+    // Другие поля
+  };
+  
+  const [faq, setFaq] = useState<FaqItem[]>([]);
+  
+  const [faqStatus, setFaqStatus] = useState(true);
   const [faqHeader, setFaqHeader] = useState('');
   const [faqBody, setFaqBody] = useState('');
-  const [faq, setFaq] = useState([
-    {
-      id: 1,
-      title: 'О компании (сувенирная продукция в Москве)',
-      content:
-        'Maldex– это комплексный сервис по производству сувенирной продукции для российских и международных компаний. С нашей помощью компании смогут расширить клиентскую базу, повысить лояльность аудитории, укрепить позиции на рынке. <br/> <br/> Наша команда берет на себя весь спектр задач по ведению сделки, Вам нужно предоставить лишь логотип для нанесения. Мы изготовим, забрендируем и доставим ваш бизнес сувенир. ',
-    },
-    {
-      id: 2,
-      title: 'Более 60 000 наименований',
-      content:
-        'Maldex– это комплексный сервис по производству сувенирной продукции для российских и международных компаний. С нашей помощью компании смогут расширить клиентскую базу, повысить лояльность аудитории, укрепить позиции на рынке.<br/>  Наша команда берет на себя весь спектр задач по ведению сделки, Вам нужно предоставить лишь логотип для нанесения. Мы изготовим, забрендируем и доставим ваш бизнес сувенир. ',
-    },
-    {
-      id: 3,
-      title: 'Почему maldex?',
-      content:
-        'Maldex– это комплексный сервис по производству сувенирной продукции для российских и международных компаний. С нашей помощью компании смогут расширить клиентскую базу, повысить лояльность аудитории, укрепить позиции на рынке.  Наша команда берет на себя весь спектр задач по ведению сделки, Вам нужно предоставить лишь логотип для нанесения. Мы изготовим, забрендируем и доставим ваш бизнес сувенир. ',
-    },
-    {
-      id: 4,
-      title: 'Услуги',
-      content:
-        'Maldex– это комплексный сервис по производству сувенирной продукции для российских и международных компаний. С нашей помощью компании смогут расширить клиентскую базу, повысить лояльность аудитории, укрепить позиции на рынке.  Наша команда берет на себя весь спектр задач по ведению сделки, Вам нужно предоставить лишь логотип для нанесения. Мы изготовим, забрендируем и доставим ваш бизнес сувенир. ',
-    },
-  ]);
-  const [editingItem, setEditingItem] = useState<number | null>(null);
-  const [newTitle, setNewTitle] = useState('');
-  const [newContent, setNewContent] = useState('');
 
-  const addFaq = () => {
-    const newFaqItem = {
-      id: faq.length + 1,
-      title: faqHeader,
-      content: faqBody,
-    };
-    setFaq([...faq, newFaqItem]);
-    setFaqHeader('');
-    setFaqBody('');
-    setFaqStatus(0);
-  };
 
-  const startEdit = (id: number) => {
-    setFaqStatus(2);
-    const item = faq.find((item) => item.id === id);
-    if (item) {
-      setNewTitle(item.title);
-      setNewContent(item.content);
-      setEditingItem(id);
+
+  const removeFaq = async (id: number) => {
+    try {
+      await delFaqHome(id);
+
+      setFaq((prevFaq) => prevFaq.filter((item) => item.id !== id));
+
+      console.log('FAQ item deleted:', id);
+    } catch (error) {
+      console.error('Error deleting FAQ item:', error);
     }
-  };
-
-  const cancelEdit = () => {
-    setFaqStatus(0);
-    setEditingItem(null);
-    setNewTitle('');
-    setNewContent('');
-  };
-
-  const saveEdit = () => {
-    setFaqStatus(0);
-    if (editingItem !== null) {
-      setFaq((prevFaq) =>
-        prevFaq.map((item) =>
-          item.id === editingItem
-            ? { ...item, title: newTitle, content: newContent }
-            : item,
-        ),
-      );
-      setEditingItem(null);
-      setNewTitle('');
-      setNewContent('');
-    }
-  };
-
-  const removeFaq = (id: any) => {
-    const newData = faq.filter((item) => item.id !== id);
-    setFaq(newData);
   };
 
   const [open, setOpen] = useState<number>(0);
 
   const handleOpen = (value: number) => setOpen(open === value ? 0 : value);
 
-  return (
-    <div>
-      <div className="flex justify-between items-center w-full">
-        <h3 className="section-title">FAQ</h3>
-        <button className="inline-flex items-center justify-center rounded-md bg-primary py-2 px-6 text-center font-medium text-white hover:bg-opacity-90 ">
-          Сохранять
-        </button>
-      </div>
+  useEffect(() => {
+    GetFaqHome()
+      .then((res) => {
+        setFaq(res);
+        console.log(res);
+      })
+      .catch((error) => {
+        console.error('Error fetching FAQ data:', error);
+      });
+  }, []);
 
-      <div className="max-w-[1200px] w-full pl-[150px]">
-        {faq.map((item) => (
-          <Accordion
-            id={item.id}
-            className="border border-lightPrimary rounded-xl  my-4"
-            open={open === item.id}
-            icon={
-              <img
-                className={`${
-                  item.id === open ? 'rotate-180' : ''
-                } transition-transform`}
-                src={accordionIcon}
-              />
-            }
+  const addFaq = async () => {
+    try {
+      const newFaqItem = {
+        title: faqHeader,
+        body: faqBody,
+        type: 'home',
+        order: faq.length + 1,
+      };
+
+      const response = await PostFaqHome(newFaqItem);
+
+      setFaq([...faq, response]);
+      setFaqHeader('');
+      setFaqBody('');
+      setFaqStatus(true);
+
+      console.log('FAQ item added:', response);
+    } catch (error) {
+      console.error('Error adding FAQ item:', error);
+    }
+  };
+
+  const editFaq = async (id: number, newData: { title: string, body: string }) => {
+    try {
+      const response = await editFaqHome(id, newData); // Передаем новые данные в функцию editFaqHome
+  
+      // Обновляем элемент в состоянии faq
+      setFaq(prevFaq => prevFaq.map(item => item.id === id ? response : item));
+  
+      console.log('FAQ item updated:', response);
+    } catch (error) {
+      console.error('Error updating FAQ item:', error);
+    }
+  };
+
+  return (
+    <div className="max-w-[1200px] w-full pl-[150px]">
+      {faq.map((item) => (
+        <Accordion
+          key={item.id}
+          className="border border-lightPrimary rounded-xl my-4"
+          open={open === item.id}
+          icon={
+            <img
+              className={`${
+                item.id === open ? 'rotate-180' : ''
+              } transition-transform`}
+              src={accordionIcon}
+              alt="Expand/Collapse"
+            />
+          }
+          // placeholder={<div />}
+        >
+          <AccordionHeader
+            className="border-0 p-4"
+            onClick={() => handleOpen(item.id)}
             placeholder={<div />}
           >
-            <AccordionHeader
-              className="border-0  p-4"
-              onClick={() => handleOpen(item.id)}
-              placeholder={<div />}
+            <div className="w-full flex justify-between items-center">
+              <h3 className="font-helvetica -tracking-tighter text-fs_4 text-darkSecondary ">
+                {item.title}
+              </h3>
+              <div className="flex gap-1 items-center">
+              <button
+              className="bg-yellow-500 rounded w-[30px] h-[30px] flex justify-center items-center"
+              onClick={() => {
+                const newTitle = prompt('Enter new title:', item.title);
+                const newBody = prompt('Enter new body:', item.body);
+                if (newTitle !== null && newBody !== null) {
+                  editFaq(item.id, { title: newTitle, body: newBody });
+                }
+              }}
+            >
+              e
+            </button>
+                <button
+                  onClick={() => removeFaq(item.id)}
+                  className="bg-red-500 rounded w-[30px] h-[30px] flex justify-center items-center text-white"
+                >
+                  d
+                </button>
+              </div>
+            </div>
+          </AccordionHeader>
+          <AccordionBody className="p-4" placeholder={<div />}>
+            {item.body}
+          </AccordionBody>
+        </Accordion>
+      ))}
+      {faqStatus && (
+        <div className="flex w-full justify-center">
+          <button
+            className="border border-dashed w-[60px] h-[60px] rounded-[30px] flex justify-center items-center"
+            onClick={() => setFaqStatus(false)}
+          >
+            <IoMdAdd size={30} />
+          </button>
+        </div>
+      )}
+
+
+      {!faqStatus && (
+        <div className="border border-dashed py-5 px-2 w-full rounded-xl">
+          <input
+            type="text"
+            placeholder="Title"
+            className="w-full border outline-none rounded h-[40px] mb-3 px-3 py-1"
+            value={faqHeader}
+            onChange={(e) => setFaqHeader(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Description"
+            className="w-full border outline-none rounded h-[40px] mb-3 px-3 py-1"
+            value={faqBody}
+            onChange={(e) => setFaqBody(e.target.value)}
+          />
+          <div className="flex justify-center items-start">
+            <button
+              onClick={addFaq}
+              className="bg-blue-400 text-white w-[200px] h-[40px] rounded"
             >
               <div className="w-full flex justify-between items-center">
                 <h3 className="font-helvetica -tracking-tighter text-fs_4 text-darkSecondary ">

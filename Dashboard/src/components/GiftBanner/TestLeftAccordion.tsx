@@ -13,14 +13,55 @@ const LeftAccordion = () => {
     null,
   );
 
+  const handleAccordionClick = (index: number) => {
+    setOpenAccordionIndex((prevIndex) => (prevIndex === index ? null : index));
+  };
+
   const [addCategory, setAddCategory] = useState(true);
   const [addSubCategory, setAddSubCategory] = useState(true);
   const [editCategory, setEditCategory] = useState('');
   const [subEditCategory, setSubEditCategory] = useState('');
+
   const [newCategoryName, setNewCategoryName] = useState('');
   const [newSubCategoryName, setNewSubCategoryName] = useState('');
   const [activeCategoryIndex, setActiveCategoryIndex] = useState(null); // Индекс активной категории для добавления подкатегорий
+
+  // Массив данных
   const [giftCategory, setGiftCategory] = useState([]);
+
+  const [activeSubcategoryInputIndex, setActiveSubcategoryInputIndex] =
+    useState<number | null>(null);
+
+  const toggleSubcategoryInput = (index: number) => {
+    setActiveSubcategoryInputIndex((prev) => (prev === index ? null : index));
+  };
+
+  // const addGiftCategory = async () => {
+  //   const response = await PostGiftsCategory();
+  // };
+
+  const [subCategoryName, setSubCategoryName] = useState<string>('');
+
+  // Очистка ввода после успешного добавления
+  const handleAddSubCategory = async (parentIndex: number) => {
+    if (!subCategoryName.trim()) return;
+    const category = giftCategory[parentIndex];
+    const response = await PostGiftsCategory({
+      name: subCategoryName,
+      parentId: category.id, // Предполагаем, что API поддерживает parentId
+    });
+
+    if (response) {
+      const updatedCategories = [...giftCategory];
+      if (!updatedCategories[parentIndex].children) {
+        updatedCategories[parentIndex].children = [];
+      }
+      updatedCategories[parentIndex].children.push(response);
+      setGiftCategory(updatedCategories);
+      setSubCategoryName('');
+      setActiveSubcategoryInputIndex(null); // Скрыть форму ввода
+    }
+  };
 
   useEffect(() => {
     GetGiftsCategory()
@@ -44,30 +85,24 @@ const LeftAccordion = () => {
     }
   };
 
-  const handleAccordionClick = (index: number) => {
-    setOpenAccordionIndex((prevIndex) => (prevIndex === index ? null : index));
-    setActiveCategoryIndex(index); // устанавливаем активный индекс категории для добавления подкатегорий
-  };
+  // const handleAddSubCategory = async () => {
+  //   if (!newSubCategoryName.trim() || activeCategoryIndex === null) return;
 
-  const handleAddSubCategory = async () => {
-    if (!newSubCategoryName.trim() || activeCategoryIndex === null) return;
+  //   const category = giftCategory[activeCategoryIndex];
+  //   const response = await PostGiftsCategory({
+  //     name: newSubCategoryName,
+  //     parentId: category.id, // предполагаем, что API поддерживает parentId для создания подкатегорий
+  //   });
 
-    const category = { ...giftCategory[activeCategoryIndex] };
-
-    const response = await PostGiftsCategory({
-      name: newSubCategoryName,
-      parent: category.id, // Добавляем parentId в объект запроса
-    });
-
-    if (response) {
-      category.children.push(response);
-      const updatedCategories = [...giftCategory];
-      updatedCategories[activeCategoryIndex] = category;
-      setGiftCategory(updatedCategories);
-      setNewSubCategoryName('');
-      setAddSubCategory(true);
-    }
-  };
+  //   if (response) {
+  //     // Добавляем подкатегорию в соответствующую категорию
+  //     const updatedCategories = [...giftCategory];
+  //     updatedCategories[activeCategoryIndex].children.push(response);
+  //     setGiftCategory(updatedCategories);
+  //     setNewSubCategoryName('');
+  //     setAddSubCategory(true);
+  //   }
+  // };
 
   return (
     <div className="">
@@ -76,7 +111,6 @@ const LeftAccordion = () => {
           Подарочные наборы
         </h1>
       </div>
-      
       {giftCategory.map((category, index) => (
         <Accordion
           key={index}
@@ -127,28 +161,67 @@ const LeftAccordion = () => {
                 <h4 className="font-Helvetica-Neue font-medium text-black">
                   {child.name}
                 </h4>
+                {addSubCategory ? (
+                  <div className="flex w-full justify-center">
+                    <button
+                      className="border border-dashed w-[100%] h-[30px] mt-3 flex justify-center items-center"
+                      onClick={() => setAddSubCategory(false)}
+                    >
+                      <IoMdAdd size={10} />
+                    </button>
+                  </div>
+                ) : (
+                  <div className="border border-dashed py-5 px-2 w-full rounded-xl">
+                    <input
+                      type="text"
+                      placeholder="Подкатегория"
+                      className="w-full border outline-none rounded h-[40px] mb-3 px-3 py-1"
+                      onChange={(e) => editSubCategory(e.target.value)}
+                    />
+
+                    <div className="flex justify-center items-start">
+                      <button
+                        onClick={handleAddSubCategory}
+                        className="bg-blue-400 text-white w-[200px] h-[40px] rounded"
+                      >
+                        Save
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
-            {activeCategoryIndex === index && (
-              <div className="flex flex-col w-full items-center">
-                <input
-                  type="text"
-                  placeholder="Название подкатегории"
-                  className="w-full border outline-none rounded h-[40px] mb-3 px-3 py-1"
-                  value={newSubCategoryName}
-                  onChange={(e) => setNewSubCategoryName(e.target.value)}
-                />
-                <button
-                  className="border border-dashed w-[60px] h-[60px] rounded-[30px] flex justify-center items-center"
-                  onClick={handleAddSubCategory}
-                >
-                  <IoMdAdd size={30} />
-                </button>
-              </div>
-            )}
           </AccordionBody>
         </Accordion>
       ))}
+      {/* {giftCategory.map((category, index) => (
+        <Accordion key={index} className="pr-2 font-Helvetica-Neue">
+          <AccordionHeader onClick={() => handleAccordionClick(index)}>
+            {category.name}
+          </AccordionHeader>
+          <AccordionBody>
+            {(category.children || []).map((child, childIndex) => (
+              <div key={childIndex}>{child.name}</div>
+            ))}
+            {activeSubcategoryInputIndex === index ? (
+              <div>
+                <input
+                  value={subCategoryName}
+                  onChange={(e) => setSubCategoryName(e.target.value)}
+                  placeholder="Подкатегория"
+                />
+                <button onClick={() => handleAddSubCategory(index)}>
+                  Сохранить
+                </button>
+              </div>
+            ) : (
+              <button onClick={() => toggleSubcategoryInput(index)}>
+                Добавить подкатегорию
+              </button>
+            )}
+          </AccordionBody>
+        </Accordion>
+      ))} */}
 
       {addCategory ? (
         <div className="flex w-full justify-center">
