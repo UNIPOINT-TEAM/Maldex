@@ -7,7 +7,14 @@ import {
 } from '@material-tailwind/react';
 import accordionIcon from '../../assets/icons/accordion-icon.png';
 import { IoMdAdd } from 'react-icons/io';
-import { GetFaqHome, PostFaqHome, delFaqHome, editFaqHome } from '../../services/main';
+import {
+  GetFaqHome,
+  PostFaqHome,
+  delFaqHome,
+  editFaqHome,
+} from '../../services/main';
+import { DeleteFaq } from '..';
+import { MdEdit } from 'react-icons/md';
 
 export const Icon = (props: { id: number; open: number }) => {
   const { id, open } = props;
@@ -38,14 +45,12 @@ const Faq = () => {
     body: string;
     // Другие поля
   };
-  
+
   const [faq, setFaq] = useState<FaqItem[]>([]);
-  
+
   const [faqStatus, setFaqStatus] = useState(true);
   const [faqHeader, setFaqHeader] = useState('');
   const [faqBody, setFaqBody] = useState('');
-
-
 
   const removeFaq = async (id: number) => {
     try {
@@ -96,13 +101,18 @@ const Faq = () => {
     }
   };
 
-  const editFaq = async (id: number, newData: { title: string, body: string }) => {
+  const editFaq = async (
+    id: number,
+    newData: { title: string; body: string },
+  ) => {
     try {
       const response = await editFaqHome(id, newData); // Передаем новые данные в функцию editFaqHome
-  
+
       // Обновляем элемент в состоянии faq
-      setFaq(prevFaq => prevFaq.map(item => item.id === id ? response : item));
-  
+      setFaq((prevFaq) =>
+        prevFaq.map((item) => (item.id === id ? response : item)),
+      );
+
       console.log('FAQ item updated:', response);
     } catch (error) {
       console.error('Error updating FAQ item:', error);
@@ -137,18 +147,18 @@ const Faq = () => {
                 {item.title}
               </h3>
               <div className="flex gap-1 items-center">
-              <button
-              className="bg-yellow-500 rounded w-[30px] h-[30px] flex justify-center items-center"
-              onClick={() => {
-                const newTitle = prompt('Enter new title:', item.title);
-                const newBody = prompt('Enter new body:', item.body);
-                if (newTitle !== null && newBody !== null) {
-                  editFaq(item.id, { title: newTitle, body: newBody });
-                }
-              }}
-            >
-              e
-            </button>
+                <button
+                  className="bg-yellow-500 rounded w-[30px] h-[30px] flex justify-center items-center"
+                  onClick={() => {
+                    const newTitle = prompt('Enter new title:', item.title);
+                    const newBody = prompt('Enter new body:', item.body);
+                    if (newTitle !== null && newBody !== null) {
+                      editFaq(item.id, { title: newTitle, body: newBody });
+                    }
+                  }}
+                >
+                  e
+                </button>
                 <button
                   onClick={() => removeFaq(item.id)}
                   className="bg-red-500 rounded w-[30px] h-[30px] flex justify-center items-center text-white"
@@ -173,7 +183,6 @@ const Faq = () => {
           </button>
         </div>
       )}
-
 
       {!faqStatus && (
         <div className="border border-dashed py-5 px-2 w-full rounded-xl">
@@ -210,86 +219,86 @@ const Faq = () => {
                   <DeleteFaq {...item} onRemove={removeFaq} />
                 </div>
               </div>
-            </AccordionHeader>
-            <AccordionBody className="p-4" placeholder={<div />}>
+            </button>
+            <AccordionHeader className="p-4" placeholder={<div />}>
               {item.content}
-            </AccordionBody>
-          </Accordion>
-        ))}
-        {faqStatus == 0 ? (
-          <div className="flex w-full justify-center">
+            </AccordionHeader>
+          </div>
+        </div>
+      )}
+
+      {faqStatus == 0 ? (
+        <div className="flex w-full justify-center">
+          <button
+            className="border border-dashed w-[60px] h-[60px] rounded-[30px] flex justify-center items-center"
+            onClick={() => setFaqStatus(1)}
+          >
+            <IoMdAdd size={30} />
+          </button>
+        </div>
+      ) : faqStatus == 1 ? (
+        <div className="border border-dashed py-5 px-2 w-full rounded-xl">
+          <input
+            type="text"
+            placeholder="title"
+            className="w-full border outline-none rounded h-[40px] mb-3 px-3 py-1"
+            onChange={(e) => setFaqHeader(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="description"
+            className="w-full border outline-none rounded h-[40px] mb-3 px-3 py-1"
+            onChange={(e) => setFaqBody(e.target.value)}
+          />
+          <div className="flex justify-center items-start gap-3">
             <button
-              className="border border-dashed w-[60px] h-[60px] rounded-[30px] flex justify-center items-center"
-              onClick={() => setFaqStatus(1)}
+              onClick={() => setFaqStatus(0)}
+              className="bg-red-400 text-white w-[200px] h-[40px] rounded"
             >
-              <IoMdAdd size={30} />
+              cancel
+            </button>
+            <button
+              onClick={addFaq}
+              className="bg-blue-400 text-white w-[200px] h-[40px] rounded"
+            >
+              Save
             </button>
           </div>
-        ) : faqStatus == 1 ? (
-          <div className="border border-dashed py-5 px-2 w-full rounded-xl">
-            <input
-              type="text"
-              placeholder="title"
-              className="w-full border outline-none rounded h-[40px] mb-3 px-3 py-1"
-              onChange={(e) => setFaqHeader(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="description"
-              className="w-full border outline-none rounded h-[40px] mb-3 px-3 py-1"
-              onChange={(e) => setFaqBody(e.target.value)}
-            />
-            <div className="flex justify-center items-start gap-3">
-              <button
-                onClick={() => setFaqStatus(0)}
-                className="bg-red-400 text-white w-[200px] h-[40px] rounded"
-              >
-                cancel
-              </button>
-              <button
-                onClick={addFaq}
-                className="bg-blue-400 text-white w-[200px] h-[40px] rounded"
-              >
-                Save
-              </button>
-            </div>
+        </div>
+      ) : (
+        <div className="border border-dashed py-5 px-2 w-full rounded-xl">
+          <input
+            defaultValue={newTitle}
+            type="text"
+            placeholder="title"
+            className="w-full border outline-none rounded h-[40px] mb-3 px-3 py-1"
+            onChange={(e) => setNewTitle(e.target.value)}
+          />
+          <input
+            defaultValue={newContent}
+            type="text"
+            placeholder="description"
+            className="w-full border outline-none rounded h-[40px] mb-3 px-3 py-1"
+            onChange={(e) => setNewContent(e.target.value)}
+          />
+          <div className="flex justify-center items-start gap-3">
+            <button
+              onClick={cancelEdit}
+              className="bg-red-400 text-white w-[200px] h-[40px] rounded"
+            >
+              cancel
+            </button>
+            <button
+              onClick={saveEdit}
+              className="bg-blue-400 text-white w-[200px] h-[40px] rounded"
+            >
+              Save
+            </button>
           </div>
-        ) : (
-          <div className="border border-dashed py-5 px-2 w-full rounded-xl">
-            <input
-              defaultValue={newTitle}
-              type="text"
-              placeholder="title"
-              className="w-full border outline-none rounded h-[40px] mb-3 px-3 py-1"
-              onChange={(e) => setNewTitle(e.target.value)}
-            />
-            <input
-              defaultValue={newContent}
-              type="text"
-              placeholder="description"
-              className="w-full border outline-none rounded h-[40px] mb-3 px-3 py-1"
-              onChange={(e) => setNewContent(e.target.value)}
-            />
-            <div className="flex justify-center items-start gap-3">
-              <button
-                onClick={cancelEdit}
-                className="bg-red-400 text-white w-[200px] h-[40px] rounded"
-              >
-                cancel
-              </button>
-              <button
-                onClick={saveEdit}
-                className="bg-blue-400 text-white w-[200px] h-[40px] rounded"
-              >
-                Save
-              </button>
-            </div>
-          </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };
 
 export default Faq;
-
