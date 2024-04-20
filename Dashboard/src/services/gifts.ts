@@ -9,7 +9,7 @@ export const GetGiftsCategory
 
 
 export const PostGiftsCategory = async (data: any) => {
-  const response = await api.post(`/gifts/baskets/category/`, data);
+  const response = await api.post(`/gifts/baskets/`, data);
   return response.data;
 };
 

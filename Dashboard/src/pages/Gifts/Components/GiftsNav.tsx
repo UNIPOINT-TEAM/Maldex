@@ -8,6 +8,7 @@ import {
 } from '@material-tailwind/react';
 import { GetProduct } from '../../../services/main';
 import { GetGiftsCategory } from '../../../services/gifts';
+import { Link } from 'react-router-dom';
 // import { GetProduct } from '../../services/main';
 
 interface GiftsNavProps {
@@ -16,7 +17,7 @@ interface GiftsNavProps {
   subcategories : any[];
 }
 
-const GiftsNav: React.FC<GiftsNavProps> = ({ title, color, subcategories  }) => {
+const GiftsNav: React.FC<GiftsNavProps & { onSubCategoryClick: (subcategory: any) => void }> = ({ title, color, subcategories, onSubCategoryClick }) => {
   let titleStyle = 'text-4xl traking-wide';
   const [selectedItem, setSelectedItem] = useState(0);
 
@@ -76,15 +77,13 @@ const GiftsNav: React.FC<GiftsNavProps> = ({ title, color, subcategories  }) => 
     <div className="mb-6">
       <div className="mb-5 flex items-center justify-between">
         <h2 className={titleStyle}>{title}</h2>
-        {/* <button className="mx-3 uppercase text-fs_8 font-medium p-[6px] tracking-wide  border border-red-primary rounded-lg text-red-primary block ss:hidden">
-          добавить
-        </button> */}
+        <Link to="/gifts/add">
         <button
-          onClick={handleOpen}
+          // onClick={handleOpen}
           className="inline-flex items-center justify-center rounded-md bg-primary py-2 px-6 text-center font-medium text-white hover:bg-opacity-90 "
         >
           Добавить новых товаров
-        </button>
+        </button></Link>
       </div>
       <div className="border border-lightSecondary rounded-xl  uppercase text-darkSecondary font-semibold tracking-wider">
         <div className="flex justify-between items-center px-3 lg:px-7 py-0">
@@ -98,18 +97,19 @@ const GiftsNav: React.FC<GiftsNavProps> = ({ title, color, subcategories  }) => 
                       ? 'border-red-primary text-red-primary'
                       : 'border-transparent hover:text-red-primary'
                   }`}
-                  onClick={() => setSelectedItem(index)}
+                  onClick={() => {
+                    setSelectedItem(index);
+                    onSubCategoryClick(sub);
+                  }}
                 >
                   {sub.name}
                 </li>
               ))}
             </ul>
           </div>
-          <div>
-            <button className="uppercase text-[10px] font-bold tracking-wide h-7  px-3 border border-red-primary rounded-[8px] text-red-primary hidden ss:block">
-              Все топ-товары
-            </button>
-          </div>
+          <button className="uppercase text-[10px] font-bold tracking-wide h-7  px-3 border border-red-primary rounded-[8px] text-red-primary hidden ss:block">
+            Все топ-товары
+          </button>
         </div>
       </div>
 

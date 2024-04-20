@@ -14,7 +14,7 @@ const AddProduct = () => {
   const [name, setName] = useState('');
   const [code, setCode] = useState(null);
   const [article, setArticle] = useState('');
-  const [productSize, setProductSize] = useState('');
+  const [productSize, setProductSize] = useState(''); 
   const [material, setMaterial] = useState('');
   const [description, setDescription] = useState('');
   const [brand, setBrand] = useState('');

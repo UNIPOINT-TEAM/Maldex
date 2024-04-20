@@ -16,6 +16,7 @@ import {
   Articles,
   Print,
   EditProduct,
+  AddGifts,
 } from './pages';
 import 'swiper/css';
 import 'swiper/css/scrollbar';
@@ -42,13 +43,13 @@ function App() {
       <Routes>
         <Route index element={<Main />} />
         <Route path="/gifts" element={<Gifts />} />
+        <Route path="/gifts/add" element={<AddGifts />} />
         <Route path="/tags" element={<Tags />} />
         <Route path="/catalog" element={<Catalog />} />
         <Route path="/build-set" element={<BuildSet />} />
         <Route path="/catalog-gift" element={<CatalogGifts />} />
         <Route path="/portfolio" element={<Portfolio />} />
         <Route path="/product" element={<Product />} />
-
         <Route path="/product/add" element={<AddProduct />} />
         <Route path="/product/:id" element={<EditProduct />} />
         <Route path="/admin" element={<Admin />} />

@@ -2,9 +2,6 @@ import { useEffect, useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import prev from '../../../assets/icons/projectPrev.svg';
 import next from '../../../assets/icons/projectNext.svg';
-import project1 from '../../../assets/project 1.png';
-import project2 from '../../../assets/project 2.png';
-import project3 from '../../../assets/project 3.png';
 
 // import { ProductNav } from "..";
 import { Link } from 'react-router-dom';
@@ -14,9 +11,11 @@ import { ProductNav } from '../../../components';
 import GiftsNav from './GiftsNav';
 import { GetGiftsCategory } from '../../../services/gifts';
 
-function GiftsSlider() {
+function GiftsSlider({ category }) {
   const swiperRef = useRef(null);
-  const [giftCategory, setGiftCategory] = useState('');
+  const [giftCategory, setGiftCategory] = useState([]);
+  const [selectedSubCategory, setSelectedSubCategory] = useState(null);
+  const [selectedCategoryData, setSelectedCategoryData] = useState(null);
 
   const goNext = () => {
     // @ts-ignore
@@ -33,6 +32,10 @@ function GiftsSlider() {
       swiperRef.current.swiper.slidePrev();
     }
   };
+  const handleSubCategoryClick = (subCategory) => {
+    setSelectedSubCategory(subCategory);
+    setSelectedCategoryData(subCategory);
+  };
 
   useEffect(() => {
     GetGiftsCategory()
@@ -45,16 +48,21 @@ function GiftsSlider() {
       });
   }, []);
 
+  const selectedCategory = giftCategory.find((cat) => cat.id === category.id);
+
+  // console.log(selectedCategory);
+
   return (
     <div className="container_xxl px-3 md:mb-[100px]">
       <div>
-        {giftCategory.length > 0 && (
-          <GiftsNav
-            title={giftCategory[0].name}
-            color="gray"
-            subcategories={giftCategory[0].children}
-          />
-        )}
+        {/* <h2 className="text-2xl mb-4">{category.name}</h2> */}
+        <GiftsNav
+          title={category.name}
+          color="gray"
+          subcategories={category.children}
+          onSubCategoryClick={handleSubCategoryClick}
+        />
+
         <div className="my-5 lg:h-[440px]">
           <div className="h-full hidden lg:flex">
             <div className="h-[410px] flex items-center">
@@ -73,85 +81,30 @@ function GiftsSlider() {
               modules={[Scrollbar]}
               scrollbar={{ draggable: true }}
             >
-              <SwiperSlide>
-                <Link to="/portfolio">
-                  <div className="relative">
-                    <img src={project1} className="" alt="" />
-                    <p className="z-[999999] text-fs_6 left-0 ps-5 absolute bottom-2 text-[#fff]">
-                      Мерч для компании Botanikals
-                    </p>
-                  </div>
-                </Link>
-              </SwiperSlide>
-              <SwiperSlide>
-                <Link to="/portfolio">
-                  <div className="relative">
-                    <img src={project2} alt="" />
-                    <p className="z-[999999] text-fs_6 left-0 ps-5 absolute bottom-2 text-[#fff]">
-                      Упаковка Beaty бренда
-                    </p>
-                  </div>
-                </Link>
-              </SwiperSlide>
-              <SwiperSlide>
-                <Link to="/portfolio">
-                  <div className="relative">
-                    <img src={project3} alt="" />
-                    <p className="z-[999999] text-fs_6 left-0 ps-5 absolute bottom-2 text-[#fff]">
-                      Печатная продукция
-                    </p>
-                  </div>
-                </Link>
-              </SwiperSlide>
-              <SwiperSlide>
-                <Link to="/portfolio">
-                  <div className="relative">
-                    <img src={project3} alt="" />
-                    <p className="z-[999999] text-fs_6 left-0 ps-5 absolute bottom-2 text-[#fff]">
-                      Мерч для компании Botanikals
-                    </p>
-                  </div>
-                </Link>
-              </SwiperSlide>
-              <SwiperSlide>
-                <Link to="/portfolio">
-                  <div className="">
-                    <img src={project3} alt="" />
-                    <p className="z-[999999] text-fs_6 left-0 ps-5 absolute bottom-2 text-[#fff]">
-                      Мерч для компании Botanikals
-                    </p>
-                  </div>
-                </Link>
-              </SwiperSlide>
+              {selectedCategoryData?.product_set.map((product) => (
+                <SwiperSlide key={product.id}>
+                  <Link to="/portfolio">
+                    <div className="relative">
+                      {product.gift_basket_images?.map((image) => (
+                        <img
+                          key={image.id}
+                          src={image.images}
+                          alt={product.title}
+                          className=""
+                        />
+                      ))}
+                      <p className="z-[999999] text-fs_6 left-0 ps-5 absolute bottom-2 text-[#fff]">
+                        {product.title}
+                      </p>
+                    </div>
+                  </Link>
+                </SwiperSlide>
+              ))}
             </Swiper>
             <div className="h-[410px] flex items-center">
               <button className="absolute z-50 -ml-[15px]" onClick={goNext}>
                 <img src={next} alt="" className="w-[32px]" />
               </button>
-            </div>
-          </div>
-
-          {/* Mobile */}
-          <div className="flex flex-col gap-[10px] lg:hidden">
-            <div className="h-[180px] relative">
-              <img
-                src={project1}
-                className="w-full h-full object-cover"
-                alt=""
-              />
-              <p className="z-[999999] font-medium text-fs_6 left-0 ps-3 absolute bottom-1 tracking-wide text-[#fff]">
-                Мерч для компании Botanikals
-              </p>
-            </div>
-            <div className="h-[180px] relative">
-              <img
-                src={project2}
-                className="w-full h-full object-cover"
-                alt=""
-              />
-              <p className="z-[999999] font-medium text-fs_6 left-0 ps-3 absolute bottom-1 tracking-wide text-[#fff]">
-                Упаковка Beaty бренда
-              </p>
             </div>
           </div>
         </div>
