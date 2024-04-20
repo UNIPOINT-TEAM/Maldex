@@ -1,10 +1,16 @@
 import { useEffect, useState } from 'react';
-import { GetMainCatalog } from '../../services/maincatalog';
+import {
+  GetMainCatalog,
+  GetSubSubCatalog,
+  PutData,
+  PutWithFormData,
+} from '../../services/maincatalog';
 import { Link } from 'react-router-dom';
 import '../../css/main.css';
 import { AddMainCatalog, DeleteMainCatalog, EditMainCatalog } from '..';
 import { AddWithFormData } from '../../services/product';
-import { FaPlus } from 'react-icons/fa6';
+import { FaCheck, FaPlus } from 'react-icons/fa6';
+import { FaRegEdit } from 'react-icons/fa';
 
 import {
   Button,
@@ -13,14 +19,23 @@ import {
   DialogBody,
   DialogFooter,
   Input,
+  input,
+  Checkbox,
 } from '@material-tailwind/react';
 
 const MainCatalog = () => {
   const [categories, setCategories] = useState([]);
+  const [subSubCategories, setSubSubCategories] = useState([]);
   const [nameSub, setNameSub] = useState('');
   const [nameSubSub, setNameSubSub] = useState('');
   const [open, setOpen] = useState(false);
   const [subCategoryId, setSubCategoryId] = useState(0);
+  const [status, setStatus] = useState(false);
+  const [statuseditSub, setStatuseditSub] = useState(null);
+  const [statusedit, setStatusedit] = useState(null);
+  const [editedSub, setEditedSub] = useState('');
+  const [editedSubSub, setEditedSubSub] = useState('');
+  const [isAviable, setIsAviable] = useState(false);
   const handleOpen = (id) => {
     setOpen(!open);
     setSubCategoryId(id);
@@ -29,9 +44,16 @@ const MainCatalog = () => {
   useEffect(() => {
     GetMainCatalog().then((res) => {
       setCategories(res);
+
       console.log(res);
     });
-  }, []);
+    GetSubSubCatalog(`/product/categories/get_tertiary_categories/${967}`).then(
+      (res) => {
+        setSubSubCategories(res);
+        console.log(res);
+      },
+    );
+  }, [status]);
 
   const addSubCategory = (e, id) => {
     e.preventDefault();
@@ -39,6 +61,8 @@ const MainCatalog = () => {
     formdata.append('name', nameSub);
     formdata.append('parent', id);
     AddWithFormData('http://192.168.0.117:8000/product/categories/', formdata);
+    setNameSub('');
+    setStatus(!status);
   };
   const addSubSubCategory = (e) => {
     e.preventDefault();
@@ -46,6 +70,39 @@ const MainCatalog = () => {
     formdata.append('name', nameSubSub);
     formdata.append('parent', subCategoryId);
     AddWithFormData('http://192.168.0.117:8000/product/categories/', formdata);
+    setNameSubSub('');
+    setStatus(!status);
+  };
+
+  const handleEditStatus = (id: any) => {
+    setStatusedit(id);
+  };
+
+  const saveItem = (id: any) => {
+    const formdata = new FormData();
+    formdata.append('name', editedSub);
+    PutData(`http://192.168.0.117:8000/product/category/${id}/`, formdata);
+    setStatusedit(null);
+    setStatus(!status);
+  };
+  const handleEditStatusSub = (id: any) => {
+    setStatuseditSub(id);
+  };
+
+  const saveItemSub = (id: any) => {
+    const formdata = new FormData();
+    formdata.append('name', editedSubSub);
+    PutData(`http://192.168.0.117:8000/product/category/${id}/`, formdata);
+    setStatusedit(null);
+    setStatus(!status);
+  };
+
+  const ChangeIsAviable = (id:any) => {
+    const formdata = new FormData();
+    formdata.append('is_available', isAviable);
+    PutWithFormData(`product/category/${id}/`, formdata).then(() => {
+      setStatus(!status);
+    });
   };
 
   return (
@@ -66,14 +123,41 @@ const MainCatalog = () => {
               label="введите имя третью категорию"
               required
               type="text"
+              value={nameSubSub}
               onChange={(e) => setNameSubSub(e.target.value)}
             />
-            {categories?.map((category) => (
-              <>
-                {category.children.map((a) => {
-                  a.children.map((b) => <p>{b.name}</p>);
-                })}
-              </>
+
+            {subSubCategories.map((i) => (
+              <div className="flex items-center mb-3 justify-between mt-5">
+                {statuseditSub == i.id ? (
+                  <div className="w-1/2">
+                    <Input
+                      label="введите имя третью категорию"
+                      required
+                      type="text"
+                      defaultValue={i.name}
+                      onChange={(e) => setEditedSubSub(e.target.value)}
+                    />
+                  </div>
+                ) : (
+                  <p className="">{i.name}</p>
+                )}
+                {statuseditSub == i.id ? (
+                  <button
+                    onClick={() => saveItemSub(i.id)}
+                    className="bg-green-500 p-2 rounded-md flex justify-center items-center"
+                  >
+                    <FaCheck size={12} color="white" />
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => handleEditStatusSub(i.id)}
+                    className="bg-yellow-500 p-2 rounded-md flex justify-center items-center"
+                  >
+                    <FaRegEdit size={12} />
+                  </button>
+                )}
+              </div>
             ))}
           </DialogBody>
           <DialogFooter>
@@ -111,8 +195,22 @@ const MainCatalog = () => {
             <div className="absolute w-full min-h-[400px] bg-[#fff] shadow-lg shadow-gray-400 top-0 left-0 right-0 moreContent p-3">
               <div className="flex justify-between items-center mb-3">
                 <img className="w-1/5 mb-5" src={category.icon} alt="" />
-                <div className="flex flex-col gap-1">
-                  <EditMainCatalog />
+
+                <div className="flex flex-col items-end gap-1">
+                  <div className="flex justify-center gap-[2px] items-center">
+                    <Checkbox
+                      defaultChecked={category.isAviable}
+                      onChange={(e) => setIsAviable(e.target.checked)}
+                      color="blue"
+                    />
+                    <button
+                      className="bg-green-500 p-1 rounded-sm"
+                      onClick={() => ChangeIsAviable(category.id)}
+                    >
+                      <FaCheck color="white" />
+                    </button>
+                  </div>
+                  <EditMainCatalog categoryId={category.id} />
                   <button className="p-1 bg-red-600 h-[30px] w-[30px] rounded flex justify-center items-center">
                     <DeleteMainCatalog />
                   </button>
@@ -127,6 +225,7 @@ const MainCatalog = () => {
                   type="text"
                   className="border border-dashed rounded-md w-[70%] outline-none px-1"
                   placeholder="Добавить имя"
+                  value={nameSub}
                   onChange={(e) => setNameSub(e.target.value)}
                 />
                 <button className="w-[30%] bg-blue-300 text-white rounded-md text-[12px]">
@@ -140,15 +239,42 @@ const MainCatalog = () => {
                     key={childCategory.id}
                     className="rounded group hover:bg-green-200 hover:text-white py-1 flex justify-between items-center px-1"
                   >
-                    <Link to="/catalog">
-                      <p>{childCategory.name}</p>
+                    <Link>
+                      {statusedit == childCategory.id ? (
+                        <input
+                          type="text"
+                          className="border border-dashed rounded-md w-[70%] outline-none px-1 text-black"
+                          placeholder="Добавить имя"
+                          defaultValue={childCategory.name}
+                          onChange={(e) => setEditedSub(e.target.value)}
+                        />
+                      ) : (
+                        <p>{childCategory.name}</p>
+                      )}
                     </Link>
-                    <button
-                      className="bg-white group-hover:text-black rounded w-[20px] h-[20px] flex justify-center items-center"
-                      onClick={() => handleOpen(childCategory.id)}
-                    >
-                      <FaPlus size={12} />
-                    </button>
+                    <div className="flex">
+                      <button
+                        className=" bg-blue-300 group-hover:text-white rounded w-[20px] h-[20px] text-white flex justify-center items-center"
+                        onClick={() => handleOpen(childCategory.id)}
+                      >
+                        <FaPlus size={12} />
+                      </button>
+                      {statusedit == childCategory.id ? (
+                        <button
+                          className="bg-green-500 group-hover:text-white rounded w-[20px] h-[20px] flex justify-center items-center "
+                          onClick={() => saveItem(childCategory.id)}
+                        >
+                          <FaCheck size={12} color="white" />
+                        </button>
+                      ) : (
+                        <button
+                          className="bg-yellow-500 group-hover:text-black rounded w-[20px] h-[20px] flex justify-center items-center "
+                          onClick={() => handleEditStatus(childCategory.id)}
+                        >
+                          <FaRegEdit size={12} />
+                        </button>
+                      )}
+                    </div>
                   </div>
                 ))}
             </div>

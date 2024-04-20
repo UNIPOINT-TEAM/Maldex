@@ -7,20 +7,29 @@ import {
   Select,
   Option,
 } from '@material-tailwind/react';
-import { AddWithFormData } from '../../services/product';
+import {
+  AddWithFormData,
+  DeleteItem,
+  GetProductDetail,
+  UpdateWithFormData,
+} from '../../services/product';
 import { GetMainCatalog, GetSubSubCatalog } from '../../services/maincatalog';
+import { useParams } from 'react-router-dom';
 
-const AddProduct = () => {
+const EditProduct = () => {
+  const { id } = useParams();
+  console.log(id);
+
   const [name, setName] = useState('');
-  const [code, setCode] = useState(null);
+  const [code, setCode] = useState(0);
   const [article, setArticle] = useState('');
   const [productSize, setProductSize] = useState('');
   const [material, setMaterial] = useState('');
   const [description, setDescription] = useState('');
   const [brand, setBrand] = useState('');
-  const [price, setPrice] = useState(null);
+  const [price, setPrice] = useState(0);
   const [price_type, setPrice_type] = useState('');
-  const [discount_price, setDiscount_price] = useState(null);
+  const [discount_price, setDiscount_price] = useState(0);
   const [weight, setWeight] = useState('');
   const [barcode, setBarcode] = useState('');
   const [ondemand, setOndemand] = useState(false);
@@ -44,9 +53,12 @@ const AddProduct = () => {
   const [category, setCategory] = useState([]);
   const [subcategory, setSubCategory] = useState([]);
   const [subSubcategory, setSubSubCategory] = useState([]);
-
-  const [inputs, setInputs] = useState([{ image: '', color: '' }]);
+  const [inputs, setInputs] = useState([{ image: '', color: '', fake: null }]);
   const [mainId, setMainId] = useState(null);
+  const [productDetail, setProductDetail] = useState({});
+  const [deletedIds, setDeletedIds] = useState([]);
+  const [status, setStatus] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     GetMainCatalog().then((res) => {
@@ -72,7 +84,14 @@ const AddProduct = () => {
     } else if (subSubcategoryId != null) {
       setMainId(subSubcategoryId);
     }
-  }, [categoryId, subcategoryId, subSubcategoryId]);
+    GetProductDetail(id).then((res) => {
+      setProductDetail(res.data);
+      setIshit(res.data.is_hit);
+      setIsnew(res.data.is_new);
+      setIspopular(res.data.is_popular);
+      setOndemand(res.data.ondemand);
+    });
+  }, [categoryId, subcategoryId, subSubcategoryId, status]);
 
   const addCategoryId = (id: any) => {
     setCategoryId(id);
@@ -86,7 +105,6 @@ const AddProduct = () => {
   const addSubSubCategoryId = (id: any) => {
     setSubSubCategoryId(id);
   };
-  console.log(mainId);
 
   const addnewProduct = (e: any) => {
     e.preventDefault();
@@ -110,19 +128,31 @@ const AddProduct = () => {
       formdata.append('is_popular', ispopular),
       formdata.append('is_hit', ishit),
       formdata.append('is_new', isnew),
+      formdata.append('deleted_images', deletedIds),
       formdata.append('categoryId', mainId);
     for (let i = 0; i < inputs.length; i++) {
       formdata.append(`images[${i}]color`, inputs[i].color);
       formdata.append(`images[${i}]image`, inputs[i].image);
     }
-    AddWithFormData('http://192.168.0.117:8000/product/', formdata);
+    UpdateWithFormData(
+      `http://192.168.0.117:8000/product/${id}/`,
+      formdata,
+    ).then(() => {
+      setStatus(!status), setSuccess(true);
+      setTimeout(() => {
+        setSuccess(false);
+      }, 3000);
+    });
   };
 
   const handleFileInputChange = (index, event) => {
+    const { name } = event;
+    console.log(event.target);
     const file = event.target.files[0];
     if (!file) return;
     const newInputs = [...inputs];
     newInputs[index]['image'] = file;
+    newInputs[index]['fake'] = URL.createObjectURL(file);
     setInputs(newInputs);
   };
 
@@ -137,10 +167,16 @@ const AddProduct = () => {
     setInputs([...inputs, { image: '', color: '' }]);
   };
 
+  const handleItemClick = (id: any) => {
+    DeleteItem(`http://192.168.0.117:8000/product/image/${id}/`).then(() =>
+      setStatus(!status),
+    );
+  };
+
   return (
     <DefaultLayout>
       <div>
-        <p className="text-center text-[36px] py-4">Создать новый продукт</p>
+        <p className="text-center text-[36px] py-4">Изменить продукт</p>
         <form
           id="form-post"
           onSubmit={addnewProduct}
@@ -149,54 +185,54 @@ const AddProduct = () => {
           <div className="w-2/3 flex flex-wrap  justify-start items-start">
             <div className="flex items-center justify-between w-1/2 mb-5 pr-10">
               <Input
-                required
                 variant="standard"
                 label="Название"
                 placeholder=""
+                defaultValue={productDetail?.name}
                 onChange={(e) => setName(e.target.value)}
               />
             </div>
             <div className="flex items-center justify-between w-1/2 mb-5 pr-5">
               <Input
-                required
                 variant="standard"
                 label="Код"
+                defaultValue={productDetail?.code}
                 onChange={(e) => setCode(e.target.value)}
                 placeholder=""
               />
             </div>
             <div className="flex items-center justify-between w-1/2 mb-5 pr-5">
               <Input
-                required
                 variant="standard"
                 label="Артикуль"
+                defaultValue={productDetail?.article}
                 onChange={(e) => setArticle(e.target.value)}
                 placeholder=""
               />
             </div>
             <div className="flex items-center justify-between w-1/2 mb-5 pr-5">
               <Input
-                required
                 variant="standard"
                 label="Материаль"
+                defaultValue={productDetail?.material}
                 onChange={(e) => setMaterial(e.target.value)}
                 placeholder=""
               />
             </div>
             <div className="flex items-center justify-between w-1/2 mb-5 pr-5">
               <Input
-                required
                 variant="standard"
                 label="Бренд"
+                defaultValue={productDetail?.brand}
                 onChange={(e) => setBrand(e.target.value)}
                 placeholder=""
               />
             </div>
             <div className="flex items-center justify-between w-1/2 mb-5 pr-5">
               <Input
-                required
                 variant="standard"
                 label="Цена"
+                defaultValue={productDetail?.price}
                 onChange={(e) => setPrice(e.target.value)}
                 placeholder=""
               />
@@ -209,27 +245,27 @@ const AddProduct = () => {
             </div>
             <div className="flex items-center justify-between w-1/2 mb-5 pr-5">
               <Input
-                required
                 variant="standard"
                 label="Цена со скидкой"
+                defaultValue={productDetail?.discount_price}
                 onChange={(e) => setDiscount_price(e.target.value)}
                 placeholder=""
               />
             </div>
             <div className="flex items-center justify-between w-1/2 mb-5 pr-5">
               <Input
-                required
                 variant="standard"
                 label="Весь"
+                defaultValue={productDetail?.weight}
                 onChange={(e) => setWeight(e.target.value)}
                 placeholder=""
               />
             </div>
             <div className="flex items-center justify-between w-1/2 mb-5 pr-5">
               <Input
-                required
                 variant="standard"
                 label="Штрих Код"
+                defaultValue={productDetail?.barcode}
                 onChange={(e) => setBarcode(e.target.value)}
                 placeholder=""
               />
@@ -238,24 +274,24 @@ const AddProduct = () => {
               <Checkbox
                 color="blue"
                 label="В продаже"
-                checked={ondemand}
+                defaultChecked={productDetail?.ondemand}
                 onChange={(e) => setOndemand(e.target.checked)}
               />
             </div>
             <div className="flex items-center justify-between w-1/2 mb-5 pr-5">
               <Input
-                required
                 variant="standard"
                 label="Минимальный заказ"
+                defaultValue={productDetail?.moq}
                 onChange={(e) => setMoq(e.target.value)}
                 placeholder=""
               />
             </div>
             <div className="flex items-center justify-between w-1/2 mb-5 pr-5">
               <Input
-                required
                 variant="standard"
                 label="Срок доставки"
+                defaultValue={productDetail?.days}
                 onChange={(e) => setDays(e.target.value)}
                 placeholder=""
               />
@@ -263,9 +299,9 @@ const AddProduct = () => {
 
             <div className="flex items-center justify-between w-1/2 mb-5 pr-5">
               <Input
-                required
                 variant="standard"
                 label="Размер"
+                defaultValue={productDetail?.product_size}
                 onChange={(e) => setProductSize(e.target.value)}
                 placeholder=""
               />
@@ -274,19 +310,19 @@ const AddProduct = () => {
               <Checkbox
                 color="blue"
                 label="Popular"
-                checked={ispopular}
+                defaultChecked={productDetail?.is_popular}
                 onChange={(e) => setIspopular(e.target.checked)}
               />
               <Checkbox
                 color="blue"
                 label="NEW"
-                checked={isnew}
+                defaultChecked={productDetail?.is_new}
                 onChange={(e) => setIsnew(e.target.checked)}
               />
               <Checkbox
                 color="blue"
                 label="HIT"
-                checked={ishit}
+                defaultChecked={productDetail?.is_hit}
                 onChange={(e) => setIshit(e.target.checked)}
               />
             </div>
@@ -325,6 +361,7 @@ const AddProduct = () => {
                 <Input
                   variant="standard"
                   label="Количество"
+                  defaultValue={productDetail?.pack?.amount}
                   onChange={(e) => setPack({ ...pack, amount: e.target.value })}
                   placeholder=""
                 />
@@ -333,6 +370,7 @@ const AddProduct = () => {
                 <Input
                   variant="standard"
                   label="Весь упаковки"
+                  defaultValue={productDetail?.pack?.weight}
                   onChange={(e) => setPack({ ...pack, weight: e.target.value })}
                   placeholder=""
                 />
@@ -341,6 +379,7 @@ const AddProduct = () => {
                 <Input
                   variant="standard"
                   label="Объем упаковки (см.куб)"
+                  defaultValue={productDetail?.pack?.volume}
                   onChange={(e) => setPack({ ...pack, volume: e.target.value })}
                   placeholder=""
                 />
@@ -349,6 +388,7 @@ const AddProduct = () => {
                 <Input
                   variant="standard"
                   label="Ширина"
+                  defaultValue={productDetail?.pack?.sizex}
                   onChange={(e) => setPack({ ...pack, sizex: e.target.value })}
                   placeholder=""
                 />
@@ -357,6 +397,7 @@ const AddProduct = () => {
                 <Input
                   variant="standard"
                   label="Высота"
+                  defaultValue={productDetail?.pack?.sizey}
                   onChange={(e) => setPack({ ...pack, sizey: e.target.value })}
                   placeholder=""
                 />
@@ -365,6 +406,7 @@ const AddProduct = () => {
                 <Input
                   variant="standard"
                   label="Глубина"
+                  defaultValue={productDetail?.pack?.sizez}
                   onChange={(e) => setPack({ ...pack, sizez: e.target.value })}
                   placeholder=""
                 />
@@ -373,6 +415,7 @@ const AddProduct = () => {
                 <Input
                   variant="standard"
                   label="Минимальный кол-во упаковки"
+                  defaultValue={productDetail.pack?.minpackamount}
                   onChange={(e) =>
                     setPack({ ...pack, minpackamount: e.target.value })
                   }
@@ -383,16 +426,37 @@ const AddProduct = () => {
 
             <div className="flex items-center justify-between w-full mb-5">
               <Textarea
-                required
                 variant="standard"
                 label="Описание"
+                defaultValue={productDetail?.description}
                 onChange={(e) => setDescription(e.target.value)}
+                className='min-h-[200px]'
               />
             </div>
           </div>
           <div className="w-1/3 pt-10">
-            <div className="flex items-center justify-between w-full">
+            <div className="flex flex-wrap items-center justify-start w-full gap-3">
+              {productDetail?.images_set?.map((images) => (
+                <div className="w-[150px]  min-h-[150px]  items-end gap-5 mb-5">
+                  <div className="">
+                    <img
+                      src={images.image_url}
+                      alt=""
+                      className="w-[150px] h-[140px] rounded-md object-cover mb-3"
+                    />
+                    <div className="flex flex-col w-full h-full justify-between items-end">
+                      <button
+                        onClick={() => handleItemClick(images.id)}
+                        className="w-full bg-red-400 text-white h-[40px] rounded-md"
+                      >
+                        удалить
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
               <div className="w-full">
+                <p className="text-2xl mb-5">добавить новое изображение</p>
                 {inputs.map((input, index) => (
                   <div key={index}>
                     <div className="mb-5">
@@ -401,7 +465,6 @@ const AddProduct = () => {
                         className="flex h-[100px] cursor-pointer border-dashed items-center justify-center gap-2 rounded-xl border border-b py-1 px-2 text-sm font-medium  hover:bg-opacity-90 xsm:px-4"
                       >
                         <input
-                          required
                           label="Фото"
                           type="file"
                           name={`${index}`}
@@ -411,17 +474,20 @@ const AddProduct = () => {
                           onChange={(e) => handleFileInputChange(index, e)}
                         />
                         <p className="text-fs-6">Добавить Фото</p>
+                        <img
+                          src={inputs[index].fake}
+                          alt="no img"
+                          className="w-[50px] h-[50px]"
+                        />
                       </label>
                     </div>
 
                     <div className="mb-5">
                       <Input
-                        required
                         label="Цвет"
                         type="text"
                         placeholder="Enter color"
                         name="color"
-                        value={input.color}
                         onChange={(e) => handleInputChange(index, e)}
                       />
                     </div>
@@ -439,13 +505,20 @@ const AddProduct = () => {
             </div>
           </div>
         </form>
-        <div className="flex justify-center w-full">
+        <div className="flex flex-col justify-center items-center w-full">
+          {success ? (
+            <p className="bg-green-500 text-white px-5 py-2 rounded-md mb-5">
+              продукт изменился
+            </p>
+          ) : (
+            ''
+          )}
           <button
             form="form-post"
             type="submit"
             className="w-[400px] h-[60px] bg-blue-400 mb-10 text-[24px] text-white rounded-lg"
           >
-            Добавить продукт
+            Изменить продукт
           </button>
         </div>
       </div>
@@ -453,4 +526,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default EditProduct;

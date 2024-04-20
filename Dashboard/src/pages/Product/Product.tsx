@@ -23,12 +23,20 @@ const Product = () => {
   useEffect(() => {
     GetProduct().then((res) => {
       setAddProduct(res.data.results);
+      console.log(res.data.results);
     });
   }, []);
 
   return (
     <DefaultLayout>
       <div className="container_xxl relative px-3">
+        <div className="flex justify-end py-5">
+          <Link to={'/product/add'}>
+            <button className="bg-blue-400 text-white px-5 py-2 rounded-md">
+              dabavit product
+            </button>
+          </Link>
+        </div>
         <div className="flex flex-wrap justify-center gap-5 py-5">
           {/* @ts-ignore */}
           {addProduct?.map((item) => (
@@ -40,36 +48,22 @@ const Product = () => {
                     modules={[Navigation, Pagination]}
                     className="  h-full"
                   >
-                    <SwiperSlide className="w-full h-full">
-                      <div
-                        onClick={() => handleOpen('xl')}
-                        className="relative  h-full"
-                      >
-                        <div className="flex justify-center items-center h-full">
-                          {item.images_set.map((i) => (
+                    {item.images_set.map((i) => (
+                      <SwiperSlide className="w-full h-full">
+                        <div
+                          onClick={() => handleOpen('xl')}
+                          className="relative  h-full"
+                        >
+                          <div className="flex justify-center items-center h-full">
                             <img
-                              className="mb-2 w-[50px] h-[50px] object-contain product-img"
-                              src={i.image_url}
+                              className="mb-2  object-contain product-img"
+                              src={i.image_url || i.image}
                               alt=""
                             />
-                          ))}
+                          </div>
                         </div>
-                      </div>
-                    </SwiperSlide>
-                    <SwiperSlide className="w-full h-full">
-                      <div
-                        onClick={() => handleOpen('xl')}
-                        className="relative  h-full"
-                      >
-                        <div className="flex justify-center items-center h-full">
-                          <img
-                            className="mb-2 w-[50px] h-[50px] object-contain product-img"
-                            src={item.image}
-                            alt=""
-                          />
-                        </div>
-                      </div>
-                    </SwiperSlide>
+                      </SwiperSlide>
+                    ))}
                   </Swiper>
                   <div className="absolute z-[9999] bottom-[25px] right-[15px] flex flex-col gap-1 swiper-opacity">
                     <button
@@ -95,11 +89,15 @@ const Product = () => {
                     ></button>
                   </div>
 
-                  <div className="absolute z-[999] top-2 left-2 flex gap-2">
-                    <div className="border border-red-primary text-[10px] text-red-primary rounded-lg px-1">
-                      NEW
+                  {item.is_new ? (
+                    <div className="absolute z-[999] top-2 left-2 flex gap-2">
+                      <div className="border border-red-primary text-[10px] text-red-primary rounded-lg px-1">
+                        NEW
+                      </div>
                     </div>
-                  </div>
+                  ) : (
+                    ''
+                  )}
                 </div>
                 {/* {defaultProduct ? ( */}
                 <div className="default">
@@ -129,7 +127,7 @@ const Product = () => {
                     </p>
                   </div>
                   <div className="flex justify-between catalog_btns">
-                    <Link to={'/product/add'}>
+                    <Link to={`/product/${item.id}`}>
                       <button className="bg-red-primary flex justify-center items-center uppercase  p-2 text-white rounded-lg font-bold tracking-wider text-fs_8 lg:text-sm gap-1 lg:w-[180px]">
                         узнать больше
                       </button>
