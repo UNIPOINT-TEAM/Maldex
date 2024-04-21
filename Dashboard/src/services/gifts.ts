@@ -6,7 +6,10 @@ export const GetGiftsCategory
   return response.data;
 };
 
-
+export const GetGiftsCategoryDetail = async (id: any) => {
+  const response = await api.get(`/gifts/baskets/category/${id}`);
+  return response.data;
+};
 
 export const PostGiftsCategory = async (data: any) => {
   const response = await api.post(`/gifts/baskets/`, data);
