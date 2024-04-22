@@ -16,6 +16,7 @@ import {
   GetGiftsCategory,
   GetGiftsCategoryDetail,
   PostGiftsCategory,
+  PostGiftsProduct,
 } from '../../../services/gifts';
 import { GetProduct } from '../../../services/main';
 import { Link } from 'react-router-dom';
@@ -39,6 +40,7 @@ const AddGifts = () => {
   const [open, setOpen] = useState(false);
   const [categoryDetail, setCategoryDetail] = useState<any>(null);
   const [selectedProducts, setSelectedProducts] = useState<number[]>([]);
+  const [quantities, setQuantities] = useState({});
 
   const handleFileInputChange = (
     index: number,
@@ -96,6 +98,12 @@ const AddGifts = () => {
   const addnewProduct = (e: React.FormEvent) => {
     e.preventDefault();
 
+    const productData = selectedProductsIds.map(id => ({
+      product_sets: id,
+      quantity: quantities[id] || 0  // Если не указано количество, по умолчанию 0
+    })).filter(item => item.quantity > 0);  // Отфильтровываем, если количество равно 0
+  
+
     const formData = new FormData();
 
     formData.append('title', name);
@@ -105,7 +113,9 @@ const AddGifts = () => {
     formData.append('discount_price', discount_price);
     formData.append('description', description);
     formData.append('category_data', JSON.stringify([selectedSubcategory]));
-    formData.append('products_data', JSON.stringify(selectedProductsIds));
+    // formData.append('products_data', JSON.stringify(selectedProductsIds));
+    formData.append('products_data', JSON.stringify(productData));
+
 
     inputs.forEach((file) => {
       if (file) {
@@ -113,7 +123,7 @@ const AddGifts = () => {
       }
     });
 
-    PostGiftsCategory(formData)
+    PostGiftsProduct(formData)
       .then((response) => {
         console.log(response);
       })
@@ -141,6 +151,13 @@ const AddGifts = () => {
     } else {
       setSelectedProductsIds((prevIds) => [...prevIds, productId]);
     }
+  };
+
+  const handleQuantityChange = (id, value) => {
+    setQuantities((prev) => ({
+      ...prev,
+      [id]: Number(value),
+    }));
   };
   return (
     <DefaultLayout>
@@ -258,9 +275,22 @@ const AddGifts = () => {
                         key={index}
                         className="flex flex-col items-center mb-4 w-1/4"
                       >
-                        {item.name.length > 30
-                          ? item.name.substring(0, 40) + '...'
-                          : item.name}
+                        <div>
+                          {item.name.length > 30
+                            ? item.name.substring(0, 40) + '...'
+                            : item.name}
+                        </div>
+                        <div>
+                          <input
+                          className='w-13'
+                            type="text"
+                            name="count"
+                            value={quantities[item.id] || ''}
+                            onChange={(e) =>
+                              handleQuantityChange(item.id, e.target.value)
+                            }
+                          />
+                        </div>
                       </div>
                     ))}
                 </div>

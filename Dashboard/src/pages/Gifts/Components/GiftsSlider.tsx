@@ -10,6 +10,9 @@ import { FaArrowRightLong } from 'react-icons/fa6';
 import { ProductNav } from '../../../components';
 import GiftsNav from './GiftsNav';
 import { GetGiftsCategory } from '../../../services/gifts';
+import BannerEditModal from '../../../components/MainBanner/BannerEditModal';
+import DeteleteItem from '../../../components/DeleteModal';
+import { MdEdit } from 'react-icons/md';
 
 function GiftsSlider({ category }) {
   const swiperRef = useRef(null);
@@ -63,7 +66,7 @@ function GiftsSlider({ category }) {
           onSubCategoryClick={handleSubCategoryClick}
         />
 
-        <div className="my-5 lg:h-[440px]">
+        <div className="my-5 lg:h-[460px]">
           <div className="h-full hidden lg:flex">
             <div className="h-[410px] flex items-center">
               <button className="absolute z-50 -ml-[16px] " onClick={goPrev}>
@@ -72,7 +75,7 @@ function GiftsSlider({ category }) {
             </div>
             <Swiper
               ref={swiperRef}
-              className="w-full p-0"
+              className="w-full p-0 "
               slidesPerView={3.5}
               loop={true}
               spaceBetween={10}
@@ -98,6 +101,18 @@ function GiftsSlider({ category }) {
                       </p>
                     </div>
                   </Link>
+                  <div className="flex w-full justify-center items-center ">
+                    <div className="flex gap-2">
+                      <Link  to={`/gifts/${product.id}`}>
+                        <button className="bg-warning px-3 text-white rounded  h-[40px] flex justify-center items-center">
+                          Изменить
+                        </button>
+                      </Link>
+                      <button className="bg-red-500 px-3 text-white rounded  h-[40px] flex justify-center items-center">
+                        Удалить
+                      </button>
+                    </div>
+                  </div>
                 </SwiperSlide>
               ))}
             </Swiper>

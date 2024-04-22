@@ -1,9 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import DefaultLayout from '../../layout/DefaultLayout';
 import { Button } from '@material-tailwind/react';
 import fileIcon from '../../assets/solar_file-linear.svg';
+import { GetAdminFiles } from '../../services/adminFiles';
 
 function Admin() {
+  const [files, setFiles] = useState([]);
+
+  useEffect(() => {
+    const fetchFiles = async () => {
+      try {
+        const data = await GetAdminFiles();
+        if (Array.isArray(data)) {
+          setFiles(data);
+        } else {
+          console.error('Data fetched is not an array:', data);
+        }
+      } catch (error) {
+        console.error('Error fetching admin files:', error);
+      }
+    };
+
+    fetchFiles();
+  }, []);
+
   return (
     <DefaultLayout>
       <div>
@@ -13,46 +33,24 @@ function Admin() {
               Файлы и прайсы
             </h1>
             <div className="flex flex-col gap-5">
-              <div>
-                <div className="flex items-center gap-[10px] mt-5 mb-[6px]">
-                  <img
-                    src={fileIcon}
-                    alt="file icon"
-                    width={'24px'}
-                    height={'28px'}
-                  />
-                  <span className="text-[#00B6BA] font-medium text-fs_6 tracking-[-4%]">
-                    Прайс-лист (склад)
-                  </span>
+              {files?.map((file, index) => (
+                <div key={index}>
+                  <div className="flex items-center gap-[10px] mt-5 mb-[6px]">
+                    <img
+                      src={fileIcon}
+                      alt="file icon"
+                      width={'24px'}
+                      height={'28px'}
+                    />
+                    <span className="text-[#00B6BA] font-medium text-fs_6 tracking-[-4%]">
+                      {file.name} {/* Assuming each file object has a 'name' property */}
+                    </span>
+                  </div>
+                  <p className="text-[#9D9C98] text-fs_8 leading-[14.65px] font-bold">
+                    {file.description} {/* Assuming each file object has a 'description' property */}
+                  </p>
                 </div>
-                <p className="text-[#9D9C98] text-fs_8 leading-[14.65px] font-bold">
-                  “Проект 111”, поставки на заказ{' '}
-                </p>
-              </div>
-
-              <div className="flex items-center gap-[10px] mt-5 mb-[6px]">
-                <img
-                  src={fileIcon}
-                  alt="file icon"
-                  width={'24px'}
-                  height={'28px'}
-                />
-                <span className="text-[#00B6BA] font-medium text-fs_6 tracking-[-4%]">
-                  Прайс-лист (прочее)
-                </span>
-              </div>
-
-              <div className="flex items-center gap-[10px] mt-5 mb-[6px]">
-                <img
-                  src={fileIcon}
-                  alt="file icon"
-                  width={'24px'}
-                  height={'28px'}
-                />
-                <span className="text-[#00B6BA] font-medium text-fs_6 tracking-[-4%]">
-                  Контакты сотрудников
-                </span>
-              </div>
+              ))}
             </div>
             <div className="mt-10">
               <Button

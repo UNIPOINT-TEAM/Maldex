@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Accordion,
   AccordionBody,
@@ -15,6 +15,9 @@ import { SliderProduct } from '../../components';
 import { IoAddSharp, IoCloseSharp } from 'react-icons/io5';
 import DefaultLayout from '../../layout/DefaultLayout';
 import { MdDelete, MdEdit } from 'react-icons/md';
+import { GetGiftSet } from '../../services/buildset';
+import { Link } from 'react-router-dom';
+import { GetProduct } from '../../services/main';
 
 const BuildSet = () => {
   const [open, setOpen] = useState<number>(0);
@@ -25,43 +28,30 @@ const BuildSet = () => {
     number | null
   >(null);
   const [editedAccordionTitle, setEditedAccordionTitle] = useState<string>('');
+  const [accordionData, setAccordionData] = useState<any[]>([]);
+
   const [order, setOrder] = useState(() => [...Array(accordionCount).keys()]); // Инициализация порядка
 
   const handleOpen = (value: number) => setOpen(open === value ? 0 : value);
 
   const handleReorder = (newOrder: number[]) => setOrder(newOrder); // Обработчик изменения порядка
 
-  const addAccordion = () => {
-    const newIndex = accordionCount;
-    setAccordionCount((prevCount) => prevCount + 1);
-    setOrder((prevOrder) => [...prevOrder, newIndex]); // Добавление нового индекса в порядок
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const giftSetData = await GetGiftSet();
+        console.log(giftSetData);
 
-  const editAccordion = (index: number, event: React.MouseEvent) => {
-    event.stopPropagation();
-    setIsDialogOpen(true);
-    setEditedAccordionIndex(index);
-    setEditedAccordionTitle(`Аккордеон ${index + 1}`);
-  };
+        setAccordionData(giftSetData);
+      } catch (error) {
+        console.error('Ошибка при получении данных:', error);
+      }
+    };
 
-  const saveEditedAccordion = () => {
-    const updatedAccordions = [...buildCart];
-    if (editedAccordionIndex !== null) {
-      updatedAccordions[editedAccordionIndex] = {
-        ...updatedAccordions[editedAccordionIndex],
-        title: editedAccordionTitle,
-      };
-      setBuildCart(updatedAccordions);
-      setIsDialogOpen(false);
-    }
-  };
+    fetchData();
+  }, []);
 
-  const deleteAccordion = (index: number) => {
-    const updatedAccordions = buildCart.filter((_, idx) => idx !== index);
-    setBuildCart(updatedAccordions);
-    setAccordionCount((prevCount) => prevCount - 1);
-    setOrder((prevOrder) => prevOrder.filter((item) => item !== index)); // Обновление порядка
-  };
+
 
   return (
     <DefaultLayout>
@@ -80,7 +70,7 @@ const BuildSet = () => {
                 onReorder={handleReorder}
                 className="mt-10 mb-6 justify-around flex flex-col"
               >
-                {order.map((index) => (
+                {accordionData.map((item, index) => (
                   <Reorder.Item key={index} value={index} className="relative">
                     <div className="flex item-center">
                       <Accordion
@@ -102,11 +92,21 @@ const BuildSet = () => {
                           placeholder={<div />}
                         >
                           <h2 className="font-helvetica tracking-wide text-fs_6 font-normal text-greenPrimary">
-                            {index + 1}. Заголовок аккордеона
+                            {item.title || `${index + 1}. Заголовок аккордеона`}
                           </h2>
                         </AccordionHeader>
                         <AccordionBody className="p-4" placeholder={<div />}>
-                          <SliderProduct />
+                          {accordionData[index]?.product_sets.map(
+                            (set, setIndex) => (
+                              <div key={setIndex} className="mb-4">
+                                <h3 className="font-semibold">
+                                  {set.product_sets.name}
+                                </h3>
+                                <p>{set.product_sets.description}</p>
+                                {/* Добавьте здесь другие поля, которые вы хотите отобразить */}
+                              </div>
+                            ),
+                          )}
                         </AccordionBody>
                       </Accordion>
                       <div className="flex flex-col justify-center mt-2">
@@ -117,7 +117,7 @@ const BuildSet = () => {
                           block={false}
                           iconOnly={true}
                           ripple="light"
-                          onClick={(event) => editAccordion(index, event)}
+                          // onClick={(event) => editAccordion(index, event)}
                           className="bg-yellow-400"
                         >
                           <MdEdit />
@@ -130,7 +130,7 @@ const BuildSet = () => {
                           block={false}
                           iconOnly={true}
                           ripple="light"
-                          onClick={() => deleteAccordion(index)}
+                          // onClick={() => deleteAccordion(index)}
                         >
                           <MdDelete />
                         </Button>
@@ -140,12 +140,11 @@ const BuildSet = () => {
                 ))}
               </Reorder.Group>
 
-              {/* Диалоговое окно для редактирования названия аккордеона */}
               {isDialogOpen && (
                 <Dialog
                   size="sm"
                   open={isDialogOpen}
-                  onClose={() => setIsDialogOpen(false)}
+                  // onClose={() => setIsDialogOpen(false)}
                 >
                   <DialogHeader>Редактировать название аккордеона</DialogHeader>
                   <DialogBody>
@@ -161,7 +160,7 @@ const BuildSet = () => {
                     <Button
                       color="blue"
                       buttonType="link"
-                      onClick={saveEditedAccordion}
+                      // onClick={saveEditedAccordion}
                       ripple="dark"
                     >
                       Сохранить
@@ -179,18 +178,20 @@ const BuildSet = () => {
               )}
 
               <div className="flex justify-end mt-4">
-                <Button
-                  color="green"
-                  buttonType="filled"
-                  size="regular"
-                  rounded={false}
-                  block={false}
-                  iconOnly={false}
-                  ripple="light"
-                  onClick={addAccordion}
-                >
-                  Добавить
-                </Button>
+                <Link to='/build-set-add' >
+                  <Button
+                    color="green"
+                    buttonType="filled"
+                    size="regular"
+                    rounded={false}
+                    block={false}
+                    iconOnly={false}
+                    ripple="light"
+                    // onClick={addAccordion}
+                  >
+                    Добавить
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>

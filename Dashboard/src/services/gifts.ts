@@ -10,8 +10,17 @@ export const GetGiftsCategoryDetail = async (id: any) => {
   const response = await api.get(`/gifts/baskets/category/${id}`);
   return response.data;
 };
+export const GetGiftsDetail = async (id: any) => {
+  const response = await api.get(`/gifts/baskets/${id}`);
+  return response.data;
+};
 
 export const PostGiftsCategory = async (data: any) => {
+  const response = await api.post(`/gifts/baskets/category/`, data);
+  return response.data;
+};
+
+export const PostGiftsProduct = async (data: any) => {
   const response = await api.post(`/gifts/baskets/`, data);
   return response.data;
 };

@@ -35,6 +35,13 @@ const SliderProduct = () => {
     setDefaultProduct(!defaultProduct);
   };
 
+  const [addProduct, setAddProduct] = useState<SliderProduct[]>([]);
+  useEffect(() => {
+    GetProduct().then((res) => {
+      // console.log(res);
+      setAddProduct(res);
+    });
+  }, []);
   // @ts-ignore
   const handleOpen = (value: string) => setSize(value);
 
