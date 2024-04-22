@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { GetNewCategory } from '../../services/main';
 import DeleteCategory from './DeleteCategory';
 import { Button } from '@material-tailwind/react';
+import { AddMainCatalog, DeleteMainCatalog, EditMainCatalog } from '..';
 
 interface Category {
   logo: string;
@@ -31,7 +32,8 @@ const GiftItem = () => {
   return (
     <div className="pb-5">
       <div className="heading w-full flex justify-end">
-        <NewCategoryModal />
+        {/* <NewCategoryModal /> */}
+        <AddMainCatalog />
       </div>
       <div className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-10 gap-2 mt-4 py-3 gap-y-[40px] ">
         {newCategoryData.map((item) => (
@@ -53,12 +55,14 @@ const GiftItem = () => {
                 </p>
               </div>
               <div className="flex justify-between ">
-                <EditCategory {...item} handleImageChange={handleImageChange} />
+                <EditMainCatalog categoryId={item.id} />
+                <DeleteMainCatalog />
+                {/* <EditCategory {...item} handleImageChange={handleImageChange} />
                 <DeleteCategory
                   newCategoryData={newCategoryData}
                   setNewCategoryData={setNewCategoryData}
                   id={item.id}
-                />
+                /> */}
               </div>
             </div>
           </div>

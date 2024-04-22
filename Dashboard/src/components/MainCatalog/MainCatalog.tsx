@@ -44,16 +44,13 @@ const MainCatalog = () => {
   useEffect(() => {
     GetMainCatalog().then((res) => {
       setCategories(res);
-
-      console.log(res);
     });
-    GetSubSubCatalog(`/product/categories/get_tertiary_categories/${967}`).then(
-      (res) => {
-        setSubSubCategories(res);
-        console.log(res);
-      },
-    );
-  }, [status]);
+    GetSubSubCatalog(
+      `/product/categories/get_tertiary_categories/${subCategoryId}`,
+    ).then((res) => {
+      setSubSubCategories(res);
+    });
+  }, [status, subCategoryId]);
 
   const addSubCategory = (e, id) => {
     e.preventDefault();
@@ -97,7 +94,7 @@ const MainCatalog = () => {
     setStatus(!status);
   };
 
-  const ChangeIsAviable = (id:any) => {
+  const ChangeIsAviable = (id: any) => {
     const formdata = new FormData();
     formdata.append('is_available', isAviable);
     PutWithFormData(`product/category/${id}/`, formdata).then(() => {

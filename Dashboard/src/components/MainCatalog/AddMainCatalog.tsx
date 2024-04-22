@@ -20,7 +20,6 @@ const AddMainCatalog = () => {
   const [icon, setIcon] = useState(null);
   const [logo, setLogo] = useState(null);
 
-
   const addNewCategory = (e) => {
     e.preventDefault();
     const formdata = new FormData();
@@ -33,9 +32,6 @@ const AddMainCatalog = () => {
     AddWithFormData('http://192.168.0.117:8000/product/categories/', formdata);
     setOpen(!open);
   };
-
-
-  console.log(logo, icon);
 
   const handleOpen = () => setOpen(!open);
   return (

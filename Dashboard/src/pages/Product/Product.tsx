@@ -22,8 +22,8 @@ const Product = () => {
   const [addProduct, setAddProduct] = useState([]);
   useEffect(() => {
     GetProduct().then((res) => {
-      setAddProduct(res.data.results);
-      console.log(res.data.results);
+      setAddProduct(res.data);
+      console.log(res.data);
     });
   }, []);
 

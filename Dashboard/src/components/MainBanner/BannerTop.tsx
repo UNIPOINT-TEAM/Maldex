@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Slider from './Slider';
 import BannerEditModal from './BannerEditModal';
 import DeleteItemBanner from './DeleteItemBanner';
+import { GetSubSubCatalog } from '../../services/maincatalog';
 interface BannerProp {
   BannerData: {
     id: string;
@@ -19,6 +20,15 @@ interface BannerProp {
 }
 
 const BannerTop: React.FC<BannerProp> = ({ BannerData, handleImageChange }) => {
+  const [bannerItem1, setBannerItem1] = useState([]);
+  useEffect(() => {
+    GetSubSubCatalog(`/banner/`).then(
+      (res) => {
+        setBannerItem1(res);
+        console.log(res[0]);
+      },
+    );
+  }, [status]);
   return (
     <div className="grid grid-cols-4 gap-[9px]">
       <div className="group flex relative flex-col justify-center col-span-4 bg-white h-[200px] cursor-pointer hover:bg-[#fff] transition-all duration-200">

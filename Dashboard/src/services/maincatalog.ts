@@ -26,6 +26,7 @@ export const PutWithFormData = async (url: string, item: any) => {
   const data = response;
   return data;
 };
+
 export const PutData = async (url: string, item: any) => {
   const response = await axios.put(url, item, {
     headers: {

@@ -7,15 +7,22 @@ import {
   DialogFooter,
 } from '@material-tailwind/react';
 import { GetProduct } from '../../services/main';
+import { GetMainCatalog } from '../../services/maincatalog';
 
 interface ProductNavProps {
   title: string;
   color: 'green' | 'red' | 'gray';
 }
 
-const ProductNav: React.FC<ProductNavProps> = ({ title, color }) => {
+const ProductNav: React.FC<ProductNavProps> = ({
+  title,
+  color,
+  updateState,
+  categoryId,
+}) => {
   let titleStyle = 'text-4xl traking-wide';
-  const [selectedItem, setSelectedItem] = useState(0);
+  const [selectedItem, setSelectedItem] = useState(2);
+  const [categories, setCategories] = useState([]);
 
   if (color === 'green') {
     titleStyle +=
@@ -26,14 +33,11 @@ const ProductNav: React.FC<ProductNavProps> = ({ title, color }) => {
     titleStyle += ' font-medium text-base lg:text-[28px] text-darkSecondary';
   }
 
-  const items = [
-    'Одежда',
-    'Сумки, портфели, рюкзаки',
-    'Ручки',
-    'Кухня и бар',
-    'Гаджеты',
-    'Новый год и рождество',
-  ];
+  useEffect(() => {
+    GetMainCatalog().then((res) => {
+      setCategories(res);
+    });
+  }, []);
 
   const [open, setOpen] = React.useState(false);
 
@@ -42,7 +46,6 @@ const ProductNav: React.FC<ProductNavProps> = ({ title, color }) => {
   const [addProduct, setAddProduct] = useState<SliderProduct[]>([]);
   useEffect(() => {
     GetProduct().then((res) => {
-      console.log(res);
       setAddProduct(res);
     });
   }, []);
@@ -81,17 +84,20 @@ const ProductNav: React.FC<ProductNavProps> = ({ title, color }) => {
         <div className="flex justify-between items-center px-3 lg:px-7 py-0">
           <div className="overflow-x-auto product-nav">
             <ul className="flex gap-5 whitespace-nowrap">
-              {items.map((item, index) => (
+              {categories.map((item, index) => (
                 <li
                   key={index}
                   className={`cursor-pointer font-medium text-[10px] lg:text-fs_8 py-4 border-b-2 ${
-                    selectedItem === index
+                    selectedItem === item.id
                       ? 'border-red-primary text-red-primary'
                       : 'border-transparent hover:text-red-primary '
                   }`}
-                  onClick={() => setSelectedItem(index)}
+                  onClick={() => {
+                    setSelectedItem(item.id),
+                      updateState(item.id ? item.id : 1);
+                  }}
                 >
-                  {item}
+                  {item.name}
                 </li>
               ))}
             </ul>

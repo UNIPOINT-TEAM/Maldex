@@ -5,20 +5,20 @@ import { FaArrowLeftLong } from 'react-icons/fa6';
 import { FaArrowRightLong } from 'react-icons/fa6';
 import { Dialog } from '@material-tailwind/react';
 
-import './SliderProduct.css';
+import './SlideProductHit.css';
 import { GetProduct } from '../../services/main';
-import { GetProductNew } from '../../services/product';
+import { GetProductHit } from '../../services/product';
 import { ProductNav } from '..';
 
-const SliderProduct = () => {
+const SliderProductHit = () => {
   const [defaultProduct, setDefaultProduct] = useState(true);
   const [addCard, setAddCard] = useState(false);
   const [newProduct, setNewProduct] = useState([]);
   const [size, setSize] = useState(null);
-  const [categoryId, setCategoryId] = useState("");
+  const [categoryId, setCategoryId] = useState('');
 
   useEffect(() => {
-    GetProductNew(categoryId).then((res) => {
+    GetProductHit(categoryId).then((res) => {
       setNewProduct(res.data);
     });
   }, [categoryId]);
@@ -44,8 +44,8 @@ const SliderProduct = () => {
         <ProductNav
           categoryId={categoryId}
           updateState={updateState}
-          title="new!"
-          color="red"
+          title="Hit!"
+          color="green"
         />
       </div>
       <div className="container_xxl relative px-3">
@@ -186,4 +186,4 @@ const SliderProduct = () => {
     </div>
   );
 };
-export default SliderProduct;
+export default SliderProductHit;

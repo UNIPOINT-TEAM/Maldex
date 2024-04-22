@@ -11,13 +11,9 @@ import {
   Checkbox,
 } from '@material-tailwind/react';
 import { MdEdit } from 'react-icons/md';
-import {
-  GetMainCatalog,
-  GetMainCatalogId,
-  PutWithFormData,
-} from '../../services/maincatalog';
+import { GetMainCatalogId, PutWithFormData } from '../../services/maincatalog';
 
-const AddMainCatalog = (props: any) => {
+const EditMainCatalog = (props: any) => {
   const categoryId = props.categoryId;
 
   const [open, setOpen] = useState(false);
@@ -49,7 +45,6 @@ const AddMainCatalog = (props: any) => {
         setLogoFake(res.logo);
       });
   };
-  console.log(statusCategory);
 
   const updateCategory = (e) => {
     e.preventDefault();
@@ -229,4 +224,4 @@ const AddMainCatalog = (props: any) => {
   );
 };
 
-export default AddMainCatalog;
+export default EditMainCatalog;
