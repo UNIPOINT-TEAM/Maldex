@@ -27,6 +27,7 @@ import 'swiper/css/scrollbar';
 import 'swiper/css/pagination';
 import Portfolio from './pages/Portfolio/Portfolio';
 import Admin from './pages/Admin/Admin';
+import { PadPrinting } from './pages/Applying';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -62,7 +63,8 @@ function App() {
         <Route path="/articles" element={<Articles />} />
         <Route path="/articles/:id" element={<EditArticles />} />
         <Route path="/articles/add" element={<AddArticles />} />
-        <Route path="/print" element={<Applying />} />
+        <Route path="/print/apply" element={<Applying />} />
+        <Route path="/print/pad-printing" element={<PadPrinting />} />
         <Route path="/auth/sign-in" element={<SignIn />} />
         <Route path="/auth/sign-up" element={<SignUp />} />
       </Routes>

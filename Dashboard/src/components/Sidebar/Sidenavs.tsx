@@ -52,7 +52,7 @@ export const Sidenavs = [
   },
   {
     id: 9,
-    path: '/print',
+    path: '/print/apply',
     title: 'Принты',
   },
 ];

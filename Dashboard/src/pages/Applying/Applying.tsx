@@ -1,8 +1,14 @@
+import ApplyingLayout from '../../layout/ApplyingLayout';
+import DefaultLayout from '../../layout/DefaultLayout';
+import SidebarPrint from './SidebarPrint';
+
 const Applying = () => {
   return (
-    <div>
-      <h2 className="text-[28px]">Тампопечать</h2>
-    </div>
+    <DefaultLayout>
+      <ApplyingLayout>
+        <h3>edwq2</h3>
+      </ApplyingLayout>
+    </DefaultLayout>
   );
 };
 
