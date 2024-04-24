@@ -1,7 +1,5 @@
 import { useEffect } from "react";
 import { RouterProvider } from "react-router-dom";
-import { DesignEditorProvider } from "./context/DesignEditor";
-import { Provider as ScenifyProvider } from "@layerhub-io/react";
 import { Provider } from "react-redux";
 import { router } from "./routes/routes";
 import store from "./store";
@@ -18,11 +16,7 @@ function App() {
   }, []);
   return (
     <Provider store={store}>
-      <DesignEditorProvider>
-        <ScenifyProvider>
-          <RouterProvider router={router}></RouterProvider>
-        </ScenifyProvider>
-      </DesignEditorProvider>
+      <RouterProvider router={router}></RouterProvider>
     </Provider>
   );
 }

@@ -7,8 +7,11 @@ import SwiperCore from "swiper";
 import deleteIcon from "../../assets/icons/Delete.svg";
 import "swiper/css";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
+import { useSelector } from "react-redux";
+import { OneArticle } from "../GalleryLayoutTemplate";
+import { Rnd } from "react-rnd";
 
-const Galleryslider = ({ items }) => {
+const Galleryslider = () => {
   const [products, setProducts] = useState({
     name: "Бейсболка «Poly»",
     price: "45.00 ₽",
@@ -19,6 +22,8 @@ const Galleryslider = ({ items }) => {
     description:
       "Если вы думаете о s'mores как о чем-то, что нельзя отправить по почте, подумайте еще раз! Этот подарочный набор превращает всеми любимую закуску у костра в изысканную форму искусства, и он не для случайных любителей. Конечно, потребуется некоторая сборка, но все знают, что это часть удовольствия.",
   });
+  const items = useSelector((state) => state.carousel.items);
+  console.log(items);
   const [activeIndex, setActiveIndex] = useState(0);
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperCore>();
   const swiper1Ref = useRef<React.MutableRefObject<null>>(null);
@@ -42,7 +47,7 @@ const Galleryslider = ({ items }) => {
     setProducts((prev) => ({ ...prev, [name]: value }));
     handleTextareaResize(event);
   };
-  console.log(items);
+
   return (
     <div className="">
       <div className="flex mt-4 w-full">
@@ -117,15 +122,17 @@ const Galleryslider = ({ items }) => {
                 />
               </div>
               <div className="col-span-4 flex flex-col justify-center">
-                <div className="heading">
-                  <input
-                    type="text"
-                    name="name"
-                    onChange={handleChange}
-                    value={products.name}
-                    className="text-[36px] font-medium p-[6px] rounded-lg focus:outline outline-[#e99125]"
-                  />
-                </div>
+                <Rnd>
+                  <div className="heading">
+                    <input
+                      type="text"
+                      name="name"
+                      onChange={handleChange}
+                      value={products.name}
+                      className="text-[36px] font-medium p-[6px] rounded-lg focus:outline outline-[#e99125]"
+                    />
+                  </div>
+                </Rnd>
                 <div className="grid grid-cols-12 gap-4 my-2 pe-10">
                   <div className="flex col-span-3 flex-col gap-3">
                     <h3 className="text-[#222220] opacity-70 font-medium">
@@ -188,6 +195,11 @@ const Galleryslider = ({ items }) => {
               </div>
             </div>
           </SwiperSlide>
+          {items.map((item, index) => (
+            <SwiperSlide key={index} className="h-[500px] w-full">
+              <OneArticle />
+            </SwiperSlide>
+          ))}
         </Swiper>
         <Swiper
           spaceBetween={20}
@@ -205,6 +217,18 @@ const Galleryslider = ({ items }) => {
               className=" object-contain object-center h-full"
             />
           </SwiperSlide>
+          {items.map((item, index) => (
+            <SwiperSlide
+              key={index}
+              className="h-[90px] rounded-lg p-2 w-[145px] border"
+            >
+              <img
+                src={item?.productID?.images_set[0]?.big_url}
+                alt="slider-img"
+                className=" object-contain object-center h-full"
+              />
+            </SwiperSlide>
+          ))}
         </Swiper>
         <div className="navigation-box absolute z-[9] flex items-center gap-2 font-medium">
           <button className="prev-arrow-g flex justify-center items-center w-[40px] h-[40px] border border-darkPrimary hover:bg-redPrimary hover:text-[#fff] hover:border-redPrimary rounded-[10px] duration-200">
