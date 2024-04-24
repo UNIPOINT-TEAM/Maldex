@@ -15,6 +15,7 @@ import {
 } from '../../services/product';
 import { GetMainCatalog, GetSubSubCatalog } from '../../services/maincatalog';
 import { useParams } from 'react-router-dom';
+import { BASE_URL } from '../../utils/BaseUrl';
 
 const EditProduct = () => {
   const { id } = useParams();
@@ -135,7 +136,7 @@ const EditProduct = () => {
       formdata.append(`images[${i}]image`, inputs[i].image);
     }
     UpdateWithFormData(
-      `http://192.168.0.117:8000/product/${id}/`,
+      `${BASE_URL}/product/${id}/`,
       formdata,
     ).then(() => {
       setStatus(!status), setSuccess(true);
@@ -168,7 +169,7 @@ const EditProduct = () => {
   };
 
   const handleItemClick = (id: any) => {
-    DeleteItem(`http://192.168.0.117:8000/product/image/${id}/`).then(() =>
+    DeleteItem(`${BASE_URL}/product/image/${id}/`).then(() =>
       setStatus(!status),
     );
   };
@@ -430,7 +431,7 @@ const EditProduct = () => {
                 label="Описание"
                 defaultValue={productDetail?.description}
                 onChange={(e) => setDescription(e.target.value)}
-                className='min-h-[200px]'
+                className="min-h-[200px]"
               />
             </div>
           </div>

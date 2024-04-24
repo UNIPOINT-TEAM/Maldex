@@ -29,7 +29,7 @@ const AddMainCatalog = () => {
     formdata.append('is_new', isNew);
     formdata.append('logo', logo);
     formdata.append('icon', icon);
-    AddWithFormData('http://192.168.0.117:8000/product/categories/', formdata);
+    AddWithFormData(`${BASE_URL}/product/categories/`, formdata);
     setOpen(!open);
   };
 

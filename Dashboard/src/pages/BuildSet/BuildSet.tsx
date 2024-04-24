@@ -15,7 +15,7 @@ import { SliderProduct } from '../../components';
 import { IoAddSharp, IoCloseSharp } from 'react-icons/io5';
 import DefaultLayout from '../../layout/DefaultLayout';
 import { MdDelete, MdEdit } from 'react-icons/md';
-import { GetGiftSet } from '../../services/buildset';
+import { DelGiftSet, GetGiftSet } from '../../services/buildset';
 import { Link } from 'react-router-dom';
 import { GetProduct } from '../../services/main';
 
@@ -51,6 +51,17 @@ const BuildSet = () => {
     fetchData();
   }, []);
 
+  const deleteAccordion = async (id: number) => {
+    try {
+      // Вызываете сервис или API для удаления аккордеона по ID
+      await DelGiftSet(id);
+      
+      // Обновляете состояние аккордионов, удаляя удаленный аккордеон
+      setAccordionData(prevData => prevData.filter(item => item.id !== id));
+    } catch (error) {
+      console.error('Ошибка при удалении аккордеона:', error);
+    }
+  };
 
 
   return (
@@ -130,7 +141,7 @@ const BuildSet = () => {
                           block={false}
                           iconOnly={true}
                           ripple="light"
-                          // onClick={() => deleteAccordion(index)}
+                          onClick={() => deleteAccordion(item.id)}
                         >
                           <MdDelete />
                         </Button>
@@ -140,42 +151,7 @@ const BuildSet = () => {
                 ))}
               </Reorder.Group>
 
-              {isDialogOpen && (
-                <Dialog
-                  size="sm"
-                  open={isDialogOpen}
-                  // onClose={() => setIsDialogOpen(false)}
-                >
-                  <DialogHeader>Редактировать название аккордеона</DialogHeader>
-                  <DialogBody>
-                    <input
-                      type="text"
-                      className="w-full p-2 border rounded"
-                      placeholder="Название аккордеона"
-                      value={editedAccordionTitle}
-                      onChange={(e) => setEditedAccordionTitle(e.target.value)}
-                    />
-                  </DialogBody>
-                  <DialogFooter>
-                    <Button
-                      color="blue"
-                      buttonType="link"
-                      // onClick={saveEditedAccordion}
-                      ripple="dark"
-                    >
-                      Сохранить
-                    </Button>
-                    <Button
-                      color="red"
-                      buttonType="link"
-                      onClick={() => setIsDialogOpen(false)}
-                      ripple="dark"
-                    >
-                      Закрыть
-                    </Button>
-                  </DialogFooter>
-                </Dialog>
-              )}
+
 
               <div className="flex justify-end mt-4">
                 <Link to='/build-set-add' >

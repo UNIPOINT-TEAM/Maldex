@@ -9,12 +9,13 @@ import {
 } from '@material-tailwind/react';
 import { AddWithFormData } from '../../services/product';
 import { GetMainCatalog, GetSubSubCatalog } from '../../services/maincatalog';
+import { BASE_URL } from '../../utils/BaseUrl';
 
 const AddProduct = () => {
   const [name, setName] = useState('');
   const [code, setCode] = useState(null);
   const [article, setArticle] = useState('');
-  const [productSize, setProductSize] = useState(''); 
+  const [productSize, setProductSize] = useState('');
   const [material, setMaterial] = useState('');
   const [description, setDescription] = useState('');
   const [brand, setBrand] = useState('');
@@ -115,7 +116,7 @@ const AddProduct = () => {
       formdata.append(`images[${i}]color`, inputs[i].color);
       formdata.append(`images[${i}]image`, inputs[i].image);
     }
-    AddWithFormData('http://192.168.0.117:8000/product/', formdata);
+    AddWithFormData(`${BASE_URL}/product/`, formdata);
   };
 
   const handleFileInputChange = (index, event) => {

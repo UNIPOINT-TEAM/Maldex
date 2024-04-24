@@ -22,6 +22,7 @@ import {
   input,
   Checkbox,
 } from '@material-tailwind/react';
+import { BASE_URL } from '../../utils/BaseUrl';
 
 const MainCatalog = () => {
   const [categories, setCategories] = useState([]);
@@ -57,7 +58,7 @@ const MainCatalog = () => {
     const formdata = new FormData();
     formdata.append('name', nameSub);
     formdata.append('parent', id);
-    AddWithFormData('http://192.168.0.117:8000/product/categories/', formdata);
+    AddWithFormData(`${BASE_URL}/product/categories/`, formdata);
     setNameSub('');
     setStatus(!status);
   };
@@ -66,7 +67,7 @@ const MainCatalog = () => {
     const formdata = new FormData();
     formdata.append('name', nameSubSub);
     formdata.append('parent', subCategoryId);
-    AddWithFormData('http://192.168.0.117:8000/product/categories/', formdata);
+    AddWithFormData(`${BASE_URL}/product/categories/`, formdata);
     setNameSubSub('');
     setStatus(!status);
   };
@@ -78,7 +79,7 @@ const MainCatalog = () => {
   const saveItem = (id: any) => {
     const formdata = new FormData();
     formdata.append('name', editedSub);
-    PutData(`http://192.168.0.117:8000/product/category/${id}/`, formdata);
+    PutData(`${BASE_URL}/product/category/${id}/`, formdata);
     setStatusedit(null);
     setStatus(!status);
   };
@@ -89,7 +90,7 @@ const MainCatalog = () => {
   const saveItemSub = (id: any) => {
     const formdata = new FormData();
     formdata.append('name', editedSubSub);
-    PutData(`http://192.168.0.117:8000/product/category/${id}/`, formdata);
+    PutData(`${BASE_URL}/product/category/${id}/`, formdata);
     setStatusedit(null);
     setStatus(!status);
   };
