@@ -7,7 +7,7 @@ import {
 } from "@material-tailwind/react";
 import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-// import sliderImage1 from "../../assets/images/apply-slider-image-1.png";
+import sliderImage1 from "../../assets/images/apply-slider-image-1.png";
 import { Navigation } from "swiper/modules";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 const data = [
@@ -20,7 +20,7 @@ const data = [
     value: "технические",
   },
 ];
-const Print= () => {
+const PadPrinting = () => {
   const [activeTab, setActiveTab] = useState("описание");
   return (
     <div className="w-full">
@@ -71,21 +71,21 @@ const Print= () => {
               >
                 <SwiperSlide>
                   <img
-                    // src={sliderImage1}
+                    src={sliderImage1}
                     alt="slider-img"
                     className="w-full object-cover h-full"
                   />
                 </SwiperSlide>
                 <SwiperSlide>
                   <img
-                    // src={sliderImage1}
+                    src={sliderImage1}
                     alt="slider-img"
                     className="w-full object-cover h-full"
                   />
                 </SwiperSlide>
                 <SwiperSlide>
                   <img
-                    // src={sliderImage1}
+                    src={sliderImage1}
                     alt="slider-img"
                     className="w-full object-cover h-full"
                   />
@@ -195,4 +195,4 @@ const Print= () => {
   );
 };
 
-export default Print;
+export default PadPrinting;

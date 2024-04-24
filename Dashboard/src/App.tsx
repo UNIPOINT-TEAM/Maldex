@@ -14,11 +14,13 @@ import {
   SignUp,
   Tags,
   Articles,
-  Print,
+  Applying,
   EditProduct,
   AddGifts,
   EditGifts,
   AddBuildSet,
+  EditArticles,
+  AddArticles,
 } from './pages';
 import 'swiper/css';
 import 'swiper/css/scrollbar';
@@ -58,7 +60,9 @@ function App() {
         <Route path="/product/:id" element={<EditProduct />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/articles" element={<Articles />} />
-        <Route path="/print" element={<Print />} />
+        <Route path="/articles/:id" element={<EditArticles />} />
+        <Route path="/articles/add" element={<AddArticles />} />
+        <Route path="/print" element={<Applying />} />
         <Route path="/auth/sign-in" element={<SignIn />} />
         <Route path="/auth/sign-up" element={<SignUp />} />
       </Routes>

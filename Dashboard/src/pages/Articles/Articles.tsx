@@ -1,215 +1,56 @@
-import React from 'react'
-import DefaultLayout from '../../layout/DefaultLayout'
-import { FaArrowLeftLong, FaArrowRightLong } from 'react-icons/fa6'
+import React, { useEffect, useState } from 'react';
+import DefaultLayout from '../../layout/DefaultLayout';
+import { FaArrowLeftLong, FaArrowRightLong } from 'react-icons/fa6';
+import { GetArticles } from '../../services/articles';
+import { Link } from 'react-router-dom';
+import { Button } from '@material-tailwind/react';
 
 function Articles() {
+  const [articles, setArticles] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  useEffect(() => {
+    GetArticles()
+      .then((data) => {
+        setArticles(data);
+        console.log(data);
+      })
+      .catch((err) => {
+        console.error('Error fetching articles:', err);
+        setError(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
   return (
     <DefaultLayout>
-      <div>
       <div className="articles container_xxl py-5 px-3">
+        <div className="mb-3">
+          <Link to={`/articles/add`}>
+            <Button color="blue">Добавить статью</Button>
+          </Link>
+        </div>
         <div className="flex flex-col gap-3">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 ">
-            <div
-              className="p-3 lg:p-5 bg-cover text-white h-[180px] sm:h-[340px]"
-              // style={{
-              //   backgroundImage: `url(${image1})`,
-              // }}
-            >
-              <div className="md:w-[65%]">
-                <h3 className="text-fs_5 lg:text-fs_3  font-helvetica">2.10</h3>
-                <h2 className="text-fs_6 lg:text-fs_3  font-medium ">
-                  Маска для лица многоразовая из хлопка, анатомической формы
-                </h2>
-                {/* @ts-ignore */}
-
-                {/* <Badge name="NEW" /> */}
-                {/* @ts-ignore */}
-
-                {/* <Badge name="HIT" /> */}
-              </div>
-            </div>
-            <div
-              className="p-3 lg:p-5 bg-cover text-white h-[180px] sm:h-[340px]"
-              // style={{
-              //   backgroundImage: `url(${image2})`,
-              // }}
-            >
-              <div className="md:w-[65%]">
-                <h3 className="text-fs_5 lg:text-fs_3  font-helvetica">2.10</h3>
-                <h2 className="text-fs_6 lg:text-fs_3  font-medium ">
-                  Маска для лица многоразовая из хлопка, анатомической формы
-                </h2>
-                {/* @ts-ignore */}
-                {/* <Badge name="NEW" /> */}
-                {/* @ts-ignore */}
-                {/* <Badge name="HIT" /> */}
-              </div>
-            </div>
-          </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 h-[180px] sm:h-[340px]">
-            <div
-              className="p-3 lg:p-5 bg-cover text-white hidden lg:block"
-              // style={{
-              //   backgroundImage: `url(${image3})`,
-              // }}
-            >
-              <h3 className="text-[24px]">2.10</h3>
-              <h2 className="text-[28px] font-medium ">
-                Маска для лица многоразовая из хлопка, анатомической формы
-              </h2>
-              {/* @ts-ignore */}
-              {/* <Badge name="NEW" /> */}
-              {/* @ts-ignore */}
-              {/* <Badge name="HIT" /> */}
-            </div>
-            <div
-              className="p-3 lg:p-5 bg-cover text-white hidden sm:block "
-              // style={{
-              //   backgroundImage: `url(${image4})`,
-              // }}
-            >
-              <h3 className="text-[24px]">2.10</h3>
-              <h2 className="text-[28px] font-medium ">
-                Маска для лица многоразовая из хлопка, анатомической формы
-              </h2>
-              {/* @ts-ignore */}
-              {/* <Badge name="NEW" /> */}
-              {/* @ts-ignore */}
-              {/* <Badge name="HIT" /> */}
-            </div>
-            <div
-              className="p-3 lg:p-5 bg-cover text-white "
-              // style={{
-              //   backgroundImage: `url(${image4})`,
-              // }}
-            >
-              <h3 className="text-fs_5 lg:text-fs_3  font-helvetica">2.10</h3>
-              <h2 className="text-fs_6 lg:text-fs_3  font-medium ">
-                Маска для лица многоразовая из хлопка
-              </h2>
-              {/* @ts-ignore */}
-              {/* <Badge name="NEW" /> */}
-              {/* @ts-ignore */}
-              {/* <Badge name="HIT" /> */}
-            </div>
-            <div
-              className="p-3 lg:p-5 bg-cover text-white "
-              // style={{
-              //   backgroundImage: `url(${image4})`,
-              // }}
-            >
-              <h3 className="text-fs_5 lg:text-fs_3  font-helvetica">2.10</h3>
-              <h2 className="text-fs_6 lg:text-fs_3  font-medium ">
-                Маска для лица многоразовая из хлопка
-              </h2>
-              {/* @ts-ignore */}
-              {/* <Badge name="NEW" /> */}
-              {/* @ts-ignore */}
-              {/* <Badge name="HIT" /> */}
-            </div>
-            {/* <div className="p-3 lg:p-5 h-full flex flex-col justify-between bg-white">
-              <h2 className="text-fs_6 lg:text-fs_3 font-extrabold tracking-wide text-redPrimary">
-                Все <br /> статьи
-              </h2>
-              <div className="flex justify-end">
-                <button className="bg-redPrimary p-1 rounded-xl">
-                  <img src={arrowRight} alt="arrow icon" />
-                </button>
-              </div>
-            </div> */}
-          </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 ">
-            <div
-              className="p-3 lg:p-5 bg-cover text-white h-[180px] sm:h-[340px]"
-              // style={{
-              //   backgroundImage: `url(${image1})`,
-              // }}
-            >
-              <div className="md:w-[65%]">
-                <h3 className="text-fs_5 lg:text-fs_3  font-helvetica">2.10</h3>
-                <h2 className="text-fs_6 lg:text-fs_3  font-medium ">
-                  Маска для лица многоразовая из хлопка, анатомической формы
-                </h2>
-                {/* @ts-ignore */}
-                {/* <Badge name="NEW" /> */}
-                {/* @ts-ignore */}
-                {/* <Badge name="HIT" /> */}
-              </div>
-            </div>
-            <div
-              className="p-3 lg:p-5 bg-cover text-white h-[180px] sm:h-[340px]"
-              // style={{
-              //   backgroundImage: `url(${image2})`,
-              // }}
-            >
-              <div className="md:w-[65%]">
-                <h3 className="text-fs_5 lg:text-fs_3  font-helvetica">2.10</h3>
-                <h2 className="text-fs_6 lg:text-fs_3  font-medium ">
-                  Маска для лица многоразовая из хлопка, анатомической формы
-                </h2>
-                {/* @ts-ignore */}
-                {/* <Badge name="NEW" /> */}
-                {/* @ts-ignore */}
-                {/* <Badge name="HIT" /> */}
-              </div>
-            </div>
-          </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 h-[180px] sm:h-[340px]">
-            <div
-              className="p-3 lg:p-5 bg-cover text-white hidden lg:block"
-              // style={{
-              //   backgroundImage: `url(${image3})`,
-              // }}
-            >
-              <h3 className="text-[24px]">2.10</h3>
-              <h2 className="text-[28px] font-medium ">
-                Маска для лица многоразовая из хлопка, анатомической формы
-              </h2>
-              {/* @ts-ignore */}
-              {/* <Badge name="NEW" /> */}
-              {/* @ts-ignore */}
-              {/* <Badge name="HIT" /> */}
-            </div>
-            <div
-              className="p-3 lg:p-5 bg-cover text-white hidden sm:block "
-              // style={{
-              //   backgroundImage: `url(${image4})`,
-              // }}
-            >
-              <h3 className="text-[24px]">2.10</h3>
-              <h2 className="text-[28px] font-medium ">
-                Маска для лица многоразовая из хлопка, анатомической формы
-              </h2>
-              {/* @ts-ignore */}
-              {/* <Badge name="NEW" /> */}
-              {/* @ts-ignore */}
-              {/* <Badge name="HIT" /> */}
-            </div>
-            <div
-              className="p-3 lg:p-5 bg-cover text-white "
-              // style={{
-              //   backgroundImage: `url(${image4})`,
-              // }}
-            >
-              <h3 className="text-fs_5 lg:text-fs_3  font-helvetica">2.10</h3>
-              <h2 className="text-fs_6 lg:text-fs_3  font-medium ">
-                Маска для лица многоразовая из хлопка
-              </h2>
-              {/* @ts-ignore */}
-              {/* <Badge name="NEW" /> */}
-              {/* @ts-ignore */}
-              {/* <Badge name="HIT" /> */}
-            </div>
-            <div className="p-3 lg:p-5 h-full flex flex-col justify-between bg-white">
-              <h2 className="text-fs_6 lg:text-fs_3 font-extrabold tracking-wide text-redPrimary">
-                Все <br /> статьи
-              </h2>
-              <div className="flex justify-end">
-                {/* <button className="bg-redPrimary p-1 rounded-xl">
-                  <img src={arrowRight} alt="arrow icon" />
-                </button> */}
-              </div>
-            </div>
+            {articles.map((article, index) => (
+              <Link to={`/articles/${article.id}`}>
+                <div
+                  key={index}
+                  className="p-3 lg:p-5 bg-cover text-white h-[180px] sm:h-[340px]"
+                  style={{ backgroundImage: `url(${article.image})` }}
+                >
+                  <div className="md:w-[65%]">
+                    <h3 className="text-fs_5 lg:text-fs_3 font-helvetica">
+                      {article.pub_date}
+                    </h3>
+                    <h2 className="text-fs_6 lg:text-fs_3 font-medium">
+                      {article.title}
+                    </h2>
+                  </div>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
         <div className="flex justify-center items-center gap-3 my-5">
@@ -226,9 +67,8 @@ function Articles() {
           </button>
         </div>
       </div>
-      </div>
     </DefaultLayout>
-  )
+  );
 }
 
-export default Articles
+export default Articles;

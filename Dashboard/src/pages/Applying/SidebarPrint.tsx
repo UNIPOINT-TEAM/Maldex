@@ -13,7 +13,7 @@ const sidebarNavLinks = [
   // { path: "", label: "Дэйджи ленты" },
 ];
 
-const Sidebar = () => {
+const SidebarPrint = () => {
   return (
     <div className="container_xxl flex apply-sidebar ">
       <div className="py-5 max-w-[20%] w-full ">
@@ -37,4 +37,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default SidebarPrint;
