@@ -27,8 +27,7 @@ function Portfolio() {
               }}
             >
               <div className="md:w-[65%]">
-                {/* <Badge name="NEW" type="NEW" />
-                <Badge name="HIT" type="HIT" /> */}
+
                 <h3 className="text-fs_7 lg:text-[50px] text-[#475259] leading-tight font-medium ">
                   welcome pack, <br /> для милых дам
                 </h3>
@@ -38,7 +37,7 @@ function Portfolio() {
               <div
                 className="p-3 lg:p-5 bg-cover text-white "
                 style={{
-                  backgroundImage: `url(${image2})`,           
+                  backgroundImage: `url(${image2})`,
                 }}
               >
                 <div className="">
@@ -59,6 +58,12 @@ function Portfolio() {
               </div>
               <div>
                 <img src={image5} alt="" className="w-full h-full" />
+              </div>
+              <div>
+                <img src={image6} alt="" className="w-full h-full" />
+              </div>
+              <div>
+                <img src={image6} alt="" className="w-full h-full" />
               </div>
               <div>
                 <img src={image6} alt="" className="w-full h-full" />

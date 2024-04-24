@@ -36,3 +36,8 @@ export const PutData = async (url: string, item: any) => {
   const data = response;
   return data;
 };
+export const PostData = async (url: string, item: any) => {
+  const response = await axios.post(url, item);
+  const data = response;
+  return data;
+};

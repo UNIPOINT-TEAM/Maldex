@@ -28,6 +28,7 @@ import 'swiper/css/pagination';
 import Portfolio from './pages/Portfolio/Portfolio';
 import Admin from './pages/Admin/Admin';
 import { PadPrinting } from './pages/Applying';
+import CreatePortfolio from './pages/Portfolio/CreatePortfolio';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -56,6 +57,7 @@ function App() {
         <Route path="/build-set-add" element={<AddBuildSet />} />
         <Route path="/catalog-gift" element={<CatalogGifts />} />
         <Route path="/portfolio" element={<Portfolio />} />
+        <Route path="/create-project" element={<CreatePortfolio />} />
         <Route path="/product" element={<Product />} />
         <Route path="/product/add" element={<AddProduct />} />
         <Route path="/product/:id" element={<EditProduct />} />

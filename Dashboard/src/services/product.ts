@@ -7,21 +7,26 @@ export const GetProduct = async () => {
   const response = await api.get(`/product/all`);
   return response;
 };
+
+export const GetProductSearch = async (item: string) => {
+  const response = await axios.get(`${BASE_URL}/product/?search=${item}`);
+  return response;
+};
 export const GetProductNew = async (id: any) => {
-  const response = await api.get(
-    `/product/all/?category_id=${id}&is_new=true`,
+  const response = await axios.get(
+    `${BASE_URL}/product/all/?category_id=${id}&is_new=true`,
   );
   return response;
 };
 export const GetProductHit = async (id: any) => {
-  const response = await api.get(
-    `/product/all/?category_id=${id}&is_hit=true`,
+  const response = await axios.get(
+    `${BASE_URL}/product/all/?category_id=${id}&is_hit=true`,
   );
   return response;
 };
 
 export const GetProductDetail = async (id: any) => {
-  const response = await api.get(`/product/${id}`);
+  const response = await axios.get(`${BASE_URL}/product/${id}`);
   return response;
 };
 export const AddWithFormData = async (url: string, item: any) => {

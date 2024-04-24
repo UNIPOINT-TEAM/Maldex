@@ -8,6 +8,7 @@ import {
 } from '@material-tailwind/react';
 import { GetProduct } from '../../services/main';
 import { GetMainCatalog } from '../../services/maincatalog';
+import { Link } from 'react-router-dom';
 
 interface ProductNavProps {
   title: string;
@@ -19,7 +20,10 @@ const ProductNav: React.FC<ProductNavProps> = ({
   color,
   updateState,
   categoryId,
+  path,
 }) => {
+  console.log(path);
+
   let titleStyle = 'text-4xl traking-wide';
   const [selectedItem, setSelectedItem] = useState(2);
   const [categories, setCategories] = useState([]);
@@ -73,12 +77,14 @@ const ProductNav: React.FC<ProductNavProps> = ({
         {/* <button className="mx-3 uppercase text-fs_8 font-medium p-[6px] tracking-wide  border border-red-primary rounded-lg text-red-primary block ss:hidden">
           добавить
         </button> */}
-        <button
-          onClick={handleOpen}
-          className="inline-flex items-center justify-center rounded-md bg-primary py-2 px-6 text-center font-medium text-white hover:bg-opacity-90 "
-        >
-          Добавить новых товаров
-        </button>
+        <Link to={path}>
+          <button
+            onClick={handleOpen}
+            className="inline-flex items-center justify-center rounded-md bg-primary py-2 px-6 text-center font-medium text-white hover:bg-opacity-90 "
+          >
+            Добавить новых товаров
+          </button>
+        </Link>
       </div>
       <div className="border border-lightSecondary rounded-xl  uppercase text-darkSecondary font-semibold tracking-wider">
         <div className="flex justify-between items-center px-3 lg:px-7 py-0">
@@ -110,7 +116,7 @@ const ProductNav: React.FC<ProductNavProps> = ({
         </div>
       </div>
 
-      <div>
+      {/* <div>
         <Dialog open={open} handler={handleOpen}>
           <DialogHeader>
             Выберете продукт который вы хотите увидеть в списке new!
@@ -155,7 +161,7 @@ const ProductNav: React.FC<ProductNavProps> = ({
             </Button>
           </DialogFooter>
         </Dialog>
-      </div>
+      </div> */}
     </div>
   );
 };

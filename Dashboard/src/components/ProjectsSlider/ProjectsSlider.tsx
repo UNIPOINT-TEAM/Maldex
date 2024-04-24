@@ -5,11 +5,8 @@ import next from '../../assets/icons/projectNext.svg';
 import project1 from '../../assets/project 1.png';
 import project2 from '../../assets/project 2.png';
 import project3 from '../../assets/project 3.png';
-
-// import { ProductNav } from "..";
 import { Link } from 'react-router-dom';
 import { Scrollbar } from 'swiper/modules';
-import { FaArrowRightLong } from 'react-icons/fa6';
 import ProductNav from '../ProductNav/ProductNav';
 
 function ProjectsSlider() {
@@ -34,7 +31,7 @@ function ProjectsSlider() {
   return (
     <div className="container_xxl px-3 md:mb-[100px]">
       <div>
-        <ProductNav title="ПРОЕКТЫ" color="gray" />
+        <ProductNav title="ПРОЕКТЫ" color="gray" path="/create-project" />
         <div className="my-5 lg:h-[440px]">
           <div className="h-full hidden lg:flex">
             <div className="h-[410px] flex items-center">
