@@ -22,8 +22,6 @@ const ProductNav: React.FC<ProductNavProps> = ({
   categoryId,
   path,
 }) => {
-  console.log(path);
-
   let titleStyle = 'text-4xl traking-wide';
   const [selectedItem, setSelectedItem] = useState(2);
   const [categories, setCategories] = useState([]);
@@ -115,53 +113,6 @@ const ProductNav: React.FC<ProductNavProps> = ({
           </div>
         </div>
       </div>
-
-      {/* <div>
-        <Dialog open={open} handler={handleOpen}>
-          <DialogHeader>
-            Выберете продукт который вы хотите увидеть в списке new!
-          </DialogHeader>
-          <DialogBody className="h-[400px] flex flex-wrap overflow-y-scroll">
-            {addProduct.results?.map((item, index) => (
-              <div key={index} className="flex flex-col items-center mb-2">
-                <input
-                  type="checkbox"
-                  checked={selectedProducts.includes(index)}
-                  onChange={() => handleCheckboxChange(index)}
-                  className="mb-2"
-                />
-                <img
-                  onClick={() => handleCheckboxChange(index)}
-                  className="w-[50px] h-[50px] object-contain product-img cursor-pointer"
-                  src={item.image}
-                  alt=""
-                />
-              </div>
-            ))}
-          </DialogBody>
-
-          <DialogFooter>
-            <Button
-              variant="text"
-              color="red"
-              onClick={handleOpen}
-              className="mr-1"
-            >
-              <span>Cancel</span>
-            </Button>
-            <Button
-              variant="gradient"
-              color="green"
-              onClick={() => {
-                handleOpen();
-                handleConfirm();
-              }}
-            >
-              <span>Confirm</span>
-            </Button>
-          </DialogFooter>
-        </Dialog>
-      </div> */}
     </div>
   );
 };

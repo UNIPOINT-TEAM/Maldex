@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Slider from './Slider';
 import BannerEditModal from './BannerEditModal';
 import DeleteItemBanner from './DeleteItemBanner';
-import { GetSubSubCatalog } from '../../services/maincatalog';
+import { GetBanner, GetSubSubCatalog } from '../../services/maincatalog';
 interface BannerProp {
   BannerData: {
     id: string;
@@ -22,13 +22,11 @@ interface BannerProp {
 const BannerTop: React.FC<BannerProp> = ({ BannerData, handleImageChange }) => {
   const [bannerItem1, setBannerItem1] = useState([]);
   useEffect(() => {
-    GetSubSubCatalog(`/banner/`).then(
-      (res) => {
-        setBannerItem1(res);
-        console.log(res[0]);
-      },
-    );
+    GetBanner(`/banner/`).then((res) => {
+      setBannerItem1(res.find((i) => (i.order_by_id = 1)));
+    });
   }, [status]);
+
   return (
     <div className="grid grid-cols-4 gap-[9px]">
       <div className="group flex relative flex-col justify-center col-span-4 bg-white h-[200px] cursor-pointer hover:bg-[#fff] transition-all duration-200">
@@ -40,7 +38,10 @@ const BannerTop: React.FC<BannerProp> = ({ BannerData, handleImageChange }) => {
           <DeleteItemBanner />
         </div>
         <div className="h-[110px]  w-[300px] mx-auto   flex items-center justify-center">
-          <Slider SliderItems={BannerData && BannerData[0]} sliderTime={2500} />
+          <Slider
+            SliderItems={bannerItem1 && bannerItem1[0]}
+            sliderTime={2500}
+          />
         </div>
       </div>
       <div className="group relative bg-white h-[130px] flex flex-col justify-center cursor-pointer hover:bg-[#fff] duration-200">

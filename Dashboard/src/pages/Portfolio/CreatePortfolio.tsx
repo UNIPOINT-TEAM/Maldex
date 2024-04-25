@@ -8,18 +8,15 @@ import {
   Input,
   Textarea,
   Checkbox,
-  Select,
-  Option,
   Dialog,
   Card,
   CardBody,
-  Typography,
   CardFooter,
 } from '@material-tailwind/react';
 import { AddWithFormData, GetProductSearch } from '../../services/product';
-import { GetMainCatalog, GetSubSubCatalog } from '../../services/maincatalog';
-import { GetProduct } from '../../services/main';
+
 import { BASE_URL } from '../../utils/BaseUrl';
+import { GetTags } from '../../services/maincatalog';
 
 function CreatePortfolio() {
   const [name, setName] = useState('');
@@ -29,10 +26,15 @@ function CreatePortfolio() {
   const [addProduct, setAddProduct] = useState(null);
   const [checkedItems, setCheckedItems] = useState([]);
   const [inputVal, setInputVal] = useState('');
+  const [tags, setTags] = useState([]);
+  const [tagIds, setTagIds] = useState([]);
 
   useEffect(() => {
     GetProductSearch(inputVal).then((res) => {
       setAddProduct(res.data.results);
+    });
+    GetTags().then((res) => {
+      setTags(res);
     });
   }, [inputVal]);
 
@@ -41,9 +43,9 @@ function CreatePortfolio() {
     const formdata = new FormData();
     formdata.append('title', name),
       formdata.append('description', description),
-      formdata.append('product_ids', checkedItems);
+      formdata.append('product_ids', checkedItems),
+      formdata.append('tags', tagIds);
     for (let i = 0; i < inputs.length; i++) {
-      // formdata.append(`images[${i}]color`, inputs[i].color);
       formdata.append(`images[${i}]image`, inputs[i].image);
     }
     AddWithFormData(`${BASE_URL}/projects/`, formdata);
@@ -71,6 +73,15 @@ function CreatePortfolio() {
   const handleCheckboxChange = (itemId) => {
     //@ts-ignore
     setCheckedItems((prevItems) =>
+      //@ts-ignore
+      prevItems.includes(itemId)
+        ? prevItems.filter((id) => id !== itemId)
+        : [...prevItems, itemId],
+    );
+  };
+  const handleTags = (itemId: number) => {
+    //@ts-ignore
+    setTagIds((prevItems) =>
       //@ts-ignore
       prevItems.includes(itemId)
         ? prevItems.filter((id) => id !== itemId)
@@ -241,6 +252,20 @@ function CreatePortfolio() {
                 label="Описание"
                 onChange={(e) => setDescription(e.target.value)}
               />
+            </div>
+            <div className="flex flex-wrap gap-5 items-center justify-start w-full mb-5">
+              {tags?.map((item) => (
+                <div
+                  key={item.id}
+                  className="flex gap-2 justify-between items-center"
+                >
+                  <Checkbox
+                    color="blue"
+                    onChange={() => handleTags(item?.id)}
+                  />
+                  <p>{item.name}</p>
+                </div>
+              ))}
             </div>
             <button
               onClick={handleOpen}

@@ -29,6 +29,7 @@ import Portfolio from './pages/Portfolio/Portfolio';
 import Admin from './pages/Admin/Admin';
 import { PadPrinting } from './pages/Applying';
 import CreatePortfolio from './pages/Portfolio/CreatePortfolio';
+import PortfolioDetail from './pages/Portfolio/PortfolioDetail';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -57,6 +58,7 @@ function App() {
         <Route path="/build-set-add" element={<AddBuildSet />} />
         <Route path="/catalog-gift" element={<CatalogGifts />} />
         <Route path="/portfolio" element={<Portfolio />} />
+        <Route path="/portfolio/:id" element={<PortfolioDetail />} />
         <Route path="/create-project" element={<CreatePortfolio />} />
         <Route path="/product" element={<Product />} />
         <Route path="/product/add" element={<AddProduct />} />

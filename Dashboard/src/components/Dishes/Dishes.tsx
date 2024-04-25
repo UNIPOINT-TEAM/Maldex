@@ -1,10 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import {
-  GetMainCatalog,
-  GetSubSubCatalog,
-  PostData,
-} from '../../services/maincatalog';
+import { GetSubSubCatalog, PostData } from '../../services/maincatalog';
 import { BASE_URL } from '../../utils/BaseUrl';
 import { Option, Select } from '@material-tailwind/react';
 
@@ -21,7 +17,6 @@ const Dishes = () => {
     GetSubSubCatalog(BASE_URL + `/product/categories/main_categories`).then(
       (res) => {
         setAllCategory(res);
-        console.log(res);
       },
     );
   }, [status]);
@@ -46,14 +41,12 @@ const Dishes = () => {
           ) : (
             ''
           )}
-
-          {/* {category?.children[0].name} */}
         </div>
       </div>
       <div className="w-full mb-[80px]">
         <div className="grid grid-rows-3 h-[360px] grid-cols-12 grid-flow-col gap-4">
           <div className="col-span-12 lg:col-span-9 h-full row-span-3">
-            {/* <div className="grid grid-cols-5 md:grid-cols-11 h-full gap-[10px]">
+            <div className="grid grid-cols-5 md:grid-cols-11 h-full gap-[10px]">
               <div className="col-span-3 bg-white flex items-center justify-center">
                 <img
                   src={category?.products[0]?.images_set[0]?.image_url}
@@ -94,7 +87,7 @@ const Dishes = () => {
                   alt=""
                 />
               </div>
-            </div> */}
+            </div>
           </div>
           <div className="row-span-3 col-span-3 hidden lg:block">
             <div className="grid grid-rows-2 grid-cols-1 gap-4 h-full">
