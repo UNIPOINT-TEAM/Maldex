@@ -1,61 +1,46 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import React, { useLayoutEffect, useRef, useState } from "react";
-import sliderImg from "../../assets/cap.png";
+import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Controller, FreeMode, Navigation, Thumbs } from "swiper/modules";
 import SwiperCore from "swiper";
 import deleteIcon from "../../assets/icons/Delete.svg";
 import "swiper/css";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
-import { useSelector } from "react-redux";
-import { OneArticle } from "../GalleryLayoutTemplate";
-import { Rnd } from "react-rnd";
+import { useDispatch, useSelector } from "react-redux";
+import html2canvas from "html2canvas";
+import {
+  addItem,
+  copyItem,
+  deleteItem,
+  onActiveCarusel,
+} from "../../store/carouselReducer";
 
 const Galleryslider = () => {
-  const [products, setProducts] = useState({
-    name: "Бейсболка «Poly»",
-    price: "45.00 ₽",
-    circulation: 25,
-    total: "1 125.00",
-    characteristics:
-      "Артикул: 47583957 <br/> Размеры: 20х25х10 см <br/> Материал: сатин, картон, 120 г/м2 <br/> Вес (1 шт.): 39,04 г <br/> Доступное нанесение: DTF-Полноцвет с трансфером, SH-Шелкография (не более 1 цвета)",
-    description:
-      "Если вы думаете о s'mores как о чем-то, что нельзя отправить по почте, подумайте еще раз! Этот подарочный набор превращает всеми любимую закуску у костра в изысканную форму искусства, и он не для случайных любителей. Конечно, потребуется некоторая сборка, но все знают, что это часть удовольствия.",
-  });
+  const dispatch = useDispatch();
   const items = useSelector((state) => state.carousel.items);
-  console.log(items);
-  const [activeIndex, setActiveIndex] = useState(0);
+  const activeIndex = useSelector((state) => state.carousel.activeCaruselIndex);
+  const itemsStatus = useSelector((state) => state.carousel.status);
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperCore>();
-  const swiper1Ref = useRef<React.MutableRefObject<null>>(null);
-  const swiper2Ref = useRef();
-  useLayoutEffect(() => {
-    if (swiper1Ref.current !== null) {
-      // @ts-ignore
-      swiper1Ref.current.controller.control = swiper2Ref.current;
-    }
-  }, []);
-  const handleTextareaResize = (event) => {
-    const textarea = event.target;
-    textarea.style.height = "auto";
-    textarea.style.height = textarea.scrollHeight + "px";
+  const [imgUrl, setimgUrl] = useState("");
+
+  const handleDownloadImage = () => {
+    const element = document.getElementById("template-container");
+    html2canvas(element).then((canvas) => {
+      setimgUrl(canvas.toDataURL("image/png"));
+    });
   };
-  const handleSlideChange = (swiper: any) => {
-    setActiveIndex(swiper.activeIndex);
-  };
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setProducts((prev) => ({ ...prev, [name]: value }));
-    handleTextareaResize(event);
-  };
+  useEffect(() => {
+    handleDownloadImage();
+  }, [items]);
 
   return (
     <div className="">
       <div className="flex mt-4 w-full">
         <div className="flex gap-3">
           <span className="border border-darkPrimary px-3 rounded-lg font-medium">
-            1/15
+            {activeIndex + 1}/{items.length}
           </span>
-          <button>
+          <button onClick={() => dispatch(addItem())}>
             <svg
               width="27"
               height="27"
@@ -73,7 +58,10 @@ const Galleryslider = () => {
               ></path>
             </svg>
           </button>
-          <button>
+          <button
+            onClick={() => dispatch(copyItem(activeIndex))}
+            className="next-arrow-g"
+          >
             <svg
               width="24"
               height="24"
@@ -93,7 +81,7 @@ const Galleryslider = () => {
               ></path>
             </svg>
           </button>
-          <button>
+          <button onClick={() => dispatch(deleteItem())}>
             <img src={deleteIcon} alt="delete-icon" className="w-[20px]" />
           </button>
         </div>
@@ -108,96 +96,103 @@ const Galleryslider = () => {
             prevEl: ".prev-arrow-g",
             nextEl: ".next-arrow-g",
           }}
-          onSlideChange={(swiper) => handleSlideChange(swiper)}
+          onSlideChange={(swiper) =>
+            dispatch(onActiveCarusel(swiper?.activeIndex))
+          }
           modules={[FreeMode, Navigation, Thumbs, Controller]}
-          className="w-full"
+          className="w-full h-[500px] bg-[#eaebea] rounded-lg"
         >
-          <SwiperSlide className="h-[500px] w-full">
+          <SwiperSlide
+            className="h-[500px] w-full bg-[#fff]"
+            id="template-container"
+          >
             <div className="w-auto grid grid-cols-7 h-full border p-3 rounded-lg border-darkSecondary">
               <div className="col-span-3 p-8 flex items-center">
                 <img
-                  src={sliderImg}
                   alt="slider-img"
                   className="w-[400px] object-contain object-center h-auto"
                 />
               </div>
               <div className="col-span-4 flex flex-col justify-center">
-                <Rnd>
-                  <div className="heading">
-                    <input
-                      type="text"
-                      name="name"
-                      onChange={handleChange}
-                      value={products.name}
-                      className="text-[36px] font-medium p-[6px] rounded-lg focus:outline outline-[#e99125]"
-                    />
-                  </div>
-                </Rnd>
-                <div className="grid grid-cols-12 gap-4 my-2 pe-10">
-                  <div className="flex col-span-3 flex-col gap-3">
-                    <h3 className="text-[#222220] opacity-70 font-medium">
-                      Цена (руб)
-                    </h3>
-                    <input
-                      type="text"
-                      name="price"
-                      onChange={handleChange}
-                      value={products.price}
-                      className="text-fs_4 w-auto font-medium  p-[6px] rounded-lg focus:outline outline-[#e99125]"
-                    />
-                  </div>
-                  <div className="flex flex-col gap-3 col-span-3">
-                    <h3 className="text-[#222220] opacity-70 font-medium">
-                      Тираж (шт)
-                    </h3>
-                    <input
-                      type="text"
-                      name="circulation"
-                      onChange={handleChange}
-                      value={products.circulation}
-                      className="text-fs_4 w-auto font-medium  p-[6px] rounded-lg focus:outline outline-[#e99125]"
-                    />
-                  </div>
-                  <div className="flex flex-col items-end gap-3 col-span-6">
-                    <h3 className="text-[#222220] opacity-70 font-medium">
-                      Итого
-                    </h3>
-                    <input
-                      type="text"
-                      name="total"
-                      onChange={handleChange}
-                      value={products.total}
-                      className="text-fs_4 w-auto text-end font-medium  p-[6px] rounded-lg focus:outline outline-[#e99125]"
-                    />
-                  </div>
-                </div>
-                <div className="flex my-3">
-                  <textarea
-                    className="w-full resize-none rounded-lg max-h-[300px] font-normal p-[6px] overflow-hidden leading-tight focus:outline outline-[#e99125]"
-                    name="characteristics"
-                    onChange={handleChange}
-                    rows={6}
-                    value={products.characteristics.replace(
-                      /<br\s*\/?>/g,
-                      "\n"
-                    )}
-                  ></textarea>
-                </div>
-                <div>
-                  <textarea
-                    className="w-full  resize-none rounded-lg max-h-[300px]  font-normal p-[6px] overflow-hidden leading-tight focus:outline outline-[#e99125]"
-                    name="description"
-                    rows={4}
-                    onChange={handleChange}
-                    value={products.description}
+                <div className="heading">
+                  <input
+                    type="text"
+                    name="name"
+                    defaultValue={"Название шаблона"}
+                    className="text-[36px] font-medium p-[6px] border-0 outline-0 rounded-lg focus:outline outline-[#e99125]"
                   />
+                </div>
+                <div className="grid grid-cols-12 gap-4 my-2 pe-10">
+                  {itemsStatus.prices && (
+                    <div className="flex col-span-3 flex-col gap-3">
+                      <h3 className="text-[#222220] opacity-70 font-medium">
+                        Цена (руб)
+                      </h3>
+                      <input
+                        type="text"
+                        name="price"
+                        defaultValue={100}
+                        className="text-fs_4 w-auto font-medium  p-[6px] rounded-lg focus:outline outline-[#e99125]"
+                      />
+                    </div>
+                  )}
+                  {itemsStatus.circulationAmount && (
+                    <div className="flex flex-col gap-3 col-span-3">
+                      <h3 className="text-[#222220] opacity-70 font-medium">
+                        Тираж (шт)
+                      </h3>
+                      <input
+                        type="text"
+                        name="circulation"
+                        defaultValue={100}
+                        className="text-fs_4 w-auto font-medium  p-[6px] rounded-lg focus:outline outline-[#e99125]"
+                      />
+                    </div>
+                  )}
+                  {itemsStatus.total && (
+                    <div className="flex flex-col items-end gap-3 col-span-6">
+                      <h3 className="text-[#222220] opacity-70 font-medium">
+                        Итого
+                      </h3>
+                      <input
+                        type="text"
+                        name="total"
+                        defaultValue={100}
+                        className="text-fs_4 w-auto text-end font-medium  p-[6px] rounded-lg focus:outline outline-[#e99125]"
+                      />
+                    </div>
+                  )}
+                </div>
+                {itemsStatus.characteristic && (
+                  <div className="flex my-3">
+                    <textarea
+                      className="w-full resize-none rounded-lg max-h-[300px] font-normal p-[6px] overflow-hidden leading-tight focus:outline outline-[#e99125]"
+                      name="characteristics"
+                      defaultValue={"Точную сумму нанесения от 30 тыс рублей"}
+                      rows={6}
+                    ></textarea>
+                  </div>
+                )}
+                <div className="max-h-[300px]">
+                  {itemsStatus.description && (
+                    <textarea
+                      className="w-full  resize-none rounded-lg  h-full font-normal p-[6px] overflow-hidden leading-tight focus:outline outline-[#e99125]"
+                      name="description"
+                      rows={4}
+                      defaultValue={"Описание шаблона"}
+                    />
+                  )}
                 </div>
               </div>
             </div>
           </SwiperSlide>
-          {items.map((item, index) => (
-            <SwiperSlide key={index} className="h-[500px] w-full">
-              <OneArticle />
+          {items.map((item, i) => (
+            <SwiperSlide
+              id={i}
+              key={i}
+              className="h-full w-full border cursor-pointer  rounded-lg bg-[#fff]"
+            >
+              {item?.template}
             </SwiperSlide>
           ))}
         </Swiper>
@@ -208,39 +203,35 @@ const Galleryslider = () => {
           slidesPerView={5.5}
           watchSlidesProgress={true}
           modules={[FreeMode, Navigation, Thumbs]}
-          className="w-full border relative border-lightSecondary my-4 rounded-lg p-4"
+          className="w-full cursor-pointer border relative border-lightSecondary my-4 rounded-lg p-4"
         >
-          <SwiperSlide className="h-[90px] rounded-lg p-2 w-[145px] border">
-            <img
-              src={sliderImg}
-              alt="slider-img"
-              className=" object-contain object-center h-full"
-            />
-          </SwiperSlide>
-          {items.map((item, index) => (
+          {items.map((item, i) => (
             <SwiperSlide
-              key={index}
+              key={i}
               className="h-[90px] rounded-lg p-2 w-[145px] border"
             >
               <img
-                src={item?.productID?.images_set[0]?.big_url}
+                src={imgUrl}
                 alt="slider-img"
-                className=" object-contain object-center h-full"
+                className="object-contain object-center h-full"
               />
             </SwiperSlide>
           ))}
         </Swiper>
-        <div className="navigation-box absolute z-[9] flex items-center gap-2 font-medium">
-          <button className="prev-arrow-g flex justify-center items-center w-[40px] h-[40px] border border-darkPrimary hover:bg-redPrimary hover:text-[#fff] hover:border-redPrimary rounded-[10px] duration-200">
-            <FaArrowLeft className="text-fs_8 lg:text-fs_7" />
-          </button>
-          <p className="text-fs_6">
-            <span className="text-redPrimary">{activeIndex + 1}</span> из 20
-          </p>
-          <button className="next-arrow-g flex justify-center items-center w-[40px] h-[40px] border border-darkPrimary hover:bg-redPrimary hover:text-[#fff] hover:border-redPrimary rounded-[10px] duration-200">
-            <FaArrowRight className="text-fs_8 lg:text-fs_7" />
-          </button>
-        </div>
+        {items.length > 0 && (
+          <div className="navigation-box absolute z-[9] flex items-center gap-2 font-medium">
+            <button className="prev-arrow-g flex justify-center items-center w-[40px] h-[40px] border border-darkPrimary hover:bg-redPrimary hover:text-[#fff] hover:border-redPrimary rounded-[10px] duration-200">
+              <FaArrowLeft className="text-fs_8 lg:text-fs_7" />
+            </button>
+            <p className="text-fs_6">
+              <span className="text-redPrimary">{activeIndex + 1}</span> из{" "}
+              {items.length}
+            </p>
+            <button className="next-arrow-g flex justify-center items-center w-[40px] h-[40px] border border-darkPrimary hover:bg-redPrimary hover:text-[#fff] hover:border-redPrimary rounded-[10px] duration-200">
+              <FaArrowRight className="text-fs_8 lg:text-fs_7" />
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

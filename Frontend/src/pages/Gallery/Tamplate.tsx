@@ -1,10 +1,8 @@
-import React from "react";
 import { IoMdAdd } from "react-icons/io";
 import { useDispatch } from "react-redux";
 import { SAMPLE_TEMPLATES } from "../../constants/editor";
 import { Galleryslider } from "../../components";
-import { pushItem } from "../../store/carouselReducer";
-import YourComponent from "../../components/Gallery/Canvas";
+import { updateItem } from "../../store/carouselReducer";
 
 const Tamplate = () => {
   const dispatch = useDispatch();
@@ -20,9 +18,8 @@ const Tamplate = () => {
             <div key={i} className="w-[185px]">
               <div className="group relative p-3 h-[105px] rounded-xl">
                 <div className="absolute border-lightSecondary top-0 left-0 w-full h-full rounded-xl group-hover:opacity-100 cursor-pointer border-2 group-hover:border-redPrimary duration-300 grid place-items-center">
-                  {/* onClick olay işleyicisinde dispatch fonksiyonunu kullan */}
                   <button
-                    onClick={() => dispatch(pushItem(item?.template))}
+                    onClick={() => dispatch(updateItem(item))}
                     className="opacity-0 group-hover:opacity-100 duration-300 w-[40px] h-[40px] bg-redPrimary flex items-center justify-center rounded-full"
                   >
                     <IoMdAdd className="text-fs_5 text-[#fff]" />

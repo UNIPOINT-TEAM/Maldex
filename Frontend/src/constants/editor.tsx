@@ -12,35 +12,48 @@ import {
   PictureText,
   TwoArticle,
 } from "../components/GalleryLayoutTemplate";
+import { nanoid } from "nanoid";
 export const SAMPLE_TEMPLATES = [
   {
+    id: nanoid(),
     title: "один артикул",
     template: <OneArticle />,
     preview: oneArticleImg,
+    thumbnail: "",
   },
   {
+    id: "two-article",
     title: "два артикула ",
     template: <TwoArticle />,
     preview: twoArticleImg,
+    thumbnail: "",
   },
   {
+    id: "image-text",
     title: "картинка + текст",
     preview: imgText,
     template: <PictureText />,
+    thumbnail: "",
   },
   {
+    id: "image",
     title: "картинка",
     preview: image,
     template: <Picture />,
+    thumbnail: "",
   },
   {
+    id: "new-clients",
     title: "малдекс для новых клиентов",
     preview: newClients,
     template: <NewClients />,
+    thumbnail: "",
   },
   {
+    id: "maldex-template",
     title: "малдекс",
     preview: MaldexT,
     template: <MaldexTepmlate />,
+    thumbnail: "",
   },
 ];

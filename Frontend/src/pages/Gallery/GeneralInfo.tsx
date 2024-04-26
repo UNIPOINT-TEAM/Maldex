@@ -1,10 +1,12 @@
 import upload from "../../assets/icons/upload.svg";
 import download from "../../assets/icons/rub.svg";
 import rub from "../../assets/icons/download.svg";
-import deleteIcon from "../../assets/icons/Delete.svg";
 import { Switch } from "@material-tailwind/react";
 import { useState } from "react";
 import { Galleryslider } from "../../components";
+import { AllDeleteModal } from "../../components/Gallery/AllDeleteModal";
+import { updateStatus } from "../../store/carouselReducer";
+import { useDispatch, useSelector } from "react-redux";
 
 interface CheckDataType {
   [key: string]: boolean;
@@ -50,25 +52,13 @@ const Checkdata = [
 ];
 
 const GeneralInfo = () => {
-  const [checkData, setCheckData] = useState<CheckDataType>({
-    landscape: false,
-    standard: false,
-    prices: false,
-    sender: false,
-    codeArticle: false,
-    characteristic: false,
-    description: false,
-    circulationAmount: false,
-    total: false,
-  });
+  const itemsStatus = useSelector((state) => state.carousel.status);
+  const dispatch = useDispatch();
 
-  const handleSwitchChange = (name: string, isChecked: boolean) => {
-    setCheckData((prevState) => ({
-      ...prevState,
-      [name]: isChecked,
-    }));
+  const handleSwitchChange = (name: string, isChacked: boolean) => {
+    dispatch(updateStatus({ name, isChacked }));
   };
-
+  console.log(itemsStatus);
   return (
     <div className="grid grid-cols-12 h-full">
       <div className="px-5 pb-16 col-span-4 py-3 h-full  border-0 border-r border-lightSecondary">
@@ -90,17 +80,15 @@ const GeneralInfo = () => {
             <img src={rub} alt="rub-icon" />
             <span>Цены и услуги</span>
           </button>
-          <button className="flex items-center gap-3">
-            <img src={deleteIcon} alt="delete-icon" />
-            Удалить
-          </button>
+          <AllDeleteModal />
         </div>
         <div className="mt-10 flex flex-col gap-4">
           {Checkdata.map((item) => (
             <Switch
+              crossOrigin={""}
               key={item.name}
               onChange={(e) => handleSwitchChange(item.name, e.target.checked)}
-              checked={checkData[item.name]}
+              checked={itemsStatus[item.name]}
               name={item.name}
               id={`custom-switch-${item.name}`}
               ripple={false}
