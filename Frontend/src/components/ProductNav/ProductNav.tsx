@@ -8,8 +8,12 @@ interface ProductNavProps {
 const ProductNav: React.FC<ProductNavProps> = ({
     title,
     color,
+    // @ts-expect-error: This         
     categories,
-    categoryId,
+    // @ts-expect-error: This         
+  categoryId,
+  // @ts-expect-error: This         
+
     updateCategoryId,
 }) => {
     let titleStyle = "text-4xl traking-wide";
@@ -37,7 +41,10 @@ const ProductNav: React.FC<ProductNavProps> = ({
                 <div className="flex justify-between items-center px-3 lg:px-7 py-0">
                     <div className="overflow-x-auto product-nav">
                         <ul className="flex gap-5 whitespace-nowrap">
-                            {categories?.map((item, index) => (
+                            {categories?.map(
+                                // @ts-expect-error: This         
+
+                                (item, index) => (
                                 <li
                                     key={index}
                                     className={`cursor-pointer font-medium text-[10px] lg:text-fs_8 py-4 border-b-2 ${

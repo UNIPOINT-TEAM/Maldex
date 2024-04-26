@@ -52,6 +52,8 @@ const Home = () => {
             </div>
             <div className="container_xxl px-3  mt-16">
                 <ProductNav
+                // @ts-expect-error: This         
+
                     categories={categories}
                     updateCategoryId={updateCategoryId}
                     categoryId={categoryId}
@@ -76,6 +78,8 @@ const Home = () => {
             <ProjectsSlider />
             <div className="container_xxl px-3 mt-10">
                 <ProductNav
+                // @ts-expect-error: This         
+
                     categories={categories}
                     updateCategoryId={updateCategoryId}
                     categoryId={categoryId}

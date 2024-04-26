@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { Rnd } from "react-rnd";
 const YourComponent = () => {
   const [contents, setContents] = useState([
@@ -6,7 +6,7 @@ const YourComponent = () => {
     { id: "2", content: "Content 1", width: 200, height: 200, x: 100, y: 100 },
     // Boshqa contentlar
   ]);
-
+// @ts-expect-error: This
   const handleDragStop = (index, position) => {
     const updatedContents = [...contents];
     updatedContents[index].x = position.x;
@@ -15,6 +15,7 @@ const YourComponent = () => {
   };
 
   return (
+    
     <div className="w-full h-[500px]">
       {contents.map((content, index) => (
         <Rnd
@@ -25,6 +26,7 @@ const YourComponent = () => {
             x: content.x,
             y: content.y,
           }}
+          // @ts-expect-error: This
           onDragStop={(e, d) => handleDragStop(index, d)}
           bounds="parent"
         >

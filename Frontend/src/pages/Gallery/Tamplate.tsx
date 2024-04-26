@@ -1,10 +1,9 @@
-import React from "react";
 import { IoMdAdd } from "react-icons/io";
 import { useDispatch } from "react-redux";
 import { SAMPLE_TEMPLATES } from "../../constants/editor";
 import { Galleryslider } from "../../components";
 import { pushItem } from "../../store/carouselReducer";
-import YourComponent from "../../components/Gallery/Canvas";
+// import YourComponent from "../../components/Gallery/Canvas";
 
 const Tamplate = () => {
   const dispatch = useDispatch();

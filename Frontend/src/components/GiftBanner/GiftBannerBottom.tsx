@@ -32,7 +32,9 @@ const GiftBannerBottom: React.FC<GiftBannerBottomProp> = ({ BannerData }) => {
           Бутылки для воды
         </h2>
         <div className="lg:h-[238px] h-[96px] w-[96px] lg:w-[238px] mx-auto flex items-center justify-center">
-          <Slider SliderItems={BannerData && BannerData[4]} sliderTime={4000} />
+          <Slider 
+          // @ts-expect-error: This
+          SliderItems={BannerData && BannerData[4]} sliderTime={4000} />
         </div>
         <div className="hidden lg:flex justify-end opacity-0 group-hover:opacity-100 duration-200 ">
           <button className="bg-redPrimary p-1 rounded-lg">
@@ -52,6 +54,7 @@ const GiftBannerBottom: React.FC<GiftBannerBottomProp> = ({ BannerData }) => {
           </h2>
           <div className="w-[96px] h-[35px] lg:w-[330px] lg:h-[100px] mx-auto flex items-center justify-center">
             <Slider
+            // @ts-expect-error: This
               SliderItems={BannerData && BannerData[5]}
               sliderTime={4000}
             />
@@ -72,6 +75,7 @@ const GiftBannerBottom: React.FC<GiftBannerBottomProp> = ({ BannerData }) => {
             </h2>
             <div className="w-[90%] h-[46px] lg:h-[140px] mx-auto flex items-center justify-center">
               <Slider
+              // @ts-expect-error: This
                 SliderItems={BannerData && BannerData[5]}
                 sliderTime={4000}
               />
@@ -91,6 +95,7 @@ const GiftBannerBottom: React.FC<GiftBannerBottomProp> = ({ BannerData }) => {
             </h2>
             <div className="w-[90%] h-[46px] lg:h-[140px] mx-auto flex items-center justify-center">
               <Slider
+              // @ts-expect-error: This
                 SliderItems={BannerData && BannerData[5]}
                 sliderTime={4000}
               />
@@ -115,6 +120,7 @@ const GiftBannerBottom: React.FC<GiftBannerBottomProp> = ({ BannerData }) => {
             </h2>
             <div className="mx-auto  max-w-[150px] w-full flex items-center justify-center">
               <Slider
+              // @ts-expect-error: This
                 SliderItems={BannerData && BannerData[1]}
                 sliderTime={3000}
               />

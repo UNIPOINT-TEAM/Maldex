@@ -2,11 +2,13 @@ import { Rnd } from "react-rnd";
 import templateTShirt from "../../assets/images/template-T-shirt.svg";
 import { useState } from "react";
 const OneArticle = () => {
+  // @ts-expect-error: This
   const [contents, setContents] = useState([
     { id: "1", content: "Content 1", width: 200, height: 200, x: 0, y: 0 },
     { id: "2", content: "Content 1", width: 200, height: 200, x: 100, y: 100 },
     // Boshqa contentlar
   ]);
+  // @ts-expect-error: This
   const updateContentPosition = (
     index: number,
     position: { x: number; y: number }

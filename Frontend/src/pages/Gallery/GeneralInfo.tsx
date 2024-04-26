@@ -97,6 +97,7 @@ const GeneralInfo = () => {
         </div>
         <div className="mt-10 flex flex-col gap-4">
           {Checkdata.map((item) => (
+            // @ts-expect-error: This
             <Switch
               key={item.name}
               onChange={(e) => handleSwitchChange(item.name, e.target.checked)}

@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+
+import { useState } from "react";
 import {
     Accordion,
     AccordionHeader,
@@ -6,7 +7,7 @@ import {
 } from "@material-tailwind/react";
 import { Faq } from "../../mock/data";
 import accordionIcon from "../../assets/icons/accordion-icon.png";
-import { GetFaqs } from "../../services/services";
+// import { GetFaqs } from "../../services/services";
 
 export const Icon = (props: { id: number; open: number }) => {
     const { id, open } = props;

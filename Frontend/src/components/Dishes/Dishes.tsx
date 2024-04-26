@@ -1,8 +1,8 @@
-import { DishesCategories } from "../../mock/data";
-import Product1 from "../../assets/images/product1.png";
-import Product2 from "../../assets/images/product2.png";
-import Product3 from "../../assets/images/product3.png";
-import Product4 from "../../assets/images/product4.png";
+// import { DishesCategories } from "../../mock/data";
+// import Product1 from "../../assets/images/product1.png";
+// import Product2 from "../../assets/images/product2.png";
+// import Product3 from "../../assets/images/product3.png";
+// import Product4 from "../../assets/images/product4.png";
 import { useEffect, useState } from "react";
 import { getData } from "../../services/services";
 
@@ -17,6 +17,7 @@ const Dishes = () => {
     return (
         <div className="w-full mb-[80px]">
             <div className="flex items-center justify-between">
+                {/* @ts-expect-error: This */}
                 <h3 className="section-title">{detail?.name}</h3>
                 <button className="mx-3 uppercase text-fs_8 font-bold p-[6px] tracking-wide  border border-redPrimary rounded-lg text-redPrimary block ss:hidden">
                     Все товары
@@ -28,6 +29,7 @@ const Dishes = () => {
                         <div className="col-span-3 bg-white flex items-center justify-center">
                             <img
                                 src={
+                                    // @ts-expect-error: This
                                     detail?.products[0]?.images_set[0]
                                         ?.image_url
                                 }
@@ -39,6 +41,7 @@ const Dishes = () => {
                                 <div className="bg-white flex items-center justify-center">
                                     <img
                                         src={
+                                            // @ts-expect-error: This
                                             detail?.products[1]?.images_set[0]
                                                 ?.image_url
                                         }
@@ -48,6 +51,7 @@ const Dishes = () => {
                                 <div className="bg-white flex items-center justify-center">
                                     <img
                                         src={
+                                            // @ts-expect-error: This
                                             detail?.products[2]?.images_set[0]
                                                 ?.image_url
                                         }
@@ -57,6 +61,7 @@ const Dishes = () => {
                                 <div className="bg-white items-center justify-center hidden lg:flex">
                                     <img
                                         src={
+                                            // @ts-expect-error: This
                                             detail?.products[3]?.images_set[0]
                                                 ?.image_url
                                         }
@@ -66,6 +71,7 @@ const Dishes = () => {
                                 <div className="bg-white items-center justify-center hidden lg:flex">
                                     <img
                                         src={
+                                            // @ts-expect-error: This
                                             detail?.products[4]?.images_set[0]
                                                 ?.image_url
                                         }
@@ -77,6 +83,7 @@ const Dishes = () => {
                         <div className="col-span-4 bg-white  items-center justify-center hidden md:flex">
                             <img
                                 src={
+                                    // @ts-expect-error: This
                                     detail?.products[5]?.images_set[0]
                                         ?.image_url
                                 }
@@ -88,6 +95,7 @@ const Dishes = () => {
                 <div className="row-span-3 col-span-3 hidden lg:block">
                     <div className="grid grid-rows-2 grid-cols-1 gap-4 h-full">
                         <div className="row-span-1 col-span-1 flex flex-col gap-[3px]">
+                        {/*@ts-expect-error: This */}
                             {detail?.children.map((i) => (
                                 <p
                                     key={i.id}

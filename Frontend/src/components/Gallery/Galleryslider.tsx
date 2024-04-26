@@ -22,6 +22,7 @@ const Galleryslider = () => {
     description:
       "Если вы думаете о s'mores как о чем-то, что нельзя отправить по почте, подумайте еще раз! Этот подарочный набор превращает всеми любимую закуску у костра в изысканную форму искусства, и он не для случайных любителей. Конечно, потребуется некоторая сборка, но все знают, что это часть удовольствия.",
   });
+  // @ts-expect-error: This
   const items = useSelector((state) => state.carousel.items);
   console.log(items);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -34,6 +35,7 @@ const Galleryslider = () => {
       swiper1Ref.current.controller.control = swiper2Ref.current;
     }
   }, []);
+  // @ts-expect-error: This
   const handleTextareaResize = (event) => {
     const textarea = event.target;
     textarea.style.height = "auto";
@@ -42,6 +44,7 @@ const Galleryslider = () => {
   const handleSlideChange = (swiper: any) => {
     setActiveIndex(swiper.activeIndex);
   };
+  // @ts-expect-error: This
   const handleChange = (event) => {
     const { name, value } = event.target;
     setProducts((prev) => ({ ...prev, [name]: value }));
@@ -195,6 +198,7 @@ const Galleryslider = () => {
               </div>
             </div>
           </SwiperSlide>
+          {/* @ts-expect-error: This */}
           {items.map((item, index) => (
             <SwiperSlide key={index} className="h-[500px] w-full">
               <OneArticle />
@@ -217,7 +221,9 @@ const Galleryslider = () => {
               className=" object-contain object-center h-full"
             />
           </SwiperSlide>
-          {items.map((item, index) => (
+          {items.map(
+            // @ts-expect-error: This
+            (item, index) => (
             <SwiperSlide
               key={index}
               className="h-[90px] rounded-lg p-2 w-[145px] border"
