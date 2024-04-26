@@ -5,7 +5,6 @@ export { default as EditMainCatalog } from './MainCatalog/EditMainCatalog';
 export { default as DeleteMainCatalog } from './MainCatalog/DeleteMainCatalog';
 export { default as AddMainCatalog } from './MainCatalog/AddMainCatalog';
 export { default as Dishes } from './Dishes/Dishes';
-export { default as EditDishes } from './Dishes/EditDishes';
 export { default as Faq } from './Faq/Faq';
 export { default as ProjectsSlider } from './ProjectsSlider/ProjectsSlider';
 export { default as BannerSlider } from './GiftBanner/BannerSlider';
@@ -13,11 +12,10 @@ export { default as GiftBanner } from './GiftBanner/GiftBanner';
 export { default as GiftBannerBottom } from './GiftBanner/GiftBannerBottom';
 export { default as GiftBannerSlider } from './GiftBanner/GiftBannerSlider';
 export { default as LeftAccordion } from './GiftBanner/LeftAccordion';
-export { default as ProductNav} from './ProductNav/ProductNav';
-export { default as SaleSlider} from './SaleSlider/SaleSlider';
-export { default as TagList} from './TagList/TagList';
-export { default as SliderProduct} from './SliderProduct/SliderProduct';
-
+export { default as ProductNav } from './ProductNav/ProductNav';
+export { default as SaleSlider } from './SaleSlider/SaleSlider';
+export { default as TagList } from './TagList/TagList';
+export { default as SliderProduct } from './SliderProduct/SliderProduct';
 
 export { default as DeleteFaq } from './Faq/DeleteFaq';
 export { default as News } from './News/News';

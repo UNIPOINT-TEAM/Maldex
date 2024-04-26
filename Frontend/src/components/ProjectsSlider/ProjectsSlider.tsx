@@ -1,30 +1,49 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import prev from "../../assets/icons/projectPrev.svg";
 import next from "../../assets/icons/projectNext.svg";
 import project1 from "../../assets/project 1.png";
 import project2 from "../../assets/project 2.png";
-import project3 from "../../assets/project 3.png";
+// import project3 from "../../assets/project 3.png";
 
-import { ProductNav } from "..";
+// 1import { ProductNav } from "..";
 import { Link } from "react-router-dom";
 import { Scrollbar } from "swiper/modules";
+import { GetProjects, GetTags } from "../../services/services";
 
 function ProjectsSlider() {
   const swiperRef = useRef(null);
+  const [selectedItem, setSelectedItem] = useState(0);
+  const [projects, setProjects] = useState([]);
+  const [tags, setTags] = useState([]);
+
+  useEffect(() => {
+    GetProjects(`projects/?tag_id=${selectedItem}`).then((res) => {
+      setProjects(res);
+    });
+    GetTags(`projects/tags/`).then((res) => {
+      setTags(res);
+      if (selectedItem == 0) {
+        setSelectedItem(res[0].id);
+      } else {
+        setSelectedItem(selectedItem);
+      }
+    });
+  }, [selectedItem]);
 
   const goNext = () => {
-    // @ts-ignore
+    // @ts-expect-error: This
     if (swiperRef.current && swiperRef.current.swiper) {
-      // @ts-ignore
+      // @ts-expect-error: This
       swiperRef.current.swiper.slideNext();
     }
   };
 
   const goPrev = () => {
-    // @ts-ignore
+    // @ts-expect-error: This
     if (swiperRef.current && swiperRef.current.swiper) {
-      // @ts-ignore
+      // @ts-expect-error: This
+
       swiperRef.current.swiper.slidePrev();
     }
   };
@@ -32,7 +51,49 @@ function ProjectsSlider() {
   return (
     <div className="container_xxl px-3 md:mb-[100px]">
       <div>
-        <ProductNav title="ПРОЕКТЫ" color="gray" />
+        <div className="mb-6">
+          <div className="mb-5 flex items-center justify-between">
+            <h2 className={""}></h2>
+            <button className="mx-3 uppercase text-fs_8 font-medium p-[6px] tracking-wide  border border-redPrimary rounded-lg text-redPrimary block ss:hidden">
+              Все топ-товары
+            </button>
+          </div>
+          <div className="border border-lightSecondary rounded-xl  uppercase text-darkSecondary font-semibold tracking-wider">
+            <div className="flex justify-between items-center px-3 lg:px-7 py-0">
+              <div className="overflow-x-auto product-nav">
+                <ul className="flex gap-5 whitespace-nowrap">
+                  {tags?.map((item, index) => (
+                    <li
+                      key={index}
+                      className={`cursor-pointer font-medium text-[10px] lg:text-fs_8 py-4 border-b-2 ${
+                        // @ts-expect-error: This
+
+                        selectedItem === item.id
+                          ? "border-redPrimary text-redPrimary"
+                          : "border-transparent hover:text-redPrimary "
+                      }`}
+                      onClick={() => {
+                        // @ts-expect-error: This
+
+                        setSelectedItem(item.id);
+                      }}
+                    >
+                      {
+                        // @ts-expect-error: This
+                        item?.name
+                      }
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <button className="uppercase w-[130px] text-[10px] font-bold tracking-wide h-7  px-3 border border-redPrimary rounded-[8px] text-redPrimary hidden ss:block">
+                  Все топ-товары
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
         <div className="my-5 lg:h-[440px]">
           <div className="h-full hidden lg:flex">
             <div className="h-[410px] flex items-center">
@@ -51,56 +112,30 @@ function ProjectsSlider() {
               modules={[Scrollbar]}
               scrollbar={{ draggable: true }}
             >
-              <SwiperSlide>
-                <Link to="/portfolio">
-                  <div className="relative">
-                    <img src={project1} className="" alt="" />
-                    <p className="z-[999999] text-fs_6 left-0 ps-5 absolute bottom-2 text-[#fff]">
-                      Мерч для компании Botanikals
-                    </p>
-                  </div>
-                </Link>
-              </SwiperSlide>
-              <SwiperSlide>
-                <Link to="/portfolio">
-                  <div className="relative">
-                    <img src={project2} alt="" />
-                    <p className="z-[999999] text-fs_6 left-0 ps-5 absolute bottom-2 text-[#fff]">
-                      Упаковка Beaty бренда
-                    </p>
-                  </div>
-                </Link>
-              </SwiperSlide>
-              <SwiperSlide>
-                <Link to="/portfolio">
-                  <div className="relative">
-                    <img src={project3} alt="" />
-                    <p className="z-[999999] text-fs_6 left-0 ps-5 absolute bottom-2 text-[#fff]">
-                      Печатная продукция
-                    </p>
-                  </div>
-                </Link>
-              </SwiperSlide>
-              <SwiperSlide>
-                <Link to="/portfolio">
-                  <div className="relative">
-                    <img src={project3} alt="" />
-                    <p className="z-[999999] text-fs_6 left-0 ps-5 absolute bottom-2 text-[#fff]">
-                      Мерч для компании Botanikals
-                    </p>
-                  </div>
-                </Link>
-              </SwiperSlide>
-              <SwiperSlide>
-                <Link to="/portfolio">
-                  <div className="">
-                    <img src={project3} alt="" />
-                    <p className="z-[999999] text-fs_6 left-0 ps-5 absolute bottom-2 text-[#fff]">
-                      Мерч для компании Botanikals
-                    </p>
-                  </div>
-                </Link>
-              </SwiperSlide>
+              {projects.map((item) => (
+                // @ts-expect-error: This
+
+                <SwiperSlide key={item.id}>
+                  <Link to="/portfolio">
+                    <div className="relative">
+                      <img
+                        src={
+                          // @ts-expect-error: This
+                          item.images_set[0]
+                        }
+                        className=""
+                        alt=""
+                      />
+                      <p className="z-[999999] text-fs_6 left-0 ps-5 absolute bottom-2 text-[#fff]">
+                        {
+                          // @ts-expect-error: This
+                          item.title
+                        }
+                      </p>
+                    </div>
+                  </Link>
+                </SwiperSlide>
+              ))}
             </Swiper>
             <div className="h-[410px] flex items-center">
               <button className="absolute z-50 -ml-[15px]" onClick={goNext}>

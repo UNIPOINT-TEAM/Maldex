@@ -84,6 +84,7 @@ const GeneralInfo = () => {
         </div>
         <div className="mt-10 flex flex-col gap-4">
           {Checkdata.map((item) => (
+            // @ts-expect-error: This
             <Switch
               crossOrigin={""}
               key={item.name}

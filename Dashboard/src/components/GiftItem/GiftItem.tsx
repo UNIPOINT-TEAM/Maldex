@@ -55,7 +55,7 @@ const GiftItem = () => {
                 </p>
               </div>
               <div className="flex justify-between ">
-                <EditMainCatalog categoryId={item.id} />
+                {/* <EditMainCatalog categoryId={item.id} /> */}
                 <DeleteMainCatalog />
                 {/* <EditCategory {...item} handleImageChange={handleImageChange} />
                 <DeleteCategory

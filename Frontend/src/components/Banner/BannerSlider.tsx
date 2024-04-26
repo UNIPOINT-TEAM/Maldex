@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { useFetchHook } from "../../hooks/UseFetch";
-import { BASE_URL } from "../../utils";
+// import { BASE_URL } from "../../utils";
 
 const BannerSlider = () => {
   const { fetchData, response } = useFetchHook();

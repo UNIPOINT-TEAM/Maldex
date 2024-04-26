@@ -8,6 +8,7 @@ import {
 } from '@material-tailwind/react';
 import { GetProduct } from '../../services/main';
 import { GetMainCatalog } from '../../services/maincatalog';
+import { Link } from 'react-router-dom';
 
 interface ProductNavProps {
   title: string;
@@ -19,6 +20,7 @@ const ProductNav: React.FC<ProductNavProps> = ({
   color,
   updateState,
   categoryId,
+  path,
 }) => {
   let titleStyle = 'text-4xl traking-wide';
   const [selectedItem, setSelectedItem] = useState(2);
@@ -73,12 +75,14 @@ const ProductNav: React.FC<ProductNavProps> = ({
         {/* <button className="mx-3 uppercase text-fs_8 font-medium p-[6px] tracking-wide  border border-red-primary rounded-lg text-red-primary block ss:hidden">
           добавить
         </button> */}
-        <button
-          onClick={handleOpen}
-          className="inline-flex items-center justify-center rounded-md bg-primary py-2 px-6 text-center font-medium text-white hover:bg-opacity-90 "
-        >
-          Добавить новых товаров
-        </button>
+        <Link to={path}>
+          <button
+            onClick={handleOpen}
+            className="inline-flex items-center justify-center rounded-md bg-primary py-2 px-6 text-center font-medium text-white hover:bg-opacity-90 "
+          >
+            Добавить новых товаров
+          </button>
+        </Link>
       </div>
       <div className="border border-lightSecondary rounded-xl  uppercase text-darkSecondary font-semibold tracking-wider">
         <div className="flex justify-between items-center px-3 lg:px-7 py-0">
@@ -108,53 +112,6 @@ const ProductNav: React.FC<ProductNavProps> = ({
             </button>
           </div>
         </div>
-      </div>
-
-      <div>
-        <Dialog open={open} handler={handleOpen}>
-          <DialogHeader>
-            Выберете продукт который вы хотите увидеть в списке new!
-          </DialogHeader>
-          <DialogBody className="h-[400px] flex flex-wrap overflow-y-scroll">
-            {addProduct.results?.map((item, index) => (
-              <div key={index} className="flex flex-col items-center mb-2">
-                <input
-                  type="checkbox"
-                  checked={selectedProducts.includes(index)}
-                  onChange={() => handleCheckboxChange(index)}
-                  className="mb-2"
-                />
-                <img
-                  onClick={() => handleCheckboxChange(index)}
-                  className="w-[50px] h-[50px] object-contain product-img cursor-pointer"
-                  src={item.image}
-                  alt=""
-                />
-              </div>
-            ))}
-          </DialogBody>
-
-          <DialogFooter>
-            <Button
-              variant="text"
-              color="red"
-              onClick={handleOpen}
-              className="mr-1"
-            >
-              <span>Cancel</span>
-            </Button>
-            <Button
-              variant="gradient"
-              color="green"
-              onClick={() => {
-                handleOpen();
-                handleConfirm();
-              }}
-            >
-              <span>Confirm</span>
-            </Button>
-          </DialogFooter>
-        </Dialog>
       </div>
     </div>
   );

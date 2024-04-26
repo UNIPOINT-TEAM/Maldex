@@ -15,7 +15,7 @@ export const GetMainBannerSlider = async () => {
 };
 
 export const GetProduct = async () => {
-  const response = await api.get(`/product`);
+  const response = await api.get(`/product/all`);
   return response.data;
 };
 
@@ -41,7 +41,7 @@ export const delFaqHome = async (id:number)   => {
 
 //hooks.ts
 export const editFaqHome = async (id: number, newData: { title: string, body: string }) => {
-  const response = await api.put(`/faq/${id}/`, newData); 
+  const response = await api.put(`/faq/${id}/`, newData);
   return response.data;
 };
 

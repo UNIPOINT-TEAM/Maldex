@@ -129,7 +129,7 @@ function SettingsPanel() {
     });
 
     const { firstName, lastName, email, number } = formData;
-
+// @ts-expect-error: This
     const onChange = (e) => {
         setFormData((prevState) => ({
             ...prevState,
@@ -148,7 +148,7 @@ function SettingsPanel() {
                             <Input
                                 id="firstName"
                                 type="text"
-                                // @ts-ignore
+                                // @ts-expect-error: This
                                 color="lightBlue"
                                 placeholder="Владимир"
                                 label="Владимир"
@@ -161,7 +161,7 @@ function SettingsPanel() {
                             <Input
                                 id="lastName"
                                 type="text"
-                                // @ts-ignore
+                                // @ts-expect-error: This
                                 color="lightBlue"
                                 placeholder="Куликов"
                                 label="Куликов"
@@ -181,7 +181,7 @@ function SettingsPanel() {
                             <Input
                                 id="email"
                                 type="email"
-                                // @ts-ignore
+                                // @ts-expect-error: This
                                 color="lightBlue"
                                 placeholder="v.kulikov@maldex.ru"
                                 label="v.kulikov@maldex.ru"
@@ -195,7 +195,7 @@ function SettingsPanel() {
                             <Input
                                 id="number"
                                 type="text"
-                                // @ts-ignore
+                                // @ts-expect-error: This
                                 color="lightBlue"
                                 placeholder="8-925-194-50-40"
                                 label="8-925-194-50-40"
@@ -210,7 +210,7 @@ function SettingsPanel() {
                     <div>
                         <Button
                             variant="outlined"
-                            // @ts-ignore
+                            // @ts-expect-error: This
                             size="regular"
                             block={true}
                             className="block ml-auto !text-[#9D9C98] !border-[#9D9C98] mt-[67px] w-[210px] text-fs_8 leading-[14.65px] font-bold py-[18px] rounded-[10px]"

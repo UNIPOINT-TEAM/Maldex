@@ -131,8 +131,8 @@ const SliderProductHit = () => {
                   </div>
 
                   <div className="absolute z-[999] top-2 left-2 flex gap-2">
-                    <div className="border border-red-primary text-[10px] text-red-primary rounded-lg px-1">
-                      NEW
+                    <div className="border border-teal-400 text-[10px] text-teal-400 rounded-lg px-1">
+                      HIT
                     </div>
                   </div>
                 </div>

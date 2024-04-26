@@ -61,6 +61,7 @@ function FileAndPrice() {
                 </div>
             </div>
             <div className="mt-10">
+                {/* @ts-expect-error: This */}
                 <Button variant="outlined" className="border-[#9D9C98] text-[#9D9C98] w-[210px] h-[50px] text-fs_8 leading-[14.65px] font-bold py-[18px] rounded-[10px]">сохранить</Button>
             </div>
         </div>

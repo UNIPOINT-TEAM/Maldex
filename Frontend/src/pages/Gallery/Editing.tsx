@@ -108,6 +108,7 @@ const Editing = () => {
               <span className="text-[11px] uppercase font-medium">
                 для текущего слайда
               </span>
+              {/* @ts-expect-error: This*/}
               <Checkbox
                 ripple={false}
                 className="h-4 w-4 rounded border-darkSecondary bg-[#fff] checked:bg-redPrimary checked:border-redPrimary transition-all h hover:before:opacity-0"
@@ -118,6 +119,7 @@ const Editing = () => {
               <span className="text-[11px] uppercase font-medium">
                 для всех
               </span>
+              {/* @ts-expect-error: This*/}
               <Checkbox
                 ripple={false}
                 className="h-4 w-4 rounded border-darkSecondary bg-[#fff] checked:bg-redPrimary checked:border-redPrimary transition-all h hover:before:opacity-0"

@@ -4,6 +4,7 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import DefaultLayout from '../../../layout/DefaultLayout';
 import { PostArticles } from '../../../services/articles';
+import { Button, Input } from '@material-tailwind/react';
 
 function AddArticles() {
   const [title, setTitle] = useState('');
@@ -37,26 +38,50 @@ function AddArticles() {
   return (
     <DefaultLayout>
       <div>
-        <label>Title:</label>
-        <input
-          type="text"
+        {/* <label>Image:</label>
+        <input type="file" onChange={handleImageChange} /> */}
+
+        <div>
+          <div className="my-5">
+            <label
+              // htmlFor={`${index}`}
+              className="flex w-1/2 h-[190px] cursor-pointer border-dashed items-center justify-center gap-2 rounded-xl border border-b py-1 px-2 text-sm font-medium  hover:bg-opacity-90 xsm:px-4"
+            >
+              <input
+                required
+                label="Фото"
+                type="file"
+                // name={`${index}`}
+                // id={`${index}`}
+                className="sr-only"
+                accept="image/*"
+                onChange={handleImageChange}
+              />
+              <p className="text-fs-6">Добавить Фото</p>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div className="my-10 w-1/3">
+        <Input
           value={title}
+          required
+          variant="standard"
+          label="Название"
+          placeholder=""
           onChange={(e) => setTitle(e.target.value)}
         />
       </div>
-      <div>
-        <label>Image:</label>
-        <input
-          type="file"
-          onChange={handleImageChange}
+
+      <div className="w-1/2">
+        <CKEditor
+          editor={ClassicEditor}
+          data={content}
+          onChange={handleEditorChange}
         />
       </div>
-      <CKEditor
-        editor={ClassicEditor}
-        data={content}
-        onChange={handleEditorChange}
-      />
-      <button onClick={handleSubmit}>Отправить</button>
+      <Button className='my-6' color='blue' onClick={handleSubmit}>Отправить</Button>
     </DefaultLayout>
   );
 }

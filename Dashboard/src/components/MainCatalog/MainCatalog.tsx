@@ -95,10 +95,10 @@ const MainCatalog = () => {
     setStatus(!status);
   };
 
-  const ChangeIsAviable = (id: any) => {
+  const ChangeIsAviable = (id: number) => {
     const formdata = new FormData();
     formdata.append('is_available', isAviable);
-    PutWithFormData(`product/category/${id}/`, formdata).then(() => {
+    PutWithFormData(`/product/category/${id}/`, formdata).then(() => {
       setStatus(!status);
     });
   };
@@ -197,7 +197,7 @@ const MainCatalog = () => {
                 <div className="flex flex-col items-end gap-1">
                   <div className="flex justify-center gap-[2px] items-center">
                     <Checkbox
-                      defaultChecked={category.isAviable}
+                      defaultChecked={category.is_available}
                       onChange={(e) => setIsAviable(e.target.checked)}
                       color="blue"
                     />
@@ -209,6 +209,7 @@ const MainCatalog = () => {
                     </button>
                   </div>
                   <EditMainCatalog categoryId={category.id} />
+
                   <button className="p-1 bg-red-600 h-[30px] w-[30px] rounded flex justify-center items-center">
                     <DeleteMainCatalog />
                   </button>

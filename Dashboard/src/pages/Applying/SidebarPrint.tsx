@@ -1,19 +1,30 @@
-import { NavLink, Outlet } from 'react-router-dom';
-
-const sidebarNavLinks = [
-  { path: '/print/apply', label: 'Уф печать ' },
-  { path: '/engraving', label: 'Гравировка' },
-  { path: '/fabric-printing', label: 'Печать по ткани ' },
-  // { path: "", label: "Тиснение" },
-  // { path: "", label: "Тиснение фольгой" },
-  // { path: "", label: "Деколь сублимация" },
-  { path: '/print/pad-printing', label: 'Тампопечать' },
-  // { path: "", label: "Шильды" },
-  // { path: "", label: "Шуберы попсокеты" },
-  // { path: "", label: "Дэйджи ленты" },
-];
+import React, { useState, useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
+import { GetPrints } from '../../services/print';
 
 const SidebarPrint = () => {
+  const [prints, setPrints] = useState([]);
+
+  useEffect(() => {
+    // Вызываем GetPrints и обновляем состояние компонента
+    const fetchPrints = async () => {
+      try {
+        const data = await GetPrints();
+        setPrints(data);
+        console.log(data); // Выводим данные в консоль
+      } catch (error) {
+        console.error('Ошибка при получении данных:', error);
+      }
+    };
+
+    fetchPrints();
+  }, []);
+
+  const sidebarNavLinks = prints.map((print) => ({
+    path: `/print/${print.id}`,
+    label: print.title, // Используем значение title для label
+  }));
+
   return (
     <div className="flex apply-sidebar ">
       <div className="py-5 w-full ">
@@ -25,7 +36,7 @@ const SidebarPrint = () => {
               to={navLink.path}
               className="hover:bg-gray-200 p-2 rounded-md block font-bold"
             >
-              {navLink.label}
+              {navLink.label} {/* Вставляем значение label */}
             </NavLink>
           ))}
         </div>

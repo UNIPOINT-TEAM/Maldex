@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
   Dialog,
   Card,
@@ -6,8 +6,6 @@ import {
   CardFooter,
   Typography,
   Input,
-  Select,
-  Option,
   Checkbox,
 } from '@material-tailwind/react';
 import { MdEdit } from 'react-icons/md';
@@ -15,7 +13,6 @@ import { GetMainCatalogId, PutWithFormData } from '../../services/maincatalog';
 
 const EditMainCatalog = (props: any) => {
   const categoryId = props.categoryId;
-
   const [open, setOpen] = useState(false);
   const [category, setCategory] = useState([]);
   const [name, setName] = useState('');
@@ -63,7 +60,7 @@ const EditMainCatalog = (props: any) => {
     } else {
       formdata.append('icon', null);
     }
-    PutWithFormData(`product/category/${categoryId}/`, formdata);
+    PutWithFormData(`/product/category/${categoryId}/`, formdata);
   };
 
   return (

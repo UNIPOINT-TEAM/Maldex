@@ -115,7 +115,7 @@ function Admin() {
                     block={false}
                     iconOnly={true}
                     ripple="light"
-                    onClick={() => deleteFile(file.id)} 
+                    onClick={() => deleteFile(file.id)}
                   >
                     <MdDelete />
                   </Button>
@@ -124,13 +124,31 @@ function Admin() {
             </div>
             <div className="mt-10">
               <form onSubmit={handleSubmit}>
-                <Input
-                  type="text"
-                  placeholder="Введите название файла"
-                  value={title}
-                  onChange={handleTitleChange}
-                />
-                <Input type="file" onChange={handleFileChange} />
+                <div className='w-1/2'>
+                  <Input
+                    type="text"
+                    variant="standard"
+                    label="Название"
+                    placeholder="Введите название файла"
+                    value={title}
+                    onChange={handleTitleChange}
+                  />
+                </div>
+
+                <div className="my-5">
+                  <label className="flex w-1/2 h-[190px] cursor-pointer border-dashed items-center justify-center gap-2 rounded-xl border border-b py-1 px-2 text-sm font-medium  hover:bg-opacity-90 xsm:px-4">
+                    <input
+                      required
+                      label="Файл"
+                      type="file"
+                      className="sr-only"
+                      accept="file/*"
+                      onChange={handleFileChange}
+                    />
+                    <p className="text-fs-6">Добавить Файл</p>
+                  </label>
+                </div>
+
                 <Button
                   type="submit"
                   variant="outlined"

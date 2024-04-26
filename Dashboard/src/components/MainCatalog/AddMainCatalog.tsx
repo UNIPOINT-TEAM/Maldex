@@ -11,6 +11,7 @@ import {
   Checkbox,
 } from '@material-tailwind/react';
 import { AddWithFormData } from '../../services/product';
+import { BASE_URL } from '../../utils/BaseUrl';
 const AddMainCatalog = () => {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState('');

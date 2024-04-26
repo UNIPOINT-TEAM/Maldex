@@ -27,6 +27,7 @@ export const AppContext = createContext<IAppContext>({
   shapes: [],
   setShapes: () => {},
   activeSubMenu: null,
+  // @ts-expect-error: This         
   setActiveSubMenu: (value: string) => {},
   currentTemplate: {},
   setCurrentTemplate: {},
