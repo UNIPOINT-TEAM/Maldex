@@ -1,33 +1,36 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { CART } from "../constants/Cart";
+import DefaultTemplate from "../components/GalleryLayoutTemplate/DefaultTemplate";
 
 interface CarouselState {
-  items: JSX.Element[];
+  items: any[];
   status: {
-    landscape: boolean;
-    standard: boolean;
-    prices: boolean;
-    sender: boolean;
-    codeArticle: boolean;
-    characteristic: boolean;
-    description: boolean;
-    circulationAmount: boolean;
-    total: boolean;
+    landscape_visible: boolean;
+    standard_visible: boolean;
+    prices_visible: boolean;
+    sender_visible: boolean;
+    codeArticle_visible: boolean;
+    characteristic_visible: boolean;
+    description_visible: boolean;
+    circulationAmount_visible: boolean;
+    total_visible: boolean;
   };
   activeCaruselIndex: number;
 }
 
 const initialState: CarouselState = {
-  items: [{}],
+  items: CART,
   status: {
-    landscape: false,
-    standard: false,
-    prices: false,
-    sender: false,
-    codeArticle: false,
-    characteristic: false,
-    description: false,
-    circulationAmount: false,
-    total: false,
+    landscape_visible: true,
+    standard_visible: false,
+    prices_visible: true,
+    sender_visible: false,
+    codeArticle_visible: true,
+    characteristic_visible: true,
+    description_visible: true,
+    circulationAmount_visible: true,
+    total_visible: true,
   },
   activeCaruselIndex: 0,
 };
@@ -37,10 +40,11 @@ const carouselSlice = createSlice({
   initialState,
   reducers: {
     addItem: (state) => {
-      state.items.push({});
+      state.items.push({ template: null, data: {} });
     },
     updateItem: (state, action: PayloadAction<JSX.Element>) => {
-      state.items[state.activeCaruselIndex] = action.payload;
+      const { activeCaruselIndex } = state;
+      state.items[activeCaruselIndex] = action.payload;
     },
     deleteItem: (state) => {
       state.items.splice(state.activeCaruselIndex, 1);

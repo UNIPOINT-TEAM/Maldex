@@ -2,8 +2,22 @@ import { Checkbox } from "@material-tailwind/react";
 import { Galleryslider } from "../../components";
 import { MdOutlineAdd } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useState } from "react";
 
 const Editing = () => {
+  const items = useSelector((state) => state.carousel.items);
+
+  const activeIndex = useSelector((state) => state.carousel.activeCaruselIndex);
+  const [productData, setProductData] = useState<any>({
+    name: items[activeIndex]?.data?.name,
+    price: items[activeIndex]?.data?.price,
+    circulation: items[activeIndex]?.data?.circulation,
+    total: items[activeIndex]?.data?.total,
+    description: items[activeIndex]?.data?.description,
+    characteristics: items[activeIndex]?.data?.characteristics,
+  });
+  console.log(productData);
   const buttons = [
     "В-Шелкография на тек...",
     "DTF-Полноцвет с тран...",
@@ -132,6 +146,7 @@ const Editing = () => {
           </h2>
           <textarea
             name=""
+            value={productData.description}
             className="border-2 border-redPrimary w-full rounded-xl resize-none p-2 outline-0"
             cols={30}
             rows={4}
@@ -148,8 +163,8 @@ const Editing = () => {
               </label>
               <input
                 id="material"
-                type="text"
-                className="w-[66px] h-4 px-1 border border-lightSecondary outline-0 rounded-[10px]"
+                value={productData.characteristics?.material}
+                className="w-auto h-4 px-1 border border-lightSecondary outline-0 rounded-[10px]"
               />
             </div>
             <div className="flex col-span-1">
@@ -158,8 +173,8 @@ const Editing = () => {
               </label>
               <input
                 id="material"
-                type="text"
-                className="w-[66px] px-1 h-4 border border-lightSecondary outline-0 rounded-[10px]"
+                value={productData.characteristics?.size}
+                className="w-auto px-1 h-4 border border-lightSecondary outline-0 rounded-[10px]"
               />
             </div>
             <div className="flex col-span-1">
@@ -168,17 +183,17 @@ const Editing = () => {
               </label>
               <input
                 id="material"
-                type="text"
+                value={productData.characteristics?.weight}
                 className="w-[66px] px-1 h-4 border border-lightSecondary outline-0 rounded-[10px]"
               />
             </div>
             <div className="flex col-span-1">
               <label htmlFor="material" className=" font-medium uppercase me-2">
-                вес
+                артикул
               </label>
               <input
                 id="material"
-                type="text"
+                value={productData.characteristics?.codeArticle}
                 className="w-[66px] px-1 h-4 border border-lightSecondary outline-0 rounded-[10px]"
               />
             </div>
@@ -190,7 +205,7 @@ const Editing = () => {
               </h2>
               <input
                 id="material"
-                type="text"
+                value={productData.price}
                 className="w-[110px] text-fs_8 h-[26px] px-1 border border-lightSecondary outline-0 rounded-[10px]"
               />
             </div>
@@ -200,7 +215,7 @@ const Editing = () => {
               </h2>
               <input
                 id="material"
-                type="text"
+                value={productData.circulation}
                 className="w-[110px] text-fs_8 h-[26px] px-1 border border-lightSecondary outline-0 rounded-[10px]"
               />
             </div>

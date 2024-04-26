@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Controller, FreeMode, Navigation, Thumbs } from "swiper/modules";
 import SwiperCore from "swiper";
@@ -8,29 +8,47 @@ import "swiper/css";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
 import html2canvas from "html2canvas";
+import { Document, Image, Page, PDFDownloadLink } from "@react-pdf/renderer";
+
 import {
   addItem,
   copyItem,
   deleteItem,
   onActiveCarusel,
 } from "../../store/carouselReducer";
-
+const PDFDocument = ({ slides }) => (
+  <Document>
+    {slides.map((slide, index) => (
+      <Page
+        key={index}
+        size={"A4"}
+        style={{ margin: "auto", marginTop: "20px " }}
+      >
+        <Image src={slide} />
+      </Page>
+    ))}
+  </Document>
+);
 const Galleryslider = () => {
   const dispatch = useDispatch();
   const items = useSelector((state) => state.carousel.items);
   const activeIndex = useSelector((state) => state.carousel.activeCaruselIndex);
-  const itemsStatus = useSelector((state) => state.carousel.status);
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperCore>();
-  const [imgUrl, setimgUrl] = useState("");
+  const [slides, setSlides] = useState([]);
 
-  const handleDownloadImage = () => {
-    const element = document.getElementById("template-container");
-    html2canvas(element).then((canvas) => {
-      setimgUrl(canvas.toDataURL("image/png"));
-    });
-  };
   useEffect(() => {
-    handleDownloadImage();
+    const fetchSlides = async () => {
+      const slideElements = document.querySelectorAll(".gallery-slide");
+      const slideImages = await Promise.all(
+        Array.from(slideElements).map(async (slide) => {
+          const canvas = await html2canvas(slide);
+          return canvas.toDataURL();
+        })
+      );
+      setSlides(slideImages);
+    };
+    fetchSlides();
+    console.log();
   }, [items]);
 
   return (
@@ -58,10 +76,7 @@ const Galleryslider = () => {
               ></path>
             </svg>
           </button>
-          <button
-            onClick={() => dispatch(copyItem(activeIndex))}
-            className="next-arrow-g"
-          >
+          <button onClick={() => dispatch(copyItem(activeIndex))} className="">
             <svg
               width="24"
               height="24"
@@ -100,102 +115,29 @@ const Galleryslider = () => {
             dispatch(onActiveCarusel(swiper?.activeIndex))
           }
           modules={[FreeMode, Navigation, Thumbs, Controller]}
-          className="w-full h-[500px] bg-[#eaebea] rounded-lg"
+          className="w-full h-[500px] bg-[#eaebea] rounded-lg "
         >
-          <SwiperSlide
-            className="h-[500px] w-full bg-[#fff]"
-            id="template-container"
-          >
-            <div className="w-auto grid grid-cols-7 h-full border p-3 rounded-lg border-darkSecondary">
-              <div className="col-span-3 p-8 flex items-center">
-                <img
-                  alt="slider-img"
-                  className="w-[400px] object-contain object-center h-auto"
-                />
-              </div>
-              <div className="col-span-4 flex flex-col justify-center">
-                <div className="heading">
-                  <input
-                    type="text"
-                    name="name"
-                    defaultValue={"Название шаблона"}
-                    className="text-[36px] font-medium p-[6px] border-0 outline-0 rounded-lg focus:outline outline-[#e99125]"
-                  />
-                </div>
-                <div className="grid grid-cols-12 gap-4 my-2 pe-10">
-                  {itemsStatus.prices && (
-                    <div className="flex col-span-3 flex-col gap-3">
-                      <h3 className="text-[#222220] opacity-70 font-medium">
-                        Цена (руб)
-                      </h3>
-                      <input
-                        type="text"
-                        name="price"
-                        defaultValue={100}
-                        className="text-fs_4 w-auto font-medium  p-[6px] rounded-lg focus:outline outline-[#e99125]"
-                      />
-                    </div>
-                  )}
-                  {itemsStatus.circulationAmount && (
-                    <div className="flex flex-col gap-3 col-span-3">
-                      <h3 className="text-[#222220] opacity-70 font-medium">
-                        Тираж (шт)
-                      </h3>
-                      <input
-                        type="text"
-                        name="circulation"
-                        defaultValue={100}
-                        className="text-fs_4 w-auto font-medium  p-[6px] rounded-lg focus:outline outline-[#e99125]"
-                      />
-                    </div>
-                  )}
-                  {itemsStatus.total && (
-                    <div className="flex flex-col items-end gap-3 col-span-6">
-                      <h3 className="text-[#222220] opacity-70 font-medium">
-                        Итого
-                      </h3>
-                      <input
-                        type="text"
-                        name="total"
-                        defaultValue={100}
-                        className="text-fs_4 w-auto text-end font-medium  p-[6px] rounded-lg focus:outline outline-[#e99125]"
-                      />
-                    </div>
-                  )}
-                </div>
-                {itemsStatus.characteristic && (
-                  <div className="flex my-3">
-                    <textarea
-                      className="w-full resize-none rounded-lg max-h-[300px] font-normal p-[6px] overflow-hidden leading-tight focus:outline outline-[#e99125]"
-                      name="characteristics"
-                      defaultValue={"Точную сумму нанесения от 30 тыс рублей"}
-                      rows={6}
-                    ></textarea>
-                  </div>
-                )}
-                <div className="max-h-[300px]">
-                  {itemsStatus.description && (
-                    <textarea
-                      className="w-full  resize-none rounded-lg  h-full font-normal p-[6px] overflow-hidden leading-tight focus:outline outline-[#e99125]"
-                      name="description"
-                      rows={4}
-                      defaultValue={"Описание шаблона"}
-                    />
-                  )}
-                </div>
-              </div>
-            </div>
-          </SwiperSlide>
           {items.map((item, i) => (
             <SwiperSlide
               id={i}
               key={i}
-              className="h-full w-full border cursor-pointer  rounded-lg bg-[#fff]"
+              className="h-full w-full cursor-pointer gallery-slide rounded-lg bg-[#fff]"
             >
-              {item?.template}
+              {item.template &&
+                React.cloneElement(item.template, { ...item.data })}
             </SwiperSlide>
           ))}
         </Swiper>
+        <div>
+          <PDFDownloadLink
+            document={<PDFDocument slides={slides} />}
+            fileName="gallery_slides.pdf"
+          >
+            {({ loading }) =>
+              loading ? "Loading document..." : "Download PDF"
+            }
+          </PDFDownloadLink>
+        </div>
         <Swiper
           spaceBetween={20}
           onSwiper={setThumbsSwiper}
@@ -205,13 +147,13 @@ const Galleryslider = () => {
           modules={[FreeMode, Navigation, Thumbs]}
           className="w-full cursor-pointer border relative border-lightSecondary my-4 rounded-lg p-4"
         >
-          {items.map((item, i) => (
+          {slides.map((item, i) => (
             <SwiperSlide
               key={i}
               className="h-[90px] rounded-lg p-2 w-[145px] border"
             >
               <img
-                src={imgUrl}
+                src={item}
                 alt="slider-img"
                 className="object-contain object-center h-full"
               />

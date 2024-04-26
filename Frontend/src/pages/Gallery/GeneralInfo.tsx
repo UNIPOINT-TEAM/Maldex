@@ -2,52 +2,47 @@ import upload from "../../assets/icons/upload.svg";
 import download from "../../assets/icons/rub.svg";
 import rub from "../../assets/icons/download.svg";
 import { Switch } from "@material-tailwind/react";
-import { useState } from "react";
 import { Galleryslider } from "../../components";
 import { AllDeleteModal } from "../../components/Gallery/AllDeleteModal";
 import { updateStatus } from "../../store/carouselReducer";
 import { useDispatch, useSelector } from "react-redux";
 
-interface CheckDataType {
-  [key: string]: boolean;
-}
-
 const Checkdata = [
   {
     title: "Альбомное КП",
-    name: "landscape",
+    name: "landscape_visible",
   },
   {
     title: "Стандартное КП",
-    name: "standard",
+    name: "standard_visible",
   },
   {
     title: "Цены",
-    name: "prices",
+    name: "prices_visible",
   },
   {
     title: "Отправитель",
-    name: "sender",
+    name: "sender_visible",
   },
   {
     title: "Код артикула",
-    name: "codeArticle",
+    name: "codeArticle_visible",
   },
   {
     title: "Характиристики",
-    name: "characteristic",
+    name: "characteristic_visible",
   },
   {
     title: "Описание",
-    name: "description",
+    name: "description_visible",
   },
   {
     title: "Тираж и сумма",
-    name: "circulationAmount",
+    name: "circulationAmount_visible",
   },
   {
     title: "Итого",
-    name: "total",
+    name: "total_visible",
   },
 ];
 
@@ -58,7 +53,7 @@ const GeneralInfo = () => {
   const handleSwitchChange = (name: string, isChacked: boolean) => {
     dispatch(updateStatus({ name, isChacked }));
   };
-  console.log(itemsStatus);
+
   return (
     <div className="grid grid-cols-12 h-full">
       <div className="px-5 pb-16 col-span-4 py-3 h-full  border-0 border-r border-lightSecondary">
