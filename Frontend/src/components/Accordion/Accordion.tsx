@@ -13,14 +13,15 @@ const AccordionMaldex = () => {
     const [faq, setFaq] = useState([]);
 
     useEffect(() => {
-        GetFaqs("faq/").then((res) => {
-            setFaq(res), console.log(res);
+        GetFaqs("faq/?type=home").then((res) => {
+            setFaq(res),console.log(res);
+
         });
     }, []);
     const handleOpen = (value: number) => setOpen(open === value ? 0 : value);
     return (
         <div className="max-w-[1200px] w-full pl-0 lg:pl-[150px]">
-            {Faq.map((item, i) => (
+            {faq.map((item, i) => (
                 <Accordion
                     key={i}
                     className="border border-lightPrimary rounded-xl  my-4"
@@ -47,7 +48,7 @@ const AccordionMaldex = () => {
                     <AccordionBody className="p-4" placeholder={<div />}>
                         <p
                             dangerouslySetInnerHTML={{
-                                __html: item.content,
+                                __html: item.body,
                             }}
                             className="font-Helvetica-Neue font-medium  text-fs_9 lg:text-base"
                         />
