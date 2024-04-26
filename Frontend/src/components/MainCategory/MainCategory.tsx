@@ -28,14 +28,16 @@
 
 // export default MainCategory;
 
-import { useEffect } from "react";
-import { useFetchHook } from "../../hooks/UseFetch";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { getData } from "../../services/services";
 
 const MainCategory = () => {
-    const { fetchData, response } = useFetchHook();
+    const [response, setResponse] = useState([]);
     useEffect(() => {
-        fetchData({ method: "GET", url: "/product/categories/" });
+        getData("product/categories/?is_available=true").then((res) =>
+            setResponse(res)
+        );
     }, []);
 
     return (

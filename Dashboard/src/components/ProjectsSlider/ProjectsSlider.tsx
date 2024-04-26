@@ -28,7 +28,9 @@ function ProjectsSlider() {
     });
     GetTags().then((res) => {
       setTags(res);
-      if (selectedItem == 0) {
+      console.log(res);
+
+      if (selectedItem == null) {
         setSelectedItem(res[0].id);
       } else {
         setSelectedItem(selectedItem);

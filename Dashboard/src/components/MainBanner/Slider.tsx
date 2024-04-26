@@ -17,7 +17,7 @@ const Slider = ({ SliderItems, sliderTime }) => {
       modules={[Navigation, Pagination, Autoplay]}
       className="w-full h-full"
     >
-      {SliderItems?.product_set.map((item) => (
+      {/* {SliderItems?.product_set.map((item) => (
         <div>
           {item.map((i) => (
             <SwiperSlide
@@ -32,7 +32,7 @@ const Slider = ({ SliderItems, sliderTime }) => {
             </SwiperSlide>
           ))}
         </div>
-      ))}
+      ))} */}
     </Swiper>
   );
 };

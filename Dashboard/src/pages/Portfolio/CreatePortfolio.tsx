@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -19,6 +19,7 @@ import { BASE_URL } from '../../utils/BaseUrl';
 import { GetTags } from '../../services/maincatalog';
 
 function CreatePortfolio() {
+  const navigation = useNavigate();
   const [name, setName] = useState('');
   const [open, setOpen] = useState(false);
   const [description, setDescription] = useState('');
@@ -48,7 +49,9 @@ function CreatePortfolio() {
     for (let i = 0; i < inputs.length; i++) {
       formdata.append(`images[${i}]image`, inputs[i].image);
     }
-    AddWithFormData(`${BASE_URL}/projects/`, formdata);
+    AddWithFormData(`${BASE_URL}/projects/`, formdata).then(() =>
+      navigation('/portfolio'),
+    );
   };
 
   const handleFileInputChange = (index, event) => {
@@ -268,6 +271,7 @@ function CreatePortfolio() {
               ))}
             </div>
             <button
+              type="button"
               onClick={handleOpen}
               className="w-1/3 bg-blue-400 text-white rounded-md py-2"
             >
