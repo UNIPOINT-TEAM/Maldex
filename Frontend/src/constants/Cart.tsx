@@ -3,6 +3,7 @@ import DefaultTemplate from "../components/GalleryLayoutTemplate/DefaultTemplate
 export const CART = [
   {
     template: <DefaultTemplate />,
+    background: "",
     data: {
       name: "Бейсболка «Poly»",
       price: "45.00 ₽",
