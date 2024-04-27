@@ -41,7 +41,7 @@ const MainBanner = () => {
           <BannerSlider />
         </div>
       </div>
-      <Banner Bottom BannerData={mainBannerData} />
+      <BannerBottom BannerData={mainBannerData} />
     </>
   );
 };
