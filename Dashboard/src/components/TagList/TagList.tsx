@@ -3,12 +3,12 @@ import CategoryList from './Components/CategoryList';
 import SubcategoryList from './Components/SubcategoryList';
 import { Categories } from './types';
 
-const initialCategories: Categories = {
-  Фрукты: ['Яблоко', 'Банан'],
-  Овощи: ['Морковь', 'Огурец'],
-  Мясо: ['Говядина', 'Курица'],
-  Рыба: ['Лосось', 'Тунец'],
-};
+// const initialCategories: Categories = {
+//   Фрукты: ['Яблоко', 'Банан'],
+//   Овощи: ['Морковь', 'Огурец'],
+//   Мясо: ['Говядина', 'Курица'],
+//   Рыба: ['Лосось', 'Тунец'],
+// };
 
 const TagList: React.FC = () => {
   const [categories, setCategories] = useState<Categories>(initialCategories);
