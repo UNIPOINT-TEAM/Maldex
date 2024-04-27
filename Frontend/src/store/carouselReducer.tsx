@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { CART } from "../constants/Cart";
+import DefaultTemplate from "../components/GalleryLayoutTemplate/DefaultTemplate";
 
 interface CarouselState {
   items: any[];
@@ -43,7 +44,16 @@ const carouselSlice = createSlice({
     },
     updateItem: (state, action: PayloadAction<JSX.Element>) => {
       const { activeCaruselIndex } = state;
-      state.items[activeCaruselIndex] = action.payload;
+      const newItem = action.payload;
+      // const background = newItem.props.background || "";
+      // const data = newItem.props.data;
+      console.log(newItem);
+      const updatedItem = {
+        template: null,
+        // background,
+        // data,
+      };
+      state.items[activeCaruselIndex] = newItem;
     },
     deleteItem: (state) => {
       state.items.splice(state.activeCaruselIndex, 1);
