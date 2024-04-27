@@ -12,7 +12,7 @@ import {
 } from '@material-tailwind/react';
 import { AddWithFormData } from '../../services/product';
 import { BASE_URL } from '../../utils/BaseUrl';
-const AddMainCatalog = () => {
+const AddMainCatalog = ({ status, onChange }) => {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState('');
   const [isHit, setIsHit] = useState(false);
@@ -30,8 +30,9 @@ const AddMainCatalog = () => {
     formdata.append('is_new', isNew);
     formdata.append('logo', logo);
     formdata.append('icon', icon);
-    AddWithFormData(`${BASE_URL}/product/categories/`, formdata);
-    setOpen(!open);
+    AddWithFormData(`${BASE_URL}/product/categories/`, formdata).then(() => {
+      setOpen(!open), onChange(!status);
+    });
   };
 
   const handleOpen = () => setOpen(!open);

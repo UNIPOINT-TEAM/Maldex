@@ -1,0 +1,113 @@
+import { Swiper, SwiperSlide } from 'swiper/react';
+import prev from '../../../assets/icons/projectPrev.svg';
+import next from '../../../assets/icons/projectNext.svg';
+
+// import { ProductNav } from "..";
+import { Link } from 'react-router-dom';
+import { Scrollbar } from 'swiper/modules';
+
+import GiftsNav from './GiftsNav';
+
+import { GetGiftsCategory } from '../../../services/services';
+import { useEffect, useRef, useState } from 'react';
+
+function GiftsSlider({ category }) {
+  const swiperRef = useRef(null);
+  const [giftCategory, setGiftCategory] = useState([]);
+  const [selectedSubCategory, setSelectedSubCategory] = useState(null);
+  const [selectedCategoryData, setSelectedCategoryData] = useState(null);
+
+  const goNext = () => {
+    if (swiperRef.current && swiperRef.current.swiper) {
+      swiperRef.current.swiper.slideNext();
+    }
+  };
+
+  const goPrev = () => {
+    if (swiperRef.current && swiperRef.current.swiper) {
+      swiperRef.current.swiper.slidePrev();
+    }
+  };
+  const handleSubCategoryClick = (subCategory) => {
+    setSelectedSubCategory(subCategory);
+    setSelectedCategoryData(subCategory);
+  };
+
+  useEffect(() => {
+    GetGiftsCategory()
+      .then((res) => {
+        setGiftCategory(res);
+        console.log(res);
+      })
+      .catch((error) => {
+        console.error('Error fetching FAQ data:', error);
+      });
+  }, []);
+
+  const selectedCategory = giftCategory.find((cat) => cat.id === category.id);
+
+  // console.log(selectedCategory);
+
+  return (
+    <div className="container_xxl px-3 md:mb-[100px]">
+      <div>
+        {/* <h2 className="text-2xl mb-4">{category.name}</h2> */}
+        <GiftsNav
+          title={category.name}
+          color="gray"
+          subcategories={category.children}
+          onSubCategoryClick={handleSubCategoryClick}
+        />
+
+        <div className="my-5 lg:h-[400px]">
+          <div className="h-full hidden lg:flex">
+            <div className="h-[400px] flex items-center">
+              <button className="absolute z-50 -ml-[16px] " onClick={goPrev}>
+                <img src={prev} alt="" className="w-[32px]" />
+              </button>
+            </div>
+            <Swiper
+              ref={swiperRef}
+              className="w-full p-0 "
+              slidesPerView={3.5}
+              loop={true}
+              spaceBetween={10}
+              navigation
+              pagination={{ clickable: true }}
+              modules={[Scrollbar]}
+              scrollbar={{ draggable: true }}
+            >
+              {selectedCategoryData?.product_set.map((product) => (
+                <SwiperSlide key={product.id}>
+                  <Link to="/portfolio">
+                    <div className="relative">
+                      {product.gift_basket_images?.map((image) => (
+                        <img
+                          key={image.id}
+                          src={image.images}
+                          alt={product.title}
+                          className=""
+                        />
+                      ))}
+                      <p className="z-[999999] text-fs_6 left-0 ps-5 absolute bottom-2 text-[#fff]">
+                        {product.title}
+                      </p>
+                    </div>
+                  </Link>
+
+                </SwiperSlide>
+              ))}
+            </Swiper>
+            <div className="h-[410px] flex items-center">
+              <button className="absolute z-50 -ml-[15px]" onClick={goNext}>
+                <img src={next} alt="" className="w-[32px]" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default GiftsSlider;

@@ -31,11 +31,15 @@ const MainCatalog = () => {
   const [nameSubSub, setNameSubSub] = useState('');
   const [open, setOpen] = useState(false);
   const [subCategoryId, setSubCategoryId] = useState(0);
-  const [status, setStatus] = useState(false);
+
   const [statuseditSub, setStatuseditSub] = useState(null);
   const [statusedit, setStatusedit] = useState(null);
   const [editedSub, setEditedSub] = useState('');
   const [editedSubSub, setEditedSubSub] = useState('');
+  const [status, setStatus] = useState(false);
+  const changeStatus = (newState: any) => {
+    setStatus(newState);
+  };
   const [isAviable, setIsAviable] = useState(false);
   const handleOpen = (id) => {
     setOpen(!open);
@@ -105,7 +109,7 @@ const MainCatalog = () => {
 
   return (
     <>
-      <AddMainCatalog />
+      <AddMainCatalog status={status} onChange={changeStatus} />
       <div className="w-full py-3 flex flex-wrap gap-2 justify-between items-center mb-10">
         <Dialog
           open={open}

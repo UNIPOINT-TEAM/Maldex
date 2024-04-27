@@ -1,62 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   Accordion,
   AccordionHeader,
   AccordionBody,
 } from "@material-tailwind/react";
+import { GetGiftsCategory } from "../../services/services";
 
 const LeftAccordion = () => {
   const [openAccordionIndex, setOpenAccordionIndex] = useState<number | null>(
     null
   );
 
+  const [giftsCategory, setGiftsCategory] = useState([]);
   const handleAccordionClick = (index: number) => {
     setOpenAccordionIndex((prevIndex) => (prevIndex === index ? null : index));
   };
 
-  // Массив данных
-  const data = [
-    {
-      title: "Для кого",
-      products: [{ name: "Товар 1" }, { name: "Товар 2" }, { name: "Товар 3" }],
-    },
-    {
-      title: "Поводы",
-      products: [{ name: "Товар 4" }, { name: "Товар 5" }, { name: "Товар 6" }],
-    },
-    {
-      title: "От 1000 до 3000",
-      products: [{ name: "Товар 4" }, { name: "Товар 5" }, { name: "Товар 6" }],
-    },
-    {
-      title: "От 3000 до 5000",
-      products: [{ name: "Товар 4" }, { name: "Товар 5" }, { name: "Товар 6" }],
-    },
-    {
-      title: "От 5000 до 10000",
-      products: [{ name: "Товар 4" }, { name: "Товар 5" }, { name: "Товар 6" }],
-    },
-    {
-      title: "От 10000",
-      products: [{ name: "Товар 4" }, { name: "Товар 5" }, { name: "Товар 6" }],
-    },
-    {
-      title: "Наборы",
-      products: [
-        { name: "Личные" },
-        { name: "Мужские аксессуары" },
-        { name: "Одежда" },
-        { name: "Для офиса" },
-        { name: "Пишушие инструменты" },
-        { name: "Сумки" },
-        { name: "Вкусные подарки" },
-        { name: "Товары для детей" },
-        { name: "Электроника" },
-      ],
-    },
-  ];
-
+  useEffect(() => {
+    GetGiftsCategory()
+      .then(data => {
+        console.log(data); 
+        setGiftsCategory(data); 
+      })
+      .catch(error => console.error('Ошибка при получении тэгов:', error));
+  }, []);
   return (
     <div className="">
       <div className="pl-2 w-[246px]">
@@ -64,7 +32,7 @@ const LeftAccordion = () => {
           Подарочные наборы
         </h1>
       </div>
-      {data.map((category, index) => (
+      {giftsCategory.map((category, index) => (
         <Accordion
           key={index}
           className="pr-2 font-Helvetica-Neue"
@@ -101,21 +69,24 @@ const LeftAccordion = () => {
                 openAccordionIndex === index ? "text-white" : ""
               }`}
             >
-              {category.title}
+              {category.name}
             </h3>
           </AccordionHeader>
           <AccordionBody
             className={`${openAccordionIndex === index ? "" : ""}`}
             placeholder={<div />}
           >
-            {category.products.map((product, productIndex) => (
-              <div
-                className="my-2 pl-3 text-base font-Helvetica-Neue  cursor-pointer hover:text-redPrimary"
-                key={productIndex}
-              >
-                <h4 className="font-Helvetica-Neue font-medium text-black">
-                  {product.name}
-                </h4>
+            {category.children.map((subCategory, subIndex) => (
+              <div key={subIndex}>
+                <h4 className="font-Helvetica-Neue font-medium text-black">{subCategory.name}</h4>
+                {subCategory.children.map((product, productIndex) => (
+                  <div
+                    className="my-2 pl-3 text-base font-Helvetica-Neue  cursor-pointer hover:text-redPrimary"
+                    key={productIndex}
+                  >
+                    <h4 className="font-Helvetica-Neue font-medium text-black">{product.name}</h4>
+                  </div>
+                ))}
               </div>
             ))}
           </AccordionBody>

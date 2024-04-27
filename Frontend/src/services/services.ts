@@ -35,3 +35,11 @@ export const GetFaqs = async (url: string) => {
     const response = await axios.get(BASE_URL + url);
     return response.data;
 };
+
+
+
+export const GetGiftsCategory
+ = async () => {
+  const response = await axios.get(`${BASE_URL}gifts/baskets/category/`);
+  return response.data;
+};

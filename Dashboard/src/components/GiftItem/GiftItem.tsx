@@ -14,12 +14,19 @@ interface Category {
 const GiftItem = () => {
   const [newCategoryData, setNewCategoryData] = useState<Category[]>([]);
   const [isBtnDisabled, setIsBtnDisabled] = useState<boolean>(true);
+  const [status, setStatus] = useState(false);
+  const changeStatus = (newState: any) => {
+    setStatus(newState);
+  };
+
   const getData = () => {
     GetNewCategory().then((res) => setNewCategoryData(res));
   };
+
   useEffect(() => {
     getData();
-  }, []);
+  }, [status]);
+
   const handleImageChange = (id: string, newUrl: string, name: string) => {
     setNewCategoryData((prevData) =>
       prevData.map((item) =>
@@ -33,7 +40,7 @@ const GiftItem = () => {
     <div className="pb-5">
       <div className="heading w-full flex justify-end">
         {/* <NewCategoryModal /> */}
-        <AddMainCatalog />
+        <AddMainCatalog status={status} onChange={changeStatus} />
       </div>
       <div className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-10 gap-2 mt-4 py-3 gap-y-[40px] ">
         {newCategoryData.map((item) => (
@@ -55,7 +62,7 @@ const GiftItem = () => {
                 </p>
               </div>
               <div className="flex justify-between ">
-                {/* <EditMainCatalog categoryId={item.id} /> */}
+                <EditMainCatalog categoryId={item.id} />
                 <DeleteMainCatalog />
                 {/* <EditCategory {...item} handleImageChange={handleImageChange} />
                 <DeleteCategory
