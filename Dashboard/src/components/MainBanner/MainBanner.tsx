@@ -8,6 +8,7 @@ const MainBanner = () => {
   const [mainBannerData, setMainBannerData] = useState([]);
   const getBannerData = () => {
     GetMainBanner().then((res) => {
+      console.log(res);
       setMainBannerData(res);
     });
   };
@@ -40,7 +41,7 @@ const MainBanner = () => {
           <BannerSlider />
         </div>
       </div>
-      <BannerBottom BannerData={mainBannerData} />
+      <Banner Bottom BannerData={mainBannerData} />
     </>
   );
 };

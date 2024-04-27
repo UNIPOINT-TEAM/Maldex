@@ -70,7 +70,7 @@ const DefaultTemplate: React.FC<DefaultTemplateProps> = ({
           name="name"
           onChange={handleInputChange}
           value={productData.name}
-          className={`${inputStyle} text-[37px]`}
+          className={`${inputStyle} text-[36px]`}
         />
         <div className="grid grid-cols-12 gap-4 w-full my-2">
           <div className="col-span-3">
@@ -109,17 +109,20 @@ const DefaultTemplate: React.FC<DefaultTemplateProps> = ({
                 <h3 className="text-[#222220] text-[12px] opacity-70 font-medium mb-2">
                   Итого
                 </h3>
-                <input
+                {/* <input
                   name="total"
                   value={productData.total}
                   onChange={handleInputChange}
                   className={inputStyle}
-                />
+                /> */}
+                <div>
+                  <p className={inputStyle}>{productData.total}</p>
+                </div>
               </>
             )}
           </div>
         </div>
-        {characteristic_visible && <input  />}
+        {characteristic_visible && <input />}
         {description_visible && landscape_visible! && (
           <textarea
             name="description"

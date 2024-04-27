@@ -17,7 +17,14 @@ const Editing = () => {
     description: items[activeIndex]?.data?.description,
     characteristics: items[activeIndex]?.data?.characteristics,
   });
-  console.log(productData);
+  const colors = [
+    "#ffff",
+    "#bfedee",
+    "#bbe3de",
+    "#fcf2e5",
+    "#fed4d4",
+    "#e4d3f2",
+  ];
   const buttons = [
     "В-Шелкография на тек...",
     "DTF-Полноцвет с тран...",
@@ -114,8 +121,12 @@ const Editing = () => {
             фон
           </h2>
           <div className="flex gap-2 flex-wrap">
-            <button className="border-2 w-14 h-14 duration-200 hover:border-redPrimary border-[#eeede9] rounded-[11px]"></button>
-            <button className="border-2 w-14 h-14 duration-200 hover:border-redPrimary border-[#eeede9] rounded-[11px] bg-[#bfedee]"></button>
+            {colors.map((item) => (
+              <button
+                style={{ background: item }}
+                className={`border-2 w-14 h-14 duration-200 hover:border-redPrimary border-[#eeede9] rounded-[11px]`}
+              ></button>
+            ))}
           </div>
           <div className="flex gap-4 items-center">
             <div className="flex items-center">

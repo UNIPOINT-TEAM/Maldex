@@ -155,7 +155,7 @@ const Galleryslider = () => {
               <img
                 src={item}
                 alt="slider-img"
-                className="object-contain object-center h-full"
+                className="object- object-center h-full"
               />
             </SwiperSlide>
           ))}
