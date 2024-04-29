@@ -36,10 +36,11 @@ export const GetFaqs = async (url: string) => {
     return response.data;
 };
 
-
-
-export const GetGiftsCategory
- = async () => {
-  const response = await axios.get(`${BASE_URL}gifts/baskets/category/`);
-  return response.data;
+export const GetGiftsCategory = async () => {
+    const response = await axios.get(`${BASE_URL}gifts/baskets/category/`);
+    return response.data;
+};
+export const GetNewCategory = async (url: string) => {
+    const response = await axios.get(BASE_URL + url);
+    return response.data;
 };
