@@ -53,6 +53,7 @@ const GeneralInfo = () => {
   const handleSwitchChange = (name: string, isChacked: boolean) => {
     dispatch(updateStatus({ name, isChacked }));
   };
+  
 
   return (
     <div className="grid grid-cols-12 h-full">

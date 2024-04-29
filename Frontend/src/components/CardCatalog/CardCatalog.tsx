@@ -1,6 +1,6 @@
 // Assuming CardCatalog.tsx
 import React from "react";
-import { Catalog } from "../../types/types";
+import { Catalog } from "../../types";
 import { Link } from "react-router-dom";
 import { CiSearch } from "react-icons/ci";
 

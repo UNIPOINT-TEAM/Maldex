@@ -541,3 +541,6 @@
     fill: #ec1026;
     color: #ec1026
 }
+.react-draggable {
+    width: 100% !important;
+}
