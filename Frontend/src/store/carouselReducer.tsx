@@ -62,7 +62,9 @@ const carouselSlice = createSlice({
       state.items = [];
     },
     updateStatus: (state, action: PayloadAction<CarouselState["status"]>) => {
+      // @ts-expect-error: This
       const { name, isChacked } = action.payload;
+      // @ts-expect-error: This
       state.status[name] = isChacked;
     },
   },

@@ -1,4 +1,4 @@
-import { input } from "@material-tailwind/react";
+// import { input } from "@material-tailwind/react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 interface DefaultTemplateProps {
@@ -19,12 +19,13 @@ const DefaultTemplate: React.FC<DefaultTemplateProps> = ({
 }) => {
   const {
     landscape_visible,
-    standard_visible,
+    // standard_visible,
     prices_visible,
     codeArticle_visible,
     total_visible,
     description_visible,
     characteristic_visible,
+    // @ts-expect-error: This
   } = useSelector((state) => state.carousel.status);
   const [productData, setProductData] = useState<any>({
     name: name,

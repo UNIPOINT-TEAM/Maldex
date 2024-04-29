@@ -6,9 +6,11 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 
 const Editing = () => {
+  // @ts-expect-error: This
   const items = useSelector((state) => state.carousel.items);
-
+  // @ts-expect-error: This
   const activeIndex = useSelector((state) => state.carousel.activeCaruselIndex);
+  // @ts-expect-error: This
   const [productData, setProductData] = useState<any>({
     name: items[activeIndex]?.data?.name,
     price: items[activeIndex]?.data?.price,

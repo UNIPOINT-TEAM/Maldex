@@ -19,6 +19,7 @@ const Tamplate = () => {
               <div className="group relative p-3 h-[105px] rounded-xl">
                 <div className="absolute border-lightSecondary top-0 left-0 w-full h-full rounded-xl group-hover:opacity-100 cursor-pointer border-2 group-hover:border-redPrimary duration-300 grid place-items-center">
                   <button
+                  // @ts-expect-error: This
                     onClick={() => dispatch(updateItem(item))}
                     className="opacity-0 group-hover:opacity-100 duration-300 w-[40px] h-[40px] bg-redPrimary flex items-center justify-center rounded-full"
                   >

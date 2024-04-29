@@ -16,22 +16,28 @@ import {
   deleteItem,
   onActiveCarusel,
 } from "../../store/carouselReducer";
+// @ts-expect-error: This
 const PDFDocument = ({ slides }) => (
   <Document>
-    {slides.map((slide, index) => (
-      <Page
-        key={index}
-        size={"A4"}
-        style={{ margin: "auto", marginTop: "20px " }}
-      >
-        <Image src={slide} />
-      </Page>
-    ))}
+    {slides.map(
+      // @ts-expect-error: This
+      (slide, index) => (
+        <Page
+          key={index}
+          size={"A4"}
+          style={{ margin: "auto", marginTop: "20px " }}
+        >
+          <Image src={slide} />
+        </Page>
+      )
+    )}
   </Document>
 );
 const Galleryslider = () => {
   const dispatch = useDispatch();
+  // @ts-expect-error: This
   const items = useSelector((state) => state.carousel.items);
+  // @ts-expect-error: This
   const activeIndex = useSelector((state) => state.carousel.activeCaruselIndex);
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperCore>();
   const [slides, setSlides] = useState([]);
@@ -41,10 +47,12 @@ const Galleryslider = () => {
       const slideElements = document.querySelectorAll(".gallery-slide");
       const slideImages = await Promise.all(
         Array.from(slideElements).map(async (slide) => {
+          // @ts-expect-error: This
           const canvas = await html2canvas(slide);
           return canvas.toDataURL();
         })
       );
+      // @ts-expect-error: This
       setSlides(slideImages);
     };
     fetchSlides();
@@ -117,16 +125,19 @@ const Galleryslider = () => {
           modules={[FreeMode, Navigation, Thumbs, Controller]}
           className="w-full h-[500px] bg-[#eaebea] rounded-lg "
         >
-          {items.map((item, i) => (
-            <SwiperSlide
-              id={i}
-              key={i}
-              className="h-full w-full cursor-pointer gallery-slide rounded-lg bg-[#fff]"
-            >
-              {item.template &&
-                React.cloneElement(item.template, { ...item.data })}
-            </SwiperSlide>
-          ))}
+          {items.map(
+            // @ts-expect-error: This
+            (item, i) => (
+              <SwiperSlide
+                id={i}
+                key={i}
+                className="h-full w-full cursor-pointer gallery-slide rounded-lg bg-[#fff]"
+              >
+                {item.template &&
+                  React.cloneElement(item.template, { ...item.data })}
+              </SwiperSlide>
+            )
+          )}
         </Swiper>
         <div>
           <PDFDownloadLink

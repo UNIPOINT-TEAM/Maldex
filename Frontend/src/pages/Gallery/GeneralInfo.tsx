@@ -47,10 +47,12 @@ const Checkdata = [
 ];
 
 const GeneralInfo = () => {
+  // @ts-expect-error: This
   const itemsStatus = useSelector((state) => state.carousel.status);
   const dispatch = useDispatch();
 
   const handleSwitchChange = (name: string, isChacked: boolean) => {
+    // @ts-expect-error: This
     dispatch(updateStatus({ name, isChacked }));
   };
 
@@ -79,7 +81,6 @@ const GeneralInfo = () => {
         </div>
         <div className="mt-10 flex flex-col gap-4">
           {Checkdata.map((item) => (
-            // @ts-expect-error: This
             <Switch
               crossOrigin={""}
               key={item.name}

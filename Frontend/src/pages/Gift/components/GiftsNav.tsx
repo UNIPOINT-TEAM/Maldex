@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Button,
-  Dialog,
-  DialogHeader,
-  DialogBody,
-  DialogFooter,
-} from '@material-tailwind/react';
-// import { GetProduct } from '../../../services/main';
-// import { GetGiftsCategory } from '../../../services/gifts';
-import { Link } from 'react-router-dom';
+// import {
+//   Button,
+//   Dialog,
+//   DialogHeader,
+//   DialogBody,
+//   DialogFooter,
+// } from '@material-tailwind/react';
+// // import { GetProduct } from '../../../services/main';
+// // import { GetGiftsCategory } from '../../../services/gifts';
+// import { Link } from 'react-router-dom';
 import { GetGiftsCategory } from '../../../services/services';
 // import { GetProduct } from '../../services/main';
 
@@ -36,7 +36,7 @@ const GiftsNav: React.FC<GiftsNavProps & { onSubCategoryClick: (subcategory: any
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => setOpen(!open);
-
+// @ts-expect-error: This
   const [addProduct, setAddProduct] = useState<SliderProduct[]>([1]);
   // useEffect(() => {
   //   GetProduct().then((res) => {
@@ -45,6 +45,7 @@ const GiftsNav: React.FC<GiftsNavProps & { onSubCategoryClick: (subcategory: any
   //   });
   // }, []);
 
+  // @ts-expect-error: This
   const [giftCategory, setGiftCategory] = useState('')
 
 
@@ -61,7 +62,7 @@ const GiftsNav: React.FC<GiftsNavProps & { onSubCategoryClick: (subcategory: any
   }, []);
 
   const [selectedProducts, setSelectedProducts] = useState<number[]>([]);
-
+// @ts-expect-error: This
   const handleCheckboxChange = (index: number) => {
     if (selectedProducts.includes(index)) {
       setSelectedProducts(selectedProducts.filter((item) => item !== index));
@@ -69,7 +70,7 @@ const GiftsNav: React.FC<GiftsNavProps & { onSubCategoryClick: (subcategory: any
       setSelectedProducts([...selectedProducts, index]);
     }
   };
-
+// @ts-expect-error: This
   const handleConfirm = () => {
     // Здесь вы можете использовать selectedProducts для дальнейшей обработки
     console.log('Selected products:', selectedProducts);

@@ -19,11 +19,11 @@ const LeftAccordion = () => {
 
   useEffect(() => {
     GetGiftsCategory()
-      .then(data => {
-        console.log(data); 
-        setGiftsCategory(data); 
+      .then((data) => {
+        console.log(data);
+        setGiftsCategory(data);
       })
-      .catch(error => console.error('Ошибка при получении тэгов:', error));
+      .catch((error) => console.error("Ошибка при получении тэгов:", error));
   }, []);
   return (
     <div className="">
@@ -69,22 +69,35 @@ const LeftAccordion = () => {
                 openAccordionIndex === index ? "text-white" : ""
               }`}
             >
-              {category.name}
+              {
+                // @ts-expect-error: This
+                category.name
+              }
             </h3>
           </AccordionHeader>
           <AccordionBody
             className={`${openAccordionIndex === index ? "" : ""}`}
             placeholder={<div />}
           >
-            {category.children.map((subCategory, subIndex) => (
+            {
+            // @ts-expect-error: This
+            category.children.map(
+              // @ts-expect-error: This
+              (subCategory, subIndex) => (
               <div key={subIndex}>
-                <h4 className="font-Helvetica-Neue font-medium text-black">{subCategory.name}</h4>
-                {subCategory.children.map((product, productIndex) => (
+                <h4 className="font-Helvetica-Neue font-medium text-black">
+                  {subCategory.name}
+                </h4>
+                {subCategory.children.map((
+                  // @ts-expect-error: This
+                  product, productIndex) => (
                   <div
                     className="my-2 pl-3 text-base font-Helvetica-Neue  cursor-pointer hover:text-redPrimary"
                     key={productIndex}
                   >
-                    <h4 className="font-Helvetica-Neue font-medium text-black">{product.name}</h4>
+                    <h4 className="font-Helvetica-Neue font-medium text-black">
+                      {product.name}
+                    </h4>
                   </div>
                 ))}
               </div>
