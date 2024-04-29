@@ -1,14 +1,14 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useFetchHook } from "../../hooks/UseFetch";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { GetNewCategory } from "../../services/services";
 
 const GiftItem = () => {
-    const { fetchData, response } = useFetchHook();
+    const [response, setResponse] = useState([]);
     useEffect(() => {
-        fetchData({
-            method: "GET",
-            url: "/product/categories/?new_category=true",
+        GetNewCategory(`product/categories/?is_popular=true`).then((res) => {
+            console.log(res), setResponse(res);
         });
     }, []);
 
