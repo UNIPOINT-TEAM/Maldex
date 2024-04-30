@@ -191,7 +191,7 @@ const MainCatalog = () => {
             {category?.children && category?.children?.length > 0 && (
               <>
                 <p>{category?.children[0]?.name}</p>
-                <p>{category?.children[0]?.children[0]?.name}</p>
+                {/* <p>{category?.children[0]?.children[0]?.name}</p> */}
               </>
             )}
             <div className="absolute w-full min-h-[400px] bg-[#fff] shadow-lg shadow-gray-400 top-0 left-0 right-0 moreContent p-3">
