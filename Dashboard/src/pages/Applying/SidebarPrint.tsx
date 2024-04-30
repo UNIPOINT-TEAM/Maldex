@@ -36,7 +36,7 @@ const SidebarPrint = () => {
               to={navLink.path}
               className="hover:bg-gray-200 p-2 rounded-md block font-bold"
             >
-              {navLink.label} {/* Вставляем значение label */}
+              {navLink.label} 
             </NavLink>
           ))}
         </div>

@@ -8,6 +8,9 @@ import {
   DelTags,
   UpgradeTags,
   GetTagsCategory,
+  PostTagsCategory,
+  DelTagsCategory,
+  UpgradeTagsCategory,
 } from '../../services/tags';
 
 function Tags() {
@@ -50,27 +53,20 @@ function Tags() {
     }
   };
 
-  // const addTag = async () => {
-  //   if (newTag) {
-  //     try {
-  //       const addedTag = await PostTags({ name: newTag });
-  //       setTags([...tags, addedTag]);
-  //       setNewTag('');
-  //     } catch (error) {
-  //       console.error('Ошибка при добавлении тэга:', error);
-  //     }
-  //   }
-  // };
-
   const addTagCategory = async () => {
-    if (newTagCategory) {
+    if (newTagCategory.trim()) {
+      const order = tagsCategory.length + 1; // Assumes order starts at 1 and increments
       try {
-        const addedTagCategory = await PostTags({ name: newTag });
+        const addedTagCategory = await PostTagsCategory({
+          name: newTagCategory,
+        });
         setTagsCategory([...tagsCategory, addedTagCategory]);
         setNewTagCategory('');
       } catch (error) {
         console.error('Ошибка при добавлении тэга:', error);
       }
+    } else {
+      console.error('The name field is empty.');
     }
   };
 
@@ -79,7 +75,7 @@ function Tags() {
     setEditTagInput(tag.name);
     setEditTagId(tag.id);
   };
-  
+
   const startEditTagCategory = (tag) => {
     setIsEditingTagCategory(true);
     setEditTagInputCategory(tag.name);
@@ -99,19 +95,23 @@ function Tags() {
       }
     }
   };
-  const handleEditTagCategory = async () => {
-    if (editTagInput && editTagId) {
-      try {
-        const updatedTagCategory = await UpgradeTagsCategory(editTagId, { name: editTagInput });
-        setTagsCategory(tags.map((tag) => (tag.id === editTagId ? updatedTag : tag)));
-        setIsEditingTagCategory(false);
-        setEditTagInputCategory('');
-        setEditTagIdCategory(null);
-      } catch (error) {
-        console.error('Ошибка при редактировании тэга:', error);
-      }
-    }
-  };
+  // const handleEditTagCategory = async () => {
+  //   if (editTagInput && editTagId) {
+  //     try {
+  //       const updatedTagCategory = await UpgradeTagsCategory(editTagId, {
+  //         name: editTagInput,
+  //       });
+  //       setTagsCategory(
+  //         tags.map((tag) => (tag.id === editTagId ? updatedTag : tag)),
+  //       );
+  //       setIsEditingTagCategory(false);
+  //       setEditTagInputCategory('');
+  //       setEditTagIdCategory(null);
+  //     } catch (error) {
+  //       console.error('Ошибка при редактировании тэга:', error);
+  //     }
+  //   }
+  // };
 
   const deleteTag = async (tagId) => {
     try {
@@ -122,9 +122,16 @@ function Tags() {
     }
   };
 
-  // const handleCategoryClick = (category) => {
-  //   setActiveTags(category.tag_set);
-  // };
+  const deleteTagCategory = async (categoryId) => {
+    try {
+      await DelTagsCategory(categoryId);
+      setTagsCategory(
+        tagsCategory.filter((category) => category.id !== categoryId),
+      );
+    } catch (error) {
+      console.error('Ошибка при удалении категории тэгов:', error);
+    }
+  };
 
   const handleCategoryClick = (category) => {
     setActiveTags(category.tag_set);
@@ -150,6 +157,27 @@ function Tags() {
     }
   };
 
+  const handleEditTagCategory = async () => {
+    if (editTagInputCategory && editTagIdCategory) {
+      try {
+        const updatedTagCategory = await UpgradeTagsCategory(
+          editTagIdCategory,
+          { name: editTagInputCategory },
+        );
+        setTagsCategory(
+          tagsCategory.map((category) =>
+            category.id === editTagIdCategory ? updatedTagCategory : category,
+          ),
+        );
+        setIsEditingTagCategory(false);
+        setEditTagInputCategory('');
+        setEditTagIdCategory(null);
+      } catch (error) {
+        console.error('Ошибка при редактировании категории тэгов:', error);
+      }
+    }
+  };
+
   return (
     <>
       <DefaultLayout>
@@ -167,7 +195,7 @@ function Tags() {
             </Button>
           </div>
 
-          {isEditingTag && (
+          {isEditingTagCategory && (
             <div className="mt-4 flex items-center justify-center gap-5">
               <input
                 type="text"
@@ -178,7 +206,10 @@ function Tags() {
               <Button color="blue" onClick={handleEditTagCategory}>
                 Сохранить
               </Button>
-              <Button color="red" onClick={() => setIsEditingTagCategory(false)}>
+              <Button
+                color="red"
+                onClick={() => setIsEditingTagCategory(false)}
+              >
                 Отмена
               </Button>
             </div>
@@ -188,19 +219,23 @@ function Tags() {
             {tagsCategory.map((tagCategory) => (
               <div
                 key={tagCategory.id}
-                onClick={() => handleCategoryClick(tagCategory)}
-                className="relative p-2 m-2 border rounded-lg"
+                className="flex flex-col justify-center items-center"
               >
-                {tagCategory.name}
+                <div
+                  onClick={() => handleCategoryClick(tagCategory)}
+                  className="relative p-2 m-2 border rounded-lg"
+                >
+                  {tagCategory.name}
+                </div>
                 <div className=" top-0 right-0 flex gap-2">
                   <button
-                    onClick={() => startEditTag(tag)}
+                    onClick={() => startEditTagCategory(tagCategory)}
                     className="p-2 text-white bg-yellow-400"
                   >
                     <MdEdit />
                   </button>
                   <button
-                    onClick={() => deleteTag(tag.id)}
+                    onClick={() => deleteTagCategory(tagCategory.id)}
                     className="p-2 text-white bg-red-500"
                   >
                     <MdDelete />
@@ -248,23 +283,30 @@ function Tags() {
           <div className="mt-10 mb-6 flex flex-wrap justify-around">
             {/* {tags.map((tag) => ( */}
             {activeTags.map((tag) => (
-              <div key={tag.id} className="relative p-2 m-2 border rounded-lg">
-                {tag.name}
-                <div className=" top-0 right-0 flex gap-2">
-                  <button
-                    onClick={() => startEditTag(tag)}
-                    className="p-2 text-white bg-yellow-400"
+              <>
+                <div className="flex flex-col justify-center items-center">
+                  <div
+                    key={tag.id}
+                    className="relative p-2 m-2 border rounded-lg"
                   >
-                    <MdEdit />
-                  </button>
-                  <button
-                    onClick={() => deleteTag(tag.id)}
-                    className="p-2 text-white bg-red-500"
-                  >
-                    <MdDelete />
-                  </button>
+                    {tag.name}
+                  </div>
+                  <div className=" top-0 right-0 flex gap-2">
+                    <button
+                      onClick={() => startEditTag(tag)}
+                      className="p-2 text-white bg-yellow-400"
+                    >
+                      <MdEdit />
+                    </button>
+                    <button
+                      onClick={() => deleteTag(tag.id)}
+                      className="p-2 text-white bg-red-500"
+                    >
+                      <MdDelete />
+                    </button>
+                  </div>
                 </div>
-              </div>
+              </>
             ))}
           </div>
         </div>
