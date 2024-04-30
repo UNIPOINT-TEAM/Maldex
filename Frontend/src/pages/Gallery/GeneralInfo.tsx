@@ -55,6 +55,7 @@ const GeneralInfo = () => {
     // @ts-expect-error: This
     dispatch(updateStatus({ name, isChacked }));
   };
+  
 
   return (
     <div className="grid grid-cols-12 h-full">

@@ -9,7 +9,7 @@ interface SliderProps {
       productID: {
         id: string;
         images_set: {
-          big_url: string;
+          image_url: string;
         }[];
       };
     }[];
@@ -35,7 +35,7 @@ const Slider: React.FC<SliderProps> = ({ SliderItems, sliderTime }) => {
           className="flex w-full h-full items-center justify-center"
         >
           <img
-            src={item?.productID?.images_set[0]?.big_url}
+            src={item?.productID?.images_set[0]?.image_url}
             alt=""
             className="w-full h-full object-center object-contain"
           />

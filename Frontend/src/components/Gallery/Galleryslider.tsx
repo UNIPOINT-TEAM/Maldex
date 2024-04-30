@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Controller, FreeMode, Navigation, Thumbs } from "swiper/modules";
 import SwiperCore from "swiper";
@@ -7,8 +7,6 @@ import deleteIcon from "../../assets/icons/Delete.svg";
 import "swiper/css";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
-import html2canvas from "html2canvas";
-import { Document, Image, Page, PDFDownloadLink } from "@react-pdf/renderer";
 
 import {
   addItem,
@@ -16,23 +14,6 @@ import {
   deleteItem,
   onActiveCarusel,
 } from "../../store/carouselReducer";
-// @ts-expect-error: This
-const PDFDocument = ({ slides }) => (
-  <Document>
-    {slides.map(
-      // @ts-expect-error: This
-      (slide, index) => (
-        <Page
-          key={index}
-          size={"A4"}
-          style={{ margin: "auto", marginTop: "20px " }}
-        >
-          <Image src={slide} />
-        </Page>
-      )
-    )}
-  </Document>
-);
 const Galleryslider = () => {
   const dispatch = useDispatch();
   // @ts-expect-error: This
@@ -41,23 +22,6 @@ const Galleryslider = () => {
   const activeIndex = useSelector((state) => state.carousel.activeCaruselIndex);
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperCore>();
   const [slides, setSlides] = useState([]);
-
-  useEffect(() => {
-    const fetchSlides = async () => {
-      const slideElements = document.querySelectorAll(".gallery-slide");
-      const slideImages = await Promise.all(
-        Array.from(slideElements).map(async (slide) => {
-          // @ts-expect-error: This
-          const canvas = await html2canvas(slide);
-          return canvas.toDataURL();
-        })
-      );
-      // @ts-expect-error: This
-      setSlides(slideImages);
-    };
-    fetchSlides();
-    console.log();
-  }, [items]);
 
   return (
     <div className="">
@@ -125,30 +89,16 @@ const Galleryslider = () => {
           modules={[FreeMode, Navigation, Thumbs, Controller]}
           className="w-full h-[500px] bg-[#eaebea] rounded-lg "
         >
-          {items.map(
-            // @ts-expect-error: This
-            (item, i) => (
-              <SwiperSlide
-                id={i}
-                key={i}
-                className="h-full w-full cursor-pointer gallery-slide rounded-lg bg-[#fff]"
-              >
-                {item.template &&
-                  React.cloneElement(item.template, { ...item.data })}
-              </SwiperSlide>
-            )
-          )}
+          {items.map((item, i) => (
+            <SwiperSlide
+              id={i}
+              key={i}
+              className="h-full w-full cursor-pointer gallery-slide rounded-lg bg-[#fff]"
+            >
+              {item.template && React.cloneElement(item.template, { ...item })}
+            </SwiperSlide>
+          ))}
         </Swiper>
-        <div>
-          <PDFDownloadLink
-            document={<PDFDocument slides={slides} />}
-            fileName="gallery_slides.pdf"
-          >
-            {({ loading }) =>
-              loading ? "Loading document..." : "Download PDF"
-            }
-          </PDFDownloadLink>
-        </div>
         <Swiper
           spaceBetween={20}
           onSwiper={setThumbsSwiper}
@@ -161,12 +111,12 @@ const Galleryslider = () => {
           {slides.map((item, i) => (
             <SwiperSlide
               key={i}
-              className="h-[90px] rounded-lg p-2 w-[145px] border"
+              className="h-[90px] rounded-lg w-[145px] border"
             >
               <img
                 src={item}
                 alt="slider-img"
-                className="object- object-center h-full"
+                className="object-cover rounded-lg object-center h-full"
               />
             </SwiperSlide>
           ))}

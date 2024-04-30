@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { CART } from "../constants/Cart";
+import { products } from "../constants/Cart";
+import DefaultTemplate from "../components/GalleryLayoutTemplate/DefaultTemplate";
 
 interface CarouselState {
   items: any[];
@@ -19,7 +20,16 @@ interface CarouselState {
 }
 
 const initialState: CarouselState = {
-  items: CART,
+  items: products.map((product) => ({
+    data: product,
+    template: <DefaultTemplate />,
+    background: {
+      color: "",
+      image: "",
+      currentSlide: true,
+      allSlider: false,
+    },
+  })) || [{ template: null, background: "", data: [] }],
   status: {
     landscape_visible: true,
     standard_visible: false,
@@ -39,9 +49,27 @@ const carouselSlice = createSlice({
   initialState,
   reducers: {
     addItem: (state) => {
-      state.items.push({ template: null, background: "", data: {} });
+      state.items.push({
+        template: null,
+        background: "",
+        data: {
+          name: "",
+          price: "",
+          circulation: "",
+          total: "",
+          description: "",
+          characteristics: {
+            vendor_code: "",
+            size: "",
+            material: "",
+            width: "",
+            available_application: "",
+          },
+          image: "",
+        },
+      });
     },
-    updateItem: (state, action: PayloadAction<JSX.Element>) => {
+    updateItem: (state, action: PayloadAction<any>) => {
       const { activeCaruselIndex } = state;
       state.items[activeCaruselIndex] = action.payload;
     },
@@ -55,17 +83,19 @@ const carouselSlice = createSlice({
         state.items[action.payload]
       );
     },
-    onActiveCarusel: (state, action: PayloadAction<number>) => {
-      state.activeCaruselIndex = action.payload;
-    },
     clearItems: (state) => {
       state.items = [];
     },
+    updateTemplate: (state, action: PayloadAction<JSX.Element>) => {
+      const { activeCaruselIndex } = state;
+      state.items[activeCaruselIndex].template = action.payload;
+    },
+    onActiveCarusel: (state, action: PayloadAction<number>) => {
+      state.activeCaruselIndex = action.payload;
+    },
     updateStatus: (state, action: PayloadAction<CarouselState["status"]>) => {
-      // @ts-expect-error: This
-      const { name, isChacked } = action.payload;
-      // @ts-expect-error: This
-      state.status[name] = isChacked;
+      const { name, checked } = action.payload;
+      state.status[name] = checked;
     },
   },
 });
@@ -73,10 +103,11 @@ const carouselSlice = createSlice({
 export const {
   addItem,
   deleteItem,
-  updateItem,
+  updateTemplate,
   onActiveCarusel,
   copyItem,
   updateStatus,
+  updateItem,
 } = carouselSlice.actions;
 
 export default carouselSlice.reducer;

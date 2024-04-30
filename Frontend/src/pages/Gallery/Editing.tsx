@@ -2,47 +2,58 @@ import { Checkbox } from "@material-tailwind/react";
 import { Galleryslider } from "../../components";
 import { MdOutlineAdd } from "react-icons/md";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-
+import { updateItem } from "../../store/carouselReducer";
+const colors = ["#ffff", "#bfedee", "#bbe3de", "#fcf2e5", "#fed4d4", "#e4d3f2"];
+const buttons = [
+  "В-Шелкография на тек...",
+  "DTF-Полноцвет с тран...",
+  "DTG-Полноцвет по тек...",
+  "D-Шелкография с тран...",
+  "F1-Флекс",
+  "F2-Флекс",
+  "I-Вышивка",
+];
 const Editing = () => {
   // @ts-expect-error: This
   const items = useSelector((state) => state.carousel.items);
-  // @ts-expect-error: This
+  const dispatch = useDispatch();
   const activeIndex = useSelector((state) => state.carousel.activeCaruselIndex);
-  // @ts-expect-error: This
-  const [productData, setProductData] = useState<any>({
+  const [productData, setProductData] = useState({
     name: items[activeIndex]?.data?.name,
     price: items[activeIndex]?.data?.price,
     circulation: items[activeIndex]?.data?.circulation,
     total: items[activeIndex]?.data?.total,
     description: items[activeIndex]?.data?.description,
     characteristics: items[activeIndex]?.data?.characteristics,
+    image: items[activeIndex]?.data?.image,
   });
-  const colors = [
-    "#ffff",
-    "#bfedee",
-    "#bbe3de",
-    "#fcf2e5",
-    "#fed4d4",
-    "#e4d3f2",
-  ];
-  const buttons = [
-    "В-Шелкография на тек...",
-    "DTF-Полноцвет с тран...",
-    "DTG-Полноцвет по тек...",
-    "D-Шелкография с тран...",
-    "F1-Флекс",
-    "F2-Флекс",
-    "I-Вышивка",
-  ];
+
+  const handleInputChange = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ): void => {
+    dispatch(
+      updateItem({
+        ...items[activeIndex],
+        data: { ...items[activeIndex]?.data, [e.target.name]: e.target.value },
+      })
+    );
+  };
+  console.log(items[activeIndex]);
+
   return (
     <div className="grid grid-cols-12 h-full">
       <div className="px-5 col-span-4 py-3 h-full min-h-screen  border-0 border-r border-lightSecondary">
         <div className="text-darkPrimary text-[9px] font-medium  rounded-lg px-3 py-2 flex items-center justify-between">
-          <div className="border text-[14px] w-[165px] px-[14px] py-2 border-lightSecondary  rounded-lg">
-            <h2>Любое название</h2>
-          </div>
+          <input
+            name="name"
+            onChange={handleInputChange}
+            value={items[activeIndex]?.data?.name}
+            className="border text-[14px] w-[165px] px-[14px] py-2 border-lightSecondary  rounded-lg"
+          />
           <button className="border text-[9px] text-darkSecondary h-[26px] font-bold px-[14px] pt-[3px] border-darkSecondary uppercase rounded-lg">
             сохранить
           </button>
@@ -53,18 +64,34 @@ const Editing = () => {
               <h3 className="text-darkSecondary text-[10px] font-medium mb-1 uppercase">
                 Фото товара
               </h3>
-              <div className="card border-2 rounded-xl border-redPrimary bg-[#d9d9d9] w-[120px] h-[64px]">
+              <div className="card relative group py-1 border-2 rounded-xl border-lightSecondary hover:border-redPrimary duration-300 hover:bg-[#d9d9d9] w-[120px] h-[64px]">
+                <img
+                  src={items[activeIndex]?.data?.image}
+                  alt="slider-img"
+                  className="h-full w-full object-contain object-center"
+                />
                 <label
                   htmlFor="cover"
-                  className="flex  relative col-span-1 w-full h-full cursor-pointer items-center justify-center gap-2 rounded-xl text-sm font-medium  hover:bg-opacity-90 "
+                  className="flex absolute top-0 left-0 col-span-1 w-full h-full cursor-pointer items-center justify-center gap-2 rounded-xl text-sm font-medium  hover:bg-opacity-90 "
                 >
                   <input
                     type="file"
                     name="cover"
                     id="cover"
                     className="sr-only"
+                    onChange={(e) => {
+                      dispatch(
+                        updateItem({
+                          ...items[activeIndex],
+                          data: {
+                            ...productData,
+                            image: URL.createObjectURL(e.target.files[0]),
+                          },
+                        })
+                      );
+                    }}
                   />
-                  <div className="rounded-full bg-redPrimary flex items-center justify-center w-8 h-8">
+                  <div className="group-hover:opacity-100 duration-300 opacity-0 rounded-full bg-redPrimary flex items-center justify-center w-8 h-8">
                     <MdOutlineAdd className="text-xl text-[#fff] p-0" />
                   </div>
                 </label>
@@ -123,9 +150,18 @@ const Editing = () => {
             фон
           </h2>
           <div className="flex gap-2 flex-wrap">
-            {colors.map((item) => (
+            {colors.map((item, i) => (
               <button
+                key={i}
                 style={{ background: item }}
+                onClick={() =>
+                  dispatch(
+                    updateItem({
+                      ...items[activeIndex],
+                      background: { color: item },
+                    })
+                  )
+                }
                 className={`border-2 w-14 h-14 duration-200 hover:border-redPrimary border-[#eeede9] rounded-[11px]`}
               ></button>
             ))}
@@ -135,8 +171,9 @@ const Editing = () => {
               <span className="text-[11px] uppercase font-medium">
                 для текущего слайда
               </span>
-              {/* @ts-expect-error: This*/}
+
               <Checkbox
+                crossOrigin={""}
                 ripple={false}
                 className="h-4 w-4 rounded border-darkSecondary bg-[#fff] checked:bg-redPrimary checked:border-redPrimary transition-all h hover:before:opacity-0"
                 defaultChecked
@@ -146,8 +183,9 @@ const Editing = () => {
               <span className="text-[11px] uppercase font-medium">
                 для всех
               </span>
-              {/* @ts-expect-error: This*/}
+
               <Checkbox
+                crossOrigin={""}
                 ripple={false}
                 className="h-4 w-4 rounded border-darkSecondary bg-[#fff] checked:bg-redPrimary checked:border-redPrimary transition-all h hover:before:opacity-0"
                 defaultChecked
@@ -158,11 +196,12 @@ const Editing = () => {
             описание
           </h2>
           <textarea
-            name=""
-            value={productData.description}
+            name="description"
+            onChange={handleInputChange}
+            value={items[activeIndex].data?.description}
             className="border-2 border-redPrimary w-full rounded-xl resize-none p-2 outline-0"
             cols={30}
-            rows={4}
+            rows={5}
           ></textarea>
         </div>
         <div className="text-[10px]">
