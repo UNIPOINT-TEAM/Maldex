@@ -49,7 +49,7 @@ export const PutWithFormData = async (url: string, item: any) => {
 };
 
 export const PutData = async (url: string, item: any) => {
-  const response = await axios.put(url, item, {
+  const response = await axios.put(BASE_URL + url, item, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
