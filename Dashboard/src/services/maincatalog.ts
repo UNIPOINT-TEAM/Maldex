@@ -6,6 +6,10 @@ export const GetMainCatalog = async () => {
   const response = await api.get(`/product/categories/`);
   return response.data;
 };
+export const GetMainCatalogactive = async () => {
+  const response = await api.get(`/product/categories/?is_available=true`);
+  return response.data;
+};
 export const GetProjects = async (id: number) => {
   const response = await api.get(`/projects/?tag_id=${id}`);
   return response.data;
@@ -55,6 +59,16 @@ export const PutData = async (url: string, item: any) => {
 };
 export const PostData = async (url: string, item: any) => {
   const response = await axios.post(url, item);
+  const data = response;
+  return data;
+};
+
+export const TransferCategory = async (url: string, item: any) => {
+  const response = await axios.put(BASE_URL + url, item, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
   const data = response;
   return data;
 };
