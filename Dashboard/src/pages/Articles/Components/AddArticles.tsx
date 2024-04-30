@@ -40,6 +40,7 @@ function AddArticles() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [image, setImage] = useState(null);
+  const [blogData, setBlogData] = useState(null);
 
   const handleEditorChange = (event, editor) => {
     const data = editor.getData();
@@ -72,6 +73,22 @@ function AddArticles() {
 
   const ref = useRef(null);
 
+
+  const onEditorInit = (editor) => {
+    editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+      return new CustomUploadAdapter(loader);
+    };
+  };
+
+  const handleCkeditorState = (language, _event, editor) => {
+    const data = editor.getData();
+    setBlogData(prevState => ({
+      ...prevState,
+      [`${language}_content`]: data
+    }));
+  };
+
+  
 
   return (
     <DefaultLayout>

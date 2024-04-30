@@ -1,6 +1,5 @@
 import { BASE_URL } from "../../../utils/BaseUrl";
 
-// components/CustomUploadAdapter.jsx
 class CustomUploadAdapter {
   constructor(loader) {
     this.loader = loader;
@@ -12,19 +11,16 @@ class CustomUploadAdapter {
       const data = new FormData();
       data.append('upload', file);
       
-      const token = localStorage.getItem('token');
+      // Fetch CSRF token from the cookie
+      const csrfToken = getCookie('csrftoken'); // Implement getCookie function accordingly
 
-      if (!token) {
-        reject('No token found. User must be logged in to upload images.');
-        return;
-      }
       fetch(this.url, {
         method: 'POST',
         body: data,
         headers: {
-          "Authorization": `Token ${token}`
+          // Include CSRF token in the request headers
+          "X-CSRFToken": csrfToken
         },
-        
       })
         .then((response) => response.json())
         .then(response => {
