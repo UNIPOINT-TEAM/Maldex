@@ -1,5 +1,5 @@
 // components/AddArticles.js
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import DefaultLayout from '../../../layout/DefaultLayout';
@@ -7,6 +7,34 @@ import { PostArticles } from '../../../services/articles';
 import { Button, Input } from '@material-tailwind/react';
 import { BASE_URL } from '../../../utils/BaseUrl';
 import CustomUploadAdapter from './UploadAdapter';
+import {
+  UploadAdapter,
+  FileLoader
+} from "@ckeditor/ckeditor5-upload/src/filerepository";
+import { Image, ImageResizeEditing, ImageResizeHandles } from '@ckeditor/ckeditor5-image';
+
+
+
+
+
+function uploadAdapter(loader: FileLoader): UploadAdapter {
+  return {
+    upload: () => {
+      return new Promise(async (resolve, reject) => {
+        loader.file.then((file) => {
+          resolve({ default: loader.data });
+        });
+      });
+    },
+    abort: () => {}
+  };
+}
+function uploadPlugin(editor: Editor) {
+  editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
+    return uploadAdapter(loader);
+  };
+}
+
 
 function AddArticles() {
   const [title, setTitle] = useState('');
@@ -27,15 +55,23 @@ function AddArticles() {
     try {
       const formData = new FormData();
       formData.append('title', title);
-      formData.append('body', content);
+      formData.append('body', content); // Добавляем содержимое статьи
       formData.append('image', image);
-
-      await PostArticles(formData);
+  
+      // Добавляем заголовок "Content-Type" в multipart/form-data, если необходимо
+      const headers = { 'Content-Type': 'multipart/form-data' };
+  
+      await PostArticles(formData, { headers }); // Передаем formData и headers в PostArticles
       console.log('Article posted successfully');
     } catch (error) {
       console.error('Error posting article:', error);
     }
   };
+  
+  
+
+  const ref = useRef(null);
+
 
   return (
     <DefaultLayout>
@@ -76,38 +112,30 @@ function AddArticles() {
         />
       </div>
 
-      <div className="w-1/2">
-        {/* <CKEditor
-          editor={ClassicEditor}
-          data={content}
-          onReady={(editor) => {
-            console.log('Editor is ready to use!', editor);
-          }}
-          onChange={handleEditorChange}
-          config={{
-            simpleUpload: {
-              // Включение загрузки изображений как Base64.
-              uploadUrl: `${BASE_URL}/ckeditor/upload/`,
-              // Включите другие необходимые конфигурационные параметры.
-            },
-            ckfinder: {
-              uploadUrl: `${BASE_URL}/ckeditor/upload/`,
-            },
-          }}
-        /> */}
+      <div className="w-full">
 
         <CKEditor
-          editor={ClassicEditor}
-          data={content}
-          onChange={handleEditorChange}
-          // onReady={onEditorInit}
-          config={{
-            extraPlugins: [CustomUploadAdapter],
-            ckfinder: {
-              uploadUrl: `${BASE_URL}/ckeditor5/image_upload/`,
-            },
-          }}
-        />
+        config={{
+          // @ts-ignore
+          extraPlugins: [uploadPlugin]
+        }}
+        data={content}
+        editor={ClassicEditor}
+        // onReady={(editor) => {
+        //   ref.current = editor;
+        // }}
+
+        onReady={(editor) => {
+          editor.ui.view.editable.element.style.minHeight = "600px";
+       }}
+        onChange={handleEditorChange}
+
+        onBlur={(event, editor) => {}}
+        onFocus={(event, editor) => {}}
+
+        
+        
+      />
       </div>
       <Button className="my-6" color="blue" onClick={handleSubmit}>
         Отправить
