@@ -1,46 +1,163 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import DefaultLayout from '../../layout/DefaultLayout';
-import axios from 'axios';
-import { AddWithFormData, GetProduct } from '../../services/product';
+
+import { GetProduct } from '../../services/product';
 import { Swiper, SwiperSlide } from 'swiper/react';
-// import CarouselImg from "../../assets/images/carouselImg.png";
-import { Navigation, Pagination, Scrollbar } from 'swiper/modules';
+import { Navigation, Pagination } from 'swiper/modules';
 import { Link } from 'react-router-dom';
-// import Close from "../../assets/icons/close.png";
-import { FaArrowLeftLong } from 'react-icons/fa6';
-import { FaArrowRightLong } from 'react-icons/fa6';
-import { CiSearch } from 'react-icons/ci';
-import { CiHeart } from 'react-icons/ci';
-import { FaCheck } from 'react-icons/fa';
-import { IoMdHeart } from 'react-icons/io';
-import { Dialog } from '@material-tailwind/react';
-// import { useFetchHook } from "../../hooks/UseFetch";
-import { MdDelete, MdEdit, MdOutlineAdd } from 'react-icons/md';
-import { CgSearch } from 'react-icons/cg';
+import { MainCatalog } from '../../components';
+import {
+  Button,
+  Dialog,
+  DialogBody,
+  DialogFooter,
+  DialogHeader,
+} from '@material-tailwind/react';
+import { GetMainCatalogactive, PutData } from '../../services/maincatalog';
 
 const Product = () => {
   const [addProduct, setAddProduct] = useState([]);
+  const [receiveId, setReceiveId] = useState(null);
+  const [open, setOpen] = useState(false);
+  const [availableCategories, setAvailableCategories] = useState([]);
+  const [checkedProducts, setCheckedProducts] = useState([]);
+  console.log(checkedProducts);
+
   useEffect(() => {
     GetProduct().then((res) => {
       setAddProduct(res.data);
-      console.log(res.data);
+    });
+    GetMainCatalogactive().then((res) => {
+      setAvailableCategories(res);
     });
   }, []);
 
+  const fillCheckedProducts = (id) => {
+    const isAlreadyChecked = checkedProducts.some(
+      (product) => product.id === id,
+    );
+
+    if (isAlreadyChecked) {
+      const updatedProducts = checkedProducts.filter(
+        (product) => product.id !== id,
+      );
+      setCheckedProducts(updatedProducts);
+    } else {
+      const clickedProduct = addProduct.find((item) => item.id === id);
+      if (clickedProduct) {
+        setCheckedProducts((prevProducts) => [...prevProducts, clickedProduct]);
+      }
+    }
+  };
+
+  const changeCategory = () => {
+    const formdata = new FormData();
+    formdata.append('categoryId', receiveId);
+    for (let i of checkedProducts) {
+      PutData(`/product/${i.id}/`, formdata);
+    }
+  };
+
+  const handleOpen = (id) => {
+    setOpen(!open);
+  };
+
   return (
     <DefaultLayout>
+      <Dialog
+        open={open}
+        handler={handleOpen}
+        size="xl"
+        animate={{
+          mount: { scale: 1, y: 0 },
+          unmount: { scale: 0.9, y: -100 },
+        }}
+      >
+        <DialogHeader>переместить категорию сюда</DialogHeader>
+        <DialogBody>
+          <div className="w-full h-[500px] flex gap-2 overflow-x-scroll">
+            {availableCategories.map((item) => (
+              <div key={item.id} className="h-full">
+                <p
+                  onClick={() => setReceiveId(item.id)}
+                  className={`w-[200px] text-xl mb-5 ${
+                    receiveId == item.id
+                      ? 'bg-red-400 text-white rounded-md p-1'
+                      : ''
+                  }`}
+                >
+                  {item?.name.length > 20
+                    ? item?.name.slice(0, 25) + '...'
+                    : item?.name}
+                </p>
+                <div>
+                  {item.children.map((i) => (
+                    <p
+                      className={`${
+                        receiveId == i.id
+                          ? 'bg-red-400 text-white rounded-md p-1'
+                          : ''
+                      }`}
+                      onClick={() => setReceiveId(i.id)}
+                      key={i.id}
+                    >
+                      {i.name}
+                    </p>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </DialogBody>
+        <DialogFooter>
+          <Button
+            variant="text"
+            color="red"
+            onClick={handleOpen}
+            className="mr-1"
+          >
+            <span>отмена</span>
+          </Button>
+          <Button variant="gradient" color="green" onClick={changeCategory}>
+            <span>переместить</span>
+          </Button>
+        </DialogFooter>
+      </Dialog>
       <div className="container_xxl relative px-3">
-        <div className="flex justify-end py-5">
+        <div className="flex justify-end py-5 gap-3">
+          {checkedProducts.length > 0 ? (
+            <>
+              <button
+                onClick={handleOpen}
+                className="bg-green-400 text-white px-5 py-2 rounded-md"
+              >
+                изменить категорию этих товаров
+              </button>
+              <button className="bg-red-400 text-white px-5 py-2 rounded-md">
+                удалить эти продукты
+              </button>
+            </>
+          ) : (
+            ''
+          )}
           <Link to={'/product/add'}>
             <button className="bg-blue-400 text-white px-5 py-2 rounded-md">
-              dabavit product
+              добавить товар
             </button>
           </Link>
         </div>
-        <div className="flex flex-wrap justify-center gap-5 py-5">
+        <div className="flex flex-wrap justify-between gap-5 py-5">
           {/* @ts-ignore */}
           {addProduct?.map((item) => (
-            <div className="w-1/6 shadow-4 p-2 rounded-sm">
+            <div
+              onClick={() => fillCheckedProducts(item.id)}
+              key={item.id}
+              className={`w-1/6 shadow-4 p-2 rounded-sm ${
+                checkedProducts.some((product) => product.id === item.id)
+                  ? 'bg-blue-200'
+                  : ''
+              }`}
+            >
               <div className="catalog ">
                 <div className="relative swiper-top-container h-[220px] mb-4 bg-gray-200">
                   <Swiper
@@ -49,11 +166,8 @@ const Product = () => {
                     className="  h-full"
                   >
                     {item.images_set.map((i) => (
-                      <SwiperSlide className="w-full h-full">
-                        <div
-                          onClick={() => handleOpen('xl')}
-                          className="relative  h-full"
-                        >
+                      <SwiperSlide key={i.id} className="w-full h-full">
+                        <div className="relative  h-full">
                           <div className="flex justify-center items-center h-full">
                             <img
                               className="mb-2  object-contain product-img"

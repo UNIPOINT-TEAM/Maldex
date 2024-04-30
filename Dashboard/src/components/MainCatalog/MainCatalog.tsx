@@ -19,7 +19,6 @@ import {
   DialogBody,
   DialogFooter,
   Input,
-  input,
   Checkbox,
 } from '@material-tailwind/react';
 import { BASE_URL } from '../../utils/BaseUrl';

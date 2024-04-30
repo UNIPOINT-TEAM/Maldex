@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import {
   GetMainCatalog,
   GetMainCatalogactive,
-  GetSubSubCatalog,
   PutData,
   PutWithFormData,
   TransferCategory,
@@ -25,25 +24,19 @@ import {
   DialogHeader,
   DialogBody,
   DialogFooter,
-  Input,
-  input,
   Checkbox,
 } from '@material-tailwind/react';
 import { BASE_URL } from '../../utils/BaseUrl';
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
-  const [subSubCategories, setSubSubCategories] = useState([]);
   const [nameSub, setNameSub] = useState('');
-  const [nameSubSub, setNameSubSub] = useState('');
   const [open, setOpen] = useState(false);
   const [subCategoryId, setSubCategoryId] = useState(0);
   const [availableCategories, setAvailableCategories] = useState([]);
 
-  const [statuseditSub, setStatuseditSub] = useState(null);
   const [statusedit, setStatusedit] = useState(null);
   const [editedSub, setEditedSub] = useState('');
-  const [editedSubSub, setEditedSubSub] = useState('');
   const [status, setStatus] = useState(false);
   const [sendId, setSendId] = useState(null);
   const [receiveId, setReceiveId] = useState(null);
