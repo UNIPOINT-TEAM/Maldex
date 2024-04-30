@@ -5,6 +5,8 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import DefaultLayout from '../../../layout/DefaultLayout';
 import { PostArticles } from '../../../services/articles';
 import { Button, Input } from '@material-tailwind/react';
+import { BASE_URL } from '../../../utils/BaseUrl';
+import CustomUploadAdapter from './UploadAdapter';
 
 function AddArticles() {
   const [title, setTitle] = useState('');
@@ -75,13 +77,41 @@ function AddArticles() {
       </div>
 
       <div className="w-1/2">
+        {/* <CKEditor
+          editor={ClassicEditor}
+          data={content}
+          onReady={(editor) => {
+            console.log('Editor is ready to use!', editor);
+          }}
+          onChange={handleEditorChange}
+          config={{
+            simpleUpload: {
+              // Включение загрузки изображений как Base64.
+              uploadUrl: `${BASE_URL}/ckeditor/upload/`,
+              // Включите другие необходимые конфигурационные параметры.
+            },
+            ckfinder: {
+              uploadUrl: `${BASE_URL}/ckeditor/upload/`,
+            },
+          }}
+        /> */}
+
         <CKEditor
           editor={ClassicEditor}
           data={content}
           onChange={handleEditorChange}
+          // onReady={onEditorInit}
+          config={{
+            extraPlugins: [CustomUploadAdapter],
+            ckfinder: {
+              uploadUrl: `${BASE_URL}/ckeditor5/image_upload/`,
+            },
+          }}
         />
       </div>
-      <Button className='my-6' color='blue' onClick={handleSubmit}>Отправить</Button>
+      <Button className="my-6" color="blue" onClick={handleSubmit}>
+        Отправить
+      </Button>
     </DefaultLayout>
   );
 }
