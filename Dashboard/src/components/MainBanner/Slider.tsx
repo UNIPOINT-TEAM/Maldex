@@ -4,7 +4,6 @@ import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 const Slider = ({ SliderItems, sliderTime }) => {
-  console.log(SliderItems && SliderItems?.product_set);
 
   return (
     <Swiper

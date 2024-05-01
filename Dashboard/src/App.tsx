@@ -22,6 +22,7 @@ import {
   EditArticles,
   AddArticles,
   Categories,
+  CategoryDetails,
 } from './pages';
 import 'swiper/css';
 import 'swiper/css/scrollbar';
@@ -61,6 +62,7 @@ function App() {
         <Route path="/portfolio" element={<Portfolio />} />
         <Route path="/portfolio/:id" element={<PortfolioDetail />} />
         <Route path="/create-project" element={<CreatePortfolio />} />
+        <Route path="/category/:id/products" element={<CategoryDetails />} />
         <Route path="/product" element={<Product />} />
         <Route path="/categories" element={<Categories />} />
         <Route path="/product/add" element={<AddProduct />} />

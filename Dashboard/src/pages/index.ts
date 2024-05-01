@@ -18,3 +18,4 @@ export { default as Product } from './Product/Product';
 export { default as AddProduct } from './Product/AddProduct';
 export { default as EditProduct } from './Product/EditProduct';
 export { default as Categories } from './Categories/Categories';
+export { default as CategoryDetails } from './Categories/CatgeoryDetails';

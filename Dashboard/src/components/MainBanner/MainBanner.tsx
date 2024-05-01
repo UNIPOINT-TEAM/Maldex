@@ -8,7 +8,6 @@ const MainBanner = () => {
   const [mainBannerData, setMainBannerData] = useState([]);
   const getBannerData = () => {
     GetMainBanner().then((res) => {
-      console.log(res);
       setMainBannerData(res);
     });
   };

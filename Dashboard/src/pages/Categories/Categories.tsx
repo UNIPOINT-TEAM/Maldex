@@ -93,15 +93,15 @@ const Categories = () => {
   const transferCategory = () => {
     const formdata = new FormData();
     formdata.append('parent', receiveId);
-    TransferCategory(`/product/category/${sendId}/`, formdata).then(() =>
-      setStatus(!status),
-    );
+    TransferCategory(`/product/category/${sendId}/`, formdata).then(() => {
+      setStatus(!status), setOpen(!open);
+    });
   };
 
   return (
     <DefaultLayout>
       <AddMainCatalog status={status} onChange={changeStatus} />
-      <div className="w-full py-3 flex flex-wrap gap-2 justify-between items-center mb-10">
+      <div className="w-full py-3 flex flex-wrap gap-2 justify-between items-center mb-[400px]">
         <Dialog
           open={open}
           handler={handleOpen}
@@ -116,6 +116,7 @@ const Categories = () => {
             <div className="w-full h-[500px] flex gap-2 overflow-x-scroll">
               {availableCategories.map((item) => (
                 <div key={item.id} className="h-full">
+                  <img src={item.logo} className="mb-5" alt="" />
                   <p
                     onClick={() => setReceiveId(item.id)}
                     className={`w-[200px] text-xl mb-5 ${
@@ -227,7 +228,7 @@ const Categories = () => {
                 category?.children.map((childCategory) => (
                   <div
                     key={childCategory.id}
-                    className="rounded group hover:bg-green-200 hover:text-white py-1 flex justify-between items-center px-1"
+                    className="rounded group hover:bg-green-200 hover:text-white py-1 flex flex-col gap-1 justify-between items-start px-1"
                   >
                     <Link>
                       {statusedit == childCategory.id ? (
@@ -242,12 +243,12 @@ const Categories = () => {
                         <p>{childCategory.name}</p>
                       )}
                     </Link>
-                    <div className="flex">
+                    <div className="flex gap-2">
                       <button
-                        className=" bg-blue-300 group-hover:text-white rounded w-[70px] h-[20px] text-white flex justify-center items-center"
+                        className=" bg-blue-300 group-hover:text-white rounded w-[80px] h-[20px] text-white flex justify-center items-center"
                         onClick={() => handleOpen(childCategory.id)}
                       >
-                        <p className="text-[10px]">переместить</p>
+                        <p className="text-[12px]">переместить</p>
                       </button>
                       {statusedit == childCategory.id ? (
                         <button
@@ -257,12 +258,19 @@ const Categories = () => {
                           <FaCheck size={12} color="white" />
                         </button>
                       ) : (
-                        <button
-                          className="bg-yellow-500 group-hover:text-black rounded w-[20px] h-[20px] flex justify-center items-center "
-                          onClick={() => handleEditStatus(childCategory.id)}
-                        >
-                          <FaRegEdit size={12} />
-                        </button>
+                        <div className="flex items-center gap-2">
+                          <button
+                            className="bg-yellow-500 group-hover:text-black rounded w-[20px] h-[20px] flex justify-center items-center "
+                            onClick={() => handleEditStatus(childCategory.id)}
+                          >
+                            <FaRegEdit size={12} />
+                          </button>
+                          <Link to={`/category/${childCategory.id}/products`}>
+                            <button className="bg-red-400 text-white rounded w-[70px] h-[20px] flex justify-center items-center text-[12px]">
+                              продукты
+                            </button>
+                          </Link>
+                        </div>
                       )}
                     </div>
                   </div>

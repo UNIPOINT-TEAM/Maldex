@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import {
   GetMainCatalog,
+  GetMainCatalogactive,
   GetSubSubCatalog,
   PutData,
   PutWithFormData,
@@ -46,7 +47,7 @@ const MainCatalog = () => {
   };
 
   useEffect(() => {
-    GetMainCatalog().then((res) => {
+    GetMainCatalogactive().then((res) => {
       setCategories(res);
     });
     GetSubSubCatalog(

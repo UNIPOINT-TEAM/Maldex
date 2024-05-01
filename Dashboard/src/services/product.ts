@@ -8,6 +8,11 @@ export const GetProduct = async () => {
   return response;
 };
 
+export const GetProductCategory = async (id: number) => {
+  const response = await api.get(`/product/all/?category_id=${id}`);
+  return response;
+};
+
 export const GetProductSearch = async (item: string) => {
   const response = await axios.get(`${BASE_URL}/product/?search=${item}`);
   return response;
