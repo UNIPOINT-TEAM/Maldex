@@ -17,3 +17,8 @@ export const DelGiftSet = async (id:number)   => {
   const response = await api.delete(`/gifts/baskets/set/catalog/${id}`);
   return response.data;
 };
+
+export const EditGiftSet = async (id: number, newData: { title: string, body: string }) => {
+  const response = await api.put(`/gifts/baskets/set/catalogs/${id}/`, newData); 
+  return response.data;
+};
