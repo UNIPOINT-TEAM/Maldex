@@ -32,6 +32,7 @@ import Admin from './pages/Admin/Admin';
 import { PadPrinting } from './pages/Applying';
 import CreatePortfolio from './pages/Portfolio/CreatePortfolio';
 import PortfolioDetail from './pages/Portfolio/PortfolioDetail';
+import CategoryProducts from './components/MainBanner/CategoryProducts';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -61,6 +62,7 @@ function App() {
         <Route path="/catalog-gift" element={<CatalogGifts />} />
         <Route path="/portfolio" element={<Portfolio />} />
         <Route path="/portfolio/:id" element={<PortfolioDetail />} />
+        <Route path="/banner/:id" element={<CategoryProducts />} />
         <Route path="/create-project" element={<CreatePortfolio />} />
         <Route path="/category/:id/products" element={<CategoryDetails />} />
         <Route path="/product" element={<Product />} />

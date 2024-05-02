@@ -8,12 +8,15 @@ import {
 } from '@material-tailwind/react';
 import { BiSolidEditAlt } from 'react-icons/bi';
 import { IoIosAddCircle } from 'react-icons/io';
+import { Link } from 'react-router-dom';
 const BannerEditModal: React.FC<any> = ({ bannberItems, onImageChange }) => {
+  console.log(bannberItems?.product_set);
+
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(!open);
   const handleEdit = () => {
-    onImageChange()
+    onImageChange();
   };
   return (
     <>
@@ -24,7 +27,7 @@ const BannerEditModal: React.FC<any> = ({ bannberItems, onImageChange }) => {
         <BiSolidEditAlt />
       </button>
       <Dialog
-        size="md"
+        size="xl"
         open={open}
         handler={handleOpen}
         className="bg-transparent shadow-none"
@@ -32,7 +35,7 @@ const BannerEditModal: React.FC<any> = ({ bannberItems, onImageChange }) => {
         <Card className="mx-auto w-full font-satoshi">
           <CardBody className="flex flex-col gap-4">
             <Typography variant="h4" color="blue-gray" className="font-satoshi">
-              Изменить логотип категории
+              Изменить баннер
             </Typography>
             <div className="grid grid-cols-2 gap-4">
               <div className="col-span-2">
@@ -52,25 +55,18 @@ const BannerEditModal: React.FC<any> = ({ bannberItems, onImageChange }) => {
             </h2>
             <div className="grid grid-cols-4 gap-2">
               {bannberItems?.product_set.map((item) => (
-                <label
-                  htmlFor="cover"
-                  className="flex group relative col-span-1 w-full h-[120px] cursor-pointer border-dashed items-center justify-center gap-2 rounded-xl border  text-sm font-medium  hover:bg-opacity-90 "
-                >
-                  <input
-                    type="file"
-                    name="cover"
-                    id="cover"
-                    className="sr-only"
-                  />
+                <Link to={`/banner/${item.id}`}>
                   <img
-                    src={item?.productID?.images_set[0]?.big_url}
+                    src={item?.productID?.images_set[0]?.image_url}
                     alt=""
-                    className="w-full h-full rounded-xl object-cover"
+                    className="w-[200px] h-[200px] rounded-xl object-cover"
                   />
-                  <div className="absolute opacity-0 duration-300 group-hover:opacity-100 rounded-xl flex items-center justify-center w-full h-full bg-white">
-                    <IoIosAddCircle className="text-title-xl" />
-                  </div>
-                </label>
+                  <p>
+                    {item?.productID?.name.length > 20
+                      ? item?.productID?.name.slice(0, 20) + '...'
+                      : item?.productID?.name}
+                  </p>
+                </Link>
               ))}
             </div>
           </CardBody>
