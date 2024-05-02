@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Controller, FreeMode, Navigation, Thumbs } from "swiper/modules";
 import SwiperCore from "swiper";
@@ -21,7 +21,7 @@ const Galleryslider = () => {
   // @ts-expect-error: This
   const activeIndex = useSelector((state) => state.carousel.activeCaruselIndex);
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperCore>();
-  const [slides, setSlides] = useState([]);
+  const swiperRef = useRef<any>(null);
 
   return (
     <div className="">
@@ -74,66 +74,77 @@ const Galleryslider = () => {
         </div>
       </div>
       <div className="mt-8 relative h-[500px] ">
-        <Swiper
-          thumbs={{
-            swiper:
-              thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null,
-          }}
-          navigation={{
-            prevEl: ".prev-arrow-g",
-            nextEl: ".next-arrow-g",
-          }}
-          onSlideChange={(swiper) =>
-            dispatch(onActiveCarusel(swiper?.activeIndex))
-          }
-          modules={[FreeMode, Navigation, Thumbs, Controller]}
-          className="w-full h-[500px] bg-[#eaebea] rounded-lg "
-        >
-          {items.map((item, i) => (
-            <SwiperSlide
-              id={i}
-              key={i}
-              className="h-full w-full cursor-pointer gallery-slide rounded-lg bg-[#fff]"
-            >
-              {item.template && React.cloneElement(item.template, { ...item })}
-            </SwiperSlide>
-          ))}
-        </Swiper>
-        <Swiper
-          spaceBetween={20}
-          onSwiper={setThumbsSwiper}
-          freeMode={true}
-          slidesPerView={5.5}
-          watchSlidesProgress={true}
-          modules={[FreeMode, Navigation, Thumbs]}
-          className="w-full cursor-pointer border relative border-lightSecondary my-4 rounded-lg p-4"
-        >
-          {slides.map((item, i) => (
-            <SwiperSlide
-              key={i}
-              className="h-[90px] rounded-lg w-[145px] border"
-            >
-              <img
-                src={item}
-                alt="slider-img"
-                className="object-cover rounded-lg object-center h-full"
-              />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-        {items.length > 0 && (
-          <div className="navigation-box absolute z-[9] flex items-center gap-2 font-medium">
-            <button className="prev-arrow-g flex justify-center items-center w-[40px] h-[40px] border border-darkPrimary hover:bg-redPrimary hover:text-[#fff] hover:border-redPrimary rounded-[10px] duration-200">
-              <FaArrowLeft className="text-fs_8 lg:text-fs_7" />
-            </button>
-            <p className="text-fs_6">
-              <span className="text-redPrimary">{activeIndex + 1}</span> из{" "}
-              {items.length}
-            </p>
-            <button className="next-arrow-g flex justify-center items-center w-[40px] h-[40px] border border-darkPrimary hover:bg-redPrimary hover:text-[#fff] hover:border-redPrimary rounded-[10px] duration-200">
-              <FaArrowRight className="text-fs_8 lg:text-fs_7" />
-            </button>
+        {items.length == 0 ? (
+          <div className="w-full h-[500px] bg-[#eaebea] rounded-lg flex items-center justify-center">
+            <h3 className="text-[25px]">No content</h3>
           </div>
+        ) : (
+          <Swiper
+            thumbs={{
+              swiper:
+                thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null,
+            }}
+            navigation={{
+              prevEl: ".prev-arrow-g",
+              nextEl: ".next-arrow-g",
+            }}
+            onSlideChange={(swiper) =>
+              dispatch(onActiveCarusel(swiper?.activeIndex))
+            }
+            modules={[FreeMode, Navigation, Thumbs, Controller]}
+            className="w-full h-[500px] bg-[#eaebea] rounded-lg "
+            ref={swiperRef}
+          >
+            {items.map((item, i) => (
+              <SwiperSlide
+                id={i}
+                key={i}
+                className="h-full w-full cursor-pointer gallery-slide rounded-lg bg-[#fff]"
+              >
+                {item.template &&
+                  React.cloneElement(item.template, { ...item })}
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        )}
+        {items.length > 0 && (
+          <>
+            <Swiper
+              spaceBetween={20}
+              onSwiper={setThumbsSwiper}
+              freeMode={true}
+              slidesPerView={5.5}
+              watchSlidesProgress={true}
+              modules={[FreeMode, Navigation, Thumbs]}
+              className="w-full cursor-pointer border relative border-lightSecondary my-4 rounded-lg p-4"
+            >
+              {items.map((item, i) => (
+                <SwiperSlide
+                  key={i}
+                  className="h-[90px] rounded-lg w-[145px] border"
+                >
+                  <img
+                    src={""}
+                    alt="slider-img"
+                    className="object-cover rounded-lg object-center h-full"
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+
+            <div className="navigation-box absolute z-[9] flex items-center gap-2 font-medium">
+              <button className="prev-arrow-g flex justify-center items-center w-[40px] h-[40px] border border-darkPrimary hover:bg-redPrimary hover:text-[#fff] hover:border-redPrimary rounded-[10px] duration-200">
+                <FaArrowLeft className="text-fs_8 lg:text-fs_7" />
+              </button>
+              <p className="text-fs_6">
+                <span className="text-redPrimary">{activeIndex + 1}</span> из{" "}
+                {items.length}
+              </p>
+              <button className="next-arrow-g flex justify-center items-center w-[40px] h-[40px] border border-darkPrimary hover:bg-redPrimary hover:text-[#fff] hover:border-redPrimary rounded-[10px] duration-200">
+                <FaArrowRight className="text-fs_8 lg:text-fs_7" />
+              </button>
+            </div>
+          </>
         )}
       </div>
     </div>

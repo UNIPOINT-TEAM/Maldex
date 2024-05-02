@@ -7,7 +7,19 @@ import { AllDeleteModal } from "../../components/Gallery/AllDeleteModal";
 import { updateStatus } from "../../store/carouselReducer";
 import { useDispatch, useSelector } from "react-redux";
 
-const Checkdata = [
+const Checkdata: {
+  title: string;
+  name:
+    | "landscape_visible"
+    | "standard_visible"
+    | "prices_visible"
+    | "sender_visible"
+    | "codeArticle_visible"
+    | "characteristic_visible"
+    | "description_visible"
+    | "circulationAmount_visible"
+    | "total_visible";
+}[] = [
   {
     title: "Альбомное КП",
     name: "landscape_visible",
@@ -47,15 +59,24 @@ const Checkdata = [
 ];
 
 const GeneralInfo = () => {
-  // @ts-expect-error: This
   const itemsStatus = useSelector((state) => state.carousel.status);
   const dispatch = useDispatch();
 
-  const handleSwitchChange = (name: string, isChacked: boolean) => {
-    // @ts-expect-error: This
+  const handleSwitchChange = (
+    name:
+      | "landscape_visible"
+      | "standard_visible"
+      | "prices_visible"
+      | "sender_visible"
+      | "codeArticle_visible"
+      | "characteristic_visible"
+      | "description_visible"
+      | "circulationAmount_visible"
+      | "total_visible",
+    isChacked: boolean
+  ) => {
     dispatch(updateStatus({ name, isChacked }));
   };
-  
 
   return (
     <div className="grid grid-cols-12 h-full">

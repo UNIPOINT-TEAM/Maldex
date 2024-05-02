@@ -1,7 +1,46 @@
 import { LuListFilter } from "react-icons/lu";
 import { Galleryslider, LayoutSideCard } from "../../components";
-
+import { useDispatch } from "react-redux";
+import { updateItem } from "../../store/carouselReducer";
+import { all } from "axios";
+import DefaultTemplate from "../../components/GalleryLayoutTemplate/DefaultTemplate";
+const LayoutItems = [
+  {
+    id: "1",
+    name: "Инновационный очиститель, обеззараживатель, озонатор воздуха",
+    price: "15 185.52 ₽",
+    circulation: 25,
+    total: "1 125.00",
+    image:
+      "https://s3-alpha-sig.figma.com/img/d77d/8e91/1b1b0cbce5edb9f56fa540413c1d843a?Expires=1715558400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=OJ67nt-GqeDd-8ZQ6jWXj7Mb~iVYdw62sQ5G4mKkrJmkHUXWm6KkoMJSpdbqICxiT944CwZfxPqaJsfqEDmTn96a-BTVKGclP9V7U4ld3BoSh3702MmowA6KyBxT22t7HxXelUFCLwBLTkeaFFRpXH63lfQMudgZ9OHIUUyjSfr~SSORFkZRblM7O55IHEMtjBXRPn1ShTrNnAstOzRhDuh9uDEC3wZkWsC690zkpKJb7ZWbaASGYZfUxYw4~2dx7VpoBXJTHSypQ1aVi52e4h5Kxzas-pn9pa-qt-Dsxi7nKl4EETB7xzy1FmA6Cn-Gku0-gwYeTbhwjxqt8dfvsQ__",
+    characteristics: {
+      vendor_code: "47583957",
+      size: "20х25х10 см",
+      material: "сатин, картон, 120 г/м2",
+      width: "(1 шт.): 39,04 г ",
+      available_application:
+        "DTF-Полноцвет с трансфером, SH-Шелкография (не более 1 цвета)",
+    },
+    description:
+      "Если вы думаете о s'mores как о чем-то, что нельзя отправить по почте, подумайте еще раз! Этот подарочный набор превращает всеми любимую закуску у костра в изысканную форму искусства, и он не для случайных любителей. Конечно, потребуется некоторая сборка, но все знают, что это часть удовольствия.",
+  },
+];
 const Layout = () => {
+  const dispatch = useDispatch();
+  const updateItems = (item) => {
+    dispatch(
+      updateItem({
+        data: item,
+        template: <DefaultTemplate />,
+        background: {
+          color: "",
+          image: "",
+          allSlider: false,
+          currentSlide: true,
+        },
+      })
+    );
+  };
   return (
     <div className="grid grid-cols-12">
       <div className="px-5 col-span-4 py-3 h-full min-h-screen  border-0 border-r border-lightSecondary">
@@ -56,9 +95,11 @@ const Layout = () => {
           </div>
         </div>
         <div className="body flex flex-wrap gap-y-8 justify-between mt-4">
-          <LayoutSideCard />
-          <LayoutSideCard />
-          <LayoutSideCard />
+          {LayoutItems.map((item, index) => (
+            <div onClick={() => updateItems(item)} key={index}>
+              <LayoutSideCard {...item} />
+            </div>
+          ))}
         </div>
       </div>
       <div className="p-3 flex-1 col-span-8">

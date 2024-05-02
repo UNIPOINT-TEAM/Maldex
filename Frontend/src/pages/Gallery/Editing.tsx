@@ -3,7 +3,6 @@ import { Galleryslider } from "../../components";
 import { MdOutlineAdd } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
 import { updateItem } from "../../store/carouselReducer";
 const colors = ["#ffff", "#bfedee", "#bbe3de", "#fcf2e5", "#fed4d4", "#e4d3f2"];
 const buttons = [
@@ -19,31 +18,21 @@ const Editing = () => {
   // @ts-expect-error: This
   const items = useSelector((state) => state.carousel.items);
   const dispatch = useDispatch();
+  // @ts-expect-error: This
   const activeIndex = useSelector((state) => state.carousel.activeCaruselIndex);
-  const [productData, setProductData] = useState({
-    name: items[activeIndex]?.data?.name,
-    price: items[activeIndex]?.data?.price,
-    circulation: items[activeIndex]?.data?.circulation,
-    total: items[activeIndex]?.data?.total,
-    description: items[activeIndex]?.data?.description,
-    characteristics: items[activeIndex]?.data?.characteristics,
-    image: items[activeIndex]?.data?.image,
-  });
 
   const handleInputChange = (
-    e:
-      | React.ChangeEvent<HTMLInputElement>
-      | React.ChangeEvent<HTMLTextAreaElement>
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ): void => {
-    dispatch(
-      updateItem({
-        ...items[activeIndex],
-        data: { ...items[activeIndex]?.data, [e.target.name]: e.target.value },
-      })
-    );
+    const updatedItem = {
+      ...items[activeIndex],
+      data: {
+        ...items[activeIndex]?.data,
+        [event.target.name]: event.target.value,
+      },
+    };
+    dispatch(updateItem(updatedItem));
   };
-  console.log(items[activeIndex]);
-
   return (
     <div className="grid grid-cols-12 h-full">
       <div className="px-5 col-span-4 py-3 h-full min-h-screen  border-0 border-r border-lightSecondary">
@@ -84,7 +73,7 @@ const Editing = () => {
                         updateItem({
                           ...items[activeIndex],
                           data: {
-                            ...productData,
+                            ...items[activeIndex]?.data,
                             image: URL.createObjectURL(e.target.files[0]),
                           },
                         })
@@ -158,7 +147,10 @@ const Editing = () => {
                   dispatch(
                     updateItem({
                       ...items[activeIndex],
-                      background: { color: item },
+                      background: {
+                        ...items[activeIndex]?.background,
+                        color: item,
+                      },
                     })
                   )
                 }
@@ -171,24 +163,46 @@ const Editing = () => {
               <span className="text-[11px] uppercase font-medium">
                 для текущего слайда
               </span>
-
               <Checkbox
                 crossOrigin={""}
                 ripple={false}
+                onChange={() => {
+                  dispatch(
+                    updateItem({
+                      ...items[activeIndex],
+                      background: {
+                        ...items[activeIndex]?.background,
+                        allSlider: false,
+                        currentSlide: true,
+                      },
+                    })
+                  );
+                }}
+                checked={items[activeIndex]?.background?.currentSlide}
                 className="h-4 w-4 rounded border-darkSecondary bg-[#fff] checked:bg-redPrimary checked:border-redPrimary transition-all h hover:before:opacity-0"
-                defaultChecked
               />
             </div>
             <div className="flex items-center">
               <span className="text-[11px] uppercase font-medium">
                 для всех
               </span>
-
               <Checkbox
                 crossOrigin={""}
                 ripple={false}
                 className="h-4 w-4 rounded border-darkSecondary bg-[#fff] checked:bg-redPrimary checked:border-redPrimary transition-all h hover:before:opacity-0"
-                defaultChecked
+                checked={items[activeIndex]?.background?.allSlider}
+                onChange={() => {
+                  dispatch(
+                    updateItem({
+                      ...items[activeIndex],
+                      background: {
+                        ...items[activeIndex]?.background,
+                        allSlider: true,
+                        currentSlide: false,
+                      },
+                    })
+                  );
+                }}
               />
             </div>
           </div>
@@ -215,7 +229,7 @@ const Editing = () => {
               </label>
               <input
                 id="material"
-                value={productData.characteristics?.material}
+                value={items[activeIndex]?.data?.characteristics?.material}
                 className="w-auto h-4 px-1 border border-lightSecondary outline-0 rounded-[10px]"
               />
             </div>
@@ -225,7 +239,7 @@ const Editing = () => {
               </label>
               <input
                 id="material"
-                value={productData.characteristics?.size}
+                value={items[activeIndex]?.data?.characteristics?.size}
                 className="w-auto px-1 h-4 border border-lightSecondary outline-0 rounded-[10px]"
               />
             </div>
@@ -235,7 +249,7 @@ const Editing = () => {
               </label>
               <input
                 id="material"
-                value={productData.characteristics?.weight}
+                value={items[activeIndex]?.data?.characteristics?.width}
                 className="w-[66px] px-1 h-4 border border-lightSecondary outline-0 rounded-[10px]"
               />
             </div>
@@ -245,7 +259,7 @@ const Editing = () => {
               </label>
               <input
                 id="material"
-                value={productData.characteristics?.codeArticle}
+                value={items[activeIndex]?.data?.characteristics?.vendor_code}
                 className="w-[66px] px-1 h-4 border border-lightSecondary outline-0 rounded-[10px]"
               />
             </div>
@@ -257,7 +271,7 @@ const Editing = () => {
               </h2>
               <input
                 id="material"
-                value={productData.price}
+                value={items[activeIndex]?.data?.price}
                 className="w-[110px] text-fs_8 h-[26px] px-1 border border-lightSecondary outline-0 rounded-[10px]"
               />
             </div>
@@ -267,7 +281,7 @@ const Editing = () => {
               </h2>
               <input
                 id="material"
-                value={productData.circulation}
+                value={items[activeIndex]?.data?.circulation}
                 className="w-[110px] text-fs_8 h-[26px] px-1 border border-lightSecondary outline-0 rounded-[10px]"
               />
             </div>

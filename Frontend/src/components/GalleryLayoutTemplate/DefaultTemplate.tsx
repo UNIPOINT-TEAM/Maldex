@@ -7,9 +7,10 @@ const DefaultTemplate: React.FC<TemplateData> = ({ data, background }) => {
   const {
     landscape_visible,
     prices_visible,
-    codeArticle_visible,
     description_visible,
     characteristic_visible,
+    total_visible,
+    circulationAmount_visible,
     // @ts-expect-error: This
   } = useSelector((state) => state.carousel.status);
   const [productData, setProductData] = useState({
@@ -21,7 +22,6 @@ const DefaultTemplate: React.FC<TemplateData> = ({ data, background }) => {
     characteristics: data?.characteristics,
     image: data?.image,
   });
-  console.log(landscape_visible);
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ): void => {
@@ -42,12 +42,14 @@ const DefaultTemplate: React.FC<TemplateData> = ({ data, background }) => {
       <div
         className={`${
           landscape_visible ? "col-span-3" : "col-span-7"
-        } p-8 flex items-center w-full`}
+        } p-8 flex justify-center items-center w-full`}
       >
         <img
           src={data?.image}
           alt="slider-img"
-          className="w-[500px] object-contain object-center h-auto"
+          className={`${
+            landscape_visible ? "w-[450px]" : "w-[100px]"
+          } object-contain object-center h-auto`}
         />
       </div>
       <div
@@ -59,7 +61,9 @@ const DefaultTemplate: React.FC<TemplateData> = ({ data, background }) => {
           name="name"
           onChange={handleInputChange}
           value={data?.name}
-          className={`${inputStyle} text-[36px]`}
+          className={`${inputStyle} ${
+            landscape_visible ? "text-[36px]" : "text-[30px]"
+          }`}
         />
         <div className="grid grid-cols-12 gap-4 w-full my-2">
           <div className="col-span-3">
@@ -78,7 +82,7 @@ const DefaultTemplate: React.FC<TemplateData> = ({ data, background }) => {
             )}
           </div>
           <div className="col-span-3">
-            {codeArticle_visible && (
+            {circulationAmount_visible && (
               <>
                 <h3 className="text-[#222220] text-[12px] opacity-70 font-medium mb-2">
                   Тираж (шт)
@@ -93,7 +97,7 @@ const DefaultTemplate: React.FC<TemplateData> = ({ data, background }) => {
             )}
           </div>
           <div className="col-span-6 flex flex-col items-end">
-            {codeArticle_visible && (
+            {total_visible && (
               <div>
                 <h3 className="text-[#222220] text-[12px] opacity-70 font-medium mb-2">
                   Тираж (шт)

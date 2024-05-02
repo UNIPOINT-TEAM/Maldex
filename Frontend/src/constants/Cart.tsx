@@ -37,7 +37,6 @@ export const products = [
       size: "20х25х10 см",
       material: "сатин, картон, 120 г/м2",
       width: "(1 шт.): 39,04 г ",
-
       available_application:
         "DTF-Полноцвет с трансфером, SH-Шелкография (не более 1 цвета)",
     },

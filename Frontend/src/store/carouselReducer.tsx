@@ -71,7 +71,15 @@ const carouselSlice = createSlice({
     },
     updateItem: (state, action: PayloadAction<any>) => {
       const { activeCaruselIndex } = state;
+      const { background } = action.payload;
       state.items[activeCaruselIndex] = action.payload;
+      if (background.allSlider) {
+        state.items.forEach((item) => {
+          item.background = { ...background };
+        });
+      } else {
+        state.items[activeCaruselIndex].background = { ...background };
+      }
     },
     deleteItem: (state) => {
       state.items.splice(state.activeCaruselIndex, 1);
@@ -93,9 +101,15 @@ const carouselSlice = createSlice({
     onActiveCarusel: (state, action: PayloadAction<number>) => {
       state.activeCaruselIndex = action.payload;
     },
-    updateStatus: (state, action: PayloadAction<CarouselState["status"]>) => {
-      const { name, checked } = action.payload;
-      state.status[name] = checked;
+    updateStatus: (
+      state,
+      action: PayloadAction<{
+        name: keyof CarouselState["status"];
+        isChacked: boolean;
+      }>
+    ) => {
+      const { name, isChacked } = action.payload;
+      state.status[name] = isChacked;
     },
   },
 });
@@ -108,6 +122,7 @@ export const {
   copyItem,
   updateStatus,
   updateItem,
+  clearItems,
 } = carouselSlice.actions;
 
 export default carouselSlice.reducer;

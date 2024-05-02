@@ -7,13 +7,13 @@ import {
 } from "@material-tailwind/react";
 import deleteIcon from "../../assets/icons/Delete.svg";
 import { useDispatch } from "react-redux";
-import { deleteItem } from "../../store/carouselReducer";
+import { clearItems, deleteItem } from "../../store/carouselReducer";
 export function AllDeleteModal() {
   const [open, setOpen] = React.useState(false);
   const dispatch = useDispatch();
   const handleOpen = () => setOpen(!open);
   const handleDelete = () => {
-    dispatch(deleteItem());
+    dispatch(clearItems());
     handleOpen();
   };
   return (
