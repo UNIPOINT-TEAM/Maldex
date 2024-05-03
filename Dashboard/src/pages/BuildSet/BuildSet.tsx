@@ -256,18 +256,20 @@ const BuildSet = () => {
                         </AccordionBody>
                       </Accordion>
                       <div className="flex flex-col justify-center mt-2">
-                        <Button
-                          buttonType="filled"
-                          size="regular"
-                          rounded={false}
-                          block={false}
-                          iconOnly={true}
-                          ripple="light"
-                          // onClick={(event) => editAccordion(index, event)}
-                          className="bg-yellow-400"
-                        >
-                          <MdEdit />
-                        </Button>
+                        <Link to={`/build-set-edit/${item.id}`}>
+                          <Button
+                            buttonType="filled"
+                            size="regular"
+                            rounded={false}
+                            block={false}
+                            iconOnly={true}
+                            ripple="light"
+                            // onClick={(event) => editAccordion(index, event)}
+                            className="bg-yellow-400"
+                          >
+                            <MdEdit />
+                          </Button>
+                        </Link>
                         <Button
                           color="red"
                           buttonType="filled"

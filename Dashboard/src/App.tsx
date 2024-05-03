@@ -23,6 +23,7 @@ import {
   AddArticles,
   Categories,
   CategoryDetails,
+  EditBuildSet,
 } from './pages';
 import 'swiper/css';
 import 'swiper/css/scrollbar';
@@ -59,6 +60,7 @@ function App() {
         <Route path="/catalog" element={<Catalog />} />
         <Route path="/build-set" element={<BuildSet />} />
         <Route path="/build-set-add" element={<AddBuildSet />} />
+        <Route path="/build-set-edit/:id" element={<EditBuildSet />} />
         <Route path="/catalog-gift" element={<CatalogGifts />} />
         <Route path="/portfolio" element={<Portfolio />} />
         <Route path="/portfolio/:id" element={<PortfolioDetail />} />

@@ -4,6 +4,13 @@ export const GetGiftSet
  = async () => {
   const response = await api.get(`/gifts/baskets/set/catalogs/`);
   return response.data;
+}
+
+;
+export const GetGiftSetId
+ = async (id:number) => {
+  const response = await api.get(`/gifts/baskets/set/catalogs/${id}`);
+  return response.data;
 };
 
 

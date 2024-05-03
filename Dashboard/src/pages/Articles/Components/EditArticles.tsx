@@ -5,13 +5,16 @@ import DefaultLayout from '../../../layout/DefaultLayout';
 import { GetArticlesDetail, UpgradeArticles } from '../../../services/articles';
 import { useParams } from 'react-router-dom';
 import { Button, Input } from '@material-tailwind/react';
+import DOMPurify from 'dompurify';
 
-function EditArticles() {
+function EditArticles({ htmlContent }) {
   const { id } = useParams();
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [image, setImage] = useState(null);
+  const cleanHtml = DOMPurify.sanitize(htmlContent); // Очищаем HTML
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,6 +22,8 @@ function EditArticles() {
         const article = await GetArticlesDetail(Number(id));
         setTitle(article.title);
         setContent(article.body);
+        console.log(article);
+        
       } catch (error) {
         console.error('Error fetching article:', error);
       }
@@ -90,6 +95,17 @@ function EditArticles() {
           data={content}
           onChange={handleEditorChange}
         />
+      </div>
+
+      <div>
+      <img src={image} alt="" />
+      <h1>{title}</h1>
+      {/* <p>{content}</p> */}
+
+
+      <div className="article-container">
+      <div dangerouslySetInnerHTML={{ __html: content }} />
+    </div>
       </div>
       <Button className="my-6" color="blue" onClick={handleSubmit}>
         Отправить
