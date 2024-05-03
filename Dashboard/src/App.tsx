@@ -75,7 +75,7 @@ function App() {
         <Route path="/articles" element={<Articles />} />
         <Route path="/articles/:id" element={<EditArticles />} />
         <Route path="/articles/add" element={<AddArticles />} />
-        <Route path="/print/apply" element={<Applying />} />
+        <Route path="/print/:id" element={<Applying />} />
         <Route path="/print/pad-printing" element={<PadPrinting />} />
         <Route path="/auth/sign-in" element={<SignIn />} />
         <Route path="/auth/sign-up" element={<SignUp />} />
