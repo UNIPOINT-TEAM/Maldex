@@ -18,6 +18,8 @@ import { MdDelete, MdEdit } from 'react-icons/md';
 import { DelGiftSet, GetGiftSet } from '../../services/buildset';
 import { Link } from 'react-router-dom';
 import { GetProduct } from '../../services/main';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Scrollbar } from 'swiper/modules';
 
 const BuildSet = () => {
   const [open, setOpen] = useState<number>(0);
@@ -34,8 +36,14 @@ const BuildSet = () => {
 
   const handleOpen = (value: number) => setOpen(open === value ? 0 : value);
 
-  const handleReorder = (newOrder: number[]) => setOrder(newOrder); // Обработчик изменения порядка
-
+  const handleReorder = (newOrder: number[]) => {
+    // Создайте новый массив аккордеонов с обновленным порядком id
+    const newAccordionData = newOrder.map((index) => accordionData[index]);
+    // Установите новый массив аккордеонов с обновленным порядком id
+    setAccordionData(newAccordionData);
+    // Установите новый порядок аккордеонов
+    setOrder(newOrder);
+  };
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -55,14 +63,13 @@ const BuildSet = () => {
     try {
       // Вызываете сервис или API для удаления аккордеона по ID
       await DelGiftSet(id);
-      
+
       // Обновляете состояние аккордионов, удаляя удаленный аккордеон
-      setAccordionData(prevData => prevData.filter(item => item.id !== id));
+      setAccordionData((prevData) => prevData.filter((item) => item.id !== id));
     } catch (error) {
       console.error('Ошибка при удалении аккордеона:', error);
     }
   };
-
 
   return (
     <DefaultLayout>
@@ -107,32 +114,162 @@ const BuildSet = () => {
                           </h2>
                         </AccordionHeader>
                         <AccordionBody className="p-4" placeholder={<div />}>
-                          {accordionData[index]?.product_sets.map(
-                            (set, setIndex) => (
-                              <div key={setIndex} className="mb-4">
-                                <h3 className="font-semibold">
-                                  {set.product_sets.name}
-                                </h3>
-                                <p>{set.product_sets.description}</p>
-                                {/* Добавьте здесь другие поля, которые вы хотите отобразить */}
-                              </div>
-                            ),
-                          )}
+                          <div className="mb-4">
+                            <Swiper
+                              slidesPerView={2}
+                              spaceBetween={10}
+                              pagination={{
+                                clickable: true,
+                              }}
+                              scrollbar={{ draggable: true }}
+                              navigation={{
+                                prevEl: '.prev',
+                                nextEl: '.next',
+                              }}
+                              breakpoints={{
+                                640: {
+                                  slidesPerView: 2,
+                                  spaceBetween: 20,
+                                },
+                                768: {
+                                  slidesPerView: 4,
+                                  spaceBetween: 40,
+                                },
+                                1024: {
+                                  slidesPerView: 5,
+                                  spaceBetween: 50,
+                                },
+                              }}
+                              // @ts-ignore
+                              scrollbar={{ draggable: true }}
+                              modules={[Navigation, Scrollbar]}
+                              className=" w-full overscroll-x-auto h-[430px] md:h-[500px]"
+                            >
+                              {/* @ts-ignore */}
+                              {item.product_sets.map((productSet, setIndex) => (
+                                <SwiperSlide className="w-full" key={item.id}>
+                                  <div className="catalog ">
+                                    <div className="relative swiper-top-container h-[220px] mb-4 bg-gray-200">
+                                      <Swiper
+                                        pagination={{ clickable: true }}
+                                        modules={[Navigation, Pagination]}
+                                        className="  h-full"
+                                      >
+                                        {productSet?.product_sets.images_set?.map(
+                                          (i) => (
+                                            <SwiperSlide className="w-full h-full">
+                                              <div
+                                                // onClick={() => handleOpen('xl')}
+                                                className="relative  h-full"
+                                              >
+                                                <div className="flex justify-center items-center h-full">
+                                                  <img
+                                                    className="mb-2  object-contain product-img"
+                                                    src={i.image_url}
+                                                    alt=""
+                                                  />
+                                                </div>
+                                              </div>
+                                            </SwiperSlide>
+                                          ),
+                                        )}
+                                      </Swiper>
+                                      <div className="absolute z-[9999] bottom-[25px] right-[15px] flex flex-col gap-1 swiper-opacity">
+                                        <button
+                                          className={`w-[8px] h-[8px] bg-red-primary rounded-[4px]`}
+                                        ></button>
+                                        <button
+                                          className={`w-[8px] h-[8px] bg-orange-600 rounded-[4px]`}
+                                        ></button>
+                                        <button
+                                          className={`w-[8px] h-[8px] bg-green-600 rounded-[4px]`}
+                                        ></button>
+                                        <button
+                                          className={`w-[8px] h-[8px] bg-green-primary rounded-[4px]`}
+                                        ></button>
+                                        <button
+                                          className={`w-[8px] h-[8px] bg-blue-600 rounded-[4px]`}
+                                        ></button>
+                                        <button
+                                          className={`w-[8px] h-[8px] bg-purple-600 rounded-[4px]`}
+                                        ></button>
+                                        <button
+                                          className={`w-[8px] h-[8px] bg-indigo-600 rounded-[4px]`}
+                                        ></button>
+                                      </div>
+
+                                      <div className="absolute z-[999] top-2 left-2 flex gap-2">
+                                        <div className="border border-red-primary text-[10px] text-red-primary rounded-lg px-1">
+                                          NEW
+                                        </div>
+                                      </div>
+                                    </div>
+                                    {/* {defaultProduct ? ( */}
+                                    <div className="default">
+                                      <div className="mb-2 md:mb-5  min-h-[70px] ">
+                                        <p className="text-fs_7 tracking-wide">
+                                          {
+                                            //@ts-ignore
+                                            productSet.product_sets.name
+                                              .length > 30
+                                              ? //@ts-ignore
+                                                productSet.product_sets.name.substring(
+                                                  0,
+                                                  40,
+                                                ) + '...'
+                                              : //@ts-ignore
+                                                productSet.product_sets.name
+                                          }
+                                        </p>
+                                      </div>
+                                      <p className="mb-2 text-gray-600 text-fs_8">
+                                        {productSet.product_sets.vendor_code}
+                                      </p>
+                                      <div className="relative mb-2">
+                                        <p className="text-[16px] md:text-fs_4">
+                                          {productSet.product_sets.price}
+                                          <span className="text-xs absolute top-0">
+                                            12
+                                          </span>
+                                          <span className="ml-4 mr-1">
+                                            {productSet.product_sets.price_type}
+                                          </span>
+                                          <span className="text-xs absolute top-0 line-through text-red-primary">
+                                            234
+                                          </span>
+                                        </p>
+                                      </div>
+                                      <div className="flex justify-between catalog_btns">
+                                        <button
+                                          // onClick={changeStatus}
+                                          className="bg-red-primary flex justify-center items-center uppercase  p-2 text-white rounded-lg font-bold tracking-wider text-fs_8 lg:text-sm gap-1 lg:w-[130px]"
+                                        >
+                                          Удалить
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </SwiperSlide>
+                              ))}
+                            </Swiper>
+                          </div>
                         </AccordionBody>
                       </Accordion>
                       <div className="flex flex-col justify-center mt-2">
-                        <Button
-                          buttonType="filled"
-                          size="regular"
-                          rounded={false}
-                          block={false}
-                          iconOnly={true}
-                          ripple="light"
-                          // onClick={(event) => editAccordion(index, event)}
-                          className="bg-yellow-400"
-                        >
-                          <MdEdit />
-                        </Button>
+                        <Link to={`/build-set-edit/${item.id}`}>
+                          <Button
+                            buttonType="filled"
+                            size="regular"
+                            rounded={false}
+                            block={false}
+                            iconOnly={true}
+                            ripple="light"
+                            // onClick={(event) => editAccordion(index, event)}
+                            className="bg-yellow-400"
+                          >
+                            <MdEdit />
+                          </Button>
+                        </Link>
                         <Button
                           color="red"
                           buttonType="filled"
@@ -151,10 +288,8 @@ const BuildSet = () => {
                 ))}
               </Reorder.Group>
 
-
-
               <div className="flex justify-end mt-4">
-                <Link to='/build-set-add' >
+                <Link to="/build-set-add">
                   <Button
                     color="green"
                     buttonType="filled"
