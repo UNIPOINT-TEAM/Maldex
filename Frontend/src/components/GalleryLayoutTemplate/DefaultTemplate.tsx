@@ -1,9 +1,13 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Rnd } from "react-rnd";
 import { TemplateData } from "../../types";
 
-const DefaultTemplate: React.FC<TemplateData> = ({ data, background }) => {
+const DefaultTemplate: React.FC<TemplateData> = ({
+  data,
+  background,
+  applying,
+}) => {
   const {
     landscape_visible,
     prices_visible,
@@ -33,12 +37,33 @@ const DefaultTemplate: React.FC<TemplateData> = ({ data, background }) => {
 
   return (
     <div
-      style={{ backgroundColor: background?.color }}
+      style={{
+        backgroundColor: background?.color,
+        backgroundImage: `url(${background?.image})`,
+      }}
       className={`grid ${
         landscape_visible ? "w-full" : "w-[400px]"
-      }  grid-cols-7 h-full border p-3 rounded-lg border-darkSecondary 
+      }  grid-cols-7 bg-cover bg-center  h-full border p-3 rounded-lg border-darkSecondary 
       }]`}
     >
+      {applying?.image && (
+        <Rnd
+          style={{ backgroundColor: background?.color }}
+          className="w-full h-full"
+          default={{
+            x: 0,
+            y: 0,
+            width: 200,
+            height: 200,
+          }}
+        >
+          <img
+            src={applying?.image}
+            className={` object-contain object-center w-full h-full`}
+            alt=""
+          />
+        </Rnd>
+      )}
       <div
         className={`${
           landscape_visible ? "col-span-3" : "col-span-7"
@@ -46,10 +71,12 @@ const DefaultTemplate: React.FC<TemplateData> = ({ data, background }) => {
       >
         <img
           src={data?.image}
+          width={landscape_visible ? 450 : 100}
+          height={landscape_visible ? 450 : 100}
           alt="slider-img"
           className={`${
             landscape_visible ? "w-[450px]" : "w-[100px]"
-          } object-contain object-center h-auto`}
+          } object-contain object-center h-[300px]`}
         />
       </div>
       <div
@@ -165,7 +192,7 @@ const DefaultTemplate: React.FC<TemplateData> = ({ data, background }) => {
         )}
         {description_visible && landscape_visible! && (
           <div className="relative w-full">
-            <Rnd style={{ width: "100%", height: "100%" }} className="w-full">
+            <Rnd>
               <textarea
                 name="description"
                 value={data?.description}

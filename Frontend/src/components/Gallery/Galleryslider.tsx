@@ -7,13 +7,38 @@ import deleteIcon from "../../assets/icons/Delete.svg";
 import "swiper/css";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
-
+import generatePDF, { Margin, Resolution, usePDF } from "react-to-pdf";
 import {
   addItem,
   copyItem,
   deleteItem,
   onActiveCarusel,
 } from "../../store/carouselReducer";
+const options = {
+  filename: "advanced-example.pdf",
+  method: "save",
+  page: {
+    margin: Margin.SMALL,
+    format: "letter",
+    orientation: "landscape",
+  },
+  canvas: {
+    useCORS: true,
+    logging: true,
+    qualityRatio: 1, // 0.1 - 100
+    resolution: Resolution.HIGH,
+  },
+  overrides: {
+    pdf: {
+      compress: true,
+    },
+  },
+};
+
+// you can also use a function to return the target element besides using React refs
+const getTargetElement = () => document.getElementById("container");
+
+const downloadPdf = () => generatePDF(getTargetElement, options);
 const Galleryslider = () => {
   const dispatch = useDispatch();
   // @ts-expect-error: This
@@ -21,10 +46,8 @@ const Galleryslider = () => {
   // @ts-expect-error: This
   const activeIndex = useSelector((state) => state.carousel.activeCaruselIndex);
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperCore>();
-  const swiperRef = useRef<any>(null);
-
   return (
-    <div className="">
+    <div className="w-full h-full relative">
       <div className="flex mt-4 w-full">
         <div className="flex gap-3">
           <span className="border border-darkPrimary px-3 rounded-lg font-medium">
@@ -73,7 +96,8 @@ const Galleryslider = () => {
           </button>
         </div>
       </div>
-      <div className="mt-8 relative h-[500px] ">
+
+      <div className="mt-8 relative h-[500px] mb-52">
         {items.length == 0 ? (
           <div className="w-full h-[500px] bg-[#eaebea] rounded-lg flex items-center justify-center">
             <h3 className="text-[25px]">No content</h3>
@@ -88,16 +112,15 @@ const Galleryslider = () => {
               prevEl: ".prev-arrow-g",
               nextEl: ".next-arrow-g",
             }}
+            simulateTouch={false}
             onSlideChange={(swiper) =>
               dispatch(onActiveCarusel(swiper?.activeIndex))
             }
             modules={[FreeMode, Navigation, Thumbs, Controller]}
             className="w-full h-[500px] bg-[#eaebea] rounded-lg "
-            ref={swiperRef}
           >
             {items.map((item, i) => (
               <SwiperSlide
-                id={i}
                 key={i}
                 className="h-full w-full cursor-pointer gallery-slide rounded-lg bg-[#fff]"
               >
@@ -146,6 +169,24 @@ const Galleryslider = () => {
             </div>
           </>
         )}
+      </div>
+
+      <h1 className="text-fs_2 pt-8">PDF Test Version</h1>
+      <button
+        className="border border-black p-2 rounded-lg my-2"
+        onClick={downloadPdf}
+      >
+        Download PDF
+      </button>
+      <div className="w-full" id="container">
+        {items.map((item, i) => (
+          <div
+            key={i}
+            className="h-[500px] w-full cursor-pointer gallery-slide rounded-lg bg-[#fff]"
+          >
+            {item.template && React.cloneElement(item.template, { ...item })}
+          </div>
+        ))}
       </div>
     </div>
   );

@@ -56,4 +56,7 @@ export interface TemplateData {
     currentSlide: boolean;
     allSlider: boolean;
   };
+  applying?: {
+    image: string;
+  };
 }

@@ -30,8 +30,7 @@ export const products = [
     price: "45.00 ₽",
     circulation: 25,
     total: "1 125.00",
-    image:
-      "https://www.transparentpng.com/download/shirt/oYBUkZ-white-t-shirt-clipart-hd.png",
+    image: "https://picsum.photos/id/30/400/200",
     characteristics: {
       vendor_code: "47583957",
       size: "20х25х10 см",

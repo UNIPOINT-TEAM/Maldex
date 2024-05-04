@@ -29,6 +29,9 @@ const initialState: CarouselState = {
       currentSlide: true,
       allSlider: false,
     },
+    applying: {
+      image: "",  
+    },
   })) || [{ template: null, background: "", data: [] }],
   status: {
     landscape_visible: true,

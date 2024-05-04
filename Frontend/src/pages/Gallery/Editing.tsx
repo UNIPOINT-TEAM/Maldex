@@ -4,6 +4,7 @@ import { MdOutlineAdd } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { updateItem } from "../../store/carouselReducer";
+import { image } from "html2canvas/dist/types/css/types/image";
 const colors = ["#ffff", "#bfedee", "#bbe3de", "#fcf2e5", "#fed4d4", "#e4d3f2"];
 const buttons = [
   "В-Шелкография на тек...",
@@ -33,6 +34,7 @@ const Editing = () => {
     };
     dispatch(updateItem(updatedItem));
   };
+  console.log(items[activeIndex]);
   return (
     <div className="grid grid-cols-12 h-full">
       <div className="px-5 col-span-4 py-3 h-full min-h-screen  border-0 border-r border-lightSecondary">
@@ -92,14 +94,25 @@ const Editing = () => {
               </h3>
               <div className="card border-2 rounded-xl border-redPrimary bg-[#d9d9d9] w-[120px] h-[64px]">
                 <label
-                  htmlFor="cover"
+                  htmlFor="applying"
                   className="flex  relative col-span-1 w-full h-full cursor-pointer items-center justify-center gap-2 rounded-xl text-sm font-medium  hover:bg-opacity-90 "
                 >
                   <input
                     type="file"
-                    name="cover"
-                    id="cover"
+                    name="applying"
+                    id="applying"
                     className="sr-only"
+                    onChange={(e) => {
+                      dispatch(
+                        updateItem({
+                          ...items[activeIndex],
+                          applying: {
+                            ...items[activeIndex]?.applying,
+                            image: URL.createObjectURL(e.target.files[0]),
+                          },
+                        })
+                      );
+                    }}
                   />
                   <div className="rounded-full bg-redPrimary flex items-center justify-center w-8 h-8">
                     <MdOutlineAdd className="text-xl text-[#fff] p-0" />
@@ -113,14 +126,25 @@ const Editing = () => {
               </h3>
               <div className="card border-2 rounded-xl border-redPrimary bg-[#d9d9d9] w-[120px] h-[64px]">
                 <label
-                  htmlFor="cover"
+                  htmlFor="upload-bg-url"
                   className="flex  relative col-span-1 w-full h-full cursor-pointer items-center justify-center gap-2 rounded-xl text-sm font-medium  hover:bg-opacity-90 "
                 >
                   <input
                     type="file"
-                    name="cover"
-                    id="cover"
+                    name="upload-bg-url"
+                    id="upload-bg-url"
                     className="sr-only"
+                    onChange={(e) => {
+                      dispatch(
+                        updateItem({
+                          ...items[activeIndex],
+                          background: {
+                            ...items[activeIndex]?.applying,
+                            image: URL.createObjectURL(e.target.files[0]),
+                          },
+                        })
+                      );
+                    }}
                   />
                   <div className="rounded-full bg-redPrimary flex items-center justify-center w-8 h-8">
                     <MdOutlineAdd className="text-xl text-[#fff] p-0" />
@@ -132,7 +156,29 @@ const Editing = () => {
               <h3 className="text-darkSecondary opacity-0 text-[10px] font-medium mb-1 uppercase">
                 Фото товара
               </h3>
-              <div className="card border-2 rounded-xl border-lightSecondary  w-[120px] h-[64px]"></div>
+              <div
+                onClick={() =>
+                  dispatch(
+                    updateItem({
+                      ...items[activeIndex],
+                      background: {
+                        ...items[activeIndex]?.background,
+                        image:
+                          "https://s3-alpha-sig.figma.com/img/4435/2dc8/607387b2f6ff21170b7e0dc90d9785ba?Expires=1715558400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ls~w8yo4BJ3i5qQsDB3TOjXwkJ1U59j76Otn9JvRgvHpzKDRXz~F8UgSveIn89-yg0Inqf-oGHjScdAUq7WconBED6MeHHhrynugK2mkfjUlPc2~yEyU7lRNFECkqsxCwkmlIffgOzTSGa29BFmAwTUe1EzrGN2isBxO3cSPui9urBi5ZdlPQ-0NF7PWoU0IYSvmoCcmohlEAhzDCaAOGU7TOXhgvkMM0fydGny-kJ53jNkOU9R1o0zWssoqVsSr0pYD17KXhtcZz958PmWJVlMnm-qmeUN0XockSL6Ht7OL4B4KOVDdi7PiB9kLzOBiYxvdg-8jiIB9Z3lwBbnQfg__",
+                      },
+                    })
+                  )
+                }
+                className="card border-2 cursor-pointer rounded-xl border-lightSecondary  w-[120px] h-[64px]"
+              >
+                <img
+                  src={
+                    "https://s3-alpha-sig.figma.com/img/4435/2dc8/607387b2f6ff21170b7e0dc90d9785ba?Expires=1715558400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ls~w8yo4BJ3i5qQsDB3TOjXwkJ1U59j76Otn9JvRgvHpzKDRXz~F8UgSveIn89-yg0Inqf-oGHjScdAUq7WconBED6MeHHhrynugK2mkfjUlPc2~yEyU7lRNFECkqsxCwkmlIffgOzTSGa29BFmAwTUe1EzrGN2isBxO3cSPui9urBi5ZdlPQ-0NF7PWoU0IYSvmoCcmohlEAhzDCaAOGU7TOXhgvkMM0fydGny-kJ53jNkOU9R1o0zWssoqVsSr0pYD17KXhtcZz958PmWJVlMnm-qmeUN0XockSL6Ht7OL4B4KOVDdi7PiB9kLzOBiYxvdg-8jiIB9Z3lwBbnQfg__"
+                  }
+                  alt="slider-img"
+                  className="h-full w-full object-cover rounded-xl object-center"
+                />
+              </div>
             </div>
           </div>
           <h2 className="text-[10px] uppercase pb-1 mt-5 font-bold text-darkSecondary">
@@ -150,6 +196,7 @@ const Editing = () => {
                       background: {
                         ...items[activeIndex]?.background,
                         color: item,
+                        image: "",
                       },
                     })
                   )
