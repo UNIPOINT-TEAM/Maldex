@@ -13,6 +13,7 @@ export { default as Articles } from './Articles/Articles';
 export { default as EditArticles } from './Articles/Components/EditArticles';
 export { default as AddArticles } from './Articles/Components/AddArticles';
 export { default as Applying } from './Applying/Applying';
+export { default as AddPrint } from './Applying/components/AddPrint';
 export { default as SignIn } from './Authentication/SignIn';
 export { default as SignUp } from './Authentication/SignUp';
 export { default as Product } from './Product/Product';

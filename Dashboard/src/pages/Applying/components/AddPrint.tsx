@@ -1,7 +1,7 @@
 // components/AddArticles.js
 import React, { useState, useRef } from 'react';
-// import { CKEditor } from '@ckeditor/ckeditor5-react';
-// import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import DefaultLayout from '../../../layout/DefaultLayout';
 import { PostArticles } from '../../../services/articles';
 import { Button, Input } from '@material-tailwind/react';
@@ -9,12 +9,13 @@ import { BASE_URL } from '../../../utils/BaseUrl';
 import CustomUploadAdapter from './UploadAdapter';
 import {
   UploadAdapter,
-  FileLoader,
-} from '@ckeditor/ckeditor5-upload/src/filerepository';
-// import { Image, ImageResizeEditing, ImageResizeHandles } from '@ckeditor/ckeditor5-image';
-// import Highlight from '@ckeditor/ckeditor5-highlight/src/highlight';
+  FileLoader
+} from "@ckeditor/ckeditor5-upload/src/filerepository";
+import { Image, ImageResizeEditing, ImageResizeHandles } from '@ckeditor/ckeditor5-image';
 
-import { CKEditor } from 'ckeditor4-react';
+
+
+
 
 function uploadAdapter(loader: FileLoader): UploadAdapter {
   return {
@@ -25,30 +26,27 @@ function uploadAdapter(loader: FileLoader): UploadAdapter {
         });
       });
     },
-    abort: () => {},
+    abort: () => {}
   };
 }
 function uploadPlugin(editor: Editor) {
-  editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+  editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
     return uploadAdapter(loader);
   };
 }
 
-function AddArticles() {
+
+function AddPrint() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [image, setImage] = useState(null);
   const [blogData, setBlogData] = useState(null);
 
-  const handleEditorChange = (event) => {
-    const editor = event.editor;
-    if (editor) {
-      const data = editor.getData();
-      setContent(data);
-      console.log('Content of CKEditor:', data); // Вывод содержимого CKEditor в консоль
-    }
+  const handleEditorChange = (event, editor) => {
+    const data = editor.getData();
+    setContent(data);
   };
-  
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setImage(file);
@@ -60,18 +58,21 @@ function AddArticles() {
       formData.append('title', title);
       formData.append('body', content); // Добавляем содержимое статьи
       formData.append('image', image);
-
+  
       // Добавляем заголовок "Content-Type" в multipart/form-data, если необходимо
       const headers = { 'Content-Type': 'multipart/form-data' };
-
+  
       await PostArticles(formData, { headers }); // Передаем formData и headers в PostArticles
       console.log('Article posted successfully');
     } catch (error) {
       console.error('Error posting article:', error);
     }
   };
+  
+  
 
   const ref = useRef(null);
+
 
   const onEditorInit = (editor) => {
     editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
@@ -81,11 +82,13 @@ function AddArticles() {
 
   const handleCkeditorState = (language, _event, editor) => {
     const data = editor.getData();
-    setBlogData((prevState) => ({
+    setBlogData(prevState => ({
       ...prevState,
-      [`${language}_content`]: data,
+      [`${language}_content`]: data
     }));
   };
+
+  
 
   return (
     <DefaultLayout>
@@ -127,14 +130,35 @@ function AddArticles() {
       </div>
 
       <div className="w-full">
-        <CKEditor data={content} onChange={handleEditorChange} />
+
+        <CKEditor
+        config={{
+          // @ts-ignore
+          extraPlugins: [uploadPlugin]
+        }}
+        data={content}
+        editor={ClassicEditor}
+        // onReady={(editor) => {
+        //   ref.current = editor;
+        // }}
+
+        onReady={(editor) => {
+          editor.ui.view.editable.element.style.minHeight = "600px";
+       }}
+        onChange={handleEditorChange}
+
+        onBlur={(event, editor) => {}}
+        onFocus={(event, editor) => {}}
+
+        
+        
+      />
       </div>
-      <div>{content}</div>
-      <Button className="my-6" color="blue" onClick={handleSubmit} >
+      <Button className="my-6" color="blue" onClick={handleSubmit}>
         Отправить
       </Button>
     </DefaultLayout>
   );
 }
 
-export default AddArticles;
+export default AddPrint;
