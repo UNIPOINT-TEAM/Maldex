@@ -22,6 +22,7 @@
     "apexcharts": "^3.41.0",
     "axios": "^1.6.8",
     "ckeditor4-react": "^5.1.0",
+    "ckeditor5-custom-build": "file:ckeditor5",
     "dompurify": "^3.1.2",
     "flatpickr": "^4.6.13",
     "framer-motion": "^11.0.28",
@@ -38,6 +39,7 @@
     "react-toastify": "^9.1.3",
     "sort-by": "^0.0.2",
     "swiper": "^11.0.7",
+    "tailadmin-react-free": "file:",
     "uuidv4": "^6.2.13"
   },
   "devDependencies": {

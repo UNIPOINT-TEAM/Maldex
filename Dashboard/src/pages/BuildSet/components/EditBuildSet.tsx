@@ -1,15 +1,14 @@
 import { useEffect, useState } from 'react';
 import DefaultLayout from '../../../layout/DefaultLayout';
 import { Input } from '@material-tailwind/react';
-import { PostGiftSet } from '../../../services/buildset';
+import { GetGiftSetId, EditGiftSet } from '../../../services/buildset'; // Импортируем функцию для редактирования
 import { GetProductSearch } from '../../../services/product';
 import ProductDialog from './ProductDialog';
 import { useParams } from 'react-router-dom';
 
 function EditBuildSet() {
-
-  const { idSet } = useParams();
-  console.log(idSet);
+  const { id } = useParams();
+  console.log(id);
   const [products, setProducts] = useState([]);
   const [selectedProductsIds, setSelectedProductsIds] = useState([]);
   const [quantities, setQuantities] = useState({});
@@ -22,6 +21,32 @@ function EditBuildSet() {
       setProducts(res.data.results);
     });
   }, [inputVal]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await GetGiftSetId(id); // Получаем данные о категории по id
+        console.log('Данные о категории:', data);
+
+        // Устанавливаем название категории
+        setTitle(data.title);
+
+        // Устанавливаем выбранные продукты и их количество
+        const selectedIds = [];
+        const quantities = {};
+        data.product_sets.forEach((product) => {
+          selectedIds.push(product.id);
+          quantities[product.id] = product.quantity;
+        });
+        setSelectedProductsIds(selectedIds);
+        setQuantities(quantities);
+      } catch (error) {
+        console.error('Ошибка:', error);
+      }
+    };
+
+    fetchData();
+  }, [id]); // Добавляем id в зависимости, чтобы запрос отправлялся при изменении id
 
   const handleOpen = () => setOpen(!open);
 
@@ -50,21 +75,21 @@ function EditBuildSet() {
     }));
 
     // Формируем объект для отправки
-    const SetCategoryList = {
+    const setCategoryData = {
       title,
       product_data: productData,
     };
 
-    console.log('Данные для отправки:', SetCategoryList); // Выводим данные в консоль
+    console.log('Данные для отправки:', setCategoryData); // Выводим данные в консоль
 
     try {
-      // Отправляем данные
-      await PostGiftSet(SetCategoryList);
+      // Отправляем данные для обновления категории
+      await EditGiftSet(id, setCategoryData);
       // Обработка успешного ответа
-      console.log('Данные успешно отправлены:', SetCategoryList);
+      console.log('Категория успешно обновлена:', setCategoryData);
     } catch (error) {
       // Обработка ошибок при отправке
-      console.error('Ошибка при отправке данных:', error);
+      console.error('Ошибка при обновлении категории:', error);
     }
   };
 
@@ -77,7 +102,7 @@ function EditBuildSet() {
 
   return (
     <DefaultLayout>
-      <div>Добавление категории для сбора наборов</div>
+      <div>Редактирование категории для сбора наборов</div>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <div className="w-1/2 mb-5">
           <Input
@@ -109,6 +134,14 @@ function EditBuildSet() {
                     ? item.name.substring(0, 40) + '...'
                     : item.name}
                 </div>
+                {item.product_sets.map((productSet, index) => (
+                  <div key={index}>
+                    {/* Выводим информацию из product_sets */}
+                    <p>{productSet.name}</p>
+                    <p>{productSet.description}</p>
+                    {/* Добавьте остальные поля из product_sets, которые вам нужны */}
+                  </div>
+                ))}
                 <Input
                   type="number"
                   min="1"
@@ -133,7 +166,7 @@ function EditBuildSet() {
           type="submit"
           className=" w-[200px] h-[40px] bg-blue-500 rounded-md float-end text-white mt-5"
         >
-          Создать набор
+          Обновить категорию
         </button>
       </form>
     </DefaultLayout>

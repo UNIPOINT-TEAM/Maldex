@@ -4,44 +4,31 @@ import {
   AccordionBody,
   AccordionHeader,
   Button,
-  Dialog,
-  DialogBody,
-  DialogFooter,
-  DialogHeader,
+
 } from '@material-tailwind/react';
-import { Reorder } from 'framer-motion'; // Импорт из Framer Motion
+import { Reorder } from 'framer-motion'; 
 import accordionIcon from '../../assets/icons/accordion-icon.png';
-import { SliderProduct } from '../../components';
-import { IoAddSharp, IoCloseSharp } from 'react-icons/io5';
+
 import DefaultLayout from '../../layout/DefaultLayout';
 import { MdDelete, MdEdit } from 'react-icons/md';
 import { DelGiftSet, GetGiftSet } from '../../services/buildset';
 import { Link } from 'react-router-dom';
-import { GetProduct } from '../../services/main';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Scrollbar } from 'swiper/modules';
 
 const BuildSet = () => {
   const [open, setOpen] = useState<number>(0);
-  const [buildCart, setBuildCart] = useState<any[]>([]);
   const [accordionCount, setAccordionCount] = useState<number>(5);
-  const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
-  const [editedAccordionIndex, setEditedAccordionIndex] = useState<
-    number | null
-  >(null);
-  const [editedAccordionTitle, setEditedAccordionTitle] = useState<string>('');
+
   const [accordionData, setAccordionData] = useState<any[]>([]);
 
-  const [order, setOrder] = useState(() => [...Array(accordionCount).keys()]); // Инициализация порядка
+  const [order, setOrder] = useState(() => [...Array(accordionCount).keys()]); 
 
   const handleOpen = (value: number) => setOpen(open === value ? 0 : value);
 
   const handleReorder = (newOrder: number[]) => {
-    // Создайте новый массив аккордеонов с обновленным порядком id
     const newAccordionData = newOrder.map((index) => accordionData[index]);
-    // Установите новый массив аккордеонов с обновленным порядком id
     setAccordionData(newAccordionData);
-    // Установите новый порядок аккордеонов
     setOrder(newOrder);
   };
   useEffect(() => {
@@ -61,10 +48,8 @@ const BuildSet = () => {
 
   const deleteAccordion = async (id: number) => {
     try {
-      // Вызываете сервис или API для удаления аккордеона по ID
       await DelGiftSet(id);
 
-      // Обновляете состояние аккордионов, удаляя удаленный аккордеон
       setAccordionData((prevData) => prevData.filter((item) => item.id !== id));
     } catch (error) {
       console.error('Ошибка при удалении аккордеона:', error);
@@ -102,12 +87,10 @@ const BuildSet = () => {
                             src={accordionIcon}
                           />
                         }
-                        placeholder={<div />}
                       >
                         <AccordionHeader
                           className="border-0 p-4"
                           onClick={() => handleOpen(index + 1)}
-                          placeholder={<div />}
                         >
                           <h2 className="font-helvetica tracking-wide text-fs_6 font-normal text-greenPrimary">
                             {item.title || `${index + 1}. Заголовок аккордеона`}
@@ -264,7 +247,6 @@ const BuildSet = () => {
                             block={false}
                             iconOnly={true}
                             ripple="light"
-                            // onClick={(event) => editAccordion(index, event)}
                             className="bg-yellow-400"
                           >
                             <MdEdit />
@@ -298,7 +280,6 @@ const BuildSet = () => {
                     block={false}
                     iconOnly={false}
                     ripple="light"
-                    // onClick={addAccordion}
                   >
                     Добавить
                   </Button>

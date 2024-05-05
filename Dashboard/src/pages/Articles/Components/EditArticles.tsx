@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { useState, useEffect } from 'react';
 import DefaultLayout from '../../../layout/DefaultLayout';
 import { GetArticlesDetail, UpgradeArticles } from '../../../services/articles';
 import { useParams } from 'react-router-dom';
@@ -11,10 +9,13 @@ import { BASE_URL } from '../../../utils/BaseUrl';
 import './styleEditor.css';
 
 function EditArticles({ htmlContent }) {
-  const { id } = useParams();
+// import { CKEditor } from 'ckeditor4-react';
 
+function EditArticles() {
+  const { id } = useParams();
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [editor, setEditor] = useState(null);
   const [image, setImage] = useState(null);
 
   useEffect(() => {
@@ -33,6 +34,12 @@ function EditArticles({ htmlContent }) {
       fetchData();
     }
   }, [id]);
+
+  useEffect(() => {
+    if (editor && content) {
+      editor.setData(content);
+    }
+  }, [editor, content]);
 
   const handleEditorChange = (event, editor) => {
     const data = editor.getData();
@@ -65,41 +72,36 @@ function EditArticles({ htmlContent }) {
 
   return (
     <DefaultLayout>
-      <div className="my-5">
-        <label
-          // htmlFor={`${index}`}
-          className="flex w-1/2 h-[190px] cursor-pointer border-dashed items-center justify-center gap-2 rounded-xl border border-b py-1 px-2 text-sm font-medium  hover:bg-opacity-90 xsm:px-4"
-        >
-          <input
-            required
-            label="Фото"
-            type="file"
-            // name={`${index}`}
-            // id={`${index}`}
-            className="sr-only"
-            accept="image/*"
-            onChange={handleImageChange}
-          />
-          <p className="text-fs-6">Добавить Фото</p>
-        </label>
+      <div className="w-[1000px] m-auto">
+      <div className="my-5 ">
+        <div className='mx-auto'> 
+          <label className="flex w-1/2 h-[190px] cursor-pointer border-dashed items-center justify-center gap-2 rounded-xl border border-b py-1 px-2 text-sm font-medium hover:bg-opacity-90 xsm:px-4">
+            <input
+              required
+              type="file"
+              className="sr-only"
+              accept="image/*"
+              onChange={handleImageChange}
+            />
+            <p className="text-fs-6">Добавить Фото</p>
+          </label>
+        </div>
       </div>
-      <div className="my-10 w-1/3">
+      <div className="my-10 ">
         <Input
           value={title}
           required
           variant="standard"
           label="Название"
-          placeholder=""
           onChange={(e) => setTitle(e.target.value)}
         />
       </div>
-
-      <div className="w-1/2">
-        {/* <CKEditor
-          editor={ClassicEditor}
+      <div className="">
+        <CKEditor
           data={content}
+          onInstanceReady={(e) => setEditor(e.editor)}
           onChange={handleEditorChange}
-        /> */}
+        />
       </div>
 
       <div className='w-[1200px] mx-auto mb-100'>

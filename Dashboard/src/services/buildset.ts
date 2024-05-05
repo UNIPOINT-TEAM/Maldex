@@ -9,9 +9,10 @@ export const GetGiftSet
 ;
 export const GetGiftSetId
  = async (id:number) => {
-  const response = await api.get(`/gifts/baskets/set/catalogs/${id}`);
+  const response = await api.get(`/gifts/baskets/set/catalog/${id}`);
   return response.data;
 };
+
 
 
 export const PostGiftSet
@@ -26,6 +27,6 @@ export const DelGiftSet = async (id:number)   => {
 };
 
 export const EditGiftSet = async (id: number, newData: { title: string, body: string }) => {
-  const response = await api.put(`/gifts/baskets/set/catalogs/${id}/`, newData); 
+  const response = await api.put(`/gifts/baskets/set/catalog/${id}/`, newData); 
   return response.data;
 };
