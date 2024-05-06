@@ -49,10 +49,12 @@ export interface TemplateData {
       available_application: string;
     };
     image: string;
+    image2?: string;
   };
   background?: {
     color: string;
     image: string;
+
     currentSlide: boolean;
     allSlider: boolean;
   };

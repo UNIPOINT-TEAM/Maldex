@@ -30,7 +30,7 @@ const initialState: CarouselState = {
       allSlider: false,
     },
     applying: {
-      image: "",  
+      image: "",
     },
   })) || [{ template: null, background: "", data: [] }],
   status: {
@@ -76,7 +76,7 @@ const carouselSlice = createSlice({
       const { activeCaruselIndex } = state;
       const { background } = action.payload;
       state.items[activeCaruselIndex] = action.payload;
-      if (background.allSlider) {
+      if (background?.allSlider) {
         state.items.forEach((item) => {
           item.background = { ...background };
         });

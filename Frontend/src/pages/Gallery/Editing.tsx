@@ -4,7 +4,7 @@ import { MdOutlineAdd } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { updateItem } from "../../store/carouselReducer";
-import { image } from "html2canvas/dist/types/css/types/image";
+
 const colors = ["#ffff", "#bfedee", "#bbe3de", "#fcf2e5", "#fed4d4", "#e4d3f2"];
 const buttons = [
   "В-Шелкография на тек...",
@@ -34,7 +34,7 @@ const Editing = () => {
     };
     dispatch(updateItem(updatedItem));
   };
-  console.log(items[activeIndex]);
+
   return (
     <div className="grid grid-cols-12 h-full">
       <div className="px-5 col-span-4 py-3 h-full min-h-screen  border-0 border-r border-lightSecondary">
