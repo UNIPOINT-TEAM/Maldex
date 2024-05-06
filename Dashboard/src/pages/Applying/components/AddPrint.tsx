@@ -1,21 +1,11 @@
 // components/AddArticles.js
 import React, { useState, useRef } from 'react';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { CKEditor } from 'ckeditor4-react';
+
 import DefaultLayout from '../../../layout/DefaultLayout';
 import { PostArticles } from '../../../services/articles';
 import { Button, Input } from '@material-tailwind/react';
-import { BASE_URL } from '../../../utils/BaseUrl';
-import CustomUploadAdapter from './UploadAdapter';
-import {
-  UploadAdapter,
-  FileLoader
-} from "@ckeditor/ckeditor5-upload/src/filerepository";
-import { Image, ImageResizeEditing, ImageResizeHandles } from '@ckeditor/ckeditor5-image';
-
-
-
-
+import { PostPrints } from '../../../services/print';
 
 function uploadAdapter(loader: FileLoader): UploadAdapter {
   return {
@@ -26,15 +16,14 @@ function uploadAdapter(loader: FileLoader): UploadAdapter {
         });
       });
     },
-    abort: () => {}
+    abort: () => {},
   };
 }
 function uploadPlugin(editor: Editor) {
-  editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
+  editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
     return uploadAdapter(loader);
   };
 }
-
 
 function AddPrint() {
   const [title, setTitle] = useState('');
@@ -58,21 +47,16 @@ function AddPrint() {
       formData.append('title', title);
       formData.append('body', content); // Добавляем содержимое статьи
       formData.append('image', image);
-  
+
       // Добавляем заголовок "Content-Type" в multipart/form-data, если необходимо
       const headers = { 'Content-Type': 'multipart/form-data' };
-  
-      await PostArticles(formData, { headers }); // Передаем formData и headers в PostArticles
+
+      await PostPrints(formData, { headers }); // Передаем formData и headers в PostArticles
       console.log('Article posted successfully');
     } catch (error) {
       console.error('Error posting article:', error);
     }
   };
-  
-  
-
-  const ref = useRef(null);
-
 
   const onEditorInit = (editor) => {
     editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
@@ -82,13 +66,11 @@ function AddPrint() {
 
   const handleCkeditorState = (language, _event, editor) => {
     const data = editor.getData();
-    setBlogData(prevState => ({
+    setBlogData((prevState) => ({
       ...prevState,
-      [`${language}_content`]: data
+      [`${language}_content`]: data,
     }));
   };
-
-  
 
   return (
     <DefaultLayout>
@@ -130,29 +112,7 @@ function AddPrint() {
       </div>
 
       <div className="w-full">
-
-        <CKEditor
-        config={{
-          // @ts-ignore
-          extraPlugins: [uploadPlugin]
-        }}
-        data={content}
-        editor={ClassicEditor}
-        // onReady={(editor) => {
-        //   ref.current = editor;
-        // }}
-
-        onReady={(editor) => {
-          editor.ui.view.editable.element.style.minHeight = "600px";
-       }}
-        onChange={handleEditorChange}
-
-        onBlur={(event, editor) => {}}
-        onFocus={(event, editor) => {}}
-
-        
-        
-      />
+        <CKEditor data={content} onChange={handleEditorChange} />
       </div>
       <Button className="my-6" color="blue" onClick={handleSubmit}>
         Отправить
