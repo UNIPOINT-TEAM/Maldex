@@ -40,10 +40,9 @@ const Applying = () => {
               <img src={printInfo.image} alt="Descriptive Alt Text" />
               <div>{printInfo.content}</div>
               <div>{printInfo.requirement}</div>
-              {/* Другие поля из printInfo могут быть добавлены здесь */}
             </>
           ) : (
-            <p>Loading print information...</p> // Индикатор загрузки
+            <p></p> 
           )}
         </div>
       </ApplyingLayout>

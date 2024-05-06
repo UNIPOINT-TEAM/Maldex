@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { GetPrints } from '../../services/print';
+import { Button } from '@material-tailwind/react';
 
 const SidebarPrint = () => {
   const [prints, setPrints] = useState([]);
@@ -28,6 +29,11 @@ const SidebarPrint = () => {
   return (
     <div className="flex apply-sidebar ">
       <div className="py-5 w-full ">
+        <div className="mb-5">
+          <Link to={'/print/add'}>
+            <Button color="green">Добавить тип печати</Button>
+          </Link>
+        </div>
         <h2 className="text-[28px]">Категории</h2>
         <div className="sidenavs mt-5">
           {sidebarNavLinks.map((navLink) => (
@@ -36,7 +42,7 @@ const SidebarPrint = () => {
               to={navLink.path}
               className="hover:bg-gray-200 p-2 rounded-md block font-bold"
             >
-              {navLink.label} 
+              {navLink.label}
             </NavLink>
           ))}
         </div>

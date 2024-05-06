@@ -6,6 +6,8 @@ import { GetArticlesDetail, UpgradeArticles } from '../../../services/articles';
 import { useParams } from 'react-router-dom';
 import { Button, Input } from '@material-tailwind/react';
 import DOMPurify from 'dompurify';
+import parse from 'html-react-parser';
+
 
 function EditArticles({ htmlContent }) {
   const { id } = useParams();
@@ -13,7 +15,6 @@ function EditArticles({ htmlContent }) {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [image, setImage] = useState(null);
-  const cleanHtml = DOMPurify.sanitize(htmlContent); // Очищаем HTML
 
 
   useEffect(() => {
@@ -90,21 +91,24 @@ function EditArticles({ htmlContent }) {
       </div>
 
       <div className="w-1/2">
-        <CKEditor
+        {/* <CKEditor
           editor={ClassicEditor}
           data={content}
           onChange={handleEditorChange}
-        />
+        /> */}
       </div>
 
       <div>
       <img src={image} alt="" />
       <h1>{title}</h1>
-      {/* <p>{content}</p> */}
+      <p>{content}</p>
 
 
       <div className="article-container">
       <div dangerouslySetInnerHTML={{ __html: content }} />
+      <div>{parse(content)}</div>
+      {/* <div>{parse('<p><img alt=\"\" src=\"https://prudovoy.ru/image/cache/catalog/image/cache/catalog/products/nasadki-dlya-fontana-metallicheskie-322cat/PMS_50_Pondtech-500x500-1000x1000-product_popup.webp\" style=\"float:right; height:200px; width:200px\" />ыавыаыфва</p>\r\n')}</div> */}
+
     </div>
       </div>
       <Button className="my-6" color="blue" onClick={handleSubmit}>
