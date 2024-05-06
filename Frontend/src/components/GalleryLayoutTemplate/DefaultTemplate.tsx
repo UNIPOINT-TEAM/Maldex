@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Rnd } from "react-rnd";
 import { TemplateData } from "../../types";
+import AddAplying from "../Gallery/AddAplying";
 
 const DefaultTemplate: React.FC<TemplateData> = ({
   data,
@@ -15,6 +16,7 @@ const DefaultTemplate: React.FC<TemplateData> = ({
     characteristic_visible,
     total_visible,
     circulationAmount_visible,
+    codeArticle_visible,
     // @ts-expect-error: This
   } = useSelector((state) => state.carousel.status);
   const [productData, setProductData] = useState({
@@ -47,28 +49,26 @@ const DefaultTemplate: React.FC<TemplateData> = ({
       }]`}
     >
       {applying?.image && (
-        <Rnd
-          style={{ backgroundColor: background?.color }}
-          className="w-full h-full"
-          default={{
-            x: 0,
-            y: 0,
-            width: 200,
-            height: 200,
-          }}
-        >
-          <img
-            src={applying?.image}
-            className={` object-contain object-center w-full h-full`}
-            alt=""
-          />
-        </Rnd>
+        <div className="absolute top-0 z-[99]">
+          <div className="relative w-[200px] h-[200px]">
+          <Rnd style={{ backgroundColor: background?.color }}>
+            <img
+              src={applying?.image}
+              className={` object-contain object-center w-full h-full`}
+              alt="applying-image"
+            />
+          </Rnd>
+        </div>
+        </div>
       )}
       <div
         className={`${
           landscape_visible ? "col-span-3" : "col-span-7"
-        } p-8 flex justify-center items-center w-full`}
+        } p-8 flex relative justify-center items-center w-full`}
       >
+        <div className="absolute top-[50%] ">
+          <AddAplying productData={data} />
+        </div>
         <img
           src={data?.image}
           width={landscape_visible ? 450 : 100}
@@ -139,9 +139,10 @@ const DefaultTemplate: React.FC<TemplateData> = ({
             )}
           </div>
         </div>
-        {characteristic_visible && (
-          <div className="relative w-full h-[150px]">
-            <Rnd>
+
+        <div className="relative w-full h-[150px]">
+          <Rnd>
+            {codeArticle_visible && (
               <div className="flex items-center gap-1">
                 <label htmlFor="vendor-code">Артикул:</label>
                 <input
@@ -151,45 +152,58 @@ const DefaultTemplate: React.FC<TemplateData> = ({
                   value={data?.characteristics.vendor_code}
                 />
               </div>
-              <div className="flex items-center gap-1">
-                <label htmlFor="size">Размер:</label>
-                <input
-                  id="size"
-                  name="size"
-                  className={"outline-[#e99125] px-2 rounded-xl bg-transparent"}
-                  value={data?.characteristics.size}
-                />
-              </div>
-              <div className="flex items-center gap-1">
-                <label htmlFor="material">Материал:</label>
-                <input
-                  id="material"
-                  name="material"
-                  className={"outline-[#e99125] px-2 rounded-xl bg-transparent"}
-                  value={data?.characteristics.material}
-                />
-              </div>
-              <div className="flex items-center gap-1">
-                <label htmlFor="color">Вес:</label>
-                <input
-                  id="color"
-                  name="color"
-                  className={"outline-[#e99125] px-2 rounded-xl bg-transparent"}
-                  value={data?.characteristics.width}
-                />
-              </div>
-              <div className="flex items-center gap-1">
-                <label htmlFor="color">Доступное нанесение:</label>
-                <input
-                  id="available_application"
-                  name="available_application"
-                  className={"outline-[#e99125] px-2 rounded-xl bg-transparent"}
-                  value={data?.characteristics.available_application}
-                />
-              </div>
-            </Rnd>
-          </div>
-        )}
+            )}
+            {characteristic_visible && (
+              <>
+                <div className="flex items-center gap-1">
+                  <label htmlFor="size">Размер:</label>
+                  <input
+                    id="size"
+                    name="size"
+                    className={
+                      "outline-[#e99125] px-2 rounded-xl bg-transparent"
+                    }
+                    value={data?.characteristics.size}
+                  />
+                </div>
+                <div className="flex items-center gap-1">
+                  <label htmlFor="material">Материал:</label>
+                  <input
+                    id="material"
+                    name="material"
+                    className={
+                      "outline-[#e99125] px-2 rounded-xl bg-transparent"
+                    }
+                    value={data?.characteristics.material}
+                  />
+                </div>
+                <div className="flex items-center gap-1">
+                  <label htmlFor="color">Вес:</label>
+                  <input
+                    id="color"
+                    name="color"
+                    className={
+                      "outline-[#e99125] px-2 rounded-xl bg-transparent"
+                    }
+                    value={data?.characteristics.width}
+                  />
+                </div>
+                <div className="flex items-center gap-1">
+                  <label htmlFor="color">Доступное нанесение:</label>
+                  <input
+                    id="available_application"
+                    name="available_application"
+                    className={
+                      "outline-[#e99125] px-2 rounded-xl bg-transparent"
+                    }
+                    value={data?.characteristics.available_application}
+                  />
+                </div>
+              </>
+            )}
+          </Rnd>
+        </div>
+
         {description_visible && landscape_visible! && (
           <div className="relative w-full">
             <Rnd>

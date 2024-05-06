@@ -171,7 +171,7 @@ const Galleryslider = () => {
         )}
       </div>
 
-      <h1 className="text-fs_2 pt-8">PDF Test Version</h1>
+      {/* <h1 className="text-fs_2 pt-8">PDF Test Version</h1>
       <button
         className="border border-black p-2 rounded-lg my-2"
         onClick={downloadPdf}
@@ -187,7 +187,7 @@ const Galleryslider = () => {
             {item.template && React.cloneElement(item.template, { ...item })}
           </div>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 };
