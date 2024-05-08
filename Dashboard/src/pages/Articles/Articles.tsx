@@ -25,9 +25,13 @@ function Articles() {
   }, []);
   return (
     <DefaultLayout>
+              <link rel="stylesheet" href="path/to/assets/content-styles.css" type="text/css" />
+
       <div className="articles container_xxl py-5 px-3">
         <div className="mb-3">
-          <Link to={`/articles/add`}>
+        <Link to={`http://5.35.82.80:8000/admin/blog/article/add/`} target='_blank'>
+
+          {/* <Link to={`/articles/add`}> */}
             <Button color="blue">Добавить статью</Button>
           </Link>
         </div>

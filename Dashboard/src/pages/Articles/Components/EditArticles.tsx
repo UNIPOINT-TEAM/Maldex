@@ -7,7 +7,8 @@ import { useParams } from 'react-router-dom';
 import { Button, Input } from '@material-tailwind/react';
 import DOMPurify from 'dompurify';
 import parse from 'html-react-parser';
-
+import { BASE_URL } from '../../../utils/BaseUrl';
+import './styleEditor.css';
 
 function EditArticles({ htmlContent }) {
   const { id } = useParams();
@@ -16,7 +17,6 @@ function EditArticles({ htmlContent }) {
   const [content, setContent] = useState('');
   const [image, setImage] = useState(null);
 
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -24,7 +24,6 @@ function EditArticles({ htmlContent }) {
         setTitle(article.title);
         setContent(article.body);
         console.log(article);
-        
       } catch (error) {
         console.error('Error fetching article:', error);
       }
@@ -58,6 +57,11 @@ function EditArticles({ htmlContent }) {
       console.error('Error updating article:', error);
     }
   };
+
+  const modifiedContent = content.replace(
+    /src="\/media/g,
+    `src="${BASE_URL}/media`,
+  );
 
   return (
     <DefaultLayout>
@@ -98,20 +102,23 @@ function EditArticles({ htmlContent }) {
         /> */}
       </div>
 
-      <div>
-      <img src={image} alt="" />
-      <h1>{title}</h1>
-      <p>{content}</p>
+      <div className='w-[1200px] mx-auto mb-100'>
+        <img src={image} alt="" />
+        {/* <h1>{title}</h1> */}
+        {/* <p>{content}</p> */}
 
-
-      <div className="article-container">
-      <div dangerouslySetInnerHTML={{ __html: content }} />
-      <div>{parse(content)}</div>
-      {/* <div>{parse('<p><img alt=\"\" src=\"https://prudovoy.ru/image/cache/catalog/image/cache/catalog/products/nasadki-dlya-fontana-metallicheskie-322cat/PMS_50_Pondtech-500x500-1000x1000-product_popup.webp\" style=\"float:right; height:200px; width:200px\" />ыавыаыфва</p>\r\n')}</div> */}
-
-    </div>
+        <div className="article-container ck-__editable">
+          <div class="ck-content">
+            <div dangerouslySetInnerHTML={{ __html: modifiedContent }} />
+          </div>
+          {/* <div>{parse(content)}</div> */}
+        </div>
       </div>
-      <Button className="my-6" color="blue" onClick={handleSubmit}>
+      <Button
+        className="my-6 image image-style-side"
+        color="blue"
+        onClick={handleSubmit}
+      >
         Отправить
       </Button>
     </DefaultLayout>
