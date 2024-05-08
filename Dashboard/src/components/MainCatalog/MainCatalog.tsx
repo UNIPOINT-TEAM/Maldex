@@ -23,6 +23,7 @@ import {
   Checkbox,
 } from '@material-tailwind/react';
 import { BASE_URL } from '../../utils/BaseUrl';
+import DeleteModal from '../DeleteModal/DeleteModal';
 
 const MainCatalog = () => {
   const [categories, setCategories] = useState([]);
@@ -37,6 +38,8 @@ const MainCatalog = () => {
   const [editedSub, setEditedSub] = useState('');
   const [editedSubSub, setEditedSubSub] = useState('');
   const [status, setStatus] = useState(false);
+  const [firstOrder, setFirstOrder] = useState(null);
+  const [secondOrder, setSecondOrder] = useState(null);
   const changeStatus = (newState: any) => {
     setStatus(newState);
   };
@@ -49,6 +52,7 @@ const MainCatalog = () => {
   useEffect(() => {
     GetMainCatalogactive().then((res) => {
       setCategories(res);
+      console.log(res);
     });
     GetSubSubCatalog(
       `/product/categories/get_tertiary_categories/${subCategoryId}`,
@@ -107,9 +111,47 @@ const MainCatalog = () => {
     });
   };
 
+  const changeOrder = () => {
+    const formdata = new FormData();
+    formdata.append('order', secondOrder);
+    const formdata_ = new FormData();
+    formdata_.append('order', firstOrder);
+    PutWithFormData(
+      `/product/category/${categories[firstOrder - 1].id}/`,
+      formdata,
+    );
+    PutWithFormData(
+      `/product/category/${categories[secondOrder - 1].id}/`,
+      formdata_,
+    );
+    setStatus(!status);
+  };
+
   return (
     <>
-      <AddMainCatalog status={status} onChange={changeStatus} />
+      <div className="w-full  flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <input
+            type="number"
+            className="border rounded-md px-2 w-[100px] h-[40px]"
+            onChange={(e) => setFirstOrder(e.target.value)}
+            defaultValue={firstOrder}
+          />
+          <input
+            type="number"
+            className="border rounded-md px-2 w-[100px] h-[40px]"
+            onChange={(e) => setSecondOrder(e.target.value)}
+            defaultValue={secondOrder}
+          />
+          <button
+            onClick={changeOrder}
+            className="w-[60px] h-[40px] bg-blue-400 text-white rounded-md"
+          >
+            ok
+          </button>
+        </div>
+        <AddMainCatalog status={status} onChange={changeStatus} />
+      </div>
       <div className="w-full py-3 flex flex-wrap gap-2 justify-between items-center mb-10">
         <Dialog
           open={open}
@@ -185,7 +227,10 @@ const MainCatalog = () => {
             key={category.id}
             className="w-1/6 py-5 relative content hover:bg-redPrimary"
           >
-            <img className="w-1/5 mb-5" src={category.icon} alt="" />
+            <div className="flex justify-between">
+              <img className="w-1/5 mb-5" src={category.icon} alt="" />
+              <p className="text-xl ">{category.order}</p>
+            </div>
 
             <p className="text-lg mb-3">{category?.name}</p>
             {category?.children && category?.children?.length > 0 && (
@@ -215,7 +260,11 @@ const MainCatalog = () => {
                   <EditMainCatalog categoryId={category.id} />
 
                   <button className="p-1 bg-red-600 h-[30px] w-[30px] rounded flex justify-center items-center">
-                    <DeleteMainCatalog />
+                    <DeleteModal
+                      url={`/product/category/${category.id}/`}
+                      status={status}
+                      onChange={changeStatus}
+                    />
                   </button>
                 </div>
               </div>

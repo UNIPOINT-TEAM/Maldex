@@ -5,6 +5,7 @@ import { GetNewCategory } from '../../services/main';
 import DeleteCategory from './DeleteCategory';
 import { Button } from '@material-tailwind/react';
 import { AddMainCatalog, DeleteMainCatalog, EditMainCatalog } from '..';
+import DeleteModal from '../DeleteModal/DeleteModal';
 
 interface Category {
   logo: string;
@@ -63,7 +64,12 @@ const GiftItem = () => {
               </div>
               <div className="flex justify-between ">
                 <EditMainCatalog categoryId={item.id} />
-                <DeleteMainCatalog />
+                {/* <DeleteModal
+                  url={`/product/category/${item.id}/`}
+                  title={'delete this giftitem'}
+                  status={status}
+                  onChange={changeStatus}
+                /> */}
                 {/* <EditCategory {...item} handleImageChange={handleImageChange} />
                 <DeleteCategory
                   newCategoryData={newCategoryData}
@@ -75,7 +81,7 @@ const GiftItem = () => {
           </div>
         ))}
       </div>
-      <div className="flex justify-end gap-2 px-4 w-full">
+      {/* <div className="flex justify-end gap-2 px-4 w-full">
         <Button
           onClick={getData}
           size="lg"
@@ -90,7 +96,7 @@ const GiftItem = () => {
         >
           Save changes
         </Button>
-      </div>
+      </div> */}
     </div>
   );
 };

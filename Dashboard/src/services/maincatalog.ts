@@ -2,10 +2,15 @@ import axios from 'axios';
 import { api } from '../axios/Api';
 import { BASE_URL } from '../utils/BaseUrl';
 
+export const DeleteItem = async (url: string) => {
+  await api.delete(BASE_URL + url);
+};
+
 export const GetMainCatalog = async () => {
   const response = await api.get(`/product/categories/`);
   return response.data;
 };
+
 export const GetMainCatalogactive = async () => {
   const response = await api.get(`/product/categories/?is_available=true`);
   return response.data;
@@ -54,6 +59,11 @@ export const PutData = async (url: string, item: any) => {
       'Content-Type': 'multipart/form-data',
     },
   });
+  const data = response;
+  return data;
+};
+export const PostDataJson = async (url: string, item: any) => {
+  const response = await axios.post(BASE_URL + url, item);
   const data = response;
   return data;
 };

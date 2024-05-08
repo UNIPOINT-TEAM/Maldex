@@ -20,8 +20,6 @@ interface BannerProp {
 }
 
 const BannerTop: React.FC<BannerProp> = ({ BannerData, handleImageChange }) => {
-  console.log(BannerData);
-
   return (
     <div className="grid grid-cols-4 gap-[9px]">
       <div className="group flex relative flex-col justify-center col-span-4 bg-white h-[200px] cursor-pointer hover:bg-[#fff] transition-all duration-200">
@@ -30,7 +28,6 @@ const BannerTop: React.FC<BannerProp> = ({ BannerData, handleImageChange }) => {
             bannberItems={BannerData && BannerData[0]}
             onImageChange={handleImageChange}
           />
-          <DeleteItemBanner />
         </div>
         <div className="h-[110px]  w-[300px] mx-auto   flex items-center justify-center">
           <Slider SliderItems={BannerData && BannerData[0]} sliderTime={2500} />
@@ -39,7 +36,6 @@ const BannerTop: React.FC<BannerProp> = ({ BannerData, handleImageChange }) => {
       <div className="group relative bg-white h-[130px] flex flex-col justify-center cursor-pointer hover:bg-[#fff] duration-200">
         <div className="absolute z-10 opacity-0 group-hover:opacity-100 duration-300 flex gap-2 p-2 right-0 top-0">
           <BannerEditModal bannberItems={BannerData && BannerData[1]} />
-          <DeleteItemBanner />
         </div>
         <div className="mx-auto h-[70px] max-w-[70px] w-full flex items-center justify-center">
           <Slider SliderItems={BannerData && BannerData[1]} sliderTime={3000} />
@@ -48,7 +44,6 @@ const BannerTop: React.FC<BannerProp> = ({ BannerData, handleImageChange }) => {
       <div className="group relative bg-white h-[130px] flex flex-col justify-center cursor-pointer hover:bg-[#fff] duration-200">
         <div className="absolute z-10 opacity-0 group-hover:opacity-100 duration-300 flex gap-2 p-2 right-0 top-0">
           <BannerEditModal bannberItems={BannerData && BannerData[2]} />
-          <DeleteItemBanner />
         </div>
         <div className="mx-auto h-[70px] max-w-[70px] w-full flex items-center justify-center">
           <Slider SliderItems={BannerData && BannerData[2]} sliderTime={3500} />
@@ -57,7 +52,6 @@ const BannerTop: React.FC<BannerProp> = ({ BannerData, handleImageChange }) => {
       <div className="group relative bg-white h-[130px] flex flex-col justify-center cursor-pointer hover:bg-[#fff] duration-200">
         <div className="absolute z-10 opacity-0 group-hover:opacity-100 duration-300 flex gap-2 p-2 right-0 top-0">
           <BannerEditModal bannberItems={BannerData && BannerData[3]} />
-          <DeleteItemBanner />
         </div>
         <div className="mx-auto h-[70px] max-w-[70px] w-full flex items-center justify-center">
           <Slider SliderItems={BannerData && BannerData[3]} sliderTime={2000} />
@@ -66,7 +60,6 @@ const BannerTop: React.FC<BannerProp> = ({ BannerData, handleImageChange }) => {
       <div className="group relative bg-white h-[130px] flex flex-col justify-center cursor-pointer hover:bg-[#fff] duration-200">
         <div className="absolute z-10 opacity-0 group-hover:opacity-100 duration-300 flex gap-2 p-2 right-0 top-0">
           <BannerEditModal bannberItems={BannerData && BannerData[4]} />
-          <DeleteItemBanner />
         </div>
         <div className="mx-auto h-[70px] max-w-[70px] w-full flex items-center justify-center">
           <Slider SliderItems={BannerData && BannerData[4]} sliderTime={4000} />

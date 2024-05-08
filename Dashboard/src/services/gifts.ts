@@ -10,6 +10,7 @@ export const GetGiftsCategoryDetail = async (id: any) => {
   const response = await api.get(`/gifts/baskets/category/${id}`);
   return response.data;
 };
+
 export const GetGiftsDetail = async (id: any) => {
   const response = await api.get(`/gifts/baskets/${id}`);
   return response.data;
@@ -33,6 +34,6 @@ export const delGiftsCategory = async (id:number)   => {
 
 //hooks.ts
 export const editGiftsCategory = async (id: number, newData: { title: string, body: string }) => {
-  const response = await api.put(`/faq/${id}/`, newData); 
+  const response = await api.put(`/faq/${id}/`, newData);
   return response.data;
 };

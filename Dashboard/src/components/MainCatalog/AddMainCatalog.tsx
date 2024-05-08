@@ -37,7 +37,7 @@ const AddMainCatalog = ({ status, onChange }) => {
 
   const handleOpen = () => setOpen(!open);
   return (
-    <button className="float-end mt-5">
+    <button className="float-end">
       <div className="flex gap-3 w-full">
         <button
           onClick={handleOpen}

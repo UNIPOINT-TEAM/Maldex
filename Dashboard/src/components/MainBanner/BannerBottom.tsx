@@ -13,7 +13,6 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
       <div className="group relative row-span-9 bg-white  flex flex-col justify-center cursor-pointer hover:bg-[#fff] duration-200">
         <div className="absolute z-10 opacity-0 group-hover:opacity-100 duration-300 flex gap-2 p-2 right-0 top-0">
           <BannerEditModal bannberItems={BannerData && BannerData[5]} />
-          <DeteleteItem />
         </div>
         <div className="h-[250px] w-[100%] flex items-center justify-center">
           <Slider SliderItems={BannerData && BannerData[5]} sliderTime={3000} />
@@ -24,8 +23,6 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
           <div className="group relative col-span-4 bg-white flex flex-col justify-center cursor-pointer hover:bg-[#fff] duration-200 ">
             <div className="absolute z-10 opacity-0 group-hover:opacity-100 duration-300 flex gap-2 p-2 right-0 top-0">
               <BannerEditModal bannberItems={BannerData && BannerData[6]} />
-              <DeteleteItem />
-              903112888{' '}
             </div>
             <div className="w-[200px] mx-auto flex items-center justify-center">
               <Slider
@@ -37,7 +34,6 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
           <div className="group relative col-span-2 bg-white flex flex-col justify-center cursor-pointer hover:bg-[#fff] duration-200">
             <div className="absolute z-10 opacity-0 group-hover:opacity-100 duration-300 flex gap-2 p-2 right-0 top-0">
               <BannerEditModal bannberItems={BannerData && BannerData[7]} />
-              <DeteleteItem />
             </div>
             <div className="w-full flex items-center justify-center">
               <Slider
@@ -49,7 +45,6 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
           <div className="group relative col-span-3 bg-white flex flex-col justify-center cursor-pointer hover:bg-[#fff] duration-200">
             <div className="absolute z-10 opacity-0 group-hover:opacity-100 duration-300 flex gap-2 p-2 right-0 top-0">
               <BannerEditModal bannberItems={BannerData && BannerData[8]} />
-              <DeteleteItem />
             </div>
             <div className="w-full p-2 h-[250px] flex items-center justify-center">
               <Slider
@@ -63,7 +58,6 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
               <div className="group relative bg-white w-full flex flex-col justify-center cursor-pointer hover:bg-[#fff] duration-200">
                 <div className="absolute z-10 opacity-0 group-hover:opacity-100 duration-300 flex gap-2 p-2 right-0 top-0">
                   <BannerEditModal bannberItems={BannerData && BannerData[9]} />
-                  <DeteleteItem />
                 </div>
                 <div className="w-[120px] h-[140px] mx-auto flex items-center justify-center">
                   <Slider
@@ -77,7 +71,6 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
                   <BannerEditModal
                     bannberItems={BannerData && BannerData[10]}
                   />
-                  <DeteleteItem />
                 </div>
                 <div className="w-[120px] h-[140px] mx-auto flex items-center justify-center">
                   <Slider
@@ -101,8 +94,7 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
             }}
           >
             <div className="absolute z-10 opacity-0 group-hover:opacity-100 duration-300 flex gap-2 p-2 right-0 top-0">
-              <BannerEditModal bannberItems={BannerData && BannerData[0]} />
-              <DeteleteItem />
+              {/* <BannerEditModal bannberItems={BannerData && BannerData[0]} /> */}
             </div>
             <p className="text-[#fff] mt-auto tracking-wider text-fs_3 m-0">
               Идеи подарков
@@ -117,8 +109,7 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
             }}
           >
             <div className="absolute z-10 opacity-0 group-hover:opacity-100 duration-300 flex gap-2 p-2 right-0 top-0">
-              <BannerEditModal bannberItems={BannerData && BannerData[0]} />
-              <DeteleteItem />
+              {/* <BannerEditModal bannberItems={BannerData && BannerData[0]} /> */}
             </div>
             <p className="text-[#fff] tracking-wider text-fs_3">
               Разработка дизайна

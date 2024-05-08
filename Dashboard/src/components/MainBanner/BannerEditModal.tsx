@@ -7,17 +7,14 @@ import {
   Typography,
 } from '@material-tailwind/react';
 import { BiSolidEditAlt } from 'react-icons/bi';
-import { IoIosAddCircle } from 'react-icons/io';
 import { Link } from 'react-router-dom';
+import DeleteModal from '../DeleteModal/DeleteModal';
 const BannerEditModal: React.FC<any> = ({ bannberItems, onImageChange }) => {
-  console.log(bannberItems?.product_set);
-
   const [open, setOpen] = useState(false);
+  console.log(bannberItems);
 
   const handleOpen = () => setOpen(!open);
-  const handleEdit = () => {
-    onImageChange();
-  };
+
   return (
     <>
       <button
@@ -50,12 +47,19 @@ const BannerEditModal: React.FC<any> = ({ bannberItems, onImageChange }) => {
                 />
               </div>
             </div>
-            <h2 className="font-medium text-title-sm mt-4">
-              Изображения в карусели
-            </h2>
+            <div className="flex justify-between w-full items-center">
+              <h2 className="font-medium text-title-sm mt-4">
+                Изображения в карусели
+              </h2>
+              <Link to={'/banner/add'}>
+                <button className="bg-blue-400 rounded-md px-3 py-2 text-white">
+                  добавить
+                </button>
+              </Link>
+            </div>
             <div className="grid grid-cols-4 gap-2">
               {bannberItems?.product_set.map((item) => (
-                <Link to={`/banner/${item.id}`}>
+                <div>
                   <img
                     src={item?.productID?.images_set[0]?.image_url}
                     alt=""
@@ -66,12 +70,20 @@ const BannerEditModal: React.FC<any> = ({ bannberItems, onImageChange }) => {
                       ? item?.productID?.name.slice(0, 20) + '...'
                       : item?.productID?.name}
                   </p>
-                </Link>
+                  <div className="flex gap-2">
+                    <Link to={`/banner/${item.id}`}>
+                      <button className="bg-yellow-400 px-2 py-1 rounded-md text-black">
+                        изменять
+                      </button>
+                    </Link>
+                    <DeleteModal url={`/banner/product/${item.id}`} />
+                  </div>
+                </div>
               ))}
             </div>
           </CardBody>
           <CardFooter className="pt-0 font-satoshi flex justify-end gap-4">
-            <button
+            {/* <button
               onClick={handleOpen}
               className="inline-flex items-center justify-center rounded-md border text-danger border-danger py-2 px-10 text-center font-medium  hover:bg-opacity-90 "
             >
@@ -82,7 +94,7 @@ const BannerEditModal: React.FC<any> = ({ bannberItems, onImageChange }) => {
               className="inline-flex tracking-wide items-center justify-center rounded-md bg-success py-2 px-6 text-center font-medium text-white hover:bg-opacity-90 "
             >
               Сохранять
-            </button>
+            </button> */}
           </CardFooter>
         </Card>
       </Dialog>

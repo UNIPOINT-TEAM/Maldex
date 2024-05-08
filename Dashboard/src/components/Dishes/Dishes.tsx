@@ -13,6 +13,7 @@ const Dishes = () => {
   useEffect(() => {
     GetSubSubCatalog(BASE_URL + `/product/home-category/`).then((res) => {
       setCategory(res), setCategories(res?.children?.slice(0, 8));
+      console.log(res);
     });
     GetSubSubCatalog(BASE_URL + `/product/categories/main_categories`).then(
       (res) => {

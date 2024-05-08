@@ -9,6 +9,7 @@ const BannerSlider = () => {
   useEffect(() => {
     GetMainBannerSlider().then((res) => {
       setSliderData(res);
+      console.log(res);
     });
   }, []);
   return (
@@ -35,14 +36,12 @@ const BannerSlider = () => {
               </div>
             </div>
             <div className="w-[45%] h-full ps-2">
-              <img
-                src={
-                  item?.product_set[0]?.productCarouselID?.images_set[0]
-                    ?.big_url
-                }
-                alt=""
-                className="h-[160px]  lg:h-[300px]"
-              />
+
+                <video width="640" height="360" controls>
+                  <source src={item.product_set[0]?.bannerCarouselVideo} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+
             </div>
           </SwiperSlide>
         ))}
