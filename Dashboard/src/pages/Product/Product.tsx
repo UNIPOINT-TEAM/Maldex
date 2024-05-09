@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import DefaultLayout from '../../layout/DefaultLayout';
 
-import { GetProduct } from '../../services/product';
+import { GetProduct, GetProductSearch } from '../../services/product';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import { Link } from 'react-router-dom';
@@ -12,25 +12,34 @@ import {
   DialogBody,
   DialogFooter,
   DialogHeader,
+  Input,
 } from '@material-tailwind/react';
 import { GetMainCatalogactive, PutData } from '../../services/maincatalog';
+import PaginationCard from '../../components/Pagination/Pagination';
 
 const Product = () => {
   const [addProduct, setAddProduct] = useState([]);
   const [receiveId, setReceiveId] = useState(null);
+  const [search, setSearch] = useState('');
   const [open, setOpen] = useState(false);
   const [availableCategories, setAvailableCategories] = useState([]);
   const [checkedProducts, setCheckedProducts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
   console.log(checkedProducts);
 
   useEffect(() => {
-    GetProduct().then((res) => {
-      setAddProduct(res.data);
+    GetProductSearch(search, currentPage).then((res) => {
+      setAddProduct(res.data.results);
+      const residual = res.data.count % 10;
+      const pages = (res.data.count - residual) / 10;
+      setTotalPages(pages % 2 == 0 && pages === 1 ? pages : pages + 1);
     });
     GetMainCatalogactive().then((res) => {
       setAvailableCategories(res);
     });
-  }, []);
+  }, [search, currentPage]);
 
   const fillCheckedProducts = (id) => {
     const isAlreadyChecked = checkedProducts.some(
@@ -123,7 +132,11 @@ const Product = () => {
           </Button>
         </DialogFooter>
       </Dialog>
-      <div className="container_xxl relative px-3">
+      <div className="container_xxl relative px-3 py-5">
+        <Input
+          label="поиск продукта"
+          onChange={(e) => setSearch(e.target.value)}
+        />
         <div className="flex justify-end py-5 gap-3">
           {checkedProducts.length > 0 ? (
             <>
@@ -179,39 +192,6 @@ const Product = () => {
                       </SwiperSlide>
                     ))}
                   </Swiper>
-                  <div className="absolute z-[9999] bottom-[25px] right-[15px] flex flex-col gap-1 swiper-opacity">
-                    <button
-                      className={`w-[8px] h-[8px] bg-red-primary rounded-[4px]`}
-                    ></button>
-                    <button
-                      className={`w-[8px] h-[8px] bg-orange-600 rounded-[4px]`}
-                    ></button>
-                    <button
-                      className={`w-[8px] h-[8px] bg-green-600 rounded-[4px]`}
-                    ></button>
-                    <button
-                      className={`w-[8px] h-[8px] bg-green-primary rounded-[4px]`}
-                    ></button>
-                    <button
-                      className={`w-[8px] h-[8px] bg-blue-600 rounded-[4px]`}
-                    ></button>
-                    <button
-                      className={`w-[8px] h-[8px] bg-purple-600 rounded-[4px]`}
-                    ></button>
-                    <button
-                      className={`w-[8px] h-[8px] bg-indigo-600 rounded-[4px]`}
-                    ></button>
-                  </div>
-
-                  {item.is_new ? (
-                    <div className="absolute z-[999] top-2 left-2 flex gap-2">
-                      <div className="border border-red-primary text-[10px] text-red-primary rounded-lg px-1">
-                        NEW
-                      </div>
-                    </div>
-                  ) : (
-                    ''
-                  )}
                 </div>
                 {/* {defaultProduct ? ( */}
                 <div className="default">
@@ -252,6 +232,11 @@ const Product = () => {
             </div>
           ))}
         </div>
+        <PaginationCard
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          totalPages={totalPages}
+        />
       </div>
     </DefaultLayout>
   );

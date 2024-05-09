@@ -4,7 +4,7 @@ import { api } from '../axios/Api';
 import { BASE_URL } from '../utils/BaseUrl';
 
 export const GetProduct = async () => {
-  const response = await api.get(`/product/all`);
+  const response = await api.get(`${BASE_URL}/product/`);
   return response;
 };
 
@@ -13,8 +13,10 @@ export const GetProductCategory = async (id: number) => {
   return response;
 };
 
-export const GetProductSearch = async (item: string) => {
-  const response = await axios.get(`${BASE_URL}/product/?search=${item}`);
+export const GetProductSearch = async (item: string, currentpage: number) => {
+  const response = await axios.get(
+    `${BASE_URL}/product/?search=${item}&page=${currentpage}`,
+  );
   return response;
 };
 export const GetProductNew = async (id: any) => {

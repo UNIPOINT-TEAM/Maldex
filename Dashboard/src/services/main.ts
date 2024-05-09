@@ -14,7 +14,7 @@ export const GetMainBannerSlider = async () => {
 };
 
 export const GetProduct = async () => {
-  const response = await api.get(`/product/all`);
+  const response = await api.get(`/product`);
   return response.data;
 };
 
