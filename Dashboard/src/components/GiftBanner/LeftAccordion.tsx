@@ -5,28 +5,33 @@ import {
   AccordionHeader,
   AccordionBody,
 } from '@material-tailwind/react';
-import { IoMdAdd } from 'react-icons/io';
-import { GetGiftsCategory, PostGiftsCategory } from '../../services/gifts';
+import { IoMdAdd, IoMdCreate, IoMdTrash } from 'react-icons/io';
+import {
+  GetGiftsCategory,
+  PostGiftsCategory,
+  delGiftsCategory,
+  editGiftsCategory,
+} from '../../services/gifts';
+import { MdDelete } from 'react-icons/md';
+import { warning } from '@remix-run/router/dist/history';
 
 const LeftAccordion = () => {
   const [openAccordionIndex, setOpenAccordionIndex] = useState<number | null>(
     null,
   );
-
   const [addCategory, setAddCategory] = useState(true);
   const [addSubCategory, setAddSubCategory] = useState(true);
-  const [editCategory, setEditCategory] = useState('');
-  const [subEditCategory, setSubEditCategory] = useState('');
+  const [editCategory, setEditCategory] = useState(null); // State to track editing category
   const [newCategoryName, setNewCategoryName] = useState('');
   const [newSubCategoryName, setNewSubCategoryName] = useState('');
-  const [activeCategoryIndex, setActiveCategoryIndex] = useState(null); // Индекс активной категории для добавления подкатегорий
+  const [activeCategoryIndex, setActiveCategoryIndex] = useState(null);
   const [giftCategory, setGiftCategory] = useState([]);
+  const [isDeletingCategory, setIsDeletingCategory] = useState(false);
 
   useEffect(() => {
     GetGiftsCategory()
       .then((res) => {
         setGiftCategory(res);
-        console.log(res);
       })
       .catch((error) => {
         console.error('Error fetching FAQ data:', error);
@@ -34,19 +39,19 @@ const LeftAccordion = () => {
   }, []);
 
   const handleAddCategory = async () => {
-    if (!newCategoryName.trim()) return; // Проверка на пустую строку
+    if (!newCategoryName.trim()) return;
 
     const response = await PostGiftsCategory({ name: newCategoryName });
     if (response) {
-      setGiftCategory([...giftCategory, response]); // Добавляем новую категорию в состояние
-      setNewCategoryName(''); // Сброс поля ввода
-      setAddCategory(true); // Закрыть форму добавления
+      setGiftCategory([...giftCategory, response]);
+      setNewCategoryName('');
+      setAddCategory(true);
     }
   };
 
   const handleAccordionClick = (index: number) => {
     setOpenAccordionIndex((prevIndex) => (prevIndex === index ? null : index));
-    setActiveCategoryIndex(index); // устанавливаем активный индекс категории для добавления подкатегорий
+    setActiveCategoryIndex(index);
   };
 
   const handleAddSubCategory = async () => {
@@ -56,7 +61,7 @@ const LeftAccordion = () => {
 
     const response = await PostGiftsCategory({
       name: newSubCategoryName,
-      parent: category.id, // Добавляем parentId в объект запроса
+      parent: category.id,
     });
 
     if (response) {
@@ -69,6 +74,34 @@ const LeftAccordion = () => {
     }
   };
 
+  const handleEditCategory = async () => {
+    if (!editCategory || !newCategoryName.trim()) return;
+
+    const response = await editGiftsCategory(editCategory, {
+      name: newCategoryName,
+    });
+    if (response) {
+      const updatedCategories = giftCategory.map((category) => {
+        if (category.id === editCategory) {
+          return { ...category, name: newCategoryName };
+        }
+        return category;
+      });
+      setGiftCategory(updatedCategories);
+      setEditCategory(null);
+    }
+  };
+
+  const handleDeleteCategory = async (categoryId) => {
+    const response = await delGiftsCategory(categoryId);
+    if (response) {
+      const updatedCategories = giftCategory.filter(
+        (category) => category.id !== categoryId,
+      );
+      setGiftCategory(updatedCategories);
+    }
+  };
+
   return (
     <div className="">
       <div className="pl-2 w-[246px]">
@@ -76,7 +109,7 @@ const LeftAccordion = () => {
           Подарочные наборы
         </h1>
       </div>
-      
+
       {giftCategory.map((category, index) => (
         <Accordion
           key={index}
@@ -101,32 +134,66 @@ const LeftAccordion = () => {
             </svg>
           }
         >
-          <AccordionHeader
-            className={`border-0 px-2 py-2 cursor-pointer  ${
-              openAccordionIndex === index ? 'bg-red-primary  rounded-xl' : ''
-            }`}
-            onClick={() => handleAccordionClick(index)}
-          >
-            <h3
-              className={`font-Helvetica-Neue -tracking-tighter text-fs_4 font-bold text-darkPrimary ${
-                openAccordionIndex === index ? 'text-white' : ''
+          <div className="flex justify-center items-center ">
+            <AccordionHeader
+              className={`border-0 px-2 py-2 cursor-pointer  ${
+                openAccordionIndex === index ? 'bg-red-primary  rounded-xl' : ''
               }`}
+              onClick={() => handleAccordionClick(index)}
             >
-              {category.name}
-            </h3>
-          </AccordionHeader>
+              <div style={{ maxWidth: '200px', wordBreak: 'break-all' }}>
+                <h3
+                  className={`font-Helvetica-Neue -tracking-tighter text-fs_4 font-bold text-darkPrimary ${
+                    openAccordionIndex === index ? 'text-white' : ''
+                  }`}
+                >
+                  {category.name}
+                </h3>
+              </div>
+            </AccordionHeader>
+            <div className="ml-3 flex gap-1">
+              <button
+                onClick={() => setEditCategory(category.id)}
+                className="rounded-md bg-warning py-2 px-3 text-center font-medium text-white hover:bg-opacity-90"
+              >
+                <IoMdCreate size={20} />
+              </button>
+              <button
+                onClick={() => handleDeleteCategory(category.id)}
+                className="rounded-md bg-danger py-2 px-3 text-center font-medium text-white hover:bg-opacity-90"
+              >
+                <MdDelete size={20} />
+              </button>
+            </div>
+          </div>
           <AccordionBody
             className={`${openAccordionIndex === index ? '' : ''}`}
             placeholder={<div />}
           >
             {category.children.map((child, childIndex) => (
               <div
-                className="my-2 pl-3 text-base font-Helvetica-Neue cursor-pointer hover:text-red-primary"
+                className="my-2 pl-3 text-base font-Helvetica-Neue cursor-pointer flex hover:text-red-primary"
                 key={childIndex}
               >
-                <h4 className="font-Helvetica-Neue font-medium text-black">
-                  {child.name}
-                </h4>
+                <div>
+                  <h4 className="font-Helvetica-Neue font-medium text-black">
+                    {child.name}
+                  </h4>
+                </div>
+                <div className="ml-4 flex gap-1">
+                  <button
+                    onClick={() => setEditCategory(child.id)}
+                    className="rounded-md bg-warning py-2 px-3 text-center font-medium text-white hover:bg-opacity-90"
+                  >
+                    <IoMdCreate size={20} />
+                  </button>
+                  <button
+                    onClick={() => handleDeleteCategory(child.id)}
+                    className="rounded-md bg-danger py-2 px-3 text-center font-medium text-white hover:bg-opacity-90"
+                  >
+                    <IoMdTrash size={20} />
+                  </button>
+                </div>
               </div>
             ))}
             {activeCategoryIndex === index && (
@@ -150,6 +217,28 @@ const LeftAccordion = () => {
         </Accordion>
       ))}
 
+      {/* Edit Category Section */}
+      {editCategory && (
+        <div className="border border-dashed py-5 px-2 w-full rounded-xl">
+          <input
+            type="text"
+            placeholder="Категория"
+            value={newCategoryName}
+            onChange={(e) => setNewCategoryName(e.target.value)}
+            className="w-full border outline-none rounded h-[40px] mb-3 px-3 py-1"
+          />
+          <div className="flex justify-center items-start">
+            <button
+              onClick={handleEditCategory}
+              className="bg-blue-400 text-white w-[200px] h-[40px] rounded"
+            >
+              Save
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Add Category Section */}
       {addCategory ? (
         <div className="flex w-full justify-center">
           <button

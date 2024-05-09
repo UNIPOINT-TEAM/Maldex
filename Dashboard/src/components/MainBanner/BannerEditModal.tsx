@@ -10,6 +10,8 @@ import { BiSolidEditAlt } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
 import DeleteModal from '../DeleteModal/DeleteModal';
 const BannerEditModal: React.FC<any> = ({ bannberItems, onImageChange }) => {
+  // console.log(bannberItems?.product_set);
+
   const [open, setOpen] = useState(false);
   console.log(bannberItems);
 

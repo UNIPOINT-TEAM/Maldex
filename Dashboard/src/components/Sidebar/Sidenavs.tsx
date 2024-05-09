@@ -38,26 +38,36 @@ export const Sidenavs = [
   {
     id: 8,
     path: '/admin',
-    title: 'Админкачё',
+    title: 'Админка',
   },
   {
-    id: 8,
+    id: 9,
     path: '/articles',
     title: 'Статьи',
   },
   {
-    id: 9,
+    id: 10,
     path: '/print/apply',
     title: 'Принты',
   },
   {
-    id: 10,
+    id: 11,
     path: '/tags',
     title: 'Теги',
   },
   {
-    id: 11,
+    id: 12,
+    path: '/linktags',
+    title: 'Теги 404',
+  },
+  {
+    id: 13,
     path: '/categories',
     title: 'Категории',
+  },
+  {
+    id: 14,
+    path: '/filter',
+    title: 'Фильтр Каталога',
   },
 ];

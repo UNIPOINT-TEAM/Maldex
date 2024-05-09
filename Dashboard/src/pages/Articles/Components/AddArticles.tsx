@@ -22,6 +22,7 @@ import Highlight from '@ckeditor/ckeditor5-highlight/src/highlight';
 
 
 
+
 function uploadAdapter(loader: FileLoader): UploadAdapter {
   return {
     upload: () => {

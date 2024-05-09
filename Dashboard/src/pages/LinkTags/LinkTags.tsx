@@ -2,18 +2,10 @@ import { useEffect, useState } from 'react';
 import DefaultLayout from '../../layout/DefaultLayout';
 import { MdDelete, MdEdit } from 'react-icons/md';
 import { Button } from '@material-tailwind/react';
-import {
-  GetTags,
-  PostTags,
-  DelTags,
-  UpgradeTags,
-  GetTagsCategory,
-  PostTagsCategory,
-  DelTagsCategory,
-  UpgradeTagsCategory,
-} from '../../services/tags';
 
-function Tags() {
+import { DelLinkTags, DelLinkTagsCategory, GetLinkTags, GetLinkTagsCategory, PostLinkTags, PostLinkTagsCategory, UpgradeLinkTags, UpgradeLinkTagsCategory } from '../../services/taglinks';
+
+function LinkTags() {
   const [tags, setTags] = useState([]);
   const [activeTags, setActiveTags] = useState([]);
   const [activeCategory, setActiveCategory] = useState(null);
@@ -33,7 +25,7 @@ function Tags() {
 
   const fetchTags = async () => {
     try {
-      const data = await GetTags();
+      const data = await GetLinkTags();
       setTags(data);
     } catch (error) {
       console.error('Ошибка при загрузке тэгов:', error);
@@ -46,7 +38,7 @@ function Tags() {
 
   const fetchTagsCategory = async () => {
     try {
-      const data = await GetTagsCategory();
+      const data = await GetLinkTagsCategory();
       setTagsCategory(data);
     } catch (error) {
       console.error('Ошибка при загрузке тэгов:', error);
@@ -57,8 +49,8 @@ function Tags() {
     if (newTagCategory.trim()) {
       const order = tagsCategory.length + 1; // Assumes order starts at 1 and increments
       try {
-        const addedTagCategory = await PostTagsCategory({
-          name: newTagCategory,
+        const addedTagCategory = await PostLinkTagsCategory({
+          title: newTagCategory,
         });
         setTagsCategory([...tagsCategory, addedTagCategory]);
         setNewTagCategory('');
@@ -85,7 +77,7 @@ function Tags() {
   const handleEditTag = async () => {
     if (editTagInput && editTagId) {
       try {
-        const updatedTag = await UpgradeTags(editTagId, { name: editTagInput });
+        const updatedTag = await UpgradeLinkTags(editTagId, { name: editTagInput });
         setTags(tags.map((tag) => (tag.id === editTagId ? updatedTag : tag)));
         setIsEditingTag(false);
         setEditTagInput('');
@@ -115,7 +107,7 @@ function Tags() {
 
   const deleteTag = async (tagId) => {
     try {
-      await DelTags(tagId);
+      await DelLinkTags(tagId);
       setTags(tags.filter((tag) => tag.id !== tagId));
     } catch (error) {
       console.error('Ошибка при удалении тэга:', error);
@@ -124,7 +116,7 @@ function Tags() {
 
   const deleteTagCategory = async (categoryId) => {
     try {
-      await DelTagsCategory(categoryId);
+      await DelLinkTagsCategory(categoryId);
       setTagsCategory(
         tagsCategory.filter((category) => category.id !== categoryId),
       );
@@ -142,9 +134,9 @@ function Tags() {
     if (newTag && activeCategory) {
       // Проверяем, что введено имя тега и выбрана категория
       try {
-        const addedTag = await PostTags({
-          name: newTag,
-          tag_category: activeCategory.id, // Используем ID активной категории
+        const addedTag = await PostLinkTags({
+          title: newTag,
+          category_id: activeCategory.id, // Используем ID активной категории
           order: activeCategory.id, // Используем ID активной категории
         });
         setActiveTags([...activeTags, addedTag]); // Добавляем тег к активным тегам
@@ -160,9 +152,9 @@ function Tags() {
   const handleEditTagCategory = async () => {
     if (editTagInputCategory && editTagIdCategory) {
       try {
-        const updatedTagCategory = await UpgradeTagsCategory(
+        const updatedTagCategory = await UpgradeLinkTagsCategory(
           editTagIdCategory,
-          { name: editTagInputCategory },
+          { title: editTagInputCategory },
         );
         setTagsCategory(
           tagsCategory.map((category) =>
@@ -226,7 +218,7 @@ function Tags() {
                     onClick={() => handleCategoryClick(tagCategory)}
                     className="relative p-2 m-2 border rounded-lg"
                   >
-                    {tagCategory.name}
+                    {tagCategory.title}
                   </div>
                   <div className=" top-0 right-0 flex gap-2">
                     <button
@@ -254,7 +246,17 @@ function Tags() {
                 value={newTag}
                 onChange={(e) => setNewTag(e.target.value)}
                 placeholder={`Новый тэг для категории: ${
-                  activeCategory ? activeCategory.name : 'Выберите категорию'
+                  activeCategory ? activeCategory.title : 'Выберите категорию'
+                }`}
+                className="border p-2 rounded-lg"
+                disabled={!activeCategory} // Делаем поле неактивным, если не выбрана категория
+              />
+              <input
+                type="text"
+                value={newTag}
+                onChange={(e) => setNewTag(e.target.value)}
+                placeholder={`Новый тэг для категории: ${
+                  activeCategory ? activeCategory.title : 'Выберите категорию'
                 }`}
                 className="border p-2 rounded-lg"
                 disabled={!activeCategory} // Делаем поле неактивным, если не выбрана категория
@@ -283,14 +285,15 @@ function Tags() {
 
             <div className="mt-10 mb-6 flex flex-wrap justify-around">
               {/* {tags.map((tag) => ( */}
-              {activeTags.map((tag) => (
+              {activeTags && activeTags.map(tag => (
+              
                 <>
                   <div className="flex flex-col justify-center items-center">
                     <div
                       key={tag.id}
                       className="relative p-2 m-2 border rounded-lg"
                     >
-                      {tag.name}
+                      {tag.title}
                     </div>
                     <div className=" top-0 right-0 flex gap-2">
                       <button
@@ -317,4 +320,4 @@ function Tags() {
   );
 }
 
-export default Tags;
+export default LinkTags;

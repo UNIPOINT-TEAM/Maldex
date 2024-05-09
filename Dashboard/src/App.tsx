@@ -25,6 +25,8 @@ import {
   CategoryDetails,
   EditBuildSet,
   AddPrint,
+  LinkTags,
+  FilterCatalog,
 } from './pages';
 import 'swiper/css';
 import 'swiper/css/scrollbar';
@@ -59,6 +61,7 @@ function App() {
         <Route path="/gifts/add" element={<AddGifts />} />
         <Route path="/gifts/:id" element={<EditGifts />} />
         <Route path="/tags" element={<Tags />} />
+        <Route path="/linktags" element={<LinkTags />} />
         <Route path="/catalog" element={<Catalog />} />
         <Route path="/build-set" element={<BuildSet />} />
         <Route path="/build-set-add" element={<AddBuildSet />} />
@@ -77,6 +80,7 @@ function App() {
         <Route path="/admin" element={<Admin />} />
         <Route path="/articles" element={<Articles />} />
         <Route path="/articles/:id" element={<EditArticles />} />
+        <Route path="/filter" element={<FilterCatalog />} />
         <Route path="/articles/add" element={<AddArticles />} />
         <Route path="/print/:id" element={<Applying />} />
         <Route path="/print/add" element={<AddPrint />} />

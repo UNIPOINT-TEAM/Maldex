@@ -11,7 +11,6 @@ import './styleEditor.css';
 function EditArticles({ htmlContent }) {
 // import { CKEditor } from 'ckeditor4-react';
 
-function EditArticles() {
   const { id } = useParams();
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -75,7 +74,7 @@ function EditArticles() {
       <div className="w-[1000px] m-auto">
       <div className="my-5 ">
         <div className='mx-auto'> 
-          <label className="flex w-1/2 h-[190px] cursor-pointer border-dashed items-center justify-center gap-2 rounded-xl border border-b py-1 px-2 text-sm font-medium hover:bg-opacity-90 xsm:px-4">
+          {/* <label className="flex w-1/2 h-[190px] cursor-pointer border-dashed items-center justify-center gap-2 rounded-xl border border-b py-1 px-2 text-sm font-medium hover:bg-opacity-90 xsm:px-4">
             <input
               required
               type="file"
@@ -84,24 +83,24 @@ function EditArticles() {
               onChange={handleImageChange}
             />
             <p className="text-fs-6">Добавить Фото</p>
-          </label>
+          </label> */}
         </div>
       </div>
       <div className="my-10 ">
-        <Input
+        {/* <Input
           value={title}
           required
           variant="standard"
           label="Название"
           onChange={(e) => setTitle(e.target.value)}
-        />
+        /> */}
       </div>
       <div className="">
-        <CKEditor
+        {/* <CKEditor
           data={content}
           onInstanceReady={(e) => setEditor(e.editor)}
           onChange={handleEditorChange}
-        />
+        /> */}
       </div>
 
       <div className='w-[1200px] mx-auto mb-100'>
@@ -123,6 +122,7 @@ function EditArticles() {
       >
         Отправить
       </Button>
+      </div>
     </DefaultLayout>
   );
 }

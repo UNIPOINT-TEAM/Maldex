@@ -27,13 +27,13 @@ export const PostGiftsProduct = async (data: any) => {
 };
 
 export const delGiftsCategory = async (id:number)   => {
-  const response = await api.delete(`/faq/${id}`);
+  const response = await api.delete(`/gifts/baskets/category/${id}`);
   return response.data;
 };
 
 
 //hooks.ts
-export const editGiftsCategory = async (id: number, newData: { title: string, body: string }) => {
-  const response = await api.put(`/faq/${id}/`, newData);
+export const editGiftsCategory = async (id: number, newData: { name: string }) => {
+  const response = await api.put(`/gifts/baskets/category/${id}/`, newData); 
   return response.data;
 };
