@@ -36,12 +36,14 @@ export const PostLinkTags
   return response.data;
 };
 
+
+
 export const DelLinkTags = async (id:number)   => {
   const response = await api.delete(`/link-tags/${id}/`);
   return response.data;
 };
 
-export const UpgradeLinkTags = async (id: number, newData: { name: string, body: string, image: any }) => {
+export const UpgradeLinkTags = async (id: number, newData: { title: string, }) => {
   const response = await api.put(`/link-tags/${id}/`, newData); 
   return response.data;
 };

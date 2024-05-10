@@ -15,7 +15,7 @@ import { DelGiftSet, GetGiftSet } from '../../services/buildset';
 import { Link } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Scrollbar } from 'swiper/modules';
-import { GetFilter } from '../../services/filtr';
+import { DelFilterSet, GetFilter } from '../../services/filtr';
 
 const FilterCatalog = () => {
   const [open, setOpen] = useState<number>(0);
@@ -49,7 +49,7 @@ const FilterCatalog = () => {
 
   const deleteAccordion = async (id: number) => {
     try {
-      await DelGiftSet(id);
+      await DelFilterSet(id);
 
       setAccordionData((prevData) => prevData.filter((item) => item.id !== id));
     } catch (error) {
@@ -240,7 +240,7 @@ const FilterCatalog = () => {
                         </AccordionBody>
                       </Accordion>
                       <div className="flex flex-col justify-center mt-2">
-                        <Link to={`/build-set-edit/${item.id}`}>
+                        <Link to={`/filter/edit/${item.id}`}>
                           <Button
                             buttonType="filled"
                             size="regular"

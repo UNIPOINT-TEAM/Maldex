@@ -22,7 +22,7 @@ export const PostFilterSet
 };
 
 export const DelFilterSet = async (id:number)   => {
-  const response = await api.delete(`/gifts/baskets/set/catalog/${id}`);
+  const response = await api.delete(`/product/filters/${id}`);
   return response.data;
 };
 

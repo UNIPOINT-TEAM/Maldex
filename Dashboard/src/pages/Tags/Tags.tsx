@@ -224,7 +224,10 @@ function Tags() {
                 >
                   <div
                     onClick={() => handleCategoryClick(tagCategory)}
-                    className="relative p-2 m-2 border rounded-lg"
+                    className={`relative p-2 m-2 border rounded-lg ${
+                      activeCategory && activeCategory.id === tagCategory.id
+                        ? 'bg-red-primary text-white'
+                        : ' '}`}
                   >
                     {tagCategory.name}
                   </div>

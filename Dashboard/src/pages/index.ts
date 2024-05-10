@@ -24,3 +24,4 @@ export { default as Categories } from './Categories/Categories';
 export { default as CategoryDetails } from './Categories/CatgeoryDetails';
 export { default as FilterCatalog } from './FilterCatalog/FilterCatalog';
 export { default as AddFilterCatalog } from './FilterCatalog/components/AddFilterCatalog';
+export { default as EditFilterCatalog } from './FilterCatalog/components/EditFilterCatalog';

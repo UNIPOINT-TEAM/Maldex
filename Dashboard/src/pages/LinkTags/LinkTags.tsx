@@ -13,6 +13,7 @@ import {
   UpgradeLinkTags,
   UpgradeLinkTagsCategory,
 } from '../../services/taglinks';
+import { Link } from 'react-router-dom';
 
 function LinkTags() {
   const [tags, setTags] = useState([]);
@@ -75,7 +76,7 @@ function LinkTags() {
 
   const startEditTag = (tag) => {
     setIsEditingTag(true);
-    setEditTagInput(tag.name);
+    setEditTagInput(tag.title);
     setEditTagId(tag.id);
   };
 
@@ -86,10 +87,13 @@ function LinkTags() {
   };
 
   const handleEditTag = async () => {
-    if (editTagInput && editTagId) {
+    if (editTagInput && editTagId && activeCategory) {
       try {
         const updatedTag = await UpgradeLinkTags(editTagId, {
-          name: editTagInput,
+          title: editTagInput,
+          category_id: activeCategory.id,
+
+
         });
         setTags(tags.map((tag) => (tag.id === editTagId ? updatedTag : tag)));
         setIsEditingTag(false);
@@ -139,8 +143,9 @@ function LinkTags() {
   };
 
   const handleCategoryClick = (category) => {
-    setActiveTags(category.tag_set);
-    setActiveCategory(category); // Сохраняем всю категорию как активную
+    // console.log('Clicked category:', category);
+    setActiveTags(category.tags);
+    setActiveCategory(category);
   };
 
   const addTag = async () => {
@@ -186,6 +191,19 @@ function LinkTags() {
     }
   };
 
+  const handleNewTagLinkChange = (e) => {
+    const inputValue = e.target.value;
+    if (inputValue.startsWith('https://') || inputValue === '') {
+      setNewTagLink(inputValue);
+    } else {
+      // Если введенное значение не начинается с 'https://', можно либо ничего не делать, либо предложить пользователю начать со 'https://'.
+      // Например, можно вывести сообщение об ошибке или предупреждение пользователю:
+      alert('Ссылка должна начинаться с "https://".');
+      // или просто проигнорировать введенное значение:
+      // setNewTagLink('');
+    }
+  };
+
   return (
     <>
       <DefaultLayout>
@@ -228,15 +246,19 @@ function LinkTags() {
               {tagsCategory.map((tagCategory) => (
                 <div
                   key={tagCategory.id}
-                  className="flex flex-col justify-center items-center"
+                  className={`flex flex-col justify-center items-center `}
                 >
                   <div
                     onClick={() => handleCategoryClick(tagCategory)}
-                    className="relative p-2 m-2 border rounded-lg"
+                    className={`relative p-2 m-2 border cursor-pointer rounded-lg ${
+                      activeCategory && activeCategory.id === tagCategory.id
+                        ? 'bg-red-primary text-white'
+                        : ' '}
+                    `}
                   >
                     {tagCategory.title}
                   </div>
-                  <div className=" top-0 right-0 flex gap-2">
+                  <div className="top-0 right-0 flex gap-2">
                     <button
                       onClick={() => startEditTagCategory(tagCategory)}
                       className="p-2 text-white bg-yellow-400"
@@ -270,7 +292,7 @@ function LinkTags() {
               <input
                 type="text"
                 value={newTagLink}
-                onChange={(e) => setNewTagLink(e.target.value)}
+                onChange={handleNewTagLinkChange}
                 placeholder={`Новая ссылка для тега: ${
                   activeCategory ? activeCategory.title : 'Выберите категорию'
                 }`}
@@ -305,12 +327,14 @@ function LinkTags() {
                 activeTags.map((tag) => (
                   <>
                     <div className="flex flex-col justify-center items-center">
-                      <div
-                        key={tag.id}
-                        className="relative p-2 m-2 border rounded-lg"
-                      >
-                        {tag.title}
-                      </div>
+                      <Link to={tag.link} target="_blank">
+                        <div
+                          key={tag.id}
+                          className="relative p-2 m-2 border rounded-lg"
+                        >
+                          {tag.title}
+                        </div>
+                      </Link>
                       <div className=" top-0 right-0 flex gap-2">
                         <button
                           onClick={() => startEditTag(tag)}
