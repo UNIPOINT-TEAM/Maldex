@@ -16,8 +16,10 @@ import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 import { Accordion } from "../../components";
 import { useFetchHook } from "../../hooks/UseFetch";
+import { useParams } from "react-router-dom";
 
 const Catalog = () => {
+  const { id } = useParams();
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
   const [filter, setFilter] = useState<boolean>(false);
 
@@ -46,9 +48,10 @@ const Catalog = () => {
 
   const { fetchData, response } = useFetchHook();
   useEffect(() => {
-    fetchData({ method: "GET", url: "/gifts/baskets/category/" });
+    fetchData({ method: "GET", url: `/product/category_id/${id}/` });
   }, []);
   console.log(response);
+
   return (
     <div className="home px-2 md:px-0">
       <div className="w-full h-full">
@@ -61,7 +64,7 @@ const Catalog = () => {
           </div>
         </div>
         <div className="card container_xxl px-3 my-0 sm:my-10 ">
-          <p className="text-3xl mb-5 mt-5 md:mt-0">подарочные наборы</p>
+          <h1 className="text-3xl mb-5 mt-5 md:mt-0">{response?.name}</h1>
           <div className="flex justify-between items-center md:border-b-[1px] pb-2 mb-3">
             <button className="border-[1px] border-black px-3 py-1 rounded flex items-center">
               <h2 className="font-bold">Все фильтры (2) &nbsp;</h2>
@@ -253,21 +256,22 @@ const Catalog = () => {
             </div>
           </div>
           <div className="flex gap-2 flex-wrap py-2 ">
-            {response?.map((i) => (
-              <div
-                className="w-[45%] sm:w-[30%] md:w-[18%] mb-[40px]"
-                key={i.id}
-              >
-                <CardCatalog item={i} />
-              </div>
-            ))}
+            {response &&
+              response?.children?.map((item) => (
+                <div
+                  className="w-[45%] sm:w-[30%] md:w-[18%] mb-[40px]"
+                  key={item.id}
+                >
+                  <CardCatalog item={item} />
+                </div>
+              ))}
           </div>
         </div>
         <div className="mb-3">
           <SaleSlider />
         </div>
         <div className="container_xxl px-3 mb-8">
-          <div className="flex gap-2 flex-wrap py-2 justify-between">
+          {/* <div className="flex gap-2 flex-wrap py-2 justify-between">
             {response.map((i) => (
               <div
                 className="w-[45%] sm:w-[30%] md:w-[18%] mb-[40px]"
@@ -276,7 +280,7 @@ const Catalog = () => {
                 <CardCatalog item={i} />
               </div>
             ))}
-          </div>
+          </div> */}
           <div className="flex justify-center items-center gap-3">
             <button className="text-gray-500">
               <FaArrowLeftLong />

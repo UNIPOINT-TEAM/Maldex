@@ -1,10 +1,6 @@
 import { useState } from 'react';
 import DefaultLayout from '../../layout/DefaultLayout';
-import {
-  ProductNav,
-  SaleSlider,
-  SliderProduct,
-} from '../../components';
+import { ProductNav, SaleSlider, SliderProduct } from '../../components';
 // import { CardCatalogData } from '../../mock/data';
 import CardCatalog from '../../components/CardCatalog/CardCatalog';
 import Close from '../../assets/icons/close.png';
@@ -15,10 +11,10 @@ import { IoIosArrowDown } from 'react-icons/io';
 import { IoIosArrowForward } from 'react-icons/io';
 // import { Accordion } from '../../components';
 
-import Photo1 from "../../assets/images/catalog1.png";
-import Photo2 from "../../assets/images/catalog2.png";
-import Photo3 from "../../assets/images/catalog3.png";
-import Photo4 from "../../assets/images/catalog4.png";
+import Photo1 from '../../assets/images/catalog1.png';
+import Photo2 from '../../assets/images/catalog2.png';
+import Photo3 from '../../assets/images/catalog3.png';
+import Photo4 from '../../assets/images/catalog4.png';
 
 const Catalog = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
@@ -47,110 +43,108 @@ const Catalog = () => {
     setFilter(!filter);
   };
 
-
   const CardCatalogData = [
     {
       id: 1,
       img: Photo1,
-      title: "Гаджеты для него",
-      description: "107045356",
-      price: "15 185.",
-      index1: "52",
-      money: "₽",
-      index2: "564",
+      title: 'Гаджеты для него',
+      description: '107045356',
+      price: '15 185.',
+      index1: '52',
+      money: '₽',
+      index2: '564',
     },
     {
       id: 2,
       img: Photo2,
-      title: "Гаджеты для него",
-      description: "107045356",
-      price: "15 185.",
-      index1: "52",
-      money: "₽",
-      index2: "564",
+      title: 'Гаджеты для него',
+      description: '107045356',
+      price: '15 185.',
+      index1: '52',
+      money: '₽',
+      index2: '564',
     },
     {
       id: 3,
       img: Photo3,
-      title: "Гаджеты для него",
-      description: "107045356",
-      price: "15 185.",
-      index1: "52",
-      money: "₽",
-      index2: "564",
+      title: 'Гаджеты для него',
+      description: '107045356',
+      price: '15 185.',
+      index1: '52',
+      money: '₽',
+      index2: '564',
     },
     {
       id: 4,
       img: Photo4,
-      title: "Гаджеты для него",
-      description: "107045356",
-      price: "15 185.",
-      index1: "52",
-      money: "₽",
-      index2: "564",
+      title: 'Гаджеты для него',
+      description: '107045356',
+      price: '15 185.',
+      index1: '52',
+      money: '₽',
+      index2: '564',
     },
     {
       id: 5,
       img: Photo2,
-      title: "Гаджеты для него",
-      description: "107045356",
-      price: "15 185.",
-      index1: "52",
-      money: "₽",
-      index2: "564",
+      title: 'Гаджеты для него',
+      description: '107045356',
+      price: '15 185.',
+      index1: '52',
+      money: '₽',
+      index2: '564',
     },
     {
       id: 5,
       img: Photo3,
-      title: "Гаджеты для него",
-      description: "107045356",
-      price: "15 185.",
-      index1: "52",
-      money: "₽",
-      index2: "564",
+      title: 'Гаджеты для него',
+      description: '107045356',
+      price: '15 185.',
+      index1: '52',
+      money: '₽',
+      index2: '564',
     },
     {
       id: 7,
       img: Photo1,
-      title: "Гаджеты для него",
-      description: "107045356",
-      price: "15 185.",
-      index1: "52",
-      money: "₽",
-      index2: "564",
+      title: 'Гаджеты для него',
+      description: '107045356',
+      price: '15 185.',
+      index1: '52',
+      money: '₽',
+      index2: '564',
     },
     {
       id: 8,
       img: Photo4,
-      title: "Гаджеты для него",
-      description: "107045356",
-      price: "15 185.",
-      index1: "52",
-      money: "₽",
-      index2: "564",
+      title: 'Гаджеты для него',
+      description: '107045356',
+      price: '15 185.',
+      index1: '52',
+      money: '₽',
+      index2: '564',
     },
     {
       id: 9,
       img: Photo1,
-      title: "Гаджеты для него",
-      description: "107045356",
-      price: "15 185.",
-      index1: "52",
-      money: "₽",
-      index2: "564",
+      title: 'Гаджеты для него',
+      description: '107045356',
+      price: '15 185.',
+      index1: '52',
+      money: '₽',
+      index2: '564',
     },
     {
       id: 10,
       img: Photo3,
-      title: "Гаджеты для него",
-      description: "107045356",
-      price: "15 185.",
-      index1: "52",
-      money: "₽",
-      index2: "564",
+      title: 'Гаджеты для него',
+      description: '107045356',
+      price: '15 185.',
+      index1: '52',
+      money: '₽',
+      index2: '564',
     },
   ];
-
 
   return (
     <DefaultLayout>
@@ -369,7 +363,9 @@ const Catalog = () => {
               ))}
             </div>
           </div>
-          <div className="mb-3"><SaleSlider /></div>
+          <div className="mb-3">
+            <SaleSlider />
+          </div>
           <div className="container_xxl px-3 mb-8">
             <div className="flex gap-2 flex-wrap py-2 justify-between">
               {CardCatalogData.map((i) => (

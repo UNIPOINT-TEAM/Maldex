@@ -26,7 +26,8 @@ const listData = [
     value: "Без упаковки",
   },
 ];
-const TabList = () => {
+const TabList = ({ pack }) => {
+  console.log(pack);
   return (
     <Card
       className="w-full shadow-none p-0 m-0 bg-transparent"

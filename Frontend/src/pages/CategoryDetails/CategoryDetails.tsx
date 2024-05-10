@@ -30,29 +30,8 @@ import { ProductColor } from "../../mock/data";
 import ProductPerviewModal from "../../components/CategoryDetails/ProductPerviewModal";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../store/cartSlice";
-
-const CategoryTabs = [
-  {
-    label: "Описание",
-    value: "Описание",
-    content: <TabDescription />,
-  },
-  {
-    label: "Характеристики",
-    value: "Характеристики",
-    content: <TabList />,
-  },
-  {
-    label: "таблица размеров",
-    value: "таблица размеров",
-    content: <TabSizeTable />,
-  },
-  {
-    label: "виды нанесения",
-    value: "виды нанесения",
-    content: <TabFour />,
-  },
-];
+import { useFetchHook } from "../../hooks/UseFetch";
+import { useParams } from "react-router-dom";
 
 const btnSize = [
   { id: 1, size: "XS" },
@@ -61,12 +40,9 @@ const btnSize = [
   { id: 4, size: "L" },
   { id: 5, size: "XL" },
 ];
-const Buttons = [
-  { id: 1, name: "Фото", icon: false },
-  { id: 2, name: "Места <br /> нанесения", icon: true },
-  { id: 3, name: "примеры", icon: false },
-];
+
 const CategoryDetails = () => {
+  const { id } = useParams<{ id: string }>();
   const [activeTab, setActiveTab] = useState("Описание");
   const [isActive, setIsActive] = useState<number>(1);
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
@@ -87,8 +63,12 @@ const CategoryDetails = () => {
   });
 
   const dispatch = useDispatch();
-  const cartItems = useSelector((state) => state.cart.items);
-  console.log(cartItems);
+
+  const { fetchData, response } = useFetchHook();
+  useEffect(() => {
+    fetchData({ method: "GET", url: `/product/${id}` });
+  }, []);
+  console.log(response);
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, []);
@@ -126,6 +106,29 @@ const CategoryDetails = () => {
   useEffect(() => {
     calculateTotal();
   }, [product.quantity]);
+
+  const CategoryTabs = [
+    {
+      label: "Описание",
+      value: "Описание",
+      content: <TabDescription description={response?.description} />,
+    },
+    {
+      label: "Характеристики",
+      value: "Характеристики",
+      content: <TabList pack={response?.pack} />,
+    },
+    // {
+    //   label: "таблица размеров",
+    //   value: "таблица размеров",
+    //   content: <TabSizeTable />,
+    // },
+    {
+      label: "виды нанесения",
+      value: "виды нанесения",
+      content: <TabFour prints={response?.prints} />,
+    },
+  ];
 
   return (
     <div className="container_xxl tracking-wider overflow-hidden px-3">
@@ -185,33 +188,6 @@ const CategoryDetails = () => {
         </div>
         <div className="bg-white order-1 lg:order-2 flex flex-col items-start p-2 lg:p-5 col-span-3 lg:col-span-4 relative">
           <div className="flex justify-end w-full">
-            {/* <div className="flex gap-2 font-bold uppercase">
-              {Buttons.map((button) => (
-                <div
-                  key={button.id}
-                  onClick={() => setIsActive(button.id)}
-                  className={`bg-[#fff] flex gap-2 items-center cursor-pointer py-[8px] lg:py-[13px] px-[8px] lg:px-[15px] tracking-widest text-fs_9 rounded-lg ${
-                    isActive == button.id && "bg-redPrimary text-[#fff]"
-                  }`}
-                >
-                  {button.icon && (
-                    <div
-                      className={`border bottom-1 border-redPrimary text-fs_7 text-redPrimary  flex items-center justify-center w-[25px] h-[25px] rounded-[50%] ${
-                        isActive == button.id && "border-white text-white"
-                      }`}
-                    >
-                      +
-                    </div>
-                  )}
-                  <span
-                    className=" text-[7px] font-bold lg:text-[9px]"
-                    dangerouslySetInnerHTML={{
-                      __html: button.name,
-                    }}
-                  />
-                </div>
-              ))}
-            </div> */}
             <div className="flex gap-1">
               <button className="rounded-full w-[27px] h-[27px] bg-[#fff] flex items-center justify-center">
                 <img src={arrowT} alt="img" />
@@ -245,7 +221,7 @@ const CategoryDetails = () => {
               isActive !== 1 && "hidden"
             }`}
           >
-            <ProductPerviewModal />
+            <ProductPerviewModal images={response?.images_set} />
           </div>
           <div
             className={`${
@@ -296,7 +272,7 @@ const CategoryDetails = () => {
             </div>
             <div className="container mx-auto lg:px-4 py-4">
               <h2 className="text-base font-semibold  tracking-wider">
-                Футболка женская T-bolka Lady, оранжевая
+                {response.name}
               </h2>
               <div className=" mt-4">
                 <p className="text-darkSecondary text-fs_8 tracking-wide font-semibold">
