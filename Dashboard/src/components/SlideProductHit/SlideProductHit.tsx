@@ -19,7 +19,7 @@ const SliderProductHit = () => {
 
   useEffect(() => {
     GetProductHit(categoryId).then((res) => {
-      setNewProduct(res.data);
+      setNewProduct(res.data.results);
     });
   }, [categoryId]);
 

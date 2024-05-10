@@ -29,13 +29,13 @@ export const GetProductSearch = async (
 };
 export const GetProductNew = async (id: any) => {
   const response = await axios.get(
-    `${BASE_URL}/product/all/?category_id=${id}&is_new=true`,
+    `${BASE_URL}/product/?category_id=${id}&is_new=true`,
   );
   return response;
 };
 export const GetProductHit = async (id: any) => {
   const response = await axios.get(
-    `${BASE_URL}/product/all/?category_id=${id}&is_hit=true`,
+    `${BASE_URL}/product/?category_id=${id}&is_hit=true`,
   );
   return response;
 };
