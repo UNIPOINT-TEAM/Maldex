@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react';
 import DefaultLayout from '../../../layout/DefaultLayout';
 import { Input } from '@material-tailwind/react';
 import { PostGiftSet } from '../../../services/buildset';
-import { GetProductSearch } from '../../../services/product';
 import ProductDialog from './ProductDialog';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
+import { GetProductSearch } from '../../../services/product';
+import { PostFilterSet } from '../../../services/filtr';
 
 function AddBuildSet() {
   const [products, setProducts] = useState([]);
@@ -40,24 +41,21 @@ function AddBuildSet() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    // Собираем данные о продуктах и их количествах
-    const productData = selectedProductsIds.map((id) => ({
-      product_sets: id,
-      quantity: quantities[id] || 1, // Значение по умолчанию равно 1, если количество не указано
-    }));
-
+  
+    // Собираем данные о продуктах
+    const productData = selectedProductsIds;
+  
     // Формируем объект для отправки
     const SetCategoryList = {
       title,
       product_data: productData,
     };
-
+  
     console.log('Данные для отправки:', SetCategoryList); // Выводим данные в консоль
-
+  
     try {
       // Отправляем данные
-      await PostGiftSet(SetCategoryList);
+      await PostFilterSet(SetCategoryList);
       // Обработка успешного ответа
       console.log('Данные успешно отправлены:', SetCategoryList);
     } catch (error) {
@@ -65,6 +63,7 @@ function AddBuildSet() {
       console.error('Ошибка при отправке данных:', error);
     }
   };
+  
 
   const handleQuantityChange = (id, value) => {
     setQuantities((prev) => ({

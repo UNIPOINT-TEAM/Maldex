@@ -27,6 +27,7 @@ import {
   AddPrint,
   LinkTags,
   FilterCatalog,
+  AddFilterCatalog,
 } from './pages';
 import 'swiper/css';
 import 'swiper/css/scrollbar';
@@ -81,6 +82,7 @@ function App() {
         <Route path="/articles" element={<Articles />} />
         <Route path="/articles/:id" element={<EditArticles />} />
         <Route path="/filter" element={<FilterCatalog />} />
+        <Route path="/filter/add" element={<AddFilterCatalog />} />
         <Route path="/articles/add" element={<AddArticles />} />
         <Route path="/print/:id" element={<Applying />} />
         <Route path="/print/add" element={<AddPrint />} />

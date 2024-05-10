@@ -3,7 +3,16 @@ import DefaultLayout from '../../layout/DefaultLayout';
 import { MdDelete, MdEdit } from 'react-icons/md';
 import { Button } from '@material-tailwind/react';
 
-import { DelLinkTags, DelLinkTagsCategory, GetLinkTags, GetLinkTagsCategory, PostLinkTags, PostLinkTagsCategory, UpgradeLinkTags, UpgradeLinkTagsCategory } from '../../services/taglinks';
+import {
+  DelLinkTags,
+  DelLinkTagsCategory,
+  GetLinkTags,
+  GetLinkTagsCategory,
+  PostLinkTags,
+  PostLinkTagsCategory,
+  UpgradeLinkTags,
+  UpgradeLinkTagsCategory,
+} from '../../services/taglinks';
 
 function LinkTags() {
   const [tags, setTags] = useState([]);
@@ -18,6 +27,8 @@ function LinkTags() {
   const [isEditingTagCategory, setIsEditingTagCategory] = useState(false);
   const [editTagInputCategory, setEditTagInputCategory] = useState('');
   const [editTagIdCategory, setEditTagIdCategory] = useState(null);
+  const [newTagTitle, setNewTagTitle] = useState('');
+  const [newTagLink, setNewTagLink] = useState('');
 
   useEffect(() => {
     fetchTags();
@@ -77,7 +88,9 @@ function LinkTags() {
   const handleEditTag = async () => {
     if (editTagInput && editTagId) {
       try {
-        const updatedTag = await UpgradeLinkTags(editTagId, { name: editTagInput });
+        const updatedTag = await UpgradeLinkTags(editTagId, {
+          name: editTagInput,
+        });
         setTags(tags.map((tag) => (tag.id === editTagId ? updatedTag : tag)));
         setIsEditingTag(false);
         setEditTagInput('');
@@ -131,21 +144,24 @@ function LinkTags() {
   };
 
   const addTag = async () => {
-    if (newTag && activeCategory) {
-      // Проверяем, что введено имя тега и выбрана категория
+    if (newTagTitle && newTagLink && activeCategory) {
       try {
         const addedTag = await PostLinkTags({
-          title: newTag,
-          category_id: activeCategory.id, // Используем ID активной категории
-          order: activeCategory.id, // Используем ID активной категории
+          title: newTagTitle,
+          link: newTagLink,
+          category_id: activeCategory.id,
+          order: activeCategory.id,
         });
-        setActiveTags([...activeTags, addedTag]); // Добавляем тег к активным тегам
-        setNewTag(''); // Очищаем поле ввода
+        setActiveTags([...activeTags, addedTag]);
+        setNewTagTitle('');
+        setNewTagLink('');
       } catch (error) {
-        console.error('Ошибка при добавлении тэга:', error);
+        console.error('Ошибка при добавлении тега:', error);
       }
     } else {
-      alert('Необходимо выбрать категорию и ввести имя тега');
+      alert(
+        'Необходимо выбрать категорию и заполнить поля "Новый тэг" и "Новая ссылка".',
+      );
     }
   };
 
@@ -243,23 +259,23 @@ function LinkTags() {
             <div className="mt-4 flex items-center justify-center gap-5">
               <input
                 type="text"
-                value={newTag}
-                onChange={(e) => setNewTag(e.target.value)}
+                value={newTagTitle}
+                onChange={(e) => setNewTagTitle(e.target.value)}
                 placeholder={`Новый тэг для категории: ${
                   activeCategory ? activeCategory.title : 'Выберите категорию'
                 }`}
                 className="border p-2 rounded-lg"
-                disabled={!activeCategory} // Делаем поле неактивным, если не выбрана категория
+                disabled={!activeCategory}
               />
               <input
                 type="text"
-                value={newTag}
-                onChange={(e) => setNewTag(e.target.value)}
-                placeholder={`Новый тэг для категории: ${
+                value={newTagLink}
+                onChange={(e) => setNewTagLink(e.target.value)}
+                placeholder={`Новая ссылка для тега: ${
                   activeCategory ? activeCategory.title : 'Выберите категорию'
                 }`}
                 className="border p-2 rounded-lg"
-                disabled={!activeCategory} // Делаем поле неактивным, если не выбрана категория
+                disabled={!activeCategory}
               />
               <Button color="green" onClick={addTag} disabled={!activeCategory}>
                 Добавить
@@ -285,33 +301,33 @@ function LinkTags() {
 
             <div className="mt-10 mb-6 flex flex-wrap justify-around">
               {/* {tags.map((tag) => ( */}
-              {activeTags && activeTags.map(tag => (
-              
-                <>
-                  <div className="flex flex-col justify-center items-center">
-                    <div
-                      key={tag.id}
-                      className="relative p-2 m-2 border rounded-lg"
-                    >
-                      {tag.title}
-                    </div>
-                    <div className=" top-0 right-0 flex gap-2">
-                      <button
-                        onClick={() => startEditTag(tag)}
-                        className="p-2 text-white bg-yellow-400"
+              {activeTags &&
+                activeTags.map((tag) => (
+                  <>
+                    <div className="flex flex-col justify-center items-center">
+                      <div
+                        key={tag.id}
+                        className="relative p-2 m-2 border rounded-lg"
                       >
-                        <MdEdit />
-                      </button>
-                      <button
-                        onClick={() => deleteTag(tag.id)}
-                        className="p-2 text-white bg-red-500"
-                      >
-                        <MdDelete />
-                      </button>
+                        {tag.title}
+                      </div>
+                      <div className=" top-0 right-0 flex gap-2">
+                        <button
+                          onClick={() => startEditTag(tag)}
+                          className="p-2 text-white bg-yellow-400"
+                        >
+                          <MdEdit />
+                        </button>
+                        <button
+                          onClick={() => deleteTag(tag.id)}
+                          className="p-2 text-white bg-red-500"
+                        >
+                          <MdDelete />
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                </>
-              ))}
+                  </>
+                ))}
             </div>
           </div>
         </div>

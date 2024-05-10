@@ -15,6 +15,7 @@ import { DelGiftSet, GetGiftSet } from '../../services/buildset';
 import { Link } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Scrollbar } from 'swiper/modules';
+import { GetFilter } from '../../services/filtr';
 
 const FilterCatalog = () => {
   const [open, setOpen] = useState<number>(0);
@@ -34,7 +35,7 @@ const FilterCatalog = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const giftSetData = await GetGiftSet();
+        const giftSetData = await GetFilter();
         console.log(giftSetData);
 
         setAccordionData(giftSetData);
@@ -129,7 +130,7 @@ const FilterCatalog = () => {
                               className=" w-full overscroll-x-auto h-[430px] md:h-[500px]"
                             >
                               {/* @ts-ignore */}
-                              {item.product_sets.map((productSet, setIndex) => (
+                              {item.products.map((productSet, setIndex) => (
                                 <SwiperSlide className="w-full" key={item.id}>
                                   <div className="catalog ">
                                     <div className="relative swiper-top-container h-[220px] mb-4 bg-gray-200">
@@ -138,7 +139,7 @@ const FilterCatalog = () => {
                                         modules={[Navigation, Pagination]}
                                         className="  h-full"
                                       >
-                                        {productSet?.product_sets.images_set?.map(
+                                        {productSet?.product.images_set?.map(
                                           (i) => (
                                             <SwiperSlide className="w-full h-full">
                                               <div
@@ -193,29 +194,29 @@ const FilterCatalog = () => {
                                         <p className="text-fs_7 tracking-wide">
                                           {
                                             //@ts-ignore
-                                            productSet.product_sets.name
+                                            productSet.product.name
                                               .length > 30
                                               ? //@ts-ignore
-                                                productSet.product_sets.name.substring(
+                                                productSet.product.name.substring(
                                                   0,
                                                   40,
                                                 ) + '...'
                                               : //@ts-ignore
-                                                productSet.product_sets.name
+                                                productSet.product.name
                                           }
                                         </p>
                                       </div>
                                       <p className="mb-2 text-gray-600 text-fs_8">
-                                        {productSet.product_sets.vendor_code}
+                                        {productSet.product.vendor_code}
                                       </p>
                                       <div className="relative mb-2">
                                         <p className="text-[16px] md:text-fs_4">
-                                          {productSet.product_sets.price}
+                                          {productSet.product.price}
                                           <span className="text-xs absolute top-0">
                                             12
                                           </span>
                                           <span className="ml-4 mr-1">
-                                            {productSet.product_sets.price_type}
+                                            {productSet.product.price_type}
                                           </span>
                                           <span className="text-xs absolute top-0 line-through text-red-primary">
                                             234
@@ -271,7 +272,7 @@ const FilterCatalog = () => {
               </Reorder.Group>
 
               <div className="flex justify-end mt-4">
-                <Link to="/build-set-add">
+                <Link to="/filter/add">
                   <Button
                     color="green"
                     buttonType="filled"

@@ -2,7 +2,7 @@ import { api } from '../axios/Api';
 
 export const GetGiftsCategory
  = async () => {
-  const response = await api.get(`/gifts/baskets/category/`);
+  const response = await api.get(`/gifts/baskets/category/?is_avaiable=true`);
   return response.data;
 };
 
