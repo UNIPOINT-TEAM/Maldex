@@ -10,13 +10,18 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useFetchHook } from "../../hooks/UseFetch";
 import { CiSearch } from "react-icons/ci";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, removeFromCart } from "../../store/cartSlice";
 
 const CardModal = () => {
   const [activeCard, setActiveCard] = useState(false);
   const { fetchData, response } = useFetchHook();
+  const { items, total } = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
   useEffect(() => {
     fetchData({ method: "GET", url: "/product/" });
   }, []);
+  console.log(items)
   return (
     <>
       <Link
@@ -42,10 +47,10 @@ const CardModal = () => {
           className=" flex items-center w-[120px] bg-white h-[30px] lg:h-[36px] rounded-full"
         >
           <div className="bg-redPrimary text-fs_8 h-full w-[30px] lg:w-[36px] rounded-full flex items-center justify-center">
-            <span className="text-white">3</span>
+            <span className="text-white">{items?.length}</span>
           </div>
           <span className="text-darkPrimary text-fs_8 font-bold ml-1 me-3">
-            14 619,00 ₽
+            {total} ₽
           </span>
         </button>
         {activeCard && (
@@ -58,326 +63,78 @@ const CardModal = () => {
                 </button>
               </div>
               <div className="overflow-y-scroll h-[500px] scrollbar-custom pr-3 mb-5">
-                <div className="CardItem border-t-2 w-full border-gray-400 mt-2 mb-[40px] py-3">
-                  <div className="grid grid-cols-12 grid-rows-1 gap-4">
-                    <div className="col-span-2 h-[100px] border border-gray-500 rounded-xl p-3 flex justify-center items-center">
-                      <img className="w-full" src={Product1} alt="" />
-                    </div>
-                    <div className="col-span-5 ">
-                      <div className="grid grid-rows-5 ">
-                        <div className="row-span-1">
-                          <p className="text-sm teext-slate-950">
-                            Инновационный очиститель
-                          </p>
-                        </div>
-                        <div className="row-span-3 py-1">
-                          <p className="text-sm teext-slate-950">
-                            обеззараживатель, озонатор воздуха
-                          </p>
-                        </div>
-                        <div className="row-span-1">
-                          <p className="text-xs teext-slate-950 row-span-1">
-                            Артикул: 107045356
-                          </p>
-                        </div>
+                {items?.map((item) => (
+                  <div className="CardItem border-t-2 w-full border-gray-400 mt-2 mb-[40px] py-3">
+                    <div className="grid grid-cols-12 grid-rows-1 gap-4">
+                      <div className="col-span-2 h-[100px] border border-gray-500 rounded-xl p-3 flex justify-center items-center">
+                        <img className="w-full" src={Product1} alt="" />
                       </div>
-                    </div>
-                    <div className="col-span-2 ">
-                      <div className="grid grid-rows-5 ">
-                        <div className="row-span-1">
-                          <p className="text-sm teext-slate-950">15 185.55 ₽</p>
-                        </div>
-                        <div className="row-span-3 py-1">
-                          <p className="text-sm teext-slate-950">16 564 </p>
-                        </div>
-                        <div className="row-span-1">
-                          <p className="text-xs teext-slate-950 row-span-1">
-                            7% Скидка
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-span-2 ">
-                      <div className="grid grid-rows-5 ">
-                        <div className="row-span-1">
-                          <p className="text-sm teext-slate-950">Размер</p>
-                        </div>
-                        <div className="row-span-2 py-1">
-                          <p className="text-sm teext-slate-950">Один размер</p>
-                        </div>
-                        <div className="row-span-2">
-                          <p className="text-xs teext-slate-950 row-span-1 mb-1">
-                            Количество
-                          </p>
-                          <div className="w-1/2 flex justify-center items-center border border-slate-500 rounded-xl">
-                            <p className="">20</p>
+                      <div className="col-span-5 ">
+                        <div className="grid grid-rows-5 ">
+                          <div className="row-span-1">
+                            <p className="text-sm teext-slate-950">
+                              {item?.name}
+                            </p>
+                          </div>
+                          <div className="row-span-3 py-1">
+                            <p className="text-sm teext-slate-950">
+                              обеззараживатель, <br /> озонатор воздуха
+                            </p>
+                          </div>
+                          <div className="row-span-1">
+                            <p className="text-xs teext-slate-950 row-span-1">
+                              Артикул: 107045356
+                            </p>
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div className="col-span-1">
-                      <button>
-                        <img src={Trash} alt="" />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div className="CardItem border-t-2 w-full border-gray-400 mt-2 mb-[40px] py-3">
-                  <div className="grid grid-cols-12 grid-rows-1 gap-4">
-                    <div className="col-span-2 h-[100px] border border-gray-500 rounded-xl p-3 flex justify-center items-center">
-                      <img className="w-full" src={Product1} alt="" />
-                    </div>
-                    <div className="col-span-5 ">
-                      <div className="grid grid-rows-5 ">
-                        <div className="row-span-1">
-                          <p className="text-sm teext-slate-950">
-                            Инновационный очиститель
-                          </p>
-                        </div>
-                        <div className="row-span-3 py-1">
-                          <p className="text-sm teext-slate-950">
-                            обеззараживатель, озонатор воздуха
-                          </p>
-                        </div>
-                        <div className="row-span-1">
-                          <p className="text-xs teext-slate-950 row-span-1">
-                            Артикул: 107045356
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-span-2 ">
-                      <div className="grid grid-rows-5 ">
-                        <div className="row-span-1">
-                          <p className="text-sm teext-slate-950">15 185.55 ₽</p>
-                        </div>
-                        <div className="row-span-3 py-1">
-                          <p className="text-sm teext-slate-950">16 564 </p>
-                        </div>
-                        <div className="row-span-1">
-                          <p className="text-xs teext-slate-950 row-span-1">
-                            7% Скидка{" "}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-span-2 ">
-                      <div className="grid grid-rows-5 ">
-                        <div className="row-span-1">
-                          <p className="text-sm teext-slate-950">Размер</p>
-                        </div>
-                        <div className="row-span-2 py-1">
-                          <p className="text-sm teext-slate-950">Один размер</p>
-                        </div>
-                        <div className="row-span-2">
-                          <p className="text-xs teext-slate-950 row-span-1 mb-1">
-                            Количество
-                          </p>
-                          <div className="w-1/2 flex justify-center items-center border border-slate-500 rounded-xl">
-                            <p className="">20</p>
+                      <div className="col-span-2 ">
+                        <div className="grid grid-rows-5 ">
+                          <div className="row-span-1">
+                            <p className="text-sm teext-slate-950">
+                              {item?.price} ₽
+                            </p>
+                          </div>
+                          <div className="row-span-3 py-1">
+                            <p className="text-sm teext-slate-950">16 564</p>
+                          </div>
+                          <div className="row-span-1">
+                            <p className="text-xs teext-slate-950 row-span-1">
+                              {item?.discount}% Скидка
+                            </p>
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div className="col-span-1">
-                      <button>
-                        <img src={Trash} alt="" />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div className="CardItem border-t-2 w-full border-gray-400 mt-2 mb-[40px] py-3">
-                  <div className="grid grid-cols-12 grid-rows-1 gap-4">
-                    <div className="col-span-2 h-[100px] border border-gray-500 rounded-xl p-3 flex justify-center items-center">
-                      <img className="w-full" src={Product1} alt="" />
-                    </div>
-                    <div className="col-span-5 ">
-                      <div className="grid grid-rows-5 ">
-                        <div className="row-span-1">
-                          <p className="text-sm teext-slate-950">
-                            Инновационный очиститель
-                          </p>
-                        </div>
-                        <div className="row-span-3 py-1">
-                          <p className="text-sm teext-slate-950">
-                            обеззараживатель, озонатор воздуха
-                          </p>
-                        </div>
-                        <div className="row-span-1">
-                          <p className="text-xs teext-slate-950 row-span-1">
-                            Артикул: 107045356
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-span-2 ">
-                      <div className="grid grid-rows-5 ">
-                        <div className="row-span-1">
-                          <p className="text-sm teext-slate-950">15 185.55 ₽</p>
-                        </div>
-                        <div className="row-span-3 py-1">
-                          <p className="text-sm teext-slate-950">16 564 </p>
-                        </div>
-                        <div className="row-span-1">
-                          <p className="text-xs teext-slate-950 row-span-1">
-                            7% Скидка{" "}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-span-2 ">
-                      <div className="grid grid-rows-5 ">
-                        <div className="row-span-1">
-                          <p className="text-sm teext-slate-950">Размер</p>
-                        </div>
-                        <div className="row-span-2 py-1">
-                          <p className="text-sm teext-slate-950">Один размер</p>
-                        </div>
-                        <div className="row-span-2">
-                          <p className="text-xs teext-slate-950 row-span-1 mb-1">
-                            Количество
-                          </p>
-                          <div className="w-1/2 flex justify-center items-center border border-slate-500 rounded-xl">
-                            <p className="">20</p>
+                      <div className="col-span-2 ">
+                        <div className="grid grid-rows-5 ">
+                          <div className="row-span-1">
+                            <p className="text-sm teext-slate-950">Размер</p>
+                          </div>
+                          <div className="row-span-2 py-1">
+                            <p className="text-sm teext-slate-950">
+                              Один размер
+                            </p>
+                          </div>
+                          <div className="row-span-2">
+                            <p className="text-xs teext-slate-950 row-span-1 mb-1">
+                              Количество
+                            </p>
+                            <div className="w-1/2 flex justify-center items-center border border-slate-500 rounded-xl">
+                              <p className="">20</p>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div className="col-span-1">
-                      <button>
-                        <img src={Trash} alt="" />
-                      </button>
+                      <div className="col-span-1">
+                        <button
+                          onClick={() => dispatch(removeFromCart(item.id))}
+                        >
+                          <img src={Trash} alt="trash-icon" />
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="CardItem border-t-2 w-full border-gray-400 mt-2 mb-[40px] py-3">
-                  <div className="grid grid-cols-12 grid-rows-1 gap-4">
-                    <div className="col-span-2 h-[100px] border border-gray-500 rounded-xl p-3 flex justify-center items-center">
-                      <img className="w-full" src={Product1} alt="" />
-                    </div>
-                    <div className="col-span-5 ">
-                      <div className="grid grid-rows-5 ">
-                        <div className="row-span-1">
-                          <p className="text-sm teext-slate-950">
-                            Инновационный очиститель
-                          </p>
-                        </div>
-                        <div className="row-span-3 py-1">
-                          <p className="text-sm teext-slate-950">
-                            обеззараживатель, озонатор воздуха
-                          </p>
-                        </div>
-                        <div className="row-span-1">
-                          <p className="text-xs teext-slate-950 row-span-1">
-                            Артикул: 107045356
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-span-2 ">
-                      <div className="grid grid-rows-5 ">
-                        <div className="row-span-1">
-                          <p className="text-sm teext-slate-950">15 185.55 ₽</p>
-                        </div>
-                        <div className="row-span-3 py-1">
-                          <p className="text-sm teext-slate-950">16 564 </p>
-                        </div>
-                        <div className="row-span-1">
-                          <p className="text-xs teext-slate-950 row-span-1">
-                            7% Скидка{" "}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-span-2 ">
-                      <div className="grid grid-rows-5 ">
-                        <div className="row-span-1">
-                          <p className="text-sm teext-slate-950">Размер</p>
-                        </div>
-                        <div className="row-span-2 py-1">
-                          <p className="text-sm teext-slate-950">Один размер</p>
-                        </div>
-                        <div className="row-span-2">
-                          <p className="text-xs teext-slate-950 row-span-1 mb-1">
-                            Количество
-                          </p>
-                          <div className="w-1/2 flex justify-center items-center border border-slate-500 rounded-xl">
-                            <p className="">20</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-span-1">
-                      <button>
-                        <img src={Trash} alt="" />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div className="CardItem border-t-2 w-full border-gray-400 mt-2 mb-[40px] py-3">
-                  <div className="grid grid-cols-12 grid-rows-1 gap-4">
-                    <div className="col-span-2 h-[100px] border border-gray-500 rounded-xl p-3 flex justify-center items-center">
-                      <img className="w-full" src={Product1} alt="" />
-                    </div>
-                    <div className="col-span-5 ">
-                      <div className="grid grid-rows-5 ">
-                        <div className="row-span-1">
-                          <p className="text-sm teext-slate-950">
-                            Инновационный очиститель
-                          </p>
-                        </div>
-                        <div className="row-span-3 py-1">
-                          <p className="text-sm teext-slate-950">
-                            обеззараживатель, озонатор воздуха
-                          </p>
-                        </div>
-                        <div className="row-span-1">
-                          <p className="text-xs teext-slate-950 row-span-1">
-                            Артикул: 107045356
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-span-2 ">
-                      <div className="grid grid-rows-5 ">
-                        <div className="row-span-1">
-                          <p className="text-sm teext-slate-950">15 185.55 ₽</p>
-                        </div>
-                        <div className="row-span-3 py-1">
-                          <p className="text-sm teext-slate-950">16 564 </p>
-                        </div>
-                        <div className="row-span-1">
-                          <p className="text-xs teext-slate-950 row-span-1">
-                            7% Скидка{" "}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-span-2 ">
-                      <div className="grid grid-rows-5 ">
-                        <div className="row-span-1">
-                          <p className="text-sm teext-slate-950">Размер</p>
-                        </div>
-                        <div className="row-span-2 py-1">
-                          <p className="text-sm teext-slate-950">Один размер</p>
-                        </div>
-                        <div className="row-span-2">
-                          <p className="text-xs teext-slate-950 row-span-1 mb-1">
-                            Количество
-                          </p>
-                          <div className="w-1/2 flex justify-center items-center border border-slate-500 rounded-xl">
-                            <p className="">20</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-span-1">
-                      <button>
-                        <img src={Trash} alt="" />
-                      </button>
-                    </div>
-                  </div>
-                </div>
+                ))}
               </div>
               <div className="grid grid-cols-10 grid-rows-1 gap-4 mb-4">
                 <div className="col-span-2 row-span-1 h-[110px]">
@@ -411,7 +168,7 @@ const CardModal = () => {
                     </p>
                     <p className="row-span-1">Общая скидка</p>
                     <div className="row-span-1 flex justify-start items-center ">
-                      <p className="">5% </p>
+                      <p className="">5%</p>
                     </div>
                   </div>
                 </div>
@@ -420,7 +177,7 @@ const CardModal = () => {
                     <p className="row-span-2 text-lg"></p>
                     <p className="row-span-1">Итоговая стоимость:</p>
                     <div className="row-span-1 flex justify-start items-center ">
-                      <p className="">14 619,00 ₽ </p>
+                      <p className="">{total} ₽ </p>
                     </div>
                   </div>
                 </div>
@@ -553,7 +310,10 @@ const CardModal = () => {
                           </p>
                         </div>
                         <div className="flex justify-between catalog_btns">
-                          <button className="bg-redPrimary px-4 py-2 text-white rounded-lg shadow-lg text-sm shadow-gray-400 w-[120px]">
+                          <button
+                            onClick={() => dispatch(addToCart(item))}
+                            className="bg-redPrimary px-4 py-2 text-white rounded-lg shadow-lg text-sm shadow-gray-400 w-[120px]"
+                          >
                             + В корзину
                           </button>
 

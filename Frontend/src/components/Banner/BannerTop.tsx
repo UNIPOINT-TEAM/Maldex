@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import arrowRight from "../../assets/icons/arrow-right.png";
 import Slider from "./Slider";
 import { Link } from "react-router-dom";
@@ -28,7 +28,7 @@ const BannerTop: React.FC<BannerProp> = ({ BannerData }) => {
           {BannerData && BannerData[0]?.product_set[0]?.productID?.name}
         </h2>
         <div className="h-[110px]  w-[300px] mx-auto  flex items-center justify-center">
-        {/*@ts-expect-error: This */}
+          {/*@ts-expect-error: This */}
           <Slider SliderItems={BannerData && BannerData[0]} sliderTime={2500} />
         </div>
         <div className="flex justify-end opacity-0 group-hover:opacity-100 duration-200">
@@ -45,7 +45,7 @@ const BannerTop: React.FC<BannerProp> = ({ BannerData }) => {
           Бутылки для воды
         </h2>
         <div className="mx-auto h-[70px] max-w-[70px] w-full flex items-center justify-center">
-        {/*  @ts-expect-error: This */}
+          {/*  @ts-expect-error: This */}
           <Slider SliderItems={BannerData && BannerData[1]} sliderTime={3000} />
         </div>
         <div className="flex justify-end opacity-0 group-hover:opacity-100 duration-200">

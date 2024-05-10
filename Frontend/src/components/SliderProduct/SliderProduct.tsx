@@ -16,7 +16,7 @@ import { MdOutlineAdd } from "react-icons/md";
 import { CgSearch } from "react-icons/cg";
 
 const SliderProduct = (products: any) => {
-  const SliderProducts = products.products.data;
+  const SliderProducts = products?.products?.data;
 
   const [defaultProduct, setDefaultProduct] = useState(true);
   const [addCard, setAddCard] = useState(false);

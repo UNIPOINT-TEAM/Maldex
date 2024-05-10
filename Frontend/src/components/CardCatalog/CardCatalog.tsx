@@ -9,12 +9,12 @@ interface CardCatalogProps {
 }
 
 const CardCatalog: React.FC<CardCatalogProps> = ({ item }) => {
-  const { title, description, price, img, money, index1, index2 } = item;
+  const { name, description, price, img, money, index1, index2 } = item;
 
   return (
     <div className="catalog">
-      <div className="relative h-3/5 w-full catalogImgBox">
-        <img className="mb-2 h-full w-full" src={img} alt="" />
+      <div className="relative w-full catalogImgBox">
+        <img className="mb-2 h-[255px] w-full" src={img} alt="category-img" />
         <div className="hidden md:flex flex-col justify-center catalogabout absolute w-3/5 h-full bg-[#00B6BA] top-0 px-3 right-[0] py-5 gap-2 ">
           <p className="text-xs ml-3  text-white">В наборе:</p>
           <p className="text-xs ml-3  text-white">
@@ -33,7 +33,7 @@ const CardCatalog: React.FC<CardCatalogProps> = ({ item }) => {
           <div className="catalogabout w-[30px] h-[30px] bg-[#00B6BA] absolute top-[30px] rotate-[45deg] left-[-10px]  z-10"></div>
         </div>
       </div>
-      <p className="text-black text-fs_7 mb-2 font-medium">{title}</p>
+      <p className="text-black text-fs_7 mb-2 font-medium">{name}</p>
       <p className="text-[#222220] text-sm mb-2 opacity-70 font-medium">
         {description}
       </p>
