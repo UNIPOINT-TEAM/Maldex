@@ -63,7 +63,7 @@ const GiftItem = () => {
                 </p>
               </div>
               <div className="flex justify-between ">
-                <EditMainCatalog categoryId={item.id} />
+                <EditMainCatalog categoryId={item.id} status={status} onChange={changeStatus} />
                 {/* <DeleteModal
                   url={`/product/category/${item.id}/`}
                   title={'delete this giftitem'}

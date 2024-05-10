@@ -31,7 +31,7 @@ function CreatePortfolio() {
   const [tagIds, setTagIds] = useState([]);
 
   useEffect(() => {
-    GetProductSearch(inputVal).then((res) => {
+    GetProductSearch(inputVal,"","").then((res) => {
       setAddProduct(res.data.results);
     });
     GetTags().then((res) => {

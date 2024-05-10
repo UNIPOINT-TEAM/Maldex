@@ -12,7 +12,7 @@ function ProjectsSlider() {
   const swiperRef = useRef(null);
   const [projects, setProjects] = useState([]);
   const [tags, setTags] = useState([]);
-  const [selectedItem, setSelectedItem] = useState(0);
+  const [selectedItem, setSelectedItem] = useState("");
 
   const goNext = () => {
     // @ts-ignore

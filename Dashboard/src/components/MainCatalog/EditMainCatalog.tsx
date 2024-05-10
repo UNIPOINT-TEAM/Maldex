@@ -11,8 +11,10 @@ import {
 import { MdEdit } from 'react-icons/md';
 import { GetMainCatalogId, PutWithFormData } from '../../services/maincatalog';
 
-const EditMainCatalog = (props: any) => {
+const EditMainCatalog = (props?: any) => {
   const categoryId = props.categoryId;
+  console.log(props);
+
   const [open, setOpen] = useState(false);
   const [category, setCategory] = useState([]);
   const [name, setName] = useState('');
@@ -60,7 +62,9 @@ const EditMainCatalog = (props: any) => {
     } else {
       formdata.append('icon', null);
     }
-    PutWithFormData(`/product/category/${categoryId}/`, formdata);
+    PutWithFormData(`/product/category/${categoryId}/`, formdata).then(() => {
+      setOpen(!open), props.onChange(!props.status);
+    });
   };
 
   return (

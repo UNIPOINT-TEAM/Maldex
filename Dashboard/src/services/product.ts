@@ -18,12 +18,14 @@ export const GetProductCategory = async (id: number) => {
 };
 
 export const GetProductSearch = async (
-  item: string,
-  currentpage: number,
-  filter_id: string,
+  item?: string,
+  currentpage?: number,
+  filter_id?: string,
 ) => {
   const response = await axios.get(
-    `${BASE_URL}/product/?search=${item}&page=${currentpage}&filter_id=${filter_id}`,
+    `${BASE_URL}/product/?search=${item && item}&page=${
+      currentpage && currentpage
+    }&filter_id=${filter_id && filter_id}`,
   );
   return response;
 };

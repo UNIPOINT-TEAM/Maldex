@@ -48,44 +48,44 @@ const Dishes = () => {
           <div className="col-span-12 lg:col-span-9 h-full row-span-3">
             <div className="grid grid-cols-5 md:grid-cols-11 h-full gap-[10px]">
               <div className="col-span-3 bg-white flex items-center justify-center">
-                {/* <img
+                <img
                   src={category?.products[0]?.images_set[0]?.image_url}
                   alt=""
-                /> */}
+                />
               </div>
               <div className="col-span-2 lg:col-span-4">
                 <div className="grid grid-rows-2 grid-cols-1 lg:grid-cols-2 h-full gap-[10px]">
                   <div className="bg-white flex items-center justify-center">
-                    {/* <img
+                    <img
                       src={category?.products[1]?.images_set[0]?.image_url}
                       alt=""
-                    /> */}
+                    />
                   </div>
                   <div className="bg-white flex items-center justify-center">
-                    {/* <img
+                    <img
                       src={category?.products[2]?.images_set[0]?.image_url}
                       alt=""
-                    /> */}
+                    />
                   </div>
                   <div className="bg-white items-center justify-center hidden lg:flex">
-                    {/* <img
+                    <img
                       src={category?.products[3]?.images_set[0]?.image_url}
                       alt=""
-                    /> */}
+                    />
                   </div>
                   <div className="bg-white items-center justify-center hidden lg:flex">
-                    {/* <img
+                    <img
                       src={category?.products[4]?.images_set[0]?.image_url}
                       alt=""
-                    /> */}
+                    />
                   </div>
                 </div>
               </div>
               <div className="col-span-4 bg-white  items-center justify-center hidden md:flex">
-                {/* <img
+                <img
                   src={category?.products[5]?.images_set[0]?.image_url}
                   alt=""
-                /> */}
+                />
               </div>
             </div>
           </div>
