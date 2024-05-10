@@ -4,7 +4,6 @@ import { GrFormNextLink } from 'react-icons/gr';
 
 const PaginationCard = (props: any) => {
   const { currentPage, setCurrentPage, totalPages } = props;
-  console.log(props);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);

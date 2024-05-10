@@ -50,7 +50,10 @@ const BannerAdd = () => {
   const handleOpen = (id) => {
     setOpen(!open);
     console.log(id);
-    GetProductCategory(id).then((res) => setProducts(res.data));
+    GetProductCategory(id).then((res) => {
+      setProducts(res.data.results),
+       console.log(res.data.results);
+    });
   };
 
   useEffect(() => {
@@ -133,7 +136,7 @@ const BannerAdd = () => {
               onChange={(e) => setNameBanner(e.target.value)}
             />
             <div className="w-full h-[500px]  flex flex-wrap gap-5 overflow-x-scroll py-5">
-              {products.map((item) => (
+              {products?.map((item) => (
                 <div
                   onClick={() => addSelectedProduct(item.id)}
                   key={item.id}
@@ -149,8 +152,8 @@ const BannerAdd = () => {
                     />
                   </div>
                   <p>
-                    {item?.name > 20
-                      ? item?.name.slice(0, 20) + '...'
+                    {item?.name.length > 40
+                      ? item?.name.slice(0, 40) + '...'
                       : item?.name}
                   </p>
                 </div>

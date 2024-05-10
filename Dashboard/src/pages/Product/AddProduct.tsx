@@ -10,8 +10,10 @@ import {
 import { AddWithFormData } from '../../services/product';
 import { GetMainCatalog, GetSubSubCatalog } from '../../services/maincatalog';
 import { BASE_URL } from '../../utils/BaseUrl';
+import { useNavigation } from 'react-router-dom';
 
 const AddProduct = () => {
+  const navigate = useNavigation();
   const [name, setName] = useState('');
   const [code, setCode] = useState(null);
   const [article, setArticle] = useState('');
@@ -116,7 +118,9 @@ const AddProduct = () => {
       formdata.append(`images[${i}]color`, inputs[i].color);
       formdata.append(`images[${i}]image`, inputs[i].image);
     }
-    AddWithFormData(`${BASE_URL}/product/`, formdata);
+    AddWithFormData(`${BASE_URL}/product/`, formdata).then(() =>
+      navigate('/product'),
+    );
   };
 
   const handleFileInputChange = (index, event) => {

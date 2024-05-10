@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react';
 import DefaultLayout from '../../layout/DefaultLayout';
 
-import { GetProduct, GetProductSearch } from '../../services/product';
+import {
+  GetFilters,
+  GetProduct,
+  GetProductSearch,
+} from '../../services/product';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import { Link } from 'react-router-dom';
@@ -26,11 +30,11 @@ const Product = () => {
   const [checkedProducts, setCheckedProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-
-  console.log(checkedProducts);
+  const [filterId, setFilterId] = useState('');
+  const [filter, setFilter] = useState([]);
 
   useEffect(() => {
-    GetProductSearch(search, currentPage).then((res) => {
+    GetProductSearch(search, currentPage, filterId).then((res) => {
       setAddProduct(res.data.results);
       const residual = res.data.count % 10;
       const pages = (res.data.count - residual) / 10;
@@ -39,7 +43,11 @@ const Product = () => {
     GetMainCatalogactive().then((res) => {
       setAvailableCategories(res);
     });
-  }, [search, currentPage]);
+    GetFilters().then((res) => {
+      setFilter(res.data);
+      console.log(res.data);
+    });
+  }, [search, currentPage, filterId]);
 
   const fillCheckedProducts = (id) => {
     const isAlreadyChecked = checkedProducts.some(
@@ -137,6 +145,25 @@ const Product = () => {
           label="поиск продукта"
           onChange={(e) => setSearch(e.target.value)}
         />
+        <div className="flex flex-wrap gap-2 pt-5">
+          {filter?.map((item) => (
+            <button
+              onClick={() => setFilterId(item.id)}
+              className={`border rounded-md px-2 py-1 ${
+                item.id == filterId && ' border-red-400 text-red-400'
+              }`}
+            >
+              {item.title}
+            </button>
+          ))}
+          <button
+            onClick={() => setFilterId('')}
+            className={`border rounded-md px-2 py-1 border-red-400 text-red-400`}
+          >
+            очистить фильтр
+          </button>
+        </div>
+
         <div className="flex justify-end py-5 gap-3">
           {checkedProducts.length > 0 ? (
             <>
@@ -159,7 +186,7 @@ const Product = () => {
             </button>
           </Link>
         </div>
-        <div className="flex flex-wrap justify-between gap-5 py-5">
+        <div className="flex flex-wrap justify-center gap-5 py-5">
           {/* @ts-ignore */}
           {addProduct?.map((item) => (
             <div

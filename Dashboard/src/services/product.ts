@@ -7,15 +7,23 @@ export const GetProduct = async () => {
   const response = await api.get(`${BASE_URL}/product/`);
   return response;
 };
-
-export const GetProductCategory = async (id: number) => {
-  const response = await api.get(`/product/all/?category_id=${id}`);
+export const GetFilters = async () => {
+  const response = await api.get(`${BASE_URL}/product/filters`);
   return response;
 };
 
-export const GetProductSearch = async (item: string, currentpage: number) => {
+export const GetProductCategory = async (id: number) => {
+  const response = await api.get(`/product/?category_id=${id}`);
+  return response;
+};
+
+export const GetProductSearch = async (
+  item: string,
+  currentpage: number,
+  filter_id: string,
+) => {
   const response = await axios.get(
-    `${BASE_URL}/product/?search=${item}&page=${currentpage}`,
+    `${BASE_URL}/product/?search=${item}&page=${currentpage}&filter_id=${filter_id}`,
   );
   return response;
 };
