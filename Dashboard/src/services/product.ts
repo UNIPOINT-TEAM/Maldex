@@ -18,24 +18,26 @@ export const GetProductCategory = async (id: number) => {
 };
 
 export const GetProductSearch = async (
-  item: string,
-  currentpage: number,
-  filter_id: string,
+  item?: string,
+  currentpage?: number,
+  filter_id?: string,
 ) => {
   const response = await axios.get(
-    `${BASE_URL}/product/?search=${item}&page=${currentpage}&filter_id=${filter_id}`,
+    `${BASE_URL}/product/?search=${item && item}&page=${
+      currentpage && currentpage
+    }&filter_id=${filter_id && filter_id}`,
   );
   return response;
 };
 export const GetProductNew = async (id: any) => {
   const response = await axios.get(
-    `${BASE_URL}/product/all/?category_id=${id}&is_new=true`,
+    `${BASE_URL}/product/?category_id=${id}&is_new=true`,
   );
   return response;
 };
 export const GetProductHit = async (id: any) => {
   const response = await axios.get(
-    `${BASE_URL}/product/all/?category_id=${id}&is_hit=true`,
+    `${BASE_URL}/product/?category_id=${id}&is_hit=true`,
   );
   return response;
 };

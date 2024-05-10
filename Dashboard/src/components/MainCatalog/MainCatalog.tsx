@@ -5,6 +5,7 @@ import {
   GetSubSubCatalog,
   PutData,
   PutWithFormData,
+  PutWithJson,
 } from '../../services/maincatalog';
 import { Link } from 'react-router-dom';
 import '../../css/main.css';
@@ -112,18 +113,14 @@ const MainCatalog = () => {
   };
 
   const changeOrder = () => {
-    const formdata = new FormData();
-    formdata.append('order', secondOrder);
-    const formdata_ = new FormData();
-    formdata_.append('order', firstOrder);
-    PutWithFormData(
-      `/product/category/${categories[firstOrder - 1].id}/`,
-      formdata,
-    );
-    PutWithFormData(
-      `/product/category/${categories[secondOrder - 1].id}/`,
-      formdata_,
-    );
+    const data1 = {
+      order: secondOrder,
+    };
+    const data2 = {
+      order: firstOrder,
+    };
+    PutWithJson(`/product/category/${categories[firstOrder - 1].id}/`, data1);
+    PutWithJson(`/product/category/${categories[secondOrder - 1].id}/`, data2);
     setStatus(!status);
   };
 

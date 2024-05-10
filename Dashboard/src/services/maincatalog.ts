@@ -49,8 +49,18 @@ export const PutWithFormData = async (url: string, item: any) => {
       'Content-Type': 'multipart/form-data',
     },
   });
-  const data = await response.json();
-  return data;
+  // const data = await response.json();
+  return response;
+};
+export const PutWithJson = async (url: string, item: any) => {
+  console.log(BASE_URL + url);
+  const response = await axios.put(BASE_URL + url, item, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  // const data = await response.json();
+  return response;
 };
 
 export const PutData = async (url: string, item: any) => {
