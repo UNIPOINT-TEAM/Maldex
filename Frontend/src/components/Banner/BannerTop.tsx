@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import arrowRight from "../../assets/icons/arrow-right.png";
 import Slider from "./Slider";
 import { Link } from "react-router-dom";

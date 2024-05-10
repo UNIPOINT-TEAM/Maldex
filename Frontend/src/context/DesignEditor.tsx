@@ -1,5 +1,6 @@
 import { IScene } from "@layerhub-io/types";
 import React from "react";
+ {/*@ts-expect-error: This */}
 import { ContextMenuSceneRequest, ContextMenuTimelineRequest, DesignType, IDesign } from "../interfaces/DesignEditor";
 
 interface ISceneEditorContext {

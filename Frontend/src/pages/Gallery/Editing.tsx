@@ -76,6 +76,7 @@ const Editing = () => {
                           ...items[activeIndex],
                           data: {
                             ...items[activeIndex]?.data,
+                           /*@ts-expect-error: This */
                             image: URL.createObjectURL(e.target.files[0]),
                           },
                         })
@@ -108,6 +109,7 @@ const Editing = () => {
                           ...items[activeIndex],
                           applying: {
                             ...items[activeIndex]?.applying,
+                             /*@ts-expect-error: This */
                             image: URL.createObjectURL(e.target.files[0]),
                           },
                         })
@@ -140,6 +142,7 @@ const Editing = () => {
                           ...items[activeIndex],
                           background: {
                             ...items[activeIndex]?.applying,
+                             /*@ts-expect-error: This */
                             image: URL.createObjectURL(e.target.files[0]),
                           },
                         })

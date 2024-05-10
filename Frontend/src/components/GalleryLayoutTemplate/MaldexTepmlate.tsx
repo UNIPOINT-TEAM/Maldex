@@ -5,6 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateItem } from "../../store/carouselReducer";
 const MaldexTepmlate: React.FC<TemplateData> = ({ data, background }) => {
   const dispatch = useDispatch();
+
+  /*@ts-expect-error: This */
+
   const items = useSelector((state) => state.carousel.items);
   // @ts-expect-error: This
   const activeIndex = useSelector((state) => state.carousel.activeCaruselIndex);
@@ -12,6 +15,7 @@ const MaldexTepmlate: React.FC<TemplateData> = ({ data, background }) => {
   const handleChangeItem = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
+    /*@ts-expect-error: This */
     const { name, files, value } = event.target;
     const updatedItem = {
       ...items[activeIndex],

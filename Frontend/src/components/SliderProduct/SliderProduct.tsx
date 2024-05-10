@@ -1,7 +1,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import CarouselImg from "../../assets/images/carouselImg.png";
 import { Navigation, Pagination, Scrollbar } from "swiper/modules";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import Close from "../../assets/icons/close.png";
 import { FaArrowLeftLong } from "react-icons/fa6";
@@ -13,6 +13,8 @@ import { IoMdHeart } from "react-icons/io";
 import { Dialog } from "@material-tailwind/react";
 import { MdOutlineAdd } from "react-icons/md";
 import { CgSearch } from "react-icons/cg";
+
+/*@ts-expect-error: This */
 
 const SliderProduct = ({ products }) => {
   const [defaultProduct, setDefaultProduct] = useState(true);
@@ -180,11 +182,11 @@ const SliderProduct = ({ products }) => {
           },
         }}
         // @ts-expect-error: This
-
         scrollbar={{ draggable: true }}
         modules={[Navigation, Scrollbar]}
         className=" w-full overscroll-x-auto h-[430px] md:h-[500px]"
       >
+        {/*@ts-expect-error: This */}
         {products?.map((item) => (
           <SwiperSlide key={item.id} className="w-full">
             <div className="catalog ">

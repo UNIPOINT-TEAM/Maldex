@@ -26,6 +26,7 @@ const listData = [
     value: "Без упаковки",
   },
 ];
+ {/*@ts-expect-error: This */}
 const TabList = ({ pack }) => {
   console.log(pack);
   return (

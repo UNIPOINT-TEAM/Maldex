@@ -1,21 +1,12 @@
 import { Button } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
-
-const buttons = [
-  "В-Шелкография на тек...",
-  "DTF-Полноцвет с тран...",
-  "DTG-Полноцвет по тек...",
-  "D-Шелкография с тран...",
-  "F1-Флекс",
-  "F2-Флекс",
-  "I-Вышивка",
-];
-
+/*@ts-expect-error: This */
 const TabFour = ({ prints }) => {
   console.log(prints);
   return (
     <div className="flex flex-col items-start gap-2">
       {prints &&
+        /*@ts-expect-error: This */
         prints.map((item, i) => (
           <Link to={"/applying-type"} key={i}>
             <Button

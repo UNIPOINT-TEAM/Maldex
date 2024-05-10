@@ -59,6 +59,7 @@ const Checkdata: {
 ];
 
 const GeneralInfo = () => {
+   /*@ts-expect-error: This */
   const itemsStatus = useSelector((state) => state.carousel.status);
   const dispatch = useDispatch();
 

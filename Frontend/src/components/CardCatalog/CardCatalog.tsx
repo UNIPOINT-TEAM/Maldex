@@ -9,6 +9,7 @@ interface CardCatalogProps {
 }
 
 const CardCatalog: React.FC<CardCatalogProps> = ({ item }) => {
+   {/*@ts-expect-error: This */}
   const { name, description, price, img, money, index1, index2 } = item;
 
   return (

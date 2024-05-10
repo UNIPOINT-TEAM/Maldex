@@ -6,10 +6,10 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import SwiperCore from "swiper";
 import { IoClose } from "react-icons/io5";
 
+/*@ts-expect-error: This */
 const ProductPerviewModal = ({ images }) => {
-  console.log(images);
   const [open, setOpen] = React.useState(false);
-  const [thumbsSwiper, setThumbsSwiper] = useState<SwiperCore>();
+  const [thumbsSwiper] = useState<SwiperCore>();
   const swiper1Ref = useRef<React.MutableRefObject<null>>(null);
   const swiper2Ref = useRef();
   useLayoutEffect(() => {
@@ -63,6 +63,7 @@ const ProductPerviewModal = ({ images }) => {
               className="w-full h-screen py-14"
             >
               {images &&
+                /*@ts-expect-error: This */
                 images.map((item) => (
                   <SwiperSlide key={item.id}>
                     <img

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Controller, FreeMode, Navigation, Thumbs } from "swiper/modules";
 import SwiperCore from "swiper";
@@ -7,38 +7,15 @@ import deleteIcon from "../../assets/icons/Delete.svg";
 import "swiper/css";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
-import generatePDF, { Margin, Resolution, usePDF } from "react-to-pdf";
 import {
   addItem,
   copyItem,
   deleteItem,
   onActiveCarusel,
 } from "../../store/carouselReducer";
-const options = {
-  filename: "advanced-example.pdf",
-  method: "save",
-  page: {
-    margin: Margin.SMALL,
-    format: "letter",
-    orientation: "landscape",
-  },
-  canvas: {
-    useCORS: true,
-    logging: true,
-    qualityRatio: 1, // 0.1 - 100
-    resolution: Resolution.HIGH,
-  },
-  overrides: {
-    pdf: {
-      compress: true,
-    },
-  },
-};
 
 // you can also use a function to return the target element besides using React refs
-const getTargetElement = () => document.getElementById("container");
 
-const downloadPdf = () => generatePDF(getTargetElement, options);
 const Galleryslider = () => {
   const dispatch = useDispatch();
   // @ts-expect-error: This
@@ -119,6 +96,7 @@ const Galleryslider = () => {
             modules={[FreeMode, Navigation, Thumbs, Controller]}
             className="w-full h-[500px] bg-[#eaebea] rounded-lg "
           >
+            {/*@ts-expect-error: This */}
             {items.map((item, i) => (
               <SwiperSlide
                 key={i}
@@ -141,6 +119,7 @@ const Galleryslider = () => {
               modules={[FreeMode, Navigation, Thumbs]}
               className="w-full cursor-pointer border relative border-lightSecondary my-4 rounded-lg p-4"
             >
+              {/*@ts-expect-error: This */}
               {items.map((item, i) => (
                 <SwiperSlide
                   key={i}

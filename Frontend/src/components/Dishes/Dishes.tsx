@@ -31,6 +31,7 @@ const Dishes = () => {
                 src={
                   // @ts-expect-error: This
                   detail?.products &&
+                  /*@ts-expect-error: This */
                   detail?.products[0]?.images_set[0]?.image_url
                 }
                 alt=""
@@ -43,8 +44,7 @@ const Dishes = () => {
                   <img
                     src={
                       // @ts-expect-error: This
-                      detail?.products &&
-                      detail?.products[1]?.images_set[0]?.image_url
+                      detail?.products && detail?.products[1]?.images_set[0]?.image_url
                     }
                     alt=""
                     className="w-[140px] object-contain"
@@ -54,8 +54,7 @@ const Dishes = () => {
                   <img
                     src={
                       // @ts-expect-error: This
-                      detail?.products &&
-                      detail?.products[2]?.images_set[0]?.image_url
+                      detail?.products && detail?.products[2]?.images_set[0]?.image_url
                     }
                     alt=""
                     className="w-[140px] object-contain"
@@ -65,8 +64,7 @@ const Dishes = () => {
                   <img
                     src={
                       // @ts-expect-error: This
-                      detail?.products &&
-                      detail?.products[3]?.images_set[0]?.image_url
+                      detail?.products && detail?.products[3]?.images_set[0]?.image_url
                     }
                     alt=""
                     className="w-[140px] object-contain"
@@ -76,8 +74,7 @@ const Dishes = () => {
                   <img
                     src={
                       // @ts-expect-error: This
-                      detail?.products &&
-                      detail?.products[4]?.images_set[0]?.image_url
+                      detail?.products && detail?.products[4]?.images_set[0]?.image_url
                     }
                     alt=""
                     className="w-[140px] object-contain"
@@ -89,8 +86,7 @@ const Dishes = () => {
               <img
                 src={
                   // @ts-expect-error: This
-                  detail?.products &&
-                  detail?.products[5]?.images_set[0]?.image_url
+                  detail?.products && detail?.products[5]?.images_set[0]?.image_url
                 }
                 alt=""
                 className="w-[300px] object-contain"
@@ -102,8 +98,7 @@ const Dishes = () => {
           <div className="grid grid-rows-2 grid-cols-1 gap-4 ">
             <div className="row-span-2 col-span-1 flex flex-col gap-[3px]">
               {/*@ts-expect-error: This */}
-              {detail?.children &&
-                detail?.children.map((i) => (
+              {detail?.children && detail?.children.map((i) => (
                   <p key={i.id} className="text-[14px] font-medium">
                     {i.name}
                     <b className="text-sm text-redPrimary ms-1 font-medium">

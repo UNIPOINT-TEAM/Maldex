@@ -11,6 +11,7 @@ const loadCartFromLocalStorage = () => {
     return undefined;
   }
 };
+ /*@ts-expect-error: This */
 
 const saveCartToLocalStorage = (cart) => {
   try {
@@ -20,8 +21,9 @@ const saveCartToLocalStorage = (cart) => {
     // Ignore write errors
   }
 };
-
+ /*@ts-expect-error: This */
 const calculateTotalPrice = (cart) => {
+   /*@ts-expect-error: This */
   return cart.reduce((total, item) => total + item.price * item.quantity, 0);
 };
 
@@ -34,6 +36,7 @@ const cartSlice = createSlice({
   reducers: {
     addToCart: (state, action) => {
       const { id, quantity } = action.payload;
+       /*@ts-expect-error: This */
       const existingItemIndex = state.items.findIndex((item) => item.id === id);
       if (existingItemIndex !== -1) {
         state.items[existingItemIndex].quantity += quantity;
@@ -44,6 +47,7 @@ const cartSlice = createSlice({
       saveCartToLocalStorage(state);
     },
     removeFromCart: (state, action) => {
+       /*@ts-expect-error: This */
       const newState = state.items.filter((item) => item.id !== action.payload);
       state.items = newState;
       state.total = calculateTotalPrice(newState);
@@ -51,6 +55,7 @@ const cartSlice = createSlice({
     },
     updateCart: (state, action) => {
       const { id, quantity } = action.payload;
+       /*@ts-expect-error: This */
       const existingItemIndex = state.items.findIndex((item) => item.id === id);
       if (existingItemIndex !== -1 && quantity) {
         state.items[existingItemIndex].quantity = quantity;

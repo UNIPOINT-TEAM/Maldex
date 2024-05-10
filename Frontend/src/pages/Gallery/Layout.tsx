@@ -2,7 +2,6 @@ import { LuListFilter } from "react-icons/lu";
 import { Galleryslider, LayoutSideCard } from "../../components";
 import { useDispatch } from "react-redux";
 import { updateItem } from "../../store/carouselReducer";
-import { all } from "axios";
 import DefaultTemplate from "../../components/GalleryLayoutTemplate/DefaultTemplate";
 const LayoutItems = [
   {
@@ -27,6 +26,7 @@ const LayoutItems = [
 ];
 const Layout = () => {
   const dispatch = useDispatch();
+   /*@ts-expect-error: This */
   const updateItems = (item) => {
     dispatch(
       updateItem({

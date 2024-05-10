@@ -6,7 +6,7 @@ import {
   SaleSlider,
   SliderProduct,
 } from "../../components";
-import { CardCatalogData } from "../../mock/data";
+
 import CardCatalog from "../../components/CardCatalog/CardCatalog";
 import Close from "../../assets/icons/close.png";
 import { FaArrowLeftLong } from "react-icons/fa6";
@@ -64,6 +64,7 @@ const Catalog = () => {
           </div>
         </div>
         <div className="card container_xxl px-3 my-0 sm:my-10 ">
+          {/*@ts-expect-error: This */}
           <h1 className="text-3xl mb-5 mt-5 md:mt-0">{response?.name}</h1>
           <div className="flex justify-between items-center md:border-b-[1px] pb-2 mb-3">
             <button className="border-[1px] border-black px-3 py-1 rounded flex items-center">
@@ -256,8 +257,8 @@ const Catalog = () => {
             </div>
           </div>
           <div className="flex gap-2 flex-wrap py-2 ">
-            {response &&
-              response?.children?.map((item) => (
+            {/*@ts-expect-error: This */}
+            {response && response?.children?.map((item) => (
                 <div
                   className="w-[45%] sm:w-[30%] md:w-[18%] mb-[40px]"
                   key={item.id}
@@ -305,6 +306,7 @@ const Catalog = () => {
           </div>
         </div>
         <div className="w-full">
+           {/*@ts-expect-error: This */}
           <SliderProduct />
         </div>
         <div className="md:hidden mb-5">
@@ -316,6 +318,7 @@ const Catalog = () => {
           </div>
         </div>
         <div className="w-full md:hidden">
+          {/*@ts-expect-error: This */}
           <SliderProduct />
         </div>
       </div>

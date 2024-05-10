@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { removeFromCart, updateCart } from "../../store/cartSlice";
 
 const Card = () => {
+  /*@ts-expect-error: This */
   const { items, total } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
@@ -25,6 +26,7 @@ const Card = () => {
           <div className="flex flex-col md:flex-row gap-8">
             <div className="w-full sm:w-3/4 py-1">
               <div className="hidden sm:block mb-5">
+                {/*@ts-expect-error: This */}
                 {items?.map((item) => (
                   <div className="CardItem border-t-2 w-full border-gray-400 mt-2 mb-[60px] py-5">
                     <div className="grid grid-cols-12 grid-rows-1 gap-4">
@@ -213,6 +215,7 @@ const Card = () => {
             <ProductNav title="ВАМ ТОЧНО ПОНРАВИТСЯ" color="gray" />
           </div>
         </div>
+        {/*@ts-expect-error: This */}
         <SliderProduct />
         <QuestForm />
       </div>

@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { GetNewCategory } from "../../services/services";
 import { useFetchHook } from "../../hooks/UseFetch";
 
 const GiftItem = () => {

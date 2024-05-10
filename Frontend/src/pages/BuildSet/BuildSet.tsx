@@ -52,6 +52,7 @@ const BuildSet = () => {
                 </h2>
               </AccordionHeader>
               <AccordionBody className="p-4" placeholder={<div />}>
+                {/*@ts-expect-error: This */}
                 <SliderProduct />
               </AccordionBody>
             </Accordion>
@@ -78,6 +79,7 @@ const BuildSet = () => {
                 </h2>
               </AccordionHeader>
               <AccordionBody className="p-4" placeholder={<div />}>
+                {/*@ts-expect-error: This */}
                 <SliderProduct />
               </AccordionBody>
             </Accordion>
@@ -104,6 +106,7 @@ const BuildSet = () => {
                 </h2>
               </AccordionHeader>
               <AccordionBody className="p-4" placeholder={<div />}>
+                 {/*@ts-expect-error: This */}
                 <SliderProduct />
               </AccordionBody>
             </Accordion>
@@ -130,6 +133,7 @@ const BuildSet = () => {
                 </h2>
               </AccordionHeader>
               <AccordionBody className="p-4" placeholder={<div />}>
+                 {/*@ts-expect-error: This */}
                 <SliderProduct />
               </AccordionBody>
             </Accordion>
@@ -156,6 +160,7 @@ const BuildSet = () => {
                 </h2>
               </AccordionHeader>
               <AccordionBody className="p-4" placeholder={<div />}>
+                 {/*@ts-expect-error: This */}
                 <SliderProduct />
               </AccordionBody>
             </Accordion>

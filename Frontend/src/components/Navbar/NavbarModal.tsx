@@ -43,7 +43,7 @@ const NavbarModal = () => {
     setModal(false);
     navigation("category/1");
   };
-  const handleSubCategory = (id) => {
+  const handleSubCategory = (id: number) => {
     fetchData2({ method: "GET", url: `product/?category_id=${id}` });
     console.log(response2);
   };

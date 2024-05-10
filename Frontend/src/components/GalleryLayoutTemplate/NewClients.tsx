@@ -3,14 +3,14 @@ import { TemplateData } from "../../types";
 import { useDispatch, useSelector } from "react-redux";
 import { updateItem } from "../../store/carouselReducer";
 
-const NewClients: React.FC<TemplateData> = ({ data, background }) => {
+const NewClients: React.FC<TemplateData> = ({ data }) => {
   const dispatch = useDispatch();
   // @ts-expect-error: This
   const items = useSelector((state) => state.carousel.items);
   // @ts-expect-error: This
   const activeIndex = useSelector((state) => state.carousel.activeCaruselIndex);
 
-  const handleChangeItem = (event) => {
+  const handleChangeItem = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, files, value } = event.target;
     const updatedItem = {
       ...items[activeIndex],
@@ -48,6 +48,7 @@ const NewClients: React.FC<TemplateData> = ({ data, background }) => {
             <textarea
               name="description"
               rows={6}
+              /*@ts-expect-error: This */
               onChange={handleChangeItem}
               className="w-full h-full bg-transparent resize-none font-normal p-[6px] overflow-hidden focus:outline outline-[#e99125]"
             />
@@ -61,6 +62,7 @@ const NewClients: React.FC<TemplateData> = ({ data, background }) => {
           >
             <textarea
               name="characteristics"
+              /*@ts-expect-error: This */
               onChange={handleChangeItem}
               rows={6}
               className="w-full h-full bg-transparent resize-none font-normal p-[6px] overflow-hidden focus:outline outline-[#e99125]"

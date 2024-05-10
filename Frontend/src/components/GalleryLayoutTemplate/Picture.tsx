@@ -4,7 +4,7 @@ import templateTShirt from "../../assets/Gallery/default-image.png";
 import { Rnd } from "react-rnd";
 import { TemplateData } from "../../types";
 
-const Picture: React.FC<TemplateData> = ({ data, background }) => {
+const Picture: React.FC<TemplateData> = ({ data }) => {
   const dispatch = useDispatch();
   // @ts-expect-error: This
   const items = useSelector((state) => state.carousel.items);

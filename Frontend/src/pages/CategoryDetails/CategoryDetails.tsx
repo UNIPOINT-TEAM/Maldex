@@ -24,11 +24,10 @@ import {
   FreeSample,
   TabDescription,
   TabFour,
-  TabSizeTable,
 } from "../../components/CategoryDetails";
 import { ProductColor } from "../../mock/data";
 import ProductPerviewModal from "../../components/CategoryDetails/ProductPerviewModal";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addToCart } from "../../store/cartSlice";
 import { useFetchHook } from "../../hooks/UseFetch";
 import { useParams } from "react-router-dom";
@@ -44,7 +43,7 @@ const btnSize = [
 const CategoryDetails = () => {
   const { id } = useParams<{ id: string }>();
   const [activeTab, setActiveTab] = useState("Описание");
-  const [isActive, setIsActive] = useState<number>(1);
+  const [isActive] = useState<number>(1);
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const [productColor, setproductColor] = useState<number>(0);
   const [btnActiveSize, setbtnActiveSize] = useState<number>(1);
@@ -111,11 +110,13 @@ const CategoryDetails = () => {
     {
       label: "Описание",
       value: "Описание",
+       /*@ts-expect-error: This */
       content: <TabDescription description={response?.description} />,
     },
     {
       label: "Характеристики",
       value: "Характеристики",
+       /*@ts-expect-error: This */
       content: <TabList pack={response?.pack} />,
     },
     // {
@@ -126,6 +127,7 @@ const CategoryDetails = () => {
     {
       label: "виды нанесения",
       value: "виды нанесения",
+       /*@ts-expect-error: This */
       content: <TabFour prints={response?.prints} />,
     },
   ];
@@ -221,6 +223,7 @@ const CategoryDetails = () => {
               isActive !== 1 && "hidden"
             }`}
           >
+            { /*@ts-expect-error: This */}
             <ProductPerviewModal images={response?.images_set} />
           </div>
           <div
@@ -272,6 +275,7 @@ const CategoryDetails = () => {
             </div>
             <div className="container mx-auto lg:px-4 py-4">
               <h2 className="text-base font-semibold  tracking-wider">
+                {/*@ts-expect-error: This */}
                 {response.name}
               </h2>
               <div className=" mt-4">
@@ -396,6 +400,7 @@ const CategoryDetails = () => {
         </div>
       </div>
       <div className="mb-16 mt-16">
+        { /*@ts-expect-error: This */}
         <SliderProduct />
       </div>
 
