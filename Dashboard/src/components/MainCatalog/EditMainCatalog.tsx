@@ -9,7 +9,11 @@ import {
   Checkbox,
 } from '@material-tailwind/react';
 import { MdEdit } from 'react-icons/md';
-import { GetMainCatalogId, PutWithFormData } from '../../services/maincatalog';
+import {
+  GetMainCatalogId,
+  PutWithFormData,
+  PutWithJson,
+} from '../../services/maincatalog';
 
 const EditMainCatalog = (props?: any) => {
   const categoryId = props.categoryId;
@@ -62,6 +66,14 @@ const EditMainCatalog = (props?: any) => {
     } else {
       formdata.append('icon', null);
     }
+    const data = {
+      name: name,
+      is_hit: statusCategory.hit,
+      is_new: statusCategory.isnew,
+      is_popular: statusCategory.popular,
+      logo: logo ? logo : null,
+      icon: icon ? icon : null,
+    };
     PutWithFormData(`/product/category/${categoryId}/`, formdata).then(() => {
       setOpen(!open), props.onChange(!props.status);
     });
