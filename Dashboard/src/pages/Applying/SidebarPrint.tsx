@@ -30,7 +30,9 @@ const SidebarPrint = () => {
     <div className="flex apply-sidebar ">
       <div className="py-5 w-full ">
         <div className="mb-5">
-          <Link to={'/print/add'}>
+          {/* <Link to={'/print/add'}> */}
+          <Link to={`http://5.35.82.80:8000/admin/blog/printcategory/add/`} target='_blank'>
+
             <Button color="green">Добавить тип печати</Button>
           </Link>
         </div>

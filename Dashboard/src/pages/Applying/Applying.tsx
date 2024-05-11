@@ -11,6 +11,7 @@ import {
   TabsHeader,
 } from '@material-tailwind/react';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa6';
+import { BASE_URL } from '../../utils/BaseUrl';
 
 // Определение интерфейса для данных, получаемых из API
 interface PrintInfo {
@@ -39,6 +40,11 @@ const Applying = () => {
         });
     }
   }, [id]);
+
+  // const modifiedContent = printInfo.content.replace(
+  //   /src="\/media/g,
+  //   `src="${BASE_URL}/media`,
+  // );
 
   return (
     <DefaultLayout>
@@ -96,13 +102,19 @@ const Applying = () => {
                 >
                   <TabPanel value={'описание'} className="w-full  text-black">
                     <div
-                      dangerouslySetInnerHTML={{ __html: printInfo.content }}
+                      dangerouslySetInnerHTML={{ __html: printInfo.content.replace(
+                        /src="\/media/g,
+                        `src="${BASE_URL}/media`,
+                      ) }}
                     />
                   </TabPanel>
                   <TabPanel value={'технические'}>
                     <div
                       dangerouslySetInnerHTML={{
-                        __html: printInfo.requirement,
+                        __html: printInfo.requirement.replace(
+                          /src="\/media/g,
+                          `src="${BASE_URL}/media`,
+                        ),
                       }}
                     />
                   </TabPanel>
