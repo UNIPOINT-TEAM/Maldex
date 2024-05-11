@@ -15,7 +15,7 @@ const AccordionMaldex = () => {
 
   useEffect(() => {
     GetFaqs("faq/?type=home").then((res) => {
-      setFaq(res), console.log(res);
+      setFaq(res);
     });
   }, []);
   const handleOpen = (value: number) => setOpen(open === value ? 0 : value);
@@ -45,7 +45,7 @@ const AccordionMaldex = () => {
             placeholder={<div />}
           >
             <h3 className="font-normal font-Helvetica-Neue text-fs_8 lg:text-fs_4 text-darkSecondary ">
-            {/*  @ts-expect-error: This */}
+              {/*  @ts-expect-error: This */}
               {item.title}
             </h3>
           </AccordionHeader>

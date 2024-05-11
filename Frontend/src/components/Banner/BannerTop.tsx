@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import arrowRight from "../../assets/icons/arrow-right.png";
 import Slider from "./Slider";
 import { Link } from "react-router-dom";
@@ -21,7 +21,7 @@ const BannerTop: React.FC<BannerProp> = ({ BannerData }) => {
   return (
     <div className="grid grid-cols-4 gap-[9px]">
       <Link
-        to={"category/1"}
+        to={`category/${BannerData[0]?.product_set[0]?.productID?.id}`}
         className="group flex flex-col justify-between col-span-4 bg-white h-[200px] cursor-pointer hover:bg-[#fff] transition-all duration-200"
       >
         <h2 className="text-fs_7 tracking-wider font-semibold opacity-0 group-hover:opacity-100 duration-200 ">
@@ -38,7 +38,7 @@ const BannerTop: React.FC<BannerProp> = ({ BannerData }) => {
         </div>
       </Link>
       <Link
-        to={"category/1"}
+        to={`category/${BannerData[1]?.product_set[0]?.productID?.id}`}
         className="group bg-white h-[130px] flex flex-col justify-between cursor-pointer hover:bg-[#fff] duration-200"
       >
         <h2 className="text-fs_8 tracking-wider font-semibold opacity-0 group-hover:opacity-100 duration-200">
@@ -55,7 +55,7 @@ const BannerTop: React.FC<BannerProp> = ({ BannerData }) => {
         </div>
       </Link>
       <Link
-        to={"category/1"}
+        to={`category/${BannerData[2]?.product_set[0]?.productID?.id}`}
         className="group bg-white h-[130px] flex flex-col justify-between cursor-pointer hover:bg-[#fff] duration-200"
       >
         <h2 className="text-fs_8 tracking-wider font-semibold opacity-0 group-hover:opacity-100 duration-200">
@@ -72,7 +72,7 @@ const BannerTop: React.FC<BannerProp> = ({ BannerData }) => {
         </div>
       </Link>
       <Link
-        to={"category/1"}
+        to={`category/${BannerData[3]?.product_set[0]?.productID?.id}`}
         className="group bg-white h-[130px] flex flex-col justify-between cursor-pointer hover:bg-[#fff] duration-200"
       >
         <h2 className="text-fs_8 tracking-wider font-semibold opacity-0 group-hover:opacity-100 duration-200">
@@ -89,7 +89,7 @@ const BannerTop: React.FC<BannerProp> = ({ BannerData }) => {
         </div>
       </Link>
       <Link
-        to={"category/1"}
+        to={`category/${BannerData[4]?.product_set[0]?.productID?.id}`}
         className="group bg-white h-[130px] flex flex-col justify-between cursor-pointer hover:bg-[#fff] duration-200"
       >
         <h2 className="text-fs_8 tracking-wider font-semibold opacity-0 group-hover:opacity-100 duration-200">

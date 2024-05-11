@@ -17,6 +17,7 @@ const TwoArticle: React.FC<TemplateData> = ({ data, background }) => {
         ...items[activeIndex],
         data: {
           ...items[activeIndex]?.data,
+          /*@ts-expect-error: This */
           [name]: URL.createObjectURL(files[0]),
         },
       })

@@ -1,11 +1,9 @@
-const TabDescription = () => {
+interface TabDescriptionProps {
+  description: string;
+}
+const TabDescription: React.FC<TabDescriptionProps> = ({ description }) => {
   return (
-    <p className=" font-normal text-fs_7 text-black mt-1">
-      Недорогая миниатюрная беспроводная колонка Chubby порадует владельца
-      аккуратным исполнением и высоким качеством материалов. Колонка обтянута
-      акустической тканью популярной фактуры, имеет приятное софт-тач покрытие и
-      демонстрирует хороший, особенно для столь компактного корпуса, звук.
-    </p>
+    <p className=" font-normal text-fs_7 text-black mt-1">{description}</p>
   );
 };
 

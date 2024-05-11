@@ -77,7 +77,7 @@ export const router = createBrowserRouter([
         element: <BuildSet />,
       },
       {
-        path: "/catalog",
+        path: "/catalog/:id",
         element: <Catalog />,
       },
       {
@@ -89,7 +89,7 @@ export const router = createBrowserRouter([
         element: <AdminLogin />,
       },
 
-      //admin panel route is changed by Yusuf 
+      //admin panel route is changed by Yusuf
       {
         path: "/adminpanel",
         element: <AdminPanel />,
@@ -99,7 +99,7 @@ export const router = createBrowserRouter([
           { path: "files", element: <FileAndPrice /> },
         ],
       },
-      
+
       {
         path: "/articles",
         element: <Articles />,

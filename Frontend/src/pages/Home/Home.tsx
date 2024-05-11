@@ -25,14 +25,14 @@ const Home = () => {
 
   useEffect(() => {
     GetCategory().then((res) => setCategories(res));
-    GetProductNew(`product/all/?category_id=${categoryId}&is_new=true`).then(
+    GetProductNew(`product/?category_id=${categoryId}&is_new=true`).then(
       (res: any) => {
-        setNewProducts(res);
+        setNewProducts(res?.data?.results);
       }
     );
-    GetProductHit(`product/all/?category_id=${categoryId}&is_hit=true`).then(
+    GetProductHit(`product/?category_id=${categoryId}&is_hit=true`).then(
       (res: any) => {
-        setHitProducts(res);
+        setHitProducts(res?.data?.results);
       }
     );
   }, [categoryId]);
@@ -52,8 +52,7 @@ const Home = () => {
       </div>
       <div className="container_xxl px-3  mt-16">
         <ProductNav
-          // @ts-expect-error: This
-
+         /*@ts-expect-error: This */
           categories={categories}
           updateCategoryId={updateCategoryId}
           categoryId={categoryId}
@@ -62,6 +61,7 @@ const Home = () => {
         />
       </div>
       <div className="w-full">
+        { /*@ts-expect-error: This */}
         <SliderProduct products={hitProducts} status="hit" />
       </div>
       <div className="dishes container_xxl my-5 lg:my-10 px-3">
@@ -78,7 +78,6 @@ const Home = () => {
       <div className="container_xxl px-3 mt-10">
         <ProductNav
           // @ts-expect-error: This
-
           categories={categories}
           updateCategoryId={updateCategoryId}
           categoryId={categoryId}
@@ -87,6 +86,7 @@ const Home = () => {
         />
       </div>
       <div className="w-full">
+        { /*@ts-expect-error: This */}
         <SliderProduct products={newProducts} status="new" />
       </div>
       <QuestForm />

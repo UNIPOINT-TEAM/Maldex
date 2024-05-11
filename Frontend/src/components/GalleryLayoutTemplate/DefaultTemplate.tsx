@@ -51,14 +51,14 @@ const DefaultTemplate: React.FC<TemplateData> = ({
       {applying?.image && (
         <div className="absolute top-0 z-[99]">
           <div className="relative w-[200px] h-[200px]">
-          <Rnd style={{ backgroundColor: background?.color }}>
-            <img
-              src={applying?.image}
-              className={` object-contain object-center w-full h-full`}
-              alt="applying-image"
-            />
-          </Rnd>
-        </div>
+            <Rnd style={{ backgroundColor: background?.color }}>
+              <img
+                src={applying?.image}
+                className={` object-contain object-center w-full h-full`}
+                alt="applying-image"
+              />
+            </Rnd>
+          </div>
         </div>
       )}
       <div
@@ -67,6 +67,7 @@ const DefaultTemplate: React.FC<TemplateData> = ({
         } p-8 flex relative justify-center items-center w-full`}
       >
         <div className="absolute top-[50%] ">
+          {/*@ts-expect-error: This */}
           <AddAplying productData={data} />
         </div>
         <img

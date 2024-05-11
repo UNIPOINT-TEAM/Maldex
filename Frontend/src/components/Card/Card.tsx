@@ -16,12 +16,14 @@ import { addToCart, removeFromCart } from "../../store/cartSlice";
 const CardModal = () => {
   const [activeCard, setActiveCard] = useState(false);
   const { fetchData, response } = useFetchHook();
+
+  /*@ts-expect-error: This */
   const { items, total } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   useEffect(() => {
     fetchData({ method: "GET", url: "/product/" });
   }, []);
-  console.log(items)
+  console.log(items);
   return (
     <>
       <Link
@@ -63,6 +65,7 @@ const CardModal = () => {
                 </button>
               </div>
               <div className="overflow-y-scroll h-[500px] scrollbar-custom pr-3 mb-5">
+                {/*@ts-expect-error: This */}
                 {items?.map((item) => (
                   <div className="CardItem border-t-2 w-full border-gray-400 mt-2 mb-[40px] py-3">
                     <div className="grid grid-cols-12 grid-rows-1 gap-4">

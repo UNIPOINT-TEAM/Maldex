@@ -26,7 +26,9 @@ const listData = [
     value: "Без упаковки",
   },
 ];
-const TabList = () => {
+ {/*@ts-expect-error: This */}
+const TabList = ({ pack }) => {
+  console.log(pack);
   return (
     <Card
       className="w-full shadow-none p-0 m-0 bg-transparent"

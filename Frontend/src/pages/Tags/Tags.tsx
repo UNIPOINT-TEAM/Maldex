@@ -17,6 +17,7 @@ function Tags() {
         <ProductNav title="new!" color="red" />
       </div>
       <div className="w-full">
+        { /*@ts-expect-error: This */}
         <SliderProduct />
       </div>
       <QuestForm />

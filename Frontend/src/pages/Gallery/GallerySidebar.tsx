@@ -1,8 +1,6 @@
 import { NavLink, Outlet } from "react-router-dom";
 import "./Gallery.css";
-import { products } from "../../constants/Cart";
-import { useEffect } from "react";
-import DefaultTemplate from "../../components/GalleryLayoutTemplate/DefaultTemplate";
+
 
 const GalleryNavs = [
   {

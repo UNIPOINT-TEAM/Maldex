@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateItem } from "../../store/carouselReducer";
 import { Rnd } from "react-rnd";
 
+/*@ts-expect-error: This */
 const AddAplying: React.FC<Product> = ({ productData }) => {
   const [open, setOpen] = useState(false);
 
@@ -17,11 +18,12 @@ const AddAplying: React.FC<Product> = ({ productData }) => {
 
   const handleOpen = () => setOpen(!open);
   const handleChangeitem = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, files } = event.target;
+    const { files } = event.target;
     const updatedItem = {
       ...items[activeIndex],
       applying: {
         ...items[activeIndex]?.applying,
+        /*@ts-expect-error: This */
         image: URL.createObjectURL(files[0]),
       },
     };

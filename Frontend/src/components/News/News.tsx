@@ -1,8 +1,6 @@
 import React, { useEffect } from "react";
 import { GoArrowDownRight } from "react-icons/go";
 import { Badge } from "..";
-import image3 from "../../assets/article-bg-3.png";
-import image4 from "../../assets/article-bg-4.png";
 import { Link } from "react-router-dom";
 import { useFetchHook } from "../../hooks/UseFetch";
 import EmptyContant from "../EmptyContant/EmptyContant";
@@ -30,11 +28,6 @@ const News: React.FC<{ title: string }> = ({ title }) => {
                 <h3 className="text-fs_6 lg:text-fs_3 opacity-50">
                   {response[0]?.title}
                 </h3>
-                <div
-                  className="text-fs_7 lg:text-fs_3 leading-tight font-medium mt-2"
-                  dangerouslySetInnerHTML={{ __html: response[0]?.body }}
-                />
-
                 <Badge name="NEW" />
                 <Badge name="HIT" />
               </div>
@@ -55,7 +48,6 @@ const News: React.FC<{ title: string }> = ({ title }) => {
                 <h3 className="text-fs_6 lg:text-fs_3 opacity-50">
                   {response[1]?.title}
                 </h3>
-
                 <Badge name="NEW" />
                 <Badge name="HIT" />
               </div>
@@ -69,15 +61,14 @@ const News: React.FC<{ title: string }> = ({ title }) => {
             to={"/articles"}
             className=" bg-cover text-white hidden lg:block h-full"
             style={{
-              backgroundImage: `url(${response[3]?.image})`,
+              backgroundImage: `url(${response[2]?.image})`,
             }}
           >
-            {response[3] ? (
+            {response[2] ? (
               <div className="p-3 lg:p-5">
-                <h3 className="text-fs_6 lg:text-fs_3 opacity-50">2.10</h3>
-                <h2 className="text-fs_7 font-medium leading-tight mt-2">
-                  Маска для лица многоразовая из хлопка, анатомической формы
-                </h2>
+                <h3 className="text-fs_6 lg:text-fs_3 opacity-50">
+                  {response[2]?.title}
+                </h3>
                 <Badge name="NEW" />
                 <Badge name="HIT" />
               </div>
@@ -94,10 +85,9 @@ const News: React.FC<{ title: string }> = ({ title }) => {
           >
             {response[3] ? (
               <div className="p-3 lg:p-5">
-                <h3 className="text-fs_6 lg:text-fs_3 opacity-50">2.10</h3>
-                <h2 className="text-fs_7 font-medium leading-tight mt-2">
-                  Маска для лица многоразовая из хлопка, анатомической формы
-                </h2>
+                <h3 className="text-fs_6 lg:text-fs_3 opacity-50">
+                  {response[3]?.title}
+                </h3>
                 <Badge name="NEW" />
                 <Badge name="HIT" />
               </div>
@@ -109,10 +99,10 @@ const News: React.FC<{ title: string }> = ({ title }) => {
             to={"/articles"}
             className=" bg-cover text-white hidden lg:block h-full"
             style={{
-              backgroundImage: `url(${response[3]?.image})`,
+              backgroundImage: `url(${response[4]?.image})`,
             }}
           >
-            {response[3] ? (
+            {response[4] ? (
               <div className="p-3 lg:p-5">
                 <h3 className="text-fs_6 lg:text-fs_3 opacity-50">2.10</h3>
                 <h2 className="text-fs_7 font-medium leading-tight mt-2">
