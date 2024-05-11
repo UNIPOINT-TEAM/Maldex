@@ -42,6 +42,7 @@ const SliderProductHit = () => {
     <div>
       <div className="  mt-10">
         <ProductNav
+          type={'hit'}
           categoryId={categoryId}
           updateState={updateState}
           title="Hit!"

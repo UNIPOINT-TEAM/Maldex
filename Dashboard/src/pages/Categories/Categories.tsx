@@ -167,15 +167,17 @@ const Categories = () => {
             key={category.id}
             className="w-1/6 py-5 relative content hover:bg-redPrimary"
           >
-            <img className="w-1/5 mb-5" src={category.icon} alt="" />
+            <div className="flex flex-col justify-start  h-[170px]">
+              <div className="flex justify-between">
+                <img className="w-1/5 mb-5" src={category.icon} alt="" />
+                <p className="text-xl ">{category.order}</p>
+              </div>
 
-            <p className="text-lg mb-3">{category?.name}</p>
-            {category?.children && category?.children?.length > 0 && (
-              <>
+              <p className="text-lg mb-3">{category?.name}</p>
+              {category?.children && category?.children?.length > 0 && (
                 <p>{category?.children[0]?.name}</p>
-                {/* <p>{category?.children[0]?.children[0]?.name}</p> */}
-              </>
-            )}
+              )}
+            </div>
             <div className="absolute w-full min-h-[400px] bg-[#fff] shadow-lg shadow-gray-400 top-0 left-0 right-0 moreContent p-3">
               <div className="flex justify-between items-center mb-3">
                 <img className="w-1/5 mb-5" src={category.icon} alt="" />

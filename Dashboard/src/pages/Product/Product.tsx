@@ -8,7 +8,7 @@ import {
 } from '../../services/product';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { MainCatalog } from '../../components';
 import {
   Button,
@@ -22,6 +22,7 @@ import { GetMainCatalogactive, PutData } from '../../services/maincatalog';
 import PaginationCard from '../../components/Pagination/Pagination';
 
 const Product = () => {
+  const location = useLocation();
   const [addProduct, setAddProduct] = useState([]);
   const [receiveId, setReceiveId] = useState(null);
   const [search, setSearch] = useState('');
@@ -71,7 +72,9 @@ const Product = () => {
     const formdata = new FormData();
     formdata.append('categoryId', receiveId);
     for (let i of checkedProducts) {
-      PutData(`/product/${i.id}/`, formdata);
+      PutData(`/product/${i.id}/`, formdata).then(() =>
+        window.location.reload(),
+      );
     }
   };
 
