@@ -64,7 +64,7 @@ const FilterCatalog = () => {
           <div className="col-span-10 lg:col-span-10">
             <div className="bg-greenPrimary h-[75px] flex items-center justify-center ">
               <h1 className="text-[22px] lg:text-[30px] text-red-primary">
-                Создайте идеальный подарок
+                Создайте фильтр для каталога
               </h1>
             </div>
             <div className="w-[96%]">
