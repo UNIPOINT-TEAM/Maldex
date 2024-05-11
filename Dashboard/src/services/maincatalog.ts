@@ -11,6 +11,11 @@ export const GetMainCatalog = async () => {
   return response.data;
 };
 
+export const GetHitNewCategory = async (type: string) => {
+  const response = await api.get(`/product/categories/?is_${type}=true`);
+  return response.data;
+};
+
 export const GetMainCatalogactive = async () => {
   const response = await api.get(`/product/categories/?is_available=true`);
   return response.data;
