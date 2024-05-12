@@ -13,7 +13,6 @@ const ProductNav: React.FC<ProductNavProps> = ({
   // @ts-expect-error: This
   categoryId,
   // @ts-expect-error: This
-
   updateCategoryId,
 }) => {
   let titleStyle = "text-4xl traking-wide";

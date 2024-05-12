@@ -50,7 +50,6 @@ const Catalog = () => {
   useEffect(() => {
     fetchData({ method: "GET", url: `/product/category_id/${id}/` });
   }, []);
-  console.log(response);
 
   return (
     <div className="home px-2 md:px-0">
@@ -99,7 +98,7 @@ const Catalog = () => {
                             {filterItems.map((i) => (
                               <button
                                 onClick={() => addToActive(i)}
-                                className="text-sm mb-2 text-start mb-5"
+                                className="text-sm text-start mb-5"
                               >
                                 {i.name} &nbsp;
                                 <span className="text-gray-500">{i.count}</span>
@@ -258,7 +257,8 @@ const Catalog = () => {
           </div>
           <div className="flex gap-2 flex-wrap py-2 ">
             {/*@ts-expect-error: This */}
-            {response && response?.children?.map((item) => (
+            {response &&
+              response?.children?.map((item) => (
                 <div
                   className="w-[45%] sm:w-[30%] md:w-[18%] mb-[40px]"
                   key={item.id}
@@ -306,7 +306,7 @@ const Catalog = () => {
           </div>
         </div>
         <div className="w-full">
-           {/*@ts-expect-error: This */}
+          {/*@ts-expect-error: This */}
           <SliderProduct />
         </div>
         <div className="md:hidden mb-5">

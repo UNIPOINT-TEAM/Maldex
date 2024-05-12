@@ -11,6 +11,7 @@ const BannerSlider = () => {
   useEffect(() => {
     fetchData({ method: "GET", url: "/banner/carousel/" });
   }, []);
+  console.log(response)
 
   return (
     <div className="banner-carusel relative w-full h-full bg-greenPrimary flex  p-[12px] lg:p-[20px] text-white font-helvetica-neue">

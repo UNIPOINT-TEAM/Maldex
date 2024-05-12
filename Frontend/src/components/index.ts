@@ -40,3 +40,4 @@ export { default as ConstructorPanel } from "./AdminSidebar/ConstructorPanel";
 export { default as FileAndPrice } from "./AdminSidebar/FileAndPrice";
 export { default as Galleryslider } from "./Gallery/Galleryslider";
 export { default as LayoutSideCard } from "./Gallery/LayoutSideCard";
+export { default as CatalogModal } from "./BuildSet/CatalogModal";
