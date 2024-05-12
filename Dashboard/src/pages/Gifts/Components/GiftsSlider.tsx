@@ -9,7 +9,7 @@ import { Scrollbar } from 'swiper/modules';
 import { FaArrowRightLong } from 'react-icons/fa6';
 import { ProductNav } from '../../../components';
 import GiftsNav from './GiftsNav';
-import { GetGiftsCategory } from '../../../services/gifts';
+import { GetGiftsCategory, delGiftsCategory } from '../../../services/gifts';
 import BannerEditModal from '../../../components/MainBanner/BannerEditModal';
 import DeteleteItem from '../../../components/DeleteModal';
 import { MdEdit } from 'react-icons/md';
@@ -54,6 +54,16 @@ function GiftsSlider({ category }) {
   const selectedCategory = giftCategory.find((cat) => cat.id === category.id);
 
   // console.log(selectedCategory);
+
+  const handleDelete = async (productId: number) => {
+    try {
+      await delGiftsCategory(productId);
+      window.location.reload();
+
+    } catch (error) {
+      console.error('Ошибка при удалении аккордеона:', error);
+    }
+  };
 
   return (
     <div className="container_xxl px-3 md:mb-[100px]">
@@ -103,12 +113,15 @@ function GiftsSlider({ category }) {
                   </Link>
                   <div className="flex w-full justify-center items-center ">
                     <div className="flex gap-2">
-                      <Link  to={`/gifts/${product.id}`}>
+                      {/* <Link to={`/gifts/${product.id}`}>
                         <button className="bg-warning px-3 text-white rounded  h-[40px] flex justify-center items-center">
                           Изменить
                         </button>
-                      </Link>
-                      <button className="bg-red-500 px-3 text-white rounded  h-[40px] flex justify-center items-center">
+                      </Link> */}
+                      <button
+                        className="bg-red-500 px-3 text-white rounded  h-[40px] flex justify-center items-center"
+                        onClick={() => handleDelete(product.id)}
+                      >
                         Удалить
                       </button>
                     </div>

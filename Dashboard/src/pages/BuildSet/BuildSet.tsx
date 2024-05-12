@@ -61,12 +61,24 @@ const BuildSet = () => {
       <div className="">
         <div className="grid grid-cols-10">
           <div className="col-span-10 lg:col-span-10">
-            <div className="bg-greenPrimary h-[75px] flex items-center justify-center ">
+            <div className="bg-greenPrimary h-[75px] flex flex-col items-center justify-center my-15 gap-5">
               <h1 className="text-[22px] lg:text-[30px] text-red-primary">
                 Создайте идеальный подарок
               </h1>
+              <div className="flex justify-end mt-4">
+                <Link to="/build-set-add">
+                  <Button
+                    color="green"
+                    className="w-[400px] h-[60px]  mb-10 text-[24px] text-white rounded-lg"
+
+         
+                  >
+                    Добавить
+                  </Button>
+                </Link>
+              </div>
             </div>
-            <div className="w-[96%]">
+            <div className="w-[88%]">
               <Reorder.Group
                 axis="y"
                 values={order}
@@ -77,7 +89,7 @@ const BuildSet = () => {
                   <Reorder.Item key={index} value={index} className="relative">
                     <div className="flex item-center">
                       <Accordion
-                        className="border border-lightPrimary px-5 my-4"
+                        className="border border-lightPrimary rounded-md px-5 my-4"
                         open={open === index + 1}
                         icon={
                           <img
@@ -238,31 +250,20 @@ const BuildSet = () => {
                           </div>
                         </AccordionBody>
                       </Accordion>
-                      <div className="flex flex-col justify-center mt-2">
+                      <div className="flex  justify-center items-center gap-4 ml-2">
                         <Link to={`/build-set-edit/${item.id}`}>
                           <Button
-                            buttonType="filled"
-                            size="regular"
-                            rounded={false}
-                            block={false}
-                            iconOnly={true}
-                            ripple="light"
-                            className="bg-yellow-400"
+                            className="bg-warning py-4"
                           >
-                            <MdEdit />
+                            <MdEdit size={30}/>
                           </Button>
                         </Link>
                         <Button
-                          color="red"
-                          buttonType="filled"
-                          size="regular"
-                          rounded={false}
-                          block={false}
-                          iconOnly={true}
-                          ripple="light"
+                          className='bg-danger py-4'
+                        
                           onClick={() => deleteAccordion(item.id)}
                         >
-                          <MdDelete />
+                          <MdDelete size={30}/>
                         </Button>
                       </div>
                     </div>
@@ -270,21 +271,7 @@ const BuildSet = () => {
                 ))}
               </Reorder.Group>
 
-              <div className="flex justify-end mt-4">
-                <Link to="/build-set-add">
-                  <Button
-                    color="green"
-                    buttonType="filled"
-                    size="regular"
-                    rounded={false}
-                    block={false}
-                    iconOnly={false}
-                    ripple="light"
-                  >
-                    Добавить
-                  </Button>
-                </Link>
-              </div>
+
             </div>
           </div>
         </div>

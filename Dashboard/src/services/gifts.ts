@@ -27,7 +27,7 @@ export const PostGiftsProduct = async (data: any) => {
 };
 
 export const delGiftsCategory = async (id:number)   => {
-  const response = await api.delete(`/gifts/baskets/category/${id}`);
+  const response = await api.delete(`/gifts/baskets/${id}/`);
   return response.data;
 };
 

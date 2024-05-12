@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Dialog,
   Card,
@@ -11,17 +11,21 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 // import { Navigation, Pagination } from 'swiper';
 import { Navigation, Pagination } from 'swiper/modules';
 
-
 const ProductDialog = ({
+  addToGiftDetails,
+  saveSelectedProducts,
+  setOpen,
   open,
   handleOpen,
   products,
   handleCheckboxChange,
   setInputVal,
 }) => {
+
+
   return (
     <Dialog
-      size="xl"
+      size="xxl"
       open={open}
       handler={handleOpen}
       className="bg-transparent shadow-none"
@@ -35,7 +39,7 @@ const ProductDialog = ({
               onChange={(e) => setInputVal(e.target.value)}
             />
           </div>
-          <div className="flex flex-wrap justify-center gap-5 py-5 overflow-y-scroll h-[800px]">
+          <div className="flex flex-wrap justify-center gap-5 py-5 overflow-y-scroll h-[700px]">
             {/* @ts-ignore */}
             {products.map((item) => (
               <div className="w-1/6 shadow-4 p-2 rounded-sm h-[400px]">
@@ -126,7 +130,10 @@ const ProductDialog = ({
                       <Checkbox
                         defaultChecked={false}
                         color="blue"
-                        onChange={() => handleCheckboxChange(item?.id)}
+                        onChange={() => {
+                          handleCheckboxChange(item?.id);
+                          addToGiftDetails(item); // Добавьте эту строку
+                        }}
                       />
                     </div>
                   </div>
@@ -145,7 +152,11 @@ const ProductDialog = ({
             Отмена
           </button>
           <button
-            form="form-post"
+           onClick={() => {
+            setOpen(!open);
+            // Отправьте выбранные продукты на сервер
+            addToGiftDetails(selectedProducts); // Измените эту строку
+          }}
             className="inline-flex tracking-wide items-center justify-center rounded-md bg-success py-2 px-6 text-center font-medium text-white hover:bg-opacity-90 "
           >
             Сохранять

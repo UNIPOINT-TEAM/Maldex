@@ -22,12 +22,13 @@ import {
   PostGiftsProduct,
 } from '../../../services/gifts';
 import { GetProduct } from '../../../services/main';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import { GetProductSearch } from '../../../services/product';
 
 const AddGifts = () => {
+  const navigate = useNavigate();
   const [name, setName] = useState('');
   const [article, setArticle] = useState('');
   const [price, setPrice] = useState('');
@@ -47,6 +48,7 @@ const AddGifts = () => {
   const [selectedProducts, setSelectedProducts] = useState<number[]>([]);
   const [quantities, setQuantities] = useState({});
   const [inputVal, setInputVal] = useState('');
+  const [uploadedPhotos, setUploadedPhotos] = useState<string[]>([]);
 
   const handleFileInputChange = (
     index: number,
@@ -56,6 +58,10 @@ const AddGifts = () => {
     const newInputs = [...inputs];
     newInputs[index] = files;
     setInputs(newInputs);
+
+    // Assuming you have a function to generate a URL for the uploaded file
+    const url = URL.createObjectURL(files);
+    setUploadedPhotos((prevPhotos) => [...prevPhotos, url]);
   };
 
   const handleAddInput = () => {
@@ -110,21 +116,14 @@ const AddGifts = () => {
   const addnewProduct = (e: React.FormEvent) => {
     e.preventDefault();
 
-    //   const newQuantities = { ...quantities };
-    //   if (!newSelected.includes(id)) {
-    //     delete newQuantities[id];
-    //   } else if (!quantities[id]) {
-    //     newQuantities[id] = 1;
-    //   }
-    //   setQuantities(newQuantities);
-    // };
-
     const productData = selectedProductsIds
       .map((id) => ({
         product_sets: id,
         quantity: quantities[id] || 0, // Если не указано количество, по умолчанию 0
       }))
       .filter((item) => item.quantity > 0); // Отфильтровываем, если количество равно 0
+
+
 
     const formData = new FormData();
 
@@ -147,6 +146,8 @@ const AddGifts = () => {
     PostGiftsProduct(formData)
       .then((response) => {
         console.log(response);
+        navigate('/gifts');
+        window.location.reload();
       })
       .catch((error) => {
         console.error('Error adding new product:', error);
@@ -188,404 +189,288 @@ const AddGifts = () => {
           <form
             id="form-post"
             onSubmit={addnewProduct}
-            className="flex w-full justify-around items-start px-10 gap-20 mb-5"
+            className="flex flex-col justify-around items-start px-10 gap-20 mb-5"
           >
-            <div className="w-2/3 flex flex-wrap  justify-start items-start">
-              <div className="flex items-center justify-between w-1/2 mb-5 pr-10">
-                <Input
-                  required
-                  variant="standard"
-                  label="Название"
-                  placeholder=""
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </div>
-
-              <div className="flex items-center justify-between w-1/2 mb-5 pr-5">
-                <Input
-                  required
-                  variant="standard"
-                  label="Артикуль"
-                  onChange={(e) => setArticle(e.target.value)}
-                  placeholder=""
-                />
-              </div>
-
-              <div className="flex items-center justify-between w-1/2 mb-5 pr-5">
-                <Input
-                  required
-                  variant="standard"
-                  label="Цена"
-                  onChange={(e) => setPrice(e.target.value)}
-                  placeholder=""
-                />
-              </div>
-              <div className="flex items-center justify-between w-1/2 mb-5 pr-5">
-                <Input
-                  required
-                  variant="standard"
-                  label="Валюта"
-                  onChange={(e) => setPrice_type(e.target.value)}
-                  placeholder=""
-                />
-              </div>
-              <div className="flex items-center justify-between w-1/2 mb-5 pr-5">
-                <Input
-                  required
-                  variant="standard"
-                  label="Цена со скидкой"
-                  onChange={(e) => setDiscount_price(e.target.value)}
-                  placeholder=""
-                />
-              </div>
-
-              <div className="flex w-full gap-5">
-                <Select label="Выберите Категорию" onChange={handleChange}>
-                  {categories.map((category) => (
-                    <Option key={category.id} value={category.id}>
-                      {category.name}
-                    </Option>
-                  ))}
-                </Select>
-
-                <Select
-                  label="Выберите подКатегорию"
-                  // onChange={(event) =>
-                  //   handleSubcategoryChange(event.target.id)
-                  // }
-                  onChange={handleSubcategoryChange}
-                >
-                  {subcategories.map((subcategory, index) => (
-                    <Option key={subcategory.id} value={subcategory.id}>
-                      {subcategory.name}
-                    </Option>
-                  ))}
-                </Select>
-              </div>
-
-              <div className="flex items-center justify-between w-full mb-5">
-                <Textarea
-                  required
-                  variant="standard"
-                  label="Описание"
-                  onChange={(e) => setDescription(e.target.value)}
-                />
-              </div>
-              <input
-                type="hidden"
-                name="selectedProductIds"
-                value={selectedProductsIds.join(',')}
-              />
-
-              <div className="flex items-center justify-between w-full mb-5">
-                <button
-                  type="button"
-                  className="w-[200px] h-[40px] bg-blue-400 rounded-md float-end text-white"
-                  onClick={handleOpen}
-                >
-                  Добавить товар
-                </button>
-              </div>
-              <div>
-                <div>Товары в наборы</div>
-                <div className="flex flex-wrap">
-                  {addProduct
-                    ?.filter((item) => selectedProductsIds.includes(item.id))
-                    .map((item, index) => (
-                      <div
-                        key={item.id}
-                        className="flex flex-col items-center mb-4 w-1/3"
-                      >
-                        <div className="w-[80%] shadow-4 p-2 rounded-sm h-[400px]">
-                          <div className="catalog ">
-                            <div className="relative swiper-top-container h-[200px] mb-4 bg-gray-200">
-                              <Swiper
-                                pagination={{ clickable: true }}
-                                modules={[Navigation, Pagination]}
-                                className="  h-full"
-                              >
-                                {item?.images_set?.map((i) => (
-                                  <SwiperSlide className="w-full h-full">
-                                    <div
-                                      onClick={() => handleOpen('xl')}
-                                      className="relative  h-full"
-                                    >
-                                      <div className="flex justify-center items-center h-full">
-                                        <img
-                                          className="mb-2  object-contain product-img"
-                                          src={i.image_url || i.image}
-                                          alt=""
-                                        />
-                                      </div>
-                                    </div>
-                                  </SwiperSlide>
-                                ))}
-                              </Swiper>
-                              <div className="absolute z-[9999] bottom-[25px] right-[15px] flex flex-col gap-1 swiper-opacity">
-                                <button
-                                  className={`w-[8px] h-[8px] bg-red-primary rounded-[4px]`}
-                                ></button>
-                                <button
-                                  className={`w-[8px] h-[8px] bg-orange-600 rounded-[4px]`}
-                                ></button>
-                                <button
-                                  className={`w-[8px] h-[8px] bg-green-600 rounded-[4px]`}
-                                ></button>
-                                <button
-                                  className={`w-[8px] h-[8px] bg-green-primary rounded-[4px]`}
-                                ></button>
-                                <button
-                                  className={`w-[8px] h-[8px] bg-blue-600 rounded-[4px]`}
-                                ></button>
-                                <button
-                                  className={`w-[8px] h-[8px] bg-purple-600 rounded-[4px]`}
-                                ></button>
-                                <button
-                                  className={`w-[8px] h-[8px] bg-indigo-600 rounded-[4px]`}
-                                ></button>
-                              </div>
-
-                              {item?.is_new ? (
-                                <div className="absolute z-[999] top-2 left-2 flex gap-2">
-                                  <div className="border border-red-primary text-[10px] text-red-primary rounded-lg px-1">
-                                    NEW
-                                  </div>
-                                </div>
-                              ) : (
-                                ''
-                              )}
-                            </div>
-                            {/* {defaultProduct ? ( */}
-                            <div className="default">
-                              <div className="mb-2 md:mb-5  min-h-[70px] ">
-                                <p className="text-fs_7 tracking-wide">
-                                  {
-                                    //@ts-ignore
-                                    item?.name?.length > 30
-                                      ? //@ts-ignore
-                                        item?.name?.substring(0, 40) + '...'
-                                      : //@ts-ignore
-                                        item?.name
-                                  }
-                                </p>
-                              </div>
-                              <p className="mb-2 text-gray-600 text-fs_8">
-                                {item?.vendor_code}
-                              </p>
-                              <div className="relative mb-2 flex items-center justify-between">
-                                <p className="text-[16px] md:text-fs_4">
-                                  {item?.price}
-                                  <span className="text-xs absolute top-0">
-                                    12
-                                  </span>
-                                  <span className="ml-4 mr-1">
-                                    {item?.price_type}
-                                  </span>
-                                  <span className="text-xs absolute top-0 line-through text-red-primary">
-                                    234
-                                  </span>
-                                </p>
-                              </div>
-                              <Input
-                                type="number"
-                                min="1"
-                                name="count"
-                                value={quantities[item.id] || ''}
-                                onChange={(e) =>
-                                  handleQuantityChange(item.id, e.target.value)
-                                }
-                              />
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* <Input
-                  type="number"
-                  min="1"
-                  name="count"
-                  value={quantities[item.id] || ''}
-                  onChange={(e) =>
-                    handleQuantityChange(item.id, e.target.value)
-                  }
-                /> */}
-                      </div>
-                    ))}
+            <div className="flex justify-between w-full">
+              <div className="   justify-start items-start">
+                <div className="flex items-center justify-between w-1/2 mb-5 pr-10">
+                  <Input
+                    required
+                    variant="standard"
+                    label="Название"
+                    placeholder=""
+                    onChange={(e) => setName(e.target.value)}
+                  />
                 </div>
+
+                <div className="flex items-center justify-between  mb-5 pr-5">
+                  <Input
+                    required
+                    variant="standard"
+                    label="Артикуль"
+                    onChange={(e) => setArticle(e.target.value)}
+                    placeholder=""
+                  />
+                </div>
+                <div className="flex items-center justify-between  mb-5 pr-5">
+                  <Select
+                    required
+                    label="Валюта"
+                    value={price_type}
+                    onChange={(value) => setPrice_type(value)}
+                  >
+                    <Option value="₽">₽</Option>
+                    <Option value="$">$</Option>
+                  </Select>
+                </div>
+
+                <div className="flex items-center justify-between  mb-5 pr-5">
+                  <Input
+                    required
+                    variant="standard"
+                    label="Цена"
+                    onChange={(e) => setPrice(e.target.value)}
+                    placeholder=""
+                  />
+                </div>
+
+                <div className="flex items-center justify-between  mb-5 pr-5">
+                  <Input
+                    required
+                    variant="standard"
+                    label="Цена со скидкой"
+                    onChange={(e) => setDiscount_price(e.target.value)}
+                    placeholder=""
+                  />
+                </div>
+
+                <div className="flex  gap-5">
+                  <Select
+                    label="Выберите Категорию"
+                    onChange={handleChange}
+                    required
+                  >
+                    {categories.map((category) => (
+                      <Option key={category.id} value={category.id}>
+                        {category.name}
+                      </Option>
+                    ))}
+                  </Select>
+
+                  <Select
+                    label="Выберите подКатегорию"
+                    required
+                    // onChange={(event) =>
+                    //   handleSubcategoryChange(event.target.id)
+                    // }
+                    onChange={handleSubcategoryChange}
+                  >
+                    {subcategories.map((subcategory, index) => (
+                      <Option key={subcategory.id} value={subcategory.id}>
+                        {subcategory.name}
+                      </Option>
+                    ))}
+                  </Select>
+                </div>
+
+                <div className="flex items-center justify-between  my-5">
+                  <Textarea
+                    required
+                    variant="standard"
+                    label="Описание"
+                    onChange={(e) => setDescription(e.target.value)}
+                  />
+                </div>
+                <input
+                  type="hidden"
+                  name="selectedProductIds"
+                  value={selectedProductsIds.join(',')}
+                />
               </div>
-            </div>
-            <div className="w-1/3 pt-10">
-              <div className="flex items-center justify-between w-full">
-                <div className="w-full">
-                  {inputs.map((input, index) => (
-                    <div key={index}>
+              <div className="w-1/3 pt-10">
+                {' '}
+                <div className="flex flex-col">
+                  {uploadedPhotos.map((photoUrl, index) => (
+                    <div key={index} className="mr-3 mb-3 ">
+                      <img
+                        src={photoUrl}
+                        alt={`Uploaded ${index + 1}`}
+                        className="w-full h-65 object-cover rounded-lg"
+                      />
+                    </div>
+                  ))}
+                </div>
+                <div className=" w-full">
+                  <div className="">
+                    {/* Conditionally render input field for photo upload */}
+                    {uploadedPhotos.length === 0 && (
                       <div className="mb-5">
                         <label
-                          htmlFor={`cover-${index}`}
-                          className="flex h-[100px] cursor-pointer border-dashed items-center justify-center gap-2 rounded-xl border border-b py-1 px-2 text-sm font-medium hover:bg-opacity-90 xsm:px-4"
+                          htmlFor={`cover-0`}
+                          className="flex w-full h-65 cursor-pointer border-dashed items-center justify-center gap-2 rounded-xl border border-b py-1 px-2 text-sm font-medium hover:bg-opacity-90 xsm:px-4"
                         >
                           <input
+                            required
                             type="file"
-                            name={`cover-${index}`}
-                            id={`cover-${index}`}
+                            name={`cover-0`}
+                            id={`cover-0`}
                             className="sr-only"
                             accept="image/*"
-                            onChange={(e) => handleFileInputChange(index, e)}
+                            onChange={(e) => handleFileInputChange(0, e)}
                           />
                           <p className="text-fs-6">Добавить Фото</p>
                         </label>
                       </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="flex  items-center justify-between  mb-5">
+              <button
+                type="button"
+                className="w-[200px] h-[40px] bg-blue-400 rounded-md float-end text-white"
+                onClick={handleOpen}
+              >
+                Добавить товар
+              </button>
+            </div>
+            <div>
+              <div>Товары в наборы</div>
+              <div className="flex flex-wrap">
+                {addProduct
+                  ?.filter((item) => selectedProductsIds.includes(item.id))
+                  .map((item, index) => (
+                    <div
+                      key={item.id}
+                      className="flex flex-col items-center mb-4 "
+                    >
+                      <div className=" shadow-4 p-2 rounded-sm h-[400px]">
+                        <div className="catalog w-[200px]">
+                          <div className="relative swiper-top-container h-[200px] mb-4 bg-gray-200">
+                            <Swiper
+                              pagination={{ clickable: true }}
+                              modules={[Navigation, Pagination]}
+                              className="  h-full"
+                            >
+                              {item?.images_set?.map((i) => (
+                                <SwiperSlide className="w-full h-full">
+                                  <div
+                                    onClick={() => handleOpen('xl')}
+                                    className="relative  h-full"
+                                  >
+                                    <div className="flex justify-center items-center h-full">
+                                      <img
+                                        className="mb-2  object-contain product-img"
+                                        src={i.image_url || i.image}
+                                        alt=""
+                                      />
+                                    </div>
+                                  </div>
+                                </SwiperSlide>
+                              ))}
+                            </Swiper>
+                            <div className="absolute z-[9999] bottom-[25px] right-[15px] flex flex-col gap-1 swiper-opacity">
+                              <button
+                                className={`w-[8px] h-[8px] bg-red-primary rounded-[4px]`}
+                              ></button>
+                              <button
+                                className={`w-[8px] h-[8px] bg-orange-600 rounded-[4px]`}
+                              ></button>
+                              <button
+                                className={`w-[8px] h-[8px] bg-green-600 rounded-[4px]`}
+                              ></button>
+                              <button
+                                className={`w-[8px] h-[8px] bg-green-primary rounded-[4px]`}
+                              ></button>
+                              <button
+                                className={`w-[8px] h-[8px] bg-blue-600 rounded-[4px]`}
+                              ></button>
+                              <button
+                                className={`w-[8px] h-[8px] bg-purple-600 rounded-[4px]`}
+                              ></button>
+                              <button
+                                className={`w-[8px] h-[8px] bg-indigo-600 rounded-[4px]`}
+                              ></button>
+                            </div>
+
+                            {item?.is_new ? (
+                              <div className="absolute z-[999] top-2 left-2 flex gap-2">
+                                <div className="border border-red-primary text-[10px] text-red-primary rounded-lg px-1">
+                                  NEW
+                                </div>
+                              </div>
+                            ) : (
+                              ''
+                            )}
+                          </div>
+                          {/* {defaultProduct ? ( */}
+                          <div className="default">
+                            <div className="mb-2 md:mb-5  min-h-[70px] ">
+                              <p className="text-fs_7 tracking-wide">
+                                {
+                                  //@ts-ignore
+                                  item?.name?.length > 30
+                                    ? //@ts-ignore
+                                      item?.name?.substring(0, 40) + '...'
+                                    : //@ts-ignore
+                                      item?.name
+                                }
+                              </p>
+                            </div>
+                            <p className="mb-2 text-gray-600 text-fs_8">
+                              {item?.vendor_code}
+                            </p>
+                            <div className="relative mb-2 flex items-center justify-between">
+                              <p className="text-[16px] md:text-fs_4">
+                                {item?.price}
+                                <span className="text-xs absolute top-0">
+                                  12
+                                </span>
+                                <span className="ml-4 mr-1">
+                                  {item?.price_type}
+                                </span>
+                                <span className="text-xs absolute top-0 line-through text-red-primary">
+                                  234
+                                </span>
+                              </p>
+                            </div>
+                            <Input
+                              type="number"
+                              min="1"
+                              name="count"
+                              value={
+                                quantities[item.id] !== undefined
+                                  ? quantities[item.id]
+                                  : 1
+                              }
+                              onChange={(e) =>
+                                handleQuantityChange(item.id, e.target.value)
+                              }
+                            />
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   ))}
-
-                  <button
-                    type="button"
-                    className="w-[200px] h-[40px] bg-blue-400 rounded-md float-end text-white"
-                    onClick={handleAddInput}
-                  >
-                    Добавить ещё
-                  </button>
-                </div>
               </div>
             </div>
           </form>
           <div className="flex justify-center w-full">
-            <button
+            <Button
               form="form-post"
               type="submit"
-              className="w-[400px] h-[60px] bg-blue-400 mb-10 text-[24px] text-white rounded-lg"
+              color="green"
+              className="w-[400px] h-[60px]  mb-10 text-[24px] text-white rounded-lg"
             >
               Добавить продукт
-            </button>
+            </Button>
           </div>
         </div>
       </div>
       <div>
-        {/* <Dialog open={open} handler={handleOpen}>
-          <DialogHeader>
-            Выберете продукт который вы хотите увидеть в списке new!
-          </DialogHeader>
-          <DialogBody className="h-[400px] flex flex-wrap overflow-y-scroll">
-            {addProduct?.map((item, index) => (
-              <div
-                key={index}
-                className="flex flex-col items-center mb-4 w-1/4"
-              >
-                <input
-                  type="checkbox"
-                  checked={selectedProductsIds.includes(item.id)}
-                  onChange={() => handleCheckboxChange(item.id)}
-                  className="mb-2"
-                />
-                <div className="w-full p-2 rounded-sm">
-                  <div className="catalog relative swiper-top-container h-[220px] mb-4 bg-gray-200">
-                    <Swiper className="">
-                      {item.images_set.map((i, idx) => (
-                        <SwiperSlide key={idx} className="w-full h-full">
-                          <div
-                            onClick={() => handleOpen('xl')}
-                            className="relative  h-full"
-                          >
-                            <div className="flex justify-center items-center h-full">
-                              <img
-                                className="mb-2 object-contain product-img"
-                                src={i.image_url || i.image}
-                                alt=""
-                              />
-                            </div>
-                          </div>
-                        </SwiperSlide>
-                      ))}
-                    </Swiper>
-                    <div className="absolute z-[9999] bottom-[25px] right-[15px] flex flex-col gap-1 swiper-opacity">
-                      <button
-                        className={`w-[8px] h-[8px] bg-red-primary rounded-[4px]`}
-                      ></button>
-                      <button
-                        className={`w-[8px] h-[8px] bg-orange-600 rounded-[4px]`}
-                      ></button>
-                      <button
-                        className={`w-[8px] h-[8px] bg-green-600 rounded-[4px]`}
-                      ></button>
-                      <button
-                        className={`w-[8px] h-[8px] bg-green-primary rounded-[4px]`}
-                      ></button>
-                      <button
-                        className={`w-[8px] h-[8px] bg-blue-600 rounded-[4px]`}
-                      ></button>
-                      <button
-                        className={`w-[8px] h-[8px] bg-purple-600 rounded-[4px]`}
-                      ></button>
-                      <button
-                        className={`w-[8px] h-[8px] bg-indigo-600 rounded-[4px]`}
-                      ></button>
-                    </div>
-                    {item.is_new ? (
-                      <div className="absolute z-[999] top-2 left-2 flex gap-2">
-                        <div className="border border-red-primary text-[10px] text-red-primary rounded-lg px-1">
-                          NEW
-                        </div>
-                      </div>
-                    ) : (
-                      ''
-                    )}
-                  </div>
-                  <div className="default">
-                    <div className="mb-2 md:mb-5  min-h-[70px] ">
-                      <p className="text-fs_7 tracking-wide">
-                        {item.name.length > 30
-                          ? item.name.substring(0, 40) + '...'
-                          : item.name}
-                      </p>
-                    </div>
-                    <p className="mb-2 text-gray-600 text-fs_8">
-                      {item.vendor_code}
-                    </p>
-                    <div className="relative mb-2">
-                      <p className="text-[16px] md:text-fs_4">
-                        {item.price}
-                        <span className="text-xs absolute top-0">12</span>
-                        <span className="ml-4 mr-1">{item.price_type}</span>
-                        <span className="text-xs absolute top-0 line-through text-red-primary">
-                          234
-                        </span>
-                      </p>
-                    </div>
-                    <div className="flex justify-between catalog_btns">
-                      <Link to={`/product/${item.id}`}>
-                        <button className="bg-red-primary flex justify-center items-center uppercase  p-2 text-white rounded-lg font-bold tracking-wider text-fs_8 lg:text-sm gap-1 lg:w-[180px]">
-                          узнать больше
-                        </button>
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </DialogBody>
-
-          <DialogFooter>
-            <Button
-              variant="text"
-              color="red"
-              onClick={handleOpen}
-              className="mr-1"
-            >
-              <span>Cancel</span>
-            </Button>
-            <Button
-              variant="gradient"
-              color="green"
-              onClick={() => {
-                handleOpen();
-                handleConfirm();
-              }}
-            >
-              <span>Confirm</span>
-            </Button>
-          </DialogFooter>
-        </Dialog> */}
         <Dialog
-          size="xl"
+          size="xxl"
           open={open}
           handler={handleOpen}
           className="bg-transparent shadow-none"
@@ -599,7 +484,7 @@ const AddGifts = () => {
                   onChange={(e) => setInputVal(e.target.value)}
                 />
               </div>
-              <div className="flex flex-wrap justify-center gap-5 py-5 overflow-y-scroll h-[800px]">
+              <div className="flex flex-wrap justify-center gap-5 py-5 overflow-y-scroll h-[700px]">
                 {/* @ts-ignore */}
                 {addProduct?.map((item) => (
                   <div className="w-1/6 shadow-4 p-2 rounded-sm h-[400px]">
@@ -613,7 +498,6 @@ const AddGifts = () => {
                           {item?.images_set?.map((i) => (
                             <SwiperSlide className="w-full h-full">
                               <div
-                                onClick={() => handleOpen('xl')}
                                 className="relative  h-full"
                               >
                                 <div className="flex justify-center items-center h-full">
@@ -711,7 +595,10 @@ const AddGifts = () => {
                 Отмена
               </button>
               <button
-                form="form-post"
+                onClick={() => {
+                  setOpen(!open);
+                }}
+                // form="form-post"
                 className="inline-flex tracking-wide items-center justify-center rounded-md bg-success py-2 px-6 text-center font-medium text-white hover:bg-opacity-90 "
               >
                 Сохранять

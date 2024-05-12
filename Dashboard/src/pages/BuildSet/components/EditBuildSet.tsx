@@ -5,6 +5,8 @@ import { GetGiftSetId, EditGiftSet } from '../../../services/buildset'; // Им�
 import { GetProductSearch } from '../../../services/product';
 import ProductDialog from './ProductDialog';
 import { useParams } from 'react-router-dom';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination } from 'swiper/modules';
 
 function EditBuildSet() {
   const { id } = useParams();
@@ -15,9 +17,14 @@ function EditBuildSet() {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState('');
   const [inputVal, setInputVal] = useState('');
+  const [giftDetails, setGiftDetails] = useState({});
+  const [selectedProducts, setSelectedProducts] = useState([]);
+  const addToGiftDetails = (product) => {
+    setSelectedProducts((prevProducts) => [...prevProducts, product]);
+  };
 
   useEffect(() => {
-    GetProductSearch(inputVal).then((res) => {
+    GetProductSearch(inputVal, '', '').then((res) => {
       setProducts(res.data.results);
     });
   }, [inputVal]);
@@ -26,6 +33,7 @@ function EditBuildSet() {
     const fetchData = async () => {
       try {
         const data = await GetGiftSetId(id); // Получаем данные о категории по id
+        setGiftDetails(data.product_sets);
         console.log('Данные о категории:', data);
 
         // Устанавливаем название категории
@@ -65,33 +73,51 @@ function EditBuildSet() {
     setQuantities(newQuantities);
   };
 
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
+
+  //   // Собираем данные о продуктах и их количествах
+  //   const productData = selectedProductsIds.map((id) => ({
+  //     product_sets: id,
+  //     quantity: quantities[id] || 1, // Значение по умолчанию равно 1, если количество не указано
+  //   }));
+
+  //   // Формируем объект для отправки
+  //   const setCategoryData = {
+  //     title,
+  //     product_data: productData,
+  //   };
+
+  //   console.log('Данные для отправки:', setCategoryData); // Выводим данные в консоль
+
+  //   try {
+  //     // Отправляем данные для обновления категории
+  //     await EditGiftSet(id, setCategoryData);
+  //     // Обработка успешного ответа
+  //     console.log('Категория успешно обновлена:', setCategoryData);
+  //   } catch (error) {
+  //     // Обработка ошибок при отправке
+  //     console.error('Ошибка при обновлении категории:', error);
+  //   }
+  // };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    // Собираем данные о продуктах и их количествах
-    const productData = selectedProductsIds.map((id) => ({
-      product_sets: id,
-      quantity: quantities[id] || 1, // Значение по умолчанию равно 1, если количество не указано
-    }));
-
-    // Формируем объект для отправки
-    const setCategoryData = {
-      title,
-      product_data: productData,
-    };
-
-    console.log('Данные для отправки:', setCategoryData); // Выводим данные в консоль
-
     try {
       // Отправляем данные для обновления категории
       await EditGiftSet(id, setCategoryData);
-      // Обработка успешного ответа
-      console.log('Категория успешно обновлена:', setCategoryData);
+      // Обновляем данные о продуктах в состоянии giftDetails
+      const updatedGiftDetails = { ...giftDetails };
+      // Обновляем продукты и их количество в состоянии giftDetails
+      setGiftDetails(updatedGiftDetails);
     } catch (error) {
-      // Обработка ошибок при отправке
       console.error('Ошибка при обновлении категории:', error);
     }
   };
+  
+  
+  // В функции handleOpen добавьте логику для открытия диалогового окна и выбора новых продуктов
+
 
   const handleQuantityChange = (id, value) => {
     setQuantities((prev) => ({
@@ -99,6 +125,8 @@ function EditBuildSet() {
       [id]: Number(value),
     }));
   };
+
+  console.log(giftDetails);
 
   return (
     <DefaultLayout>
@@ -122,37 +150,99 @@ function EditBuildSet() {
           <div>Товары в наборы</div>
         </div>
         <div className="flex flex-wrap">
-          {products
-            .filter((item) => selectedProductsIds.includes(item.id))
-            .map((item) => (
-              <div
-                key={item.id}
-                className="flex flex-col items-center mb-4 w-1/4"
-              >
-                <div>
-                  {item.name.length > 30
-                    ? item.name.substring(0, 40) + '...'
-                    : item.name}
-                </div>
-                {item.product_sets.map((productSet, index) => (
-                  <div key={index}>
-                    {/* Выводим информацию из product_sets */}
-                    <p>{productSet.name}</p>
-                    <p>{productSet.description}</p>
-                    {/* Добавьте остальные поля из product_sets, которые вам нужны */}
+          {Array.isArray(giftDetails) &&
+            giftDetails.map((item, index) => (
+              <div key={item.id} className="flex flex-col items-center mb-4 ">
+                <div className=" shadow-4 p-2 rounded-sm h-[400px]">
+                  <div className="catalog w-[200px]">
+                    <div className="relative swiper-top-container h-[200px] mb-4 bg-gray-200">
+                      <Swiper
+                        pagination={{ clickable: true }}
+                        modules={[Navigation, Pagination]}
+                        className="  h-full"
+                      >
+                        {item?.product_sets?.images_set?.map((i) => (
+                          <SwiperSlide className="w-full h-full">
+                            <div
+                              onClick={() => handleOpen('xl')}
+                              className="relative  h-full"
+                            >
+                              <div className="flex justify-center items-center h-full">
+                                <img
+                                  className="mb-2  object-contain product-img"
+                                  src={i.image_url || i.image}
+                                  alt=""
+                                />
+                              </div>
+                            </div>
+                          </SwiperSlide>
+                        ))}
+                      </Swiper>
+                      <div className="absolute z-[9999] bottom-[25px] right-[15px] flex flex-col gap-1 swiper-opacity">
+                        <button
+                          className={`w-[8px] h-[8px] bg-red-primary rounded-[4px]`}
+                        ></button>
+                        <button
+                          className={`w-[8px] h-[8px] bg-orange-600 rounded-[4px]`}
+                        ></button>
+                        <button
+                          className={`w-[8px] h-[8px] bg-green-600 rounded-[4px]`}
+                        ></button>
+                        <button
+                          className={`w-[8px] h-[8px] bg-green-primary rounded-[4px]`}
+                        ></button>
+                        <button
+                          className={`w-[8px] h-[8px] bg-blue-600 rounded-[4px]`}
+                        ></button>
+                        <button
+                          className={`w-[8px] h-[8px] bg-purple-600 rounded-[4px]`}
+                        ></button>
+                        <button
+                          className={`w-[8px] h-[8px] bg-indigo-600 rounded-[4px]`}
+                        ></button>
+                      </div>
+
+                      {item?.is_new ? (
+                        <div className="absolute z-[999] top-2 left-2 flex gap-2">
+                          <div className="border border-red-primary text-[10px] text-red-primary rounded-lg px-1">
+                            NEW
+                          </div>
+                        </div>
+                      ) : (
+                        ''
+                      )}
+                    </div>
+                    {/* {defaultProduct ? ( */}
+                    <div className="default">
+                      <div className="mb-2 md:mb-5  min-h-[70px] ">
+                        <p className="text-fs_7 tracking-wide">
+                          {item?.product_sets?.name?.length > 30
+                            ? item?.product_sets?.name?.substring(0, 40) + '...'
+                            : item?.product_sets?.name}
+                        </p>
+                      </div>
+                      <p className="mb-2 text-gray-600 text-fs_8">
+                        {item?.product_sets?.vendor_code}
+                      </p>
+                      <div className="relative mb-2 flex items-center justify-between">
+                        <p className="text-[16px] md:text-fs_4">
+                          {item?.product_sets?.price}
+                          <span className="text-xs absolute top-0">12</span>
+                          <span className="ml-4 mr-1">
+                            {item?.product_sets?.price_type}
+                          </span>
+                          <span className="text-xs absolute top-0 line-through text-red-primary">
+                            234
+                          </span>
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                ))}
-                <Input
-                  type="number"
-                  min="1"
-                  name="count"
-                  value={quantities[item.id] || ''}
-                  onChange={(e) =>
-                    handleQuantityChange(item.id, e.target.value)
-                  }
-                />
+                </div>
               </div>
             ))}
+          <div>
+          </div>
         </div>
 
         <ProductDialog
@@ -161,6 +251,7 @@ function EditBuildSet() {
           products={products}
           handleCheckboxChange={handleCheckboxChange}
           setInputVal={setInputVal}
+          addToGiftDetails={addToGiftDetails} 
         />
         <button
           type="submit"

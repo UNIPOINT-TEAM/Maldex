@@ -14,10 +14,12 @@ import { Link } from 'react-router-dom';
 interface GiftsNavProps {
   title: string;
   color: 'green' | 'red' | 'gray';
-  subcategories : any[];
+  subcategories: any[];
 }
 
-const GiftsNav: React.FC<GiftsNavProps & { onSubCategoryClick: (subcategory: any) => void }> = ({ title, color, subcategories, onSubCategoryClick }) => {
+const GiftsNav: React.FC<
+  GiftsNavProps & { onSubCategoryClick: (subcategory: any) => void }
+> = ({ title, color, subcategories, onSubCategoryClick }) => {
   let titleStyle = 'text-4xl traking-wide';
   const [selectedItem, setSelectedItem] = useState(0);
 
@@ -29,8 +31,6 @@ const GiftsNav: React.FC<GiftsNavProps & { onSubCategoryClick: (subcategory: any
   } else if (color === 'gray') {
     titleStyle += ' font-medium text-base lg:text-[28px] text-darkSecondary';
   }
-
-
 
   const [open, setOpen] = React.useState(false);
 
@@ -44,7 +44,7 @@ const GiftsNav: React.FC<GiftsNavProps & { onSubCategoryClick: (subcategory: any
     });
   }, []);
 
-  const [giftCategory, setGiftCategory] = useState('')
+  const [giftCategory, setGiftCategory] = useState('');
 
   useEffect(() => {
     GetGiftsCategory()
@@ -78,18 +78,20 @@ const GiftsNav: React.FC<GiftsNavProps & { onSubCategoryClick: (subcategory: any
       <div className="mb-5 flex items-center justify-between">
         <h2 className={titleStyle}>{title}</h2>
         <Link to="/gifts/add">
-        <button
-          // onClick={handleOpen}
-          className="inline-flex items-center justify-center rounded-md bg-primary py-2 px-6 text-center font-medium text-white hover:bg-opacity-90 "
-        >
-          Добавить новых товаров
-        </button></Link>
+          <Button
+            // onClick={handleOpen}
+            color="green"
+            className="inline-flex items-center justify-center rounded-md py-2 px-6 text-center font-medium text-white hover:bg-opacity-90 "
+          >
+            Добавить новых товаров
+          </Button>
+        </Link>
       </div>
       <div className="border border-lightSecondary rounded-xl  uppercase text-darkSecondary font-semibold tracking-wider">
         <div className="flex justify-between items-center px-3 lg:px-7 py-0">
           <div className="overflow-x-auto product-nav">
             <ul className="flex gap-5 whitespace-nowrap">
-            {subcategories.map((sub, index) => (
+              {subcategories.map((sub, index) => (
                 <li
                   key={index}
                   className={`cursor-pointer font-medium text-[10px] lg:text-fs_8 py-4 border-b-2 ${

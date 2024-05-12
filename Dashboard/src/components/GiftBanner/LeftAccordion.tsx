@@ -96,8 +96,8 @@ const LeftAccordion = () => {
   };
 
   const handleDeleteCategory = async (categoryId) => {
-    const response = await delGiftsCategory(categoryId);
     window.location.reload(); // Перезагрузка страницы после удаления категории
+    const response = await delGiftsCategory(categoryId);
     if (response) {
       const updatedCategories = giftCategory.filter(
         (category) => category.id !== categoryId,
