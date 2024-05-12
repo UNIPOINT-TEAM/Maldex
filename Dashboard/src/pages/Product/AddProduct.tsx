@@ -13,7 +13,7 @@ import { BASE_URL } from '../../utils/BaseUrl';
 import { useNavigation } from 'react-router-dom';
 
 const AddProduct = () => {
-  const navigate = useNavigation();
+  
   const [name, setName] = useState('');
   const [code, setCode] = useState(null);
   const [article, setArticle] = useState('');
