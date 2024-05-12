@@ -4,6 +4,7 @@ import {
   Accordion,
   AccordionHeader,
   AccordionBody,
+  Button,
 } from '@material-tailwind/react';
 import { IoMdAdd, IoMdCreate, IoMdTrash } from 'react-icons/io';
 import {
@@ -12,10 +13,11 @@ import {
   delGiftsCategory,
   editGiftsCategory,
 } from '../../services/gifts';
-import { MdDelete } from 'react-icons/md';
-import { warning } from '@remix-run/router/dist/history';
+import { MdDelete, MdDone } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
 
 const LeftAccordion = () => {
+  const navigate = useNavigate();
   const [openAccordionIndex, setOpenAccordionIndex] = useState<number | null>(
     null,
   );
@@ -43,7 +45,8 @@ const LeftAccordion = () => {
 
     const response = await PostGiftsCategory({ name: newCategoryName });
     if (response) {
-      setGiftCategory([...giftCategory, response]);
+      const newCategory = { ...response, children: [] }; // Убедитесь, что children инициализировано
+      setGiftCategory([...giftCategory, newCategory]);
       setNewCategoryName('');
       setAddCategory(true);
     }
@@ -94,6 +97,7 @@ const LeftAccordion = () => {
 
   const handleDeleteCategory = async (categoryId) => {
     const response = await delGiftsCategory(categoryId);
+    window.location.reload(); // Перезагрузка страницы после удаления категории
     if (response) {
       const updatedCategories = giftCategory.filter(
         (category) => category.id !== categoryId,
@@ -108,6 +112,69 @@ const LeftAccordion = () => {
         <h1 className="text-[28px] font-medium font-black leading-7 tracking-wide mb-8">
           Подарочные наборы
         </h1>
+      </div>
+      <div className="mb-4">
+        {addCategory ? (
+          <div className="flex w-full justify-start">
+            <Button
+              color="green"
+              className="  flex justify-center items-center"
+              onClick={() => setAddCategory(false)}
+            >
+              Добавить Категорию
+              {/* <IoMdAdd size={30} /> */}
+            </Button>
+          </div>
+        ) : (
+          <div className="border border-dashed py-5 px-2 w-full rounded-xl">
+            <input
+              type="text"
+              placeholder="Добавить категорию"
+              value={newCategoryName}
+              onChange={(e) => setNewCategoryName(e.target.value)}
+              className="w-full border outline-none rounded h-[40px] mb-3 px-3 py-1"
+            />
+            <div className="flex gap-4 justify-center items-start">
+              <button
+                onClick={handleAddCategory}
+                className="bg-blue-400 text-white w-[200px] h-[40px] rounded"
+              >
+                Сохранить
+              </button>
+              <button
+                onClick={() => setAddCategory(true)}
+                className="bg-danger text-white w-[200px] h-[40px] rounded"
+              >
+                Отменить
+              </button>
+            </div>
+          </div>
+        )}
+        {editCategory && (
+          <div className="border border-dashed py-5 px-2 w-full rounded-xl my-3">
+            <input
+              type="text"
+              placeholder="Переименовать"
+              value={newCategoryName}
+              onChange={(e) => setNewCategoryName(e.target.value)}
+              className="w-full border outline-none rounded h-[40px] mb-3 px-3 py-1"
+            />
+            <div className="flex gap-4 justify-center items-start">
+              <button
+                onClick={handleEditCategory}
+                className="bg-blue-400 text-white w-[200px] h-[40px] rounded"
+              >
+                Сохранить
+              </button>
+              <button
+                onClick={() => setEditCategory(false)}
+                className="bg-danger text-white w-[200px] h-[40px] rounded"
+              >
+                Отменить
+              </button>
+            </div>
+          </div>
+        )}
       </div>
 
       {giftCategory.map((category, index) => (
@@ -154,13 +221,13 @@ const LeftAccordion = () => {
             <div className="ml-3 flex gap-1">
               <button
                 onClick={() => setEditCategory(category.id)}
-                className="rounded-md bg-warning py-2 px-3 text-center font-medium text-white hover:bg-opacity-90"
+                className="rounded-md bg-warning py-1 px-2 text-center font-medium text-white hover:bg-opacity-90"
               >
                 <IoMdCreate size={20} />
               </button>
               <button
                 onClick={() => handleDeleteCategory(category.id)}
-                className="rounded-md bg-danger py-2 px-3 text-center font-medium text-white hover:bg-opacity-90"
+                className="rounded-md bg-danger py-1 px-2 text-center font-medium text-white hover:bg-opacity-90"
               >
                 <MdDelete size={20} />
               </button>
@@ -170,103 +237,56 @@ const LeftAccordion = () => {
             className={`${openAccordionIndex === index ? '' : ''}`}
             placeholder={<div />}
           >
-            {category.children.map((child, childIndex) => (
-              <div
-                className="my-2 pl-3 text-base font-Helvetica-Neue cursor-pointer flex hover:text-red-primary"
-                key={childIndex}
-              >
-                <div>
-                  <h4 className="font-Helvetica-Neue font-medium text-black">
-                    {child.name}
-                  </h4>
-                </div>
-                <div className="ml-4 flex gap-1">
-                  <button
-                    onClick={() => setEditCategory(child.id)}
-                    className="rounded-md bg-warning py-2 px-3 text-center font-medium text-white hover:bg-opacity-90"
-                  >
-                    <IoMdCreate size={20} />
-                  </button>
-                  <button
-                    onClick={() => handleDeleteCategory(child.id)}
-                    className="rounded-md bg-danger py-2 px-3 text-center font-medium text-white hover:bg-opacity-90"
-                  >
-                    <IoMdTrash size={20} />
-                  </button>
-                </div>
-              </div>
-            ))}
             {activeCategoryIndex === index && (
-              <div className="flex flex-col w-full items-center">
+              <div className="flex flex-row w-full items-center justify-center gap-4">
                 <input
                   type="text"
-                  placeholder="Название подкатегории"
-                  className="w-full border outline-none rounded h-[40px] mb-3 px-3 py-1"
+                  placeholder="Добавить подкатегории"
+                  className="w-[210px] border outline-none rounded-md h-[30px]  px-3 py-1"
                   value={newSubCategoryName}
                   onChange={(e) => setNewSubCategoryName(e.target.value)}
                 />
-                <button
-                  className="border border-dashed w-[60px] h-[60px] rounded-[30px] flex justify-center items-center"
+                <Button
+                  color="green"
+                  className="py-1 px-2"
                   onClick={handleAddSubCategory}
                 >
-                  <IoMdAdd size={30} />
-                </button>
+                  <MdDone size={20} />
+                  {/* <IoMdAdd size={30} /> */}
+                </Button>
               </div>
             )}
+            {category.children &&
+              category.children.map((child, childIndex) => (
+                <div
+                  className="my-2 pl-3 text-base font-Helvetica-Neue cursor-pointer flex justify-between hover:text-red-primary"
+                  key={childIndex}
+                  style={{ maxWidth: '300px', wordBreak: 'break-all' }}
+                >
+                  <div>
+                    <h4 className="font-Helvetica-Neue font-medium text-black">
+                      {child.name}
+                    </h4>
+                  </div>
+                  <div className="ml-4 flex gap-1 items-center justify-between">
+                    <button
+                      onClick={() => setEditCategory(child.id)}
+                      className="rounded-md bg-warning py-1 px-2 text-center font-medium text-white hover:bg-opacity-90"
+                    >
+                      <IoMdCreate size={20} />
+                    </button>
+                    <button
+                      onClick={() => handleDeleteCategory(child.id)}
+                      className="rounded-md bg-danger py-1 px-2 text-center font-medium text-white hover:bg-opacity-90"
+                    >
+                      <IoMdTrash size={20} />
+                    </button>
+                  </div>
+                </div>
+              ))}
           </AccordionBody>
         </Accordion>
       ))}
-
-      {/* Edit Category Section */}
-      {editCategory && (
-        <div className="border border-dashed py-5 px-2 w-full rounded-xl">
-          <input
-            type="text"
-            placeholder="Категория"
-            value={newCategoryName}
-            onChange={(e) => setNewCategoryName(e.target.value)}
-            className="w-full border outline-none rounded h-[40px] mb-3 px-3 py-1"
-          />
-          <div className="flex justify-center items-start">
-            <button
-              onClick={handleEditCategory}
-              className="bg-blue-400 text-white w-[200px] h-[40px] rounded"
-            >
-              Save
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* Add Category Section */}
-      {addCategory ? (
-        <div className="flex w-full justify-center">
-          <button
-            className="border border-dashed w-[60px] h-[60px] rounded-[30px] flex justify-center items-center"
-            onClick={() => setAddCategory(false)}
-          >
-            <IoMdAdd size={30} />
-          </button>
-        </div>
-      ) : (
-        <div className="border border-dashed py-5 px-2 w-full rounded-xl">
-          <input
-            type="text"
-            placeholder="Категория"
-            value={newCategoryName}
-            onChange={(e) => setNewCategoryName(e.target.value)}
-            className="w-full border outline-none rounded h-[40px] mb-3 px-3 py-1"
-          />
-          <div className="flex justify-center items-start">
-            <button
-              onClick={handleAddCategory}
-              className="bg-blue-400 text-white w-[200px] h-[40px] rounded"
-            >
-              Save
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

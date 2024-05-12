@@ -6,8 +6,10 @@ import { GetProductSearch } from '../../../services/product';
 import ProductDialog from './ProductDialog';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
+import { useNavigate } from 'react-router-dom';
 
 function AddBuildSet() {
+  const navigate = useNavigate()
   const [products, setProducts] = useState([]);
   const [selectedProductsIds, setSelectedProductsIds] = useState([]);
   const [quantities, setQuantities] = useState({});
@@ -60,6 +62,7 @@ function AddBuildSet() {
       await PostGiftSet(SetCategoryList);
       // Обработка успешного ответа
       console.log('Данные успешно отправлены:', SetCategoryList);
+      navigate('/build-set')
     } catch (error) {
       // Обработка ошибок при отправке
       console.error('Ошибка при отправке данных:', error);
