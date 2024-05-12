@@ -29,6 +29,14 @@ export const GetProductSearch = async (
   );
   return response;
 };
+export const GetProductIsNew = async () => {
+  const response = await axios.get(`${BASE_URL}/product/?is_new=true`);
+  return response;
+};
+export const GetProductIsHit = async () => {
+  const response = await axios.get(`${BASE_URL}/product/?is_hit=true`);
+  return response;
+};
 export const GetProductNew = async (id: any) => {
   const response = await axios.get(
     `${BASE_URL}/product/?category_id=${id}&is_new=true`,

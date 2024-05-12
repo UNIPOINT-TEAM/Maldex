@@ -51,13 +51,12 @@ const BannerAdd = () => {
     setOpen(!open);
     console.log(id);
     GetProductCategory(id).then((res) => {
-      setProducts(res.data.results),
-       console.log(res.data.results);
+      setProducts(res.data.results), console.log(res.data.results);
     });
   };
 
   useEffect(() => {
-    GetMainCatalogactive().then((res) => {
+    GetMainCatalog().then((res) => {
       setCategories(res);
       console.log(res);
     });
@@ -129,7 +128,7 @@ const BannerAdd = () => {
             unmount: { scale: 0.9, y: -100 },
           }}
         >
-          <DialogHeader>переместить категорию сюда</DialogHeader>
+          <DialogHeader>выбор продукта</DialogHeader>
           <DialogBody>
             <Input
               label="добавить название баннера"

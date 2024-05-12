@@ -115,9 +115,12 @@ const AddMainCatalog = ({ status, onChange }) => {
                   name="cover"
                   id="cover"
                   className="sr-only"
-                  onChange={(e) => setLogo(e.target.files[0])}
+                  onChange={(e) => {
+                    setLogo(e.target.files[0]), console.log(e.target.files[0]);
+                  }}
                 />
-                <p className="text-fs-6">Добавить логотип категории</p>
+                <p className="text-fs-6"> Добавить логотип в категорию</p>
+                <img src={""} alt="" />
               </label>
             </div>
             <div className="">
@@ -132,7 +135,7 @@ const AddMainCatalog = ({ status, onChange }) => {
                   className="sr-only"
                   onChange={(e) => setIcon(e.target.files[0])}
                 />
-                <p className="text-fs-6">Добавить логотип категории</p>
+                <p className="text-fs-6">Добавить икона категории</p>
               </label>
             </div>
           </CardBody>
