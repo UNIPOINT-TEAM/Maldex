@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Accordion,
   AccordionBody,
@@ -6,19 +6,23 @@ import {
   Button,
 } from "@material-tailwind/react";
 import accordionIcon from "../../assets/icons/accordion-icon.png";
-import { SliderProduct } from "../../components";
+import { CatalogModal, SliderProduct } from "../../components";
 import GiftBanner from "../../assets/gift_builder_banner.png";
 import ProductCart from "../../assets/images/machine.png";
-import { IoAddSharp, IoCloseSharp } from "react-icons/io5";
+import { IoAddSharp, IoCloseSharp, IoSearchOutline } from "react-icons/io5";
+import { useFetchHook } from "../../hooks/UseFetch";
 
 const BuildSet = () => {
   const [open, setOpen] = useState<number>(0);
-  // @ts-ignore
-  const [buildCart, setBuildCart] = useState([]);
+  const [buildCart] = useState([]);
   const [quantityVisible, setQuantityVisible] = useState<boolean>(false);
-  // @ts-ignore
-  const [isDelete, setIsDelete] = useState<boolean>(false);
   const handleOpen = (value: number) => setOpen(open === value ? 0 : value);
+  const { fetchData, response } = useFetchHook();
+  useEffect(() => {
+    fetchData({ method: "GET", url: "/gifts/baskets/set/catalogs/" });
+  }, []);
+  console.log(response[0]?.product_sets);
+
   return (
     <div className="">
       <div className="grid grid-cols-10">
@@ -47,13 +51,12 @@ const BuildSet = () => {
                 onClick={() => handleOpen(1)}
                 placeholder={<div />}
               >
-                <h2 className="font-helvetica tracking-wide text-fs_6 font-normal text-greenPrimary ">
-                  1. Ежедневники
+                <h2 className="font-Helvetica-Neue tracking-wide text-fs_6 font-normal text-greenPrimary ">
+                  1. {response[0]?.title}
                 </h2>
               </AccordionHeader>
               <AccordionBody className="p-4" placeholder={<div />}>
-                {/*@ts-expect-error: This */}
-                <SliderProduct />
+                <SliderProduct products={[]} />
               </AccordionBody>
             </Accordion>
             <Accordion
@@ -74,13 +77,12 @@ const BuildSet = () => {
                 onClick={() => handleOpen(2)}
                 placeholder={<div />}
               >
-                <h2 className="font-helvetica tracking-wide text-fs_6 font-normal text-greenPrimary ">
+                <h2 className="font-Helvetica-Neue tracking-wide text-fs_6 font-normal text-greenPrimary ">
                   2. Термокружки
                 </h2>
               </AccordionHeader>
               <AccordionBody className="p-4" placeholder={<div />}>
-                {/*@ts-expect-error: This */}
-                <SliderProduct />
+                <SliderProduct products={[]} />
               </AccordionBody>
             </Accordion>
             <Accordion
@@ -101,40 +103,41 @@ const BuildSet = () => {
                 onClick={() => handleOpen(3)}
                 placeholder={<div />}
               >
-                <h2 className="font-helvetica tracking-wide text-fs_6 font-normal text-greenPrimary ">
+                <h2 className="font-Helvetica-Neue tracking-wide text-fs_6 font-normal text-greenPrimary ">
                   3. Гаджеты
                 </h2>
               </AccordionHeader>
               <AccordionBody className="p-4" placeholder={<div />}>
-                 {/*@ts-expect-error: This */}
-                <SliderProduct />
+                <SliderProduct products={[]} />
               </AccordionBody>
             </Accordion>
             <Accordion
-              className=" border border-l-0 border-lightPrimary px-5 my-4"
+              className=" border border-l-0 static border-lightPrimary px-5 my-4"
               open={open === 4}
-              icon={
-                <img
-                  className={`${
-                    open === 4 ? "rotate-180" : ""
-                  } transition-transform w-[18px]`}
-                  src={accordionIcon}
-                />
-              }
               placeholder={<div />}
             >
               <AccordionHeader
-                className="border-0  p-4"
+                className="border-0 justify-start p-4 static"
                 onClick={() => handleOpen(4)}
                 placeholder={<div />}
               >
-                <h2 className="font-helvetica tracking-wide text-fs_6 font-normal text-greenPrimary ">
+                <h2 className="font-Helvetica-Neue tracking-wide text-fs_6 font-normal text-greenPrimary ">
                   4. Добавьте еще что-то
                 </h2>
+                <div className="ms-16 text-base font-normal text-darkPrimary flex gap-4 items-center">
+                  <div className="w-[300px] h-[33px] flex items-center gap-3 search border border-darkPrimary px-2 rounded-lg">
+                    <IoSearchOutline className="text-fs_4" />
+                    <input
+                      type="text"
+                      placeholder="Поиск"
+                      className="placeholder:text-darkPrimary border-0 outline-none w-full h-full "
+                    />
+                  </div>
+                  <CatalogModal />
+                </div>
               </AccordionHeader>
               <AccordionBody className="p-4" placeholder={<div />}>
-                 {/*@ts-expect-error: This */}
-                <SliderProduct />
+                <SliderProduct products={[]} />
               </AccordionBody>
             </Accordion>
             <Accordion
@@ -155,12 +158,12 @@ const BuildSet = () => {
                 onClick={() => handleOpen(5)}
                 placeholder={<div />}
               >
-                <h2 className="font-helvetica tracking-wide text-fs_6 font-normal text-greenPrimary ">
+                <h2 className="font-Helvetica-Neue tracking-wide text-fs_6 font-normal text-greenPrimary ">
                   5. Выберите упаковку
                 </h2>
               </AccordionHeader>
               <AccordionBody className="p-4" placeholder={<div />}>
-                 {/*@ts-expect-error: This */}
+                {/*@ts-expect-error: This */}
                 <SliderProduct />
               </AccordionBody>
             </Accordion>
@@ -201,10 +204,7 @@ const BuildSet = () => {
                     </div>
                     <div className="opacity-0 group-hover:opacity-100 duration-300 col-span-3 h-full flex justify-end">
                       <div className="flex w-full flex-col justify-between items-end h-full text-darkSecondary ">
-                        <IoCloseSharp
-                          className="cursor-pointer"
-                          onClick={() => setIsDelete(true)}
-                        />
+                        <IoCloseSharp className="cursor-pointer" />
                         {!quantityVisible && (
                           <IoAddSharp
                             className="cursor-pointer"
