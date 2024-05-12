@@ -16,6 +16,10 @@ export const GetProductCategory = async (id: number) => {
   const response = await api.get(`/product/?category_id=${id}`);
   return response;
 };
+export const GetProductGifts = async (id: number) => {
+  const response = await api.get(`/gifts/baskets/category/${id}/`);
+  return response;
+};
 
 export const GetProductSearch = async (
   item?: string,

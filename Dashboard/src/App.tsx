@@ -40,6 +40,7 @@ import CreatePortfolio from './pages/Portfolio/CreatePortfolio';
 import PortfolioDetail from './pages/Portfolio/PortfolioDetail';
 import CategoryProducts from './components/MainBanner/CategoryProducts';
 import { BannerAdd } from './components';
+import GiftProduct from './pages/GiftsProduct/GiftProducts';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -62,6 +63,7 @@ function App() {
         <Route path="/gifts" element={<Gifts />} />
         <Route path="/gifts/add" element={<AddGifts />} />
         <Route path="/gifts/:id" element={<EditGifts />} />
+        <Route path="/gift-detail/:id" element={<GiftProduct />} />
         <Route path="/tags" element={<Tags />} />
         <Route path="/linktags" element={<LinkTags />} />
         <Route path="/catalog" element={<Catalog />} />

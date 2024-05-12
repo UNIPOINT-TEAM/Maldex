@@ -14,7 +14,7 @@ import {
   editGiftsCategory,
 } from '../../services/gifts';
 import { MdDelete, MdDone } from 'react-icons/md';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const LeftAccordion = () => {
   const navigate = useNavigate();
@@ -34,6 +34,7 @@ const LeftAccordion = () => {
     GetGiftsCategory()
       .then((res) => {
         setGiftCategory(res);
+        console.log(res);
       })
       .catch((error) => {
         console.error('Error fetching FAQ data:', error);
@@ -238,23 +239,30 @@ const LeftAccordion = () => {
             placeholder={<div />}
           >
             {activeCategoryIndex === index && (
-              <div className="flex flex-row w-full items-center justify-center gap-4">
-                <input
-                  type="text"
-                  placeholder="Добавить подкатегории"
-                  className="w-[210px] border outline-none rounded-md h-[30px]  px-3 py-1"
-                  value={newSubCategoryName}
-                  onChange={(e) => setNewSubCategoryName(e.target.value)}
-                />
-                <Button
-                  color="green"
-                  className="py-1 px-2"
-                  onClick={handleAddSubCategory}
-                >
-                  <MdDone size={20} />
-                  {/* <IoMdAdd size={30} /> */}
-                </Button>
-              </div>
+              <>
+                <Link to={`/gift-detail/${category.id}`}>
+                  <button className="w-full bg-blue-400 rounded-md py-1 text-white text-[20] mb-2">
+                    продукты
+                  </button>
+                </Link>
+                <div className="flex flex-row w-full items-center justify-center gap-4">
+                  <input
+                    type="text"
+                    placeholder="Добавить подкатегории"
+                    className="w-[210px] border outline-none rounded-md h-[30px]  px-3 py-1"
+                    value={newSubCategoryName}
+                    onChange={(e) => setNewSubCategoryName(e.target.value)}
+                  />
+                  <Button
+                    color="green"
+                    className="py-1 px-2"
+                    onClick={handleAddSubCategory}
+                  >
+                    <MdDone size={20} />
+                    {/* <IoMdAdd size={30} /> */}
+                  </Button>
+                </div>
+              </>
             )}
             {category.children &&
               category.children.map((child, childIndex) => (
@@ -264,9 +272,11 @@ const LeftAccordion = () => {
                   style={{ maxWidth: '300px', wordBreak: 'break-all' }}
                 >
                   <div>
-                    <h4 className="font-Helvetica-Neue font-medium text-black">
-                      {child.name}
-                    </h4>
+                    <Link to={`/gift-detail/${child.id}`}>
+                      <h4 className="font-Helvetica-Neue font-medium text-black">
+                        {child.name}
+                      </h4>
+                    </Link>
                   </div>
                   <div className="ml-4 flex gap-1 items-center justify-between">
                     <button

@@ -117,6 +117,7 @@ const Categories = () => {
               {availableCategories.map((item) => (
                 <div key={item.id} className="h-full">
                   <img src={item.logo} className="mb-5" alt="" />
+                  <p className="text-red-400">{item.site}</p>
                   <p
                     onClick={() => setReceiveId(item.id)}
                     className={`w-[200px] text-xl mb-5 ${
@@ -170,8 +171,10 @@ const Categories = () => {
             <div className="flex flex-col justify-start  h-[170px]">
               <div className="flex justify-between">
                 <img className="w-1/5 mb-5" src={category.icon} alt="" />
+
                 <p className="text-xl ">{category.order}</p>
               </div>
+              <p className="text-red-400">{category.site}</p>
 
               <p className="text-lg mb-3">{category?.name}</p>
               {category?.children && category?.children?.length > 0 && (

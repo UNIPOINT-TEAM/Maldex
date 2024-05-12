@@ -17,7 +17,6 @@ import {
 
 const EditMainCatalog = (props?: any) => {
   const categoryId = props.categoryId;
-  console.log(props);
 
   const [open, setOpen] = useState(false);
   const [category, setCategory] = useState([]);
