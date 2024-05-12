@@ -80,7 +80,7 @@ function EditArticles({ htmlContent }) {
               type="file"
               className="sr-only"
               accept="image/*"
-              onChange={handleImageChange}
+              onChange={handleIma geChange}
             />
             <p className="text-fs-6">Добавить Фото</p>
           </label> */}

@@ -26,8 +26,7 @@ const CategoryDetails = () => {
 
   useEffect(() => {
     GetProductCategory(id).then((res) => {
-      setAddProduct(res.data);
-      console.log(res.data);
+      setAddProduct(res.data.results);
     });
     GetMainCatalogactive().then((res) => {
       setAvailableCategories(res);

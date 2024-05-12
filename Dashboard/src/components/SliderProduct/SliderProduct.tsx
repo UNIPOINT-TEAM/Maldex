@@ -48,6 +48,7 @@ const SliderProduct = () => {
     <div>
       <div className="  mt-10">
         <ProductNav
+          type={"new"}
           categoryId={categoryId}
           updateState={updateState}
           title="new!"

@@ -16,7 +16,7 @@ function AddBuildSet() {
   const [inputVal, setInputVal] = useState('');
 
   useEffect(() => {
-    GetProductSearch(inputVal).then((res) => {
+    GetProductSearch(inputVal,"","").then((res) => {
       setProducts(res.data.results);
     });
   }, [inputVal]);

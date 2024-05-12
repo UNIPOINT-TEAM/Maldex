@@ -30,7 +30,7 @@ function Articles() {
       <div className="articles container_xxl py-5 px-3">
         <div className="mb-3">
         <Link to={`http://5.35.82.80:8000/admin/blog/article/add/`} target='_blank'>
-
+ 
           {/* <Link to={`/articles/add`}> */}
             <Button color="blue">Добавить статью</Button>
           </Link>

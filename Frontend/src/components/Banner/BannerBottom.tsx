@@ -16,7 +16,7 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
         <h2 className="text-fs_7 tracking-wider font-semibold opacity-0 group-hover:opacity-100 duration-200">
           Бутылки для воды
         </h2>
-        <div className="h-[350px] w-[90%] mx-auto flex items-center justify-center">
+        <div className="h-[350px] w-[90%] mx-auto flex items-center justify-center" style={{ mixBlendMode: 'multiply' }}>
           <Slider SliderItems={BannerData && BannerData[5]} sliderTime={3000} />
         </div>
         <div className="flex justify-end opacity-0 group-hover:opacity-100 duration-200">
@@ -34,7 +34,7 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
             <h2 className="text-fs_7 tracking-wider font-semibold opacity-0 group-hover:opacity-100 duration-200">
               Бутылки для воды
             </h2>
-            <div className="w-[200px] mx-auto flex items-center justify-center">
+            <div className="w-[200px] mx-auto flex items-center justify-center" style={{ mixBlendMode: 'multiply' }}>
               <Slider
                 SliderItems={BannerData && BannerData[6]}
                 sliderTime={4000}
@@ -53,7 +53,7 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
             <h2 className="text-fs_7 tracking-wider font-semibold opacity-0 group-hover:opacity-100 duration-200">
               Бутылки для воды
             </h2>
-            <div className="w-[90%] mx-auto flex items-center justify-center">
+            <div className="w-[90%] mx-auto flex items-center justify-center" style={{ mixBlendMode: 'multiply' }}>
               <Slider
                 SliderItems={BannerData && BannerData[7]}
                 sliderTime={4000}
@@ -72,7 +72,7 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
             <h2 className="text-fs_7 tracking-wider font-semibold opacity-0 group-hover:opacity-100 duration-200">
               Бутылки для воды
             </h2>
-            <div className="w-[90%] mx-auto h-[300px] flex items-center justify-center">
+            <div className="w-[90%] mx-auto h-[300px] flex items-center justify-center" style={{ mixBlendMode: 'multiply' }}>
               <Slider
                 SliderItems={BannerData && BannerData[8]}
                 sliderTime={3000}
@@ -93,7 +93,7 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
                 <h2 className="text-fs_7 tracking-wider font-semibold opacity-0 group-hover:opacity-100 duration-200">
                   Бутылки для воды
                 </h2>
-                <div className="w-[150px] h-[140px] mx-auto flex items-center justify-center">
+                <div className="w-[150px] h-[140px] mx-auto flex items-center justify-center" style={{ mixBlendMode: 'multiply' }}>
                   <Slider
                     SliderItems={BannerData && BannerData[9]}
                     sliderTime={3000}
@@ -112,7 +112,7 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
                 <h2 className="text-fs_7 tracking-wider font-semibold opacity-0 group-hover:opacity-100 duration-200">
                   Бутылки для воды
                 </h2>
-                <div className="w-[150px] h-[140px] mx-auto flex items-center justify-center">
+                <div className="w-[150px] h-[140px] mx-auto flex items-center justify-center" style={{ mixBlendMode: 'multiply' }}>
                   <Slider
                     SliderItems={BannerData && BannerData[10]}
                     sliderTime={3000}
@@ -120,7 +120,7 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
                 </div>
                 <div className="flex justify-end opacity-0 group-hover:opacity-100 duration-200">
                   <button className="bg-redPrimary p-1 rounded-lg">
-                    <img src={arrowRight} alt="arrow icon" className="w-6 " />
+                    <img src={arrowRight} alt="arrow icon" className="w-6 "  />
                   </button>
                 </div>
               </Link>

@@ -9,15 +9,15 @@ export const Sidenavs = [
     path: '/gifts',
     title: 'Подарочные наборы',
   },
-  {
-    id: 3,
-    path: '/catalog',
-    title: 'Каталог',
-  },
+  // {
+  //   id: 3,
+  //   path: '/catalog',
+  //   title: 'Каталог',
+  // },
   {
     id: 4,
     path: '/product',
-    title: 'Продукт',
+    title: 'Каталог',
   },
   {
     id: 5,

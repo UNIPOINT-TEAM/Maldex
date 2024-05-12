@@ -48,8 +48,7 @@ const CategoryProducts = () => {
 
   const handleOpen = (id) => {
     setOpen(!open);
-    console.log(id);
-    GetProductCategory(id).then((res) => setProducts(res.data));
+    GetProductCategory(id).then((res) => setProducts(res.data.results));
   };
 
   useEffect(() => {

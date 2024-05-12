@@ -3,16 +3,13 @@ import { Navigation, Pagination, Scrollbar } from 'swiper/modules';
 import { useState, useEffect } from 'react';
 import { FaArrowLeftLong } from 'react-icons/fa6';
 import { FaArrowRightLong } from 'react-icons/fa6';
-import { Dialog } from '@material-tailwind/react';
 
 import './SlideProductHit.css';
-import { GetProduct } from '../../services/main';
 import { GetProductHit } from '../../services/product';
 import { ProductNav } from '..';
 
 const SliderProductHit = () => {
   const [defaultProduct, setDefaultProduct] = useState(true);
-  const [addCard, setAddCard] = useState(false);
   const [newProduct, setNewProduct] = useState([]);
   const [size, setSize] = useState(null);
   const [categoryId, setCategoryId] = useState('');
@@ -27,9 +24,6 @@ const SliderProductHit = () => {
     setCategoryId(newState);
   };
 
-  // useEffect(() => {
-  //   fetchData({ method: "GET", url: "/product/" });
-  // }, []);
 
   const changeStatus = () => {
     setDefaultProduct(!defaultProduct);
@@ -42,6 +36,7 @@ const SliderProductHit = () => {
     <div>
       <div className="  mt-10">
         <ProductNav
+          type={'hit'}
           categoryId={categoryId}
           updateState={updateState}
           title="Hit!"

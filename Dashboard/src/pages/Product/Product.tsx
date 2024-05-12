@@ -8,7 +8,7 @@ import {
 } from '../../services/product';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { MainCatalog } from '../../components';
 import {
   Button,
@@ -22,6 +22,7 @@ import { GetMainCatalogactive, PutData } from '../../services/maincatalog';
 import PaginationCard from '../../components/Pagination/Pagination';
 
 const Product = () => {
+  const location = useLocation();
   const [addProduct, setAddProduct] = useState([]);
   const [receiveId, setReceiveId] = useState(null);
   const [search, setSearch] = useState('');
@@ -36,6 +37,7 @@ const Product = () => {
   useEffect(() => {
     GetProductSearch(search, currentPage, filterId).then((res) => {
       setAddProduct(res.data.results);
+      console.log(res.data.results);
       const residual = res.data.count % 10;
       const pages = (res.data.count - residual) / 10;
       setTotalPages(pages % 2 == 0 && pages === 1 ? pages : pages + 1);
@@ -71,7 +73,9 @@ const Product = () => {
     const formdata = new FormData();
     formdata.append('categoryId', receiveId);
     for (let i of checkedProducts) {
-      PutData(`/product/${i.id}/`, formdata);
+      PutData(`/product/${i.id}/`, formdata).then(() =>
+        window.location.reload(),
+      );
     }
   };
 
@@ -220,7 +224,7 @@ const Product = () => {
                     ))}
                   </Swiper>
                 </div>
-                {/* {defaultProduct ? ( */}
+
                 <div className="default">
                   <div className="mb-2 md:mb-5  min-h-[70px] ">
                     <p className="text-fs_7 tracking-wide">
@@ -228,15 +232,13 @@ const Product = () => {
                         //@ts-ignore
                         item.name.length > 30
                           ? //@ts-ignore
-                            item.name.substring(0, 40) + '...'
+                            item.name.substring(0, 30) + '...'
                           : //@ts-ignore
                             item.name
                       }
                     </p>
                   </div>
-                  <p className="mb-2 text-gray-600 text-fs_8">
-                    {item.vendor_code}
-                  </p>
+                  <p className='text-red-400 text-sm'>{item.site}</p>
                   <div className="relative mb-2">
                     <p className="text-[16px] md:text-fs_4">
                       {item.price}
@@ -246,6 +248,7 @@ const Product = () => {
                         234
                       </span>
                     </p>
+                    
                   </div>
                   <div className="flex justify-between catalog_btns">
                     <Link to={`/product/${item.id}`}>

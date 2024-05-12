@@ -7,7 +7,11 @@ import {
   DialogFooter,
 } from '@material-tailwind/react';
 import { GetProduct } from '../../services/main';
-import { GetMainCatalog } from '../../services/maincatalog';
+import {
+  GetHitCategory,
+  GetHitNewCategory,
+  GetMainCatalog,
+} from '../../services/maincatalog';
 import { Link } from 'react-router-dom';
 
 interface ProductNavProps {
@@ -21,6 +25,7 @@ const ProductNav: React.FC<ProductNavProps> = ({
   updateState,
   categoryId,
   path,
+  type,
 }) => {
   let titleStyle = 'text-4xl traking-wide';
   const [selectedItem, setSelectedItem] = useState(2);
@@ -36,7 +41,7 @@ const ProductNav: React.FC<ProductNavProps> = ({
   }
 
   useEffect(() => {
-    GetMainCatalog().then((res) => {
+    GetHitNewCategory(type).then((res) => {
       setCategories(res);
     });
   }, []);
@@ -75,7 +80,7 @@ const ProductNav: React.FC<ProductNavProps> = ({
         {/* <button className="mx-3 uppercase text-fs_8 font-medium p-[6px] tracking-wide  border border-red-primary rounded-lg text-red-primary block ss:hidden">
           добавить
         </button> */}
-        <Link to={path}>
+        <Link to={'/categories'}>
           <button
             onClick={handleOpen}
             className="inline-flex items-center justify-center rounded-md bg-primary py-2 px-6 text-center font-medium text-white hover:bg-opacity-90 "
