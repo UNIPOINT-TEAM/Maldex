@@ -1,24 +1,41 @@
-import  { useState } from "react";
+import { useEffect, useState } from "react";
+import { useFetchHook } from "../../hooks/UseFetch";
 
 const TagList = () => {
   const [selectedCategory, setSelectedCategory] = useState("Для неё"); // Установите "Для неё" по умолчанию
   const [selectedSubcategory, setSelectedSubcategory] = useState(null);
+  const { fetchData, response } = useFetchHook();
+  const [location, setLocation] = useState(null);
+  const [error, setError] = useState(null);
+  const [city, setCity] = useState(null);
 
-  const categories = {
-    "Для неё": [
-      "Care Package",
-      "Подкатегория1-2",
-      "Подкатегория1-3",
-      "Подкатегория1-4",
-      "Подкатегория1-5",
-      "Подкатегория1-6",
-    ],
-    "Для него": ["Подкатегория2-1", "Подкатегория2-2", "Подкатегория2-3"],
-    "Для детей": ["Подкатегория3-1", "Подкатегория3-2", "Подкатегория3-3"],
-    "Для дома": ["Подкатегория4-1", "Подкатегория4-2", "Подкатегория4-3"],
-    "Для офиса": ["Подкатегория6-1", "Подкатегория6-2", "Подкатегория6-3"],
-    "Для учёбы": ["Подкатегория5-1", "Подкатегория5-2", "Подкатегория5-3"],
-  };
+  // useEffect(() => {
+  //   fetchData({ method: "GET", url: `/gifts/baskets/tag/category/` });
+  // }, []);
+
+  const { fetchData: fetchCategoryFilter, response: categoryFilter } =
+    useFetchHook();
+  useEffect(() => {
+    fetchData({ method: "GET", url: `/gifts/baskets/tag/category/` });
+  });
+  useEffect(() => {
+    fetchCategoryFilter({ method: "GET", url: `/gifts/baskets/tags/` });
+  }, []);
+  // const categories = {
+  //   "Для неё": [
+  //     "Care Package",
+  //     "Подкатегория1-2",
+  //     "Подкатегория1-3",
+  //     "Подкатегория1-4",
+  //     "Подкатегория1-5",
+  //     "Подкатегория1-6",
+  //   ],
+  //   "Для него": ["Подкатегория2-1", "Подкатегория2-2", "Подкатегория2-3"],
+  //   "Для детей": ["Подкатегория3-1", "Подкатегория3-2", "Подкатегория3-3"],
+  //   "Для дома": ["Подкатегория4-1", "Подкатегория4-2", "Подкатегория4-3"],
+  //   "Для офиса": ["Подкатегория6-1", "Подкатегория6-2", "Подкатегория6-3"],
+  //   "Для учёбы": ["Подкатегория5-1", "Подкатегория5-2", "Подкатегория5-3"],
+  // };
 
   // useEffect(() => {
   //   // Установите первую подкатегорию из "Для неё" как выбранную по умолчанию
@@ -26,11 +43,9 @@ const TagList = () => {
   //     setSelectedSubcategory(categories[selectedCategory][0]);
   //   }
   // }, [selectedCategory]);
-// @ts-ignore
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
   };
-// @ts-ignore
   const handleSubcategoryClick = (subcategory) => {
     setSelectedSubcategory(subcategory);
   };
@@ -41,7 +56,7 @@ const TagList = () => {
         <div className="flex flex-col ">
           <div className="">
             <ul className="mt-10 mb-6 justify-around hidden lg:flex">
-              {Object.keys(categories).map((category) => (
+              {response.map((category) => (
                 <li
                   key={category}
                   onClick={() => handleCategoryClick(category)}
@@ -51,11 +66,13 @@ const TagList = () => {
                       : "bg-white"
                   }`}
                 >
-                  {category}
+                  {category.name}
                 </li>
               ))}
             </ul>
-            <ul className="mt-7 flex flex-wrap justify-around block lg:hidden">
+
+           
+            {/* <ul className="mt-7 flex flex-wrap justify-around block lg:hidden">
               {Object.keys(categories).map((category) => (
                 <li
                   key={category}
@@ -71,9 +88,9 @@ const TagList = () => {
                 </li>
 
               ))}
-            </ul>
+            </ul> */}
           </div>
-          <div className="">
+          {/* <div className="">
             <ul className="mb-10 flex flex-wrap gap-y-5 justify-between hidden lg:flex">
               {selectedCategory &&
                 categories[selectedCategory].map((subcategory) => (
@@ -105,7 +122,7 @@ const TagList = () => {
                   </li>
                 ))}
             </ul>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
