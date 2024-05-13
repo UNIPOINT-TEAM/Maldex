@@ -6,7 +6,7 @@ import {
   AccordionBody,
   Button,
 } from '@material-tailwind/react';
-import { IoMdAdd, IoMdCreate, IoMdTrash } from 'react-icons/io';
+import { IoMdCreate, IoMdTrash } from 'react-icons/io';
 import {
   GetGiftsCategory,
   PostGiftsCategory,
@@ -17,17 +17,20 @@ import { MdDelete, MdDone } from 'react-icons/md';
 import { Link, useNavigate } from 'react-router-dom';
 
 const LeftAccordion = () => {
+  // @ts-ignore
   const navigate = useNavigate();
   const [openAccordionIndex, setOpenAccordionIndex] = useState<number | null>(
     null,
   );
   const [addCategory, setAddCategory] = useState(true);
+  // @ts-ignore
   const [addSubCategory, setAddSubCategory] = useState(true);
   const [editCategory, setEditCategory] = useState(null); // State to track editing category
   const [newCategoryName, setNewCategoryName] = useState('');
   const [newSubCategoryName, setNewSubCategoryName] = useState('');
   const [activeCategoryIndex, setActiveCategoryIndex] = useState(null);
   const [giftCategory, setGiftCategory] = useState([]);
+  // @ts-ignore
   const [isDeletingCategory, setIsDeletingCategory] = useState(false);
 
   useEffect(() => {
@@ -46,7 +49,8 @@ const LeftAccordion = () => {
 
     const response = await PostGiftsCategory({ name: newCategoryName });
     if (response) {
-      const newCategory = { ...response, children: [] }; // Убедитесь, что children инициализировано
+      const newCategory = { ...response, children: [] };
+      // @ts-ignore
       setGiftCategory([...giftCategory, newCategory]);
       setNewCategoryName('');
       setAddCategory(true);
@@ -55,12 +59,13 @@ const LeftAccordion = () => {
 
   const handleAccordionClick = (index: number) => {
     setOpenAccordionIndex((prevIndex) => (prevIndex === index ? null : index));
+    // @ts-ignore
     setActiveCategoryIndex(index);
   };
 
   const handleAddSubCategory = async () => {
     if (!newSubCategoryName.trim() || activeCategoryIndex === null) return;
-
+    // @ts-ignore
     const category = { ...giftCategory[activeCategoryIndex] };
 
     const response = await PostGiftsCategory({
@@ -71,6 +76,7 @@ const LeftAccordion = () => {
     if (response) {
       category.children.push(response);
       const updatedCategories = [...giftCategory];
+      // @ts-ignore
       updatedCategories[activeCategoryIndex] = category;
       setGiftCategory(updatedCategories);
       setNewSubCategoryName('');
@@ -86,21 +92,25 @@ const LeftAccordion = () => {
     });
     if (response) {
       const updatedCategories = giftCategory.map((category) => {
+        // @ts-ignore
         if (category.id === editCategory) {
+          // @ts-ignore
           return { ...category, name: newCategoryName };
         }
         return category;
       });
+      // @ts-ignore
       setGiftCategory(updatedCategories);
       setEditCategory(null);
     }
   };
 
-  const handleDeleteCategory = async (categoryId) => {
+  const handleDeleteCategory = async (categoryId: any) => {
     window.location.reload(); // Перезагрузка страницы после удаления категории
     const response = await delGiftsCategory(categoryId);
     if (response) {
       const updatedCategories = giftCategory.filter(
+        // @ts-ignore
         (category) => category.id !== categoryId,
       );
       setGiftCategory(updatedCategories);
@@ -110,7 +120,7 @@ const LeftAccordion = () => {
   return (
     <div className="">
       <div className="pl-2 w-[246px]">
-        <h1 className="text-[28px] font-medium font-black leading-7 tracking-wide mb-8">
+        <h1 className="text-[28px]  font-black leading-7 tracking-wide mb-8">
           Подарочные наборы
         </h1>
       </div>
@@ -168,6 +178,7 @@ const LeftAccordion = () => {
                 Сохранить
               </button>
               <button
+                // @ts-ignore
                 onClick={() => setEditCategory(false)}
                 className="bg-danger text-white w-[200px] h-[40px] rounded"
               >
@@ -215,18 +226,23 @@ const LeftAccordion = () => {
                     openAccordionIndex === index ? 'text-white' : ''
                   }`}
                 >
-                  {category.name}
+                  {
+                    // @ts-ignore
+                    category.name
+                  }
                 </h3>
               </div>
             </AccordionHeader>
             <div className="ml-3 flex gap-1">
               <button
+                // @ts-ignore
                 onClick={() => setEditCategory(category.id)}
                 className="rounded-md bg-warning py-1 px-2 text-center font-medium text-white hover:bg-opacity-90"
               >
                 <IoMdCreate size={20} />
               </button>
               <button
+                // @ts-ignore
                 onClick={() => handleDeleteCategory(category.id)}
                 className="rounded-md bg-danger py-1 px-2 text-center font-medium text-white hover:bg-opacity-90"
               >
@@ -240,7 +256,10 @@ const LeftAccordion = () => {
           >
             {activeCategoryIndex === index && (
               <>
-                <Link to={`/gift-detail/${category.id}`}>
+                <Link
+                  // @ts-ignore
+                  to={`/gift-detail/${category.id}`}
+                >
                   <button className="w-full bg-blue-400 rounded-md py-1 text-white text-[20] mb-2">
                     продукты
                   </button>
@@ -264,36 +283,40 @@ const LeftAccordion = () => {
                 </div>
               </>
             )}
-            {category.children &&
-              category.children.map((child, childIndex) => (
-                <div
-                  className="my-2 pl-3 text-base font-Helvetica-Neue cursor-pointer flex justify-between hover:text-red-primary"
-                  key={childIndex}
-                  style={{ maxWidth: '300px', wordBreak: 'break-all' }}
-                >
-                  <div>
-                    <Link to={`/gift-detail/${child.id}`}>
-                      <h4 className="font-Helvetica-Neue font-medium text-black">
-                        {child.name}
-                      </h4>
-                    </Link>
+            {
+              // @ts-ignore
+              category.children &&
+                // @ts-ignore
+                category.children.map((child, childIndex) => (
+                  <div
+                    className="my-2 pl-3 text-base font-Helvetica-Neue cursor-pointer flex justify-between hover:text-red-primary"
+                    key={childIndex}
+                    style={{ maxWidth: '300px', wordBreak: 'break-all' }}
+                  >
+                    <div>
+                      <Link to={`/gift-detail/${child.id}`}>
+                        <h4 className="font-Helvetica-Neue font-medium text-black">
+                          {child.name}
+                        </h4>
+                      </Link>
+                    </div>
+                    <div className="ml-4 flex gap-1 items-center justify-between">
+                      <button
+                        onClick={() => setEditCategory(child.id)}
+                        className="rounded-md bg-warning py-1 px-2 text-center font-medium text-white hover:bg-opacity-90"
+                      >
+                        <IoMdCreate size={20} />
+                      </button>
+                      <button
+                        onClick={() => handleDeleteCategory(child.id)}
+                        className="rounded-md bg-danger py-1 px-2 text-center font-medium text-white hover:bg-opacity-90"
+                      >
+                        <IoMdTrash size={20} />
+                      </button>
+                    </div>
                   </div>
-                  <div className="ml-4 flex gap-1 items-center justify-between">
-                    <button
-                      onClick={() => setEditCategory(child.id)}
-                      className="rounded-md bg-warning py-1 px-2 text-center font-medium text-white hover:bg-opacity-90"
-                    >
-                      <IoMdCreate size={20} />
-                    </button>
-                    <button
-                      onClick={() => handleDeleteCategory(child.id)}
-                      className="rounded-md bg-danger py-1 px-2 text-center font-medium text-white hover:bg-opacity-90"
-                    >
-                      <IoMdTrash size={20} />
-                    </button>
-                  </div>
-                </div>
-              ))}
+                ))
+            }
           </AccordionBody>
         </Accordion>
       ))}

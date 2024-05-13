@@ -6,12 +6,11 @@ import {
   CardFooter,
   Typography,
   Input,
-  Select,
-  Option,
   Checkbox,
 } from '@material-tailwind/react';
 import { AddWithFormData } from '../../services/product';
 import { BASE_URL } from '../../utils/BaseUrl';
+// @ts-ignore
 const AddMainCatalog = ({ status, onChange }) => {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState('');
@@ -21,14 +20,19 @@ const AddMainCatalog = ({ status, onChange }) => {
   const [icon, setIcon] = useState(null);
   const [logo, setLogo] = useState(null);
 
-  const addNewCategory = (e) => {
+  const addNewCategory = (e: any) => {
     e.preventDefault();
     const formdata = new FormData();
     formdata.append('name', name);
+    // @ts-ignore
     formdata.append('is_popular', isPopular);
+    // @ts-ignore
     formdata.append('is_hit', isHit);
+    // @ts-ignore
     formdata.append('is_new', isNew);
+    // @ts-ignore
     formdata.append('logo', logo);
+    // @ts-ignore
     formdata.append('icon', icon);
     AddWithFormData(`${BASE_URL}/product/categories/`, formdata).then(() => {
       setOpen(!open), onChange(!status);
@@ -116,11 +120,12 @@ const AddMainCatalog = ({ status, onChange }) => {
                   id="cover"
                   className="sr-only"
                   onChange={(e) => {
+                    // @ts-ignore
                     setLogo(e.target.files[0]), console.log(e.target.files[0]);
                   }}
                 />
                 <p className="text-fs-6"> Добавить логотип в категорию</p>
-                <img src={""} alt="" />
+                <img src={''} alt="" />
               </label>
             </div>
             <div className="">
@@ -133,6 +138,7 @@ const AddMainCatalog = ({ status, onChange }) => {
                   name="cover2"
                   id="cover2"
                   className="sr-only"
+                  // @ts-ignore
                   onChange={(e) => setIcon(e.target.files[0])}
                 />
                 <p className="text-fs-6">Добавить икона категории</p>

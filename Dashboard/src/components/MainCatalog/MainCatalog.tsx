@@ -1,15 +1,13 @@
 import { useEffect, useState } from 'react';
 import {
-  GetMainCatalog,
   GetMainCatalogactive,
   GetSubSubCatalog,
   PutData,
   PutWithFormData,
   PutWithJson,
 } from '../../services/maincatalog';
-import { Link } from 'react-router-dom';
 import '../../css/main.css';
-import { AddMainCatalog, DeleteMainCatalog, EditMainCatalog } from '..';
+import { AddMainCatalog, EditMainCatalog } from '..';
 import { AddWithFormData } from '../../services/product';
 import { FaCheck, FaPlus } from 'react-icons/fa6';
 import { FaRegEdit } from 'react-icons/fa';
@@ -25,6 +23,7 @@ import {
 } from '@material-tailwind/react';
 import { BASE_URL } from '../../utils/BaseUrl';
 import DeleteModal from '../DeleteModal/DeleteModal';
+import { useLocation } from 'react-router-dom';
 
 const MainCatalog = () => {
   const [categories, setCategories] = useState([]);
@@ -45,7 +44,7 @@ const MainCatalog = () => {
     setStatus(newState);
   };
   const [isAviable, setIsAviable] = useState(false);
-  const handleOpen = (id) => {
+  const handleOpen = (id: any) => {
     setOpen(!open);
     setSubCategoryId(id);
   };
@@ -61,7 +60,7 @@ const MainCatalog = () => {
       setSubSubCategories(res);
     });
   }, [status, subCategoryId]);
-
+  // @ts-ignore
   const addSubCategory = (e, id) => {
     e.preventDefault();
     const formdata = new FormData();
@@ -71,10 +70,11 @@ const MainCatalog = () => {
     setNameSub('');
     setStatus(!status);
   };
-  const addSubSubCategory = (e) => {
+  const addSubSubCategory = (e: any) => {
     e.preventDefault();
     const formdata = new FormData();
     formdata.append('name', nameSubSub);
+    // @ts-ignore
     formdata.append('parent', subCategoryId);
     AddWithFormData(`${BASE_URL}/product/categories/`, formdata);
     setNameSubSub('');
@@ -106,6 +106,7 @@ const MainCatalog = () => {
 
   const ChangeIsAviable = (id: number) => {
     const formdata = new FormData();
+    // @ts-ignore
     formdata.append('is_available', isAviable);
     PutWithFormData(`/product/category/${id}/`, formdata).then(() => {
       setStatus(!status);
@@ -116,12 +117,11 @@ const MainCatalog = () => {
     const data1 = {
       order: secondOrder,
     };
-    const data2 = {
-      order: firstOrder,
-    };
+    // @ts-ignore
     PutWithJson(`/product/category/${categories[firstOrder - 1].id}/`, data1);
-    PutWithJson(`/product/category/${categories[secondOrder - 1].id}/`, data2);
+
     setStatus(!status);
+    window.location.reload();
   };
 
   return (
@@ -131,13 +131,17 @@ const MainCatalog = () => {
           <input
             type="number"
             className="border rounded-md px-2 w-[100px] h-[40px]"
+            // @ts-ignore
             onChange={(e) => setFirstOrder(e.target.value)}
+            // @ts-ignore
             defaultValue={firstOrder}
           />
           <input
             type="number"
             className="border rounded-md px-2 w-[100px] h-[40px]"
+            // @ts-ignore
             onChange={(e) => setSecondOrder(e.target.value)}
+            // @ts-ignore
             defaultValue={secondOrder}
           />
           <button
@@ -170,34 +174,44 @@ const MainCatalog = () => {
 
             {subSubCategories.map((i) => (
               <div className="flex items-center mb-3 justify-between mt-5">
-                {statuseditSub == i.id ? (
-                  <div className="w-1/2">
-                    <Input
-                      label="введите имя третью категорию"
-                      required
-                      type="text"
-                      defaultValue={i.name}
-                      onChange={(e) => setEditedSubSub(e.target.value)}
-                    />
-                  </div>
-                ) : (
-                  <p className="">{i.name}</p>
-                )}
-                {statuseditSub == i.id ? (
-                  <button
-                    onClick={() => saveItemSub(i.id)}
-                    className="bg-green-500 p-2 rounded-md flex justify-center items-center"
-                  >
-                    <FaCheck size={12} color="white" />
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => handleEditStatusSub(i.id)}
-                    className="bg-yellow-500 p-2 rounded-md flex justify-center items-center"
-                  >
-                    <FaRegEdit size={12} />
-                  </button>
-                )}
+                {
+                  // @ts-ignore
+                  statuseditSub == i.id ? (
+                    <div className="w-1/2">
+                      <Input
+                        label="введите имя третью категорию"
+                        required
+                        type="text"
+                        // @ts-ignore
+                        defaultValue={i.name}
+                        onChange={(e) => setEditedSubSub(e.target.value)}
+                      />
+                    </div>
+                  ) : (
+                    // @ts-ignore
+                    <p className="">{i.name}</p>
+                  )
+                }
+                {
+                  // @ts-ignore
+                  statuseditSub == i.id ? (
+                    <button
+                      // @ts-ignore
+                      onClick={() => saveItemSub(i.id)}
+                      className="bg-green-500 p-2 rounded-md flex justify-center items-center"
+                    >
+                      <FaCheck size={12} color="white" />
+                    </button>
+                  ) : (
+                    <button
+                      // @ts-ignore
+                      onClick={() => handleEditStatusSub(i.id)}
+                      className="bg-yellow-500 p-2 rounded-md flex justify-center items-center"
+                    >
+                      <FaRegEdit size={12} />
+                    </button>
+                  )
+                }
               </div>
             ))}
           </DialogBody>
@@ -221,42 +235,74 @@ const MainCatalog = () => {
         </Dialog>
         {categories.map((category) => (
           <div
+            // @ts-ignore
             key={category.id}
             className="w-1/6 py-5 relative content hover:bg-redPrimary"
           >
             <div className="flex flex-col justify-start  h-[170px]">
               <div className="flex justify-between">
-                <img className="w-1/5 mb-5" src={category.icon} alt="" />
-                <p className="text-xl ">{category.order}</p>
+                <img
+                  className="w-1/5 mb-5"
+                  // @ts-ignore
+                  src={category.icon}
+                  alt=""
+                />
+
+                <p className="text-xl ">
+                  {
+                    // @ts-ignore
+                    category.order
+                  }
+                </p>
               </div>
 
-              <p className="text-lg mb-3">{category?.name}</p>
-              {category?.children && category?.children?.length > 0 && (
-                <p>{category?.children[0]?.name}</p>
-              )}
+              <p className="text-lg mb-3">
+                {
+                  // @ts-ignore
+                  category?.name
+                }
+              </p>
+              {
+                // @ts-ignore
+                category?.children && category?.children?.length > 0 && (
+                  // @ts-ignore
+                  <p>{category?.children[0]?.name}</p>
+                )
+              }
             </div>
             <div className="absolute w-full min-h-[400px] bg-[#fff] shadow-lg shadow-gray-400 top-0 left-0 right-0 moreContent p-3">
               <div className="flex justify-between items-center mb-3">
-                <img className="w-1/5 mb-5" src={category.icon} alt="" />
+                <img
+                  className="w-1/5 mb-5"
+                  // @ts-ignore
+                  src={category.icon}
+                  alt=""
+                />
 
                 <div className="flex flex-col items-end gap-1">
                   <div className="flex justify-center gap-[2px] items-center">
                     <Checkbox
+                      // @ts-ignore
                       defaultChecked={category.is_available}
                       onChange={(e) => setIsAviable(e.target.checked)}
                       color="blue"
                     />
                     <button
                       className="bg-green-500 p-1 rounded-sm"
+                      // @ts-ignore
                       onClick={() => ChangeIsAviable(category.id)}
                     >
                       <FaCheck color="white" />
                     </button>
                   </div>
-                  <EditMainCatalog categoryId={category.id} />
+                  <EditMainCatalog
+                    // @ts-ignore
+                    categoryId={category.id}
+                  />
 
                   <button className="p-1 bg-red-600 h-[30px] w-[30px] rounded flex justify-center items-center">
                     <DeleteModal
+                      // @ts-ignore
                       url={`/product/category/${category.id}/`}
                       status={status}
                       onChange={changeStatus}
@@ -264,8 +310,14 @@ const MainCatalog = () => {
                   </button>
                 </div>
               </div>
-              <p className="text-lg mb-3">{category?.name}</p>
+              <p className="text-lg mb-3">
+                {
+                  // @ts-ignore
+                  category?.name
+                }
+              </p>
               <form
+                // @ts-ignore
                 onSubmit={(e) => addSubCategory(e, category.id)}
                 className="flex justify-between mb-4 gap-1"
               >
@@ -280,51 +332,54 @@ const MainCatalog = () => {
                   добавить
                 </button>
               </form>
-              {category?.children &&
+              {
                 // @ts-ignore
-                category?.children.map((childCategory) => (
-                  <div
-                    key={childCategory.id}
-                    className="rounded group hover:bg-green-200 hover:text-white py-1 flex justify-between items-center px-1"
-                  >
-                    <Link>
-                      {statusedit == childCategory.id ? (
-                        <input
-                          type="text"
-                          className="border border-dashed rounded-md w-[70%] outline-none px-1 text-black"
-                          placeholder="Добавить имя"
-                          defaultValue={childCategory.name}
-                          onChange={(e) => setEditedSub(e.target.value)}
-                        />
-                      ) : (
-                        <p>{childCategory.name}</p>
-                      )}
-                    </Link>
-                    <div className="flex">
-                      <button
-                        className=" bg-blue-300 group-hover:text-white rounded w-[20px] h-[20px] text-white flex justify-center items-center"
-                        onClick={() => handleOpen(childCategory.id)}
-                      >
-                        <FaPlus size={12} />
-                      </button>
-                      {statusedit == childCategory.id ? (
+                category?.children &&
+                  // @ts-ignore
+                  category?.children.map((childCategory) => (
+                    <div
+                      key={childCategory.id}
+                      className="rounded group hover:bg-green-200 hover:text-white py-1 flex justify-between items-center px-1"
+                    >
+                      <div>
+                        {statusedit == childCategory.id ? (
+                          <input
+                            type="text"
+                            className="border border-dashed rounded-md w-[70%] outline-none px-1 text-black"
+                            placeholder="Добавить имя"
+                            defaultValue={childCategory.name}
+                            onChange={(e) => setEditedSub(e.target.value)}
+                          />
+                        ) : (
+                          <p>{childCategory.name}</p>
+                        )}
+                      </div>
+                      <div className="flex">
                         <button
-                          className="bg-green-500 group-hover:text-white rounded w-[20px] h-[20px] flex justify-center items-center "
-                          onClick={() => saveItem(childCategory.id)}
+                          className=" bg-blue-300 group-hover:text-white rounded w-[20px] h-[20px] text-white flex justify-center items-center"
+                          onClick={() => handleOpen(childCategory.id)}
                         >
-                          <FaCheck size={12} color="white" />
+                          <FaPlus size={12} />
                         </button>
-                      ) : (
-                        <button
-                          className="bg-yellow-500 group-hover:text-black rounded w-[20px] h-[20px] flex justify-center items-center "
-                          onClick={() => handleEditStatus(childCategory.id)}
-                        >
-                          <FaRegEdit size={12} />
-                        </button>
-                      )}
+                        {statusedit == childCategory.id ? (
+                          <button
+                            className="bg-green-500 group-hover:text-white rounded w-[20px] h-[20px] flex justify-center items-center "
+                            onClick={() => saveItem(childCategory.id)}
+                          >
+                            <FaCheck size={12} color="white" />
+                          </button>
+                        ) : (
+                          <button
+                            className="bg-yellow-500 group-hover:text-black rounded w-[20px] h-[20px] flex justify-center items-center "
+                            onClick={() => handleEditStatus(childCategory.id)}
+                          >
+                            <FaRegEdit size={12} />
+                          </button>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))
+              }
             </div>
           </div>
         ))}

@@ -54,6 +54,7 @@ const Categories = () => {
   useEffect(() => {
     GetMainCatalog().then((res) => {
       setCategories(res);
+      console.log(res);
     });
     GetMainCatalogactive().then((res) => {
       setAvailableCategories(res);
@@ -176,7 +177,12 @@ const Categories = () => {
               </div>
               <p className="text-red-400">{category.site}</p>
 
-              <p className="text-lg mb-3">{category?.name}</p>
+              <p className="text-lg mb-3">
+                {category?.name}
+                <span className="text-red-400 text-sm ml-1">
+                  {category.count}
+                </span>
+              </p>
               {category?.children && category?.children?.length > 0 && (
                 <p>{category?.children[0]?.name}</p>
               )}
@@ -245,7 +251,12 @@ const Categories = () => {
                           onChange={(e) => setEditedSub(e.target.value)}
                         />
                       ) : (
-                        <p>{childCategory.name}</p>
+                        <p>
+                          {childCategory.name}{' '}
+                          <span className="text-red-400 text-sm ml-1">
+                            {childCategory.count}
+                          </span>
+                        </p>
                       )}
                     </Link>
                     <div className="flex gap-2">

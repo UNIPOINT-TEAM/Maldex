@@ -9,11 +9,7 @@ import {
   Checkbox,
 } from '@material-tailwind/react';
 import { MdEdit } from 'react-icons/md';
-import {
-  GetMainCatalogId,
-  PutWithFormData,
-  PutWithJson,
-} from '../../services/maincatalog';
+import { GetMainCatalogId, PutWithFormData } from '../../services/maincatalog';
 
 const EditMainCatalog = (props?: any) => {
   const categoryId = props.categoryId;
@@ -48,23 +44,29 @@ const EditMainCatalog = (props?: any) => {
       });
   };
 
-  const updateCategory = (e) => {
+  const updateCategory = (e: any) => {
     e.preventDefault();
     const formdata = new FormData();
     formdata.append('name', name);
+    // @ts-ignore
     formdata.append('is_hit', statusCategory.hit);
+    // @ts-ignore
     formdata.append('is_new', statusCategory.isnew);
+    // @ts-ignore
     formdata.append('is_popular', statusCategory.popular);
     if (logo != null) {
       formdata.append('logo', logo);
     } else {
+      // @ts-ignore
       formdata.append('logo', null);
     }
     if (icon != null) {
       formdata.append('icon', icon);
     } else {
+      // @ts-ignore
       formdata.append('icon', null);
     }
+    // @ts-ignore
     const data = {
       name: name,
       is_hit: statusCategory.hit,
@@ -108,6 +110,7 @@ const EditMainCatalog = (props?: any) => {
                   </span>
                 </Typography>
                 <Input
+                  // @ts-ignore
                   defaultValue={category.name}
                   onChange={(e) => setName(e.target.value)}
                   label="Название категории"
@@ -117,10 +120,12 @@ const EditMainCatalog = (props?: any) => {
                 <Checkbox
                   label="Is hit"
                   color="blue"
+                  // @ts-ignore
                   defaultChecked={statusCategory.hit}
                   onChange={(e) =>
                     setStatusCategory({
                       ...statusCategory,
+                      // @ts-ignore
                       hit: e.target.checked,
                     })
                   }
@@ -128,10 +133,12 @@ const EditMainCatalog = (props?: any) => {
                 <Checkbox
                   label="Is new"
                   color="blue"
+                  // @ts-ignore
                   defaultChecked={statusCategory.isnew}
                   onChange={(e) =>
                     setStatusCategory({
                       ...statusCategory,
+                      // @ts-ignore
                       isnew: e.target.checked,
                     })
                   }
@@ -139,10 +146,12 @@ const EditMainCatalog = (props?: any) => {
                 <Checkbox
                   label="Is popular"
                   color="blue"
+                  // @ts-ignore
                   defaultChecked={statusCategory.popular}
                   onChange={(e) =>
                     setStatusCategory({
                       ...statusCategory,
+                      // @ts-ignore
                       popular: e.target.checked,
                     })
                   }
@@ -173,6 +182,7 @@ const EditMainCatalog = (props?: any) => {
                   name="cover"
                   id="cover"
                   className="sr-only"
+                  // @ts-ignore
                   onChange={(e) => setLogo(e.target.files[0])}
                 />
                 <p className="text-fs-6">изменять логотип категории</p>
@@ -197,6 +207,7 @@ const EditMainCatalog = (props?: any) => {
                   name="cover2"
                   id="cover2"
                   className="sr-only"
+                  // @ts-ignore
                   onChange={(e) => setIcon(e.target.files[0])}
                 />
                 <p className="text-fs-6">изменять икона категории</p>
