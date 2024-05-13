@@ -185,41 +185,9 @@ const CategoryDetails = () => {
                       </SwiperSlide>
                     ))}
                   </Swiper>
-                  <div className="absolute z-[9999] bottom-[25px] right-[15px] flex flex-col gap-1 swiper-opacity">
-                    <button
-                      className={`w-[8px] h-[8px] bg-red-primary rounded-[4px]`}
-                    ></button>
-                    <button
-                      className={`w-[8px] h-[8px] bg-orange-600 rounded-[4px]`}
-                    ></button>
-                    <button
-                      className={`w-[8px] h-[8px] bg-green-600 rounded-[4px]`}
-                    ></button>
-                    <button
-                      className={`w-[8px] h-[8px] bg-green-primary rounded-[4px]`}
-                    ></button>
-                    <button
-                      className={`w-[8px] h-[8px] bg-blue-600 rounded-[4px]`}
-                    ></button>
-                    <button
-                      className={`w-[8px] h-[8px] bg-purple-600 rounded-[4px]`}
-                    ></button>
-                    <button
-                      className={`w-[8px] h-[8px] bg-indigo-600 rounded-[4px]`}
-                    ></button>
-                  </div>
-
-                  {item.is_new ? (
-                    <div className="absolute z-[999] top-2 left-2 flex gap-2">
-                      <div className="border border-red-primary text-[10px] text-red-primary rounded-lg px-1">
-                        NEW
-                      </div>
-                    </div>
-                  ) : (
-                    ''
-                  )}
                 </div>
                 {/* {defaultProduct ? ( */}
+                <p className="text-red-400 text-md">{item.site}</p>
                 <div className="default">
                   <div className="mb-2 md:mb-5  min-h-[70px] ">
                     <p className="text-fs_7 tracking-wide">
