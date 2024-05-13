@@ -35,7 +35,7 @@ const GiftItem = () => {
               <SwiperSlide className="flex justify-center" key={item.id}>
                 <div className=" flex w-[70px] items-center justify-center">
                   <Link
-                    to={`/catalog/${item?.id}`}
+                    to={`/catalog/?category_id=${item?.id}`}
                     className=" flex items-center flex-col justify-center gap-1 "
                   >
                     <div className="border w-[70px] h-[70px] border-lightPrimary p-3 rounded-xl hover:bg-white duration-300">

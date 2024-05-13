@@ -45,41 +45,36 @@ const MainCategory = () => {
             <div className="w-full py-3 flex flex-wrap gap-2 justify-between items-center">
                 {response.map((category) => (
                     <div
-                        // @ts-expect-error: This
+                    // @ts-expect-error: This
                         key={category.id}
                         className="w-1/6 py-5 relative content hover:bg-redPrimary"
                     >
-                        <div className="flex flex-col justify-start h-[170px]">
-                            <img
-                                className="w-1/5 mb-5"
-                                // @ts-expect-error: This
-                                src={category.icon}
-                                alt=""
-                            />
-                            <p className="text-lg mb-3">
-                                {/*  @ts-expect-error: This */}
-                                {category?.name}
-                            </p>
+                        <img
+                            className="w-1/5 mb-5"
+                            // @ts-expect-error: This
+                            src={category.icon}
+                            alt=""
+                        />
+                        <p className="text-lg mb-3">
+                            {/*  @ts-expect-error: This */}
+                            {category?.name}</p>
                             {/* @ts-expect-error: This */}
-                            {category?.children &&
-                                // @ts-expect-error: This
-                                category?.children?.length > 0 && (
-                                    <>
-                                        <p className="h-[50px]">
-                                            {
-                                                // @ts-expect-error: This
-                                                category?.children[0]?.name
-                                            }
-                                        </p>
-                                        <p className="h-[50px]">
-                                            {
-                                                // @ts-expect-error: This
-                                                category?.children[1]?.name
-                                            }
-                                        </p>
-                                    </>
-                                )}
-                        </div>
+                        {category?.children &&
+                        // @ts-expect-error: This
+                            category?.children?.length > 0 && (
+                                <>
+                                    <p className="h-[50px]">
+                                        {category?.
+                                        // @ts-expect-error: This
+                                        children[0]?.name}
+                                    </p>
+                                    <p className="h-[50px]">
+                                        {category?.
+                                        // @ts-expect-error: This
+                                        children[1]?.name}
+                                    </p>
+                                </>
+                            )}
                         <div className="absolute w-full min-h-[400px] bg-[#fff] shadow-lg shadow-gray-400 top-0 left-0 right-0 moreContent p-3">
                             <img
                                 className="w-1/5 mb-5"
@@ -95,7 +90,7 @@ const MainCategory = () => {
                                 category?.children.map((childCategory) => (
                                     <div
                                         key={childCategory.id}
-                                        className="rounded hover:bg-greenPrimary hover:text-white hover:px-2 py-1 "
+                                        className="rounded hover:bg-greenPrimary hover:text-white py-1 "
                                     >
                                         <Link to="/catalog">
                                             <p>{childCategory.name}</p>

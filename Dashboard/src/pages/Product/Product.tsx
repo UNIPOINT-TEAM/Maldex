@@ -12,7 +12,7 @@ import {
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import { Link, useLocation } from 'react-router-dom';
-import { MainCatalog } from '../../components';
+
 import {
   Button,
   Dialog,
@@ -25,7 +25,6 @@ import { GetMainCatalogactive, PutData } from '../../services/maincatalog';
 import PaginationCard from '../../components/Pagination/Pagination';
 
 const Product = () => {
-  const location = useLocation();
   const [addProduct, setAddProduct] = useState([]);
   const [receiveId, setReceiveId] = useState(null);
   const [search, setSearch] = useState('');

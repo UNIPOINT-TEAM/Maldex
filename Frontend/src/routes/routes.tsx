@@ -77,7 +77,7 @@ export const router = createBrowserRouter([
         element: <BuildSet />,
       },
       {
-        path: "/catalog/:id",
+        path: "/catalog",
         element: <Catalog />,
       },
       {

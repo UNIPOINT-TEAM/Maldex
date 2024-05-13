@@ -1,12 +1,12 @@
 export interface Catalog {
   id: number;
-  img: string;
-  title: string;
-  description: string;
+  name: string;
+  article: string;
   price: string;
-  index1: string;
-  money: string;
-  index2: string;
+  price_type: string;
+  images_set: {
+    image_url: string;
+  }[];
 }
 
 export interface Product {

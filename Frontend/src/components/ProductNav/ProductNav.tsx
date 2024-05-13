@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 interface ProductNavProps {
   title: string;
@@ -26,9 +26,6 @@ const ProductNav: React.FC<ProductNavProps> = ({
   } else if (color === "gray") {
     titleStyle += " font-medium text-base lg:text-[28px] text-darkSecondary";
   }
-  useEffect(() => {
-    updateCategoryId(categories[0]?.id);
-  }, []);
 
   return (
     <div className="mb-6">
@@ -44,7 +41,6 @@ const ProductNav: React.FC<ProductNavProps> = ({
             <ul className="flex gap-5 whitespace-nowrap">
               {categories?.map(
                 // @ts-expect-error: This
-
                 (item, index) => (
                   <li
                     key={index}

@@ -37,14 +37,14 @@ const Navbar = () => {
               </span>
             </div>
             <div className="items-center justify-between text-fs_3 gap-5 hidden md:flex font-medium">
-              <Link to={"category/1"} className="text-redPrimary ">
+              <Link to={"catalog/?is_new=true"} className="text-redPrimary ">
                 <span className="underline mr-2">new</span>
                 <sup className="font-bold text-fs_7">243</sup>
               </Link>
-              <div className="text-greenPrimary">
+              <Link to={"catalog/?is_hit=true"} className="text-greenPrimary ">
                 <span className="underline mr-2">hits</span>
                 <sup className="font-bold text-fs_7">243</sup>
-              </div>
+              </Link>
             </div>
           </div>
         </nav>

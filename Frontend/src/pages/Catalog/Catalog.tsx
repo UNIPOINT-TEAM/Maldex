@@ -16,13 +16,15 @@ import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 import { Accordion } from "../../components";
 import { useFetchHook } from "../../hooks/UseFetch";
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const Catalog = () => {
-  const { id } = useParams();
+  const { search } = useLocation();
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
   const [filter, setFilter] = useState<boolean>(false);
-
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0 });
+  }, []);
   const [filterItems, setFilterItems] = useState([
     { id: 1, name: "Белый", count: 2 },
     { id: 2, name: "Желтый", count: 4 },
@@ -41,15 +43,19 @@ const Catalog = () => {
     setActiveFilterItems((prev) => [...prev, i]);
     setFilterItems((prev) => prev.filter((item) => item.id !== i.id));
   };
-
-  const openFilter = () => {
-    setFilter(!filter);
-  };
-
+  const openFilter = () => setFilter(!filter);
   const { fetchData, response } = useFetchHook();
+  const { fetchData: fetchCategoryFilter, response: categoryFilter } =
+    useFetchHook();
   useEffect(() => {
-    fetchData({ method: "GET", url: `/product/category_id/${id}/` });
+    fetchData({ method: "GET", url: `/product/${search}` });
+  }, [search]);
+  useEffect(() => {
+    fetchCategoryFilter({ method: "GET", url: `/product/filters` });
   }, []);
+  const handleFilter = (query: string) => {
+    fetchData({ method: "GET", url: `/product/?${query}` });
+  };
 
   return (
     <div className="home px-2 md:px-0">
@@ -63,8 +69,10 @@ const Catalog = () => {
           </div>
         </div>
         <div className="card container_xxl px-3 my-0 sm:my-10 ">
-          {/*@ts-expect-error: This */}
-          <h1 className="text-3xl mb-5 mt-5 md:mt-0">{response?.name}</h1>
+          <h1 className="text-3xl mb-5 mt-5 md:mt-0">
+            {/*@ts-expect-error: This */}
+            {response && response?.name}
+          </h1>
           <div className="flex justify-between items-center md:border-b-[1px] pb-2 mb-3">
             <button className="border-[1px] border-black px-3 py-1 rounded flex items-center">
               <h2 className="font-bold">Все фильтры (2) &nbsp;</h2>
@@ -205,65 +213,38 @@ const Catalog = () => {
             ))}
           </div>
           <div className="flex w-100 overflow-scroll md:overflow-hidden sm:flex sm:flex-wrap items-center py-2 gap-2">
-            <button className="border-[1px] border-gray-400 px-2 text-[12px] text-gray-500 min-w-[300px] sm:min-w-0 py-1 rounded">
-              Автомобильные зарядники
-            </button>
-            <button className="border-[1px] border-gray-400 px-2 text-[12px] text-gray-500 min-w-[300px] sm:min-w-0 py-1 rounded">
-              Экозарядники + RPET
-            </button>
-            <button className="border-[1px] border-gray-400 px-2 text-[12px] text-gray-500 min-w-[300px] sm:min-w-0 py-1 rounded">
-              Наборы с зарядными устройствами
-            </button>
-            <button className="border-[1px] border-gray-400 px-2 text-[12px] text-gray-500 min-w-[300px] sm:min-w-0 py-1 rounded">
-              Беспроводные зарядки
-            </button>
-            <button className="border-[1px] border-gray-400 px-2 text-[12px] text-gray-500 min-w-[300px] sm:min-w-0 py-1 rounded">
-              Док-станции с логотипами
-            </button>
-            <button className="border-[1px] border-gray-400 px-2 text-[12px] text-gray-500 min-w-[300px] sm:min-w-0 py-1 rounded">
-              Зарядные устройства с часами
-            </button>
-            <button className="border-[1px] border-gray-400 px-2 text-[12px] text-gray-500 min-w-[300px] sm:min-w-0 py-1 rounded">
-              Органайзер на стол с ЗУ
-            </button>
-            <button className="border-[1px] border-gray-400 px-2 text-[12px] text-gray-500 min-w-[300px] sm:min-w-0 py-1 rounded">
-              Лампы с ЗУ
-            </button>
-            <button className="border-[1px] border-gray-400 px-2 text-[12px] text-gray-500 min-w-[300px] sm:min-w-0 py-1 rounded">
-              Деревянные зарядки
-            </button>
-            <button className="border-[1px] border-gray-400 px-2 text-[12px] text-gray-500 min-w-[300px] sm:min-w-0 py-1 rounded">
-              Наборы с зарядными устройствами
-            </button>
-            <button className="border-[1px] border-gray-400 px-2 text-[12px] text-gray-500 min-w-[300px] sm:min-w-0 py-1 rounded">
-              Док-станции с логотипами
-            </button>
-            <button className="border-[1px] border-gray-400 px-2 text-[12px] text-gray-500 min-w-[300px] sm:min-w-0 py-1 rounded">
-              Автомобильные зарядники
-            </button>
-            <button className="border-[1px] border-gray-400 px-2 text-[12px] text-gray-500 min-w-[300px] sm:min-w-0 py-1 rounded">
-              Лампы с ЗУ
-            </button>
+            {categoryFilter.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => handleFilter(`filter_id=${item.id}`)}
+                className="border-[1px] border-gray-400 px-2 text-[12px] text-gray-500 min-w-[300px] sm:min-w-0 py-1 rounded"
+              >
+                {item?.title}
+              </button>
+            ))}
 
-            <div className="border border-redPrimary text-[10px] text-redPrimary h-[22px] rounded-xl px-2 flex items-center">
-              <p>NEW</p>
-            </div>
-            <div className="border border-greenPrimary text-[10px] text-greenPrimary rounded-xl px-2 h-[22px] flex items-center">
-              <p>HIT</p>
-            </div>
-            <div className="border border-redPrimary text-[10px] text-redPrimary h-[22px] rounded-xl px-2 flex items-center">
-              <p>SALE</p>
-            </div>
+            <button
+              onClick={() => handleFilter("is_new=true")}
+              className="border border-redPrimary text-[10px] text-redPrimary h-[22px] rounded-xl px-2 flex items-center"
+            >
+              NEW
+            </button>
+            <button
+              onClick={() => handleFilter("is_hit=true")}
+              className="border border-greenPrimary text-[10px] text-greenPrimary rounded-xl px-2 h-[22px] flex items-center"
+            >
+              HIT
+            </button>
           </div>
           <div className="flex gap-2 flex-wrap py-2 ">
             {/*@ts-expect-error: This */}
             {response &&
-              response?.children?.map((item) => (
+              response.results?.map((item) => (
                 <div
                   className="w-[45%] sm:w-[30%] md:w-[18%] mb-[40px]"
                   key={item.id}
                 >
-                  <CardCatalog item={item} />
+                  <CardCatalog {...item} />
                 </div>
               ))}
           </div>
@@ -306,8 +287,7 @@ const Catalog = () => {
           </div>
         </div>
         <div className="w-full">
-          {/*@ts-expect-error: This */}
-          <SliderProduct />
+          <SliderProduct products={[]} />
         </div>
         <div className="md:hidden mb-5">
           <News title="новинки" />
@@ -318,8 +298,7 @@ const Catalog = () => {
           </div>
         </div>
         <div className="w-full md:hidden">
-          {/*@ts-expect-error: This */}
-          <SliderProduct />
+          <SliderProduct products={[]} />
         </div>
       </div>
       <QuestForm />
