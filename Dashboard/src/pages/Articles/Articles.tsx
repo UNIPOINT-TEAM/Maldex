@@ -57,7 +57,7 @@ function Articles() {
             ))}
           </div>
         </div>
-        <div className="flex justify-center items-center gap-3 my-5">
+        {/* <div className="flex justify-center items-center gap-3 my-5">
           <button className="text-gray-500">
             <FaArrowLeftLong />
           </button>
@@ -69,7 +69,7 @@ function Articles() {
           <button className="text-gray-500">
             <FaArrowRightLong />
           </button>
-        </div>
+        </div> */}
       </div>
     </DefaultLayout>
   );

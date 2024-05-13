@@ -25,11 +25,11 @@ export const Sidenavs = [
     title: 'Собери свой набор',
   },
 
-  {
-    id: 6,
-    path: '/catalog-gift',
-    title: 'Каталог Подарочный набор',
-  },
+  // {
+  //   id: 6,
+  //   path: '/catalog-gift',
+  //   title: 'Каталог Подарочный набор',
+  // },
   {
     id: 7,
     path: '/portfolio',

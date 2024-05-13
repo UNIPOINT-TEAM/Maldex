@@ -49,7 +49,7 @@ const Applying = () => {
   return (
     <DefaultLayout>
       <ApplyingLayout>
-        <div>
+        <div className='ml-5'>
           {printInfo && (
             <>
               <h1>{printInfo.title}</h1>

@@ -92,13 +92,12 @@ function LinkTags() {
         const updatedTag = await UpgradeLinkTags(editTagId, {
           title: editTagInput,
           category_id: activeCategory.id,
-
-
         });
         setTags(tags.map((tag) => (tag.id === editTagId ? updatedTag : tag)));
         setIsEditingTag(false);
         setEditTagInput('');
         setEditTagId(null);
+        window.location.reload();
       } catch (error) {
         console.error('Ошибка при редактировании тэга:', error);
       }
@@ -126,6 +125,7 @@ function LinkTags() {
     try {
       await DelLinkTags(tagId);
       setTags(tags.filter((tag) => tag.id !== tagId));
+      window.location.reload();
     } catch (error) {
       console.error('Ошибка при удалении тэга:', error);
     }
@@ -214,7 +214,7 @@ function LinkTags() {
                 type="text"
                 value={newTagCategory}
                 onChange={(e) => setNewTagCategory(e.target.value)}
-                placeholder="Новый тэг"
+                placeholder="Новая категория тегов"
                 className="border p-2 rounded-lg"
               />
               <Button color="green" onClick={addTagCategory}>
@@ -253,24 +253,26 @@ function LinkTags() {
                     className={`relative p-2 m-2 border cursor-pointer rounded-lg ${
                       activeCategory && activeCategory.id === tagCategory.id
                         ? 'bg-red-primary text-white'
-                        : ' '}
+                        : ' '
+                    }
                     `}
                   >
                     {tagCategory.title}
                   </div>
                   <div className="top-0 right-0 flex gap-2">
-                    <button
+                    <Button
                       onClick={() => startEditTagCategory(tagCategory)}
-                      className="p-2 text-white bg-yellow-400"
+                      className="p-2 text-white bg-warning"
                     >
                       <MdEdit />
-                    </button>
-                    <button
+                    </Button>
+                    <Button
+                      color="red"
                       onClick={() => deleteTagCategory(tagCategory.id)}
-                      className="p-2 text-white bg-red-500"
+                      className="p-2 text-white "
                     >
                       <MdDelete />
-                    </button>
+                    </Button>
                   </div>
                 </div>
               ))}
@@ -293,9 +295,7 @@ function LinkTags() {
                 type="text"
                 value={newTagLink}
                 onChange={handleNewTagLinkChange}
-                placeholder={`Новая ссылка для тега: ${
-                  activeCategory ? activeCategory.title : 'Выберите категорию'
-                }`}
+                placeholder="Новый тег"
                 className="border p-2 rounded-lg"
                 disabled={!activeCategory}
               />
@@ -336,18 +336,19 @@ function LinkTags() {
                         </div>
                       </Link>
                       <div className=" top-0 right-0 flex gap-2">
-                        <button
+                        <Button
                           onClick={() => startEditTag(tag)}
-                          className="p-2 text-white bg-yellow-400"
+                          className="p-2 text-white bg-warning"
                         >
                           <MdEdit />
-                        </button>
-                        <button
+                        </Button>
+                        <Button
+                          color="red"
                           onClick={() => deleteTag(tag.id)}
-                          className="p-2 text-white bg-red-500"
+                          className="p-2 text-white "
                         >
                           <MdDelete />
-                        </button>
+                        </Button>
                       </div>
                     </div>
                   </>

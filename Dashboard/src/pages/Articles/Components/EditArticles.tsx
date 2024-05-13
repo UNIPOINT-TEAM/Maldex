@@ -1,7 +1,11 @@
 import { useState, useEffect } from 'react';
 import DefaultLayout from '../../../layout/DefaultLayout';
-import { GetArticlesDetail, UpgradeArticles } from '../../../services/articles';
-import { useParams } from 'react-router-dom';
+import {
+  DeleteArticle,
+  GetArticlesDetail,
+  UpgradeArticles,
+} from '../../../services/articles';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Button, Input } from '@material-tailwind/react';
 import DOMPurify from 'dompurify';
 import parse from 'html-react-parser';
@@ -9,8 +13,8 @@ import { BASE_URL } from '../../../utils/BaseUrl';
 import './styleEditor.css';
 
 function EditArticles({ htmlContent }) {
-// import { CKEditor } from 'ckeditor4-react';
-
+  // import { CKEditor } from 'ckeditor4-react';
+  const navigate = useNavigate();
   const { id } = useParams();
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -69,59 +73,47 @@ function EditArticles({ htmlContent }) {
     `src="${BASE_URL}/media`,
   );
 
+  const handleDelete = async () => {
+    try {
+      await DeleteArticle(Number(id));
+      console.log('Article deleted successfully');
+      // Redirect to articles list or home page after deletion
+      navigate('/articles'); // Example redirect
+    } catch (error) {
+      console.error('Error deleting article:', error);
+    }
+  };
+
   return (
     <DefaultLayout>
       <div className="w-[1000px] m-auto">
-      <div className="my-5 ">
-        <div className='mx-auto'> 
-          {/* <label className="flex w-1/2 h-[190px] cursor-pointer border-dashed items-center justify-center gap-2 rounded-xl border border-b py-1 px-2 text-sm font-medium hover:bg-opacity-90 xsm:px-4">
-            <input
-              required
-              type="file"
-              className="sr-only"
-              accept="image/*"
-              onChange={handleIma geChange}
-            />
-            <p className="text-fs-6">Добавить Фото</p>
-          </label> */}
+        <div className="my-5 flex gap-4">
+          <Link
+            to={`http://5.35.82.80:8000/admin/blog/article/${id}/change`}
+            target="_blank"
+          >
+            <Button
+              className="my-6 image image-style-side bg-warning"
+              onClick={handleSubmit}
+            >
+              Изменить
+            </Button>
+          </Link>
+          <Button
+            className="my-6 image image-style-side bg-danger"
+            onClick={handleDelete}
+          >
+            Удалить
+          </Button>
         </div>
-      </div>
-      <div className="my-10 ">
-        {/* <Input
-          value={title}
-          required
-          variant="standard"
-          label="Название"
-          onChange={(e) => setTitle(e.target.value)}
-        /> */}
-      </div>
-      <div className="">
-        {/* <CKEditor
-          data={content}
-          onInstanceReady={(e) => setEditor(e.editor)}
-          onChange={handleEditorChange}
-        /> */}
-      </div>
 
-      <div className='w-[1200px] mx-auto mb-100'>
-        <img src={image} alt="" />
-        {/* <h1>{title}</h1> */}
-        {/* <p>{content}</p> */}
-
-        <div className="article-container ck-__editable">
-          <div class="ck-content">
-            <div dangerouslySetInnerHTML={{ __html: modifiedContent }} />
+        <div className="w-[1200px] mx-auto mb-100">
+          <div className="article-container ck-__editable">
+            <div class="ck-content">
+              <div dangerouslySetInnerHTML={{ __html: modifiedContent }} />
+            </div>
           </div>
-          {/* <div>{parse(content)}</div> */}
         </div>
-      </div>
-      <Button
-        className="my-6 image image-style-side"
-        color="blue"
-        onClick={handleSubmit}
-      >
-        Отправить
-      </Button>
       </div>
     </DefaultLayout>
   );

@@ -20,3 +20,8 @@ export const UpgradeArticles = async (id: number, newData: { title: string, body
   const response = await api.put(`/articles/${id}/`, newData); 
   return response.data;
 };
+
+export const DeleteArticle = async (id:number) => {
+  const response = await api.delete(`/articles/${id}`);
+  return response.data;
+};
