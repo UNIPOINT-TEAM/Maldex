@@ -6,6 +6,7 @@ import SearchModal from "../SearchModal/SearchModal";
 import searchIcon from "../../assets/images/search.svg";
 
 import NavbarModal from "./NavbarModal";
+import { useState } from "react";
 
 const Navbar = () => {
   const [modal, setModal] = useState(false);

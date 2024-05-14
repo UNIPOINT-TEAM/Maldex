@@ -1,101 +1,61 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useFetchHook } from "../../hooks/UseFetch";
 
 const TagList = () => {
-  const [selectedCategory, setSelectedCategory] = useState("Для неё"); // Установите "Для неё" по умолчанию
+  const [selectedCategory, setSelectedCategory] = useState("Для неё");
   const [selectedSubcategory, setSelectedSubcategory] = useState(null);
-  const { fetchData, response } = useFetchHook();
-  const [location, setLocation] = useState(null);
-  const [error, setError] = useState(null);
-  const [city, setCity] = useState(null);
-
-  // useEffect(() => {
-  //   fetchData({ method: "GET", url: `/gifts/baskets/tag/category/` });
-  // }, []);
-
-  const { fetchData: fetchCategoryFilter, response: categoryFilter } =
+  const { fetchData, response: categories } = useFetchHook();
+  const { fetchData: fetchSubcategories, response: subcategories } =
     useFetchHook();
+
   useEffect(() => {
     fetchData({ method: "GET", url: `/gifts/baskets/tag/category/` });
-  });
-  useEffect(() => {
-    fetchCategoryFilter({ method: "GET", url: `/gifts/baskets/tags/` });
   }, []);
-  // const categories = {
-  //   "Для неё": [
-  //     "Care Package",
-  //     "Подкатегория1-2",
-  //     "Подкатегория1-3",
-  //     "Подкатегория1-4",
-  //     "Подкатегория1-5",
-  //     "Подкатегория1-6",
-  //   ],
-  //   "Для него": ["Подкатегория2-1", "Подкатегория2-2", "Подкатегория2-3"],
-  //   "Для детей": ["Подкатегория3-1", "Подкатегория3-2", "Подкатегория3-3"],
-  //   "Для дома": ["Подкатегория4-1", "Подкатегория4-2", "Подкатегория4-3"],
-  //   "Для офиса": ["Подкатегория6-1", "Подкатегория6-2", "Подкатегория6-3"],
-  //   "Для учёбы": ["Подкатегория5-1", "Подкатегория5-2", "Подкатегория5-3"],
-  // };
-
-  // useEffect(() => {
-  //   // Установите первую подкатегорию из "Для неё" как выбранную по умолчанию
-  //   if (selectedCategory === "Для неё") {
-  //     setSelectedSubcategory(categories[selectedCategory][0]);
-  //   }
-  // }, [selectedCategory]);
-  const handleCategoryClick = (category) => {
+// @ts-expect-error "error"
+  const handleCategoryClick = async (category) => {
     setSelectedCategory(category);
+    try {
+      await fetchSubcategories({ method: "GET", url: `/gifts/baskets/tags/` });
+    } catch (error) {
+      console.error("Ошибка при загрузке подкатегорий:", error);
+    }
   };
+
   const handleSubcategoryClick = (subcategory) => {
     setSelectedSubcategory(subcategory);
   };
 
   return (
     <div className="container_xxl">
-      <div>
-        <div className="flex flex-col ">
-          <div className="">
-            <ul className="mt-10 mb-6 justify-around hidden lg:flex">
-              {response.map((category) => (
-                <li
-                  key={category}
-                  onClick={() => handleCategoryClick(category)}
-                  className={`cursor-pointer py-2 px-10 border rounded-3xl   ${
-                    selectedCategory === category
-                      ? "font-bold bg-redPrimary text-white"
-                      : "bg-white"
-                  }`}
-                >
-                  {category.name}
-                </li>
-              ))}
-            </ul>
-
-           
-            {/* <ul className="mt-7 flex flex-wrap justify-around block lg:hidden">
-              {Object.keys(categories).map((category) => (
-                <li
-                  key={category}
-                  onClick={() => handleCategoryClick(category)}
-                  className={`cursor-pointer py-2 px-10 border rounded-3xl mb-4 ${
-                    selectedCategory === category
-                      ? "font-bold bg-redPrimary text-white"
-                      : "bg-white"
-                  }`}
-                  style={{ flexBasis: "calc(50% - 20px)" }}
-                >
-                  {category}
-                </li>
-
-              ))}
-            </ul> */}
-          </div>
-          {/* <div className="">
-            <ul className="mb-10 flex flex-wrap gap-y-5 justify-between hidden lg:flex">
-              {selectedCategory &&
-                categories[selectedCategory].map((subcategory) => (
+      <div className="flex flex-col">
+        <div>
+          <ul className="mt-10 mb-6 mx-10 mx justify-around hidden lg:flex">
+            {categories.map((category) => (
+              <li
+                key={category.id}
+                onClick={() => handleCategoryClick(category)}
+                className={`cursor-pointer py-2 px-10 border rounded-3xl uppercase  ${
+                  selectedCategory === category
+                    ? "font-bold bg-redPrimary text-white"
+                    : "bg-white"
+                }`}
+              >
+                {category.name}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <ul className="mb-10 flex flex-wrap gap-y-5 justify-between hidden lg:flex">
+            {selectedCategory &&
+              subcategories
+                .filter(
+                  (subcategory) =>
+                    subcategory.tag_category === selectedCategory.id
+                )
+                .map((subcategory) => (
                   <li
-                    key={subcategory}
+                    key={subcategory.id}
                     onClick={() => handleSubcategoryClick(subcategory)}
                     className={`cursor-pointer py-2 border rounded-xl px-4 text-center ${
                       selectedSubcategory === subcategory
@@ -104,25 +64,10 @@ const TagList = () => {
                     }`}
                     style={{ width: "18%" }}
                   >
-                    {subcategory}
+                    {subcategory.name}
                   </li>
                 ))}
-            </ul>
-            <ul className="mb-10 flex flex-wrap gap-y-3 justify-around lg:hidden ">
-              {selectedCategory &&
-              // @ts-ignore
-                categories[selectedCategory].map((subcategory) => (
-                  <li
-                    key={subcategory}
-                    onClick={() => handleSubcategoryClick(subcategory)}
-                    className={`cursor-pointer py-2 border rounded-xl px-4 text-center `}
-                    style={{ width: "40%" }}
-                  >
-                    {subcategory}
-                  </li>
-                ))}
-            </ul>
-          </div> */}
+          </ul>
         </div>
       </div>
     </div>

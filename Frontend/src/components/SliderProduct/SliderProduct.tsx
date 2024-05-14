@@ -203,7 +203,7 @@ const SliderProduct = ({ products }) => {
                           onClick={() => handleOpen("xl")}
                           className="relative  h-full"
                         >
-                          <div className="flex justify-center items-center h-full">
+                          <div className="flex justify-center items-center h-full" >
                             <img
                               className="mb-2 w-[50px] h-[50px] object-contain product-img"
                               src={item?.image_url}
