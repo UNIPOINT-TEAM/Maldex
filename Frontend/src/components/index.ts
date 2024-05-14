@@ -22,6 +22,7 @@ export { default as PortfolioBannerLeft } from "./PortfolioBanner/PortfolioBanne
 export { default as PortfolioBannerRight } from "./PortfolioBanner/PortfolioBannerRight";
 export { default as ProductNav } from "./ProductNav/ProductNav";
 export { default as News } from "./News/News";
+export { default as NewsDetail } from "./News/NewsDetail";
 export { default as AboutInfo } from "./AboutInfo/AboutInfo";
 export { default as Steps } from "./Steps/Steps";
 export { default as Brands } from "./Brands/Brands";

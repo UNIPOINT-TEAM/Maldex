@@ -29,7 +29,7 @@ import { PadPrinting } from "../pages/Applying";
 import GallerySidebar from "../pages/Gallery/GallerySidebar";
 
 // admin panel
-import { SettingsPanel, ConstructorPanel, FileAndPrice } from "../components";
+import { SettingsPanel, ConstructorPanel, FileAndPrice, NewsDetail } from "../components";
 
 export const router = createBrowserRouter([
   {
@@ -103,6 +103,14 @@ export const router = createBrowserRouter([
       {
         path: "/articles",
         element: <Articles />,
+      },
+      {
+        path: "/articles",
+        element: <Articles />,
+      },
+      {
+        path: "/articles/:id",
+        element: <NewsDetail />,
       },
       {
         path: "/applying-type",

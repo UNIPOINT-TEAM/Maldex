@@ -17,7 +17,7 @@ const News: React.FC<{ title: string }> = ({ title }) => {
       <div className="flex flex-col gap-3">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
           <Link
-            to={"/articles"}
+            to={`/articles/${response[0]?.id}`}
             className="bg-cover overflow-hidden text-white h-[180px] sm:h-[340px]"
             style={{
               backgroundImage: `url(${response[0]?.image})`,
@@ -37,7 +37,7 @@ const News: React.FC<{ title: string }> = ({ title }) => {
           </Link>
 
           <Link
-            to={"/articles"}
+            to={`/articles/${response[1]?.id}`}
             className=" overflow-hidden bg-cover text-white h-[180px] sm:h-[340px]"
             style={{
               backgroundImage: `url(${response[1]?.image})`,
@@ -58,7 +58,7 @@ const News: React.FC<{ title: string }> = ({ title }) => {
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 h-[180px] sm:h-[340px]">
           <Link
-            to={"/articles"}
+            to={`/articles/${response[2]?.id}`}
             className=" bg-cover text-white hidden lg:block h-full"
             style={{
               backgroundImage: `url(${response[2]?.image})`,
@@ -77,7 +77,7 @@ const News: React.FC<{ title: string }> = ({ title }) => {
             )}
           </Link>
           <Link
-            to={"/articles"}
+            to={`/articles/${response[3]?.id}`}
             className=" bg-cover text-white hidden lg:block h-full"
             style={{
               backgroundImage: `url(${response[3]?.image})`,
@@ -96,7 +96,7 @@ const News: React.FC<{ title: string }> = ({ title }) => {
             )}
           </Link>
           <Link
-            to={"/articles"}
+            to={`/articles/${response[4]?.id}`}
             className=" bg-cover text-white hidden lg:block h-full"
             style={{
               backgroundImage: `url(${response[4]?.image})`,

@@ -57,7 +57,7 @@ const TagList = () => {
                   <li
                     key={subcategory.id}
                     onClick={() => handleSubcategoryClick(subcategory)}
-                    className={`cursor-pointer py-2 border rounded-xl px-4 text-center ${
+                    className={`cursor-pointer py-2 border rounded-xl px-4 text-center hover:text-white hover:bg-redPrimary hover:font-bold ${
                       selectedSubcategory === subcategory
                         ? "font-bold bg-redPrimary text-white"
                         : "bg-white"
@@ -69,6 +69,9 @@ const TagList = () => {
                 ))}
           </ul>
         </div>
+      </div>
+      <div>
+        
       </div>
     </div>
   );
