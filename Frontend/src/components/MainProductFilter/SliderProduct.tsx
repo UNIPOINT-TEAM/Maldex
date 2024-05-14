@@ -13,6 +13,7 @@ import { IoMdHeart } from "react-icons/io";
 import { Dialog } from "@material-tailwind/react";
 import { MdOutlineAdd } from "react-icons/md";
 import { CgSearch } from "react-icons/cg";
+import Badge from "../Badge/Badge";
 
 /*@ts-expect-error: This */
 
@@ -25,7 +26,7 @@ const SliderProduct = ({ products }) => {
   const changeStatus = () => {
     setDefaultProduct(!defaultProduct);
   };
-
+  console.log(products);
   // @ts-expect-error: This
   const handleOpen = (value: string) => setSize(value);
 
@@ -186,7 +187,7 @@ const SliderProduct = ({ products }) => {
         className=" w-full overscroll-x-auto h-[430px] md:h-[500px]"
       >
         {/*@ts-expect-error: This */}
-        {products?.map((item) => (
+        {products.results?.map((item) => (
           <SwiperSlide key={item.id} className="w-full">
             <div className="catalog ">
               <div className="relative swiper-top-container h-[220px] mb-4 bg-gray-200">
@@ -198,7 +199,7 @@ const SliderProduct = ({ products }) => {
                   {item.images_set.map(
                     // @ts-expect-error: This
                     (item) => (
-                      <SwiperSlide key={item.id} className="w-full h-full">
+                      <SwiperSlide key={item.id} className="w-full h-full ">
                         <div
                           onClick={() => handleOpen("xl")}
                           className="relative  h-full"
@@ -249,17 +250,8 @@ const SliderProduct = ({ products }) => {
                   )}
                 </div>
                 <div className="absolute z-[999] top-2 left-2 flex gap-2">
-                  {products.status == "new" ? (
-                    <div className="border border-redPrimary text-[10px] text-redPrimary rounded-lg px-1">
-                      NEW
-                    </div>
-                  ) : products.status == "hit" ? (
-                    <div className="border border-greenPrimary text-[10px] text-greenPrimary rounded-lg px-1">
-                      HIT
-                    </div>
-                  ) : (
-                    ""
-                  )}
+                  {item.is_new && <Badge name="NEW" type="NEW" />}
+                  {item.is_hit && <Badge name="HIT" type="HIT" />}
                 </div>
               </div>
               {defaultProduct ? (
@@ -369,10 +361,10 @@ const SliderProduct = ({ products }) => {
           </SwiperSlide>
         ))}
       </Swiper>
-      <div className="hidden lg:flex prev text-black  hover:text-white">
+      <div className="hidden lg:flex bg-white prev text-black  hover:text-white">
         <FaArrowLeftLong />
       </div>
-      <div className="hidden lg:flex next text-black hover:text-white">
+      <div className="hidden lg:flex bg-white next text-black hover:text-white">
         <FaArrowRightLong />
       </div>
     </div>

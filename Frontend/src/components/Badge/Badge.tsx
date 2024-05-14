@@ -7,7 +7,7 @@ interface BadgeProps {
 
 const Badge: React.FC<BadgeProps> = ({ name, type }) => {
   let badgeStyle =
-    "border px-[6px] py-[2px] me-1 rounded-[15px] text-[12px] font-bold tracking-wider";
+    "border px-[4px] me-1 rounded-[15px] text-[12px] font-bold tracking-wider";
 
   // Добавляем стили в зависимости от типа бейджа
   if (type === "NEW") {

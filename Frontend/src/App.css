@@ -335,7 +335,7 @@
 .banner-carusel .swiper-pagination {
     left: auto !important;
     right: 0 !important;
-    top: 0px !important;
+    top: -16px !important;
     bottom: auto !important;
     width: auto !important;
 }

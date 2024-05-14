@@ -4,34 +4,28 @@ import {
   AccordionHeader,
   AccordionBody,
 } from "@material-tailwind/react";
-
-// import { Faq } from "../../mock/data";
 import accordionIcon from "../../assets/icons/accordion-icon.png";
-import { GetFaqs } from "../../services/services";
+import { useFetchHook } from "../../hooks/UseFetch";
 
 const AccordionMaldex = () => {
   const [open, setOpen] = useState<number>(0);
-  const [faq, setFaq] = useState([]);
-
+  const { fetchData, response } = useFetchHook();
   useEffect(() => {
-    GetFaqs("faq/?type=home").then((res) => {
-      setFaq(res);
-    });
+    fetchData({ method: "GET", url: `/faq/?type=home` });
   }, []);
+
   const handleOpen = (value: number) => setOpen(open === value ? 0 : value);
   return (
     <div className="max-w-[1200px] w-full pl-0 lg:pl-[150px]">
-      {faq.map((item, i) => (
+      {response.map((item) => (
         <Accordion
-          key={i}
+          key={item?.id}
           className="border border-lightPrimary rounded-xl  my-4"
-          // @ts-expect-error: This
-          open={open === item.id}
+          open={open === item?.id}
           icon={
             <img
               className={`w-[14px] md:w-[18px] ${
-                // @ts-expect-error: This
-                item.id === open ? "rotate-180" : ""
+                item?.id === open ? "rotate-180" : ""
               } transition-transform`}
               src={accordionIcon}
             />
@@ -40,22 +34,19 @@ const AccordionMaldex = () => {
         >
           <AccordionHeader
             className="border-0 p-4"
-            // @ts-expect-error: This
             onClick={() => handleOpen(item.id)}
             placeholder={<div />}
           >
             <h3 className="font-normal font-Helvetica-Neue text-fs_8 lg:text-fs_4 text-darkSecondary ">
-              {/*  @ts-expect-error: This */}
               {item.title}
             </h3>
           </AccordionHeader>
           <AccordionBody className="p-4" placeholder={<div />}>
             <p
               dangerouslySetInnerHTML={{
-                // @ts-expect-error: This
                 __html: item.body,
               }}
-              className="font-Helvetica-Neue font-medium  text-fs_9 lg:text-base"
+              className="font-Helvetica-Neue text-[#666666] font-medium  text-fs_9 lg:text-base"
             />
           </AccordionBody>
         </Accordion>

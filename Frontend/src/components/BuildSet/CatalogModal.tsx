@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { FaBars } from "react-icons/fa6";
 import { IoMdClose } from "react-icons/io";
 import { useFetchHook } from "../../hooks/UseFetch";
-import { Link } from "react-router-dom";
 
 const CatalogModal = () => {
   const [open, setOpen] = useState(true);
@@ -49,6 +48,7 @@ const CatalogModal = () => {
                       e.stopPropagation();
                     }}
                     className={`text-fs_6 flex items-center gap-3 h-[33px] px-3 rounded-lg  font-medium ${
+                      /* @ts-expect-error: This */
                       item.id == sellectedCategory?.id
                         ? "bg-redPrimary text-[#ffff]"
                         : ""
@@ -64,12 +64,14 @@ const CatalogModal = () => {
                 ))}
               </div>
               <div className="subcategory flex flex-col gap-7 font-medium text-fs_8 col-span-3 p-5">
+                {/* @ts-expect-error: This */}
                 {sellectedCategory?.children?.map((item) => (
                   <div className="" key={item?.id}>
                     <h2 className="text-fs_9 m-0 font-bold uppercase font-Helvetica-Neue">
                       {item?.name}
                     </h2>
                     <div className="flex flex-col  gap-3">
+                      {/* @ts-expect-error: This */}
                       {item?.children?.map((item) => (
                         <p className="font-normal" key={item?.id}>
                           {item?.name}

@@ -6,6 +6,7 @@ export interface Catalog {
   price_type: string;
   images_set: {
     image_url: string;
+    image: string;
   }[];
 }
 

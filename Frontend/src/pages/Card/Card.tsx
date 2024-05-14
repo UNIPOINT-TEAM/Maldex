@@ -9,7 +9,7 @@ const Card = () => {
   /*@ts-expect-error: This */
   const { items, total } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
-
+  
   return (
     <>
       <div className="home">

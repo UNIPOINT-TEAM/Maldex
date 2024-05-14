@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import {
+  MainProductFilter,
   News,
-  ProductNav,
   QuestForm,
   SaleSlider,
-  SliderProduct,
 } from "../../components";
 
 import CardCatalog from "../../components/CardCatalog/CardCatalog";
@@ -56,6 +55,7 @@ const Catalog = () => {
   const handleFilter = (query: string) => {
     fetchData({ method: "GET", url: `/product/?${query}` });
   };
+  console.log(response);
 
   return (
     <div className="home px-2 md:px-0">
@@ -238,8 +238,7 @@ const Catalog = () => {
           </div>
           <div className="flex gap-2 flex-wrap py-2 ">
             {/*@ts-expect-error: This */}
-            {response &&
-              response.results?.map((item) => (
+            {response &&response.results?.map((item) => (
                 <div
                   className="w-[45%] sm:w-[30%] md:w-[18%] mb-[40px]"
                   key={item.id}
@@ -282,23 +281,10 @@ const Catalog = () => {
           <Accordion />
         </div>
         <div className="container_xxl px-3">
-          <div className="">
-            <ProductNav title="hits!" color="green" />
-          </div>
-        </div>
-        <div className="w-full">
-          <SliderProduct products={[]} />
+          <MainProductFilter status="hit" />
         </div>
         <div className="md:hidden mb-5">
           <News title="новинки" />
-        </div>
-        <div className="container_xxl px-3 md:hidden">
-          <div className="">
-            <ProductNav title="Sale!" color="red" />
-          </div>
-        </div>
-        <div className="w-full md:hidden">
-          <SliderProduct products={[]} />
         </div>
       </div>
       <QuestForm />

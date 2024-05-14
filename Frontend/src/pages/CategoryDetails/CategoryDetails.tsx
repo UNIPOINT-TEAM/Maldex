@@ -4,8 +4,8 @@ import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
 import { Banner, QuestForm, SliderProduct, TabList } from "../../components";
 import Tshirt from "../../assets/t-shirt.svg";
-import nasilnenie_l from "../../assets/shirt-l.png";
-import nasilnenie_r from "../../assets/shirt-r.png";
+import nasilnenie_l from "../../assets/t-shirt.png";
+import nasilnenie_r from "../../assets/t-shirt.png";
 import tabImages from "../../assets/images/tab-image.png";
 import arrowT from "../../assets/icons/arrow-t.svg";
 import arrowB from "../../assets/icons/arrow-b.svg";
@@ -66,10 +66,10 @@ const CategoryDetails = () => {
   const { fetchData, response } = useFetchHook();
   useEffect(() => {
     fetchData({ method: "GET", url: `/product/${id}` });
-  }, []);
-  console.log(response);
+  }, [id]);
+
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, left: 0 });
   }, []);
   function calculateDiscount(quantity: number, price: number) {
     let discount = 0;
@@ -110,13 +110,13 @@ const CategoryDetails = () => {
     {
       label: "Описание",
       value: "Описание",
-       /*@ts-expect-error: This */
+      /*@ts-expect-error: This */
       content: <TabDescription description={response?.description} />,
     },
     {
       label: "Характеристики",
       value: "Характеристики",
-       /*@ts-expect-error: This */
+      /*@ts-expect-error: This */
       content: <TabList pack={response?.pack} />,
     },
     // {
@@ -127,7 +127,7 @@ const CategoryDetails = () => {
     {
       label: "виды нанесения",
       value: "виды нанесения",
-       /*@ts-expect-error: This */
+      /*@ts-expect-error: This */
       content: <TabFour prints={response?.prints} />,
     },
   ];
@@ -223,7 +223,7 @@ const CategoryDetails = () => {
               isActive !== 1 && "hidden"
             }`}
           >
-            { /*@ts-expect-error: This */}
+            {/*@ts-expect-error: This */}
             <ProductPerviewModal images={response?.images_set} />
           </div>
           <div
@@ -400,7 +400,7 @@ const CategoryDetails = () => {
         </div>
       </div>
       <div className="mb-16 mt-16">
-        { /*@ts-expect-error: This */}
+        {/*@ts-expect-error: This */}
         <SliderProduct />
       </div>
 

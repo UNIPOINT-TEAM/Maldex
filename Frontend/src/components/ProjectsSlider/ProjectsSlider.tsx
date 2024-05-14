@@ -43,7 +43,6 @@ function ProjectsSlider() {
     // @ts-expect-error: This
     if (swiperRef.current && swiperRef.current.swiper) {
       // @ts-expect-error: This
-
       swiperRef.current.swiper.slidePrev();
     }
   };
@@ -123,7 +122,7 @@ function ProjectsSlider() {
                           // @ts-expect-error: This
                           item.images_set[0]
                         }
-                        className=""
+                        className="h-full w-full object-cover"
                         alt=""
                       />
                       <p className="z-[999999] text-fs_6 left-0 ps-5 absolute bottom-2 text-[#fff]">

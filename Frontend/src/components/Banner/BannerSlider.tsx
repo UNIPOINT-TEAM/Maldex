@@ -4,14 +4,13 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { useFetchHook } from "../../hooks/UseFetch";
-// import { BASE_URL } from "../../utils";
+import product from "../../assets/images/slider-item.png";
 
 const BannerSlider = () => {
   const { fetchData, response } = useFetchHook();
   useEffect(() => {
     fetchData({ method: "GET", url: "/banner/carousel/" });
   }, []);
-  console.log(response[0]?.product_set);
 
   return (
     <div className="banner-carusel relative w-full h-full bg-greenPrimary flex  p-[12px] lg:p-[20px] text-white font-helvetica-neue">
@@ -26,11 +25,11 @@ const BannerSlider = () => {
             nextEl: ".next-arrow",
           }}
           modules={[Navigation, Pagination, Autoplay]}
-          className="w-full "
+          className="w-full h-full  "
         >
-          {response &&
-            response[0]?.product_set?.map((item) => (
-              <SwiperSlide className="w-full flex" key={item.id}>
+          {/* @ts-expect-error: This */}
+          {response && response[0]?.product_set?.map((item) => (
+              <SwiperSlide className="w-full flex h-full" key={item.id}>
                 <div className="w-[55%] flex flex-col justify-between">
                   <div>
                     <span className="border  font-medium text-[8px] lg:text-[11px] uppercase p-1 tracking-wide rounded-md">
@@ -55,11 +54,10 @@ const BannerSlider = () => {
                     </Link>
                   </div>
                 </div>
-                <div className="w-[45%]">
-                  <video
+                <div className="w-[45%] pt-4  flex items-end">
+                  {/* <video
                     src={item?.bannerCarouselVideo}
-                    className="w-full h-full object-cover"
-                    autoPlay={true}
+                    className="w-[75%] h-full object-cover"
                     controls
                   >
                     <source
@@ -67,13 +65,18 @@ const BannerSlider = () => {
                       src={item?.bannerCarouselVideo}
                       type="video/mp4"
                     />
-                  </video>
+                  </video> */}
+                  <img
+                    src={product}
+                    alt="img"
+                    className="w-full h-[300px] object-contain"
+                  />
                 </div>
               </SwiperSlide>
             ))}
         </Swiper>
         <div className="navigation-box  absolute right-3 lg:right-6 bottom-3 lg:bottom-5 z-[9] flex gap-2">
-          <button className="prev-arrow p-2 border border-[#fff] rounded-lg">
+          <button className="prev-arrow backdrop-blur-lg p-2 border border-[#fff] rounded-lg">
             <FaArrowLeft className="text-fs_8 lg:text-fs_7" />
           </button>
           <button className="next-arrow p-2 border border-[#fff]  rounded-lg">

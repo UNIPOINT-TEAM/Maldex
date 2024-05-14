@@ -35,8 +35,8 @@ function Company() {
           <AboutInfo />
         </div>
         <div className="container_xxl">
-          
-          <ProductNav color="green"  title="hits!"/>
+          {/* @ts-expect-error: This */}
+          <ProductNav  color="green"  title="hits!"/>
           { /*@ts-expect-error: This */}
           <SliderProduct/>
         </div>

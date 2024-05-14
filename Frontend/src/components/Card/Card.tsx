@@ -23,7 +23,7 @@ const CardModal = () => {
   useEffect(() => {
     fetchData({ method: "GET", url: "/product/" });
   }, []);
-  console.log(items);
+
   return (
     <>
       <Link

@@ -9,20 +9,24 @@ const api = axios.create({
 
 export const useFetchHook = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
   const [response, setResponse] = useState<any[]>([]);
 
   const fetchData = useCallback(async (configobj: AxiosRequestConfig) => {
     try {
       setIsLoading(true);
       const any = await api(configobj);
-      setIsLoading(false);
       const data = any.data as any[];
       setResponse(data);
+      setIsError(false);
+      setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
-      console.log(error);
+      setIsError(true);
+    } finally {
+      setIsLoading(false);
     }
   }, []);
 
-  return { isLoading, response, fetchData };
+  return { isLoading, response, fetchData, isError };
 };

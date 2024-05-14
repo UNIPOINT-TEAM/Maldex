@@ -16,7 +16,11 @@ const CardCatalog: React.FC<Catalog> = ({
       <div className="relative w-full catalogImgBox">
         <img
           className="mb-2 h-[255px] w-full object-contain"
-          src={images_set[0]?.image_url}
+          src={
+            images_set[0]?.image
+              ? images_set[0]?.image
+              : images_set[0]?.image_url
+          }
           alt="category-img"
         />
       </div>
