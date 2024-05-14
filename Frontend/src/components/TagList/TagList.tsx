@@ -69,13 +69,13 @@ const TagList = () => {
                 >
                   {category}
                 </li>
+
               ))}
             </ul>
           </div>
           <div className="">
             <ul className="mb-10 flex flex-wrap gap-y-5 justify-between hidden lg:flex">
               {selectedCategory &&
-              // @ts-ignore
                 categories[selectedCategory].map((subcategory) => (
                   <li
                     key={subcategory}
