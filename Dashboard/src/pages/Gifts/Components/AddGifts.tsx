@@ -26,6 +26,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import { GetProductSearch } from '../../../services/product';
+import PaginationCard from '../../../components/Pagination/Pagination';
 
 const AddGifts = () => {
   const navigate = useNavigate();
@@ -49,6 +50,8 @@ const AddGifts = () => {
   const [quantities, setQuantities] = useState({});
   const [inputVal, setInputVal] = useState('');
   const [uploadedPhotos, setUploadedPhotos] = useState<string[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   const handleFileInputChange = (
     index: number,
@@ -80,28 +83,31 @@ const AddGifts = () => {
     loadCategories();
   }, []);
 
-  useEffect(() => {
-    GetProduct()
-      .then((res) => {
-        console.log('GetProduct result:', res);
-        if (Array.isArray(res)) {
-          setAddProduct(res);
-        } else if (res.results) {
-          setAddProduct(res.results);
-        } else {
-          console.error('Unexpected response format:', res);
-        }
-      })
-      .catch((error) => {
-        console.error('Error fetching products:', error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   GetProduct()
+  //     .then((res) => {
+  //       console.log('GetProduct result:', res);
+  //       if (Array.isArray(res)) {
+  //         setAddProduct(res);
+  //       } else if (res.results) {
+  //         setAddProduct(res.results);
+  //       } else {
+  //         console.error('Unexpected response format:', res);
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error fetching products:', error);
+  //     });
+  // }, []);
 
   useEffect(() => {
-    GetProductSearch(inputVal).then((res) => {
+    GetProductSearch(inputVal, currentPage, '').then((res) => {
       setAddProduct(res.data.results);
+      const residual = res.data.count % 10;
+      const pages = (res.data.count - residual) / 10;
+      setTotalPages(pages % 2 == 0 && pages === 1 ? pages : pages + 1);
     });
-  }, [inputVal]);
+  }, [inputVal, currentPage]);
 
   const handleChange = async (selectedId: string) => {
     try {
@@ -122,8 +128,6 @@ const AddGifts = () => {
         quantity: quantities[id] || 0, // Если не указано количество, по умолчанию 0
       }))
       .filter((item) => item.quantity > 0); // Отфильтровываем, если количество равно 0
-
-
 
     const formData = new FormData();
 
@@ -497,9 +501,7 @@ const AddGifts = () => {
                         >
                           {item?.images_set?.map((i) => (
                             <SwiperSlide className="w-full h-full">
-                              <div
-                                className="relative  h-full"
-                              >
+                              <div className="relative  h-full">
                                 <div className="flex justify-center items-center h-full">
                                   <img
                                     className="mb-2  object-contain product-img"
@@ -583,6 +585,11 @@ const AddGifts = () => {
                     </div>
                   </div>
                 ))}
+                <PaginationCard
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentPage}
+                  totalPages={totalPages}
+                />
               </div>
             </CardBody>
             <CardFooter className="pt-0 font-satoshi flex justify-end gap-4">
