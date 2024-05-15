@@ -1,8 +1,7 @@
 import {
-    ProductNav,
+  MainProductFilter,
   ProjectsSlider,
   QuestForm,
-  SliderProduct,
   TagBanner,
   TagList,
 } from "../../components";
@@ -14,12 +13,9 @@ function Tags() {
       <TagList />
       <ProjectsSlider />
       <div className="container_xxl px-3 mt-10">
-        <ProductNav title="new!" color="red" />
+        <MainProductFilter status="new" />
       </div>
-      <div className="w-full">
-        { /*@ts-expect-error: This */}
-        <SliderProduct />
-      </div>
+     
       <QuestForm />
     </>
   );

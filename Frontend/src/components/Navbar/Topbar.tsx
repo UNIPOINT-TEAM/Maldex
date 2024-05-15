@@ -40,7 +40,7 @@ const Topbar = () => {
               {TopbarLink.Topbar_r.map((item, i) => (
                 <li key={i}>
                   <Link
-                    to={item.path}
+                    to={item?.link}
                     className="text-darkPrimary  text-fs_8 tracking-wider font-normal hover:text-redPrimary px-2"
                   >
                     {item.name}

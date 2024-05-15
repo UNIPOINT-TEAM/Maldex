@@ -21,7 +21,7 @@ export const TopbarLink = {
     { path: "", name: "Москва", icon: location },
   ],
   Topbar_r: [
-    { path: "", name: "Доставка", link: "/delivery" },
+    { path: "", name: "Доставка", link: "/delivery#delivery" },
     { path: "", name: "Оплата", link: "/delivery#payment" },
     { path: "", name: "Контакты", link: "/delivery#contacts" },
   ],

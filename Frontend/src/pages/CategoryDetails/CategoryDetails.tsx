@@ -2,7 +2,13 @@ import { useEffect, useState } from "react";
 // @ts-ignore
 import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
-import { Banner, QuestForm, SliderProduct, TabList } from "../../components";
+import {
+  Banner,
+  MainProductFilter,
+  QuestForm,
+  SliderProduct,
+  TabList,
+} from "../../components";
 import Tshirt from "../../assets/t-shirt.svg";
 import nasilnenie_l from "../../assets/t-shirt.png";
 import nasilnenie_r from "../../assets/t-shirt.png";
@@ -67,6 +73,7 @@ const CategoryDetails = () => {
   useEffect(() => {
     fetchData({ method: "GET", url: `/product/${id}` });
   }, [id]);
+  console.log(response);
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0 });
@@ -119,11 +126,7 @@ const CategoryDetails = () => {
       /*@ts-expect-error: This */
       content: <TabList pack={response?.pack} />,
     },
-    // {
-    //   label: "таблица размеров",
-    //   value: "таблица размеров",
-    //   content: <TabSizeTable />,
-    // },
+
     {
       label: "виды нанесения",
       value: "виды нанесения",
@@ -400,10 +403,8 @@ const CategoryDetails = () => {
         </div>
       </div>
       <div className="mb-16 mt-16">
-        {/*@ts-expect-error: This */}
-        <SliderProduct />
+        <MainProductFilter status="new" />
       </div>
-
       <div className="my-5">
         <Banner />
       </div>

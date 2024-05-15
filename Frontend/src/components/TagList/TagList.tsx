@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { useFetchHook } from "../../hooks/UseFetch";
 
 const TagList = () => {
@@ -11,8 +11,7 @@ const TagList = () => {
   useEffect(() => {
     fetchData({ method: "GET", url: `/gifts/baskets/tag/category/` });
   }, []);
-// @ts-expect-error "error"
-  const handleCategoryClick = async (category) => {
+  const handleCategoryClick = async (category: any) => {
     setSelectedCategory(category);
     try {
       await fetchSubcategories({ method: "GET", url: `/gifts/baskets/tags/` });
@@ -21,7 +20,7 @@ const TagList = () => {
     }
   };
 
-  const handleSubcategoryClick = (subcategory) => {
+  const handleSubcategoryClick = (subcategory: any) => {
     setSelectedSubcategory(subcategory);
   };
 
@@ -50,8 +49,8 @@ const TagList = () => {
             {selectedCategory &&
               subcategories
                 .filter(
-                  (subcategory) =>
-                    subcategory.tag_category === selectedCategory.id
+                  /* @ts-expect-error: This */
+                  (subcategory) =>subcategory.tag_category === selectedCategory.id
                 )
                 .map((subcategory) => (
                   <li

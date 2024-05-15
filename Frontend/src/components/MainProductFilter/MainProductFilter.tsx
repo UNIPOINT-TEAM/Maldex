@@ -47,7 +47,7 @@ const MainProductFilter: React.FC<{ status: StatusType }> = ({ status }) => {
         setActiveCategoryId={setActiveCategoryId}
         query={filterData[status].query}
       />
-      <SliderProduct products={products}  />
+      <SliderProduct products={products?.results} />
     </>
   );
 };

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import error from "../../assets/images/box404.png";
-import { QuestForm, TagList } from "../../components";
+import { QuestForm } from "../../components";
 import { useFetchHook } from "../../hooks/UseFetch";
 import { Link } from "react-router-dom";
 
@@ -15,22 +15,14 @@ function NotFound() {
     fetchData({ method: "GET", url: `/link-tags/categories` });
   }, []);
   // @ts-expect-error "error"
-  const handleCategoryClick = async (category) => {
+  const handleCategoryClick = (category) => {
     setSelectedCategory(category);
-    try {
-      await fetchSubcategories({ method: "GET", url: `/link-tags/` });
-    } catch (error) {
-      console.error("Ошибка при загрузке подкатегорий:", error);
-    }
+    fetchSubcategories({ method: "GET", url: `/link-tags/` });
   };
 
-  const handleSubcategoryClick = (subcategory) => {
+  const handleSubcategoryClick = (subcategory: any) => {
     setSelectedSubcategory(subcategory);
   };
-
-  console.log(selectedCategory);
-  console.log(subcategories);
-  console.log(categories);
 
   return (
     <div>
@@ -51,15 +43,15 @@ function NotFound() {
         <div className="container_xxl">
           <div className="flex flex-col">
             <div>
-              <ul className="mt-10 mb-6 mx-10 mx justify-around hidden lg:flex">
+              <ul className="mt-10 mb-6 mx-auto w-4/5 hidden lg:flex gap-3">
                 {categories.map((category) => (
                   <li
                     key={category.id}
                     onClick={() => handleCategoryClick(category)}
-                    className={`cursor-pointer py-2 px-10 border rounded-3xl uppercase  ${
+                    className={`cursor-pointer font-bold h-[40px] text-fs_8  flex items-center justify-center  px-10  rounded-3xl uppercase  ${
                       selectedCategory === category
-                        ? "font-bold bg-redPrimary text-white"
-                        : "bg-white"
+                        ? " bg-redPrimary text-white"
+                        : "bg-white text-[#666666]"
                     }`}
                   >
                     {category.title}
@@ -68,22 +60,22 @@ function NotFound() {
               </ul>
             </div>
             <div>
-              <ul className="mb-10 flex flex-wrap gap-y-5 justify-between hidden lg:flex">
+              <ul className="mb-10  flex-wrap gap-y-5 justify-between hidden lg:flex">
+                {/* @ts-expect-error: This */}
                 {selectedCategory &&
                   selectedCategory?.tags?.map((tag) => (
-                    <Link to={tag.link} target='_blank'        onClick={() => handleSubcategoryClick(tag)}
-                    className={`cursor-pointer py-2 border hover:text-white hover:bg-redPrimary hover:font-bold rounded-xl px-4 text-center ${
-                      selectedSubcategory === tag
-                        ? "font-bold bg-redPrimary text-white"
-                        : "bg-white"
-                    }`}
-                    style={{ width: "18%" }}>
-                      <li
-                        key={tag.id}
-                 
-                      >
-                        {tag.title}
-                      </li>
+                    <Link
+                      to={tag.link}
+                      target="_blank"
+                      onClick={() => handleSubcategoryClick(tag)}
+                      className={`cursor-pointer py-2 border hover:text-white hover:bg-redPrimary hover:font-bold rounded-xl px-4 text-center ${
+                        selectedSubcategory === tag
+                          ? "font-bold bg-redPrimary text-white"
+                          : "bg-white"
+                      }`}
+                      style={{ width: "18%" }}
+                    >
+                      <li key={tag.id}>{tag.title}</li>
                     </Link>
                   ))}
               </ul>

@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaBars } from "react-icons/fa6";
 import { IoMdClose } from "react-icons/io";
 import { useFetchHook } from "../../hooks/UseFetch";
 
 const CatalogModal = () => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [sellectedCategory, setSellectedCategory] = useState(null);
   const { fetchData, response } = useFetchHook();
 
@@ -16,7 +16,10 @@ const CatalogModal = () => {
     const subCategory = response.filter((item) => item?.id === id);
     setSellectedCategory(subCategory[0]);
   };
-  const handleToggle = () => setOpen(!open);
+  const handleToggle = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    setOpen(!open);
+  };
   return (
     <>
       <button

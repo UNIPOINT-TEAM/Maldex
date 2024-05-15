@@ -21,7 +21,7 @@ const BuildSet = () => {
   useEffect(() => {
     fetchData({ method: "GET", url: "/gifts/baskets/set/catalogs/" });
   }, []);
-  console.log(response[0]?.product_sets);
+  console.log(response);
 
   return (
     <div className="">

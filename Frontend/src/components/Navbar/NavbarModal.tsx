@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useFetchHook } from "../../hooks/UseFetch";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Arrow from "../../assets/icons/arrow-right.png";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoClose } from "react-icons/io5";

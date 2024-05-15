@@ -5,13 +5,7 @@ import image3 from "../../assets/portfolio/image3.png";
 import image4 from "../../assets/portfolio/image4.png";
 import image5 from "../../assets/portfolio/image5.png";
 import image6 from "../../assets/portfolio/image6.png";
-import {
-  Badge,
-  News,
-  ProductNav,
-  QuestForm,
-  SliderProduct,
-} from "../../components";
+import { Badge, News, QuestForm } from "../../components";
 
 function Portfolio() {
   return (
@@ -95,13 +89,6 @@ function Portfolio() {
           </div>
           {/* <PortfolioBanner /> */}
           <News title="Новинки" />
-          <div className="container_xxl px-3">
-            <ProductNav title="sale!" color="red" />
-          </div>
-          <div className="w-full">
-            { /*@ts-expect-error: This */}
-            <SliderProduct />
-          </div>
           <QuestForm />
         </div>
       </div>

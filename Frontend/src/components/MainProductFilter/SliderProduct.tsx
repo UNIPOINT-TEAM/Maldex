@@ -22,11 +22,10 @@ const SliderProduct = ({ products }) => {
   const [addCard, setAddCard] = useState(false);
   const [size, setSize] = useState(null);
   const [like, setLike] = useState(false);
-
+  console.log(products);
   const changeStatus = () => {
     setDefaultProduct(!defaultProduct);
   };
-  console.log(products);
   // @ts-expect-error: This
   const handleOpen = (value: string) => setSize(value);
 
@@ -187,7 +186,7 @@ const SliderProduct = ({ products }) => {
         className=" w-full overscroll-x-auto h-[430px] md:h-[500px]"
       >
         {/*@ts-expect-error: This */}
-        {products.results?.map((item) => (
+        {products?.map((item) => (
           <SwiperSlide key={item.id} className="w-full">
             <div className="catalog ">
               <div className="relative swiper-top-container h-[220px] mb-4 bg-gray-200">
@@ -204,7 +203,7 @@ const SliderProduct = ({ products }) => {
                           onClick={() => handleOpen("xl")}
                           className="relative  h-full"
                         >
-                          <div className="flex justify-center items-center h-full" >
+                          <div className="flex justify-center items-center h-full">
                             <img
                               className="mb-2 w-[50px] h-[50px] object-contain product-img"
                               src={item?.image_url}

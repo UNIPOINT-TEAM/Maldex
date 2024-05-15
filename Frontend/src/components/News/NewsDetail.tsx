@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import  { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useFetchHook } from '../../hooks/UseFetch';
 import { BASE_URL } from '../../services/services';
@@ -20,12 +20,12 @@ function NewsDetail() {
   
   return (
     <div className='container_xxl'>
-      {/* Проверяем, есть ли значение в response.body, прежде чем использовать его */}
+      {/* @ts-expect-error: This */}
       <div className='m-auto'>{response.body}</div>
-
-      {/* Применяем замену src только если есть значение в response.body */}
+{/* @ts-expect-error: This */}
       {response.body && (
         <div
+        /* @ts-expect-error: This */
           dangerouslySetInnerHTML={{ __html: response.body.replace(
             /src="\/media/g,
             `src="${BASE_URL}/media`,
