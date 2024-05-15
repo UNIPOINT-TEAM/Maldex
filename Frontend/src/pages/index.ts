@@ -3,6 +3,7 @@ export { default as Gift } from "./Gift/Gift";
 export { default as Card } from "./Card/Card";
 export { default as CategoryDetails } from "./CategoryDetails/CategoryDetails";
 export { default as Portfolio } from "./Portfolio/Portfolio";
+export { default as PortfolioDetail } from "./Portfolio/PortfolioDetail";
 export { default as Company } from "./Company/Company";
 export { default as Tags } from "./Tags/Tags";
 export { default as NotFound } from "./NotFound/NotFound";

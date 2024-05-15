@@ -89,6 +89,13 @@ function Portfolio() {
           </div>
           {/* <PortfolioBanner /> */}
           <News title="Новинки" />
+          <div className="container_xxl px-3">
+            {/* <ProductNav title="sale!" color="red" /> */}
+          </div>
+          <div className="w-full">
+            { /*@ts-expect-error: This */}
+            {/* <SliderProduct /> */}
+          </div>
           <QuestForm />
         </div>
       </div>

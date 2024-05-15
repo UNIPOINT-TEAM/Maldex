@@ -18,6 +18,7 @@ import {
   Home,
   NotFound,
   Portfolio,
+  PortfolioDetail,
   Sidebar,
   Tags,
   Tamplate,
@@ -55,6 +56,10 @@ export const router = createBrowserRouter([
       {
         path: "/portfolio",
         element: <Portfolio />,
+      },
+      {
+        path: "/portfolio/:id",
+        element: <PortfolioDetail />,
       },
       {
         path: "/company",

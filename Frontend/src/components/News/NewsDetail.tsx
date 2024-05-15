@@ -1,7 +1,8 @@
-import  { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { useFetchHook } from '../../hooks/UseFetch';
-import { BASE_URL } from '../../services/services';
+import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useFetchHook } from "../../hooks/UseFetch";
+import { BASE_URL } from "../../services/services";
+import "./styleEditor.css";
 
 function NewsDetail() {
   const { id } = useParams();
@@ -9,29 +10,33 @@ function NewsDetail() {
 
   useEffect(() => {
     fetchData({ method: "GET", url: `/articles/${id}` });
-  }, [id]);
+    window.scrollTo(0, 0);
+  }, [id, fetchData]);
 
-  // Проверяем, есть ли значение в response
   if (!response) {
     return <div>Loading...</div>;
   }
 
   console.log(response);
-  
+
   return (
-    <div className='container_xxl'>
-      {/* @ts-expect-error: This */}
-      <div className='m-auto'>{response.body}</div>
-{/* @ts-expect-error: This */}
-      {response.body && (
-        <div
-        /* @ts-expect-error: This */
-          dangerouslySetInnerHTML={{ __html: response.body.replace(
-            /src="\/media/g,
-            `src="${BASE_URL}/media`,
-          ) }}
-        />
-      )}
+    <div className="container_xxl">
+      <div className="pb-[50vh] mt-10 mx-[100px]">
+        {response.body && (
+          <div className="article-container ck-__editable">
+            <div className="ck-content">
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: response.body.replace(
+                    /src="\/media/g,
+                    `src="${BASE_URL}media`
+                  ),
+                }}
+              />
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

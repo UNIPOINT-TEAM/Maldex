@@ -17,16 +17,20 @@ const News: React.FC<{ title: string }> = ({ title }) => {
       <div className="flex flex-col gap-3">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
           <Link
-            to={`/articles/${response[0]?.id}`}
+            to={`/articles/${response[4]?.id}`}
             className="bg-cover overflow-hidden text-white h-[180px] sm:h-[340px]"
             style={{
-              backgroundImage: `url(${response[0]?.image})`,
+              backgroundImage: `url(${response[4]?.image})`,
             }}
           >
-            {response[0] ? (
+            {response[4] ? (
               <div className="p-3 lg:p-5">
                 <h3 className="text-fs_6 lg:text-fs_3 opacity-50">
-                  {response[0]?.title}
+                  {response[4]?.pub_date}
+                </h3>
+
+                <h3 className="text-fs_6 lg:text-[28px]">
+                  {response[4]?.title}
                 </h3>
                 <Badge name="NEW" />
                 <Badge name="HIT" />
@@ -37,16 +41,20 @@ const News: React.FC<{ title: string }> = ({ title }) => {
           </Link>
 
           <Link
-            to={`/articles/${response[1]?.id}`}
+            to={`/articles/${response[3]?.id}`}
             className=" overflow-hidden bg-cover text-white h-[180px] sm:h-[340px]"
             style={{
-              backgroundImage: `url(${response[1]?.image})`,
+              backgroundImage: `url(${response[3]?.image})`,
             }}
           >
-            {response[1] ? (
+            {response[3] ? (
               <div className=" p-3 lg:p-5">
                 <h3 className="text-fs_6 lg:text-fs_3 opacity-50">
-                  {response[1]?.title}
+                  {response[3]?.pub_date}
+                </h3>
+
+                <h3 className="text-fs_6 lg:text-[28px]">
+                  {response[3]?.title}
                 </h3>
                 <Badge name="NEW" />
                 <Badge name="HIT" />
@@ -67,6 +75,10 @@ const News: React.FC<{ title: string }> = ({ title }) => {
             {response[2] ? (
               <div className="p-3 lg:p-5">
                 <h3 className="text-fs_6 lg:text-fs_3 opacity-50">
+                  {response[2]?.pub_date}
+                </h3>
+
+                <h3 className="text-fs_6 lg:text-[28px]">
                   {response[2]?.title}
                 </h3>
                 <Badge name="NEW" />
@@ -77,16 +89,20 @@ const News: React.FC<{ title: string }> = ({ title }) => {
             )}
           </Link>
           <Link
-            to={`/articles/${response[3]?.id}`}
+            to={`/articles/${response[1]?.id}`}
             className=" bg-cover text-white hidden lg:block h-full"
             style={{
-              backgroundImage: `url(${response[3]?.image})`,
+              backgroundImage: `url(${response[1]?.image})`,
             }}
           >
-            {response[3] ? (
+            {response[1] ? (
               <div className="p-3 lg:p-5">
                 <h3 className="text-fs_6 lg:text-fs_3 opacity-50">
-                  {response[3]?.title}
+                  {response[1]?.pub_date}
+                </h3>
+
+                <h3 className="text-fs_6 lg:text-[28px]">
+                  {response[1]?.title}
                 </h3>
                 <Badge name="NEW" />
                 <Badge name="HIT" />
@@ -96,17 +112,19 @@ const News: React.FC<{ title: string }> = ({ title }) => {
             )}
           </Link>
           <Link
-            to={`/articles/${response[4]?.id}`}
+            to={`/articles/${response[0]?.id}`}
             className=" bg-cover text-white hidden lg:block h-full"
             style={{
-              backgroundImage: `url(${response[4]?.image})`,
+              backgroundImage: `url(${response[0]?.image})`,
             }}
           >
-            {response[4] ? (
+            {response[0] ? (
               <div className="p-3 lg:p-5">
-                <h3 className="text-fs_6 lg:text-fs_3 opacity-50">2.10</h3>
-                <h2 className="text-fs_7 font-medium leading-tight mt-2">
-                  Маска для лица многоразовая из хлопка, анатомической формы
+                <h3 className="text-fs_6 lg:text-fs_3 opacity-50">
+                  {response[0]?.pub_date}
+                </h3>
+                <h2 className="text-fs_6 lg:text-[28px] ">
+                  {response[0]?.title}
                 </h2>
                 <Badge name="NEW" />
                 <Badge name="HIT" />
