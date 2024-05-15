@@ -48,7 +48,7 @@ const EditProduct = () => {
   const [ishit, setIshit] = useState(false);
   const [isnew, setIsnew] = useState(false);
   const [ispopular, setIspopular] = useState(false);
-  const [categoryId, setCategoryId] = useState(null);
+  const [categoryId, setCategoryId] = useState('');
   const [subcategoryId, setSubCategoryId] = useState(null);
   const [subSubcategoryId, setSubSubCategoryId] = useState(null);
   const [category, setCategory] = useState([]);
@@ -135,10 +135,7 @@ const EditProduct = () => {
       formdata.append(`images[${i}]color`, inputs[i].color);
       formdata.append(`images[${i}]image`, inputs[i].image);
     }
-    UpdateWithFormData(
-      `${BASE_URL}/product/${id}/`,
-      formdata,
-    ).then(() => {
+    UpdateWithFormData(`${BASE_URL}/product/${id}/`, formdata).then(() => {
       setStatus(!status), setSuccess(true);
       setTimeout(() => {
         setSuccess(false);

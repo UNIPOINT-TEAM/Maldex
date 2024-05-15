@@ -219,6 +219,11 @@ const Categories = () => {
                     </div>
                   </div>
                   <p className="text-lg mb-3">{category?.name}</p>
+                  <Link to={`/category/${category.id}/products`}>
+                    <button className="bg-red-400 text-white rounded w-full h-[30px] mb-2 flex justify-center items-center text-[12px]">
+                      продукты
+                    </button>
+                  </Link>
                   <form
                     onSubmit={(e) => addSubCategory(e, category.id)}
                     className="flex justify-between mb-4 gap-1"
@@ -355,6 +360,11 @@ const Categories = () => {
                     </div>
                   </div>
                   <p className="text-lg mb-3">{category?.name}</p>
+                  <Link to={`/category/${category.id}/products`}>
+                    <button className="bg-red-400 text-white rounded w-full h-[30px] mb-2 flex justify-center items-center text-[12px]">
+                      продукты
+                    </button>
+                  </Link>
                   <form
                     onSubmit={(e) => addSubCategory(e, category.id)}
                     className="flex justify-between mb-4 gap-1"
