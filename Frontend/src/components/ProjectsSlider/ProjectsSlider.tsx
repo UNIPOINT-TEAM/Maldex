@@ -64,16 +64,14 @@ function ProjectsSlider() {
                   {tags?.map((item, index) => (
                     <li
                       key={index}
-                      className={`cursor-pointer font-medium text-[10px] lg:text-fs_8 py-4 border-b-2 ${
+                      className={`cursor-pointer tracking-wider font-medium text-[10px] lg:text-fs_8 py-4 border-b-2 ${
                         // @ts-expect-error: This
-
                         selectedItem === item.id
                           ? "border-redPrimary text-redPrimary"
                           : "border-transparent hover:text-redPrimary "
                       }`}
                       onClick={() => {
                         // @ts-expect-error: This
-
                         setSelectedItem(item.id);
                       }}
                     >

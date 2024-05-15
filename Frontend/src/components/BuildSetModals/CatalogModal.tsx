@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { FaBars } from "react-icons/fa6";
 import { IoMdClose } from "react-icons/io";
 import { useFetchHook } from "../../hooks/UseFetch";
-
-const CatalogModal = () => {
+interface IProps {
+  handleFilterProduct: (id: number) => void;
+}
+const CatalogModal: React.FC<IProps> = ({ handleFilterProduct }) => {
   const [open, setOpen] = useState(false);
   const [sellectedCategory, setSellectedCategory] = useState(null);
   const { fetchData, response } = useFetchHook();
@@ -16,32 +18,34 @@ const CatalogModal = () => {
     const subCategory = response.filter((item) => item?.id === id);
     setSellectedCategory(subCategory[0]);
   };
-  const handleToggle = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleToggle = (
+    e: React.MouseEvent<HTMLButtonElement | HTMLDivElement | HTMLOrSVGElement>
+  ) => {
     e.stopPropagation();
     setOpen(!open);
   };
   return (
     <>
       <button
-        onClick={handleToggle}
-        className="flex items-center gap-2 border border-black px-3 py-1 rounded-lg"
+        onClick={(e) => handleToggle(e)}
+        className="flex font-Helvetica-Neue items-center gap-2 border border-black px-3 py-1 rounded-lg"
       >
         <FaBars /> Каталог
       </button>
       {open && (
         <div
           onClick={(e) => e.stopPropagation()}
-          className="modal font-Helvetica-Neue absolute flex justify-end w-full right-0 top-0"
+          className="modal max-h-screen  absolute flex justify-end w-full right-0 top-0"
         >
-          <div className="catalog-content  z-[9999] max-w-[900px] bg-[#ffffff] w-full">
+          <div className="catalog-content h-screen  overflow-hidden z-[9999] max-w-[900px] bg-[#ffffff] w-full">
             <div className="heading p-5 flex justify-between">
               <h2 className="text-[22px]">Каталог</h2>
               <IoMdClose
                 className="cursor-pointer text-[30px]"
-                onClick={handleToggle}
+                onClick={(e) => handleToggle(e)}
               />
             </div>
-            <div className="body grid grid-cols-5 w-full ">
+            <div className="body h-screen grid grid-cols-5 w-full ">
               <div className="category py-3 gap-2 px-5 col-span-2 flex flex-col items-start bg-white">
                 {response.map((item) => (
                   <button
@@ -66,17 +70,24 @@ const CatalogModal = () => {
                   </button>
                 ))}
               </div>
-              <div className="subcategory flex flex-col gap-7 font-medium text-fs_8 col-span-3 p-5">
+              <div className="subcategory scrollbar-custom overflow-auto grid grid-cols-2  gap-7 font-medium text-fs_8 col-span-3 p-5">
                 {/* @ts-expect-error: This */}
                 {sellectedCategory?.children?.map((item) => (
                   <div className="" key={item?.id}>
-                    <h2 className="text-fs_9 m-0 font-bold uppercase font-Helvetica-Neue">
+                    <h2 className="text-fs_8 mb-3 font-bold uppercase font-Helvetica-Neue">
                       {item?.name}
                     </h2>
-                    <div className="flex flex-col  gap-3">
+                    <div className="flex flex-col">
                       {/* @ts-expect-error: This */}
                       {item?.children?.map((item) => (
-                        <p className="font-normal" key={item?.id}>
+                        <p
+                          onClick={() => {
+                            handleFilterProduct(item?.id);
+                            setOpen(false);
+                          }}
+                          className="font-medium text-fs_8 m-0 leading-normal hover:text-redPrimary"
+                          key={item?.id}
+                        >
                           {item?.name}
                         </p>
                       ))}
@@ -87,7 +98,7 @@ const CatalogModal = () => {
             </div>
           </div>
           <div
-            onClick={handleToggle}
+            onClick={(e) => handleToggle(e)}
             className="h-full z-[99] w-full top-[0] fixed left-0 bg-[#00000074] "
           ></div>
         </div>

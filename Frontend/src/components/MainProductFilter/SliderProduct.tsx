@@ -22,7 +22,6 @@ const SliderProduct = ({ products }) => {
   const [addCard, setAddCard] = useState(false);
   const [size, setSize] = useState(null);
   const [like, setLike] = useState(false);
-  console.log(products);
   const changeStatus = () => {
     setDefaultProduct(!defaultProduct);
   };

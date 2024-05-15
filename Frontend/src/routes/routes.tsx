@@ -30,7 +30,12 @@ import { PadPrinting } from "../pages/Applying";
 import GallerySidebar from "../pages/Gallery/GallerySidebar";
 
 // admin panel
-import { SettingsPanel, ConstructorPanel, FileAndPrice, NewsDetail } from "../components";
+import {
+  SettingsPanel,
+  ConstructorPanel,
+  FileAndPrice,
+  NewsDetail,
+} from "../components";
 
 export const router = createBrowserRouter([
   {
@@ -93,8 +98,6 @@ export const router = createBrowserRouter([
         path: "/admin",
         element: <AdminLogin />,
       },
-
-      //admin panel route is changed by Yusuf
       {
         path: "/adminpanel",
         element: <AdminPanel />,
@@ -105,10 +108,6 @@ export const router = createBrowserRouter([
         ],
       },
 
-      {
-        path: "/articles",
-        element: <Articles />,
-      },
       {
         path: "/articles",
         element: <Articles />,
@@ -165,8 +164,6 @@ export const router = createBrowserRouter([
           },
         ],
       },
-
-
     ],
   },
 ]);

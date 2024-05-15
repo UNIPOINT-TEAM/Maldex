@@ -48,7 +48,7 @@ function NotFound() {
                   <li
                     key={category.id}
                     onClick={() => handleCategoryClick(category)}
-                    className={`cursor-pointer font-bold h-[40px] text-fs_8  flex items-center justify-center  px-10  rounded-3xl uppercase  ${
+                    className={`cursor-pointer font-bold h-[40px] text-fs_8  flex items-center justify-center  px-16  rounded-3xl uppercase  ${
                       selectedCategory === category
                         ? " bg-redPrimary text-white"
                         : "bg-white text-[#666666]"
@@ -60,22 +60,23 @@ function NotFound() {
               </ul>
             </div>
             <div>
-              <ul className="mb-10  flex-wrap gap-y-5 justify-between hidden lg:flex">
+              <ul className="mb-10  flex-wrap gap-y-5  hidden lg:flex">
                 {/* @ts-expect-error: This */}
-                {selectedCategory &&
-                  selectedCategory?.tags?.map((tag) => (
+                {selectedCategory && selectedCategory?.tags?.map((tag) => (
                     <Link
                       to={tag.link}
                       target="_blank"
                       onClick={() => handleSubcategoryClick(tag)}
-                      className={`cursor-pointer py-2 border hover:text-white hover:bg-redPrimary hover:font-bold rounded-xl px-4 text-center ${
+                      className={`cursor-pointer flex items-center justify-center h-[70px] border border-lightSecondary hover:text-white hover:bg-redPrimary hover:font-bold rounded-xl px-4 text-center ${
                         selectedSubcategory === tag
                           ? "font-bold bg-redPrimary text-white"
-                          : "bg-white"
+                          : "bg-[#fff]"
                       }`}
                       style={{ width: "18%" }}
                     >
-                      <li key={tag.id}>{tag.title}</li>
+                      <li key={tag.id} className="font-medium text-fs_5">
+                        {tag.title}
+                      </li>
                     </Link>
                   ))}
               </ul>

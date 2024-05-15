@@ -6,11 +6,13 @@ import {
   Button,
 } from "@material-tailwind/react";
 import accordionIcon from "../../assets/icons/accordion-icon.png";
-import { CatalogModal, SliderProduct } from "../../components";
+import { CatalogModal } from "../../components";
 import GiftBanner from "../../assets/gift_builder_banner.png";
 import ProductCart from "../../assets/images/machine.png";
 import { IoAddSharp, IoCloseSharp, IoSearchOutline } from "react-icons/io5";
 import { useFetchHook } from "../../hooks/UseFetch";
+import BuildSetCarusel from "../../components/BuildSetModals/BuildSetCarusel";
+import EmptyContant from "../../components/EmptyContant/EmptyContant";
 
 const BuildSet = () => {
   const [open, setOpen] = useState<number>(0);
@@ -18,10 +20,16 @@ const BuildSet = () => {
   const [quantityVisible, setQuantityVisible] = useState<boolean>(false);
   const handleOpen = (value: number) => setOpen(open === value ? 0 : value);
   const { fetchData, response } = useFetchHook();
+  const { fetchData: filterFetch, response: filterProduct } = useFetchHook();
   useEffect(() => {
     fetchData({ method: "GET", url: "/gifts/baskets/set/catalogs/" });
   }, []);
-  console.log(response);
+
+  const handleFilterProduct = (id: number) => {
+    handleOpen(4);
+    filterFetch({ method: "GET", url: `product/?category_id=${id}` });
+  };
+  console.log(filterProduct);
 
   return (
     <div className="">
@@ -33,84 +41,35 @@ const BuildSet = () => {
             </h1>
           </div>
           <div className="w-full">
-            <Accordion
-              className=" border border-l-0 px-5 border-lightPrimary my-4"
-              open={open === 1}
-              icon={
-                <img
-                  className={`${
-                    open === 1 ? "rotate-180" : ""
-                  } transition-transform w-[18px]`}
-                  src={accordionIcon}
-                />
-              }
-              placeholder={<div />}
-            >
-              <AccordionHeader
-                className="border-0  p-4"
-                onClick={() => handleOpen(1)}
+            {response.map((item, index) => (
+              <Accordion
+                className=" border border-l-0 px-5 border-lightPrimary my-4"
+                open={open === item?.id}
+                icon={
+                  <img
+                    className={`${
+                      open === item?.id ? "rotate-180" : ""
+                    } transition-transform w-[18px]`}
+                    src={accordionIcon}
+                  />
+                }
                 placeholder={<div />}
               >
-                <h2 className="font-Helvetica-Neue tracking-wide text-fs_6 font-normal text-greenPrimary ">
-                  1. {response[0]?.title}
-                </h2>
-              </AccordionHeader>
-              <AccordionBody className="p-4" placeholder={<div />}>
-                <SliderProduct products={[]} />
-              </AccordionBody>
-            </Accordion>
-            <Accordion
-              className=" border border-l-0 border-lightPrimary px-5 my-4"
-              open={open === 2}
-              icon={
-                <img
-                  className={`${
-                    open === 2 ? "rotate-180" : ""
-                  } transition-transform w-[18px]`}
-                  src={accordionIcon}
-                />
-              }
-              placeholder={<div />}
-            >
-              <AccordionHeader
-                className="border-0  p-4"
-                onClick={() => handleOpen(2)}
-                placeholder={<div />}
-              >
-                <h2 className="font-Helvetica-Neue tracking-wide text-fs_6 font-normal text-greenPrimary ">
-                  2. Термокружки
-                </h2>
-              </AccordionHeader>
-              <AccordionBody className="p-4" placeholder={<div />}>
-                <SliderProduct products={[]} />
-              </AccordionBody>
-            </Accordion>
-            <Accordion
-              className=" border border-l-0 border-lightPrimary px-5 my-4"
-              open={open === 3}
-              icon={
-                <img
-                  className={`${
-                    open === 3 ? "rotate-180" : ""
-                  } transition-transform w-[18px]`}
-                  src={accordionIcon}
-                />
-              }
-              placeholder={<div />}
-            >
-              <AccordionHeader
-                className="border-0  p-4"
-                onClick={() => handleOpen(3)}
-                placeholder={<div />}
-              >
-                <h2 className="font-Helvetica-Neue tracking-wide text-fs_6 font-normal text-greenPrimary ">
-                  3. Гаджеты
-                </h2>
-              </AccordionHeader>
-              <AccordionBody className="p-4" placeholder={<div />}>
-                <SliderProduct products={[]} />
-              </AccordionBody>
-            </Accordion>
+                <AccordionHeader
+                  className="border-0  p-4"
+                  onClick={() => handleOpen(item?.id)}
+                  placeholder={<div />}
+                >
+                  <h2 className="font-Helvetica-Neue tracking-wide text-fs_6 font-normal text-greenPrimary ">
+                    {index + 1}. {item?.title}
+                  </h2>
+                </AccordionHeader>
+                <AccordionBody className="p-4" placeholder={<div />}>
+                  <BuildSetCarusel buildSetProducts={item?.product_sets} />
+                </AccordionBody>
+              </Accordion>
+            ))}
+
             <Accordion
               className=" border border-l-0 static border-lightPrimary px-5 my-4"
               open={open === 4}
@@ -122,9 +81,9 @@ const BuildSet = () => {
                 placeholder={<div />}
               >
                 <h2 className="font-Helvetica-Neue tracking-wide text-fs_6 font-normal text-greenPrimary ">
-                  4. Добавьте еще что-то
+                  {response.length + 1}. Добавьте еще что-то
                 </h2>
-                <div className="ms-16 text-base font-normal text-darkPrimary flex gap-4 items-center">
+                <div className="ms-16 font-Helvetica-Neue text-base font-normal text-darkPrimary flex gap-4 items-center">
                   <div className="w-[300px] h-[33px] flex items-center gap-3 search border border-darkPrimary px-2 rounded-lg">
                     <IoSearchOutline className="text-fs_4" />
                     <input
@@ -133,38 +92,17 @@ const BuildSet = () => {
                       className="placeholder:text-darkPrimary border-0 outline-none w-full h-full "
                     />
                   </div>
-                  <CatalogModal />
+                  <CatalogModal handleFilterProduct={handleFilterProduct} />
                 </div>
               </AccordionHeader>
               <AccordionBody className="p-4" placeholder={<div />}>
-                <SliderProduct products={[]} />
-              </AccordionBody>
-            </Accordion>
-            <Accordion
-              className=" border border-l-0 border-lightPrimary px-5 my-4"
-              open={open === 5}
-              icon={
-                <img
-                  className={`${
-                    open === 5 ? "rotate-180" : ""
-                  } transition-transform w-[18px]`}
-                  src={accordionIcon}
-                />
-              }
-              placeholder={<div />}
-            >
-              <AccordionHeader
-                className="border-0  p-4"
-                onClick={() => handleOpen(5)}
-                placeholder={<div />}
-              >
-                <h2 className="font-Helvetica-Neue tracking-wide text-fs_6 font-normal text-greenPrimary ">
-                  5. Выберите упаковку
-                </h2>
-              </AccordionHeader>
-              <AccordionBody className="p-4" placeholder={<div />}>
-                {/*@ts-expect-error: This */}
-                <SliderProduct />
+                {filterProduct.length > 0 ? (
+                  <div className="grid"></div>
+                ) : (
+                  <div className="h-[400px]">
+                    <EmptyContant />
+                  </div>
+                )}
               </AccordionBody>
             </Accordion>
           </div>

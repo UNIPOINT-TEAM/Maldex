@@ -15,7 +15,6 @@ function Tags() {
       <div className="container_xxl px-3 mt-10">
         <MainProductFilter status="new" />
       </div>
-     
       <QuestForm />
     </>
   );
