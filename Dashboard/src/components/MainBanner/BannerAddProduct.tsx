@@ -1,21 +1,10 @@
 import { useEffect, useState } from 'react';
-import {
-  GetMainCatalog,
-  GetMainCatalogactive,
-  PutData,
-  PutWithFormData,
-  TransferCategory,
-} from '../../services/maincatalog';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { GetMainCatalogactive, PutDataJson } from '../../services/maincatalog';
+import { useNavigate, useParams } from 'react-router-dom';
 import '../../css/main.css';
-import {
-  AddMainCatalog,
-  DeleteMainCatalog,
-  EditMainCatalog,
-} from '../../components';
-import { AddWithFormData, GetProductCategory } from '../../services/product';
-import { FaCheck, FaPlus } from 'react-icons/fa6';
-import { FaRegEdit } from 'react-icons/fa';
+
+import { GetProductCategory } from '../../services/product';
+
 import DefaultLayout from '../../layout/DefaultLayout';
 
 import {
@@ -23,13 +12,10 @@ import {
   Dialog,
   DialogHeader,
   DialogBody,
-  DialogFooter,
-  Checkbox,
 } from '@material-tailwind/react';
-import { BASE_URL } from '../../utils/BaseUrl';
 import PaginationCard from '../Pagination/Pagination';
 
-const CategoryProducts = () => {
+const BannerAddProducts = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
@@ -39,7 +25,7 @@ const CategoryProducts = () => {
   const [categoryId, setCategoryId] = useState(null);
 
   const [products, setProducts] = useState([]);
-  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [selectedProduct, setSelectedProduct] = useState([]);
 
   const handleOpen = (id: any) => {
     setOpen(!open);
@@ -58,10 +44,25 @@ const CategoryProducts = () => {
     });
   }, [currentPage]);
 
+  const addSelectedProduct = (id: number) => {
+    //@ts-ignore
+    if (selectedProduct.includes(id)) {
+      //@ts-ignore
+      setSelectedProduct(
+        //@ts-ignore
+        selectedProduct.filter((productId) => productId !== id),
+      );
+    } else {
+      //@ts-ignore
+      setSelectedProduct([...selectedProduct, id]);
+    }
+  };
+
   const transferCategory = () => {
-    const formdata = new FormData();
-    formdata.append('product_id', selectedProduct);
-    PutData(`/banner/product/${id}/`, formdata).then(() => {
+    const data = {
+      product_data: selectedProduct,
+    };
+    PutDataJson(`/banner/${id}/`, data).then(() => {
       navigate('/');
     });
   };
@@ -81,7 +82,7 @@ const CategoryProducts = () => {
           <DialogHeader>
             <div className="flex justify-between w-full">
               <p>выбрать продукт</p>
-              <div className="">
+              <div>
                 <Button
                   variant="text"
                   color="red"
@@ -97,6 +98,11 @@ const CategoryProducts = () => {
                 >
                   <span>изменять</span>
                 </Button>
+                <PaginationCard
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentPage}
+                  totalPages={totalPages}
+                />
               </div>
             </div>
           </DialogHeader>
@@ -104,10 +110,11 @@ const CategoryProducts = () => {
             <div className="w-full h-[500px]  flex flex-wrap gap-5 overflow-x-scroll py-5">
               {products.map((item) => (
                 <div
-                  onClick={() => setSelectedProduct(item.id)}
+                  onClick={() => addSelectedProduct(item.id)}
                   key={item.id}
                   className={`shadow p-2 h-[300px] w-[200px] rounded ${
-                    selectedProduct == item.id ? 'bg-blue-400' : ''
+                    // @ts-ignore
+                    selectedProduct?.includes(item.id) ? 'bg-blue-400' : ''
                   }`}
                 >
                   <div className="w-[150px] h-[200px] p-2">
@@ -125,11 +132,6 @@ const CategoryProducts = () => {
                 </div>
               ))}
             </div>
-            <PaginationCard
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
-              totalPages={totalPages}
-            />
           </DialogBody>
         </Dialog>
         {categories.map((category) => (
@@ -184,4 +186,4 @@ const CategoryProducts = () => {
   );
 };
 
-export default CategoryProducts;
+export default BannerAddProducts;

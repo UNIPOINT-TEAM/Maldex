@@ -3,15 +3,13 @@ import DefaultLayout from '../../layout/DefaultLayout';
 
 import {
   GetFilters,
-  GetProduct,
   GetProductIsHit,
   GetProductIsNew,
-  GetProductNew,
   GetProductSearch,
 } from '../../services/product';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import {
   Button,

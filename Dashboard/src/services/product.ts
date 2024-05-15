@@ -12,8 +12,10 @@ export const GetFilters = async () => {
   return response;
 };
 
-export const GetProductCategory = async (id: number) => {
-  const response = await api.get(`/product/?category_id=${id}`);
+export const GetProductCategory = async (id: any, currentpage: number) => {
+  const response = await api.get(
+    `/product/?category_id=${id}&page=${currentpage && currentpage}`,
+  );
   return response;
 };
 export const GetProductGifts = async (id: number) => {

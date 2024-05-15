@@ -41,6 +41,7 @@ import PortfolioDetail from './pages/Portfolio/PortfolioDetail';
 import CategoryProducts from './components/MainBanner/CategoryProducts';
 import { BannerAdd } from './components';
 import GiftProduct from './pages/GiftsProduct/GiftProducts';
+import BannerAddProducts from './components/MainBanner/BannerAddProduct';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -74,6 +75,7 @@ function App() {
         <Route path="/portfolio" element={<Portfolio />} />
         <Route path="/portfolio/:id" element={<PortfolioDetail />} />
         <Route path="/banner/:id" element={<CategoryProducts />} />
+        <Route path="/banner/add/:id" element={<BannerAddProducts />} />
         <Route path="/banner/add" element={<BannerAdd />} />
         <Route path="/create-project" element={<CreatePortfolio />} />
         <Route path="/category/:id/products" element={<CategoryDetails />} />

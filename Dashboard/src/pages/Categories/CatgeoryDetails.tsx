@@ -13,6 +13,7 @@ import {
   DialogHeader,
 } from '@material-tailwind/react';
 import { GetMainCatalogactive, PutData } from '../../services/maincatalog';
+import PaginationCard from '../../components/Pagination/Pagination';
 
 const CategoryDetails = () => {
   const { id } = useParams();
@@ -23,17 +24,22 @@ const CategoryDetails = () => {
   const [availableCategories, setAvailableCategories] = useState([]);
   const [checkedProducts, setCheckedProducts] = useState([]);
   const [loader, setLoader] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   console.log(checkedProducts);
 
   useEffect(() => {
-    GetProductCategory(id).then((res) => {
-      setLoader(!loader);
+    GetProductCategory(id, currentPage).then((res) => {
+      setLoader(false);
       setAddProduct(res.data.results);
+      const residual = res.data.count % 10;
+      const pages = (res.data.count - residual) / 10;
+      setTotalPages(pages % 2 == 0 && pages === 1 ? pages : pages + 1);
     });
     GetMainCatalogactive().then((res) => {
       setAvailableCategories(res);
     });
-  }, [status]);
+  }, [status, currentPage]);
 
   const fillCheckedProducts = (id) => {
     const isAlreadyChecked = checkedProducts.some(
@@ -226,6 +232,11 @@ const CategoryDetails = () => {
             </div>
           ))}
         </div>
+        <PaginationCard
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          totalPages={totalPages}
+        />
       </div>
     </DefaultLayout>
   );

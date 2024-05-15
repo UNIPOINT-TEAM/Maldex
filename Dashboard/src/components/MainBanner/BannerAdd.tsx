@@ -28,6 +28,7 @@ import {
   Input,
 } from '@material-tailwind/react';
 import { BASE_URL } from '../../utils/BaseUrl';
+import PaginationCard from '../Pagination/Pagination';
 
 const BannerAdd = () => {
   // @ts-ignore
@@ -45,6 +46,9 @@ const BannerAdd = () => {
   const [products, setProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState([]);
   const [nameBanner, setNameBanner] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [categoryId, setCategoryId] = useState(null);
   // @ts-ignore
   const changeStatus = (newState: any) => {
     setStatus(newState);
@@ -52,18 +56,20 @@ const BannerAdd = () => {
 
   const handleOpen = (id: any) => {
     setOpen(!open);
-    console.log(id);
-    GetProductCategory(id).then((res) => {
-      setProducts(res.data.results), console.log(res.data.results);
-    });
+    setCategoryId(id);
   };
 
   useEffect(() => {
     GetMainCatalog().then((res) => {
       setCategories(res);
-      console.log(res);
     });
-  }, [status, subCategoryId]);
+    GetProductCategory(categoryId, currentPage).then((res) => {
+      setProducts(res.data.results);
+      const residual = res.data.count % 10;
+      const pages = (res.data.count - residual) / 10;
+      setTotalPages(pages % 2 == 0 && pages === 1 ? pages : pages + 1);
+    });
+  }, [status, subCategoryId, currentPage]);
   // @ts-ignore
   const addSubCategory = (e, id) => {
     e.preventDefault();
@@ -134,10 +140,27 @@ const BannerAdd = () => {
         >
           <DialogHeader>выбор продукта</DialogHeader>
           <DialogBody>
-            <Input
-              label="добавить название баннера"
-              onChange={(e) => setNameBanner(e.target.value)}
-            />
+            <div className="flex">
+              <Input
+                label="добавить название баннера"
+                onChange={(e) => setNameBanner(e.target.value)}
+              />
+              <Button
+                variant="text"
+                color="red"
+                onClick={handleOpen}
+                className="mr-1"
+              >
+                <span>отмена</span>
+              </Button>
+              <Button
+                variant="gradient"
+                color="green"
+                onClick={transferCategory}
+              >
+                <span>добавить</span>
+              </Button>
+            </div>
             <div className="w-full h-[500px]  flex flex-wrap gap-5 overflow-x-scroll py-5">
               {products?.map((item) => (
                 <div
@@ -171,20 +194,12 @@ const BannerAdd = () => {
                 </div>
               ))}
             </div>
+            <PaginationCard
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              totalPages={totalPages}
+            />
           </DialogBody>
-          <DialogFooter>
-            <Button
-              variant="text"
-              color="red"
-              onClick={handleOpen}
-              className="mr-1"
-            >
-              <span>отмена</span>
-            </Button>
-            <Button variant="gradient" color="green" onClick={transferCategory}>
-              <span>добавить</span>
-            </Button>
-          </DialogFooter>
         </Dialog>
         {categories.map((category) => (
           <div
@@ -306,3 +321,5 @@ const BannerAdd = () => {
 };
 
 export default BannerAdd;
+
+

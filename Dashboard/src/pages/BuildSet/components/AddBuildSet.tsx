@@ -15,13 +15,6 @@ function AddBuildSet() {
   const [quantities, setQuantities] = useState({});
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState('');
-  const [inputVal, setInputVal] = useState('');
-
-  useEffect(() => {
-    GetProductSearch(inputVal, '', '').then((res) => {
-      setProducts(res.data.results);
-    });
-  }, [inputVal]);
 
   const handleOpen = () => setOpen(!open);
 
@@ -81,10 +74,7 @@ function AddBuildSet() {
       <p className="text-center text-[36px] py-4">
         Добавление категории для сбора наборов
       </p>
-      <form
-        onSubmit={handleSubmit}
-        className="flex  flex-col gap-4"
-      >
+      <form onSubmit={handleSubmit} className="flex  flex-col gap-4">
         <div className="w-1/2  mb-5">
           <Input
             required
@@ -217,10 +207,8 @@ function AddBuildSet() {
         <ProductDialog
           open={open}
           handleOpen={handleOpen}
-          products={products}
           handleCheckboxChange={handleCheckboxChange}
-          setInputVal={setInputVal}
-          setOpen={setOpen} 
+          setOpen={setOpen}
         />
         {/* <button
           type="submit"

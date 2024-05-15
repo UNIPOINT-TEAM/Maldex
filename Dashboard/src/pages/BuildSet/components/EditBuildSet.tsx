@@ -10,7 +10,7 @@ import { Navigation, Pagination } from 'swiper/modules';
 
 function EditBuildSet() {
   const { id } = useParams();
-  console.log(id);
+
   const [products, setProducts] = useState([]);
   const [selectedProductsIds, setSelectedProductsIds] = useState([]);
   const [quantities, setQuantities] = useState({});
@@ -19,13 +19,18 @@ function EditBuildSet() {
   const [inputVal, setInputVal] = useState('');
   const [giftDetails, setGiftDetails] = useState({});
   const [selectedProducts, setSelectedProducts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const addToGiftDetails = (product) => {
     setSelectedProducts((prevProducts) => [...prevProducts, product]);
   };
 
   useEffect(() => {
-    GetProductSearch(inputVal, '', '').then((res) => {
+    GetProductSearch(inputVal, '', '', currentPage).then((res) => {
       setProducts(res.data.results);
+      const residual = res.data.count % 10;
+      const pages = (res.data.count - residual) / 10;
+      setTotalPages(pages % 2 == 0 && pages === 1 ? pages : pages + 1);
     });
   }, [inputVal]);
 
@@ -114,10 +119,8 @@ function EditBuildSet() {
       console.error('Ошибка при обновлении категории:', error);
     }
   };
-  
-  
-  // В функции handleOpen добавьте логику для открытия диалогового окна и выбора новых продуктов
 
+  // В функции handleOpen добавьте логику для открытия диалогового окна и выбора новых продуктов
 
   const handleQuantityChange = (id, value) => {
     setQuantities((prev) => ({
@@ -241,17 +244,14 @@ function EditBuildSet() {
                 </div>
               </div>
             ))}
-          <div>
-          </div>
+          <div></div>
         </div>
 
         <ProductDialog
           open={open}
           handleOpen={handleOpen}
-          products={products}
           handleCheckboxChange={handleCheckboxChange}
-          setInputVal={setInputVal}
-          addToGiftDetails={addToGiftDetails} 
+          addToGiftDetails={addToGiftDetails}
         />
         <button
           type="submit"

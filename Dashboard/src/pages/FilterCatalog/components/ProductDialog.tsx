@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Dialog,
   Card,
@@ -10,15 +10,29 @@ import {
 import { Swiper, SwiperSlide } from 'swiper/react';
 // import { Navigation, Pagination } from 'swiper';
 import { Navigation, Pagination } from 'swiper/modules';
-
+import { GetProductSearch } from '../../../services/product';
+import PaginationCard from '../../../components/Pagination/Pagination';
 
 const ProductDialog = ({
   open,
   handleOpen,
-  products,
+
   handleCheckboxChange,
-  setInputVal,
 }) => {
+  const [products, setProducts] = useState([]);
+  const [inputVal, setInputVal] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
+  useEffect(() => {
+    GetProductSearch(inputVal, currentPage, '').then((res) => {
+      setProducts(res.data.results);
+      const residual = res.data.count % 10;
+      const pages = (res.data.count - residual) / 10;
+      setTotalPages(pages % 2 == 0 && pages === 1 ? pages : pages + 1);
+    });
+  }, [inputVal, currentPage]);
+
   return (
     <Dialog
       size="xl"
@@ -35,7 +49,7 @@ const ProductDialog = ({
               onChange={(e) => setInputVal(e.target.value)}
             />
           </div>
-          <div className="flex flex-wrap justify-center gap-5 py-5 overflow-y-scroll h-[800px]">
+          <div className="flex flex-wrap justify-center gap-5 py-5 overflow-y-scroll h-[400px]">
             {/* @ts-ignore */}
             {products.map((item) => (
               <div className="w-1/6 shadow-4 p-2 rounded-sm h-[400px]">
@@ -133,6 +147,11 @@ const ProductDialog = ({
                 </div>
               </div>
             ))}
+            <PaginationCard
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              totalPages={totalPages}
+            />
           </div>
         </CardBody>
         <CardFooter className="pt-0 font-satoshi flex justify-end gap-4">

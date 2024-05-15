@@ -9,13 +9,18 @@ import {
 import { BiSolidEditAlt } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
 import DeleteModal from '../DeleteModal/DeleteModal';
+import { MdDelete } from 'react-icons/md';
+import { DeleteItem } from '../../services/maincatalog';
 const BannerEditModal: React.FC<any> = ({ bannberItems, onImageChange }) => {
-  // console.log(bannberItems?.product_set);
-
   const [open, setOpen] = useState(false);
-  console.log(bannberItems);
 
   const handleOpen = () => setOpen(!open);
+
+  const handleDelete = (id: any) => {
+    DeleteItem(`/banner/product/${id}`).then(() => {
+      setOpen(!open), window.location.reload();
+    });
+  };
 
   return (
     <>
@@ -37,23 +42,19 @@ const BannerEditModal: React.FC<any> = ({ bannberItems, onImageChange }) => {
               Изменить баннер
             </Typography>
             <div className="grid grid-cols-2 gap-4">
-              <div className="col-span-2">
-                <Typography className="mb-2">
-                  <span className="font-satoshi text-fs-6 font-medium">
-                    Название категории
-                  </span>
-                </Typography>
-                <input
-                  placeholder="Название категории"
-                  className="w-full text-boxdark placeholder:font-normal font-medium border border-boxdark     rounded-md px-2 py-2 outline-0"
-                />
-              </div>
+              <div className="col-span-2"></div>
             </div>
             <div className="flex justify-between w-full items-center">
               <h2 className="font-medium text-title-sm mt-4">
                 Изображения в карусели
               </h2>
-              <Link to={'/banner/add'}>
+              <Link
+                to={
+                  bannberItems?.product_set.length > 0
+                    ? `/banner/add/${bannberItems.id}`
+                    : `/banner/add`
+                }
+              >
                 <button className="bg-blue-400 rounded-md px-3 py-2 text-white">
                   добавить
                 </button>
@@ -78,7 +79,12 @@ const BannerEditModal: React.FC<any> = ({ bannberItems, onImageChange }) => {
                         изменять
                       </button>
                     </Link>
-                    <DeleteModal url={`/banner/product/${item.id}`} />
+                    <button
+                      onClick={() => handleDelete(item.id)}
+                      className="rounded-md bg-danger py-2 px-3 text-center font-medium text-white hover:bg-opacity-90"
+                    >
+                      <MdDelete />
+                    </button>
                   </div>
                 </div>
               ))}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Dialog,
   Card,
@@ -10,6 +10,8 @@ import {
 import { Swiper, SwiperSlide } from 'swiper/react';
 // import { Navigation, Pagination } from 'swiper';
 import { Navigation, Pagination } from 'swiper/modules';
+import { GetProductSearch } from '../../../services/product';
+import PaginationCard from '../../../components/Pagination/Pagination';
 
 const ProductDialog = ({
   addToGiftDetails,
@@ -17,11 +19,21 @@ const ProductDialog = ({
   setOpen,
   open,
   handleOpen,
-  products,
   handleCheckboxChange,
-  setInputVal,
 }) => {
+  const [products, setProducts] = useState([]);
+  const [inputVal, setInputVal] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
+  useEffect(() => {
+    GetProductSearch(inputVal, currentPage, '').then((res) => {
+      setProducts(res.data.results);
+      const residual = res.data.count % 10;
+      const pages = (res.data.count - residual) / 10;
+      setTotalPages(pages % 2 == 0 && pages === 1 ? pages : pages + 1);
+    });
+  }, [inputVal, currentPage]);
 
   return (
     <Dialog
@@ -33,11 +45,12 @@ const ProductDialog = ({
       <Card className="mx-auto w-full font-satoshi">
         <CardBody className="flex flex-col gap-4">
           <p>поиск нужного товара</p>
-          <div className="w-1/3">
+          <div className="w-full flex items-center justify-between">
             <Input
               label="что-нибудь"
               onChange={(e) => setInputVal(e.target.value)}
             />
+
           </div>
           <div className="flex flex-wrap justify-center gap-5 py-5 overflow-y-scroll h-[700px]">
             {/* @ts-ignore */}
@@ -140,6 +153,11 @@ const ProductDialog = ({
                 </div>
               </div>
             ))}
+            <PaginationCard
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              totalPages={totalPages}
+            />
           </div>
         </CardBody>
         <CardFooter className="pt-0 font-satoshi flex justify-end gap-4">
@@ -152,11 +170,11 @@ const ProductDialog = ({
             Отмена
           </button>
           <button
-           onClick={() => {
-            setOpen(!open);
-            // Отправьте выбранные продукты на сервер
-            addToGiftDetails(selectedProducts); // Измените эту строку
-          }}
+            onClick={() => {
+              setOpen(!open);
+              // Отправьте выбранные продукты на сервер
+              addToGiftDetails(selectedProducts); // Измените эту строку
+            }}
             className="inline-flex tracking-wide items-center justify-center rounded-md bg-success py-2 px-6 text-center font-medium text-white hover:bg-opacity-90 "
           >
             Сохранять

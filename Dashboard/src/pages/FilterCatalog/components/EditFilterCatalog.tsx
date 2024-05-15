@@ -158,9 +158,7 @@ function EditBuildSet() {
         <ProductDialog
           open={open}
           handleOpen={handleOpen}
-          products={products}
           handleCheckboxChange={handleCheckboxChange}
-          setInputVal={setInputVal}
         />
         <button
           type="submit"
