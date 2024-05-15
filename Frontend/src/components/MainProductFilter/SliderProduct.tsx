@@ -189,11 +189,12 @@ const SliderProduct = ({ products }) => {
         {products?.map((item) => (
           <SwiperSlide key={item.id} className="w-full">
             <div className="catalog ">
-              <div className="relative swiper-top-container h-[220px] mb-4 bg-gray-200">
+              <div className="relative swiper-top-container h-[220px] mb-4 bg-gray-200 ">
                 <Swiper
                   pagination={{ clickable: true }}
                   modules={[Navigation, Pagination]}
-                  className="h-full"
+                  className="h-full "
+                  style={{ mixBlendMode: "multiply" }}
                 >
                   {item.images_set.map(
                     // @ts-expect-error: This
@@ -202,10 +203,11 @@ const SliderProduct = ({ products }) => {
                         <div
                           onClick={() => handleOpen("xl")}
                           className="relative  h-full"
+                          
                         >
-                          <div className="flex justify-center items-center h-full">
+                          <div className="flex justify-center items-center h-full " >
                             <img
-                              className="mb-2 w-[50px] h-[50px] object-contain product-img"
+                              className="mb-2 w-[50px] h-[50px] object-contain product-img "
                               src={item?.image_url}
                               alt=""
                             />

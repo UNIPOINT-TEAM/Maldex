@@ -27,6 +27,7 @@ const ProductPerviewModal = ({ images }) => {
         placeholder={<div />}
         className="h-auto w-full lg:w-96 border-0 shadow-none cursor-pointer overflow-hidden "
         onClick={handleOpen}
+        style={{ mixBlendMode: "multiply" }}
       >
         <img
           alt="nature"

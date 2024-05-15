@@ -37,7 +37,7 @@ function PortfolioDetail() {
             {response?.images_set?.slice(1).map((article, index) => (
               <div
                 key={index}
-                className="p-3 lg:p-5 bg-cover text-white h-[400px]"
+                className="p-3 lg:p-5 bg-cover text-white h-[465px]"
                 style={{
                   backgroundImage: `url(${article})`,
                 }}
@@ -54,11 +54,11 @@ function PortfolioDetail() {
             ))}
             <div>
               <div className="bg-white h-full w-full flex flex-col justify-between ">
-                <div className="lg:pl-5 pl-1.5 pt-1 lg:pt-16 lg:pr-40 font-Articulat tracking-wider h-[350px]">
+                <div className="lg:pl-5 pl-1.5 pt-1 lg:pt-16 lg:pr-40 font-Articulat tracking-wider h-[385px]">
                   <span className="font-semibold">Состав:</span>
                   <br />
                   <div className="text-[12px] lg:text-[14px] tracking-wide font-medium leading-snug">
-                  {response?.description}
+                    {response?.description}
                   </div>
                 </div>
                 <div className="hidden lg:flex items-center justify-center pb-5 gap-3 font-bold text-[11px]">
@@ -76,13 +76,15 @@ function PortfolioDetail() {
               </div>
             </div>
           </div>
+          <div className="w-full mt-28">
+            {/*@ts-expect-error: This */}
+            <h3 className="section-title ">Товары из набора</h3>
+
+            <SliderProduct products={response?.products} />
+          </div>
           <News title="Новинки" />
           <div className="container_xxl px-3">
             {/* <ProductNav title="sale!" color="red" /> */}
-          </div>
-          <div className="w-full">
-            {/*@ts-expect-error: This */}
-            <SliderProduct products={response?.products}/>
           </div>
           <QuestForm />
         </div>

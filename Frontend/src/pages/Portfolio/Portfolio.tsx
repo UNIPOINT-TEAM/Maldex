@@ -93,8 +93,9 @@ function Portfolio() {
             {/* <ProductNav title="sale!" color="red" /> */}
           </div>
           <div className="w-full">
+            Товары из набора
             { /*@ts-expect-error: This */}
-            {/* <SliderProduct /> */}
+            <SliderProduct products={response?.products} />
           </div>
           <QuestForm />
         </div>
