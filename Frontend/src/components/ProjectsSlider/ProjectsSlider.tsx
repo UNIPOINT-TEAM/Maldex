@@ -84,9 +84,11 @@ function ProjectsSlider() {
                 </ul>
               </div>
               <div>
-                <button className="uppercase w-[130px] text-[10px] font-bold tracking-wide h-7  px-3 border border-redPrimary rounded-[8px] text-redPrimary hidden ss:block">
-                  Все топ-товары
-                </button>
+                <Link to={'/portfolio'}>
+                  <button className="uppercase w-[130px] text-[10px] font-bold tracking-wide h-7  px-3 border border-redPrimary rounded-[8px] text-redPrimary hidden ss:block">
+                    Все топ-товары
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
@@ -113,9 +115,7 @@ function ProjectsSlider() {
                 // @ts-expect-error: This
 
                 <SwiperSlide key={item.id}>
-                  <Link 
-                  to={`/portfolio/${item.id}`}
-                  >
+                  <Link to={`/portfolio/${item.id}`}>
                     <div className="relative">
                       <img
                         src={

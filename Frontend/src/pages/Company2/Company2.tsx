@@ -33,6 +33,8 @@ import {
   BannerBottomMobile,
   BannerSlider,
   BannerTop,
+  CompanyBanner,
+  CompanyBottomBanner,
   Printing,
   QuestForm,
   Steps,
@@ -74,9 +76,8 @@ function Company2() {
     <>
       <div className="container_xxl">
         <div className="px-3">
-          <div className="flex gap-3">
+          {/* <div className="flex gap-3">
             <div className=" w-2/5 hidden lg:block">
-              {/* @ts-ignore */}
               <BannerTop BannerData={response} />
             </div>
             <div className="w-full lg:w-3/5">
@@ -86,6 +87,9 @@ function Company2() {
           <div>
             <BannerBottom BannerData={response} />
             <BannerBottomMobile />
+          </div> */}
+          <div>
+            <CompanyBanner/>
           </div>
           {/* <Brands /> */}
           <div>

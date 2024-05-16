@@ -43,3 +43,4 @@ export { default as Galleryslider } from "./Gallery/Galleryslider";
 export { default as LayoutSideCard } from "./Gallery/LayoutSideCard";
 export { default as CatalogModal } from "./BuildSetModals/CatalogModal";
 export { default as MainProductFilter } from "./MainProductFilter/MainProductFilter";
+export { default as CompanyBanner } from "./CompanyBanner/CompanyBanner";
