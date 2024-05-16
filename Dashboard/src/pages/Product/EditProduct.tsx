@@ -19,8 +19,6 @@ import { BASE_URL } from '../../utils/BaseUrl';
 
 const EditProduct = () => {
   const { id } = useParams();
-  console.log(id);
-
   const [name, setName] = useState('');
   const [code, setCode] = useState(0);
   const [article, setArticle] = useState('');
@@ -48,7 +46,7 @@ const EditProduct = () => {
   const [ishit, setIshit] = useState(false);
   const [isnew, setIsnew] = useState(false);
   const [ispopular, setIspopular] = useState(false);
-  const [categoryId, setCategoryId] = useState("");
+  const [categoryId, setCategoryId] = useState('');
   const [subcategoryId, setSubCategoryId] = useState(null);
   const [subSubcategoryId, setSubSubCategoryId] = useState(null);
   const [category, setCategory] = useState([]);
@@ -60,6 +58,8 @@ const EditProduct = () => {
   const [deletedIds, setDeletedIds] = useState([]);
   const [status, setStatus] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [warehouse, setWarehouse] = useState([]);
+  const [sizes, setSizes] = useState(null);
 
   useEffect(() => {
     GetMainCatalog().then((res) => {
@@ -87,12 +87,13 @@ const EditProduct = () => {
       setMainId(subSubcategoryId);
     }
     GetProductDetail(id).then((res) => {
+      setWarehouse(res.data.warehouse);
+      setSizes(res.data.sizes);
       setProductDetail(res.data);
       setIshit(res.data.is_hit);
       setIsnew(res.data.is_new);
       setIspopular(res.data.is_popular);
       setOndemand(res.data.ondemand);
-
     });
   }, [categoryId, subcategoryId, subSubcategoryId, status]);
 
@@ -183,6 +184,32 @@ const EditProduct = () => {
           className="flex w-full justify-around items-start px-10 gap-20 mb-5"
         >
           <div className="w-2/3 flex flex-wrap  justify-start items-start">
+            <div className="w-full py-3 mb-5 flex">
+              {warehouse?.map((ware) => (
+                <div className="flex w-1/2 h-[20px] justify-between pr-10">
+                  <p>Cклад : {ware.name}</p>
+                  <p>количество : {ware.quantity}</p>
+                </div>
+              ))}
+            </div>
+            {sizes != null ? (
+              <div className="w-2/3 py-3 mb-5 flex flex-col">
+                {sizes?.map((ware) => (
+                  <div className="flex w-full  justify-between  border-b  py-3">
+                    <p>
+                      Размер : <span className="text-blue-400">{ware.name}</span>
+                    </p>
+                    <p>
+                      количество :{' '}
+                      <span className="text-red-400">{ware.quantity}</span>
+                    </p>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              ''
+            )}
+
             <div className="flex items-center justify-between w-1/2 mb-5 pr-10">
               <Input
                 variant="standard"
