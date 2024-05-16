@@ -42,7 +42,7 @@ const BannerAddProducts = () => {
       const pages = (res.data.count - residual) / 10;
       setTotalPages(pages % 2 == 0 && pages === 1 ? pages : pages + 1);
     });
-  }, [currentPage]);
+  }, [currentPage, open]);
 
   const addSelectedProduct = (id: number) => {
     //@ts-ignore
@@ -141,7 +141,9 @@ const BannerAddProducts = () => {
           >
             <img className="w-1/5 mb-5" src={category.icon} alt="" />
 
-            <p className="text-lg mb-3">{category?.name}</p>
+            <p className="text-lg mb-3">
+              {category?.name} <span className='text-red-400 text-sm'>{category.count}</span>
+            </p>
             {category?.children && category?.children?.length > 0 && (
               <>
                 <p>{category?.children[0]?.name}</p>
@@ -163,7 +165,12 @@ const BannerAddProducts = () => {
                       key={childCategory.id}
                       className="rounded group hover:bg-green-200 hover:text-white py-1 flex flex-col gap-1 justify-between items-start px-1"
                     >
-                      <p>{childCategory.name}</p>
+                      <p>
+                        {childCategory.name}
+                        <span className="text-red-400 text-sm">
+                          {childCategory.count}
+                        </span>
+                      </p>
 
                       <div className="flex gap-2">
                         <div className="flex items-center gap-2">

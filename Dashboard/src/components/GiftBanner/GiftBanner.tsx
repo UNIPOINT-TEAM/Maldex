@@ -1,17 +1,12 @@
-import { useEffect, useState } from "react";
-import { GiftBannerBottom, GiftBannerSlider, LeftAccordion } from "..";
+import { useEffect, useState } from 'react';
+import { GiftBannerBottom, GiftBannerSlider, LeftAccordion } from '..';
 // import { useFetchHook } from "../../hooks/UseFetch";
-import { GetMainBannerSlider } from '../../services/main';
+import { GetMainBanner, GetMainBannerSlider } from '../../services/main';
 
 const GiftBanner = () => {
-  // const { fetchData, response } = useFetchHook();
-  // useEffect(() => {
-  //   fetchData({ method: "GET", url: "/banner" });
-  // }, []);
-
   const [sliderData, setSliderData] = useState([]);
   useEffect(() => {
-    GetMainBannerSlider().then((res) => {
+    GetMainBanner().then((res) => {
       setSliderData(res);
     });
   }, []);

@@ -1,21 +1,15 @@
 import { useEffect, useState } from 'react';
 import {
   GetMainCatalog,
-  GetMainCatalogactive,
-  PostData,
   PostDataJson,
   PutData,
   PutWithFormData,
 } from '../../services/maincatalog';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../../css/main.css';
-import {
-  AddMainCatalog,
-  DeleteMainCatalog,
-  EditMainCatalog,
-} from '../../components';
+import { DeleteMainCatalog, EditMainCatalog } from '../../components';
 import { AddWithFormData, GetProductCategory } from '../../services/product';
-import { FaCheck, FaPlus } from 'react-icons/fa6';
+import { FaCheck } from 'react-icons/fa6';
 import DefaultLayout from '../../layout/DefaultLayout';
 
 import {
@@ -23,7 +17,6 @@ import {
   Dialog,
   DialogHeader,
   DialogBody,
-  DialogFooter,
   Checkbox,
   Input,
 } from '@material-tailwind/react';
@@ -69,7 +62,7 @@ const BannerAdd = () => {
       const pages = (res.data.count - residual) / 10;
       setTotalPages(pages % 2 == 0 && pages === 1 ? pages : pages + 1);
     });
-  }, [status, subCategoryId, currentPage]);
+  }, [status, subCategoryId, currentPage, open]);
   // @ts-ignore
   const addSubCategory = (e, id) => {
     e.preventDefault();
@@ -222,7 +215,10 @@ const BannerAdd = () => {
                 // @ts-ignore
                 category?.name
               }
+
+              <span className="text-red-400 text-sm">{category.count}</span>
             </p>
+
             {
               // @ts-ignore
               category?.children && category?.children?.length > 0 && (
@@ -277,7 +273,16 @@ const BannerAdd = () => {
                   // @ts-ignore
                   category?.name
                 }
+                <span className="text-red-400 text-sm ml-2">
+                  {category.count}
+                </span>
               </p>
+              <button
+                onClick={() => handleOpen(category.id)}
+                className="bg-blue-400 text-white rounded w-full h-[40px] flex justify-center items-center text-[12px]"
+              >
+                продукты
+              </button>
 
               {
                 // @ts-ignore
@@ -288,7 +293,12 @@ const BannerAdd = () => {
                       key={childCategory.id}
                       className="rounded group hover:bg-green-200 hover:text-white py-1 flex flex-col gap-1 justify-between items-start px-1"
                     >
-                      <p>{childCategory.name}</p>
+                      <p>
+                        {childCategory.name}{' '}
+                        <span className="text-red-400 text-sm">
+                          {childCategory.count}
+                        </span>{' '}
+                      </p>
 
                       <div className="flex gap-2">
                         {statusedit == childCategory.id ? (
@@ -321,5 +331,3 @@ const BannerAdd = () => {
 };
 
 export default BannerAdd;
-
-

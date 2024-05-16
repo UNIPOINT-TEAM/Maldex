@@ -48,7 +48,7 @@ const EditProduct = () => {
   const [ishit, setIshit] = useState(false);
   const [isnew, setIsnew] = useState(false);
   const [ispopular, setIspopular] = useState(false);
-  const [categoryId, setCategoryId] = useState('');
+  const [categoryId, setCategoryId] = useState("");
   const [subcategoryId, setSubCategoryId] = useState(null);
   const [subSubcategoryId, setSubSubCategoryId] = useState(null);
   const [category, setCategory] = useState([]);
@@ -75,6 +75,7 @@ const EditProduct = () => {
     ).then((res) => {
       setSubSubCategory(res);
     });
+
     if (!subcategoryId && !subSubcategoryId) {
       setMainId(categoryId);
       setSubCategoryId(null);
@@ -91,6 +92,7 @@ const EditProduct = () => {
       setIsnew(res.data.is_new);
       setIspopular(res.data.is_popular);
       setOndemand(res.data.ondemand);
+
     });
   }, [categoryId, subcategoryId, subSubcategoryId, status]);
 

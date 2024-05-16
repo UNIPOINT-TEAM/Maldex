@@ -17,11 +17,12 @@ const Slider = ({ SliderItems, sliderTime }) => {
       className="w-full h-full"
     >
       {SliderItems &&
-        SliderItems?.product_set.map((item) => (
+        SliderItems?.product_set.map((item, index) => (
           <SwiperSlide
             key={item.id}
             className="flex w-full h-full items-center justify-center"
           >
+
             <img
               src={item?.productID?.images_set[0]?.image_url}
               alt=""
