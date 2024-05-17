@@ -1,12 +1,5 @@
-import { Badge, TagList } from "../../components";
-
-import image1 from "../../assets/article-bg-1.png";
-import image2 from "../../assets/article-bg-2.png";
-import image3 from "../../assets/article-bg-3.png";
-import image4 from "../../assets/article-bg-4.png";
-import arrowRight from "../../assets/icons/arrow-right.png";
+import { Badge } from "../../components";
 import { useEffect } from "react";
-import { FaArrowLeftLong, FaArrowRightLong } from "react-icons/fa6";
 import { useFetchHook } from "../../hooks/UseFetch";
 import { Link } from "react-router-dom";
 import EmptyContant from "../../components/EmptyContant/EmptyContant";

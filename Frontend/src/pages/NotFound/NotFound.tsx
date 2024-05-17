@@ -10,7 +10,7 @@ function NotFound() {
   const { fetchData, response: categories } = useFetchHook();
   const { fetchData: fetchSubcategories, response: subcategories } =
     useFetchHook();
-
+console.log(subcategories)
   useEffect(() => {
     fetchData({ method: "GET", url: `/link-tags/categories` });
   }, []);

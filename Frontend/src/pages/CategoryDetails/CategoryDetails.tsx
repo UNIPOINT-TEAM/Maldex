@@ -6,7 +6,6 @@ import {
   Banner,
   MainProductFilter,
   QuestForm,
-  SliderProduct,
   TabList,
 } from "../../components";
 import Tshirt from "../../assets/t-shirt.svg";

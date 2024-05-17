@@ -28,7 +28,7 @@ export { default as Steps } from "./Steps/Steps";
 export { default as Brands } from "./Brands/Brands";
 export { default as TagBanner } from "./Tags/TagBanner";
 export { default as TagList } from "./Tags/TagList";
-export { default as Card } from "./Card/Card";
+export { default as Card } from "./Cart/Cart";
 export { default as GiftItem } from "./GiftItem/GiftItem";
 export { default as Badge } from "./Badge/Badge";
 export { default as CompanyBottomBanner } from "./CompanyBottomBanner/CompanyBottomBanner";

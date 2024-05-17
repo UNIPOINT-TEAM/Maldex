@@ -115,7 +115,10 @@ function ProjectsSlider() {
                 // @ts-expect-error: This
 
                 <SwiperSlide key={item.id}>
-                  <Link to={`/portfolio/${item.id}`}>
+                  <Link 
+                  //@ts-expect-error: This 
+                  to={`/portfolio/${item.id}`}
+                  >
                     <div className="relative">
                       <img
                         src={

@@ -3,7 +3,7 @@ import { FaBars } from "react-icons/fa6";
 import { IoMdClose } from "react-icons/io";
 import { useFetchHook } from "../../hooks/UseFetch";
 interface IProps {
-  handleFilterProduct: (id: number) => void;
+  handleFilterProduct: (query: string) => void;
 }
 const CatalogModal: React.FC<IProps> = ({ handleFilterProduct }) => {
   const [open, setOpen] = useState(false);
@@ -35,9 +35,9 @@ const CatalogModal: React.FC<IProps> = ({ handleFilterProduct }) => {
       {open && (
         <div
           onClick={(e) => e.stopPropagation()}
-          className="modal max-h-screen  absolute flex justify-end w-full right-0 top-0"
+          className="modal  absolute flex justify-end w-full right-0 top-0"
         >
-          <div className="catalog-content h-screen  overflow-hidden z-[9999] max-w-[900px] bg-[#ffffff] w-full">
+          <div className="catalog-content  overflow-hidden z-[9999] max-w-[900px] bg-[#ffffff] w-full">
             <div className="heading p-5 flex justify-between">
               <h2 className="text-[22px]">Каталог</h2>
               <IoMdClose
@@ -45,7 +45,7 @@ const CatalogModal: React.FC<IProps> = ({ handleFilterProduct }) => {
                 onClick={(e) => handleToggle(e)}
               />
             </div>
-            <div className="body h-screen grid grid-cols-5 w-full ">
+            <div className="body grid grid-cols-5 w-full ">
               <div className="category py-3 gap-2 px-5 col-span-2 flex flex-col items-start bg-white">
                 {response.map((item) => (
                   <button
@@ -70,7 +70,7 @@ const CatalogModal: React.FC<IProps> = ({ handleFilterProduct }) => {
                   </button>
                 ))}
               </div>
-              <div className="subcategory scrollbar-custom overflow-auto grid grid-cols-2  gap-7 font-medium text-fs_8 col-span-3 p-5">
+              <div className="subcategory max-h-svh scrollbar-custom overflow-auto grid grid-cols-2  gap-7 font-medium text-fs_8 col-span-3 p-5">
                 {/* @ts-expect-error: This */}
                 {sellectedCategory?.children?.map((item) => (
                   <div className="" key={item?.id}>
@@ -78,11 +78,10 @@ const CatalogModal: React.FC<IProps> = ({ handleFilterProduct }) => {
                       {item?.name}
                     </h2>
                     <div className="flex flex-col">
-                      {/* @ts-expect-error: This */}
                       {item?.children?.map((item) => (
                         <p
                           onClick={() => {
-                            handleFilterProduct(item?.id);
+                            handleFilterProduct(`category_id=${item?.id}`);
                             setOpen(false);
                           }}
                           className="font-medium text-fs_8 m-0 leading-normal hover:text-redPrimary"

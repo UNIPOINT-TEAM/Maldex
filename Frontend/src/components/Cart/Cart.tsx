@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Product1 from "../../assets/images/product4.png";
 import Close from "../../assets/icons/close.png";
 import Trash from "../../assets/icons/trash.png";
 import QuestionIcon from "../../assets/icons/questionIcon.png";
@@ -11,32 +10,35 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { useFetchHook } from "../../hooks/UseFetch";
 import { CiSearch } from "react-icons/ci";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, removeFromCart } from "../../store/cartSlice";
+import {
+  addToCart,
+  getAllCarts,
+  removeFromCart,
+  updateCart,
+} from "../../store/cartSlice";
 
 const CardModal = () => {
   const [activeCard, setActiveCard] = useState(false);
-  const { fetchData, response } = useFetchHook();
-
-  /*@ts-expect-error: This */
-  const { items, total } = useSelector((state) => state.cart);
+  const carts = useSelector(getAllCarts);
+  const { itemsCount, totalAmount, totalQuantity } = useSelector(
+    (state: any) => state.cart
+  );
   const dispatch = useDispatch();
+  const { fetchData, response } = useFetchHook();
   useEffect(() => {
     fetchData({ method: "GET", url: "/product/" });
   }, []);
+  const handleUpdateCart = (id: number, quantity: string) => {
+    const quantityNumber = parseInt(quantity);
+    if (isNaN(quantityNumber)) {
+      return dispatch(updateCart({ id, quantity: 1 }));
+    }
+    dispatch(updateCart({ id, quantity: quantityNumber }));
+  };
+  console.log(totalAmount);
 
   return (
     <>
-      <Link
-        to={"card"}
-        className="sm:hidden flex items-center w-[120px] bg-white h-[30px] lg:h-[36px] rounded-full"
-      >
-        <div className="bg-redPrimary text-base h-full w-[30px] lg:w-[36px] rounded-full flex items-center justify-center">
-          <span className="text-white">3</span>
-        </div>
-        <span className="text-darkPrimary text-fs_8 font-bold ml-1 me-3">
-          14 619,00 ₽
-        </span>
-      </Link>
       <div className="hidden sm:block">
         <div
           className={`overLay fixed w-full h-full bg-[#00000083] ${
@@ -49,82 +51,81 @@ const CardModal = () => {
           className=" flex items-center w-[120px] bg-white h-[30px] lg:h-[36px] rounded-full"
         >
           <div className="bg-redPrimary text-fs_8 h-full w-[30px] lg:w-[36px] rounded-full flex items-center justify-center">
-            <span className="text-white">{items?.length}</span>
+            <span className="text-white">{itemsCount}</span>
           </div>
           <span className="text-darkPrimary text-fs_8 font-bold ml-1 me-3">
-            {total} ₽
+            {totalAmount} ₽
           </span>
         </button>
         {activeCard && (
-          <div className="absolute w-[700px] z-[99999] min-h-[700px] bg-white top-0 right-0 rounded-xl">
-            <div className="w-full h-full p-3 mb-5">
-              <div className="flex justify-between items-center px-3 pt-2">
+          <div className="absolute w-[700px] z-[99999]  bg-white top-0 right-0 rounded-xl">
+            <div className="w-full h-full p-5 mb-5">
+              <div className="flex justify-between items-center  pt-2">
                 <p className="text-xl">Корзина</p>
                 <button onClick={() => setActiveCard(!activeCard)}>
                   <img src={Close} alt="" />
                 </button>
               </div>
-              <div className="overflow-y-scroll h-[500px] scrollbar-custom pr-3 mb-5">
-                {/*@ts-expect-error: This */}
-                {items?.map((item) => (
-                  <div className="CardItem border-t-2 w-full border-gray-400 mt-2 mb-[40px] py-3">
+              <div className="overflow-y-scroll h-[400px] scrollbar-custom  mb-5">
+                {carts?.map((item) => (
+                  <div className="CardItem border-t w-full border-[#cbcac6] mt-2 mb-[40px] py-3">
                     <div className="grid grid-cols-12 grid-rows-1 gap-4">
-                      <div className="col-span-2 h-[100px] border border-gray-500 rounded-xl p-3 flex justify-center items-center">
-                        <img className="w-full" src={Product1} alt="" />
+                      <div className="col-span-2 h-[100px] border border-lightPrimary rounded-xl  flex justify-center items-center">
+                        <img
+                          className="w-full h-full rounded-xl object-cover"
+                          src={item.images_set[0].image_url}
+                          alt=""
+                        />
                       </div>
                       <div className="col-span-5 ">
-                        <div className="grid grid-rows-5 ">
+                        <div className="grid grid-rows-5">
                           <div className="row-span-1">
-                            <p className="text-sm teext-slate-950">
-                              {item?.name}
-                            </p>
-                          </div>
-                          <div className="row-span-3 py-1">
-                            <p className="text-sm teext-slate-950">
-                              обеззараживатель, <br /> озонатор воздуха
-                            </p>
+                            <h2 className="text-base font-bold">
+                              {item?.name?.slice(0, 25)}...
+                            </h2>
                           </div>
                           <div className="row-span-1">
                             <p className="text-xs teext-slate-950 row-span-1">
-                              Артикул: 107045356
+                              Артикул: {item?.article}
                             </p>
                           </div>
                         </div>
                       </div>
-                      <div className="col-span-2 ">
-                        <div className="grid grid-rows-5 ">
-                          <div className="row-span-1">
-                            <p className="text-sm teext-slate-950">
-                              {item?.price} ₽
-                            </p>
-                          </div>
-                          <div className="row-span-3 py-1">
-                            <p className="text-sm teext-slate-950">16 564</p>
-                          </div>
-                          <div className="row-span-1">
-                            <p className="text-xs teext-slate-950 row-span-1">
-                              {item?.discount}% Скидка
-                            </p>
-                          </div>
+                      <div className="col-span-2 grid grid-rows-5">
+                        <div className="row-span-1">
+                          <p className="text-sm font-bold">
+                            {item?.discount_price} ₽
+                          </p>
+                        </div>
+                        <div className="row-span-3 py-1">
+                          <p className="text-sm font-medium line-through">
+                            {item?.price}
+                          </p>
+                        </div>
+                        <div className="row-span-1">
+                          <p className="text-xs teext-slate-950 ">
+                            {item?.discount}% Скидка
+                          </p>
                         </div>
                       </div>
-                      <div className="col-span-2 ">
+                      <div className="col-span-2 text-base leading-snug">
                         <div className="grid grid-rows-5 ">
                           <div className="row-span-1">
-                            <p className="text-sm teext-slate-950">Размер</p>
-                          </div>
-                          <div className="row-span-2 py-1">
-                            <p className="text-sm teext-slate-950">
-                              Один размер
-                            </p>
+                            <p className="m-0">Размер</p>
                           </div>
                           <div className="row-span-2">
-                            <p className="text-xs teext-slate-950 row-span-1 mb-1">
-                              Количество
-                            </p>
-                            <div className="w-1/2 flex justify-center items-center border border-slate-500 rounded-xl">
-                              <p className="">20</p>
-                            </div>
+                            <p className="m-0">Один размер</p>
+                          </div>
+                          <div className="row-span-2">
+                            <p className="">Количество</p>
+                            <input
+                              placeholder=""
+                              onChange={(e) =>
+                                handleUpdateCart(item.id, e.target.value)
+                              }
+                              value={item?.quantity}
+                              className="w-[60px] text-center h-[30px] border border-darkPrimary text-fs_7 font-bold rounded-xl outline-none"
+                            />
                           </div>
                         </div>
                       </div>
@@ -142,20 +143,18 @@ const CardModal = () => {
               <div className="grid grid-cols-10 grid-rows-1 gap-4 mb-4">
                 <div className="col-span-2 row-span-1 h-[110px]">
                   <div className="grid grid-cols-1 grid-rows-4 h-full">
-                    <p className="row-span-2 text-2xl ">Ваш заказ</p>
-                    <p className="row-span-1">Общий тираж</p>
-                    <div className="row-span-1 w-1/4 flex justify-center items-center ">
-                      <input
-                        type="text"
-                        placeholder="20"
-                        className="w-[40px] h-[30px] border border-gray-500 rounded-lg outline-none px-2"
-                      />
+                    <p className="row-span-2 text-[22px] ">Ваш заказ</p>
+                    <p className="row-span-1 text-fs_7">Общий тираж</p>
+                    <div className="row-span-1 flex  items-center ">
+                      <div className="min-w-[50px] px-2 h-[30px] flex items-center justify-center text-fs_7 font-bold border border-darkPrimary rounded-lg outline-none ">
+                        {totalQuantity}
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div className="col-span-3 row-span-1">
+                <div className="col-span-3 row-span-1 text-fs_7">
                   <div className="grid grid-cols-1 grid-rows-4 h-full">
-                    <p className="row-span-2 text-lg text-teal-200">
+                    <p className="row-span-2 text-fs_8 text-teal-200">
                       + Добавить нанесение
                     </p>
                     <p className="row-span-1">Стоимость тиража</p>
@@ -165,7 +164,7 @@ const CardModal = () => {
                   </div>
                 </div>
                 <div className="col-span-2 row-span-1">
-                  <div className="grid grid-cols-1 grid-rows-4 h-full">
+                  <div className="grid grid-cols-1 grid-rows-4 h-full text-fs_7">
                     <p className="row-span-2 text-lg">
                       <img src={QuestionIcon} alt="" />
                     </p>
@@ -176,11 +175,11 @@ const CardModal = () => {
                   </div>
                 </div>
                 <div className="col-span-3 row-span-1">
-                  <div className="grid grid-cols-1 grid-rows-4 h-full">
+                  <div className="grid grid-cols-1 grid-rows-4 h-full text-fs_7">
                     <p className="row-span-2 text-lg"></p>
-                    <p className="row-span-1">Итоговая стоимость:</p>
+                    <p className="row-span-1 font-bold">Итоговая стоимость:</p>
                     <div className="row-span-1 flex justify-start items-center ">
-                      <p className="">{total} ₽ </p>
+                      <p className="font-bold">{totalAmount} ₽ </p>
                     </div>
                   </div>
                 </div>
@@ -188,7 +187,7 @@ const CardModal = () => {
               <Link to={"/card"}>
                 <button
                   onClick={() => setActiveCard(false)}
-                  className="bg-black w-1/3 text-white py-3 rounded-xl "
+                  className="bg-black text-fs_7 tracking-wide font-bold w-1/3 text-white py-3 rounded-xl uppercase "
                 >
                   перейти в корзину
                 </button>
@@ -222,8 +221,6 @@ const CardModal = () => {
                     spaceBetween: 20,
                   },
                 }}
-                // @ts-ignore
-
                 modules={[Navigation]}
                 className=" w-full overscroll-x-auto h-[450px]"
               >

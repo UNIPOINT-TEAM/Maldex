@@ -1,10 +1,24 @@
 import { Link, useLocation } from "react-router-dom";
 import MaldexLogo from "../../assets/images/Maldex-logo.svg";
 import { TopbarLink } from "../../mock/data";
-import CardModal from "../Card/Card";
+import CardModal from "../Cart/Cart";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import {
+  getAllCarts,
+  getAllQuantity,
+  getCartTotal,
+} from "../../store/cartSlice";
 
 const Topbar = () => {
   const location = useLocation();
+  const dispatch = useDispatch();
+  const carts = useSelector(getAllCarts);
+
+  useEffect(() => {
+    dispatch(getCartTotal());
+    dispatch(getAllQuantity());
+  }, [carts]);
   return (
     <nav className="border-0 lg:border-b border-lightSecondary">
       <div className="p-3 container_xxl flex justify-between items-center">

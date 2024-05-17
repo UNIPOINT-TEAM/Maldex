@@ -1,109 +1,99 @@
-import { ProductNav, QuestForm, SliderProduct } from "../../components";
+import { QuestForm } from "../../components";
 import Product1 from "../../assets/images/machine.png";
 import Trash from "../../assets/icons/trash.png";
 import QuestionIcon from "../../assets/icons/questionIcon.png";
 import { useDispatch, useSelector } from "react-redux";
-import { removeFromCart, updateCart } from "../../store/cartSlice";
+import { getAllCarts, removeFromCart, updateCart } from "../../store/cartSlice";
 
-const Card = () => {
-  /*@ts-expect-error: This */
-  const { items, total } = useSelector((state) => state.cart);
+const Cart = () => {
+  const carts = useSelector(getAllCarts);
+  const { totalAmount, totalQuantity } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
-  
+  const handleUpdateCart = (id: number, quantity: string) => {
+    const quantityNumber = parseInt(quantity);
+    if (isNaN(quantityNumber)) {
+      return dispatch(updateCart({ id, quantity: 1 }));
+    }
+    dispatch(updateCart({ id, quantity: quantityNumber }));
+  };
+
   return (
     <>
       <div className="home">
         <div className="card container_xxl my-10 px-3">
-          <div className="flex items-center">
-            <p className="text-[28px] font-medium">06</p> &nbsp;
-            <div className="flex flex-col">
-              <p className="text-[10px]">
-                НОЯ <br /> 2023
-              </p>
-            </div>
-          </div>
-          <p className="text-[28px] font-medium">Заказ №5750067</p>
           <div className="flex flex-col md:flex-row gap-8">
             <div className="w-full sm:w-3/4 py-1">
               <div className="hidden sm:block mb-5">
-                {/*@ts-expect-error: This */}
-                {items?.map((item) => (
-                  <div className="CardItem border-t-2 w-full border-gray-400 mt-2 mb-[60px] py-5">
+                {carts?.map((item) => (
+                  <div className="CardItem border-t w-full border-[#cbcac6] mt-2 mb-[60px] py-5">
                     <div className="grid grid-cols-12 grid-rows-1 gap-4">
-                      <div className="col-span-2 h-[150px] border border-gray-500 rounded-xl p-3 flex justify-center items-center">
+                      <div className="col-span-2 w-[120px] h-[120px] border border-lightSecondary  rounded-xl  flex justify-center items-center">
                         <img
-                          className="w-full"
-                          src={item?.image}
+                          className=" w-full h-full rounded-xl object-cover"
+                          src={
+                            item.images_set[0].image_url
+                              ? item.images_set[0].image_url
+                              : item.images_set[0].image
+                          }
                           alt="product-img"
                         />
                       </div>
-                      <div className="col-span-5 ">
-                        <div className="grid grid-rows-5 ">
-                          <div className="row-span-1">
-                            <p className="text-[16px] text-slate-950 font-medium">
-                              {item?.name}
-                            </p>
-                          </div>
-                          <div className="row-span-3 py-1">
-                            <p className="text-[16px] text-slate-950">
-                              обеззараживатель, <br />
-                              озонатор воздуха
-                            </p>
-                          </div>
-                          <div className="row-span-1">
-                            <p className="text-fs_7 teext-slate-950 row-span-1">
-                              Артикул: 107045356
-                            </p>
-                          </div>
+                      <div className="col-span-5 grid grid-rows-3">
+                        <div className="row-span-1">
+                          <p className="text-[16px] font-bold">{item?.name}</p>
+                        </div>
+                        <div className="row-span-1">
+                          <p className="text-fs_7 teext-slate-950 row-span-1">
+                            Артикул: {item.article}
+                          </p>
+                        </div>
+                        <div className="row-span-1">
+                          <p className="text-fs_7 teext-slate-950 row-span-1">
+                            Артикул: {item.article}
+                          </p>
                         </div>
                       </div>
-                      <div className="col-span-2 ">
-                        <div className="grid grid-rows-5 ">
-                          <div className="row-span-1">
-                            <p className="text-[16px] teext-slate-950">
-                              {item?.price} ₽
+                      <div className="col-span-2">
+                        <div className="grid grid-rows-5">
+                          <div className="row-span-1 flex items-end gap-2">
+                            <p className="text-[16px] font-bold">
+                              {item?.discount_price} ₽
+                            </p>
+                            <p className="text-fs_8 line-through font-medium">
+                              {item?.price}
                             </p>
                           </div>
                           <div className="row-span-3 py-1">
                             <p className="text-fs_8 teext-slate-950 row-span-1">
-                              {item.discount} % Скидка
+                              0% Скидка
                             </p>
                           </div>
                           <div className="row-span-1"></div>
                         </div>
                       </div>
-                      <div className="col-span-2">
-                        <div className="grid grid-rows-5 h-full">
-                          <div className="row-span-1">
-                            <p className="text-[16px] teext-slate-950">
-                              Размер
-                            </p>
-                          </div>
-                          <div className="row-span-2 py-1">
-                            <p className="text-sm teext-slate-950">
-                              {item?.size ? item?.size : "no sellected size"}
-                            </p>
-                          </div>
-                          <div className="row-span-2">
-                            <p className="text-xs teext-slate-950 row-span-1 mb-1">
-                              Количество
-                            </p>
-                            <div className="w-[50px] flex justify-center items-center rounded-xl">
-                              <input
-                                className="border border-black w-[50px] rounded-md px-1 outline-none"
-                                placeholder="20"
-                                type="text"
-                                value={item?.quantity}
-                                onChange={(e) =>
-                                  dispatch(
-                                    updateCart({
-                                      id: item.id,
-                                      quantity: parseInt(e.target.value),
-                                    })
-                                  )
-                                }
-                              />
-                            </div>
+                      <div className="col-span-2 grid grid-rows-5">
+                        <div className="row-span-1">
+                          <p className="text-[16px] teext-slate-950">Размер</p>
+                        </div>
+                        <div className="row-span-1">
+                          <p className="text-sm ">
+                            {item?.size ? item?.size : "no sellected size"}
+                          </p>
+                        </div>
+                        <div className="row-span-2">
+                          <p className="text-xs teext-slate-950 row-span-1 mb-1">
+                            Количество
+                          </p>
+                          <div className="w-[50px] flex justify-center items-center rounded-xl">
+                            <input
+                              className="border border-black w-[50px] rounded-md px-1 outline-none"
+                              placeholder="20"
+                              onChange={(e) =>
+                                handleUpdateCart(item.id, e.target.value)
+                              }
+                              type="text"
+                              value={item?.quantity}
+                            />
                           </div>
                         </div>
                       </div>
@@ -173,7 +163,7 @@ const Card = () => {
               <p className="text-[22px] font-[400] mb-5">Ваш заказ</p>
               <div className="flex justify-between items-center w-full mb-3">
                 <p className="text-sm font-[400]">Общий тираж:</p>
-                <p className="text-sm font-[400]">256</p>
+                <p className="text-sm font-[400]">{totalQuantity}</p>
               </div>
               <div className="flex justify-between items-center w-full mb-3">
                 <p className="text-sm font-[400]">Стоимость тиража:</p>
@@ -193,7 +183,7 @@ const Card = () => {
               </div>
               <div className="flex justify-between items-center w-full mb-5">
                 <p className="text-[16px] font-bold">Итоговая стоимость:</p>
-                <p className="text-[16px] font-bold">{total} ₽ </p>
+                <p className="text-[16px] font-bold">{totalAmount} ₽ </p>
               </div>
               <button className="w-full rounded-xl bg-black text-white p-3 text-lg mb-2">
                 оформить
@@ -209,18 +199,12 @@ const Card = () => {
             </div>
           </div>
         </div>
-        <div className="container_xxl px-3">
-          <div className="">
-            {/*@ts-ignore */}
-            <ProductNav title="ВАМ ТОЧНО ПОНРАВИТСЯ" color="gray" />
-          </div>
-        </div>
-        {/*@ts-expect-error: This */}
-        <SliderProduct />
+        <div className="container_xxl px-3"></div>
+
         <QuestForm />
       </div>
     </>
   );
 };
 
-export default Card;
+export default Cart;

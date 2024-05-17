@@ -156,15 +156,9 @@ function Delivery() {
                           {desc}
                         </p>
                         {/* @ts-ignore */}
-                        <p
-                          className="font-Helvetica-Neue font-normal "
-                          dangerouslySetInnerHTML={{ __html: desc1 }}
-                        />
+                        <p className="font-Helvetica-Neue font-normal " dangerouslySetInnerHTML={{ __html: desc1 }} />
                         {/* @ts-ignore */}
-                        <p
-                          className="font-Helvetica-Neue font-normal"
-                          dangerouslySetInnerHTML={{ __html: desc2 }}
-                        />
+                        <p className="font-Helvetica-Neue font-normal" dangerouslySetInnerHTML={{ __html: desc2 }} />
                       </div>
                     )}
                   </TabPanel>

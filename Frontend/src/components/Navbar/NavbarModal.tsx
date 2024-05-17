@@ -123,15 +123,12 @@ const NavbarModal = () => {
                   >
                     <h2 className="absolute top-2 left-3 font-medium text-lg nameProductCatalog text-slate-100">
                       {/* @ts-expect-error: This */}
-                      {response2?.results &&
-                        response2?.results[0]?.name.substring(0, 12)}
+                      {response2?.results && response2?.results[0]?.name.substring(0, 12)}
                       ...
                     </h2>
                     <img
                       /* @ts-expect-error: This */
-                      src={
-                        response2?.results &&
-                        response2?.results[0]?.images_set[0]?.image_url
+                      src={ response2?.results && response2?.results[0]?.images_set[0]?.image_url
                       }
                       alt="product-img"
                       className="w-[50%] object-contain"
@@ -154,15 +151,13 @@ const NavbarModal = () => {
                   >
                     <h2 className="absolute top-2 left-3 font-medium text-lg nameProductCatalog text-slate-100">
                       {/* @ts-expect-error: This */}
-                      {response2?.results &&
-                        response2?.results[1]?.name.substring(0, 12)}
+                      {response2?.results && response2?.results[1]?.name.substring(0, 12)}
                       ...
                     </h2>
                     <img
                       src={
                         /* @ts-expect-error: This */
-                        response2?.results &&
-                        response2?.results[1]?.images_set[0]?.image_url
+                        response2?.results && response2?.results[1]?.images_set[0]?.image_url
                       }
                       alt="product-img"
                       className="h-[50%] object-contain"
@@ -179,24 +174,17 @@ const NavbarModal = () => {
                 <div className="h-full w-1/2 flex flex-col">
                   <Link
                     /* @ts-expect-error: This */
-                    to={`category/${
-                      response2?.results && response2?.results[2]?.id
-                    }`}
+                    to={`category/${response2?.results && response2?.results[2]?.id}`}
                     onClick={productDetail}
                     className="w-full h-[30%]  hover:bg-[#fff] flex justify-center items-center relative productCatalog cursor-pointer"
                   >
                     <h2 className="absolute top-2 left-3 font-medium text-lg nameProductCatalog text-slate-100">
                       {/* @ts-expect-error: This */}
-                      {response2?.results &&
-                        response2?.results[2]?.name.substring(0, 12)}
-                      ...
+                      {response2?.results && response2?.results[2]?.name.substring(0, 12)}...
                     </h2>
                     <img
                       /* @ts-expect-error: This */
-                      src={
-                        response2?.results &&
-                        response2?.results[2]?.images_set[0]?.image_url
-                      }
+                      src={ response2?.results &&response2?.results[2]?.images_set[0]?.image_url}
                       alt="product-img"
                       className="h-[50%] object-contain"
                     />
@@ -210,23 +198,18 @@ const NavbarModal = () => {
                   </Link>
                   <Link
                     /* @ts-expect-error: This */
-                    to={`category/${
-                      response2?.results && response2?.results[3]?.id
-                    }`}
+                    to={`category/${ response2?.results && response2?.results[3]?.id}`}
                     onClick={productDetail}
                     className="w-full h-[30%] bbg-slate-100 hover:bg-[#fff] flex justify-center items-center relative productCatalog cursor-pointer"
                   >
                     <h2 className="absolute top-2 left-3 font-medium text-lg nameProductCatalog text-slate-100">
                       {/* @ts-expect-error: This */}
-                      {response2?.results &&
-                        response2?.results[3]?.name.substring(0, 12)}
+                      {response2?.results && response2?.results[3]?.name.substring(0, 12)}
                       ...
                     </h2>
                     <img
                       /* @ts-expect-error: This */
-                      src={
-                        response2?.results &&
-                        response2?.results[3]?.images_set[0]?.image_url
+                      src={ response2?.results && response2?.results[3]?.images_set[0]?.image_url
                       }
                       alt="product-img"
                       className="h-[50%] object-contain"
@@ -298,7 +281,7 @@ const NavbarModal = () => {
                   activeMobileItem ? "w-[90%] bg-[#fff] h-[115vh]" : "hidden"
                 }`}
               >
-                {/* @ts-ignore */}
+               {/*@ts-expect-error: This */}
                 {response[activeItem]?.children?.map((i) => (
                   <div
                     key={i.id}

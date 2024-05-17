@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useFetchHook } from "../../hooks/UseFetch";
 import { BASE_URL } from "../../services/services";
@@ -17,17 +17,17 @@ function NewsDetail() {
     return <div>Loading...</div>;
   }
 
-  console.log(response);
 
   return (
     <div className="container_xxl">
       <div className="pb-[50vh] mt-10 mx-[100px]">
+        {/*@ts-expect-error: This */}
         {response.body && (
           <div className="article-container ck-__editable">
             <div className="ck-content">
               <div
-                dangerouslySetInnerHTML={{
-                  __html: response.body.replace(
+              // @ts-expect-error: This
+                dangerouslySetInnerHTML={{ __html: response.body.replace(
                     /src="\/media/g,
                     `src="${BASE_URL}media`
                   ),

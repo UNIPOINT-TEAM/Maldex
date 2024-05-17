@@ -17,6 +17,15 @@ export interface Product {
   circulation: number;
   total: string;
   image: string;
+  is_new: boolean;
+  is_hit: boolean;
+  discount_price: number;
+  price_type: string;
+  images_set: {
+    id: number;
+    image_url: string;
+    image: string;
+  }[];
   characteristics: {
     vendor_code: string;
     size: string;

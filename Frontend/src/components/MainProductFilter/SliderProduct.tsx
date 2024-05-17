@@ -175,7 +175,7 @@ const SliderProduct = ({ products }) => {
             spaceBetween: 40,
           },
           1024: {
-            slidesPerView: 5,
+            slidesPerView: 4.5,
             spaceBetween: 50,
           },
         }}

@@ -11,16 +11,17 @@ function PortfolioDetail() {
     fetchData({ method: "GET", url: `projects/${id}/` });
   }, [id, fetchData]);
 
-  console.log(response.products);
 
   return (
     <>
       <div className="container_xxl">
         <div className="mx-3">
+          {/*@ts-expect-error: This */}
           {response?.images_set?.[0] && (
             <div
               className="p-3 mb-5 lg:p-5 bg-cover text-white h-[180px] sm:h-[550px]"
               style={{
+                //@ts-expect-error: This 
                 backgroundImage: `url(${response.images_set[0]})`,
               }}
             >
@@ -28,12 +29,14 @@ function PortfolioDetail() {
                 <Badge name="NEW" type="NEW" />
                 <Badge name="HIT" type="HIT" />
                 <h3 className="text-fs_7 lg:text-[50px] text-[#475259] leading-tight font-medium">
+                  {/*@ts-expect-error: This */}
                   {response?.title}
                 </h3>
               </div>
             </div>
           )}
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 ">
+            {/*@ts-expect-error: This */}
             {response?.images_set?.slice(1).map((article, index) => (
               <div
                 key={index}
@@ -58,6 +61,7 @@ function PortfolioDetail() {
                   <span className="font-semibold">Состав:</span>
                   <br />
                   <div className="text-[12px] lg:text-[14px] tracking-wide font-medium leading-snug">
+                    {/*@ts-expect-error: This */}
                     {response?.description}
                   </div>
                 </div>
@@ -77,9 +81,8 @@ function PortfolioDetail() {
             </div>
           </div>
           <div className="w-full mt-28">
-            {/*@ts-expect-error: This */}
             <h3 className="section-title ">Товары из набора</h3>
-
+            {/*@ts-expect-error: This */}
             <SliderProduct products={response?.products} />
           </div>
           <News title="Новинки" />

@@ -13,23 +13,36 @@ import { IoAddSharp, IoCloseSharp, IoSearchOutline } from "react-icons/io5";
 import { useFetchHook } from "../../hooks/UseFetch";
 import BuildSetCarusel from "../../components/BuildSetModals/BuildSetCarusel";
 import EmptyContant from "../../components/EmptyContant/EmptyContant";
+import CaruselCard from "../../components/BuildSetModals/CaruselCard";
+import { useDispatch } from "react-redux";
+import { addToCart, setCartMessageOn } from "../../store/cartSlice";
 
 const BuildSet = () => {
   const [open, setOpen] = useState<number>(0);
   const [buildCart] = useState([]);
+  const [handleCustomVisible, setHandleCustomVisible] =
+    useState<boolean>(false);
   const [quantityVisible, setQuantityVisible] = useState<boolean>(false);
-  const handleOpen = (value: number) => setOpen(open === value ? 0 : value);
   const { fetchData, response } = useFetchHook();
   const { fetchData: filterFetch, response: filterProduct } = useFetchHook();
+  const dispatch = useDispatch();
+
+  const handleOpen = (value: number) => setOpen(open === value ? 0 : value);
+
   useEffect(() => {
     fetchData({ method: "GET", url: "/gifts/baskets/set/catalogs/" });
   }, []);
 
-  const handleFilterProduct = (id: number) => {
-    handleOpen(4);
-    filterFetch({ method: "GET", url: `product/?category_id=${id}` });
+  const handleFilterProduct = (query: string) => {
+    filterFetch({ method: "GET", url: `product/?${query}` });
   };
-  console.log(filterProduct);
+  const addToCartHandler = (
+    product: any,
+    quantity: number,
+    totalPrice: number
+  ) => {
+    dispatch(addToCart({ ...product, quantity: quantity, totalPrice }));
+  };
 
   return (
     <div className="">
@@ -65,28 +78,38 @@ const BuildSet = () => {
                   </h2>
                 </AccordionHeader>
                 <AccordionBody className="p-4" placeholder={<div />}>
-                  <BuildSetCarusel buildSetProducts={item?.product_sets} />
+                  <BuildSetCarusel
+                    addToCartHandler={addToCartHandler}
+                    buildSetProducts={item?.product_sets}
+                  />
                 </AccordionBody>
               </Accordion>
             ))}
 
             <Accordion
               className=" border border-l-0 static border-lightPrimary px-5 my-4"
-              open={open === 4}
+              open={handleCustomVisible}
               placeholder={<div />}
             >
               <AccordionHeader
                 className="border-0 justify-start p-4 static"
-                onClick={() => handleOpen(4)}
+                onClick={() => setHandleCustomVisible(!handleCustomVisible)}
                 placeholder={<div />}
               >
                 <h2 className="font-Helvetica-Neue tracking-wide text-fs_6 font-normal text-greenPrimary ">
                   {response.length + 1}. Добавьте еще что-то
                 </h2>
                 <div className="ms-16 font-Helvetica-Neue text-base font-normal text-darkPrimary flex gap-4 items-center">
-                  <div className="w-[300px] h-[33px] flex items-center gap-3 search border border-darkPrimary px-2 rounded-lg">
+                  <div
+                    onClick={(e) => e.stopPropagation()}
+                    className="w-[300px] h-[33px] flex items-center gap-3 search border border-darkPrimary px-2 rounded-lg"
+                  >
                     <IoSearchOutline className="text-fs_4" />
                     <input
+                      onFocus={() => setHandleCustomVisible(true)}
+                      onChange={(e) =>
+                        handleFilterProduct(`search=${e.target.value}`)
+                      }
                       type="text"
                       placeholder="Поиск"
                       className="placeholder:text-darkPrimary border-0 outline-none w-full h-full "
@@ -96,8 +119,17 @@ const BuildSet = () => {
                 </div>
               </AccordionHeader>
               <AccordionBody className="p-4" placeholder={<div />}>
-                {filterProduct.length > 0 ? (
-                  <div className="grid"></div>
+                {/* @ts-expect-error: This */}
+                {filterProduct?.results?.length > 0 ? (
+                  <div className="grid grid-cols-4 gap-y-16 gap-3">
+                    {/* @ts-expect-error: This */}
+                    {filterProduct?.results?.map((item) => (
+                      <CaruselCard
+                        item={item}
+                        addToCartHandler={addToCartHandler}
+                      />
+                    ))}
+                  </div>
                 ) : (
                   <div className="h-[400px]">
                     <EmptyContant />
