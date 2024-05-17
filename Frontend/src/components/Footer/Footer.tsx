@@ -92,7 +92,7 @@ function Footer() {
                       }`}
                       key={index}
                     >
-                      {item}
+                      {item.title}
                     </li>
                   ))}
                 </ul>

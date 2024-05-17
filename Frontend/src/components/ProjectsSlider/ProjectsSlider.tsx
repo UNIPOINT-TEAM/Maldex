@@ -84,7 +84,7 @@ function ProjectsSlider() {
                 </ul>
               </div>
               <div>
-                <Link to={'/portfolio'}>
+                <Link to={"/portfolio"}>
                   <button className="uppercase w-[130px] text-[10px] font-bold tracking-wide h-7  px-3 border border-redPrimary rounded-[8px] text-redPrimary hidden ss:block">
                     Все топ-товары
                   </button>
@@ -113,11 +113,10 @@ function ProjectsSlider() {
             >
               {projects.map((item) => (
                 // @ts-expect-error: This
-
                 <SwiperSlide key={item.id}>
-                  <Link 
-                  //@ts-expect-error: This 
-                  to={`/portfolio/${item.id}`}
+                  <Link
+                    //@ts-expect-error: This
+                    to={`/portfolio/${item.id}`}
                   >
                     <div className="relative">
                       <img

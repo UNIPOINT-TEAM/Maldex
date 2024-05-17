@@ -8,6 +8,7 @@ import product from "../../assets/images/slider-item.png";
 
 const BannerSlider = () => {
   const { fetchData, response } = useFetchHook();
+  console.log(response);
   useEffect(() => {
     fetchData({ method: "GET", url: "/banner/carousel/" });
   }, []);
@@ -28,34 +29,35 @@ const BannerSlider = () => {
           className="w-full h-full  "
         >
           {/* @ts-expect-error: This */}
-          {response && response[0]?.product_set?.map((item) => (
-              <SwiperSlide className="w-full flex h-full" key={item.id}>
-                <div className="w-[55%] flex flex-col justify-between">
-                  <div>
-                    <span className="border  font-medium text-[8px] lg:text-[11px] uppercase p-1 tracking-wide rounded-md">
-                      корпоративные подарки
-                    </span>
-                    <h2 className="font-bold lg:font-medium text-base lg:text-[30px] m-0  tracking-wide leading-none lg:leading-none mt-2 lg:mt-4">
-                      {item.productCarouselID?.name}
-                    </h2>
-                  </div>
-                  <div className="mt-auto flex gap-1 lg:gap-3 text-fs_8 font-semibold">
-                    <Link
-                      to={"/gift"}
-                      className="border text-center px-2 w-auto lg:w-[160px] py-[7px] lg:py-[10px] capitalize lg:uppercase font-medium tracking-wider rounded-lg  hover:bg-[rgba(0,0,0,0.11)]  duration-300"
-                    >
-                      Подробнее
-                    </Link>
-                    <Link
-                      to={"/gift"}
-                      className="border font-medium text-center px-2 w-auto lg:w-[160px] py-[7px] lg:py-[10px]  capitalize lg:uppercase  tracking-widest rounded-lg hover:bg-[rgba(0,0,0,0.11)]  duration-300"
-                    >
-                      заказать
-                    </Link>
-                  </div>
+          {[0, 1, 2].map((item, i) => (
+            <SwiperSlide className="w-full flex h-full" key={i}>
+              <div className="w-[55%] flex flex-col justify-between">
+                <div>
+                  <span className="border  font-medium text-[8px] lg:text-[11px] uppercase p-1 tracking-wide rounded-md">
+                    корпоративные подарки
+                  </span>
+                  <h2 className="font-bold lg:font-medium text-base lg:text-[30px] m-0  tracking-wide leading-none lg:leading-none mt-2 lg:mt-4">
+                    {/* {item.productCarouselID?.name} */}
+                    Бизнес сувениры для брендов
+                  </h2>
                 </div>
-                <div className="w-[45%] pt-4  flex items-end">
-                  {/* <video
+                <div className="mt-auto flex gap-1 lg:gap-3 text-fs_8 font-semibold">
+                  <Link
+                    to={"/gift"}
+                    className="border text-center px-2 w-auto lg:w-[160px] py-[7px] lg:py-[10px] capitalize lg:uppercase font-medium tracking-wider rounded-lg  hover:bg-[rgba(0,0,0,0.11)]  duration-300"
+                  >
+                    Подробнее
+                  </Link>
+                  <Link
+                    to={"/gift"}
+                    className="border font-medium text-center px-2 w-auto lg:w-[160px] py-[7px] lg:py-[10px]  capitalize lg:uppercase  tracking-widest rounded-lg hover:bg-[rgba(0,0,0,0.11)]  duration-300"
+                  >
+                    заказать
+                  </Link>
+                </div>
+              </div>
+              <div className="w-[45%] pt-4  flex items-end">
+                {/* <video
                     src={item?.bannerCarouselVideo}
                     className="w-[75%] h-full object-cover"
                     controls
@@ -66,14 +68,14 @@ const BannerSlider = () => {
                       type="video/mp4"
                     />
                   </video> */}
-                  <img
-                    src={product}
-                    alt="img"
-                    className="w-full h-[300px] object-contain"
-                  />
-                </div>
-              </SwiperSlide>
-            ))}
+                <img
+                  src={product}
+                  alt="img"
+                  className="w-full h-[300px] object-contain"
+                />
+              </div>
+            </SwiperSlide>
+          ))}
         </Swiper>
         <div className="navigation-box  absolute right-3 lg:right-6 bottom-3 lg:bottom-5 z-[9] flex gap-2">
           <button className="prev-arrow backdrop-blur-lg p-2 border border-[#fff] rounded-lg">

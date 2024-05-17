@@ -1,4 +1,4 @@
-import { QuestForm } from "../../components";
+import { CartProductCarusel, QuestForm } from "../../components";
 import Product1 from "../../assets/images/machine.png";
 import Trash from "../../assets/icons/trash.png";
 import QuestionIcon from "../../assets/icons/questionIcon.png";
@@ -199,7 +199,9 @@ const Cart = () => {
             </div>
           </div>
         </div>
-        <div className="container_xxl px-3"></div>
+        <div className="container_xxl ">
+          <CartProductCarusel />
+        </div>
 
         <QuestForm />
       </div>

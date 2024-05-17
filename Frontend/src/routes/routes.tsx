@@ -51,7 +51,7 @@ export const router = createBrowserRouter([
         element: <Gift />,
       },
       {
-        path: "/card",
+        path: "/cart",
         element: <Card />,
       },
       {
