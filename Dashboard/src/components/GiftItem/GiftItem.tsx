@@ -1,11 +1,7 @@
-import NewCategoryModal from './NewCategoryModal';
-import EditCategory from './EditCategory';
 import { useEffect, useState } from 'react';
 import { GetNewCategory } from '../../services/main';
-import DeleteCategory from './DeleteCategory';
-import { Button } from '@material-tailwind/react';
-import { AddMainCatalog, DeleteMainCatalog, EditMainCatalog } from '..';
-import DeleteModal from '../DeleteModal/DeleteModal';
+import { AddMainCatalog, EditMainCatalog } from '..';
+import { PutWithJson } from '../../services/maincatalog';
 
 interface Category {
   logo: string;
@@ -16,12 +12,16 @@ const GiftItem = () => {
   const [newCategoryData, setNewCategoryData] = useState<Category[]>([]);
   const [isBtnDisabled, setIsBtnDisabled] = useState<boolean>(true);
   const [status, setStatus] = useState(false);
+  const [secondOrder, setSecondOrder] = useState(null);
+  const [firstOrder, setFirstOrder] = useState(null);
   const changeStatus = (newState: any) => {
     setStatus(newState);
   };
 
   const getData = () => {
-    GetNewCategory().then((res) => setNewCategoryData(res));
+    GetNewCategory().then((res) => {
+      setNewCategoryData(res);
+    });
   };
 
   useEffect(() => {
@@ -37,10 +37,42 @@ const GiftItem = () => {
     setIsBtnDisabled(false);
   };
 
+  const changeOrder = () => {
+    const orderCount = Number(secondOrder);
+    const data1 = {
+      order_top: orderCount,
+    };
+    // @ts-ignore
+    PutWithJson(
+      `/product/category/${newCategoryData[firstOrder - 1].id}/`,
+      data1,
+    );
+    setStatus(!status);
+    window.location.reload();
+  };
+
   return (
     <div className="pb-5">
-      <div className="heading w-full flex justify-end">
+      <div className="heading w-full flex justify-between">
         {/* <NewCategoryModal /> */}
+        <div className="flex w-[400px] gap-2">
+          <input
+            onChange={(e) => setFirstOrder(e.target.value)}
+            type="number"
+            className="w-[80px] border rounded-md px-2"
+          />
+          <input
+            onChange={(e) => setSecondOrder(e.target.value)}
+            type="number"
+            className="w-[80px] border rounded-md px-2"
+          />
+          <button
+            onClick={changeOrder}
+            className="h-[40px] bg-blue-400 w-[60px] rounded-md text-white"
+          >
+            ok
+          </button>
+        </div>
         <AddMainCatalog status={status} onChange={changeStatus} />
       </div>
       <div className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-10 gap-2 mt-4 py-3 gap-y-[40px] ">
@@ -63,7 +95,12 @@ const GiftItem = () => {
                 </p>
               </div>
               <div className="flex justify-between ">
-                <EditMainCatalog categoryId={item.id} status={status} onChange={changeStatus} />
+                <EditMainCatalog
+                  categoryId={item.id}
+                  status={status}
+                  onChange={changeStatus}
+                />
+                <p>{item.order_top}</p>
                 {/* <DeleteModal
                   url={`/product/category/${item.id}/`}
                   title={'delete this giftitem'}

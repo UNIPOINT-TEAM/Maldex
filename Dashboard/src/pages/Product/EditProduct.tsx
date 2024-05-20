@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import DefaultLayout from '../../layout/DefaultLayout';
 import {
   Input,
@@ -8,7 +8,6 @@ import {
   Option,
 } from '@material-tailwind/react';
 import {
-  AddWithFormData,
   DeleteItem,
   GetProductDetail,
   UpdateWithFormData,
@@ -197,7 +196,7 @@ const EditProduct = () => {
                 {sizes?.map((ware) => (
                   <div className="flex w-full  justify-between  border-b  py-3">
                     <p>
-                      Размер : <span className="text-blue-400">{ware.name}</span>
+                      <span className="text-blue-400">{ware.name}</span>
                     </p>
                     <p>
                       количество :{' '}
