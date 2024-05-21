@@ -50,7 +50,9 @@ const Product = () => {
       const pages = (res.data.count - residual) / 10;
       setTotalPages(pages % 2 == 0 && pages === 1 ? pages : pages + 1);
     });
-    GetActiveCategory().then((res) => setFilterCategories(res));
+    GetActiveCategory().then((res) => {
+      setFilterCategories(res), console.log(res);
+    });
     GetProductIsNew().then((res) => {
       setNewProduct(res.data.results);
     });
@@ -188,7 +190,9 @@ const Product = () => {
             <Select label="Выберите категорию">
               {filterCategories?.map((category) => (
                 <Option onClick={() => setCategoryId(category?.id)}>
-                  {category?.name}
+                  <span>{category?.name} / </span>
+                  <span className='text-blue-400'>{category?.count} / </span>
+                  <span className="text-red-400 text-xs">{category?.site}  </span>
                 </Option>
               ))}
             </Select>

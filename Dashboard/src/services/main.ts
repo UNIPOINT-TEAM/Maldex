@@ -5,7 +5,7 @@ export const GetNewCategory = async () => {
   return response.data;
 };
 export const GetActiveCategory = async () => {
-  const response = await api.get(`/product/categories/?is_available=true`);
+  const response = await api.get(`/product/categories/`);
   return response.data;
 };
 export const GetMainBanner = async () => {
