@@ -83,7 +83,7 @@ const Faq = () => {
         </div>
         <div className="flex gap-2">
           <button
-          className="bg-warning rounded w-[30px] h-[30px] flex justify-center items-center"
+            className="bg-warning rounded w-[30px] h-[30px] flex justify-center items-center"
             onClick={(e) => {
               e.stopPropagation();
               const newTitle = prompt('Enter new title:', item.title);
@@ -91,7 +91,6 @@ const Faq = () => {
               if (newTitle && newBody) handleEdit(item.id, newTitle, newBody);
             }}
           >
-
             <MdEdit color={'white'} />
           </button>
           <button
@@ -123,14 +122,14 @@ const Faq = () => {
         <div className="border border-dashed py-5 px-2 w-full rounded-xl">
           <input
             type="text"
-            placeholder="title"
+            placeholder="заголовок"
             className="w-full border outline-none rounded h-[40px] mb-3 px-3 py-1"
             value={newFaq.title}
             onChange={(e) => setNewFaq({ ...newFaq, title: e.target.value })}
           />
           <input
             type="text"
-            placeholder="description"
+            placeholder="описание"
             className="w-full border outline-none rounded h-[40px] mb-3 px-3 py-1"
             value={newFaq.body}
             onChange={(e) => setNewFaq({ ...newFaq, body: e.target.value })}
@@ -140,13 +139,13 @@ const Faq = () => {
               onClick={() => setIsAdding(false)}
               className="bg-red-400 text-white w-[200px] h-[40px] rounded"
             >
-              cancel
+              отмена
             </button>
             <button
               onClick={handleAdd}
               className="bg-blue-400 text-white w-[200px] h-[40px] rounded"
             >
-              Save
+              сохранять
             </button>
           </div>
         </div>

@@ -26,9 +26,15 @@ const Main: React.FC = () => {
       <div className="container_xxl px-3 mt-10">
         <Dishes />
       </div>
-      <div className="container_xxl px-3 mt-10">
+      <div className="container_xxl px-3 mt-10 mb-10">
+        <p className="text-3xl">FAQ</p>
         <Faq />
       </div>
+
+      <div className="container_xxl px-3 mt-10">
+        <p className="text-3xl">ПРОЕКТЫ</p>
+      </div>
+
       <div>
         <ProjectsSlider />
       </div>

@@ -24,7 +24,6 @@ const SliderProductHit = () => {
     setCategoryId(newState);
   };
 
-
   const changeStatus = () => {
     setDefaultProduct(!defaultProduct);
   };

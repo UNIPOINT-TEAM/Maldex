@@ -69,7 +69,6 @@ const ProductNav: React.FC<ProductNavProps> = ({
 
   const handleConfirm = () => {
     // Здесь вы можете использовать selectedProducts для дальнейшей обработки
-    console.log('Selected products:', selectedProducts);
     handleOpen(); // Закрыть диалоговое окно
   };
 
@@ -107,6 +106,7 @@ const ProductNav: React.FC<ProductNavProps> = ({
                   }}
                 >
                   {item.name}
+                  {item.id}
                 </li>
               ))}
             </ul>
