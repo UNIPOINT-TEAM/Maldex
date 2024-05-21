@@ -23,7 +23,7 @@ function CreatePortfolio() {
   const [name, setName] = useState('');
   const [open, setOpen] = useState(false);
   const [description, setDescription] = useState('');
-  const [inputs, setInputs] = useState([{ image: '', color: '' }]);
+  const [inputs, setInputs] = useState([{ image: '', color: '', fake: null }]);
   const [addProduct, setAddProduct] = useState(null);
   const [checkedItems, setCheckedItems] = useState([]);
   const [inputVal, setInputVal] = useState('');
@@ -31,7 +31,7 @@ function CreatePortfolio() {
   const [tagIds, setTagIds] = useState([]);
 
   useEffect(() => {
-    GetProductSearch(inputVal,"","").then((res) => {
+    GetProductSearch(inputVal, '', '').then((res) => {
       setAddProduct(res.data.results);
     });
     GetTags().then((res) => {
@@ -39,12 +39,24 @@ function CreatePortfolio() {
     });
   }, [inputVal]);
 
+  // const handleFileInputChange = (index, event) => {
+  //   const { name } = event;
+  //   console.log(event.target);
+  //   const file = event.target.files[0];
+  //   if (!file) return;
+  //   const newInputs = [...inputs];
+  //   newInputs[index]['image'] = file;
+  //   newInputs[index]['fake'] = URL.createObjectURL(file);
+  //   setInputs(newInputs);
+  // };
+
   const addnewProduct = (e: any) => {
     e.preventDefault();
+    const ids = checkedItems?.map((i) => i.id);
     const formdata = new FormData();
     formdata.append('title', name),
       formdata.append('description', description),
-      formdata.append('product_ids', checkedItems),
+      formdata.append('product_ids', ids),
       formdata.append('tags', tagIds);
     for (let i = 0; i < inputs.length; i++) {
       formdata.append(`images[${i}]image`, inputs[i].image);
@@ -55,10 +67,12 @@ function CreatePortfolio() {
   };
 
   const handleFileInputChange = (index, event) => {
+    const { name } = event;
     const file = event.target.files[0];
     if (!file) return;
     const newInputs = [...inputs];
     newInputs[index]['image'] = file;
+    newInputs[index]['fake'] = URL.createObjectURL(file);
     setInputs(newInputs);
   };
 
@@ -112,7 +126,7 @@ function CreatePortfolio() {
                 onChange={(e) => setInputVal(e.target.value)}
               />
             </div>
-            <div className="flex flex-wrap justify-center gap-5 py-5 overflow-y-scroll h-[800px]">
+            <div className="flex flex-wrap justify-center gap-5 py-5 overflow-y-scroll h-[500px]">
               {/* @ts-ignore */}
               {addProduct?.map((item) => (
                 <div className="w-1/6 shadow-4 p-2 rounded-sm h-[400px]">
@@ -140,29 +154,6 @@ function CreatePortfolio() {
                           </SwiperSlide>
                         ))}
                       </Swiper>
-                      <div className="absolute z-[9999] bottom-[25px] right-[15px] flex flex-col gap-1 swiper-opacity">
-                        <button
-                          className={`w-[8px] h-[8px] bg-red-primary rounded-[4px]`}
-                        ></button>
-                        <button
-                          className={`w-[8px] h-[8px] bg-orange-600 rounded-[4px]`}
-                        ></button>
-                        <button
-                          className={`w-[8px] h-[8px] bg-green-600 rounded-[4px]`}
-                        ></button>
-                        <button
-                          className={`w-[8px] h-[8px] bg-green-primary rounded-[4px]`}
-                        ></button>
-                        <button
-                          className={`w-[8px] h-[8px] bg-blue-600 rounded-[4px]`}
-                        ></button>
-                        <button
-                          className={`w-[8px] h-[8px] bg-purple-600 rounded-[4px]`}
-                        ></button>
-                        <button
-                          className={`w-[8px] h-[8px] bg-indigo-600 rounded-[4px]`}
-                        ></button>
-                      </div>
 
                       {item?.is_new ? (
                         <div className="absolute z-[999] top-2 left-2 flex gap-2">
@@ -196,14 +187,12 @@ function CreatePortfolio() {
                           {item?.price}
                           <span className="text-xs absolute top-0">12</span>
                           <span className="ml-4 mr-1">{item?.price_type}</span>
-                          <span className="text-xs absolute top-0 line-through text-red-primary">
-                            234
-                          </span>
+                          <span className="text-xs absolute top-0 line-through text-red-primary"></span>
                         </p>
                         <Checkbox
                           defaultChecked={false}
                           color="blue"
-                          onChange={() => handleCheckboxChange(item?.id)}
+                          onChange={() => handleCheckboxChange(item)}
                         />
                       </div>
                     </div>
@@ -222,6 +211,7 @@ function CreatePortfolio() {
               Отмена
             </button>
             <button
+              onClick={() => setOpen(false)}
               form="form-post"
               className="inline-flex tracking-wide items-center justify-center rounded-md bg-success py-2 px-6 text-center font-medium text-white hover:bg-opacity-90 "
             >
@@ -270,13 +260,77 @@ function CreatePortfolio() {
                 </div>
               ))}
             </div>
-            <button
-              type="button"
-              onClick={handleOpen}
-              className="w-1/3 bg-blue-400 text-white rounded-md py-2"
-            >
-              добавить товар
-            </button>
+            <div className="flex w-full gap-2">
+              <button
+                type="button"
+                onClick={handleOpen}
+                className="w-1/3 bg-blue-400 text-white rounded-md py-2"
+              >
+                добавить товар
+              </button>
+              {checkedItems?.length > 0 ? (
+                <button
+                  onClick={() => setCheckedItems([])}
+                  className="w-[100px] py-2 bg-red-400 text-white rounded-md"
+                >
+                  Очистить
+                </button>
+              ) : (
+                ''
+              )}
+            </div>
+
+            <div className="flex flex-wrap justify-start gap-5 py-5 overflow-y-scroll h-[350px]">
+              {/* @ts-ignore */}
+              {checkedItems?.map((item) => (
+                <div className="w-1/6 shadow-4 p-2 rounded-sm h-[300px]">
+                  <div className="catalog ">
+                    <div className="relative swiper-top-container h-[220px] mb-4 bg-gray-200">
+                      <Swiper
+                        pagination={{ clickable: true }}
+                        modules={[Navigation, Pagination]}
+                        className="  h-full"
+                      >
+                        {item?.images_set?.map((i) => (
+                          <SwiperSlide className="w-full h-full">
+                            <div
+                              onClick={() => handleOpen('xl')}
+                              className="relative  h-full"
+                            >
+                              <div className="flex justify-center items-center h-full">
+                                <img
+                                  className="mb-2  object-contain product-img"
+                                  src={i.image_url || i.image}
+                                  alt=""
+                                />
+                              </div>
+                            </div>
+                          </SwiperSlide>
+                        ))}
+                      </Swiper>
+                    </div>
+                    {/* {defaultProduct ? ( */}
+                    <div className="default">
+                      <div className="mb-2 md:mb-5  min-h-[70px] ">
+                        <p className="text-fs_7 tracking-wide">
+                          {
+                            //@ts-ignore
+                            item?.name?.length > 30
+                              ? //@ts-ignore
+                                item?.name?.substring(0, 20) + '...'
+                              : //@ts-ignore
+                                item?.name
+                          }
+                        </p>
+                      </div>
+                      <p className="mb-2 text-gray-600 text-fs_8">
+                        {item?.vendor_code}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
           <div className="w-1/3 pt-10">
             <div className="flex items-center justify-between w-full">
@@ -299,6 +353,11 @@ function CreatePortfolio() {
                           onChange={(e) => handleFileInputChange(index, e)}
                         />
                         <p className="text-fs-6">Добавить Фото</p>
+                        <img
+                          src={inputs[index].fake}
+                          alt="no img"
+                          className="w-[50px] h-[50px]"
+                        />
                       </label>
                     </div>
                   </div>

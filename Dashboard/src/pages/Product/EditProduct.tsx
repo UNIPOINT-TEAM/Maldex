@@ -1,4 +1,4 @@
-import  { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import DefaultLayout from '../../layout/DefaultLayout';
 import {
   Input,
@@ -86,6 +86,8 @@ const EditProduct = () => {
       setMainId(subSubcategoryId);
     }
     GetProductDetail(id).then((res) => {
+      console.log(res);
+
       setWarehouse(res.data.warehouse);
       setSizes(res.data.sizes);
       setProductDetail(res.data);
@@ -93,6 +95,9 @@ const EditProduct = () => {
       setIsnew(res.data.is_new);
       setIspopular(res.data.is_popular);
       setOndemand(res.data.ondemand);
+      setPrice(res.data.price);
+      setDiscount_price(res.data.discount_price);
+      setCode(res.data.code);
     });
   }, [categoryId, subcategoryId, subSubcategoryId, status]);
 
@@ -335,22 +340,30 @@ const EditProduct = () => {
             <div className="flex items-center justify-between w-1/2 mb-5 pr-5 text-black">
               <Checkbox
                 color="blue"
-                label="Popular"
+                label="популярный"
                 defaultChecked={productDetail?.is_popular}
                 onChange={(e) => setIspopular(e.target.checked)}
               />
               <Checkbox
                 color="blue"
-                label="NEW"
+                label="новый"
                 defaultChecked={productDetail?.is_new}
                 onChange={(e) => setIsnew(e.target.checked)}
               />
               <Checkbox
                 color="blue"
-                label="HIT"
+                label="хит"
                 defaultChecked={productDetail?.is_hit}
                 onChange={(e) => setIshit(e.target.checked)}
               />
+            </div>
+            <div className="w-full flex gap-1 mb-5">
+              Категория :
+              {productDetail?.categories?.map((i) => (
+                <p className="text-blue-400">
+                  {i?.name} <span className="text-black">/</span>
+                </p>
+              ))}
             </div>
             <div className="w-full flex items-center justify-between mb-5 pr-5 text-black">
               <Select label="Выберите Категорию">

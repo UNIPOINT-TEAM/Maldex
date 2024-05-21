@@ -36,6 +36,7 @@ const AddMainCatalog = ({ status, onChange }) => {
     formdata.append('icon', icon);
     AddWithFormData(`${BASE_URL}/product/categories/`, formdata).then(() => {
       setOpen(!open), onChange(!status);
+      window.location.reload();
     });
   };
 

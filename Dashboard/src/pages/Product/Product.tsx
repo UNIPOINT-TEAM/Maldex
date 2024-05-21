@@ -18,9 +18,12 @@ import {
   DialogFooter,
   DialogHeader,
   Input,
+  Option,
+  Select,
 } from '@material-tailwind/react';
 import { GetMainCatalogactive, PutData } from '../../services/maincatalog';
 import PaginationCard from '../../components/Pagination/Pagination';
+import { GetActiveCategory, GetNewCategory } from '../../services/main';
 
 const Product = () => {
   const [addProduct, setAddProduct] = useState([]);
@@ -37,14 +40,17 @@ const Product = () => {
   const [isHit, setIsHit] = useState(false);
   const [newProduct, setNewProduct] = useState([]);
   const [hitProduct, setHitProduct] = useState([]);
+  const [filterCategories, setFilterCategories] = useState([]);
+  const [categoryId, setCategoryId] = useState(null);
 
   useEffect(() => {
-    GetProductSearch(search, currentPage, filterId).then((res) => {
+    GetProductSearch(search, currentPage, filterId, categoryId).then((res) => {
       setAddProduct(res.data.results);
       const residual = res.data.count % 10;
       const pages = (res.data.count - residual) / 10;
       setTotalPages(pages % 2 == 0 && pages === 1 ? pages : pages + 1);
     });
+    GetActiveCategory().then((res) => setFilterCategories(res));
     GetProductIsNew().then((res) => {
       setNewProduct(res.data.results);
     });
@@ -57,7 +63,7 @@ const Product = () => {
     GetFilters().then((res) => {
       setFilter(res.data);
     });
-  }, [search, currentPage, filterId]);
+  }, [search, currentPage, filterId, categoryId]);
 
   const fillCheckedProducts = (id) => {
     const isAlreadyChecked = checkedProducts.some(
@@ -178,6 +184,15 @@ const Product = () => {
           >
             hit продукты
           </button>
+          <div className="w-72">
+            <Select label="Выберите категорию">
+              {filterCategories?.map((category) => (
+                <Option onClick={() => setCategoryId(category?.id)}>
+                  {category?.name}
+                </Option>
+              ))}
+            </Select>
+          </div>
           {filter?.map((item) => (
             <button
               key={item.id}
@@ -191,7 +206,10 @@ const Product = () => {
           ))}
           <button
             onClick={() => {
-              setFilterId(''), setIsNew(false), setIsHit(false);
+              setFilterId(''),
+                setIsNew(false),
+                setIsHit(false),
+                setCategoryId(null);
             }}
             className={`border rounded-md px-2 py-1 border-red-400 text-red-400`}
           >
@@ -275,7 +293,9 @@ const Product = () => {
                       <div className="relative mb-2">
                         <p className="text-[16px] md:text-fs_4">
                           {item.price}
-                          <span className="text-xs absolute top-0">12</span>
+                          <span className="text-xs absolute top-0">
+                            {item.discount_price}
+                          </span>
                           <span className="ml-4 mr-1">{item.price_type}</span>
                           <span className="text-xs absolute top-0 line-through text-red-primary">
                             234
@@ -346,7 +366,9 @@ const Product = () => {
                       <div className="relative mb-2">
                         <p className="text-[16px] md:text-fs_4">
                           {item.price}
-                          <span className="text-xs absolute top-0">12</span>
+                          <span className="text-xs absolute top-0">
+                            {item.discount_price}
+                          </span>
                           <span className="ml-4 mr-1">{item.price_type}</span>
                           <span className="text-xs absolute top-0 line-through text-red-primary">
                             234
@@ -416,11 +438,13 @@ const Product = () => {
                       <p className="text-red-400 text-sm">{item.site}</p>
                       <div className="relative mb-2">
                         <p className="text-[16px] md:text-fs_4">
-                          {item.price}
-                          <span className="text-xs absolute top-0">12</span>
-                          <span className="ml-4 mr-1">{item.price_type}</span>
+                          {item.discount_price > 0
+                            ? item.discount_price
+                            : item.price}
+
+                          <span className="ml-4 mr-1">{item?.price_type}</span>
                           <span className="text-xs absolute top-0 line-through text-red-primary">
-                            234
+                            {item.discount_price > 0 ? item.price : ''}
                           </span>
                         </p>
                       </div>

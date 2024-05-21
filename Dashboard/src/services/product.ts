@@ -27,11 +27,12 @@ export const GetProductSearch = async (
   item?: string,
   currentpage?: number,
   filter_id?: string,
+  categoryId?:number
 ) => {
   const response = await axios.get(
     `${BASE_URL}/product/?search=${item && item}&page=${
       currentpage && currentpage
-    }&filter_id=${filter_id && filter_id}`,
+    }&filter_id=${filter_id && filter_id}&category_id=${categoryId}`,
   );
   return response;
 };

@@ -4,6 +4,10 @@ export const GetNewCategory = async () => {
   const response = await api.get(`/product/categories/?is_popular=true`);
   return response.data;
 };
+export const GetActiveCategory = async () => {
+  const response = await api.get(`/product/categories/?is_available=true`);
+  return response.data;
+};
 export const GetMainBanner = async () => {
   const response = await api.get(`/banner`);
   return response.data;
