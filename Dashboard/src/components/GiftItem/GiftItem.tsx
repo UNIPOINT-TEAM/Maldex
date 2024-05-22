@@ -59,12 +59,12 @@ const GiftItem = () => {
           <input
             onChange={(e) => setFirstOrder(e.target.value)}
             type="number"
-            className="w-[80px] border rounded-md px-2"
+            className="w-[80px] h-[40px] border rounded-md px-2"
           />
           <input
             onChange={(e) => setSecondOrder(e.target.value)}
             type="number"
-            className="w-[80px] border rounded-md px-2"
+            className="w-[80px] h-[40px] border rounded-md px-2"
           />
           <button
             onClick={changeOrder}
