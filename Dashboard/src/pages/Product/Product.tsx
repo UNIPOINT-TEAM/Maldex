@@ -41,7 +41,7 @@ const Product = () => {
   const [newProduct, setNewProduct] = useState([]);
   const [hitProduct, setHitProduct] = useState([]);
   const [filterCategories, setFilterCategories] = useState([]);
-  const [categoryId, setCategoryId] = useState(null);
+  const [categoryId, setCategoryId] = useState('');
 
   useEffect(() => {
     GetProductSearch(search, currentPage, filterId, categoryId).then((res) => {
@@ -160,90 +160,95 @@ const Product = () => {
           </Button>
         </DialogFooter>
       </Dialog>
-      <div className="container_xxl relative px-3 py-5">
-        <Input
-          label="поиск продукта"
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        <div className="flex flex-wrap gap-2 pt-5">
-          <button
-            onClick={() => {
-              setIsNew(true), setIsHit(false);
-            }}
-            className={`border rounded-md px-2 py-1 ${
-              isNew && ' border-red-400 text-red-400'
-            }`}
-          >
-            новые продукты
-          </button>
-          <button
-            onClick={() => {
-              setIsHit(true), setIsNew(false);
-            }}
-            className={`border rounded-md px-2 py-1 ${
-              isHit && ' border-red-400 text-red-400'
-            }`}
-          >
-            hit продукты
-          </button>
-          <div className="w-72">
-            <Select label="Выберите категорию">
-              {filterCategories?.map((category) => (
-                <Option onClick={() => setCategoryId(category?.id)}>
-                  <span>{category?.name} / </span>
-                  <span className='text-blue-400'>{category?.count} / </span>
-                  <span className="text-red-400 text-xs">{category?.site}  </span>
-                </Option>
-              ))}
-            </Select>
-          </div>
-          {filter?.map((item) => (
+      <div className=" relative w-full pb-5">
+        <div className="fixed z-[999]  w-3/4  bg-white">
+          <Input
+            label="поиск продукта"
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <div className="flex flex-wrap gap-2 pt-5">
             <button
-              key={item.id}
-              onClick={() => setFilterId(item.id)}
+              onClick={() => {
+                setIsNew(true), setIsHit(false);
+              }}
               className={`border rounded-md px-2 py-1 ${
-                item.id == filterId && ' border-red-400 text-red-400'
+                isNew && ' border-red-400 text-red-400'
               }`}
             >
-              {item.title}
+              новые продукты
             </button>
-          ))}
-          <button
-            onClick={() => {
-              setFilterId(''),
-                setIsNew(false),
-                setIsHit(false),
-                setCategoryId(null);
-            }}
-            className={`border rounded-md px-2 py-1 border-red-400 text-red-400`}
-          >
-            очистить фильтр
-          </button>
+            <button
+              onClick={() => {
+                setIsHit(true), setIsNew(false);
+              }}
+              className={`border rounded-md px-2 py-1 ${
+                isHit && ' border-red-400 text-red-400'
+              }`}
+            >
+              hit продукты
+            </button>
+            <div className="w-72">
+              <Select label="Выберите категорию">
+                {filterCategories?.map((category) => (
+                  <Option onClick={() => setCategoryId(category?.id)}>
+                    <span>{category?.name} / </span>
+                    <span className="text-blue-400">{category?.count} / </span>
+                    <span className="text-red-400 text-xs">
+                      {category?.site}{' '}
+                    </span>
+                  </Option>
+                ))}
+              </Select>
+            </div>
+            {filter?.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => setFilterId(item.id)}
+                className={`border rounded-md px-2 py-1 ${
+                  item.id == filterId && ' border-red-400 text-red-400'
+                }`}
+              >
+                {item.title}
+              </button>
+            ))}
+            <button
+              onClick={() => {
+                setFilterId(''),
+                  setIsNew(false),
+                  setIsHit(false),
+                  setCategoryId(null);
+              }}
+              className={`border rounded-md px-2 py-1 border-red-400 text-red-400`}
+            >
+              очистить фильтр
+            </button>
+          </div>
+
+          <div className="w-full flex justify-end py-5 gap-3 ">
+            {checkedProducts.length > 0 ? (
+              <>
+                <button
+                  onClick={handleOpen}
+                  className="bg-green-400 text-white px-5 py-2 rounded-md"
+                >
+                  изменить категорию этих товаров
+                </button>
+                <button className="bg-red-400 text-white px-5 py-2 rounded-md">
+                  удалить эти продукты
+                </button>
+              </>
+            ) : (
+              ''
+            )}
+            <Link to={'/product/add'}>
+              <button className="bg-blue-400 text-white px-5 py-2 rounded-md">
+                добавить товар
+              </button>
+            </Link>
+          </div>
         </div>
 
-        <div className="flex justify-end py-5 gap-3">
-          {checkedProducts.length > 0 ? (
-            <>
-              <button
-                onClick={handleOpen}
-                className="bg-green-400 text-white px-5 py-2 rounded-md"
-              >
-                изменить категорию этих товаров
-              </button>
-              <button className="bg-red-400 text-white px-5 py-2 rounded-md">
-                удалить эти продукты
-              </button>
-            </>
-          ) : (
-            ''
-          )}
-          <Link to={'/product/add'}>
-            <button className="bg-blue-400 text-white px-5 py-2 rounded-md">
-              добавить товар
-            </button>
-          </Link>
-        </div>
-        <div className="flex flex-wrap justify-center gap-5 py-5">
+        <div className="flex flex-wrap justify-center gap-5 py-5 pt-[200px]">
           {/* @ts-ignore */}
           {isNew ? (
             <>

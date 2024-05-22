@@ -7,12 +7,19 @@ import project2 from '../../assets/project 2.png';
 import { Link } from 'react-router-dom';
 import { Scrollbar } from 'swiper/modules';
 import { GetProjects, GetTags } from '../../services/maincatalog';
+import { MdDelete } from 'react-icons/md';
+import DeleteModal from '../DeleteModal/DeleteModal';
 
 function ProjectsSlider() {
   const swiperRef = useRef(null);
   const [projects, setProjects] = useState([]);
   const [tags, setTags] = useState([]);
-  const [selectedItem, setSelectedItem] = useState("");
+  const [selectedItem, setSelectedItem] = useState('');
+  const [status, setStatus] = useState(false);
+
+  const changeStatus = (newState: any) => {
+    setStatus(newState);
+  };
 
   const goNext = () => {
     // @ts-ignore
@@ -35,7 +42,7 @@ function ProjectsSlider() {
         setSelectedItem(selectedItem);
       }
     });
-  }, [selectedItem]);
+  }, [selectedItem, status]);
 
   const goPrev = () => {
     // @ts-ignore
@@ -109,6 +116,14 @@ function ProjectsSlider() {
             >
               {projects?.map((item) => (
                 <SwiperSlide>
+                  <div className="absolute top-2 right-2 z-[999]">
+                    <DeleteModal
+                      // @ts-ignore
+                      url={`/projects/${item.id}/`}
+                      status={status}
+                      onChange={changeStatus}
+                    />
+                  </div>
                   <Link to={`/portfolio/${item.id}`}>
                     <div className="relative">
                       <img

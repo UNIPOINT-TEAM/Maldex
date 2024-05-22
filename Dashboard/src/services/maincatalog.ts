@@ -92,7 +92,7 @@ export const PostDataJson = async (url: string, item: any) => {
   return data;
 };
 export const PostData = async (url: string, item: any) => {
-  const response = await axios.post(url, item);
+  const response = await axios.post(BASE_URL+url, item);
   const data = response;
   return data;
 };

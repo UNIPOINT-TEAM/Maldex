@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { GetMainBanner } from '../../services/main';
 import BannerTop from './BannerTop';
-import BannerSlider from './BannerSlider';
+import BannerSlider, { AddBannerCarousel } from './BannerSlider';
 import BannerBottom from './BannerBottom';
 
 const MainBanner = () => {
@@ -25,6 +25,7 @@ const MainBanner = () => {
 
   return (
     <>
+      <AddBannerCarousel />
       <div className="flex gap-[9px] my-5">
         <div className="w-2/5 hidden lg:block">
           <BannerTop

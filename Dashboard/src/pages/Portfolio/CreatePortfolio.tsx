@@ -212,7 +212,7 @@ function CreatePortfolio() {
             </button>
             <button
               onClick={() => setOpen(false)}
-              form="form-post"
+              
               className="inline-flex tracking-wide items-center justify-center rounded-md bg-success py-2 px-6 text-center font-medium text-white hover:bg-opacity-90 "
             >
               Сохранять
