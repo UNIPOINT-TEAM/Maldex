@@ -118,10 +118,12 @@ const MainCatalog = () => {
       order: secondOrder,
     };
     // @ts-ignore
-    PutWithJson(`/product/category/${categories[firstOrder - 1].id}/`, data1);
+    PutWithJson(
+      `/product/category/${categories[firstOrder - 1].id}/`,
+      data1,
+    ).then(() => window.location.reload());
 
     setStatus(!status);
-    window.location.reload();
   };
 
   return (
