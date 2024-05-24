@@ -15,6 +15,7 @@ import {
   GalleryEditing,
   GalleryLayout,
   Gift,
+  GiftDetails,
   Home,
   NotFound,
   Portfolio,
@@ -57,6 +58,10 @@ export const router = createBrowserRouter([
       {
         path: "category/:id",
         element: <CategoryDetails />,
+      },
+      {
+        path: "gift/:id",
+        element: <GiftDetails />,
       },
       {
         path: "/portfolio",
