@@ -58,6 +58,11 @@
     z-index: 9999;
 }
 
+.catalog:hover .swiper-top-container {
+    background-color: #fff;
+  }
+  
+
 .catalog .catalog_btns {
     opacity: 0;
     transition: 400ms;
