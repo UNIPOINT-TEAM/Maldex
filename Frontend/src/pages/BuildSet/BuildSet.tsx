@@ -15,7 +15,7 @@ import BuildSetCarusel from "../../components/BuildSetModals/BuildSetCarusel";
 import EmptyContant from "../../components/EmptyContant/EmptyContant";
 import CaruselCard from "../../components/BuildSetModals/CaruselCard";
 import { useDispatch } from "react-redux";
-import { addToCart, setCartMessageOn } from "../../store/cartSlice";
+import { addToCart } from "../../store/cartSlice";
 
 const BuildSet = () => {
   const [open, setOpen] = useState<number>(0);

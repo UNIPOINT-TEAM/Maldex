@@ -92,6 +92,7 @@ function Footer() {
                       }`}
                       key={index}
                     >
+                      {/* @ts-expect-error: This */}
                       {item.title}
                     </li>
                   ))}

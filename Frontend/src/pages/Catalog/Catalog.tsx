@@ -46,16 +46,18 @@ const Catalog = () => {
   const { fetchData, response } = useFetchHook();
   const { fetchData: fetchCategoryFilter, response: categoryFilter } =
     useFetchHook();
+
   useEffect(() => {
-    fetchData({ method: "GET", url: `/product/${search}` });
+    fetchData({ method: "GET", url: `/product/${search && search}` });
   }, [search]);
+
   useEffect(() => {
     fetchCategoryFilter({ method: "GET", url: `/product/filters` });
   }, []);
   const handleFilter = (query: string) => {
-    fetchData({ method: "GET", url: `/product/?${query}` });
+    console.log(query);
+    fetchData({ method: "GET", url: `/product/${query}` });
   };
-  console.log(response);
 
   return (
     <div className="home px-2 md:px-0">
@@ -78,7 +80,7 @@ const Catalog = () => {
               <h2 className="font-bold">Все фильтры (2) &nbsp;</h2>
               <img src={Filter} alt="" />
             </button>
-            <div className="hidden md:flex w-[70%] flex-wrap">
+            {/* <div className="hidden md:flex w-[70%] flex-wrap">
               {activeFilterItems.map((i, index) => (
                 <div className="flex">
                   <div
@@ -119,7 +121,7 @@ const Catalog = () => {
                   )}
                 </div>
               ))}
-            </div>
+            </div> */}
             <div className="relative">
               <button
                 className="text-xl px-4 py-2 rounded-md flex items-center"
@@ -129,41 +131,29 @@ const Catalog = () => {
                 {isDropdownOpen ? <IoIosArrowDown /> : <IoIosArrowForward />}
               </button>
               {isDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-48  bg-white z-[999] border border-gray-200 rounded-md shadow-lg">
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-gray-800 hover:bg-gray-200 text-end"
+                <div className="absolute capitalize flex flex-col items-end text-darkPrimary font-medium right-0 mt-2 w-48  bg-white z-[999] border border-gray-200 rounded-md shadow-lg">
+                  <button
+                    onClick={() => handleFilter(`${search}&is_popular=true`)}
+                    className="block px-4 py-2 capitalize hover:bg-gray-200 "
                   >
                     популярные
-                  </a>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-gray-800 hover:bg-gray-200 text-end"
+                  </button>
+                  <button
+                    onClick={() => handleFilter(`${search}&is_new=true`)}
+                    className="block px-4 py-2 hover:bg-gray-200 "
                   >
                     Новинки
-                  </a>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-gray-800 hover:bg-gray-200 text-end"
-                  >
+                  </button>
+                  <a href="#" className="block px-4 py-2 hover:bg-gray-200 ">
                     Сначала дешевые
                   </a>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-gray-800 hover:bg-gray-200 text-end"
-                  >
+                  <a href="#" className="block px-4 py-2 hover:bg-gray-200 ">
                     Сначала дорогие
                   </a>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-gray-800 hover:bg-gray-200 text-end"
-                  >
+                  <a href="#" className="block px-4 py-2 hover:bg-gray-200 ">
                     По размеру скидки
                   </a>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-gray-800 hover:bg-gray-200 text-end"
-                  >
+                  <a href="#" className="block px-4 py-2 hover:bg-gray-200 ">
                     Высокий рейтинг
                   </a>
                 </div>
@@ -216,7 +206,7 @@ const Catalog = () => {
             {categoryFilter.map((item) => (
               <button
                 key={item.id}
-                onClick={() => handleFilter(`filter_id=${item.id}`)}
+                onClick={() => handleFilter(`?filter_id=${item.id}`)}
                 className="border-[1px] border-gray-400 px-2 text-[12px] text-gray-500 min-w-[300px] sm:min-w-0 py-1 rounded"
               >
                 {item?.title}
@@ -224,7 +214,7 @@ const Catalog = () => {
             ))}
 
             <button
-              onClick={() => handleFilter("is_new=true")}
+              onClick={() => handleFilter("?is_new=true")}
               className="border border-redPrimary text-[10px] text-redPrimary h-[22px] rounded-xl px-2 flex items-center"
             >
               NEW
@@ -238,12 +228,13 @@ const Catalog = () => {
           </div>
           <div className="flex gap-2 flex-wrap py-2 ">
             {/*@ts-expect-error: This */}
-            {response &&response.results?.map((item) => (
+            {response && response.results?.map((item) => (
                 <div
                   className="w-[45%] sm:w-[30%] md:w-[18%] mb-[40px]"
                   key={item.id}
                 >
-                  <CardCatalog {...item} />
+                  {/*@ts-expect-error: This */}
+                  <CardCatalog item={item} />
                 </div>
               ))}
           </div>

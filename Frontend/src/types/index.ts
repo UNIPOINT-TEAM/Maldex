@@ -4,6 +4,10 @@ export interface Catalog {
   article: string;
   price: string;
   price_type: string;
+  werehouse: {
+    name: string;
+    quantity: number;
+  }[];
   images_set: {
     image_url: string;
     image: string;
@@ -21,6 +25,10 @@ export interface Product {
   is_hit: boolean;
   discount_price: number;
   price_type: string;
+  sizes?: {
+    name: string;
+    quantity: number;
+  }[];
   images_set: {
     id: number;
     image_url: string;

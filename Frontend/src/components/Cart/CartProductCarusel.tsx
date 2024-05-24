@@ -40,6 +40,7 @@ const CartProductCarusel = () => {
         modules={[Navigation, Autoplay]}
         className=" w-full overscroll-x-auto h-[430px] md:h-[500px]"
       >
+        {/* @ts-expect-error: This */}
         {response.results?.map((item) => (
           <SwiperSlide key={item.id} className="w-full">
             <ProductsCard item={item} />

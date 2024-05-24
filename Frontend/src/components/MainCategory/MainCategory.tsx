@@ -38,11 +38,14 @@ const MainCategory = () => {
                 src={category?.icon}
                 alt="category-img"
               />
-              <h2 className="text-lg mb-2 font-medium px-2">
+              <Link
+                to={`catalog/?category_id=${category?.id}`}
+                className="text-lg mb-2 font-medium px-2"
+              >
                 {category?.name}
-              </h2>
+              </Link>
               {/* @ts-expect-error: This */}
-              {category?.children &&category?.children.map((childCategory) => (
+              {category?.children && category?.children.map((childCategory) => (
                   <div
                     key={childCategory.id}
                     className="rounded px-2 hover:bg-greenPrimary hover:text-white py-1 "

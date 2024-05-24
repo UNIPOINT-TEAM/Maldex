@@ -34,7 +34,6 @@ const Navbar = () => {
                 placeholder="(Например: термоноски)"
               />
             </div>
-
             <span>
               <button className="text-white rounded-r-lg p-2 focus:outline-none w-auto lg:w-16  h-8 flex items-center justify-center">
                 <img src={searchIcon} alt="search-icon" />

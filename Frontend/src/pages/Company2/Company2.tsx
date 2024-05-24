@@ -29,12 +29,7 @@ import partner20 from "../../assets/partners/partner (20).png";
 import partner21 from "../../assets/partners/partner (21).png";
 
 import {
-  BannerBottom,
-  BannerBottomMobile,
-  BannerSlider,
-  BannerTop,
   CompanyBanner,
-  CompanyBottomBanner,
   Printing,
   QuestForm,
   Steps,
@@ -68,7 +63,7 @@ function Company2() {
     partner21,
   ];
 
-  const { fetchData, response } = useFetchHook();
+  const { fetchData } = useFetchHook();
   useEffect(() => {
     fetchData({ method: "GET", url: "/banner" });
   }, []);
@@ -89,7 +84,7 @@ function Company2() {
             <BannerBottomMobile />
           </div> */}
           <div>
-            <CompanyBanner/>
+            <CompanyBanner />
           </div>
           {/* <Brands /> */}
           <div>

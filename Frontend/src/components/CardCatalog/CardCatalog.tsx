@@ -3,42 +3,72 @@ import React from "react";
 import { Catalog } from "../../types";
 import { Link } from "react-router-dom";
 import { CiSearch } from "react-icons/ci";
+import { MdAdd } from "react-icons/md";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../store/cartSlice";
+import { formatPrice } from "../../utils/FormatPrice";
 
-const CardCatalog: React.FC<Catalog> = ({
-  name,
-  price,
-  price_type,
-  article,
-  images_set,
-}) => {
+/*@ts-expect-error: This */
+const CardCatalog: React.FC<Catalog> = ({ item }) => {
+  const dispatch = useDispatch();
+  const addToCartHandler = (product: any) => {
+    const totalPrice =
+      item?.quantity * item?.discount_price
+        ? item?.discount_price
+        : item?.price;
+    dispatch(addToCart({ ...product, quantity: item?.quantity, totalPrice }));
+  };
+  console.log(item);
   return (
-    <div className="catalog">
-      <div className="relative w-full catalogImgBox">
-        <img
-          className="mb-2 h-[255px] w-full object-contain"
-          src={
-            images_set[0]?.image
-              ? images_set[0]?.image
-              : images_set[0]?.image_url
-          }
-          alt="category-img"
-        />
+    <div className="group  min-h-[500px] cursor-pointer">
+      <div className="relative w-full catalogImgBox bg-white duration-200 group-hover:bg-[#fff]">
+        <Link to={`/category/${item?.id}`}>
+          <img
+            className="mb-2 p-3 h-[255px] w-full object-contain"
+            style={{ mixBlendMode: "multiply" }}
+            src={
+              item?.images_set[0]?.image
+                ? item?.images_set[0]?.image
+                : item?.images_set[0]?.image_url
+            }
+            alt="category-img"
+          />
+        </Link>
       </div>
-      <h2 className="text-black text-fs_7 mb-2 font-medium">{name}</h2>
-      <p className="opacity-70 text-fs_8">{article}</p>
-      <div className="mb-2">
-        <p className="text-xl font-medium">{price + " " + price_type}</p>
+      <div className="min-h-[100px]">
+        <h2 className="text-black text-fs_7 mb-2 font-medium">{item?.name}</h2>
+        <div className="hidden group-hover:block">
+          {/*@ts-expect-error: This */}
+          {item?.warehouse.map((item) => (
+            <p className="text-fs_8 opacity-70 font-medium ">
+              {item?.name}: {item.quantity}
+            </p>
+          ))}
+          <p className="opacity-70 text-fs_8">{item?.article}</p>
+        </div>
       </div>
-      <div className="flex justify-between catalog_btns">
-        <button className="bg-redPrimary px-4 py-2 text-white rounded-lg text-sm w-[120px]">
-          + В корзину
+      <p className="text-[16px] font-medium md:text-fs_4">
+        {item?.discount_price > 0
+          ? formatPrice(item?.discount_price)
+          : formatPrice(item?.price)}
+        <span className="ml-4 mr-1">{item?.price_type}</span>
+        <span className="text-xs absolute top-0 line-through text-redPrimary">
+          {item?.discount_price > 0 && item?.price}
+        </span>
+      </p>
+      <div className="flex justify-between catalog_btns mt-2">
+        <button
+          onClick={() => addToCartHandler(item)}
+          className="bg-redPrimary uppercase font-medium flex items-center justify-center gap-1 py-2  text-white rounded-lg text-sm w-[130px]"
+        >
+          <MdAdd className="text-fs_4" /> В корзину
         </button>
-        <button className="bg-gray-300 px-3 py-1 rounded-lg text-gray-700">
+        <button className="bg-white px-3 py-1 rounded-lg text-gray-700">
           <Link
-            to={"category/1"}
+            to={`/category/${item?.id}`}
             className="w-full h-full flex justify-center items-center"
           >
-            <CiSearch />
+            <CiSearch className="text-fs_4" />
           </Link>
         </button>
       </div>

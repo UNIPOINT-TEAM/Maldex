@@ -11,33 +11,20 @@ import ProductsCard from "./ProductsCard";
 
 /*@ts-expect-error: This */
 const SliderProduct = ({ products }) => {
-  const [size, setSize] = useState(null);
+  const [open, setOpen] = useState(false);
 
-  // @ts-expect-error: This
-  const handleOpen = (value: string) => setSize(value);
+  const handleOpen = () => setOpen(!open);
 
   return (
     <div className="container_xxl relative px-3">
       <Dialog
         placeholder={<div />}
-        open={
-          size === "xs" ||
-          size === "sm" ||
-          size === "md" ||
-          size === "lg" ||
-          size === "xl" ||
-          size === "xxl"
-        }
-        size={size || "md"}
+        open={open}
+        size={"xl"}
         handler={handleOpen}
         className="px-4 py-2 text-black"
       >
-        <button
-          className="flex ml-auto outline-none"
-          // @ts-expect-error: This
-
-          onClick={handleOpen}
-        >
+        <button className="flex ml-auto outline-none" onClick={handleOpen}>
           <img src={Close} alt="" />
         </button>
         <div className="flex flex-col md:flex md:flex-row justify-between items-center gap-5 px-2 md:px-10 mb-6">
@@ -141,14 +128,12 @@ const SliderProduct = ({ products }) => {
           </div>
         </div>
       </Dialog>
-
       <Swiper
         slidesPerView={2}
         spaceBetween={10}
         pagination={{
           clickable: true,
         }}
-        scrollbar={{ draggable: true }}
         navigation={{
           prevEl: ".prev",
           nextEl: ".next",
@@ -156,18 +141,14 @@ const SliderProduct = ({ products }) => {
         breakpoints={{
           640: {
             slidesPerView: 2,
-            spaceBetween: 20,
           },
           768: {
             slidesPerView: 4,
-            spaceBetween: 40,
           },
           1024: {
-            slidesPerView: 4.5,
-            spaceBetween: 50,
+            slidesPerView: 5.5,
           },
         }}
-        // @ts-expect-error: This
         scrollbar={{ draggable: true }}
         modules={[Navigation, Scrollbar]}
         className=" w-full overscroll-x-auto h-[430px] md:h-[500px]"
