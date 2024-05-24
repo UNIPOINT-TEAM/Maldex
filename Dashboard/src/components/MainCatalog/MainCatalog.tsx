@@ -327,6 +327,7 @@ const MainCatalog = () => {
                   placeholder="Добавить имя"
                   value={nameSub}
                   onChange={(e) => setNameSub(e.target.value)}
+                  required
                 />
                 <button className="w-[30%] bg-blue-300 text-white rounded-md text-[12px]">
                   добавить
