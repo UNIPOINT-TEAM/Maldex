@@ -31,7 +31,7 @@ const GiftBannerBottom: React.FC<GiftBannerBottomProp> = ({ BannerData }) => {
         <h2 className="text-fs_7 hidden lg:block tracking-wider font-semibold opacity-0 group-hover:opacity-100 duration-200">
           Бутылки для воды
         </h2>
-        <div className="lg:h-[238px] h-[96px] w-[96px] lg:w-[238px] mx-auto flex items-center justify-center">
+        <div className="lg:h-[238px] h-[96px] w-[96px] lg:w-[238px] mx-auto flex items-center justify-center" style={{ mixBlendMode: 'multiply' }}>
           <Slider 
           // @ts-expect-error: This
           SliderItems={BannerData && BannerData[4]} sliderTime={4000} />
@@ -52,7 +52,7 @@ const GiftBannerBottom: React.FC<GiftBannerBottomProp> = ({ BannerData }) => {
           <h2 className="text-fs_7 hidden lg:block tracking-wider font-semibold opacity-0 group-hover:opacity-100 duration-200">
             Бутылки для воды
           </h2>
-          <div className="w-[96px] h-[35px] lg:w-[330px] lg:h-[100px] mx-auto flex items-center justify-center">
+          <div className="w-[96px] h-[35px] lg:w-[330px] lg:h-[100px] mx-auto flex items-center justify-center" style={{ mixBlendMode: 'multiply' }}>
             <Slider
             // @ts-expect-error: This
               SliderItems={BannerData && BannerData[5]}
@@ -73,7 +73,7 @@ const GiftBannerBottom: React.FC<GiftBannerBottomProp> = ({ BannerData }) => {
             <h2 className="text-fs_7 hidden lg:block tracking-wider font-semibold opacity-0 group-hover:opacity-100 duration-200">
               Бутылки для воды
             </h2>
-            <div className="w-[90%] h-[46px] lg:h-[140px] mx-auto flex items-center justify-center">
+            <div className="w-[90%] h-[46px] lg:h-[140px] mx-auto flex items-center justify-center" style={{ mixBlendMode: 'multiply' }}>
               <Slider
               // @ts-expect-error: This
                 SliderItems={BannerData && BannerData[5]}
@@ -93,7 +93,7 @@ const GiftBannerBottom: React.FC<GiftBannerBottomProp> = ({ BannerData }) => {
             <h2 className="hidden lg:block text-fs_7 tracking-wider font-semibold opacity-0 group-hover:opacity-100 duration-200">
               Бутылки для воды
             </h2>
-            <div className="w-[90%] h-[46px] lg:h-[140px] mx-auto flex items-center justify-center">
+            <div className="w-[90%] h-[46px] lg:h-[140px] mx-auto flex items-center justify-center" style={{ mixBlendMode: 'multiply' }}>
               <Slider
               // @ts-expect-error: This
                 SliderItems={BannerData && BannerData[5]}
@@ -118,7 +118,7 @@ const GiftBannerBottom: React.FC<GiftBannerBottomProp> = ({ BannerData }) => {
             <h2 className="text-fs_8 tracking-wider font-semibold opacity-0 group-hover:opacity-100 duration-200">
               Бутылки для воды
             </h2>
-            <div className="mx-auto  max-w-[150px] w-full flex items-center justify-center">
+            <div className="mx-auto  max-w-[150px] w-full flex items-center justify-center" style={{ mixBlendMode: 'multiply' }}>
               <Slider
               // @ts-expect-error: This
                 SliderItems={BannerData && BannerData[1]}
