@@ -7,13 +7,19 @@ import { getAllCarts, removeFromCart, updateCart } from "../../store/cartSlice";
 
 const Cart = () => {
   const carts = useSelector(getAllCarts);
+
+  /* @ts-expect-error: This */
   const { totalAmount, totalQuantity } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
-  const handleUpdateCart = (id: number, quantity: string) => {
+  const handleUpdateCart = (id: number, quantity: any , discount_price:any) => {
     const quantityNumber = parseInt(quantity);
+    const totalPrice = quantity * discount_price;
+
     if (isNaN(quantityNumber)) {
-      return dispatch(updateCart({ id, quantity: 1 }));
+      /* @ts-expect-error: This */
+      return dispatch(updateCart({ id, quantity: 1  , totalPrice}));
     }
+  {/*@ts-expect-error: This */}
     dispatch(updateCart({ id, quantity: quantityNumber }));
   };
 
@@ -40,6 +46,7 @@ const Cart = () => {
                       </div>
                       <div className="col-span-5 grid grid-rows-3">
                         <div className="row-span-1">
+                          {/* @ts-expect-error: This */}
                           <p className="text-[16px] font-bold">{item?.name}</p>
                         </div>
                         <div className="row-span-1">
@@ -77,6 +84,7 @@ const Cart = () => {
                         </div>
                         <div className="row-span-1">
                           <p className="text-sm ">
+                            {/* @ts-expect-error: This */}
                             {item?.size ? item?.size : "no sellected size"}
                           </p>
                         </div>
@@ -89,7 +97,7 @@ const Cart = () => {
                               className="border border-black w-[50px] rounded-md px-1 outline-none"
                               placeholder="20"
                               onChange={(e) =>
-                                handleUpdateCart(item.id, e.target.value)
+                                handleUpdateCart(item.id, e.target.value , item.price)
                               }
                               type="text"
                               value={item?.quantity}

@@ -386,6 +386,7 @@ const CategoryDetails = () => {
                 </div>
               </div>
               <button
+                /* @ts-expect-error: This */
                 onClick={() => dispatch(addToCart(product))}
                 className="w-full py-4 bg-redPrimary text-white text-[11px] lg:text-xs tracking-wide rounded-lg"
               >

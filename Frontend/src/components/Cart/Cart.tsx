@@ -1,23 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import Close from "../../assets/icons/close.png";
 import Trash from "../../assets/icons/trash.png";
 import QuestionIcon from "../../assets/icons/questionIcon.png";
-import { Autoplay, Navigation, Pagination } from "swiper/modules";
-import { FaArrowLeftLong } from "react-icons/fa6";
-import { FaArrowRightLong } from "react-icons/fa6";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { useFetchHook } from "../../hooks/UseFetch";
-import { CiSearch } from "react-icons/ci";
+
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addToCart,
-  getAllCarts,
-  removeFromCart,
-  updateCart,
-} from "../../store/cartSlice";
+import { getAllCarts, removeFromCart, updateCart } from "../../store/cartSlice";
 import { MdAdd } from "react-icons/md";
-import ProductsCard from "../MainProductFilter/ProductsCard";
 import CartProductCarusel from "./CartProductCarusel";
 
 const CardModal = () => {
@@ -28,12 +17,20 @@ const CardModal = () => {
   );
   const dispatch = useDispatch();
 
-  const handleUpdateCart = (id: number, quantity: string) => {
+  const handleUpdateCart = (
+    id: number,
+    quantity: any,
+    discount_price: number
+  ) => {
     const quantityNumber = parseInt(quantity);
+    const totalPrice = quantity * discount_price;
+
     if (isNaN(quantityNumber)) {
+      /* @ts-expect-error: This */
       return dispatch(updateCart({ id, quantity: 1 }));
     }
-    dispatch(updateCart({ id, quantity: quantityNumber }));
+    /* @ts-expect-error: This */
+    dispatch(updateCart({ id, quantity: quantityNumber, totalPrice }));
   };
   console.log(totalAmount);
 
@@ -81,6 +78,7 @@ const CardModal = () => {
                         <div className="grid grid-rows-5">
                           <div className="row-span-1">
                             <h2 className="text-base font-bold">
+                              {/* @ts-expect-error: This */}
                               {item?.name?.slice(0, 25)}...
                             </h2>
                           </div>
@@ -104,6 +102,7 @@ const CardModal = () => {
                         </div>
                         <div className="row-span-1">
                           <p className="text-xs teext-slate-950 ">
+                            {/* @ts-expect-error: This */}
                             {item?.discount}% Скидка
                           </p>
                         </div>
@@ -121,7 +120,11 @@ const CardModal = () => {
                             <input
                               placeholder=""
                               onChange={(e) =>
-                                handleUpdateCart(item.id, e.target.value)
+                                handleUpdateCart(
+                                  item.id,
+                                  e.target.value,
+                                  item.discount_price
+                                )
                               }
                               value={item?.quantity}
                               className="w-[60px] text-center h-[30px] border border-darkPrimary text-fs_7 font-bold rounded-xl outline-none"

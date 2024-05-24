@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 interface SliderProps {
@@ -34,11 +35,16 @@ const Slider: React.FC<SliderProps> = ({ SliderItems, sliderTime }) => {
           key={item.id}
           className="flex w-full h-full items-center justify-center"
         >
-          <img
-            src={item?.productID?.images_set[0]?.image_url}
-            alt=""
-            className="w-full h-full object-center object-contain"
-          />
+          <Link
+            to={`/category/${item?.productID?.id}`}
+            className="w-full h-full"
+          >
+            <img
+              src={item?.productID?.images_set[0]?.image_url}
+              alt=""
+              className="w-full h-full object-center object-contain"
+            />
+          </Link>
         </SwiperSlide>
       ))}
     </Swiper>

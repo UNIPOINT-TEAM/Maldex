@@ -1,7 +1,4 @@
-import React, { useEffect } from "react";
-import arrowRight from "../../assets/icons/arrow-right.png";
-import { Link } from "react-router-dom";
-import Slider from "../Banner/Slider";
+import { useEffect } from "react";
 import CompanyBannerBottom from "./CompanyBannerBottom";
 import CompanyBannerTop from "./CompanyBannerTop";
 import { useFetchHook } from "../../hooks/UseFetch";
@@ -15,10 +12,9 @@ function CompanyBanner() {
     <div>
       <div className="container_xxl">
         <div className="flex flex-col gap-5">
-          
           <div className="flex items-center justify-center gap-3 mt-3">
             <div className="w-[40%]">
-            <CompanyBannerTop BannerData={response} />
+              <CompanyBannerTop BannerData={response} />
             </div>
             <div className="w-[60%]">
               <CompanyBannerSlider />

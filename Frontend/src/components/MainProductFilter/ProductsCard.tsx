@@ -8,19 +8,38 @@ import { CgSearch } from "react-icons/cg";
 import { FaCheck } from "react-icons/fa6";
 import { CiHeart, CiSearch } from "react-icons/ci";
 import { Product } from "../../types";
+import { IoMdAdd } from "react-icons/io";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../store/cartSlice";
 interface ProductsCardProps {
-  id: number;
   item: Product;
-  handleOpen?: (value: string) => void;
+  handleOpen?: () => void;
 }
 const ProductsCard: React.FC<ProductsCardProps> = ({ item, handleOpen }) => {
   const [defaultProduct, setDefaultProduct] = useState(true);
   const [addCard, setAddCard] = useState(false);
+  const dispatch = useDispatch();
   const changeStatus = () => setDefaultProduct(!defaultProduct);
+  const [productItem, setproductItem] = useState({ size: null, quantity: 1 });
 
+  const increaseQuantity = () => {
+    setproductItem({ ...productItem, quantity: productItem.quantity + 1 });
+  };
+
+  const decreaseQuantity = () => {
+    if (productItem.quantity <= 1) return;
+    setproductItem({ ...productItem, quantity: productItem.quantity - 1 });
+  };
+
+  const addToCartHandler = (product: any) => {
+    const totalPrice = productItem.quantity * item?.discount_price;
+    dispatch(
+      addToCart({ ...product, quantity: productItem.quantity, totalPrice })
+    );
+  };
   return (
-    <div className="catalog hover:bg-[#fff]">
-      <div className="relative swiper-top-container h-[220px] mb-4 bg-gray-200">
+    <div className="catalog">
+      <div className="relative swiper-top-container h-[220px] cursor-pointer mb-4 bg-white hover:bg-[#fff]">
         <Swiper
           autoplay={{
             delay: 3500,
@@ -32,11 +51,11 @@ const ProductsCard: React.FC<ProductsCardProps> = ({ item, handleOpen }) => {
           className="h-full "
           style={{ mixBlendMode: "multiply" }}
         >
-          {item.images_set.map((item) => (
+          {item?.images_set?.slice(0, 5).map((item) => (
             <SwiperSlide
               key={item.id}
               className="w-full h-full "
-              onClick={() => handleOpen("xl")}
+              onClick={handleOpen}
             >
               <div className="relative h-full">
                 <div className="flex justify-center items-center h-full ">
@@ -74,14 +93,14 @@ const ProductsCard: React.FC<ProductsCardProps> = ({ item, handleOpen }) => {
                 : item?.name}
             </p>
           </div>
+          {/* @ts-expect-error: This */}
           <p className="mb-2 text-gray-600 text-fs_8">{item.vendor_code}</p>
           <div className="relative mb-2">
-            <p className="text-[16px] font-bold md:text-fs_4">
-              {item?.discount_price}
-              <span className="text-xs absolute top-0">12</span>
+            <p className="text-[16px] font-medium md:text-fs_4">
+              {item?.discount_price > 0 ? item?.discount_price : item?.price}
               <span className="ml-4 mr-1">{item.price_type}</span>
               <span className="text-xs absolute top-0 line-through text-redPrimary">
-                {item?.price}
+                {item.discount_price > 0 && item?.price}
               </span>
             </p>
           </div>
@@ -92,7 +111,6 @@ const ProductsCard: React.FC<ProductsCardProps> = ({ item, handleOpen }) => {
             >
               <MdOutlineAdd className="text-fs_4" />В корзину
             </button>
-
             <button className="bg-white px-2 lg:px-3 py-1 rounded-lg text-darkSecondary">
               <Link
                 to={"category/1"}
@@ -106,39 +124,29 @@ const ProductsCard: React.FC<ProductsCardProps> = ({ item, handleOpen }) => {
       ) : (
         <div className="default">
           <div className="flex flex-col items-start mb-3">
-            <p className="text-lg text-gray-600 mb-2">Количество:</p>
-            <div className="flex justify-around items-center gap-2 rounded-xl p-2 border border-gray-400 mb-2">
-              <button>-</button>
-              <p>1 543</p>
-              <button>+</button>
+            <p className="text-fs_9 text-darkSecondary mb-2 uppercase">
+              Количество:
+            </p>
+            <div className="flex text-darkPrimary font-medium justify-around items-center gap-2 rounded-xl p-2 border border-gray-400 mb-2">
+              <button onClick={decreaseQuantity}>-</button>
+              <p className="text-fs_7 font-medium">{productItem.quantity}</p>
+              <button onClick={increaseQuantity}>+</button>
             </div>
             <p className="text-lg text-gray-600 mb-2">Размер:</p>
-            <div className="flex justify-start items-center gap-1">
-              <button className="w-[34px] h-[34px] border border-gray-400 rounded-[17px] text-xs hover:border-redPrimary hover:text-redPrimary">
-                XS
-              </button>
-              <button className="w-[34px] h-[34px] border border-gray-400 rounded-[17px] text-xs hover:border-redPrimary hover:text-redPrimary">
-                S
-              </button>
-              <button className="w-[34px] h-[34px] border border-gray-400 rounded-[17px] text-xs hover:border-redPrimary hover:text-redPrimary">
-                M
-              </button>
-              <button className="w-[34px] h-[34px] border border-gray-400 rounded-[17px] text-xs hover:border-redPrimary hover:text-redPrimary">
-                L
-              </button>
-              <button className="w-[34px] h-[34px] border border-gray-400 rounded-[17px] text-xs hover:border-redPrimary hover:text-redPrimary">
-                XL
-              </button>
-              <button className="w-[34px] h-[34px] border border-gray-400 rounded-[17px] text-xs hover:border-redPrimary hover:text-redPrimary">
-                2XL
-              </button>
+            <div className="flex justify-start items-center flex-wrap gap-1">
+              {item.sizes &&
+                item.sizes.map((size) => (
+                  <button className="min-w-[33px] h-[33px] border border-gray-400 rounded-[17px] font-bold text-[10px]  hover:border-redPrimary hover:text-redPrimary">
+                    {size.name.replace(/размер/g, "")}
+                  </button>
+                ))}
             </div>
           </div>
           {addCard ? (
             <div className="flex justify-between catalog_btns">
               <button
                 onClick={() => setAddCard(true)}
-                className="bg-redPrimary px-3 py-3 text-white rounded-lg shadow-lg shadow-gray-400"
+                className=" bg-redPrimary px-3 py-3 text-white rounded-lg "
               >
                 <FaCheck />
               </button>
@@ -152,12 +160,15 @@ const ProductsCard: React.FC<ProductsCardProps> = ({ item, handleOpen }) => {
               </button>
             </div>
           ) : (
-            <div className="flex justify-between catalog_btns">
+            <div className="flex justify-between items-center catalog_btns">
               <button
-                onClick={() => setAddCard(true)}
-                className="bg-redPrimary px-4 py-2 text-white rounded-lg shadow-lg text-sm shadow-gray-400 w-[120px]"
+                onClick={() => {
+                  addToCartHandler(item);
+                  setAddCard(true);
+                }}
+                className="bg-redPrimary justify-center gap-2 uppercase font-bold flex  items-center text-white rounded-lg text-fs_7 w-[140px] h-[40px]"
               >
-                + добавить
+                <IoMdAdd className="text-fs_3" /> добавить
               </button>
               <button className="px-3 py-1 flex justify-center items-center rounded-lg text-gray-700">
                 <CiHeart />

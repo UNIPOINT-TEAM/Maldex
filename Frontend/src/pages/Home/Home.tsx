@@ -26,7 +26,7 @@ const Home = () => {
       <div className="dishes container_xxl my-5 lg:my-10 px-3">
         <Dishes />
       </div>
-      <div className="faq container_xxl flex flex-col px-3 md:mb-[80px]">
+      <div className="faq container_xxl flex  px-3 md:mb-[80px]">
         <h3 className="section-title">FAQ</h3>
         <Accordion />
       </div>

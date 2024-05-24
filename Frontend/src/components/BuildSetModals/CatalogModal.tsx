@@ -78,6 +78,7 @@ const CatalogModal: React.FC<IProps> = ({ handleFilterProduct }) => {
                       {item?.name}
                     </h2>
                     <div className="flex flex-col">
+                      {/* @ts-expect-error: This */}
                       {item?.children?.map((item) => (
                         <p
                           onClick={() => {

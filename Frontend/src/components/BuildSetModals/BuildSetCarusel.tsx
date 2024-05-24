@@ -3,10 +3,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Scrollbar } from "swiper/modules";
 import { FaArrowLeftLong, FaArrowRightLong } from "react-icons/fa6";
 import CaruselCard from "./CaruselCard";
-const BuildSetCarusel: React.FC<{ buildSetProducts: any }> = ({
-  buildSetProducts,
-  addToCartHandler,
-}) => {
+const BuildSetCarusel: React.FC<{
+  buildSetProducts: any;
+  addToCartHandler: any;
+}> = ({ buildSetProducts, addToCartHandler }) => {
   return (
     <div className="container_xxl relative px-3">
       <Swiper

@@ -5,7 +5,6 @@ interface CartItem {
   quantity: number;
   price: number;
   totalPrice: number;
-  stock: number;
   discountedPrice: number;
   article: number;
   discount_price: number;
@@ -101,35 +100,6 @@ const cartSlice = createSlice({
       );
     },
 
-    toggleCartQty: (
-      state,
-      action: PayloadAction<{ id: number; type: "INC" | "DEC" }>
-    ) => {
-      const tempCart = state.carts.map((item) => {
-        if (item.id === action.payload.id) {
-          let tempQty = item.quantity;
-          let tempTotalPrice = item.totalPrice;
-
-          if (action.payload.type === "INC") {
-            tempQty++;
-            if (tempQty > item.stock) tempQty = item.stock;
-            tempTotalPrice = tempQty * item.discountedPrice;
-          }
-
-          if (action.payload.type === "DEC") {
-            tempQty--;
-            if (tempQty < 1) tempQty = 1;
-            tempTotalPrice = tempQty * item.discount_price;
-          }
-          return { ...item, quantity: tempQty, totalPrice: tempTotalPrice };
-        } else {
-          return item;
-        }
-      });
-      state.carts = tempCart;
-      storeInLocalStorage(state.carts);
-    },
-
     updateCart: (state, action: PayloadAction<CartItem>) => {
       const tempCart = state.carts.map((item) => {
         if (item.id === action.payload.id) {
@@ -157,10 +127,9 @@ export const {
   setCartMessageOn,
   getCartTotal,
   getAllQuantity,
-  toggleCartQty,
   clearCart,
   removeFromCart,
-  updateCart, // Bu yerda export qilishni unutmang
+  updateCart,
 } = cartSlice.actions;
 export const getAllCarts = (state: { cart: CartState }) => state.cart.carts;
 export const getCartItemsCount = (state: { cart: CartState }) =>
