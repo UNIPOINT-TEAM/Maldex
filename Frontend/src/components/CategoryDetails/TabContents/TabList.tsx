@@ -26,15 +26,17 @@ const listData = [
     value: "Без упаковки",
   },
 ];
- {/*@ts-expect-error: This */}
-const TabList = ({ pack }) => {
-  console.log(pack);
+
+const TabList = () => {
   return (
     <Card
       className="w-full shadow-none p-0 m-0 bg-transparent"
       placeholder={<div />}
     >
-      <List placeholder={<div />} className="text-fs_7 font-medium p-0">
+      <List
+        placeholder={<div />}
+        className="text-fs_7 font-medium p-0 font-Helvetica-Neue"
+      >
         {listData.map((item, i) => (
           <ListItem
             key={i}

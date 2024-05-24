@@ -8,8 +8,6 @@ import {
 
 import CardCatalog from "../../components/CardCatalog/CardCatalog";
 import Close from "../../assets/icons/close.png";
-import { FaArrowLeftLong } from "react-icons/fa6";
-import { FaArrowRightLong } from "react-icons/fa6";
 import Filter from "../../assets/icons/filtr.png";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
@@ -162,7 +160,7 @@ const Catalog = () => {
           </div>
           <div className="w-full overflow-x-scroll flex flex-wrap relative md:hidden md:overflow-hidden pb-6 mb-2 border-b">
             {activeFilterItems.map((i, index) => (
-              <div className="flex">
+              <div className="flex" key={i.id}>
                 <div
                   key={i.id}
                   className="px-2 py-2 rounded-md bg-gray-100 text-sm border border-l-gray-800 flex gap-2"
@@ -226,13 +224,11 @@ const Catalog = () => {
               HIT
             </button>
           </div>
-          <div className="flex gap-2 flex-wrap py-2 ">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 py-2 mt-3">
             {/*@ts-expect-error: This */}
-            {response && response.results?.map((item) => (
-                <div
-                  className="w-[45%] sm:w-[30%] md:w-[18%] mb-[40px]"
-                  key={item.id}
-                >
+            {response &&
+              response.results?.map((item) => (
+                <div className="w-full  mb-[40px]" key={item.id}>
                   {/*@ts-expect-error: This */}
                   <CardCatalog item={item} />
                 </div>
@@ -242,31 +238,7 @@ const Catalog = () => {
         <div className="mb-3">
           <SaleSlider />
         </div>
-        <div className="container_xxl px-3 mb-8">
-          {/* <div className="flex gap-2 flex-wrap py-2 justify-between">
-            {response.map((i) => (
-              <div
-                className="w-[45%] sm:w-[30%] md:w-[18%] mb-[40px]"
-                key={i.id}
-              >
-                <CardCatalog item={i} />
-              </div>
-            ))}
-          </div> */}
-          <div className="flex justify-center items-center gap-3">
-            <button className="text-gray-500">
-              <FaArrowLeftLong />
-            </button>
-            <p className="text-gray-400">страница</p>
-            <button className="text-gray-400 border border-gray-400 rounded px-4 m-0">
-              1
-            </button>
-            <p className="text-gray-400">из 10</p>
-            <button className="text-gray-500">
-              <FaArrowRightLong />
-            </button>
-          </div>
-        </div>
+
         <div className="faq container_xxl flex flex-col md:flex-row  px-3 mb-10">
           <h3 className="section-title">FAQ</h3>
           <Accordion />

@@ -30,7 +30,6 @@ const MainProductFilter: React.FC<{ status: StatusType }> = ({ status }) => {
 
   useEffect(() => {
     if (activeCategoryId) {
-      console.log("ecfw");
       productsFetch({
         method: "GET",
         url: `product/?category_id=${activeCategoryId}&${filterData[status].query}`,

@@ -7,7 +7,6 @@ const Banner = () => {
   useEffect(() => {
     fetchData({ method: "GET", url: "/banner" });
   }, []);
-  console.log(response);
 
   return (
     <>

@@ -13,12 +13,11 @@ const CardCatalog: React.FC<Catalog> = ({ item }) => {
   const dispatch = useDispatch();
   const addToCartHandler = (product: any) => {
     const totalPrice =
-      item?.quantity * item?.discount_price
-        ? item?.discount_price
-        : item?.price;
-    dispatch(addToCart({ ...product, quantity: item?.quantity, totalPrice }));
+      item?.discount_price > 0 ? item?.discount_price : item?.price;
+
+    dispatch(addToCart({ ...product, quantity: 1, totalPrice }));
   };
-  console.log(item);
+
   return (
     <div className="group  min-h-[500px] cursor-pointer">
       <div className="relative w-full catalogImgBox bg-white duration-200 group-hover:bg-[#fff]">
@@ -39,8 +38,8 @@ const CardCatalog: React.FC<Catalog> = ({ item }) => {
         <h2 className="text-black text-fs_7 mb-2 font-medium">{item?.name}</h2>
         <div className="hidden group-hover:block">
           {/*@ts-expect-error: This */}
-          {item?.warehouse.map((item) => (
-            <p className="text-fs_8 opacity-70 font-medium ">
+          {item?.warehouse.map((item, i) => (
+            <p key={i} className="text-fs_8 opacity-70 font-medium ">
               {item?.name}: {item.quantity}
             </p>
           ))}

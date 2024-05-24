@@ -107,7 +107,6 @@ const MoreFilter = () => {
     }
     return `?${queryParameters.join("&")}`;
   };
-  console.log(generateQueryString(), filterData);
 
   const handleChange = (e: any, type: string) => {
     setFilteData((prev) => ({
@@ -447,7 +446,8 @@ const MoreFilter = () => {
                   </AccordionHeader>
                   <AccordionBody className={"p-0 mb-4"}>
                     {/* @ts-expect-error: This */}
-                    {brands && brands.brands.map((brand) => (
+                    {brands &&
+                      brands.brands.map((brand) => (
                         <div className="">
                           <Checkbox
                             onChange={(e) => handleChange(e, "brands")}

@@ -32,7 +32,6 @@ const CardModal = () => {
     /* @ts-expect-error: This */
     dispatch(updateCart({ id, quantity: quantityNumber, totalPrice }));
   };
-  console.log(totalAmount);
 
   return (
     <>

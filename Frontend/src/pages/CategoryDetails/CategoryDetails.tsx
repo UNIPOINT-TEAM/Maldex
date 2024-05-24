@@ -8,12 +8,8 @@ import {
   QuestForm,
   TabList,
 } from "../../components";
-import Tshirt from "../../assets/t-shirt.svg";
-import nasilnenie_l from "../../assets/t-shirt.png";
-import nasilnenie_r from "../../assets/t-shirt.png";
 import tabImages from "../../assets/images/tab-image.png";
-import arrowT from "../../assets/icons/arrow-t.svg";
-import arrowB from "../../assets/icons/arrow-b.svg";
+
 import {
   Tab,
   TabPanel,
@@ -48,7 +44,6 @@ const btnSize = [
 const CategoryDetails = () => {
   const { id } = useParams<{ id: string }>();
   const [activeTab, setActiveTab] = useState("Описание");
-  const [isActive] = useState<number>(1);
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const [productColor, setproductColor] = useState<number>(0);
   const [btnActiveSize, setbtnActiveSize] = useState<number>(1);
@@ -120,7 +115,8 @@ const CategoryDetails = () => {
       content: <TabDescription description={response?.description} />,
     },
     {
-      label: "Характеристики",
+      /*@ts-expect-error: This */
+      label: response?.pack && "Характеристики",
       value: "Характеристики",
       /*@ts-expect-error: This */
       content: <TabList pack={response?.pack} />,
@@ -155,7 +151,7 @@ const CategoryDetails = () => {
                   value={value}
                   onClick={() => setActiveTab(value)}
                   activeClassName="text-[#fff]"
-                  className="text-[9px] p-0 me-[8px] font-Helvetica-Neue uppercase h-[25px] text-darkSecondary w-auto font-helvetica-neue font-bold text-start"
+                  className="text-[9px]  p-0 me-3 font-Helvetica-Neue uppercase h-[25px] text-darkSecondary w-auto font-helvetica-neue font-bold text-start"
                 >
                   <p
                     className={`${
@@ -190,75 +186,50 @@ const CategoryDetails = () => {
             </TabsBody>
           </Tabs>
         </div>
-        <div className="bg-white order-1 lg:order-2 flex flex-col items-start p-2 lg:p-5 col-span-3 lg:col-span-4 relative">
-          <div className="flex justify-end w-full">
-            <div className="flex gap-1">
-              <button className="rounded-full w-[27px] h-[27px] bg-[#fff] flex items-center justify-center">
-                <img src={arrowT} alt="img" />
-              </button>
-              <button className="rounded-full w-[27px] h-[27px] bg-redPrimary flex items-center justify-center">
-                <img src={arrowB} alt="img" />
-              </button>
+        <div className=" order-1 lg:order-2  p-2 lg:p-5 col-span-3 lg:col-span-4 ">
+          <div className="relative bg-white w-full h-[500px] flex items-center justify-center ">
+            <div className="absolute rounded-s-xl right-2 lg:right-5 lg:translate-y-[50%] top-[50%]  lg:top-[15%] bg-[#fff] px-3 py-5">
+              <div className="flex flex-col gap-2">
+                {ProductColor.map((item) => (
+                  <input
+                    key={item.id}
+                    onClick={() => setproductColor(item.id)}
+                    type="radio"
+                    name="input"
+                    style={{
+                      accentColor: item.color,
+                      background: item.color,
+                    }}
+                    className={`w-4 lg:w-5 h-4 lg:h-5 bg-[${item.color}] ${
+                      productColor !== item.id && "appearance-none"
+                    } rounded-full  cursor-pointer`}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
-          <div className="absolute rounded-s-xl right-2 lg:right-5 lg:translate-y-[50%] top-[30%]  lg:top-[15%] bg-[#fff] px-3 py-5">
-            <div className="flex flex-col gap-2">
-              {ProductColor.map((item) => (
-                <input
-                  key={item.id}
-                  onClick={() => setproductColor(item.id)}
-                  type="radio"
-                  name="input"
-                  style={{
-                    accentColor: item.color,
-                    background: item.color,
-                  }}
-                  className={`w-4 lg:w-5 h-4 lg:h-5 bg-[${item.color}] ${
-                    productColor !== item.id && "appearance-none"
-                  } rounded-full  cursor-pointer`}
-                />
-              ))}
+            <div
+              className={`flex justify-center mt-10 w-full h-full items-center `}
+            >
+              {/*@ts-expect-error: This */}
+              <ProductPerviewModal images={response?.images_set} />
             </div>
-          </div>
-          <div
-            className={`flex justify-center mt-10 w-full h-full items-center ${
-              isActive !== 1 && "hidden"
-            }`}
-          >
-            {/*@ts-expect-error: This */}
-            <ProductPerviewModal images={response?.images_set} />
-          </div>
-          <div
-            className={`${
-              isActive !== 2 && "hidden"
-            } grid grid-cols-2 items-center my-3 h-full w-full`}
-          >
-            <div className="box-l flex justify-end">
-              <img src={nasilnenie_r} alt="" className="w-[260px]" />
-            </div>
-            <div className="box-r flex justify-start">
-              <img src={nasilnenie_l} alt="" className="w-[200px] " />
-            </div>
-          </div>
-          <div
-            className={`${
-              isActive !== 3 && "hidden"
-            } flex justify-center items-center mt-10 w-full h-full`}
-          >
-            <img src={Tshirt} alt="" />
-            <div className="color-panel"></div>
           </div>
         </div>
         <div className="py-3 px-0 order-1 lg:order-2 lg:px-5 col-span-3">
           <div>
             <div className="flex justify-between">
               <div>
-                <span className="border tracking-normal  text-redPrimary border-redPrimary py-[2px] px-1 me-1 rounded-[15px] text-[12px] font-bold ">
-                  NEW
-                </span>
-                <span className="border tracking-normal border-darkPrimary py-[2px] px-[6px]  rounded-[15px] text-[12px] font-bold">
-                  HIT
-                </span>
+                {response?.is_new && (
+                  <span className="border tracking-normal  text-redPrimary border-redPrimary py-[2px] px-1 me-1 rounded-[15px] text-[12px] font-bold ">
+                    NEW
+                  </span>
+                )}
+
+                {response?.is_hit && (
+                  <span className="border tracking-normal border-darkPrimary py-[2px] px-[6px]  rounded-[15px] text-[12px] font-bold">
+                    HIT
+                  </span>
+                )}
               </div>
               <div className="cursor-pointer">
                 {isFavorite ? (
@@ -280,21 +251,25 @@ const CategoryDetails = () => {
                 {/*@ts-expect-error: This */}
                 {response.name}
               </h2>
-              <div className=" mt-4">
-                <p className="text-darkSecondary text-fs_8 tracking-wide font-semibold">
-                  РАЗМЕР:
-                </p>
-                <div className="flex space-x-2">
-                  {btnSize.map((item, i) => (
-                    <ProductSize
-                      {...item}
-                      onActiveSize={setbtnActiveSize}
-                      btnActiveSize={btnActiveSize}
-                      key={i}
-                    />
-                  ))}
+              {response.sizes && (
+                <div className=" mt-4">
+                  <p className="text-darkSecondary text-fs_8 tracking-wide font-semibold">
+                    РАЗМЕР:
+                  </p>
+                  <div className="flex space-x-2">
+                    {response.sizes &&
+                      response.sizes.map((item, i) => (
+                        <ProductSize
+                          {...item}
+                          onActiveSize={setbtnActiveSize}
+                          btnActiveSize={btnActiveSize}
+                          index={i}
+                          key={i}
+                        />
+                      ))}
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
             <div className="">
               <div className="flex justify-between items-center mb-5">

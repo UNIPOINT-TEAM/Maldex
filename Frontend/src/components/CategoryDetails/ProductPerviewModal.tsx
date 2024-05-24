@@ -8,6 +8,7 @@ import { IoClose } from "react-icons/io5";
 
 /*@ts-expect-error: This */
 const ProductPerviewModal = ({ images }) => {
+  console.log(images);
   const [open, setOpen] = React.useState(false);
   const [thumbsSwiper] = useState<SwiperCore>();
   const swiper1Ref = useRef<React.MutableRefObject<null>>(null);

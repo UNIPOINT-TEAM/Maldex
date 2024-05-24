@@ -26,15 +26,12 @@ const CartProductCarusel = () => {
         breakpoints={{
           640: {
             slidesPerView: 2,
-            spaceBetween: 30,
           },
           768: {
-            slidesPerView: 3,
-            spaceBetween: 40,
+            slidesPerView: 2,
           },
           1024: {
-            slidesPerView: 4.5,
-            spaceBetween: 50,
+            slidesPerView: 3,
           },
         }}
         modules={[Navigation, Autoplay]}

@@ -9,11 +9,12 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
   return (
     <div className="hidden lg:grid grid-rows-9 h-[760px] grid-cols-5  gap-[9px] my-[9px] ">
       <div className="group relative row-span-9 bg-white  flex items-center cursor-pointer hover:bg-[#fff] duration-200">
-        <div
-          className="h-[350px] w-[90%] mx-auto flex items-center justify-center"
-          style={{ mixBlendMode: "multiply" }}
-        >
-          <Slider SliderItems={BannerData && BannerData[5]} sliderTime={3000} />
+        <div className="h-full w-full" style={{ mixBlendMode: "multiply" }}>
+          <Slider
+            SliderItems={BannerData && BannerData[5]}
+            sliderTime={3000}
+            titleLength={30}
+          />
         </div>
         <div className="absolute right-2 bottom-2 opacity-0 group-hover:opacity-100 duration-200">
           <button className="bg-redPrimary p-1 rounded-lg">
@@ -24,13 +25,11 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
       <div className="col-span-4 row-span-5">
         <div className="grid grid-cols-11 h-full gap-[9px]">
           <div className="group relative col-span-4 bg-white flex items-center cursor-pointer hover:bg-[#fff] duration-200 ">
-            <div
-              className="w-[200px] mx-auto flex items-center justify-center"
-              style={{ mixBlendMode: "multiply" }}
-            >
+            <div className="w-full h-full" style={{ mixBlendMode: "multiply" }}>
               <Slider
                 SliderItems={BannerData && BannerData[6]}
                 sliderTime={4000}
+                titleLength={40}
               />
             </div>
             <div className="absolute right-2 bottom-2 opacity-0 group-hover:opacity-100 duration-200 ">
@@ -40,13 +39,11 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
             </div>
           </div>
           <div className="group relative col-span-2 bg-white flex items-center justify-between cursor-pointer hover:bg-[#fff] duration-200">
-            <div
-              className="w-[90%] mx-auto flex items-center justify-center"
-              style={{ mixBlendMode: "multiply" }}
-            >
+            <div className="w-full h-full" style={{ mixBlendMode: "multiply" }}>
               <Slider
                 SliderItems={BannerData && BannerData[7]}
                 sliderTime={4000}
+                titleLength={20}
               />
             </div>
             <div className="absolute right-2 bottom-2 opacity-0 group-hover:opacity-100 duration-200">
@@ -56,13 +53,11 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
             </div>
           </div>
           <div className="group relative col-span-3 bg-white flex items-center cursor-pointer hover:bg-[#fff] duration-200">
-            <div
-              className="w-[90%] mx-auto h-[300px] flex items-center justify-center"
-              style={{ mixBlendMode: "multiply" }}
-            >
+            <div className="w-full h-full" style={{ mixBlendMode: "multiply" }}>
               <Slider
                 SliderItems={BannerData && BannerData[8]}
                 sliderTime={3000}
+                titleLength={25}
               />
             </div>
             <div className="absolute right-2 bottom-2 opacity-0 group-hover:opacity-100 duration-200">
@@ -71,39 +66,39 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
               </button>
             </div>
           </div>
-          <div className="col-span-2">
-            <div className="grid grid-rows-2 h-full gap-[9px] w-full">
-              <div className="group relative bg-white w-full flex flex-col justify-between cursor-pointer hover:bg-[#fff] duration-200">
-                <div
-                  className="w-[150px] h-[140px] mx-auto flex items-center justify-center"
-                  style={{ mixBlendMode: "multiply" }}
-                >
-                  <Slider
-                    SliderItems={BannerData && BannerData[9]}
-                    sliderTime={3000}
-                  />
-                </div>
-                <div className="absolute right-2 bottom-2 opacity-0 group-hover:opacity-100 duration-200">
-                  <button className="bg-redPrimary p-1 rounded-lg">
-                    <img src={arrowRight} alt="arrow icon" className="w-6" />
-                  </button>
-                </div>
+          <div className="grid grid-cols-1 grid-rows-2 col-span-2   gap-2 ">
+            <div className="group relative col-span-2 bg-white flex items-center justify-between cursor-pointer hover:bg-[#fff] duration-200">
+              <div
+                className="w-full h-full"
+                style={{ mixBlendMode: "multiply" }}
+              >
+                <Slider
+                  SliderItems={BannerData && BannerData[9]}
+                  sliderTime={3000}
+                  titleLength={15}
+                />
               </div>
-              <div className="group relative bg-white flex items-center cursor-pointer hover:bg-[#fff] duration-200 ">
-                <div
-                  className="w-[150px] h-[140px] mx-auto flex items-center justify-center"
-                  style={{ mixBlendMode: "multiply" }}
-                >
-                  <Slider
-                    SliderItems={BannerData && BannerData[10]}
-                    sliderTime={3000}
-                  />
-                </div>
-                <div className="absolute right-2 bottom-2 opacity-0 group-hover:opacity-100 duration-200">
-                  <button className="bg-redPrimary p-1 rounded-lg">
-                    <img src={arrowRight} alt="arrow icon" className="w-6 " />
-                  </button>
-                </div>
+              <div className="absolute right-2 bottom-2 opacity-0 group-hover:opacity-100 duration-200">
+                <button className="bg-redPrimary p-1 rounded-lg">
+                  <img src={arrowRight} alt="arrow icon" className="" />
+                </button>
+              </div>
+            </div>
+            <div className="group relative col-span-2 bg-white flex items-center justify-between cursor-pointer hover:bg-[#fff] duration-200">
+              <div
+                className="w-full h-full"
+                style={{ mixBlendMode: "multiply" }}
+              >
+                <Slider
+                  SliderItems={BannerData && BannerData[10]}
+                  sliderTime={3000}
+                  titleLength={15}
+                />
+              </div>
+              <div className="absolute right-2 bottom-2 opacity-0 group-hover:opacity-100 duration-200">
+                <button className="bg-redPrimary p-1 rounded-lg">
+                  <img src={arrowRight} alt="arrow icon" className="" />
+                </button>
               </div>
             </div>
           </div>

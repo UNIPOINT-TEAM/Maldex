@@ -13,7 +13,7 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../../store/cartSlice";
 interface ProductsCardProps {
   item: Product;
-  handleOpen?: () => void;
+  handleOpen?: (product: any) => void;
 }
 const ProductsCard: React.FC<ProductsCardProps> = ({ item, handleOpen }) => {
   const [defaultProduct, setDefaultProduct] = useState(true);
@@ -32,7 +32,11 @@ const ProductsCard: React.FC<ProductsCardProps> = ({ item, handleOpen }) => {
   };
 
   const addToCartHandler = (product: any) => {
-    const totalPrice = productItem.quantity * item?.discount_price;
+    const totalPrice =
+      item?.discount_price > 0
+        ? productItem.quantity * item?.discount_price
+        : productItem.quantity * item?.price;
+
     dispatch(
       addToCart({ ...product, quantity: productItem.quantity, totalPrice })
     );
@@ -51,17 +55,17 @@ const ProductsCard: React.FC<ProductsCardProps> = ({ item, handleOpen }) => {
           className="h-full "
           style={{ mixBlendMode: "multiply" }}
         >
-          {item?.images_set?.slice(0, 5).map((item) => (
+          {item?.images_set?.slice(0, 5).map((e) => (
             <SwiperSlide
-              key={item.id}
+              key={e.id}
               className="w-full h-full "
-              onClick={handleOpen}
+              onClick={() => handleOpen(item)}
             >
               <div className="relative h-full">
                 <div className="flex justify-center items-center h-full ">
                   <img
                     className="mb-2 w-[50px] h-[50px] object-contain product-img "
-                    src={item?.image_url ? item?.image_url : item?.image}
+                    src={e?.image_url ? e?.image_url : e?.image}
                     alt=""
                   />
                 </div>
@@ -113,7 +117,7 @@ const ProductsCard: React.FC<ProductsCardProps> = ({ item, handleOpen }) => {
             </button>
             <button className="bg-white px-2 lg:px-3 py-1 rounded-lg text-darkSecondary">
               <Link
-                to={"category/1"}
+                to={`category/${item.id}`}
                 className="w-full h-full flex justify-center items-center"
               >
                 <CgSearch className="text-fs_4" />
@@ -152,7 +156,7 @@ const ProductsCard: React.FC<ProductsCardProps> = ({ item, handleOpen }) => {
               </button>
               <button className="bg-gray-300 px-3 py-1 rounded-lg text-gray-700">
                 <Link
-                  to={"category/1"}
+                  to={`category/${item.id}`}
                   className="w-full h-full flex justify-center items-center"
                 >
                   <CiSearch />

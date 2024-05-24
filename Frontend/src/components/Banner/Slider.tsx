@@ -8,6 +8,7 @@ interface SliderProps {
     product_set: {
       id: string;
       productID: {
+        name: string;
         id: string;
         images_set: {
           image_url: string;
@@ -16,9 +17,14 @@ interface SliderProps {
     }[];
   };
   sliderTime: number;
+  titleLength: number;
 }
 
-const Slider: React.FC<SliderProps> = ({ SliderItems, sliderTime }) => {
+const Slider: React.FC<SliderProps> = ({
+  SliderItems,
+  sliderTime,
+  titleLength,
+}) => {
   return (
     <Swiper
       centeredSlides
@@ -29,20 +35,29 @@ const Slider: React.FC<SliderProps> = ({ SliderItems, sliderTime }) => {
       }}
       modules={[Navigation, Pagination, Autoplay]}
       className="w-full h-full"
+      style={{ mixBlendMode: "multiply" }}
     >
       {SliderItems?.product_set.map((item) => (
         <SwiperSlide
           key={item.id}
-          className="flex w-full h-full items-center justify-center"
+          className="w-full group relative h-full flex flex-col "
         >
+          <div className="pt-1 ps-2 h-[20%]">
+            <h2 className="text-fs_7 font-medium text-[#ffffff] group-hover:text-darkPrimary">
+              {item?.productID?.name.length > titleLength
+                ? item?.productID?.name.slice(0, titleLength) + "..."
+                : item?.productID?.name}
+            </h2>
+          </div>
           <Link
             to={`/category/${item?.productID?.id}`}
-            className="w-full h-full"
+            className="w-[80%] mx-auto h-[80%] flex items-center justify-center"
           >
             <img
               src={item?.productID?.images_set[0]?.image_url}
-              alt=""
-              className="w-full h-full object-center object-contain"
+              alt="product-img"
+              className="w-[90%] h-[90%] mx-auto object-center object-contain"
+              loading="lazy"
             />
           </Link>
         </SwiperSlide>

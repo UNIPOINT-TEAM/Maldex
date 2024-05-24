@@ -7,11 +7,10 @@ import { useFetchHook } from "../../hooks/UseFetch";
 
 const BannerSlider = () => {
   const { fetchData, response } = useFetchHook();
-  console.log(response);
+
   useEffect(() => {
     fetchData({ method: "GET", url: "/banner/carousel/" });
   }, []);
-  console.log(response);
 
   return (
     <div className="banner-carusel relative w-full h-full bg-greenPrimary flex  p-[12px] lg:p-[20px] text-white font-helvetica-neue">
@@ -40,7 +39,7 @@ const BannerSlider = () => {
                   </h2>
                 </div>
                 <div className="mt-auto flex gap-1 lg:gap-3 text-fs_8 font-semibold">
-                   {/* @ts-expect-error: This */}
+                  {/* @ts-expect-error: This */}
                   {item?.buttons.map((item) => (
                     <Link
                       to={"/gift"}
