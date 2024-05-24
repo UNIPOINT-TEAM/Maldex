@@ -86,7 +86,7 @@ function GiftsSlider({ category }) {
               {/* @ts-expect-error: This */}
               {selectedCategoryData?.product_set.map((product) => (
                 <SwiperSlide key={product.id}>
-                  <Link to="/portfolio">
+                  <Link to={`/gift/${product.id}`}>
                     <div className="relative">
                       {/* @ts-expect-error: This */}
                       {product.gift_basket_images?.map((image) => (

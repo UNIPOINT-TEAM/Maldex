@@ -2,6 +2,7 @@ export { default as Home } from "./Home/Home";
 export { default as Gift } from "./Gift/Gift";
 export { default as Card } from "./Cart/Cart";
 export { default as CategoryDetails } from "./CategoryDetails/CategoryDetails";
+export { default as GiftDetails } from "./GiftDetails/GiftDetails";
 export { default as Portfolio } from "./Portfolio/Portfolio";
 export { default as PortfolioDetail } from "./Portfolio/PortfolioDetail";
 export { default as Company } from "./Company/Company";
