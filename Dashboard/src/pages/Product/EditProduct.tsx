@@ -58,7 +58,7 @@ const EditProduct = () => {
   const [status, setStatus] = useState(false);
   const [success, setSuccess] = useState(false);
   const [warehouse, setWarehouse] = useState([]);
-  const [sizes, setSizes] = useState(null);
+  const [sizes, setSizes] = useState([]);
 
   useEffect(() => {
     GetMainCatalog().then((res) => {
@@ -89,7 +89,7 @@ const EditProduct = () => {
       console.log(res);
 
       setWarehouse(res.data.warehouse);
-      setSizes(res.data.sizes);
+      setSizes(res?.data?.sizes);
       setProductDetail(res.data);
       setIshit(res.data.is_hit);
       setIsnew(res.data.is_new);
@@ -196,16 +196,16 @@ const EditProduct = () => {
                 </div>
               ))}
             </div>
-            {sizes != null ? (
+            {sizes?.length>0  ? (
               <div className="w-2/3 py-3 mb-5 flex flex-col">
                 {sizes?.map((ware) => (
                   <div className="flex w-full  justify-between  border-b  py-3">
                     <p>
-                      <span className="text-blue-400">{ware.name}</span>
+                      <span className="text-blue-400">{ware?.name}</span>
                     </p>
                     <p>
                       количество :{' '}
-                      <span className="text-red-400">{ware.quantity}</span>
+                      <span className="text-red-400">{ware?.quantity}</span>
                     </p>
                   </div>
                 ))}
