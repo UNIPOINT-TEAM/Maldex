@@ -32,7 +32,6 @@ const Dishes = () => {
   useEffect(() => {
     GetSubSubCatalog(BASE_URL + `/product/home-category/`).then((res) => {
       setCategory(res), setCategories(res?.children), console.log(res);
-
     });
     GetSubSubCatalog(BASE_URL + `/product/categories/main_categories`).then(
       (res) => {
@@ -216,7 +215,7 @@ const Dishes = () => {
         <h3 className="text-3xl ">
           {category != null
             ? // @ts-ignore
-              category?.name
+              category?.category
             : ''}
         </h3>
         <div className="w-1/5">
