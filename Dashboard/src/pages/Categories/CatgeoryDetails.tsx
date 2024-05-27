@@ -26,7 +26,7 @@ const CategoryDetails = () => {
   const [loader, setLoader] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  console.log(checkedProducts);
+  const [sitesCount, setSitesCount] = useState([]);
 
   useEffect(() => {
     GetProductCategory(id, currentPage).then((res) => {
@@ -35,6 +35,7 @@ const CategoryDetails = () => {
       const residual = res.data.count % 10;
       const pages = (res.data.count - residual) / 10;
       setTotalPages(pages % 2 == 0 && pages === 1 ? pages : pages + 1);
+      setSitesCount(res?.data?.sites_count);
     });
     GetMainCatalogactive().then((res) => {
       setAvailableCategories(res);
@@ -159,7 +160,12 @@ const CategoryDetails = () => {
               <p className="text-center">загрузка...</p>
             </div>
           )}
-
+          {sitesCount?.map((count) => (
+            <div className="w-full flex gap-2">
+              <p className="text-blue-400">{count?.site}</p>
+              <p className="text-red-400">{count?.product_count}</p>
+            </div>
+          ))}
           {addProduct?.map((item) => (
             <div
               onClick={() => fillCheckedProducts(item.id)}
