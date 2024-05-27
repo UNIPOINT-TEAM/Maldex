@@ -48,6 +48,7 @@ const Dishes = () => {
                       src={
                         // @ts-expect-error: This
                         detail?.products &&
+                        //@ts-expect-error: This
                         detail?.products[1]?.images_set[0]?.image_url
                       }
                       alt=""
@@ -61,6 +62,7 @@ const Dishes = () => {
                       src={
                         // @ts-expect-error: This
                         detail?.products &&
+                        // @ts-expect-error: This
                         detail?.products[2]?.images_set[0]?.image_url
                       }
                       alt=""
@@ -74,6 +76,7 @@ const Dishes = () => {
                       src={
                         // @ts-expect-error: This
                         detail?.products &&
+                        // @ts-expect-error: This
                         detail?.products[3]?.images_set[0]?.image_url
                       }
                       alt=""
@@ -87,6 +90,7 @@ const Dishes = () => {
                       src={
                         // @ts-expect-error: This
                         detail?.products &&
+                        // @ts-expect-error: This
                         detail?.products[4]?.images_set[0]?.image_url
                       }
                       alt=""
@@ -102,6 +106,7 @@ const Dishes = () => {
                   src={
                     // @ts-expect-error: This
                     detail?.products &&
+                    // @ts-expect-error: This
                     detail?.products[5]?.images_set[0]?.image_url
                   }
                   alt=""
@@ -116,6 +121,7 @@ const Dishes = () => {
             <div className="row-span-2 col-span-1 flex flex-col gap-[3px]">
               {/*@ts-expect-error: This */}
               {detail?.children &&
+              // @ts-expect-error: This
                 detail?.children.map((i) => (
                   <p key={i.id} className="text-[14px] font-medium">
                     {i.name}

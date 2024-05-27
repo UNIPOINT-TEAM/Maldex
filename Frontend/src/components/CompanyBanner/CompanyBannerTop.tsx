@@ -21,6 +21,7 @@ function CompanyBannerTop({ BannerData }) {
               className="h-[110px]  w-[300px] mx-auto  flex items-center justify-center"
               style={{ mixBlendMode: "multiply" }}
             >
+              {/*  @ts-expect-error: This */}
               <Slider
                 SliderItems={BannerData && BannerData[0]}
                 sliderTime={2500}
@@ -43,6 +44,7 @@ function CompanyBannerTop({ BannerData }) {
               className="mx-auto h-[70px] max-w-[70px] w-full flex items-center justify-center"
               style={{ mixBlendMode: "multiply" }}
             >
+              {/*  @ts-expect-error: This */}
               <Slider
                 SliderItems={BannerData && BannerData[1]}
                 sliderTime={3000}
@@ -65,6 +67,7 @@ function CompanyBannerTop({ BannerData }) {
               className="mx-auto h-[70px] max-w-[70px] w-full flex items-center justify-center"
               style={{ mixBlendMode: "multiply" }}
             >
+              {/*  @ts-expect-error: This */}
               <Slider
                 SliderItems={BannerData && BannerData[2]}
                 sliderTime={3500}

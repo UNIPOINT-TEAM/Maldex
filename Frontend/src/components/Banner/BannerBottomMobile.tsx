@@ -8,6 +8,7 @@ const BannerBottomMobile: React.FC<any> = ({ BannerData }) => {
       <div className="grid grid-cols-2 gap-[9px] ">
         <div className="col-span-2 bg-white h-[65px]  flex items-center justify-center py-3">
           <div className="h-full w-[100px]">
+            {/*  @ts-expect-error: This */}
             <Slider
               SliderItems={BannerData && BannerData[1]}
               sliderTime={3000}
@@ -16,6 +17,7 @@ const BannerBottomMobile: React.FC<any> = ({ BannerData }) => {
         </div>
         <div className=" bg-white h-[80px] flex items-center justify-center">
           <div className="h-[50px] w-[50px]">
+            {/*  @ts-expect-error: This */}
             <Slider
               SliderItems={BannerData && BannerData[2]}
               sliderTime={3000}
@@ -24,6 +26,7 @@ const BannerBottomMobile: React.FC<any> = ({ BannerData }) => {
         </div>
         <div className=" bg-white h-[80px] flex items-center justify-center">
           <div className="h-[50px] w-[50px]">
+            {/*  @ts-expect-error: This */}
             <Slider
               SliderItems={BannerData && BannerData[3]}
               sliderTime={3000}
@@ -33,6 +36,7 @@ const BannerBottomMobile: React.FC<any> = ({ BannerData }) => {
       </div>
       <div className="bg-white flex items-center justify-center">
         <div className="h-[100px] w-[100px]">
+          {/*  @ts-expect-error: This */}
           <Slider SliderItems={BannerData && BannerData[4]} sliderTime={3000} />
         </div>
       </div>

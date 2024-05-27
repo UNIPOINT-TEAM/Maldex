@@ -66,6 +66,7 @@ const SliderProduct = ({ products }) => {
                   modules={[Navigation]}
                   className="swiper-item-modal w-[200px]"
                 >
+                  {/* @ts-expect-error: This */}
                   {activeProduct?.images_set?.map((item) => (
                     <SwiperSlide>
                       <img

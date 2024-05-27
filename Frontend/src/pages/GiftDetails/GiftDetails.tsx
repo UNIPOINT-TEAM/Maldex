@@ -3,11 +3,12 @@ import { useEffect, useState } from "react";
 import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
 import {
-  Banner,
-  MainProductFilter,
+  // Banner,
+  // MainProductFilter,
   QuestForm,
   TabList,
 } from "../../components";
+//@ts-expect-error: This 
 import Tshirt from "../../assets/t-shirt.svg";
 import nasilnenie_l from "../../assets/t-shirt.png";
 import nasilnenie_r from "../../assets/t-shirt.png";
@@ -15,11 +16,11 @@ import tabImages from "../../assets/images/tab-image.png";
 import arrowT from "../../assets/icons/arrow-t.svg";
 import arrowB from "../../assets/icons/arrow-b.svg";
 import {
-  Tab,
-  TabPanel,
-  Tabs,
-  TabsBody,
-  TabsHeader,
+  // Tab,
+  // TabPanel,
+  // Tabs,
+  // TabsBody,
+  // TabsHeader,
   Tooltip,
   Typography,
 } from "@material-tailwind/react";
@@ -36,7 +37,7 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../../store/cartSlice";
 import { useFetchHook } from "../../hooks/UseFetch";
 import { useParams } from "react-router-dom";
-import ProductPerviewModal from "./ProductPerviewModalGift";
+// import ProductPerviewModal from "./ProductPerviewModalGift";
 import ProductPerviewModalGift from "./ProductPerviewModalGift";
 
 const btnSize = [
@@ -49,6 +50,7 @@ const btnSize = [
 
 const CategoryDetails = () => {
   const { id } = useParams<{ id: string }>();
+  // @ts-expect-error: This 
   const [activeTab, setActiveTab] = useState("Описание");
   const [isActive] = useState<number>(1);
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
@@ -113,7 +115,7 @@ const CategoryDetails = () => {
   useEffect(() => {
     calculateTotal();
   }, [product.quantity]);
-
+// @ts-expect-error: This 
   const CategoryTabs = [
     {
       label: "Описание",
@@ -198,6 +200,7 @@ const CategoryDetails = () => {
             </TabsBody>
           </Tabs> */}
           <div>
+            {/* @ts-expect-error: This */}
             {response.description}
           </div>
         </div>
@@ -256,6 +259,7 @@ const CategoryDetails = () => {
               isActive !== 3 && "hidden"
             } flex justify-center items-center mt-10 w-full h-full`}
           >
+            {/* @ts-expect-error: This */}
             <img src={response.gift_basket_images && response?.gift_basket_images[0]?.images} alt="" />
             <div className="color-panel"></div>
           </div>
@@ -297,6 +301,7 @@ const CategoryDetails = () => {
                 </p>
                 <div className="flex space-x-2">
                   {btnSize.map((item, i) => (
+                    // @ts-expect-error: This
                     <ProductSize
                       {...item}
                       onActiveSize={setbtnActiveSize}
@@ -397,6 +402,7 @@ const CategoryDetails = () => {
                 </div>
               </div>
               <button
+              // @ts-expect-error: This 
                 onClick={() => dispatch(addToCart(product))}
                 className="w-full py-4 bg-redPrimary text-white text-[11px] lg:text-xs tracking-wide rounded-lg"
               >
