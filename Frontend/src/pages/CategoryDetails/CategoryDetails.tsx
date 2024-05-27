@@ -251,14 +251,14 @@ const CategoryDetails = () => {
                 {/*@ts-expect-error: This */}
                 {response.name}
               </h2>
-              {response.sizes && (
+              {response?.sizes && (
                 <div className=" mt-4">
                   <p className="text-darkSecondary text-fs_8 tracking-wide font-semibold">
                     РАЗМЕР:
                   </p>
                   <div className="flex space-x-2">
-                    {response.sizes &&
-                      response.sizes.map((item, i) => (
+                    {response?.sizes &&
+                      response?.sizes.map((item, i) => (
                         <ProductSize
                           {...item}
                           onActiveSize={setbtnActiveSize}
