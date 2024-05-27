@@ -11,16 +11,22 @@ const Cart = () => {
   /* @ts-expect-error: This */
   const { totalAmount, totalQuantity } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
-  const handleUpdateCart = (id: number, quantity: any , discount_price:any) => {
-    const quantityNumber = parseInt(quantity);
-    const totalPrice = quantity * discount_price;
+  const handleUpdateCart = (
+    id: number,
+    quantity: any,
+    discount_price: number,
+    price: number
+  ) => {
+    const totalPrice =
+      discount_price > 0 ? quantity * discount_price : quantity * price;
 
-    if (isNaN(quantityNumber)) {
+    if (isNaN(quantity)) {
       /* @ts-expect-error: This */
-      return dispatch(updateCart({ id, quantity: 1  , totalPrice}));
+      return dispatch(updateCart({ id, quantity: 1, totalPrice }));
     }
-  {/*@ts-expect-error: This */}
-    dispatch(updateCart({ id, quantity: quantityNumber }));
+    console.log("we");
+    /*@ts-expect-error: This */
+    dispatch(updateCart({ id, quantity, totalPrice }));
   };
 
   return (
@@ -97,7 +103,12 @@ const Cart = () => {
                               className="border border-black w-[50px] rounded-md px-1 outline-none"
                               placeholder="20"
                               onChange={(e) =>
-                                handleUpdateCart(item.id, e.target.value , item.price)
+                                handleUpdateCart(
+                                  item?.id,
+                                  Number(e.target.value),
+                                  item?.discount_price,
+                                  item?.price
+                                )
                               }
                               type="text"
                               value={item?.quantity}

@@ -46,9 +46,7 @@ const GiftItem = () => {
     PutWithJson(
       `/product/category/${newCategoryData[firstOrder - 1].id}/`,
       data1,
-    );
-    setStatus(!status);
-    window.location.reload();
+    ).then(() => window.location.reload());
   };
 
   return (

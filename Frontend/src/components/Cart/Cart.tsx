@@ -20,10 +20,12 @@ const CardModal = () => {
   const handleUpdateCart = (
     id: number,
     quantity: any,
-    discount_price: number
+    discount_price: number,
+    price: number
   ) => {
     const quantityNumber = parseInt(quantity);
-    const totalPrice = quantity * discount_price;
+    const totalPrice =
+      discount_price > 0 ? quantity * discount_price : quantity * price;
 
     if (isNaN(quantityNumber)) {
       /* @ts-expect-error: This */
@@ -120,9 +122,10 @@ const CardModal = () => {
                               placeholder=""
                               onChange={(e) =>
                                 handleUpdateCart(
-                                  item.id,
+                                  item?.id,
                                   e.target.value,
-                                  item.discount_price
+                                  item?.discount_price,
+                                  item?.price
                                 )
                               }
                               value={item?.quantity}

@@ -106,7 +106,6 @@ const ProductNav: React.FC<ProductNavProps> = ({
                   }}
                 >
                   {item.name}
-                  {item.id}
                 </li>
               ))}
             </ul>

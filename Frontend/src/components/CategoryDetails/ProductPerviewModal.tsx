@@ -33,7 +33,7 @@ const ProductPerviewModal = ({ images }) => {
         <img
           alt="nature"
           className="h-full w-[200px] lg:w-full object-contain object-center"
-          src={images && images[0]?.image_url}
+          src={images ? images[0]?.image_url : images[0]?.image}
         />
       </Card>
       <Dialog

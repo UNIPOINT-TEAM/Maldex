@@ -14,10 +14,9 @@ const CardCatalog: React.FC<Catalog> = ({ item }) => {
   const addToCartHandler = (product: any) => {
     const totalPrice =
       item?.discount_price > 0 ? item?.discount_price : item?.price;
-
     dispatch(addToCart({ ...product, quantity: 1, totalPrice }));
   };
-
+  console.log(item);
   return (
     <div className="group  min-h-[500px] cursor-pointer">
       <div className="relative w-full catalogImgBox bg-white duration-200 group-hover:bg-[#fff]">
@@ -46,7 +45,7 @@ const CardCatalog: React.FC<Catalog> = ({ item }) => {
           <p className="opacity-70 text-fs_8">{item?.article}</p>
         </div>
       </div>
-      <p className="text-[16px] font-medium md:text-fs_4">
+      <p className="text-[16px] font-medium md:text-fs_4 relative">
         {item?.discount_price > 0
           ? formatPrice(item?.discount_price)
           : formatPrice(item?.price)}

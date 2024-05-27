@@ -26,12 +26,18 @@ const Dishes = () => {
   const [categoryId, setCategoryId] = useState(null);
   const [statusCategory, setStatusCategory] = useState(false);
   const [addProduct, setAddProduct] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedProducts, setSelectedProducts] = useState([]);
 
   useEffect(() => {
     GetSubSubCatalog(BASE_URL + `/product/home-category/`).then((res) => {
-      setCategory(res), setCategories(res?.children?.slice(0, 8));
+      setCategory(res), setCategories(res?.children), console.log(res);
     });
-    
+    GetSubSubCatalog(BASE_URL + `/product/categories/main_categories`).then(
+      (res) => {
+        setAllCategory(res);
+      },
+    );
     GetSubSubCatalog(
       BASE_URL + `/product/categories/get_subcategories/${categoryId}`,
     ).then((res) => {
@@ -42,10 +48,30 @@ const Dishes = () => {
     });
   }, [status, categoryId]);
 
-  const postCategory = (id: any) => {
-    PostData(BASE_URL + `/product/home-category/`, { id: id }).then(() =>
-      setStatus(!status),
-    );
+  const handleClickCategories = (id: any) => {
+    setSelectedCategories((prevSelectedCategories) => {
+      {
+        return [...prevSelectedCategories, id];
+      }
+    });
+  };
+  const handleClickProducts = (id: any) => {
+    setSelectedProducts((prevSelectedProducts) => {
+      {
+        return [...prevSelectedProducts, id];
+      }
+    });
+  };
+
+  const postCategory = () => {
+    const data = {
+      product_data: selectedProducts,
+      category_data: selectedCategories,
+      category_id: categoryId,
+    };
+    PostData(`/product/home-category/`, data).then(() => {
+      setStatus(!status), setSize(null);
+    });
   };
 
   const handleOpen = (value) => setSize(value);
@@ -83,29 +109,57 @@ const Dishes = () => {
               >
                 Выберите подкатегории
               </button>
+              {selectedCategories.length > 0 && (
+                <button
+                  onClick={() => setSelectedCategories([])}
+                  className="bg-red-400 py-1 px-5 ml-5 text-white rounded-md"
+                >
+                  удалить все подкатегории
+                </button>
+              )}
+
               {statusCategory && (
                 <div className="mt-2">
                   <ul className="h-full">
                     {subCategories?.map((item) => (
-                      <li key={item.id}>{item.name}</li>
+                      <li
+                        className={` mb-1 px-2 cursor-pointer ${
+                          selectedCategories.includes(item.id)
+                            ? 'bg-red-400 text-white rounded-md'
+                            : ''
+                        }`}
+                        onClick={() => handleClickCategories(item.id)}
+                        key={item.id}
+                      >
+                        {item.name}
+                      </li>
                     ))}
                   </ul>
                 </div>
               )}
             </div>
           </div>
-          <div className="flex flex-wrap justify-center gap-5 py-5 h-[350px] overflow-y-scroll">
+          <button
+            onClick={() => setSelectedProducts([])}
+            className="px-3 py-1 bg-red-400 rounded-md text-white mt-3"
+          >
+            удалить все товары
+          </button>
+          <div className="flex flex-wrap justify-center gap-5 py-5 h-[300px] overflow-y-scroll">
             {addProduct?.map((item) => (
               <div
                 key={item.id}
-                className={`w-1/6 shadow-4 p-2 rounded-sm h-[300px] `}
+                className={`w-1/6 shadow-4 p-2 rounded-sm h-[300px] ${
+                  selectedProducts.includes(item.id) ? 'bg-blue-400' : ''
+                }`}
+                onClick={() => handleClickProducts(item.id)}
               >
                 <div className="catalog ">
                   <div className="relative swiper-top-container h-[200px] mb-4 bg-gray-200">
                     <Swiper
                       pagination={{ clickable: true }}
                       modules={[Navigation, Pagination]}
-                      className="  h-full"
+                      className="h-full"
                     >
                       {item.images_set.map((i) => (
                         <SwiperSlide key={i.id} className="w-full h-full">
@@ -130,7 +184,7 @@ const Dishes = () => {
                           //@ts-ignore
                           item.name.length > 30
                             ? //@ts-ignore
-                              item.name.substring(0, 30) + '...'
+                              item.name.substring(0, 20) + '...'
                             : //@ts-ignore
                               item.name
                         }
@@ -152,7 +206,7 @@ const Dishes = () => {
           >
             <span>Cancel</span>
           </Button>
-          <Button variant="gradient" color="green" onClick={handleOpen}>
+          <Button variant="gradient" color="green" onClick={postCategory}>
             <span>Confirm</span>
           </Button>
         </DialogFooter>
@@ -161,7 +215,7 @@ const Dishes = () => {
         <h3 className="text-3xl ">
           {category != null
             ? // @ts-ignore
-              category?.name
+              category?.category
             : ''}
         </h3>
         <div className="w-1/5">

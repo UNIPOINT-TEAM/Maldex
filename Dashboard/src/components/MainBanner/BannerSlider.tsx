@@ -126,7 +126,10 @@ export const AddBannerCarousel = () => {
     formdata.append('url2', url2);
     formdata.append('product_id', product);
 
-    PostData('/banner/carousel/', formdata).then(() => setSize(null));
+    PostData('/banner/carousel/', formdata).then(
+      () => setSize(null),
+      window.location.reload(),
+    );
   };
 
   const handleOpen = (value) => setSize(value);
