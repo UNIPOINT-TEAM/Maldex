@@ -83,7 +83,7 @@ const MoreFilter = () => {
       }
     }
     if (filterData.colors) {
-      queryParameters.push(`colors=${filterData.colors}`);
+      queryParameters.push(`color=${filterData.colors}`);
     }
     if (filterData.size) {
       queryParameters.push(`size=${filterData.size}`);
