@@ -226,7 +226,7 @@ const Catalog = () => {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 py-2 mt-3">
             {/*@ts-expect-error: This */}
-            {response && response.results?.map((item) => (
+            {response &&response.results?.map((item) => (
                 <div className="w-full  mb-[40px]" key={item.id}>
                   {/*@ts-expect-error: This */}
                   <CardCatalog item={item} />

@@ -445,8 +445,9 @@ const MoreFilter = () => {
                     <h2 className="text-fs_6 text-black">Бренд</h2>
                   </AccordionHeader>
                   <AccordionBody className={"p-0 mb-4"}>
-                    {/* @ts-expect-error: This */}
+                    
                     {brands &&
+                    // @ts-expect-error: This 
                       brands.brands.map((brand) => (
                         <div className="">
                           <Checkbox

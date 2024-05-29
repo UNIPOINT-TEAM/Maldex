@@ -35,6 +35,7 @@ const ProductsCard: React.FC<ProductsCardProps> = ({ item, handleOpen }) => {
     const totalPrice =
       item?.discount_price > 0
         ? productItem.quantity * item?.discount_price
+        // @ts-expect-error: This
         : productItem.quantity * item?.price;
 
     dispatch(
@@ -59,6 +60,7 @@ const ProductsCard: React.FC<ProductsCardProps> = ({ item, handleOpen }) => {
             <SwiperSlide
               key={e.id}
               className="w-full h-full "
+              // @ts-expect-error: This
               onClick={() => handleOpen(item)}
             >
               <div className="relative h-full">

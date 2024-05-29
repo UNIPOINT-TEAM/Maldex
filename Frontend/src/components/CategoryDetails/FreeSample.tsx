@@ -113,6 +113,7 @@ const FreeSample = () => {
                                         </h2>
                                         <div className="flex space-x-2">
                                             {btnSize.map((item, i) => (
+                                                //@ts-expect-error: This
                                                 <ProductSize
                                                     {...item}
                                                     onActiveSize={

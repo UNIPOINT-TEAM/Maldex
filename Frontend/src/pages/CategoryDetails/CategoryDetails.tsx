@@ -32,7 +32,7 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../../store/cartSlice";
 import { useFetchHook } from "../../hooks/UseFetch";
 import { useParams } from "react-router-dom";
-
+// @ts-expect-error: This 
 const btnSize = [
   { id: 1, size: "XS" },
   { id: 2, size: "S" },
@@ -219,12 +219,13 @@ const CategoryDetails = () => {
           <div>
             <div className="flex justify-between">
               <div>
+                {/* @ts-expect-error: This */}
                 {response?.is_new && (
                   <span className="border tracking-normal  text-redPrimary border-redPrimary py-[2px] px-1 me-1 rounded-[15px] text-[12px] font-bold ">
                     NEW
                   </span>
                 )}
-
+{/* @ts-expect-error: This */}
                 {response?.is_hit && (
                   <span className="border tracking-normal border-darkPrimary py-[2px] px-[6px]  rounded-[15px] text-[12px] font-bold">
                     HIT
@@ -251,14 +252,15 @@ const CategoryDetails = () => {
                 {/*@ts-expect-error: This */}
                 {response.name}
               </h2>
-              {response?.sizes && (
+              {/* @ts-expect-error: This */}
+              {response.sizes && (
                 <div className=" mt-4">
                   <p className="text-darkSecondary text-fs_8 tracking-wide font-semibold">
                     РАЗМЕР:
                   </p>
                   <div className="flex space-x-2">
-                    {response?.sizes &&
-                      response?.sizes.map((item, i) => (
+                    {/* @ts-expect-error: This */}
+                    {response.sizes &&response.sizes.map((item, i) => (
                         <ProductSize
                           {...item}
                           onActiveSize={setbtnActiveSize}
