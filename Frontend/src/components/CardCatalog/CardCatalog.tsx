@@ -25,9 +25,8 @@ const CardCatalog: React.FC<Catalog> = ({ item }) => {
             className="mb-2 p-3 h-[255px] w-full object-contain"
             style={{ mixBlendMode: "multiply" }}
             src={
-              item?.images_set[0]?.image
-                ? item?.images_set[0]?.image
-                : item?.images_set[0]?.image_url
+              (item?.images_set && item?.images_set[0]?.image) ||
+              (item?.images_set && item?.images_set[0]?.image_url)
             }
             alt="category-img"
           />
@@ -37,7 +36,7 @@ const CardCatalog: React.FC<Catalog> = ({ item }) => {
         <h2 className="text-black text-fs_7 mb-2 font-medium">{item?.name}</h2>
         <div className="hidden group-hover:block">
           {/*@ts-expect-error: This */}
-          {item?.warehouse.map((item, i) => (
+          {item?.warehouse?.map((item, i) => (
             <p key={i} className="text-fs_8 opacity-70 font-medium ">
               {item?.name}: {item.quantity}
             </p>
