@@ -14,6 +14,7 @@ import { IoIosArrowForward } from "react-icons/io";
 import { Accordion } from "../../components";
 import { useFetchHook } from "../../hooks/UseFetch";
 import { useLocation } from "react-router-dom";
+import { Spinner } from "@material-tailwind/react";
 
 const Catalog = () => {
   const { search } = useLocation();
@@ -41,7 +42,7 @@ const Catalog = () => {
     setFilterItems((prev) => prev.filter((item) => item.id !== i.id));
   };
   const openFilter = () => setFilter(!filter);
-  const { fetchData, response } = useFetchHook();
+  const { fetchData, response, isLoading } = useFetchHook();
   const { fetchData: fetchCategoryFilter, response: categoryFilter } =
     useFetchHook();
 
@@ -53,7 +54,6 @@ const Catalog = () => {
     fetchCategoryFilter({ method: "GET", url: `/product/filters` });
   }, []);
   const handleFilter = (query: string) => {
-    console.log(query);
     fetchData({ method: "GET", url: `/product/${query}` });
   };
 
@@ -224,9 +224,14 @@ const Catalog = () => {
               HIT
             </button>
           </div>
+          {isLoading && (
+            <div>
+              <Spinner className="h-14 w-14 mx-auto" />
+            </div>
+          )}
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 py-2 mt-3">
             {/*@ts-expect-error: This */}
-            {response &&response.results?.map((item) => (
+            {response && response.results?.map((item) => (
                 <div className="w-full  mb-[40px]" key={item.id}>
                   {/*@ts-expect-error: This */}
                   <CardCatalog item={item} />

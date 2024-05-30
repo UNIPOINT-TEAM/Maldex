@@ -21,7 +21,7 @@ const ProductPerviewModal = ({ images }) => {
   }, []);
 
   const handleOpen = () => setOpen((cur) => !cur);
-
+  console.log(images);
   return (
     <div>
       <Card
@@ -33,7 +33,7 @@ const ProductPerviewModal = ({ images }) => {
         <img
           alt="nature"
           className="h-full w-[200px] lg:w-full object-contain object-center"
-          src={images ? images[0]?.image_url : images[0]?.image}
+          src={(images && images[0]?.image) || (images && images[0]?.image_url)}
         />
       </Card>
       <Dialog
