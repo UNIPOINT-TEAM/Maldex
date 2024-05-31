@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Arrow from "../../assets/icons/arrow-right.png";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoClose } from "react-icons/io5";
+import { Spinner } from "@material-tailwind/react";
 
 const NavbarModal = () => {
   const [activeItem, setActiveItem] = useState<number | null>(null);
@@ -23,7 +24,11 @@ const NavbarModal = () => {
   };
   const handleCategoryItemClick = (id: number) => setActiveCategoryItem(id);
   const { fetchData, response } = useFetchHook();
-  const { fetchData: fetchData2, response: response2 } = useFetchHook();
+  const {
+    fetchData: fetchData2,
+    response: response2,
+    isLoading: isLoading2,
+  } = useFetchHook();
   const [activeCategoryId, setActiveCategoryId] = useState<null | number>(null);
   useEffect(() => {
     fetchData({ method: "GET", url: "/product/categories/?is_available=true" });
@@ -76,7 +81,7 @@ const NavbarModal = () => {
                       : "hover:bg-redPrimary hover:text-white"
                   }`}
                   onClick={() => handleCategoryClick(index, i?.id)}
-                  // @ts-expect-error: This 
+                  // @ts-expect-error: This
                   onMouseEnter={() => setHoveredIndex(index)}
                   onMouseLeave={() => setHoveredIndex(null)}
                 >
@@ -125,115 +130,244 @@ const NavbarModal = () => {
               ""
             )}
             {activeItem !== null ? (
-              <div className="w-[40%] bg-gray-200 h-full px-2 py-2 flex" style={{mixBlendMode: "multiply"}}>
-                <div className="h-full w-1/2 flex flex-col">
-                  <Link
-                    to={`category/${
-                      /* @ts-expect-error: This */
-                      response2?.results && response2?.results[0]?.id
-                    }`}
-                    onClick={() => productDetail()}
-                    className="w-full h-[60%] bg-slate-100 hover:bg-[#fff] flex justify-center items-center relative productCatalog cursor-pointer"
-                  >
-                    <h2 className="absolute top-2 left-3 font-medium text-lg nameProductCatalog text-slate-100">
-                      {/* @ts-expect-error: This */}
-                      {response2?.results &&response2?.results[0]?.name.substring(0, 12)}
-                      ...
-                    </h2>
-                    <img
-                      /* @ts-expect-error: This */
-                      src={response2?.results && (response2?.results[0]?.images_set[0]?.image_url) || response2?.results && (response2?.results[0]?.images_set[0]?.image)}
-                      alt="product-img"
-                      className="w-[50%] object-contain"
-                    />
-                    <div className="w-full absolute bottom-5 right-5">
-                      <div className="float-end">
-                        <button className="p-1 rounded-lg bg-slate-100 btnProductCatalog">
-                          <img className="object-contain" src={Arrow} alt="" />
-                        </button>
+              <div className="w-[40%] bg-gray-200 h-full px-2 py-2 flex gap-2">
+                <div className="h-full w-1/2 flex flex-col gap-2">
+                  <div className="w-full h-[61%] bg-slate-100 hover:bg-[#fff] relative productCatalog cursor-pointer">
+                    {/* @ts-expect-error: This */}
+                    {response2?.results && response2?.results[0] ? (
+                      <Link
+                        to={`category/${
+                          /* @ts-expect-error: This */
+                          response2?.results && response2?.results[0]?.id
+                        }`}
+                        onClick={() => productDetail()}
+                        className=" w-full h-full flex justify-center items-center"
+                        style={{ mixBlendMode: "multiply" }}
+                      >
+                        <h2 className="absolute top-2 left-3 font-medium text-lg nameProductCatalog text-slate-100">
+                          {/* @ts-expect-error: This */}
+                          {response2?.results &&
+                            response2?.results[0]?.name.substring(0, 12)}{" "}
+                          ...
+                        </h2>
+                        <img
+                          /* @ts-expect-error: This */
+                          src={
+                            (response2?.results &&
+                              response2?.results[0]?.images_set[0]
+                                ?.image_url) ||
+                            (response2?.results &&
+                              response2?.results[0]?.images_set[0]?.image)
+                          }
+                          alt="product-img"
+                          className="w-[50%] object-contain"
+                        />
+                        <div className="w-full absolute bottom-5 right-5">
+                          <div className="float-end">
+                            <button className="p-1 rounded-lg bg-slate-100 btnProductCatalog">
+                              <img
+                                className="object-contain"
+                                src={Arrow}
+                                alt=""
+                              />
+                            </button>
+                          </div>
+                        </div>
+                      </Link>
+                    ) : (
+                      <div className="grid h-full w-full place-items-center bg-gray-300 ">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={2}
+                          stroke="currentColor"
+                          className="h-12 w-12 text-gray-500"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
+                          />
+                        </svg>
                       </div>
-                    </div>
-                  </Link>
-                  <Link
-                    to={`category/${
-                      /* @ts-expect-error: This */
-                      response2?.results && response2?.results[1]?.id
-                    }`}
-                    onClick={productDetail}
-                    className="w-full h-[30%] bg-slate-100 hover:bg-[#fff] flex justify-center items-center relative productCatalog cursor-pointer"
-                  >
-                    <h2 className="absolute top-2 left-3 font-medium text-lg nameProductCatalog text-slate-100">
-                      {/* @ts-expect-error: This */}
-                      {response2?.results &&response2?.results[1]?.name.substring(0, 12)}
-                      ...
-                    </h2>
-                    <img
-                      src={
-                        /* @ts-expect-error: This */
-                        response2?.results && (response2?.results[1]?.images_set[0]?.image_url) || response2?.results && (response2?.results[1]?.images_set[0]?.image)}
-                      alt="product-img"
-                      className="h-[50%] object-contain"
-                    />
-                    <div className="w-full absolute bottom-5 right-5">
-                      <div className="float-end">
-                        <button className="p-1 rounded-lg bg-slate-100 btnProductCatalog">
-                          <img src={Arrow} alt="" className="object-contain" />
-                        </button>
+                    )}
+                  </div>
+
+                  <div className="w-full h-[30%] bg-slate-100 hover:bg-[#fff]  relative productCatalog cursor-pointer">
+                    {response2?.results && response2?.results[1] ? (
+                      <Link
+                        to={`category/${
+                          /* @ts-expect-error: This */
+                          response2?.results && response2?.results[1]?.id
+                        }`}
+                        onClick={productDetail}
+                        className="w-full h-full flex justify-center items-center"
+                        style={{ mixBlendMode: "multiply" }}
+                      >
+                        <h2 className="absolute top-2 left-3 font-medium text-lg nameProductCatalog text-slate-100">
+                          {/* @ts-expect-error: This */}
+                          {response2?.results &&
+                            response2?.results[1]?.name.substring(0, 12)}
+                          ...
+                        </h2>
+                        <img
+                          src={
+                            /* @ts-expect-error: This */
+                            (response2?.results &&
+                              response2?.results[1]?.images_set[0]
+                                ?.image_url) ||
+                            (response2?.results &&
+                              response2?.results[1]?.images_set[0]?.image)
+                          }
+                          alt="product-img"
+                          className="h-[50%] object-contain"
+                        />
+                        <div className="w-full absolute bottom-5 right-5">
+                          <div className="float-end">
+                            <button className="p-1 rounded-lg bg-slate-100 btnProductCatalog">
+                              <img
+                                src={Arrow}
+                                alt=""
+                                className="object-contain"
+                              />
+                            </button>
+                          </div>
+                        </div>
+                      </Link>
+                    ) : (
+                      <div className="grid h-full w-full place-items-center bg-gray-300 ">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={2}
+                          stroke="currentColor"
+                          className="h-12 w-12 text-gray-500"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
+                          />
+                        </svg>
                       </div>
-                    </div>
-                  </Link>
+                    )}
+                  </div>
                 </div>
-                <div className="h-full w-1/2 flex flex-col">
-                  <Link
-                    /* @ts-expect-error: This */
-                    to={`category/${response2?.results && response2?.results[2]?.id}`}
-                    onClick={productDetail}
-                    className="w-full h-[30%]  hover:bg-[#fff] flex justify-center items-center relative productCatalog cursor-pointer"
-                  >
-                    <h2 className="absolute top-2 left-3 font-medium text-lg nameProductCatalog text-slate-100">
-                      {/* @ts-expect-error: This */}
-                      {response2?.results &&response2?.results[2]?.name.substring(0, 12)}
-                      ...
-                    </h2>
-                    <img
-                      /* @ts-expect-error: This */
-                      src={response2?.results && (response2?.results[2]?.images_set[0]?.image_url) || response2?.results && (response2?.results[2]?.images_set[0]?.image)}
-                      alt="product-img"
-                      className="h-[50%] object-contain"
-                    />
-                    <div className="w-full absolute bottom-5 right-5">
-                      <div className="float-end">
-                        <button className="p-1 rounded-lg bg-slate-100 btnProductCatalog">
-                          <img src={Arrow} alt="" />
-                        </button>
+                <div className="h-full w-1/2 flex flex-col gap-2">
+                  <div className="w-full h-[30%]  hover:bg-[#fff]  relative productCatalog cursor-pointer">
+                    {response2.results && response2.results[2] ? (
+                      <Link
+                        /* @ts-expect-error: This */
+                        to={`category/${
+                          response2?.results && response2?.results[2]?.id
+                        }`}
+                        onClick={productDetail}
+                        className="w-full h-full flex justify-center items-center"
+                        style={{ mixBlendMode: "multiply" }}
+                      >
+                        <h2 className="absolute top-2 left-3 font-medium text-lg nameProductCatalog text-slate-100">
+                          {/* @ts-expect-error: This */}
+                          {response2?.results &&
+                            response2?.results[2]?.name.substring(0, 12)}
+                          ...
+                        </h2>
+                        <img
+                          /* @ts-expect-error: This */
+                          src={
+                            (response2?.results &&
+                              response2?.results[2]?.images_set[0]
+                                ?.image_url) ||
+                            (response2?.results &&
+                              response2?.results[2]?.images_set[0]?.image)
+                          }
+                          alt="product-img"
+                          className="h-[50%] object-contain"
+                        />
+                        <div className="w-full absolute bottom-5 right-5">
+                          <div className="float-end">
+                            <button className="p-1 rounded-lg bg-slate-100 btnProductCatalog">
+                              <img src={Arrow} alt="" />
+                            </button>
+                          </div>
+                        </div>
+                      </Link>
+                    ) : (
+                      <div className="grid h-full w-full place-items-center bg-gray-300 ">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={2}
+                          stroke="currentColor"
+                          className="h-12 w-12 text-gray-500"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
+                          />
+                        </svg>
                       </div>
-                    </div>
-                  </Link>
-                  <Link
-                    /* @ts-expect-error: This */
-                    to={`category/${response2?.results && response2?.results[3]?.id}`}
-                    onClick={productDetail}
-                    className="w-full h-[30%] bbg-slate-100 hover:bg-[#fff] flex justify-center items-center relative productCatalog cursor-pointer"
-                  >
-                    <h2 className="absolute top-2 left-3 font-medium text-lg nameProductCatalog text-slate-100">
-                      {/* @ts-expect-error: This */}
-                      {response2?.results &&response2?.results[3]?.name.substring(0, 12)}
-                      ...
-                    </h2>
-                    <img
-                      /* @ts-expect-error: This */
-                      src={response2?.results && (response2?.results[3]?.images_set[0]?.image_url) || response2?.results && (response2?.results[3]?.images_set[0]?.image)}
-                      alt="product-img"
-                      className="h-[50%] object-contain"
-                    />
-                    <div className="w-full absolute bottom-5 right-5">
-                      <div className="float-end">
-                        <button className="p-1 rounded-lg bg-slate-100 btnProductCatalog">
-                          <img src={Arrow} alt="" />
-                        </button>
+                    )}
+                  </div>
+                  <div className="w-full h-[30%] bbg-slate-100 hover:bg-[#fff]  relative productCatalog cursor-pointer">
+                    {response2.results && response2.results[3] ? (
+                      <Link
+                        /* @ts-expect-error: This */
+                        to={`category/${
+                          response2?.results && response2?.results[3]?.id
+                        }`}
+                        onClick={productDetail}
+                        className="w-full h-full flex justify-center items-center"
+                        style={{ mixBlendMode: "multiply" }}
+                      >
+                        <h2 className="absolute top-2 left-3 font-medium text-lg nameProductCatalog text-slate-100">
+                          {/* @ts-expect-error: This */}
+                          {response2?.results &&
+                            response2?.results[3]?.name.substring(0, 12)}
+                          ...
+                        </h2>
+                        <img
+                          /* @ts-expect-error: This */
+                          src={
+                            (response2?.results &&
+                              response2?.results[3]?.images_set[0]
+                                ?.image_url) ||
+                            (response2?.results &&
+                              response2?.results[3]?.images_set[0]?.image)
+                          }
+                          alt="product-img"
+                          className="h-[50%] object-contain"
+                        />
+                        <div className="w-full absolute bottom-5 right-5">
+                          <div className="float-end">
+                            <button className="p-1 rounded-lg bg-slate-100 btnProductCatalog">
+                              <img src={Arrow} alt="" />
+                            </button>
+                          </div>
+                        </div>
+                      </Link>
+                    ) : (
+                      <div className="grid h-full w-full place-items-center bg-gray-300 ">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={2}
+                          stroke="currentColor"
+                          className="h-12 w-12 text-gray-500"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
+                          />
+                        </svg>
                       </div>
-                    </div>
-                  </Link>
+                    )}
+                  </div>
                   <Link
                     onClick={modalToggle}
                     to={`/catalog?category_id=${activeCategoryId}`}
