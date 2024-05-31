@@ -16,6 +16,7 @@ const CardCatalog: React.FC<Catalog> = ({ item }) => {
       item?.discount_price > 0 ? item?.discount_price : item?.price;
     dispatch(addToCart({ ...product, quantity: 1, totalPrice }));
   };
+
   console.log(item);
   return (
     <div className="group  min-h-[500px] cursor-pointer">

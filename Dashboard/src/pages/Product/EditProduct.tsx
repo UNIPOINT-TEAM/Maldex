@@ -196,7 +196,7 @@ const EditProduct = () => {
                 </div>
               ))}
             </div>
-            {sizes?.length>0  ? (
+            {sizes?.length > 0 ? (
               <div className="w-2/3 py-3 mb-5 flex flex-col">
                 {sizes?.map((ware) => (
                   <div className="flex w-full  justify-between  border-b  py-3">
@@ -479,7 +479,11 @@ const EditProduct = () => {
                 <div className="w-[150px]  min-h-[150px]  items-end gap-5 mb-5">
                   <div className="">
                     <img
-                      src={images.image_url}
+                      src={
+                        images.image_url != null
+                          ? images.image_url
+                          : images.image
+                      }
                       alt=""
                       className="w-[150px] h-[140px] rounded-md object-cover mb-3"
                     />
