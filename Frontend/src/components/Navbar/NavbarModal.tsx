@@ -125,7 +125,7 @@ const NavbarModal = () => {
               ""
             )}
             {activeItem !== null ? (
-              <div className="w-[40%] bg-gray-200 h-full px-2 py-2 flex">
+              <div className="w-[40%] bg-gray-200 h-full px-2 py-2 flex" style={{mixBlendMode: "multiply"}}>
                 <div className="h-full w-1/2 flex flex-col">
                   <Link
                     to={`category/${
@@ -142,7 +142,7 @@ const NavbarModal = () => {
                     </h2>
                     <img
                       /* @ts-expect-error: This */
-                      src={response2?.results &&response2?.results[0]?.images_set[0]?.image_url}
+                      src={response2?.results && (response2?.results[0]?.images_set[0]?.image_url) || response2?.results && (response2?.results[0]?.images_set[0]?.image)}
                       alt="product-img"
                       className="w-[50%] object-contain"
                     />
@@ -170,7 +170,7 @@ const NavbarModal = () => {
                     <img
                       src={
                         /* @ts-expect-error: This */
-                        response2?.results &&response2?.results[1]?.images_set[0]?.image_url}
+                        response2?.results && (response2?.results[1]?.images_set[0]?.image_url) || response2?.results && (response2?.results[1]?.images_set[0]?.image)}
                       alt="product-img"
                       className="h-[50%] object-contain"
                     />
@@ -197,7 +197,7 @@ const NavbarModal = () => {
                     </h2>
                     <img
                       /* @ts-expect-error: This */
-                      src={response2?.results &&response2?.results[2]?.images_set[0]?.image_url}
+                      src={response2?.results && (response2?.results[2]?.images_set[0]?.image_url) || response2?.results && (response2?.results[2]?.images_set[0]?.image)}
                       alt="product-img"
                       className="h-[50%] object-contain"
                     />
@@ -222,7 +222,7 @@ const NavbarModal = () => {
                     </h2>
                     <img
                       /* @ts-expect-error: This */
-                      src={response2?.results &&response2?.results[3]?.images_set[0]?.image_url}
+                      src={response2?.results && (response2?.results[3]?.images_set[0]?.image_url) || response2?.results && (response2?.results[3]?.images_set[0]?.image)}
                       alt="product-img"
                       className="h-[50%] object-contain"
                     />
