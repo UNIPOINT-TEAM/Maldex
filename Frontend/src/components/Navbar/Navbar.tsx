@@ -7,6 +7,22 @@ import searchIcon from "../../assets/images/search.svg";
 import NavbarModal from "./NavbarModal";
 import { useFetchHook } from "../../hooks/UseFetch";
 import { useEffect } from "react";
+import Filtr from "../../assets/icons/filtr.svg";
+const FiltrBtn = () => {
+  return (
+    <>
+      <div className="w-[30px] px-2  h-[34px] flex items-center rounded-[6px] border border-darkPrimary">
+        <img src={Filtr} alt="filtr-icon" className="mx-auto" />
+      </div>
+      <div className=" hidden md:block w-[70px] h-[30px] border border-gray-400 z-50 absolute bg-white rounded-lg shadow-md top-[45px] left-0 filter-opac">
+        <span className="w-[20px] h-[20px] bg-white border border-gray-400 rotate-45 top-[-4px] left-[5px] absolute"></span>
+        <div className="absolute w-full h-full bg-white rounded-lg flex justify-center items-center ">
+          <p className="text-[12px]">Фильтры</p>
+        </div>
+      </div>
+    </>
+  );
+};
 
 const Navbar = () => {
   const { fetchData, response } = useFetchHook();
@@ -21,7 +37,7 @@ const Navbar = () => {
         <div className="flex justify-between items-center py-2 gap-0 lg:gap-5">
           <div className="flex justify-around gap-5 ">
             <NavbarModal />
-            <MoreFilter />
+            <MoreFilter FilterBtn={<FiltrBtn />} type={"LESS_FILTER"} />
           </div>
           <SearchModal />
           <div className="flex lg:hidden items-center w-full rounded-xl bg-redPrimary h-[36px] relative">

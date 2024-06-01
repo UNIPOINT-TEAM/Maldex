@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import filtr from "../../assets/icons/filtr.png";
+import React, { useEffect, useState } from "react";
 import {
   Accordion,
   AccordionHeader,
@@ -33,13 +32,10 @@ function Icon({ id, open }) {
   );
 }
 
-const MoreFilter = () => {
+const MoreFilter = ({ FilterBtn, type }) => {
   const [activeCard, setActiveCard] = useState(false);
   const [filter, setFilter] = useState(false);
   const [open, setOpen] = useState(1);
-  //@ts-ignore
-  const handleOpen = (value) => setOpen(open === value ? 0 : value);
-  const handleFilter = () => setFilter(!filter);
   const { fetchData: fetchBrands, response: brands } = useFetchHook();
   const { fetchData: fetchMaterials, response: materials } = useFetchHook();
   const { fetchData: fetchColors, response: colors } = useFetchHook();
@@ -60,6 +56,15 @@ const MoreFilter = () => {
     fetchMaterials({ method: "GET", url: "/product/materials/" });
     fetchColors({ method: "GET", url: "/product/colors/" });
   }, []);
+  const handleOpen = (value: number) => setOpen(open === value ? 0 : value);
+  const handleFilter = () => {
+    if (type === "ALL_FILTR") {
+      setFilter(false);
+      setActiveCard(true);
+    } else if (type === "LESS_FILTER") {
+      setFilter(true);
+    }
+  };
   const generateQueryString = () => {
     const queryParameters = [];
 
@@ -115,6 +120,48 @@ const MoreFilter = () => {
       [type]: { ...prev[type], [e.target.name]: e.target.value },
     }));
   };
+  const countFilters = () => {
+    let filterCount = 0;
+    const materialCount = Object.values(filterData.materials).filter(
+      Boolean
+    ).length;
+    filterCount += materialCount;
+
+    const brandCount = Object.values(filterData.brands).filter(Boolean).length;
+    filterCount += brandCount;
+    if (filterData.colors) {
+      filterCount++;
+    }
+    if (filterData.size) {
+      filterCount++;
+    }
+    if (filterData.location) {
+      filterCount++;
+    }
+    if (filterData.quantity) {
+      filterCount++;
+    }
+    if (filterData.price.min_price || filterData.price.max_price) {
+      filterCount++;
+    }
+
+    return filterCount;
+  };
+  const resetFilters = () => {
+    setFilteData({
+      materials: {},
+      brands: {},
+      colors: "",
+      size: "",
+      location: "",
+      quantity: null,
+      price: {
+        min_price: "",
+        max_price: "",
+      },
+    });
+  };
+  console.log(filterData);
 
   return (
     <>
@@ -131,21 +178,10 @@ const MoreFilter = () => {
           } top-0 right-0 z-10`}
           onClick={() => setFilter(false)}
         ></div>
-        <button className="filter-btn w-8 border h-full border-gray-300 rounded-lg hidden lg:block relative">
-          <div
-            onClick={handleFilter}
-            className="w-full px-2 h-full flex justify-center items-center"
-          >
-            <img src={filtr} alt="filtr-icon" className="mx-auto" />
+        <button className="filter-btn  h-full rounded-lg hidden lg:block relative">
+          <div onClick={handleFilter}>
+            {React.cloneElement(FilterBtn, { filterCount: countFilters() })}
           </div>
-          {!filter && (
-            <div className=" hidden md:block w-[70px] h-[30px] border border-gray-400 z-50 absolute bg-white rounded-lg shadow-md top-[45px] left-0 filter-opac">
-              <span className="w-[20px] h-[20px] bg-white border border-gray-400 rotate-45 top-[-4px] left-[5px] absolute"></span>
-              <div className="absolute w-full h-full bg-white rounded-lg flex justify-center items-center ">
-                <p className="text-[12px]">Фильтры</p>
-              </div>
-            </div>
-          )}
 
           {filter && (
             <div className="min-w-[380px] h-[250px] border border-gray-500 z-50 absolute bg-[#fff] rounded-xl  top-[50px] left-0 ">
@@ -351,6 +387,7 @@ const MoreFilter = () => {
                             }))
                           }
                           value={item?.name}
+                          checked={filterData.colors === item?.name}
                           label={
                             <p className="font-normal lowercase m-0 font-Helvetica-Neue text-base text-darkPrimary">
                               {item?.name}
@@ -422,6 +459,7 @@ const MoreFilter = () => {
                           name={item?.material}
                           crossOrigin={"anonymous"}
                           ripple={false}
+                          checked={filterData.materials}
                           label={
                             <p className="font-normal m-0 font-Helvetica-Neue text-base text-darkPrimary">
                               {item?.material}
@@ -555,13 +593,18 @@ const MoreFilter = () => {
                   </AccordionBody>
                 </Accordion>
                 <div className="flex justify-center items-center w-full mt-6 gap-6">
-                  <button className="text-base font-bold">Сбросить</button>
+                  <button
+                    className="text-base font-bold"
+                    onClick={() => resetFilters()}
+                  >
+                    Сбросить
+                  </button>
                   <Link
                     onClick={() => setActiveCard(false)}
-                    to={`catalog/${generateQueryString()}`}
+                    to={`/catalog/${generateQueryString()}`}
                     className="bg-white  h-[48px] w-[160px] capitalize  flex items-center justify-center font-bold rounded-lg border border-darkPrimary"
                   >
-                    показать
+                    показать {countFilters() > 0 && `(${countFilters()})`}
                   </Link>
                 </div>
               </div>

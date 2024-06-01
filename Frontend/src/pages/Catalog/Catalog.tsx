@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import {
   MainProductFilter,
+  MoreFilter,
   News,
   QuestForm,
   SaleSlider,
@@ -8,7 +9,7 @@ import {
 
 import CardCatalog from "../../components/CardCatalog/CardCatalog";
 import Close from "../../assets/icons/close.png";
-import Filter from "../../assets/icons/filtr.png";
+import Filter from "../../assets/icons/filtr.svg";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 import { Accordion } from "../../components";
@@ -17,6 +18,15 @@ import { useLocation } from "react-router-dom";
 import { Spinner } from "@material-tailwind/react";
 import Pagination from "../../components/Pagination/Pagination";
 
+const FilterBtn: React.FC<{ filterCount?: number }> = ({ filterCount }) => {
+  console.log(filterCount);
+  return (
+    <div className="flex items-center gap-2 h-[40px] border border-darkPrimary rounded-[6px] px-3 font-bold">
+      Все фильтры {filterCount > 0 && `(${filterCount})`}
+      <img src={Filter} alt="" />
+    </div>
+  );
+};
 const Catalog = () => {
   const { search } = useLocation();
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
@@ -38,7 +48,6 @@ const Catalog = () => {
     { id: 1, name: "Белый" },
     { id: 2, name: "Желтый" },
   ]);
-  console.log(search.replace("?", ""));
 
   const addToActive = (i: any) => {
     setActiveFilterItems((prev) => [...prev, i]);
@@ -55,7 +64,7 @@ const Catalog = () => {
       url: `/product/?page=${currentPage}&${search && search.replace("?", "")}`,
     });
   }, [search, currentPage]);
-  console.log(response);
+
   useEffect(() => {
     fetchCategoryFilter({ method: "GET", url: `/product/filters` });
   }, []);
@@ -64,7 +73,6 @@ const Catalog = () => {
   };
 
   const handlePageChange = (page: number) => {
-    console.log(page);
     setCurrentPage(page);
   };
 
@@ -85,14 +93,11 @@ const Catalog = () => {
             {response && response?.name}
           </h1>
           <div className="flex justify-between items-center md:border-b-[1px] pb-2 mb-3">
-            <button className="border-[1px] border-black px-3 py-1 rounded flex items-center">
-              <h2 className="font-bold">Все фильтры (2) &nbsp;</h2>
-              <img src={Filter} alt="" />
-            </button>
+            <MoreFilter FilterBtn={<FilterBtn />} type={"ALL_FILTR"} />
             {/* <div className="hidden md:flex w-[70%] flex-wrap">
               {activeFilterItems.map((i, index) => (
                 <div className="flex">
-                  <div
+                  <div 
                     key={i.id}
                     className="px-2 py-2 rounded-md bg-gray-100 text-sm border border-l-gray-800 flex gap-2"
                   >
