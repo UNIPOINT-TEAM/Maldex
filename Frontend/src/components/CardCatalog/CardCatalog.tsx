@@ -17,7 +17,6 @@ const CardCatalog: React.FC<Catalog> = ({ item }) => {
     dispatch(addToCart({ ...product, quantity: 1, totalPrice }));
   };
 
-  console.log(item);
   return (
     <div className="group  min-h-[500px] cursor-pointer">
       <div className="relative w-full catalogImgBox bg-white duration-200 group-hover:bg-[#fff]">

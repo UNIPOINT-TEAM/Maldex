@@ -15,11 +15,13 @@ import { Accordion } from "../../components";
 import { useFetchHook } from "../../hooks/UseFetch";
 import { useLocation } from "react-router-dom";
 import { Spinner } from "@material-tailwind/react";
+import Pagination from "../../components/Pagination/Pagination";
 
 const Catalog = () => {
   const { search } = useLocation();
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
   const [filter, setFilter] = useState<boolean>(false);
+  const [currentPage, setCurrentPage] = useState(1);
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0 });
   }, []);
@@ -36,6 +38,7 @@ const Catalog = () => {
     { id: 1, name: "Белый" },
     { id: 2, name: "Желтый" },
   ]);
+  console.log(search.replace("?", ""));
 
   const addToActive = (i: any) => {
     setActiveFilterItems((prev) => [...prev, i]);
@@ -47,14 +50,22 @@ const Catalog = () => {
     useFetchHook();
 
   useEffect(() => {
-    fetchData({ method: "GET", url: `/product/${search && search}` });
-  }, [search]);
-
+    fetchData({
+      method: "GET",
+      url: `/product/?page=${currentPage}&${search && search.replace("?", "")}`,
+    });
+  }, [search, currentPage]);
+  console.log(response);
   useEffect(() => {
     fetchCategoryFilter({ method: "GET", url: `/product/filters` });
   }, []);
   const handleFilter = (query: string) => {
     fetchData({ method: "GET", url: `/product/${query}` });
+  };
+
+  const handlePageChange = (page: number) => {
+    console.log(page);
+    setCurrentPage(page);
   };
 
   return (
@@ -231,12 +242,26 @@ const Catalog = () => {
           )}
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 py-2 mt-3">
             {/*@ts-expect-error: This */}
-            {response && response.results?.map((item) => (
+            {response?.results?.length > 0 ? (
+              response &&
+              response.results?.map((item) => (
                 <div className="w-full  mb-[40px]" key={item.id}>
                   {/*@ts-expect-error: This */}
                   <CardCatalog item={item} />
                 </div>
-              ))}
+              ))
+            ) : (
+              <div className="w-full col-span-2 md:col-span-3 rounded-md  lg:col-span-5 bg-white h-[300px] flex items-center justify-center mb-[40px]">
+                <h2 className="text-gray-500 text-fs_3">Товаров пока нет:)</h2>
+              </div>
+            )}
+          </div>
+          <div className="">
+            <Pagination
+              totalItems={response.count || 0}
+              itemsPerPage={100}
+              onPageChange={handlePageChange}
+            />
           </div>
         </div>
         <div className="mb-3">
