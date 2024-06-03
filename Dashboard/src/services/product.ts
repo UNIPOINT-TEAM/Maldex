@@ -27,7 +27,7 @@ export const GetProductSearch = async (
   item?: string,
   currentpage?: number,
   filter_id?: string,
-  categoryId?:number
+  categoryId?: number,
 ) => {
   const response = await axios.get(
     `${BASE_URL}/product/?search=${item && item}&page=${
@@ -82,5 +82,5 @@ export const UpdateWithFormData = async (url: string, item: any) => {
 };
 
 export const DeleteItem = async (url: any) => {
-  await axios.delete(url);
+  await axios.delete(BASE_URL + url);
 };

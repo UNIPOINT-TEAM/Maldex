@@ -13,11 +13,13 @@ import {
   UpdateWithFormData,
 } from '../../services/product';
 import { GetMainCatalog, GetSubSubCatalog } from '../../services/maincatalog';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { BASE_URL } from '../../utils/BaseUrl';
+import DeleteModal from '../../components/DeleteModal/DeleteModal';
 
 const EditProduct = () => {
   const { id } = useParams();
+  const naviagte = useNavigate();
   const [name, setName] = useState('');
   const [code, setCode] = useState(0);
   const [article, setArticle] = useState('');
@@ -173,15 +175,25 @@ const EditProduct = () => {
   };
 
   const handleItemClick = (id: any) => {
-    DeleteItem(`${BASE_URL}/product/image/${id}/`).then(() =>
-      setStatus(!status),
-    );
+    DeleteItem(`${BASE_URL}/product/image/${id}/`).then(() => console.log('s'));
+  };
+
+  const deleteProduct = () => {
+    DeleteItem(`/product/${id}/`).then(() => naviagte('/product'));
   };
 
   return (
     <DefaultLayout>
       <div>
-        <p className="text-center text-[36px] py-4">Изменить продукт</p>
+        <div className="flex justify-between items-center">
+          <p className="text-center text-[36px] py-4">Изменить продукт</p>
+          <button
+            onClick={deleteProduct}
+            className="bg-red-400 text-white rounded-md px-5 py-2"
+          >
+            удалить
+          </button>
+        </div>
         <form
           id="form-post"
           onSubmit={addnewProduct}
