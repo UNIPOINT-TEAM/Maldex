@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import DefaultLayout from '../../layout/DefaultLayout';
-
-import { GetProduct, GetProductCategory } from '../../services/product';
+import { GetProductCategory } from '../../services/product';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import { Link, useParams } from 'react-router-dom';
@@ -14,6 +13,7 @@ import {
 } from '@material-tailwind/react';
 import { GetMainCatalogactive, PutData } from '../../services/maincatalog';
 import PaginationCard from '../../components/Pagination/Pagination';
+import { BASE_URL } from '../../utils/BaseUrl';
 
 const CategoryDetails = () => {
   const { id } = useParams();
@@ -27,20 +27,25 @@ const CategoryDetails = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [sitesCount, setSitesCount] = useState([]);
+  const [currentSite, setCurrentSite] = useState(null);
 
   useEffect(() => {
-    GetProductCategory(id, currentPage).then((res) => {
+    const fetchData = async () => {
+      setLoader(true);
+      const res = await GetProductCategory(id, currentPage, currentSite);
       setLoader(false);
       setAddProduct(res.data.results);
       const residual = res.data.count % 10;
       const pages = (res.data.count - residual) / 10;
-      setTotalPages(pages % 2 == 0 && pages === 1 ? pages : pages + 1);
-      setSitesCount(res?.data?.sites_count);
-    });
+      setTotalPages(pages % 2 === 0 && pages === 1 ? pages : pages + 1);
+      setSitesCount(res.data.sites_count);
+    };
+
+    fetchData();
     GetMainCatalogactive().then((res) => {
       setAvailableCategories(res);
     });
-  }, [status, currentPage]);
+  }, [status, currentPage, currentSite]);
 
   const fillCheckedProducts = (id) => {
     const isAlreadyChecked = checkedProducts.some(
@@ -72,6 +77,11 @@ const CategoryDetails = () => {
 
   const handleOpen = (id) => {
     setOpen(!open);
+  };
+
+  const handleSiteClick = (site) => {
+    setCurrentSite(site);
+    setCurrentPage(1); // Сброс страницы при изменении фильтра
   };
 
   return (
@@ -154,14 +164,17 @@ const CategoryDetails = () => {
           )}
         </div>
         <div className="flex flex-wrap justify-between gap-5 py-5">
-          {/* @ts-ignore */}
           {loader && (
             <div className="w-full flex justify-center">
               <p className="text-center">загрузка...</p>
             </div>
           )}
           {sitesCount?.map((count) => (
-            <div className="w-full flex gap-2">
+            <div
+              key={count.site}
+              className="w-full flex gap-2 cursor-pointer"
+              onClick={() => handleSiteClick(count.site)}
+            >
               <p className="text-blue-400">{count?.site}</p>
               <p className="text-red-400">{count?.product_count}</p>
             </div>
@@ -198,19 +211,13 @@ const CategoryDetails = () => {
                     ))}
                   </Swiper>
                 </div>
-                {/* {defaultProduct ? ( */}
                 <p className="text-red-400 text-md">{item.site}</p>
                 <div className="default">
                   <div className="mb-2 md:mb-5  min-h-[70px] ">
                     <p className="text-fs_7 tracking-wide">
-                      {
-                        //@ts-ignore
-                        item.name.length > 30
-                          ? //@ts-ignore
-                            item.name.substring(0, 40) + '...'
-                          : //@ts-ignore
-                            item.name
-                      }
+                      {item.name.length > 30
+                        ? item.name.substring(0, 40) + '...'
+                        : item.name}
                     </p>
                   </div>
                   <p className="mb-2 text-gray-600 text-fs_8">

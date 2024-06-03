@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import {
+  GetLogo,
   GetMainCatalog,
   GetMainCatalogactive,
   GetSubCategories,
@@ -45,6 +46,7 @@ const Categories = () => {
   const [isAviable, setIsAviable] = useState(false);
   const [searchCategory, setSearchCategory] = useState('');
   const [loader, setLoader] = useState(true);
+  const [logos, setLogos] = useState([]);
 
   const changeStatus = (newState: any) => {
     setStatus(newState);
@@ -54,6 +56,33 @@ const Categories = () => {
     setOpen(!open);
     setSendId(id);
   };
+
+  useEffect(() => {
+    const fetchLogo = async () => {
+      try {
+        const logoData = await GetLogo();
+        if (typeof logoData === 'object' && !Array.isArray(logoData)) {
+          setLogos(logoData);  // Сохраняем данные логотипов в состояние
+        } else {
+          console.error('Unexpected logo data format:', logoData);
+        }
+      } catch (error) {
+        console.error('Error fetching logo:', error);
+      }
+    };
+
+    fetchLogo();
+  }, []);
+
+  const getLogoUrl = (site) => {
+    return logos[site] || null;
+  };
+
+  const sortedCategories = categories.sort((a, b) => {
+    if (!a.site) return 1;
+    if (!b.site) return -1;
+    return a.site.localeCompare(b.site);
+  });
 
   useEffect(() => {
     GetMainCatalog().then((res) => {
@@ -70,7 +99,7 @@ const Categories = () => {
     const formdata = new FormData();
     formdata.append('name', nameSub);
     formdata.append('parent', id);
-    AddWithFormData(`${BASE_URL}/product/categories/`, formdata);
+    AddWithFormData(C, formdata);
     setNameSub('');
     setStatus(!status);
   };
@@ -113,6 +142,8 @@ const Categories = () => {
     });
   };
 
+
+
   return (
     <DefaultLayout>
       <AddMainCatalog status={status} onChange={changeStatus} />
@@ -152,6 +183,7 @@ const Categories = () => {
                       <p className="text-md">
                         {item.name}
                         <span className="text-red-400 ml-2">{item.count}</span>
+                        <span className="text-red-400 text-[10px] ml-2">{item.site}</span>
                       </p>
                     </div>
                   ))}
@@ -316,145 +348,150 @@ const Categories = () => {
               ),
           )}
         </div>
+
+        <div className=" ">
+                <div className="mb-2">
+                  <Input
+                    onChange={(e) => setSearchCategory(e.target.value)}
+                    className="mb-2"
+                    label="поиск по категориям"
+                  />
+                </div>
+
+              </div>
+
         <div className="w-full py-3 flex flex-wrap gap-2 justify-between items-center mb-[400px] ">
-          {categories.map(
-            (category) =>
-              category.order == null && (
-                <div
-                  key={category.id}
-                  className="w-1/6 py-5 relative content hover:bg-redPrimary"
-                >
-                  <div className="flex flex-col justify-start  h-[170px]">
-                    <div className="flex justify-between">
-                      <img className="w-1/5 mb-5" src={category.icon} alt="" />
+      {sortedCategories.map(
+        (category) =>
+          category.order == null && (
+            <div
+              key={category.id}
+              className="w-1/6 py-5 mt-10 relative content hover:bg-redPrimary"
+            >
+              <div className="flex flex-col justify-start  h-[170px]">
+                <div className="flex justify-between">
+                  <img className="w-1/5 mb-5" src={category.icon} alt="" />
 
-                      <p className="text-xl ">{category.order}</p>
-                    </div>
-                    <p className="text-red-400">{category.site}</p>
+                  <p className="text-xl ">{category.order}</p>
+                </div>
+                <img
+                  className="w-2/3 mb-5"
+                  src={getLogoUrl(category.site) || category.icon}
+                  alt=""
+                />
 
-                    <p className="text-lg mb-3">
-                      {category?.name}
-                      <span className="text-red-400 text-sm ml-1">
-                        {category.count}
-                      </span>
-                    </p>
-                    {category?.children && category?.children?.length > 0 && (
-                      <p>{category?.children[0]?.name}</p>
-                    )}
-                  </div>
-                  <div className="absolute w-full min-h-[400px] bg-[#fff] shadow-lg shadow-gray-400 top-0 left-0 right-0 moreContent p-3">
-                    <div className="flex justify-between items-center mb-3">
-                      <img className="w-1/5 mb-5" src={category.icon} alt="" />
+                <p className="text-lg font-bold mb-3 text-blue-gray-700">
+                  {category?.name}
+                  <span className="text-red-400 text-sm ml-1">
+                    {category.count}
+                  </span>
+                </p>
+                {category?.children && category?.children?.length > 0 && (
+                  <p>{category?.children[0]?.name}</p>
+                )}
+              </div>
+              <div className="absolute w-full min-h-[400px] bg-[#fff] shadow-lg shadow-gray-400 top-0 left-0 right-0 moreContent p-3">
+                <div className="flex justify-between items-center mb-3">
+                  <img className="w-1/5 mb-5" src={category.icon} alt="" />
 
-                      <div className="flex flex-col items-end gap-1">
-                        <div className="flex justify-center gap-[2px] items-center">
-                          <Checkbox
-                            defaultChecked={category.is_available}
-                            onChange={(e) => setIsAviable(e.target.checked)}
-                            color="blue"
-                          />
-                          <button
-                            className="bg-green-500 p-1 rounded-sm"
-                            onClick={() => ChangeIsAviable(category.id)}
-                          >
-                            <FaCheck color="white" />
-                          </button>
-                        </div>
-                        <EditMainCatalog categoryId={category.id} />
-
-                        <button className="p-1 bg-red-600 h-[30px] w-[30px] rounded flex justify-center items-center">
-                          <DeleteMainCatalog />
-                        </button>
-                      </div>
-                    </div>
-                    <p className="text-lg mb-3">{category?.name}</p>
-                    <Link to={`/category/${category.id}/products`}>
-                      <button className="bg-red-400 text-white rounded w-full h-[30px] mb-2 flex justify-center items-center text-[12px]">
-                        продукты
-                      </button>
-                    </Link>
-                    <form
-                      onSubmit={(e) => addSubCategory(e, category.id)}
-                      className="flex justify-between mb-4 gap-1"
-                    >
-                      <input
-                        type="text"
-                        className="border border-dashed rounded-md w-[70%] outline-none px-1"
-                        placeholder="Добавить имя"
-                        value={nameSub}
-                        onChange={(e) => setNameSub(e.target.value)}
+                  <div className="flex flex-col items-end gap-1">
+                    <div className="flex justify-center gap-[2px] items-center">
+                      <Checkbox
+                        defaultChecked={category.is_available}
+                        onChange={(e) => setIsAviable(e.target.checked)}
+                        color="blue"
                       />
-                      <button className="w-[30%] bg-blue-300 text-white rounded-md text-[12px]">
-                        добавить
+                      <button
+                        className="bg-green-500 p-1 rounded-sm"
+                        onClick={() => ChangeIsAviable(category.id)}
+                      >
+                        <FaCheck color="white" />
                       </button>
-                    </form>
+                    </div>
+                    <EditMainCatalog categoryId={category.id} />
 
-                    {category?.children &&
-                      // @ts-ignore
-                      category?.children.map((childCategory) => (
-                        <div
-                          key={childCategory.id}
-                          className="rounded group hover:bg-green-200 hover:text-white py-1 flex flex-col gap-1 justify-between items-start px-1"
-                        >
-                          <Link>
-                            {statusedit == childCategory.id ? (
-                              <input
-                                type="text"
-                                className="border border-dashed rounded-md w-[70%] outline-none px-1 text-black"
-                                placeholder="Добавить имя"
-                                defaultValue={childCategory.name}
-                                onChange={(e) => setEditedSub(e.target.value)}
-                              />
-                            ) : (
-                              <p>
-                                {childCategory.name}{' '}
-                                <span className="text-red-400 text-sm ml-1">
-                                  {childCategory.count}
-                                </span>
-                              </p>
-                            )}
-                          </Link>
-                          <div className="flex gap-2">
-                            {/* <button
-                     className=" bg-blue-300 group-hover:text-white rounded w-[80px] h-[20px] text-white flex justify-center items-center"
-                     onClick={() => handleOpen(childCategory.id)}
-                   >
-                     <p className="text-[12px]">переместить</p>
-                   </button> */}
-                            {statusedit == childCategory.id ? (
-                              <button
-                                className="bg-green-500 group-hover:text-white rounded w-[20px] h-[20px] flex justify-center items-center "
-                                onClick={() => saveItem(childCategory.id)}
-                              >
-                                <FaCheck size={12} color="white" />
-                              </button>
-                            ) : (
-                              <div className="flex items-center gap-2">
-                                <button
-                                  className="bg-yellow-500 group-hover:text-black rounded w-[20px] h-[20px] flex justify-center items-center "
-                                  onClick={() =>
-                                    handleEditStatus(childCategory.id)
-                                  }
-                                >
-                                  <FaRegEdit size={12} />
-                                </button>
-                                <Link
-                                  to={`/category/${childCategory.id}/products`}
-                                >
-                                  <button className="bg-red-400 text-white rounded w-[70px] h-[20px] flex justify-center items-center text-[12px]">
-                                    продукты
-                                  </button>
-                                </Link>
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      ))}
+                    <button className="p-1 bg-red-600 h-[30px] w-[30px] rounded flex justify-center items-center">
+                      <DeleteMainCatalog />
+                    </button>
                   </div>
                 </div>
-              ),
-          )}
-        </div>
+                <p className="text-lg mb-3">{category?.name}</p>
+                <Link to={`/category/${category.id}/products`}>
+                  <button className="bg-red-400 text-white rounded w-full h-[30px] mb-2 flex justify-center items-center text-[12px]">
+                    продукты
+                  </button>
+                </Link>
+                <form
+                  onSubmit={(e) => addSubCategory(e, category.id)}
+                  className="flex justify-between mb-4 gap-1"
+                >
+                  <input
+                    type="text"
+                    className="border border-dashed rounded-md w-[70%] outline-none px-1"
+                    placeholder="Добавить имя"
+                    value={nameSub}
+                    onChange={(e) => setNameSub(e.target.value)}
+                  />
+                  <button className="w-[30%] bg-blue-300 text-white rounded-md text-[12px]">
+                    добавить
+                  </button>
+                </form>
+
+                {category?.children &&
+                  category?.children.map((childCategory) => (
+                    <div
+                      key={childCategory.id}
+                      className="rounded group hover:bg-green-200 hover:text-white py-1 flex flex-col gap-1 justify-between items-start px-1"
+                    >
+                      <Link>
+                        {statusedit == childCategory.id ? (
+                          <input
+                            type="text"
+                            className="border border-dashed rounded-md w-[70%] outline-none px-1 text-black"
+                            placeholder="Добавить имя"
+                            defaultValue={childCategory.name}
+                            onChange={(e) => setEditedSub(e.target.value)}
+                          />
+                        ) : (
+                          <p>
+                            {childCategory.name}{' '}
+                            <span className="text-red-400 text-sm ml-1">
+                              {childCategory.count}
+                            </span>
+                          </p>
+                        )}
+                      </Link>
+                      <div className="flex gap-2">
+                        {statusedit == childCategory.id ? (
+                          <button
+                            className="bg-green-500 group-hover:text-white rounded w-[20px] h-[20px] flex justify-center items-center "
+                            onClick={() => saveItem(childCategory.id)}
+                          >
+                            <FaCheck size={12} color="white" />
+                          </button>
+                        ) : (
+                          <div className="flex items-center gap-2">
+                            <button
+                              className="bg-yellow-500 group-hover:text-black rounded w-[20px] h-[20px] flex justify-center items-center "
+                              onClick={() => handleEditStatus(childCategory.id)}
+                            >
+                              <FaRegEdit size={12} />
+                            </button>
+                            <Link to={`/category/${childCategory.id}/products`}>
+                              <button className="bg-red-400 text-white rounded w-[70px] h-[20px] flex justify-center items-center text-[12px]">
+                                продукты
+                              </button>
+                            </Link>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            </div>
+          )
+      )}
+    </div>
       </>
     </DefaultLayout>
   );

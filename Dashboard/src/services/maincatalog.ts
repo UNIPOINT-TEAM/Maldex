@@ -6,6 +6,12 @@ export const DeleteItem = async (url: string) => {
   await api.delete(BASE_URL + url);
 };
 
+
+export const GetLogo = async () => {
+  const response = await api.get(`/product/site-logos/`);
+  return response.data;
+};
+
 export const GetMainCatalog = async () => {
   const response = await api.get(`/product/categories/`);
   return response.data;
