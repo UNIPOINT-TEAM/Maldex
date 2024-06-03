@@ -16,7 +16,6 @@ function AdminLogin() {
     // Обработка входа
     console.log("Email:", email);
     console.log("Password:", password);
-    // Здесь вы можете добавить логику для проверки введенных данных и выполнения входа
   };
 
   const handleRegister = () => {
