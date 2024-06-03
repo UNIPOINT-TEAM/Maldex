@@ -12,9 +12,22 @@ export const GetFilters = async () => {
   return response;
 };
 
-export const GetProductCategory = async (id: any, currentpage: number) => {
+export const GetSites = async (id: number) => {
   const response = await api.get(
-    `/product/?category_id=${id}&page=${currentpage && currentpage}`,
+    `${BASE_URL}/product/sites-count/?category_id=${id}`,
+  );
+  return response;
+};
+
+export const GetProductCategory = async (
+  id: any,
+  currentpage: number,
+  name: string,
+) => {
+  const response = await api.get(
+    `/product/?category_id=${id}&page=${
+      currentpage && currentpage
+    }&site=${name}`,
   );
   return response;
 };
