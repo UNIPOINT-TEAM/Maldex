@@ -19,7 +19,6 @@ import { Spinner } from "@material-tailwind/react";
 import Pagination from "../../components/Pagination/Pagination";
 
 const FilterBtn: React.FC<{ filterCount?: number }> = ({ filterCount }) => {
-  console.log(filterCount);
   return (
     <div className="flex items-center gap-2 h-[40px] border border-darkPrimary rounded-[6px] px-3 font-bold">
       Все фильтры {filterCount > 0 && `(${filterCount})`}
@@ -63,6 +62,7 @@ const Catalog = () => {
       method: "GET",
       url: `/product/?page=${currentPage}&${search && search.replace("?", "")}`,
     });
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, [search, currentPage]);
 
   useEffect(() => {
@@ -94,48 +94,6 @@ const Catalog = () => {
           </h1>
           <div className="flex justify-between items-center md:border-b-[1px] pb-2 mb-3">
             <MoreFilter FilterBtn={<FilterBtn />} type={"ALL_FILTR"} />
-            {/* <div className="hidden md:flex w-[70%] flex-wrap">
-              {activeFilterItems.map((i, index) => (
-                <div className="flex">
-                  <div 
-                    key={i.id}
-                    className="px-2 py-2 rounded-md bg-gray-100 text-sm border border-l-gray-800 flex gap-2"
-                  >
-                    <p>{i.name}</p>
-                    <button>
-                      <img className="w-[12px]" src={Close} alt="" />
-                    </button>
-                  </div>
-                  {index == activeFilterItems.length - 1 && (
-                    <div className="relative">
-                      <button
-                        onClick={openFilter}
-                        className="bg-redPrimary text-white px-4 rounded-md absolute h-full"
-                      >
-                        +
-                      </button>
-                      {filter && (
-                        <div className="w-[200px] h-[350px] border border-gray-500 bg-white absolute z-30 top-[-150px] left-[60px] rounded-md">
-                          <div className="w-[20px] h-[20px] z-40 border border-gray-500 bg-white  rotate-45 absolute top-[45%] left-[-6px]"></div>
-                          <div className="w-full h-full bg-white z-50 absolute rounded-md flex flex-col justify-start py-5 px-2 overflow-y-scroll">
-                            <p className="text-xl mb-5">Цвет</p>
-                            {filterItems.map((i) => (
-                              <button
-                                onClick={() => addToActive(i)}
-                                className="text-sm text-start mb-5"
-                              >
-                                {i.name} &nbsp;
-                                <span className="text-gray-500">{i.count}</span>
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div> */}
             <div className="relative">
               <button
                 className="text-xl px-4 py-2 rounded-md flex items-center"
@@ -247,25 +205,28 @@ const Catalog = () => {
           )}
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 py-2 mt-3">
             {/*@ts-expect-error: This */}
-            {response?.results?.length > 0 ? (
-              response &&
-              response.results?.map((item) => (
-                <div className="w-full  mb-[40px]" key={item.id}>
-                  {/*@ts-expect-error: This */}
-                  <CardCatalog item={item} />
-                </div>
-              ))
-            ) : (
-              <div className="w-full col-span-2 md:col-span-3 rounded-md  lg:col-span-5 bg-white h-[300px] flex items-center justify-center mb-[40px]">
-                <h2 className="text-gray-500 text-fs_3">Товаров пока нет:)</h2>
-              </div>
-            )}
+            {response?.results?.length > 0
+              ? response &&
+                response.results?.map((item) => (
+                  <div className="w-full  mb-[40px]" key={item.id}>
+                    {/*@ts-expect-error: This */}
+                    <CardCatalog item={item} />
+                  </div>
+                ))
+              : !isLoading && (
+                  <div className="w-full col-span-2 md:col-span-3 rounded-md  lg:col-span-5 bg-white h-[300px] flex items-center justify-center mb-[40px]">
+                    <h2 className="text-gray-500 text-fs_3">
+                      Товаров пока нет:)
+                    </h2>
+                  </div>
+                )}
           </div>
           <div className="">
             <Pagination
-              totalItems={response.count || 0}
+              totalItems={response?.count || 0}
               itemsPerPage={100}
               onPageChange={handlePageChange}
+              isLoading={isLoading}
             />
           </div>
         </div>

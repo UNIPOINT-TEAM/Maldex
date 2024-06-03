@@ -32,14 +32,6 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../../store/cartSlice";
 import { useFetchHook } from "../../hooks/UseFetch";
 import { useParams } from "react-router-dom";
-// @ts-expect-error: This 
-const btnSize = [
-  { id: 1, size: "XS" },
-  { id: 2, size: "S" },
-  { id: 3, size: "M" },
-  { id: 4, size: "L" },
-  { id: 5, size: "XL" },
-];
 
 const CategoryDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -129,6 +121,7 @@ const CategoryDetails = () => {
       content: <TabFour prints={response?.prints} />,
     },
   ];
+  console.log(response);
 
   return (
     <div className="container_xxl tracking-wider overflow-hidden px-3">
@@ -225,7 +218,7 @@ const CategoryDetails = () => {
                     NEW
                   </span>
                 )}
-{/* @ts-expect-error: This */}
+                {/* @ts-expect-error: This */}
                 {response?.is_hit && (
                   <span className="border tracking-normal border-darkPrimary py-[2px] px-[6px]  rounded-[15px] text-[12px] font-bold">
                     HIT
@@ -260,7 +253,8 @@ const CategoryDetails = () => {
                   </p>
                   <div className="flex space-x-2">
                     {/* @ts-expect-error: This */}
-                    {response.sizes &&response.sizes.map((item, i) => (
+                    {response.sizes &&
+                      response.sizes.map((item, i) => (
                         <ProductSize
                           {...item}
                           onActiveSize={setbtnActiveSize}

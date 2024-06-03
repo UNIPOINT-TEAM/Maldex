@@ -70,8 +70,12 @@ const CardModal = () => {
                     <div className="grid grid-cols-12 grid-rows-1 gap-4">
                       <div className="col-span-2 h-[100px] border border-lightPrimary rounded-xl  flex justify-center items-center">
                         <img
-                          className="w-full h-full rounded-xl object-cover"
-                          src={item.images_set[0].image_url}
+                          style={{ mixBlendMode: "multiply" }}
+                          className="w-full h-full rounded-xl p-3 object-cover"
+                          src={
+                            item.images_set[0].image_url ||
+                            item.images_set[0].image
+                          }
                           alt=""
                         />
                       </div>

@@ -39,6 +39,7 @@ const MoreFilter = ({ FilterBtn, type }) => {
   const { fetchData: fetchBrands, response: brands } = useFetchHook();
   const { fetchData: fetchMaterials, response: materials } = useFetchHook();
   const { fetchData: fetchColors, response: colors } = useFetchHook();
+  const { fetchData: fetchPrint, response: prints } = useFetchHook();
   const [filterData, setFilteData] = useState({
     materials: {},
     brands: {},
@@ -50,11 +51,15 @@ const MoreFilter = ({ FilterBtn, type }) => {
     },
     location: "",
     quantity: null,
+    gender: "",
+    print_type: "",
   });
+
   useEffect(() => {
     fetchBrands({ method: "GET", url: "/product/brands/" });
     fetchMaterials({ method: "GET", url: "/product/materials/" });
     fetchColors({ method: "GET", url: "/product/colors/" });
+    fetchPrint({ method: "GET", url: "/product/prints/" });
   }, []);
   const handleOpen = (value: number) => setOpen(open === value ? 0 : value);
   const handleFilter = () => {
@@ -110,6 +115,13 @@ const MoreFilter = ({ FilterBtn, type }) => {
         `price=${filterData.price?.min_price},${filterData.price?.max_price}`
       );
     }
+    if (filterData.gender) {
+      queryParameters.push(`gender=${filterData.gender}`);
+    }
+    if (filterData.print_type) {
+      queryParameters.push(`print_type=${filterData.print_type}`);
+    }
+
     return `?${queryParameters.join("&")}`;
   };
 
@@ -144,6 +156,13 @@ const MoreFilter = ({ FilterBtn, type }) => {
     if (filterData.price.min_price || filterData.price.max_price) {
       filterCount++;
     }
+    if (filterData.gender) {
+      filterCount++;
+    }
+
+    if (filterData.print_type) {
+      filterCount++;
+    }
 
     return filterCount;
   };
@@ -159,13 +178,14 @@ const MoreFilter = ({ FilterBtn, type }) => {
         min_price: "",
         max_price: "",
       },
+      gender: "",
+      print_type: "",
     });
   };
-  console.log(filterData);
 
   return (
     <>
-      <div className="">
+      <div>
         <div
           className={`overLay fixed w-full h-full bg-[#00000083] ${
             activeCard ? "block" : "hidden"
@@ -459,7 +479,6 @@ const MoreFilter = ({ FilterBtn, type }) => {
                           name={item?.material}
                           crossOrigin={"anonymous"}
                           ripple={false}
-                          checked={filterData.materials}
                           label={
                             <p className="font-normal m-0 font-Helvetica-Neue text-base text-darkPrimary">
                               {item?.material}
@@ -519,10 +538,27 @@ const MoreFilter = ({ FilterBtn, type }) => {
                     </p>
                   </AccordionHeader>
                   <AccordionBody className={"p-0 mb-4"}>
-                    <div className="flex gap-2 items-center ml-5 mb-2">
-                      <div className="p-2 rounded-md border border-gray-400"></div>
-                      <p className="text-sm text-black">Acros</p>
-                    </div>
+                    {prints.map((item) => (
+                      <div className="">
+                        <Radio
+                          crossOrigin={""}
+                          name="print"
+                          onChange={() =>
+                            setFilteData((prev) => ({
+                              ...prev,
+                              print_type: item?.name,
+                            }))
+                          }
+                          value={item?.name}
+                          checked={filterData.print_type === item?.name}
+                          label={
+                            <p className="font-normal lowercase m-0 font-Helvetica-Neue text-base text-darkPrimary">
+                              {item?.name}
+                            </p>
+                          }
+                        />
+                      </div>
+                    ))}
                   </AccordionBody>
                 </Accordion>
 
@@ -546,11 +582,23 @@ const MoreFilter = ({ FilterBtn, type }) => {
                     <Radio
                       crossOrigin={""}
                       name="gender"
+                      onChange={() =>
+                        setFilteData((prev) => ({
+                          ...prev,
+                          gender: "male",
+                        }))
+                      }
                       label={<p className="font-medium">Мужской</p>}
                     />
                     <Radio
                       crossOrigin={""}
                       name="gender"
+                      onChange={() =>
+                        setFilteData((prev) => ({
+                          ...prev,
+                          gender: "female",
+                        }))
+                      }
                       label={<p className="font-medium">Женский</p>}
                     />
                   </AccordionBody>
@@ -576,6 +624,7 @@ const MoreFilter = ({ FilterBtn, type }) => {
                         <Radio
                           crossOrigin={""}
                           name="color"
+                          checked={filterData?.size === size}
                           onChange={() =>
                             setFilteData((prev) => ({
                               ...prev,
