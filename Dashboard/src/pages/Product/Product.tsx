@@ -24,6 +24,7 @@ import {
 import { GetMainCatalogactive, PutData } from '../../services/maincatalog';
 import PaginationCard from '../../components/Pagination/Pagination';
 import { GetActiveCategory, GetNewCategory } from '../../services/main';
+import NewPagination from '../../components/NewPagination/NewPagination';
 
 const Product = () => {
   const [addProduct, setAddProduct] = useState([]);
@@ -42,10 +43,12 @@ const Product = () => {
   const [hitProduct, setHitProduct] = useState([]);
   const [filterCategories, setFilterCategories] = useState([]);
   const [categoryId, setCategoryId] = useState('');
+  const [pageCount, setPageCount] = useState(0);
 
   useEffect(() => {
     GetProductSearch(search, currentPage, filterId, categoryId).then((res) => {
       setAddProduct(res.data.results);
+      setPageCount(res?.data?.count);
       const residual = res.data.count % 10;
       const pages = (res.data.count - residual) / 10;
       setTotalPages(pages % 2 == 0 && pages === 1 ? pages : pages + 1);
@@ -97,6 +100,10 @@ const Product = () => {
 
   const handleOpen = (id) => {
     setOpen(!open);
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
   };
 
   return (
@@ -471,10 +478,10 @@ const Product = () => {
             </>
           )}
         </div>
-        <PaginationCard
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          totalPages={totalPages}
+        <NewPagination
+          totalItems={pageCount || 0}
+          itemsPerPage={100}
+          onPageChange={handlePageChange}
         />
       </div>
     </DefaultLayout>

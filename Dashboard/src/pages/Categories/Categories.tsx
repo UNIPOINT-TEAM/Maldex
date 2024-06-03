@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import {
+  GetLogo,
   GetMainCatalog,
+  GetMainCatalogSite,
   GetMainCatalogactive,
   GetSubCategories,
   PutData,
@@ -32,11 +34,11 @@ import { BASE_URL } from '../../utils/BaseUrl';
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
+  const [categoriesSite, setCategoriesSite] = useState([]);
   const [nameSub, setNameSub] = useState('');
   const [open, setOpen] = useState(false);
   const [subCategoryId, setSubCategoryId] = useState(0);
   const [availableCategories, setAvailableCategories] = useState([]);
-
   const [statusedit, setStatusedit] = useState(null);
   const [editedSub, setEditedSub] = useState('');
   const [status, setStatus] = useState(false);
@@ -45,6 +47,7 @@ const Categories = () => {
   const [isAviable, setIsAviable] = useState(false);
   const [searchCategory, setSearchCategory] = useState('');
   const [loader, setLoader] = useState(true);
+  const [logos, setLogos] = useState([]);
 
   const changeStatus = (newState: any) => {
     setStatus(newState);
@@ -56,8 +59,39 @@ const Categories = () => {
   };
 
   useEffect(() => {
+    const fetchLogo = async () => {
+      try {
+        const logoData = await GetLogo();
+        if (typeof logoData === 'object' && !Array.isArray(logoData)) {
+          setLogos(logoData); // Сохраняем данные логотипов в состояние
+        } else {
+          console.error('Unexpected logo data format:', logoData);
+        }
+      } catch (error) {
+        console.error('Error fetching logo:', error);
+      }
+    };
+
+    fetchLogo();
+  }, []);
+
+  const getLogoUrl = (site) => {
+    return logos[site] || null;
+  };
+
+  const sortedCategories = categoriesSite.sort((a, b) => {
+    if (!a.site) return 1;
+    if (!b.site) return -1;
+    return a.site.localeCompare(b.site);
+  });
+
+  useEffect(() => {
     GetMainCatalog().then((res) => {
       setCategories(res);
+      setLoader(!loader);
+    });
+    GetMainCatalogSite(searchCategory).then((res) => {
+      setCategoriesSite(res);
       setLoader(!loader);
     });
     GetSubCategories(searchCategory).then((res) => {
@@ -70,7 +104,7 @@ const Categories = () => {
     const formdata = new FormData();
     formdata.append('name', nameSub);
     formdata.append('parent', id);
-    AddWithFormData(`${BASE_URL}/product/categories/`, formdata);
+    AddWithFormData(C, formdata);
     setNameSub('');
     setStatus(!status);
   };
@@ -152,6 +186,9 @@ const Categories = () => {
                       <p className="text-md">
                         {item.name}
                         <span className="text-red-400 ml-2">{item.count}</span>
+                        <span className="text-red-400 text-[10px] ml-2">
+                          {item.site}
+                        </span>
                       </p>
                     </div>
                   ))}
@@ -316,13 +353,23 @@ const Categories = () => {
               ),
           )}
         </div>
+
+        <div className=" ">
+          <div className="mb-2">
+            <Input
+              onChange={(e) => setSearchCategory(e.target.value)}
+              className="mb-2"
+              label="поиск по категориям"
+            />
+          </div>
+        </div>
         <div className="w-full py-3 flex flex-wrap gap-2 justify-between items-center mb-[400px] ">
-          {categories.map(
+          {sortedCategories.map(
             (category) =>
               category.order == null && (
                 <div
                   key={category.id}
-                  className="w-1/6 py-5 relative content hover:bg-redPrimary"
+                  className="w-1/6 py-5 mt-10 relative content hover:bg-redPrimary"
                 >
                   <div className="flex flex-col justify-start  h-[170px]">
                     <div className="flex justify-between">
@@ -330,9 +377,13 @@ const Categories = () => {
 
                       <p className="text-xl ">{category.order}</p>
                     </div>
-                    <p className="text-red-400">{category.site}</p>
+                    <img
+                      className="w-2/3 mb-5"
+                      src={getLogoUrl(category.site) || category.icon}
+                      alt=""
+                    />
 
-                    <p className="text-lg mb-3">
+                    <p className="text-lg font-bold mb-3 text-blue-gray-700">
                       {category?.name}
                       <span className="text-red-400 text-sm ml-1">
                         {category.count}
@@ -390,7 +441,6 @@ const Categories = () => {
                     </form>
 
                     {category?.children &&
-                      // @ts-ignore
                       category?.children.map((childCategory) => (
                         <div
                           key={childCategory.id}
@@ -415,12 +465,6 @@ const Categories = () => {
                             )}
                           </Link>
                           <div className="flex gap-2">
-                            {/* <button
-                     className=" bg-blue-300 group-hover:text-white rounded w-[80px] h-[20px] text-white flex justify-center items-center"
-                     onClick={() => handleOpen(childCategory.id)}
-                   >
-                     <p className="text-[12px]">переместить</p>
-                   </button> */}
                             {statusedit == childCategory.id ? (
                               <button
                                 className="bg-green-500 group-hover:text-white rounded w-[20px] h-[20px] flex justify-center items-center "

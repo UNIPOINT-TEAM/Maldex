@@ -6,8 +6,17 @@ export const DeleteItem = async (url: string) => {
   await api.delete(BASE_URL + url);
 };
 
+export const GetLogo = async () => {
+  const response = await api.get(`/product/site-logos/`);
+  return response.data;
+};
+
 export const GetMainCatalog = async () => {
   const response = await api.get(`/product/categories/`);
+  return response.data;
+};
+export const GetMainCatalogSite = async (name: string) => {
+  const response = await api.get(`/product/categories/?search=${name}`);
   return response.data;
 };
 
@@ -92,7 +101,7 @@ export const PostDataJson = async (url: string, item: any) => {
   return data;
 };
 export const PostData = async (url: string, item: any) => {
-  const response = await axios.post(BASE_URL+url, item);
+  const response = await axios.post(BASE_URL + url, item);
   const data = response;
   return data;
 };

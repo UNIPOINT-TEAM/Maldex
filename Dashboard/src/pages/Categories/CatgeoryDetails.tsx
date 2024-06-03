@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react';
 import DefaultLayout from '../../layout/DefaultLayout';
 
-import { GetProduct, GetProductCategory } from '../../services/product';
+import {
+  GetProduct,
+  GetProductCategory,
+  GetSites,
+} from '../../services/product';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import { Link, useParams } from 'react-router-dom';
@@ -14,6 +18,7 @@ import {
 } from '@material-tailwind/react';
 import { GetMainCatalogactive, PutData } from '../../services/maincatalog';
 import PaginationCard from '../../components/Pagination/Pagination';
+import NewPagination from '../../components/NewPagination/NewPagination';
 
 const CategoryDetails = () => {
   const { id } = useParams();
@@ -27,20 +32,23 @@ const CategoryDetails = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [sitesCount, setSitesCount] = useState([]);
+  const [nameSite, setNameSite] = useState('');
+  const [pageCount, setPageCount] = useState(0);
 
   useEffect(() => {
-    GetProductCategory(id, currentPage).then((res) => {
+    GetProductCategory(id, currentPage, nameSite).then((res) => {
       setLoader(false);
       setAddProduct(res.data.results);
       const residual = res.data.count % 10;
+      setPageCount(res?.data?.count);
       const pages = (res.data.count - residual) / 10;
       setTotalPages(pages % 2 == 0 && pages === 1 ? pages : pages + 1);
-      setSitesCount(res?.data?.sites_count);
     });
+    GetSites(id).then((res) => setSitesCount(res.data));
     GetMainCatalogactive().then((res) => {
       setAvailableCategories(res);
     });
-  }, [status, currentPage]);
+  }, [status, currentPage, nameSite]);
 
   const fillCheckedProducts = (id) => {
     const isAlreadyChecked = checkedProducts.some(
@@ -58,6 +66,10 @@ const CategoryDetails = () => {
         setCheckedProducts((prevProducts) => [...prevProducts, clickedProduct]);
       }
     }
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
   };
 
   const changeCategory = () => {
@@ -161,7 +173,10 @@ const CategoryDetails = () => {
             </div>
           )}
           {sitesCount?.map((count) => (
-            <div className="w-full flex gap-2">
+            <div
+              className="w-full flex gap-2 cursor-pointer"
+              onClick={() => setNameSite(count?.site)}
+            >
               <p className="text-blue-400">{count?.site}</p>
               <p className="text-red-400">{count?.product_count}</p>
             </div>
@@ -238,10 +253,10 @@ const CategoryDetails = () => {
             </div>
           ))}
         </div>
-        <PaginationCard
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          totalPages={totalPages}
+        <NewPagination
+          totalItems={pageCount || 0}
+          itemsPerPage={100}
+          onPageChange={handlePageChange}
         />
       </div>
     </DefaultLayout>

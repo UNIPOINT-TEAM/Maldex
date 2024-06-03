@@ -12,9 +12,22 @@ export const GetFilters = async () => {
   return response;
 };
 
-export const GetProductCategory = async (id: any, currentpage: number) => {
+export const GetSites = async (id: number) => {
   const response = await api.get(
-    `/product/?category_id=${id}&page=${currentpage && currentpage}`,
+    `${BASE_URL}/product/sites-count/?category_id=${id}`,
+  );
+  return response;
+};
+
+export const GetProductCategory = async (
+  id: any,
+  currentpage: number,
+  name: string,
+) => {
+  const response = await api.get(
+    `/product/?category_id=${id}&page=${
+      currentpage && currentpage
+    }&site=${name}`,
   );
   return response;
 };
@@ -27,7 +40,7 @@ export const GetProductSearch = async (
   item?: string,
   currentpage?: number,
   filter_id?: string,
-  categoryId?:number
+  categoryId?: number,
 ) => {
   const response = await axios.get(
     `${BASE_URL}/product/?search=${item && item}&page=${
@@ -82,5 +95,5 @@ export const UpdateWithFormData = async (url: string, item: any) => {
 };
 
 export const DeleteItem = async (url: any) => {
-  await axios.delete(url);
+  await axios.delete(BASE_URL + url);
 };
