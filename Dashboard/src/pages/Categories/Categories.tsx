@@ -16,7 +16,7 @@ import {
   DeleteMainCatalog,
   EditMainCatalog,
 } from '../../components';
-import { AddWithFormData } from '../../services/product';
+import { AddWithFormData, DeleteItem } from '../../services/product';
 import { FaCheck, FaPlus } from 'react-icons/fa6';
 import { FaRegEdit } from 'react-icons/fa';
 import DefaultLayout from '../../layout/DefaultLayout';
@@ -110,9 +110,14 @@ const Categories = () => {
     const formdata = new FormData();
     formdata.append('name', nameSub);
     formdata.append('parent', id);
-    AddWithFormData(C, formdata);
-    setNameSub('');
-    setStatus(!status);
+    AddWithFormData(`${BASE_URL}/product/categories/`, formdata).then(() => {
+      setStatus(!status);
+      setNameSub('');
+    });
+  };
+
+  const DeleteCategory = (id: number) => {
+    DeleteItem(`/product/category/${id}`).then(() => setStatus(!status));
   };
 
   const handleEditStatus = (id: any) => {
@@ -398,6 +403,7 @@ const Categories = () => {
                                 добавить новую категорию
                               </p>
                             </button>
+
                             {statusedit == childCategory.id ? (
                               <button
                                 className="bg-green-500 group-hover:text-white rounded w-[20px] h-[20px] flex justify-center items-center "
@@ -422,6 +428,14 @@ const Categories = () => {
                                     продукты
                                   </button>
                                 </Link>
+                                <button
+                                  onClick={() =>
+                                    DeleteCategory(childCategory.id)
+                                  }
+                                  className="bg-red-400 text-white rounded w-[70px] h-[20px] flex justify-center items-center text-[12px]"
+                                >
+                                  удалить
+                                </button>
                               </div>
                             )}
                           </div>
@@ -503,6 +517,7 @@ const Categories = () => {
                         продукты
                       </button>
                     </Link>
+
                     <form
                       onSubmit={(e) => addSubCategory(e, category.id)}
                       className="flex justify-between mb-4 gap-1"
