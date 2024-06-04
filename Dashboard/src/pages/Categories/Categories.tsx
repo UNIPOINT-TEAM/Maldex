@@ -37,6 +37,7 @@ const Categories = () => {
   const [categoriesSite, setCategoriesSite] = useState([]);
   const [nameSub, setNameSub] = useState('');
   const [open, setOpen] = useState(false);
+  const [open1, setOpen1] = useState(false);
   const [subCategoryId, setSubCategoryId] = useState(0);
   const [availableCategories, setAvailableCategories] = useState([]);
   const [statusedit, setStatusedit] = useState(null);
@@ -44,6 +45,8 @@ const Categories = () => {
   const [status, setStatus] = useState(false);
   const [sendId, setSendId] = useState(null);
   const [receiveId, setReceiveId] = useState([]);
+  const [sendId1, setSendId1] = useState(null);
+  const [receiveId1, setReceiveId1] = useState(null);
   const [isAviable, setIsAviable] = useState(false);
   const [searchCategory, setSearchCategory] = useState('');
   const [loader, setLoader] = useState(true);
@@ -56,6 +59,10 @@ const Categories = () => {
   const handleOpen = (id) => {
     setOpen(!open);
     setSendId(id);
+  };
+  const handleOpen1 = (id) => {
+    setOpen1(!open1);
+    setReceiveId1(id);
   };
 
   useEffect(() => {
@@ -145,13 +152,84 @@ const Categories = () => {
       setStatus(!status), setOpen(!open);
     });
   };
+  const transferCategory1 = () => {
+    const data = {
+      category_id: sendId1,
+      categories_data: receiveId1,
+    };
+    TransferCategory(`/product/categories/move/`, data).then(() => {
+      setStatus(!status), setOpen1(!open1);
+    });
+  };
 
 
 
   return (
     <DefaultLayout>
       <AddMainCatalog status={status} onChange={changeStatus} />
+      <Dialog
+        open={open1}
+        handler={handleOpen1}
+        size="xxl"
+        animate={{
+          mount: { scale: 1, y: 0 },
+          unmount: { scale: 0.9, y: -100 },
+        }}
+      >
+        <DialogHeader>переместить категорию сюда</DialogHeader>
+        <DialogBody>
+          <div className=" overflow-x-scroll">
+            <div className="w-full flex gap-2">
+              {categories.map(
+                (category) =>
+                  category.order != null && (
+                    <div
+                      key={category.id}
+                      className="w-[400px] h-[400px] py-2 px-2"
+                    >
+                      <img
+                        src={category.icon}
+                        alt="no icon"
+                        className="w-[30px] h-[30px]"
+                      />
+                      <p
+                        className="text-xl mb-3 cursor-pointer"
+                        // onClick={() => setSendId1(category.id)}
+                      >
+                        {category.name}
+                      </p>
 
+                      {category?.children?.map((i) => (
+                        <p
+                          className={`text-sm mb-1 cursor-pointer ${
+                            sendId1 == i.id &&
+                            'bg-blue-400 text-white px-1 rounded-md'
+                          }`}
+                          onClick={() => setSendId1(i.id)}
+                        >
+                          {i?.name}
+                        </p>
+                      ))}
+                    </div>
+                  ),
+              )}
+            </div>
+          </div>
+        </DialogBody>
+        <DialogFooter>
+          <Button
+            variant="text"
+            color="red"
+            onClick={handleOpen1}
+            className="mr-1"
+          >
+            <span>отмена</span>
+          </Button>
+          <Button variant="gradient" color="green" onClick={transferCategory1}>
+            <span>переместить</span>
+          </Button>
+        </DialogFooter>
+      </Dialog>
       <>
         <div className="w-full py-3 flex flex-wrap gap-2 justify-between items-center mb-[100px] border-b-2">
           <Dialog
@@ -445,7 +523,7 @@ const Categories = () => {
                       category?.children.map((childCategory) => (
                         <div
                           key={childCategory.id}
-                          className="rounded group hover:bg-green-200 hover:text-white py-1 flex flex-col gap-1 justify-between items-start px-1"
+                          className="rounded group  py-1 flex flex-col gap-1 justify-between items-start px-1"
                         >
                           <Link>
                             {statusedit == childCategory.id ? (
@@ -490,6 +568,12 @@ const Categories = () => {
                                     продукты
                                   </button>
                                 </Link>
+                                <button
+                                  onClick={() => handleOpen1(childCategory.id)}
+                                  className="bg-blue-400 text-white rounded w-[70px] h-[20px] flex justify-center items-center text-[12px]"
+                                >
+                                  переместит
+                                </button>
                               </div>
                             )}
                           </div>

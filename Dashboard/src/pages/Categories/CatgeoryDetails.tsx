@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import DefaultLayout from '../../layout/DefaultLayout';
 
 import {
-  GetProduct,
   GetProductCategory,
   GetSites,
 } from '../../services/product';
@@ -17,7 +16,6 @@ import {
   DialogHeader,
 } from '@material-tailwind/react';
 import { GetMainCatalogactive, PutData } from '../../services/maincatalog';
-import PaginationCard from '../../components/Pagination/Pagination';
 import NewPagination from '../../components/NewPagination/NewPagination';
 
 const CategoryDetails = () => {
