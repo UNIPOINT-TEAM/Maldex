@@ -79,11 +79,7 @@ const Categories = () => {
     return logos[site] || null;
   };
 
-  const sortedCategories = categoriesSite.sort((a, b) => {
-    if (!a.site) return 1;
-    if (!b.site) return -1;
-    return a.site.localeCompare(b.site);
-  });
+
 
   useEffect(() => {
     GetMainCatalog().then((res) => {
@@ -98,6 +94,9 @@ const Categories = () => {
       setAvailableCategories(res);
     });
   }, [status, subCategoryId, searchCategory]);
+
+  console.log(categories);
+  
 
   const addSubCategory = (e, id) => {
     e.preventDefault();
@@ -146,6 +145,8 @@ const Categories = () => {
       setStatus(!status), setOpen(!open);
     });
   };
+
+
 
   return (
     <DefaultLayout>
@@ -364,7 +365,7 @@ const Categories = () => {
           </div>
         </div>
         <div className="w-full py-3 flex flex-wrap gap-2 justify-between items-center mb-[400px] ">
-          {sortedCategories.map(
+          {categories.map(
             (category) =>
               category.order == null && (
                 <div
