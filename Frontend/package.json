@@ -16,6 +16,7 @@
     "@dnd-kit/sortable": "^8.0.0",
     "@layerhub-io/react": "^0.3.3",
     "@material-tailwind/react": "^2.1.9",
+    "@progress/kendo-react-pdf": "^8.0.0",
     "@react-pdf/renderer": "^3.4.4",
     "@reduxjs/toolkit": "^2.2.3",
     "@types/swiper": "^6.0.0",

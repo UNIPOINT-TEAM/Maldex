@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { products } from "../constants/Cart";
+
 import DefaultTemplate from "../components/GalleryLayoutTemplate/DefaultTemplate";
+const products = JSON.parse(localStorage.getItem("cart") || "[]");
 
 interface CarouselState {
   items: any[];
@@ -20,19 +21,20 @@ interface CarouselState {
 }
 
 const initialState: CarouselState = {
-  items: products.map((product) => ({
-    data: product,
-    template: <DefaultTemplate />,
-    background: {
-      color: "",
-      image: "",
-      currentSlide: true,
-      allSlider: false,
-    },
-    applying: {
-      image: "",
-    },
-  })) || [{ template: null, background: "", data: [] }],
+  items:
+    products.map((product) => ({
+      data: product,
+      template: <DefaultTemplate />,
+      background: {
+        color: "",
+        image: "",
+        currentSlide: true,
+        allSlider: false,
+      },
+      applying: {
+        image: "",
+      },
+    })) || [],
   status: {
     landscape_visible: true,
     standard_visible: false,

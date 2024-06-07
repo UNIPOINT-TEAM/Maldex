@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Controller, FreeMode, Navigation, Thumbs } from "swiper/modules";
 import SwiperCore from "swiper";
@@ -13,16 +13,43 @@ import {
   deleteItem,
   onActiveCarusel,
 } from "../../store/carouselReducer";
-
-// you can also use a function to return the target element besides using React refs
+import html2canvas from "html2canvas";
 
 const Galleryslider = () => {
   const dispatch = useDispatch();
   // @ts-expect-error: This
   const items = useSelector((state) => state.carousel.items);
+
   // @ts-expect-error: This
   const activeIndex = useSelector((state) => state.carousel.activeCaruselIndex);
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperCore>();
+  const swiperRef = React.useRef(null);
+  const [thumbnails, setThumbnails] = useState<string[]>([]);
+  const containerRefs = useRef<HTMLDivElement[]>([]);
+
+  useEffect(() => {
+    const generateThumbnails = async () => {
+      const newThumbnails = await Promise.all(
+        items.map(async (item, i) => {
+          const container = containerRefs.current[i];
+          if (!container) return "";
+
+          const canvas = await html2canvas(container);
+          const blob = await new Promise<Blob | null>((resolve) =>
+            canvas.toBlob(resolve)
+          );
+          if (blob) {
+            const url = URL.createObjectURL(blob);
+            return url;
+          }
+          return "";
+        })
+      );
+      setThumbnails(newThumbnails);
+    };
+
+    generateThumbnails();
+  }, [items]);
   return (
     <div className="w-full h-full relative">
       <div className="flex mt-4 w-full">
@@ -89,6 +116,7 @@ const Galleryslider = () => {
               prevEl: ".prev-arrow-g",
               nextEl: ".next-arrow-g",
             }}
+            ref={swiperRef}
             simulateTouch={false}
             onSlideChange={(swiper) =>
               dispatch(onActiveCarusel(swiper?.activeIndex))
@@ -102,8 +130,13 @@ const Galleryslider = () => {
                 key={i}
                 className="h-full w-full cursor-pointer gallery-slide rounded-lg bg-[#fff]"
               >
-                {item.template &&
-                  React.cloneElement(item.template, { ...item })}
+                <div
+                  className="w-full h-full"
+                  ref={(el) => (containerRefs.current[i] = el)}
+                >
+                  {item.template &&
+                    React.cloneElement(item.template, { ...item })}
+                </div>
               </SwiperSlide>
             ))}
           </Swiper>
@@ -119,14 +152,13 @@ const Galleryslider = () => {
               modules={[FreeMode, Navigation, Thumbs]}
               className="w-full cursor-pointer border relative border-lightSecondary my-4 rounded-lg p-4"
             >
-              {/*@ts-expect-error: This */}
-              {items.map((item, i) => (
+              {thumbnails.map((item, i) => (
                 <SwiperSlide
                   key={i}
                   className="h-[90px] rounded-lg w-[145px] border"
                 >
                   <img
-                    src={""}
+                    src={item}
                     alt="slider-img"
                     className="object-cover rounded-lg object-center h-full"
                   />
@@ -149,24 +181,6 @@ const Galleryslider = () => {
           </>
         )}
       </div>
-
-      {/* <h1 className="text-fs_2 pt-8">PDF Test Version</h1>
-      <button
-        className="border border-black p-2 rounded-lg my-2"
-        onClick={downloadPdf}
-      >
-        Download PDF
-      </button>
-      <div className="w-full" id="container">
-        {items.map((item, i) => (
-          <div
-            key={i}
-            className="h-[500px] w-full cursor-pointer gallery-slide rounded-lg bg-[#fff]"
-          >
-            {item.template && React.cloneElement(item.template, { ...item })}
-          </div>
-        ))}
-      </div> */}
     </div>
   );
 };

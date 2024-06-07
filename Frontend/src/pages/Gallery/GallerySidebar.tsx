@@ -1,6 +1,6 @@
 import { NavLink, Outlet } from "react-router-dom";
 import "./Gallery.css";
-
+import { Galleryslider } from "../../components";
 
 const GalleryNavs = [
   {
@@ -99,8 +99,13 @@ const GallerySidebar = () => {
           </NavLink>
         ))}
       </div>
-      <div className="h-full w-full flex-1">
-        <Outlet />
+      <div className="grid grid-cols-12 gap-5">
+        <div className="h-full w-full col-span-4">
+          <Outlet />
+        </div>
+        <div className="col-span-8 pe-4">
+          <Galleryslider />
+        </div>
       </div>
     </div>
   );

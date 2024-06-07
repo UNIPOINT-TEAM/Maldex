@@ -53,22 +53,7 @@ export interface Template {
 }
 
 export interface TemplateData {
-  data?: {
-    name: string;
-    price: string;
-    circulation: string;
-    total: string;
-    description: string;
-    characteristics: {
-      vendor_code: string;
-      size: string;
-      material: string;
-      width: string;
-      available_application: string;
-    };
-    image: string;
-    image2?: string;
-  };
+  data?: Product;
   background?: {
     color: string;
     image: string;

@@ -4,6 +4,7 @@ import Trash from "../../assets/icons/trash.png";
 import QuestionIcon from "../../assets/icons/questionIcon.png";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCarts, removeFromCart, updateCart } from "../../store/cartSlice";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
   const carts = useSelector(getAllCarts);
@@ -212,7 +213,9 @@ const Cart = () => {
                   Поделиться корзиной
                 </button>
                 <button className="hidden sm:block text-[10px] rounded-lg border px-2 py-1 border-teal-200 text-teal-200 font-bold">
-                  создать кп
+                  <Link to={"/admin/gallery/general-information"}>
+                    создать кп
+                  </Link>
                 </button>
               </div>
             </div>

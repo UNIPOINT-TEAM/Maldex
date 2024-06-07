@@ -22,12 +22,14 @@ const DefaultTemplate: React.FC<TemplateData> = ({
   const [productData, setProductData] = useState({
     name: data?.name,
     price: data?.price,
-    circulation: data?.circulation,
-    total: data?.total,
+    circulation: data?.quantity,
+    total: data?.totalPrice,
     description: data?.description,
     characteristics: data?.characteristics,
-    image: data?.image,
+    image: data?.images_set[0].image_url || data?.images_set[0].image,
   });
+  const defaultRef = React.useRef(null);
+
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ): void => {
@@ -39,6 +41,7 @@ const DefaultTemplate: React.FC<TemplateData> = ({
 
   return (
     <div
+      ref={defaultRef}
       style={{
         backgroundColor: background?.color,
         backgroundImage: `url(${background?.image})`,
@@ -71,7 +74,7 @@ const DefaultTemplate: React.FC<TemplateData> = ({
           <AddAplying productData={data} />
         </div>
         <img
-          src={data?.image}
+          src={data?.images_set[0].image_url || data?.images_set[0].image}
           width={landscape_visible ? 450 : 100}
           height={landscape_visible ? 450 : 100}
           alt="slider-img"
@@ -85,7 +88,7 @@ const DefaultTemplate: React.FC<TemplateData> = ({
           landscape_visible ? "col-span-4" : "col-span-7"
         } flex flex-col`}
       >
-        <input
+        <textarea
           name="name"
           onChange={handleInputChange}
           value={data?.name}
@@ -104,7 +107,7 @@ const DefaultTemplate: React.FC<TemplateData> = ({
                   name="price"
                   value={productData.price}
                   onChange={handleInputChange}
-                  className={`${inputStyle} text-fs_4`}
+                  className={`${inputStyle} text-fs_4 w-full`}
                 />
               </>
             )}
@@ -118,7 +121,7 @@ const DefaultTemplate: React.FC<TemplateData> = ({
                 <input
                   name="circulation"
                   value={productData.circulation}
-                  className={`${inputStyle} text-fs_4`}
+                  className={`${inputStyle} text-fs_4 w-full`}
                   onChange={handleInputChange}
                 />
               </>
@@ -128,11 +131,11 @@ const DefaultTemplate: React.FC<TemplateData> = ({
             {total_visible && (
               <div>
                 <h3 className="text-[#222220] text-[12px] opacity-70 font-medium mb-2">
-                  Тираж (шт)
+                  Итого
                 </h3>
                 <input
                   name="circulation"
-                  value={data?.total + " ₽"}
+                  value={productData.total + "₽"}
                   className={`${inputStyle} text-fs_4 w-[150px]`}
                   onChange={handleInputChange}
                 />
@@ -150,7 +153,7 @@ const DefaultTemplate: React.FC<TemplateData> = ({
                   id="vendor-code"
                   name="vendor-code"
                   className={"outline-[#e99125] px-2 rounded-xl bg-transparent"}
-                  value={data?.characteristics.vendor_code}
+                  value={data?.article}
                 />
               </div>
             )}
@@ -164,7 +167,7 @@ const DefaultTemplate: React.FC<TemplateData> = ({
                     className={
                       "outline-[#e99125] px-2 rounded-xl bg-transparent"
                     }
-                    value={data?.characteristics.size}
+                    value={0}
                   />
                 </div>
                 <div className="flex items-center gap-1">
@@ -175,7 +178,7 @@ const DefaultTemplate: React.FC<TemplateData> = ({
                     className={
                       "outline-[#e99125] px-2 rounded-xl bg-transparent"
                     }
-                    value={data?.characteristics.material}
+                    value={0}
                   />
                 </div>
                 <div className="flex items-center gap-1">
@@ -186,7 +189,7 @@ const DefaultTemplate: React.FC<TemplateData> = ({
                     className={
                       "outline-[#e99125] px-2 rounded-xl bg-transparent"
                     }
-                    value={data?.characteristics.width}
+                    value={0}
                   />
                 </div>
                 <div className="flex items-center gap-1">
@@ -197,7 +200,7 @@ const DefaultTemplate: React.FC<TemplateData> = ({
                     className={
                       "outline-[#e99125] px-2 rounded-xl bg-transparent"
                     }
-                    value={data?.characteristics.available_application}
+                    value={""}
                   />
                 </div>
               </>
