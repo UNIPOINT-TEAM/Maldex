@@ -34,7 +34,7 @@ const Slider: React.FC<SliderProps> = ({
         disableOnInteraction: false,
       }}
       modules={[Navigation, Pagination, Autoplay]}
-      className="w-full h-full"
+      className="w-full h-full "
       style={{ mixBlendMode: "multiply" }}
     >
       {SliderItems?.product_set.map((item) => (
@@ -56,7 +56,7 @@ const Slider: React.FC<SliderProps> = ({
             <img
               src={item?.productID?.images_set[0]?.image_url}
               alt="product-img"
-              className="w-[90%] h-[90%] mx-auto object-center object-contain"
+              className="w-[80%] h-[80%] mx-auto object-center object-contain"
               loading="lazy"
             />
           </Link>

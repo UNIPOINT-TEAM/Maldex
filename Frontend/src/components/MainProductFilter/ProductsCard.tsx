@@ -56,6 +56,7 @@ const ProductsCard: React.FC<ProductsCardProps> = ({ item, handleOpen }) => {
       warehouse: item?.product.warehouse,
     });
   };
+  console.log(item?.colors.slice(0, 5));
   return (
     <div className="catalog group">
       <div className="relative swiper-top-container h-[250px] cursor-pointer mb-4 bg-white hover:bg-[#fff]">
@@ -90,18 +91,20 @@ const ProductsCard: React.FC<ProductsCardProps> = ({ item, handleOpen }) => {
             </SwiperSlide>
           ))}
         </Swiper>
-        <div className="absolute z-[9999] bottom-[25px] right-[15px] flex flex-col justify-center items-center gap-1 swiper-opacity">
+        <div className="absolute  z-[9999] bottom-[25px] right-[15px] flex flex-col justify-center items-center gap-1 swiper-opacity">
           {/*@ts-expect-error: This */}
           {item?.colors?.length > 0 &&
-            item?.colors.map((el) => (
-              <button
-                onClick={() => handleFiltreColor(el)}
-                style={{ backgroundColor: `${el.hex} ` || "#000000" }}
-                className={`w-[8px] h-[8px] rounded-full ${
-                  productItem.id === el.product.id ? "h-[10px] w-[10px]" : ""
-                }`}
-              ></button>
-            ))}
+            item?.colors
+              .slice(0, 5)
+              .map((el) => (
+                <button
+                  onClick={() => handleFiltreColor(el)}
+                  style={{ backgroundColor: el.hex ? el.hex : "#000000" }}
+                  className={`w-[8px] h-[8px] rounded-full ${
+                    productItem.id === el.product.id ? "h-[10px] w-[10px]" : ""
+                  }`}
+                ></button>
+              ))}
         </div>
         <div className="absolute z-[999] top-2 left-2 flex gap-2">
           {item.is_new && <Badge name="NEW" type="NEW" />}
@@ -143,7 +146,7 @@ const ProductsCard: React.FC<ProductsCardProps> = ({ item, handleOpen }) => {
             </button>
             <button className="bg-white px-3 py-1 rounded-lg text-gray-700">
               <Link
-                to={`/category/${item?.id}`}
+                to={`/category/${productItem?.id}`}
                 className="w-full h-full flex justify-center items-center"
               >
                 <CiSearch className="text-fs_4" />

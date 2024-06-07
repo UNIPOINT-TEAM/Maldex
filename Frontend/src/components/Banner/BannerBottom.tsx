@@ -66,10 +66,10 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
               </button>
             </div>
           </div>
-          <div className="grid grid-cols-1 grid-rows-2 col-span-2   gap-2 ">
-            <div className="group relative col-span-2 bg-white flex items-center justify-between cursor-pointer hover:bg-[#fff] duration-200">
+          <div className="grid grid-cols-1 grid-rows-2 col-span-2 gap-2">
+            <div className="group h-full relative row-span-1 col-span-2 bg-white flex items-center justify-between cursor-pointer hover:bg-[#fff] duration-200">
               <div
-                className="w-full h-full"
+                className="w-full  bg-red-50"
                 style={{ mixBlendMode: "multiply" }}
               >
                 <Slider
@@ -84,7 +84,7 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
                 </button>
               </div>
             </div>
-            <div className="group relative col-span-2 bg-white flex items-center justify-between cursor-pointer hover:bg-[#fff] duration-200">
+            <div className="group h-full relative row-span-1 col-span-2 bg-white flex items-center justify-between cursor-pointer hover:bg-[#fff] duration-200">
               <div
                 className="w-full h-full"
                 style={{ mixBlendMode: "multiply" }}
