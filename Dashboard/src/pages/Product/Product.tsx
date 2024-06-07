@@ -6,6 +6,8 @@ import {
   GetProductIsHit,
   GetProductIsNew,
   GetProductSearch,
+  GetSite,
+  GetSites,
 } from '../../services/product';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
@@ -44,17 +46,26 @@ const Product = () => {
   const [filterCategories, setFilterCategories] = useState([]);
   const [categoryId, setCategoryId] = useState('');
   const [pageCount, setPageCount] = useState(0);
+  const [loader, setLoader] = useState(false);
+  const [sitesCount, setSitesCount] = useState([]);
+  const [siteId, setSiteId] = useState('');
 
   useEffect(() => {
-    GetProductSearch(search, currentPage, filterId, categoryId).then((res) => {
-      setAddProduct(res.data.results);
-      setPageCount(res?.data?.count);
-      const residual = res.data.count % 10;
-      const pages = (res.data.count - residual) / 10;
-      setTotalPages(pages % 2 == 0 && pages === 1 ? pages : pages + 1);
+    setLoader(true);
+    GetProductSearch(search, currentPage, filterId, categoryId, siteId)
+      .then((res) => {
+        setAddProduct(res.data.results);
+        setPageCount(res?.data?.count);
+        const residual = res.data.count % 10;
+        const pages = (res.data.count - residual) / 10;
+        setTotalPages(pages % 2 == 0 && pages === 1 ? pages : pages + 1);
+      })
+      .finally(() => setLoader(false));
+    GetSite().then((res) => {
+      setSitesCount(res.data), console.log(res.data);
     });
     GetActiveCategory().then((res) => {
-      setFilterCategories(res), console.log(res);
+      setFilterCategories(res);
     });
     GetProductIsNew().then((res) => {
       setNewProduct(res.data.results);
@@ -68,7 +79,7 @@ const Product = () => {
     GetFilters().then((res) => {
       setFilter(res.data);
     });
-  }, [search, currentPage, filterId, categoryId]);
+  }, [search, currentPage, filterId, categoryId, siteId]);
 
   const fillCheckedProducts = (id) => {
     const isAlreadyChecked = checkedProducts.some(
@@ -87,6 +98,7 @@ const Product = () => {
       }
     }
   };
+  console.log(loader);
 
   const changeCategory = () => {
     const formdata = new FormData();
@@ -105,6 +117,8 @@ const Product = () => {
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
+
+  console.log(siteId);
 
   return (
     <DefaultLayout>
@@ -167,11 +181,13 @@ const Product = () => {
           </Button>
         </DialogFooter>
       </Dialog>
-      <div className=" relative w-full pb-5">
-        <div className="fixed z-[999]  w-3/4  bg-white">
+      <div className="w-full pt-4">
+        <div className="">
           <Input
             label="поиск продукта"
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => {
+              setSearch(e.target.value), setCurrentPage(1);
+            }}
           />
           <div className="flex flex-wrap gap-2 pt-5">
             <button
@@ -197,7 +213,11 @@ const Product = () => {
             <div className="w-72">
               <Select label="Выберите категорию">
                 {filterCategories?.map((category) => (
-                  <Option onClick={() => setCategoryId(category?.id)}>
+                  <Option
+                    onClick={() => {
+                      setCategoryId(category?.id), setCurrentPage(1);
+                    }}
+                  >
                     <span>{category?.name} / </span>
                     <span className="text-blue-400">{category?.count} / </span>
                     <span className="text-red-400 text-xs">
@@ -207,10 +227,13 @@ const Product = () => {
                 ))}
               </Select>
             </div>
+
             {filter?.map((item) => (
               <button
                 key={item.id}
-                onClick={() => setFilterId(item.id)}
+                onClick={() => {
+                  setFilterId(item.id), setCurrentPage(1);
+                }}
                 className={`border rounded-md px-2 py-1 ${
                   item.id == filterId && ' border-red-400 text-red-400'
                 }`}
@@ -230,7 +253,6 @@ const Product = () => {
               очистить фильтр
             </button>
           </div>
-
           <div className="w-full flex justify-end py-5 gap-3 ">
             {checkedProducts.length > 0 ? (
               <>
@@ -253,232 +275,265 @@ const Product = () => {
               </button>
             </Link>
           </div>
+          {/* <div className="w-full flex flex-wrap justify-start">
+            {sitesCount?.map((i, index) => (
+              <p
+                key={index}
+                onClick={() => setSiteId(i.site)}
+                className={`text-blue-400 mb-2 rounded-md px-2 py-1 w-[220px] ${
+                  siteId == i.site ? 'bg-yellow-300' : ''
+                }`}
+              >
+                {i.site} /{' '}
+                <span className="text-red-400">{i.product_count}</span>
+              </p>
+            ))}
+          </div> */}
         </div>
+        {loader ? (
+          <p className="text-center w-full">Loading...</p>
+        ) : (
+          <>
+            <div className="flex flex-wrap justify-center gap-5 py-5">
+              {/* @ts-ignore */}
+              {isNew ? (
+                <>
+                  {newProduct?.map((item) => (
+                    <div
+                      onClick={() => fillCheckedProducts(item.id)}
+                      key={item.id}
+                      className={`w-1/6 shadow-4 p-2 rounded-sm ${
+                        checkedProducts.some(
+                          (product) => product.id === item.id,
+                        )
+                          ? 'bg-blue-200'
+                          : ''
+                      }`}
+                    >
+                      <div className="catalog ">
+                        <div className="relative swiper-top-container h-[220px] mb-4 bg-gray-200">
+                          <Swiper
+                            pagination={{ clickable: true }}
+                            modules={[Navigation, Pagination]}
+                            className="  h-full"
+                          >
+                            {item.images_set.map((i) => (
+                              <SwiperSlide key={i.id} className="w-full h-full">
+                                <div className="relative  h-full">
+                                  <div className="flex justify-center items-center h-full">
+                                    <img
+                                      className="mb-2  object-contain product-img"
+                                      src={i.image_url || i.image}
+                                      alt=""
+                                    />
+                                  </div>
+                                </div>
+                              </SwiperSlide>
+                            ))}
+                          </Swiper>
+                        </div>
 
-        <div className="flex flex-wrap justify-center gap-5 py-5 pt-[200px]">
-          {/* @ts-ignore */}
-          {isNew ? (
-            <>
-              {newProduct?.map((item) => (
-                <div
-                  onClick={() => fillCheckedProducts(item.id)}
-                  key={item.id}
-                  className={`w-1/6 shadow-4 p-2 rounded-sm ${
-                    checkedProducts.some((product) => product.id === item.id)
-                      ? 'bg-blue-200'
-                      : ''
-                  }`}
-                >
-                  <div className="catalog ">
-                    <div className="relative swiper-top-container h-[220px] mb-4 bg-gray-200">
-                      <Swiper
-                        pagination={{ clickable: true }}
-                        modules={[Navigation, Pagination]}
-                        className="  h-full"
-                      >
-                        {item.images_set.map((i) => (
-                          <SwiperSlide key={i.id} className="w-full h-full">
-                            <div className="relative  h-full">
-                              <div className="flex justify-center items-center h-full">
-                                <img
-                                  className="mb-2  object-contain product-img"
-                                  src={i.image_url || i.image}
-                                  alt=""
-                                />
-                              </div>
-                            </div>
-                          </SwiperSlide>
-                        ))}
-                      </Swiper>
+                        <div className="default">
+                          <div className="mb-2 md:mb-5  min-h-[70px] ">
+                            <p className="text-fs_7 tracking-wide">
+                              {
+                                //@ts-ignore
+                                item.name.length > 30
+                                  ? //@ts-ignore
+                                    item.name.substring(0, 30) + '...'
+                                  : //@ts-ignore
+                                    item.name
+                              }
+                            </p>
+                          </div>
+                          <p className="text-red-400 text-sm">{item.site}</p>
+                          <div className="relative mb-2">
+                            <p className="text-[16px] md:text-fs_4">
+                              {item.price}
+                              <span className="text-xs absolute top-0">
+                                {item.discount_price}
+                              </span>
+                              <span className="ml-4 mr-1">
+                                {item.price_type}
+                              </span>
+                              <span className="text-xs absolute top-0 line-through text-red-primary">
+                                234
+                              </span>
+                            </p>
+                          </div>
+                          <div className="flex justify-between catalog_btns">
+                            <Link to={`/product/${item.id}`}>
+                              <button className="bg-red-primary flex justify-center items-center uppercase  p-2 text-white rounded-lg font-bold tracking-wider text-fs_8 lg:text-sm gap-1 lg:w-[180px]">
+                                узнать больше
+                              </button>
+                            </Link>
+                          </div>
+                        </div>
+                      </div>
                     </div>
+                  ))}
+                </>
+              ) : isHit ? (
+                <>
+                  {hitProduct?.map((item) => (
+                    <div
+                      onClick={() => fillCheckedProducts(item.id)}
+                      key={item.id}
+                      className={`w-1/6 shadow-4 p-2 rounded-sm ${
+                        checkedProducts.some(
+                          (product) => product.id === item.id,
+                        )
+                          ? 'bg-blue-200'
+                          : ''
+                      }`}
+                    >
+                      <div className="catalog ">
+                        <div className="relative swiper-top-container h-[220px] mb-4 bg-gray-200">
+                          <Swiper
+                            pagination={{ clickable: true }}
+                            modules={[Navigation, Pagination]}
+                            className="  h-full"
+                          >
+                            {item.images_set.map((i) => (
+                              <SwiperSlide key={i.id} className="w-full h-full">
+                                <div className="relative  h-full">
+                                  <div className="flex justify-center items-center h-full">
+                                    <img
+                                      className="mb-2  object-contain product-img"
+                                      src={i.image_url || i.image}
+                                      alt=""
+                                    />
+                                  </div>
+                                </div>
+                              </SwiperSlide>
+                            ))}
+                          </Swiper>
+                        </div>
 
-                    <div className="default">
-                      <div className="mb-2 md:mb-5  min-h-[70px] ">
-                        <p className="text-fs_7 tracking-wide">
-                          {
-                            //@ts-ignore
-                            item.name.length > 30
-                              ? //@ts-ignore
-                                item.name.substring(0, 30) + '...'
-                              : //@ts-ignore
-                                item.name
-                          }
-                        </p>
-                      </div>
-                      <p className="text-red-400 text-sm">{item.site}</p>
-                      <div className="relative mb-2">
-                        <p className="text-[16px] md:text-fs_4">
-                          {item.price}
-                          <span className="text-xs absolute top-0">
-                            {item.discount_price}
-                          </span>
-                          <span className="ml-4 mr-1">{item.price_type}</span>
-                          <span className="text-xs absolute top-0 line-through text-red-primary">
-                            234
-                          </span>
-                        </p>
-                      </div>
-                      <div className="flex justify-between catalog_btns">
-                        <Link to={`/product/${item.id}`}>
-                          <button className="bg-red-primary flex justify-center items-center uppercase  p-2 text-white rounded-lg font-bold tracking-wider text-fs_8 lg:text-sm gap-1 lg:w-[180px]">
-                            узнать больше
-                          </button>
-                        </Link>
+                        <div className="default">
+                          <div className="mb-2 md:mb-5  min-h-[70px] ">
+                            <p className="text-fs_7 tracking-wide">
+                              {
+                                //@ts-ignore
+                                item.name.length > 30
+                                  ? //@ts-ignore
+                                    item.name.substring(0, 30) + '...'
+                                  : //@ts-ignore
+                                    item.name
+                              }
+                            </p>
+                          </div>
+                          <p className="text-red-400 text-sm">{item.site}</p>
+                          <div className="relative mb-2">
+                            <p className="text-[16px] md:text-fs_4">
+                              {item.price}
+                              <span className="text-xs absolute top-0">
+                                {item.discount_price}
+                              </span>
+                              <span className="ml-4 mr-1">
+                                {item.price_type}
+                              </span>
+                              <span className="text-xs absolute top-0 line-through text-red-primary">
+                                234
+                              </span>
+                            </p>
+                          </div>
+                          <div className="flex justify-between catalog_btns">
+                            <Link to={`/product/${item.id}`}>
+                              <button className="bg-red-primary flex justify-center items-center uppercase  p-2 text-white rounded-lg font-bold tracking-wider text-fs_8 lg:text-sm gap-1 lg:w-[180px]">
+                                узнать больше
+                              </button>
+                            </Link>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              ))}
-            </>
-          ) : isHit ? (
-            <>
-              {hitProduct?.map((item) => (
-                <div
-                  onClick={() => fillCheckedProducts(item.id)}
-                  key={item.id}
-                  className={`w-1/6 shadow-4 p-2 rounded-sm ${
-                    checkedProducts.some((product) => product.id === item.id)
-                      ? 'bg-blue-200'
-                      : ''
-                  }`}
-                >
-                  <div className="catalog ">
-                    <div className="relative swiper-top-container h-[220px] mb-4 bg-gray-200">
-                      <Swiper
-                        pagination={{ clickable: true }}
-                        modules={[Navigation, Pagination]}
-                        className="  h-full"
-                      >
-                        {item.images_set.map((i) => (
-                          <SwiperSlide key={i.id} className="w-full h-full">
-                            <div className="relative  h-full">
-                              <div className="flex justify-center items-center h-full">
-                                <img
-                                  className="mb-2  object-contain product-img"
-                                  src={i.image_url || i.image}
-                                  alt=""
-                                />
-                              </div>
-                            </div>
-                          </SwiperSlide>
-                        ))}
-                      </Swiper>
-                    </div>
+                  ))}
+                </>
+              ) : (
+                <>
+                  {addProduct?.map((item) => (
+                    <div
+                      onClick={() => fillCheckedProducts(item.id)}
+                      key={item.id}
+                      className={`w-1/6 shadow-4 p-2 rounded-sm ${
+                        checkedProducts.some(
+                          (product) => product.id === item.id,
+                        )
+                          ? 'bg-blue-200'
+                          : ''
+                      }`}
+                    >
+                      <div className="catalog ">
+                        <div className="relative swiper-top-container h-[220px] mb-4 bg-gray-200">
+                          <Swiper
+                            pagination={{ clickable: true }}
+                            modules={[Navigation, Pagination]}
+                            className="  h-full"
+                          >
+                            {item.images_set.map((i) => (
+                              <SwiperSlide key={i.id} className="w-full h-full">
+                                <div className="relative  h-full">
+                                  <div className="flex justify-center items-center h-full">
+                                    <img
+                                      className="mb-2  object-contain product-img"
+                                      src={i.image_url || i.image}
+                                      alt=""
+                                    />
+                                  </div>
+                                </div>
+                              </SwiperSlide>
+                            ))}
+                          </Swiper>
+                        </div>
 
-                    <div className="default">
-                      <div className="mb-2 md:mb-5  min-h-[70px] ">
-                        <p className="text-fs_7 tracking-wide">
-                          {
-                            //@ts-ignore
-                            item.name.length > 30
-                              ? //@ts-ignore
-                                item.name.substring(0, 30) + '...'
-                              : //@ts-ignore
-                                item.name
-                          }
-                        </p>
-                      </div>
-                      <p className="text-red-400 text-sm">{item.site}</p>
-                      <div className="relative mb-2">
-                        <p className="text-[16px] md:text-fs_4">
-                          {item.price}
-                          <span className="text-xs absolute top-0">
-                            {item.discount_price}
-                          </span>
-                          <span className="ml-4 mr-1">{item.price_type}</span>
-                          <span className="text-xs absolute top-0 line-through text-red-primary">
-                            234
-                          </span>
-                        </p>
-                      </div>
-                      <div className="flex justify-between catalog_btns">
-                        <Link to={`/product/${item.id}`}>
-                          <button className="bg-red-primary flex justify-center items-center uppercase  p-2 text-white rounded-lg font-bold tracking-wider text-fs_8 lg:text-sm gap-1 lg:w-[180px]">
-                            узнать больше
-                          </button>
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </>
-          ) : (
-            <>
-              {addProduct?.map((item) => (
-                <div
-                  onClick={() => fillCheckedProducts(item.id)}
-                  key={item.id}
-                  className={`w-1/6 shadow-4 p-2 rounded-sm ${
-                    checkedProducts.some((product) => product.id === item.id)
-                      ? 'bg-blue-200'
-                      : ''
-                  }`}
-                >
-                  <div className="catalog ">
-                    <div className="relative swiper-top-container h-[220px] mb-4 bg-gray-200">
-                      <Swiper
-                        pagination={{ clickable: true }}
-                        modules={[Navigation, Pagination]}
-                        className="  h-full"
-                      >
-                        {item.images_set.map((i) => (
-                          <SwiperSlide key={i.id} className="w-full h-full">
-                            <div className="relative  h-full">
-                              <div className="flex justify-center items-center h-full">
-                                <img
-                                  className="mb-2  object-contain product-img"
-                                  src={i.image_url || i.image}
-                                  alt=""
-                                />
-                              </div>
-                            </div>
-                          </SwiperSlide>
-                        ))}
-                      </Swiper>
-                    </div>
+                        <div className="default">
+                          <div className="mb-2 md:mb-5  min-h-[70px] ">
+                            <p className="text-fs_7 tracking-wide">
+                              {
+                                //@ts-ignore
+                                item.name.length > 30
+                                  ? //@ts-ignore
+                                    item.name.substring(0, 30) + '...'
+                                  : //@ts-ignore
+                                    item.name
+                              }
+                            </p>
+                          </div>
+                          <p className="text-red-400 text-sm">{item.site}</p>
+                          <div className="relative mb-2">
+                            <p className="text-[16px] md:text-fs_4">
+                              {item.discount_price > 0
+                                ? item.discount_price
+                                : item.price}
 
-                    <div className="default">
-                      <div className="mb-2 md:mb-5  min-h-[70px] ">
-                        <p className="text-fs_7 tracking-wide">
-                          {
-                            //@ts-ignore
-                            item.name.length > 30
-                              ? //@ts-ignore
-                                item.name.substring(0, 30) + '...'
-                              : //@ts-ignore
-                                item.name
-                          }
-                        </p>
-                      </div>
-                      <p className="text-red-400 text-sm">{item.site}</p>
-                      <div className="relative mb-2">
-                        <p className="text-[16px] md:text-fs_4">
-                          {item.discount_price > 0
-                            ? item.discount_price
-                            : item.price}
-
-                          <span className="ml-4 mr-1">{item?.price_type}</span>
-                          <span className="text-xs absolute top-0 line-through text-red-primary">
-                            {item.discount_price > 0 ? item.price : ''}
-                          </span>
-                        </p>
-                      </div>
-                      <div className="flex justify-between catalog_btns">
-                        <Link to={`/product/${item.id}`}>
-                          <button className="bg-red-primary flex justify-center items-center uppercase  p-2 text-white rounded-lg font-bold tracking-wider text-fs_8 lg:text-sm gap-1 lg:w-[180px]">
-                            узнать больше
-                          </button>
-                        </Link>
+                              <span className="ml-4 mr-1">
+                                {item?.price_type}
+                              </span>
+                              <span className="text-xs absolute top-0 line-through text-red-primary">
+                                {item.discount_price > 0 ? item.price : ''}
+                              </span>
+                            </p>
+                          </div>
+                          <div className="flex justify-between catalog_btns">
+                            <Link to={`/product/${item.id}`}>
+                              <button className="bg-red-primary flex justify-center items-center uppercase  p-2 text-white rounded-lg font-bold tracking-wider text-fs_8 lg:text-sm gap-1 lg:w-[180px]">
+                                узнать больше
+                              </button>
+                            </Link>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              ))}
-            </>
-          )}
-        </div>
+                  ))}
+                </>
+              )}
+            </div>
+          </>
+        )}
+
         <NewPagination
+          loading={loader}
           totalItems={pageCount || 0}
           itemsPerPage={100}
           onPageChange={handlePageChange}

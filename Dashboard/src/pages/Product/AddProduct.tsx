@@ -13,7 +13,6 @@ import { BASE_URL } from '../../utils/BaseUrl';
 import { useNavigation } from 'react-router-dom';
 
 const AddProduct = () => {
-  
   const [name, setName] = useState('');
   const [code, setCode] = useState(null);
   const [article, setArticle] = useState('');
@@ -41,15 +40,36 @@ const AddProduct = () => {
   const [ishit, setIshit] = useState(false);
   const [isnew, setIsnew] = useState(false);
   const [ispopular, setIspopular] = useState(false);
+  const [color, setColor] = useState('');
   const [categoryId, setCategoryId] = useState(null);
   const [subcategoryId, setSubCategoryId] = useState(null);
   const [subSubcategoryId, setSubSubCategoryId] = useState(null);
   const [category, setCategory] = useState([]);
   const [subcategory, setSubCategory] = useState([]);
   const [subSubcategory, setSubSubCategory] = useState([]);
-
   const [inputs, setInputs] = useState([{ image: '', color: '' }]);
   const [mainId, setMainId] = useState(null);
+  const [fields, setFields] = useState([]);
+  const [inputValues, setInputValues] = useState([]);
+
+  const addFields = () => {
+    const newFieldIndex = fields.length;
+    setFields([...fields, newFieldIndex]);
+  };
+
+  const handleInputChange1 = (index, field, value) => {
+    const newInputValues = { ...inputValues, [`${index}_${field}`]: value };
+    setInputValues(newInputValues);
+    console.log(newInputValues);
+  };
+
+  const handleSubmit = () => {
+    const newArray = fields.map((index) => ({
+      count: inputValues[`${index}_count`] || '',
+      name: inputValues[`${index}_percent`] || '',
+    }));
+    console.log(newArray);
+  };
 
   useEffect(() => {
     GetMainCatalog().then((res) => {
@@ -109,15 +129,28 @@ const AddProduct = () => {
       formdata.append('ondemand', ondemand),
       formdata.append('moq', moq),
       formdata.append('days', days),
+      formdata.append('color', color),
       formdata.append('pack', JSON.stringify(pack)),
       formdata.append('is_popular', ispopular),
       formdata.append('is_hit', ishit),
       formdata.append('is_new', isnew),
       formdata.append('categoryId', mainId);
+
     for (let i = 0; i < inputs.length; i++) {
       formdata.append(`images[${i}]color`, inputs[i].color);
       formdata.append(`images[${i}]image`, inputs[i].image);
     }
+    fields.forEach((index) => {
+      formdata.append(
+        `items[${index}][count]`,
+        inputValues[`${index}_count`] || '',
+      );
+      formdata.append(
+        `items[${index}][name]`,
+        inputValues[`${index}_percent`] || '',
+      );
+    });
+
     AddWithFormData(`${BASE_URL}/product/`, formdata).then(() =>
       navigate('/product'),
     );
@@ -176,6 +209,15 @@ const AddProduct = () => {
                 variant="standard"
                 label="Артикуль"
                 onChange={(e) => setArticle(e.target.value)}
+                placeholder=""
+              />
+            </div>
+            <div className="flex items-center justify-between w-1/2 mb-5 pr-5">
+              <Input
+                required
+                variant="standard"
+                label="Цвет"
+                onChange={(e) => setColor(e.target.value)}
                 placeholder=""
               />
             </div>
@@ -385,7 +427,45 @@ const AddProduct = () => {
                 />
               </div>
             </div>
+            <div>
+              <button
+                onClick={addFields}
+                type="button"
+                className="bg-blue-400 py-1 px-4 rounded-md text-white mb-5"
+              >
+                добавить скидку
+              </button>
 
+              {fields.map((field, index) => (
+                <div
+                  key={index}
+                  className="input-group flex w-full justify-between gap-10 mb-5"
+                >
+                  <div className="w-1/2 mb-4">
+                    <Input
+                      variant="standard"
+                      label="количество товаров"
+                      onChange={(e) =>
+                        handleInputChange1(index, 'count', e.target.value)
+                      }
+                      className="w-full"
+                    />
+                  </div>
+
+                  <div className="w-1/2 mb-4">
+                    <Input
+                      variant="standard"
+                      label="
+                      процент скидку"
+                      onChange={(e) =>
+                        handleInputChange1(index, 'percent', e.target.value)
+                      }
+                      className="w-full"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
             <div className="flex items-center justify-between w-full mb-5">
               <Textarea
                 required
@@ -419,17 +499,17 @@ const AddProduct = () => {
                       </label>
                     </div>
 
-                    <div className="mb-5">
+                    {/* <div className="mb-5">
                       <Input
                         required
                         label="Цвет"
                         type="text"
                         placeholder="Enter color"
                         name="color"
-                        value={input.color}
+                        defaultValue={input?.color ? input?.color : ''}
                         onChange={(e) => handleInputChange(index, e)}
                       />
-                    </div>
+                    </div> */}
                   </div>
                 ))}
 

@@ -5,6 +5,7 @@ import { FaArrowLeftLong, FaArrowRightLong } from 'react-icons/fa6';
 interface PaginationProps {
   totalItems: number;
   itemsPerPage: number;
+  loading: boolean;
   onPageChange: (page: number) => void;
 }
 
@@ -12,6 +13,7 @@ const NewPagination: React.FC<PaginationProps> = ({
   totalItems,
   itemsPerPage,
   onPageChange,
+  loading,
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(totalItems / itemsPerPage);
@@ -38,9 +40,11 @@ const NewPagination: React.FC<PaginationProps> = ({
     const value = event.target.value;
     const pageNumber = value ? parseInt(value, 10) : 0;
     if (!isNaN(pageNumber) && pageNumber >= 0 && pageNumber <= totalPages) {
+      setTimeout(() => {
+        onPageChange(pageNumber);
+        setValidate(false);
+      }, 2000);
       setCurrentPage(pageNumber);
-      onPageChange(pageNumber);
-      setValidate(false);
     } else {
       setValidate(true);
     }
@@ -48,34 +52,36 @@ const NewPagination: React.FC<PaginationProps> = ({
 
   return (
     <>
-      <div className="flex justify-center items-center gap-3 text-darkSecondary text-fs_7 font-medium">
-        <button
-          className=""
-          onClick={handlePreviousPage}
-          disabled={currentPage === 1}
-        >
-          <FaArrowLeftLong />
-        </button>
-        <p className=" uppercase ">страница</p>
-        <input
-          value={currentPage}
-          onChange={handlePageInputChange}
-          className={`  outline-none max-w-[40px] rounded text-center m-0 ${
-            validate
-              ? 'border-redPrimary border-2 text-redPrimary'
-              : 'border-darkSecondary border'
-          }`}
-          max={totalPages}
-        />
-        <p className="">из {totalPages}</p>
-        <button
-          className=" disabled:cursor-not-allowed  "
-          onClick={handleNextPage}
-          disabled={currentPage === totalPages}
-        >
-          <FaArrowRightLong />
-        </button>
-      </div>
+      {!loading && (
+        <div className="flex justify-center items-center gap-3 text-darkSecondary text-fs_7 font-medium">
+          <button
+            className=""
+            onClick={handlePreviousPage}
+            disabled={currentPage === 1}
+          >
+            <FaArrowLeftLong />
+          </button>
+          <p className=" uppercase ">страница</p>
+          <input
+            value={currentPage}
+            onChange={handlePageInputChange}
+            className={`  outline-none max-w-[40px] rounded text-center m-0 ${
+              validate
+                ? 'border-redPrimary border-2 text-redPrimary'
+                : 'border-darkSecondary border'
+            }`}
+            max={totalPages}
+          />
+          <p className="">из {totalPages}</p>
+          <button
+            className=" disabled:cursor-not-allowed  "
+            onClick={handleNextPage}
+            disabled={currentPage === totalPages}
+          >
+            <FaArrowRightLong />
+          </button>
+        </div>
+      )}
     </>
   );
 };

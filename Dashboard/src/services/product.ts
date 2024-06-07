@@ -18,6 +18,10 @@ export const GetSites = async (id: number) => {
   );
   return response;
 };
+export const GetSite = async () => {
+  const response = await api.get(`${BASE_URL}/product/sites-count/`);
+  return response;
+};
 
 export const GetProductCategory = async (
   id: any,
@@ -41,11 +45,14 @@ export const GetProductSearch = async (
   currentpage?: number,
   filter_id?: string,
   categoryId?: number,
+  siteId?: string,
 ) => {
   const response = await axios.get(
-    `${BASE_URL}/product/?search=${item && item}&page=${
-      currentpage && currentpage
-    }&filter_id=${filter_id && filter_id}&category_id=${categoryId}`,
+    `${BASE_URL}/product/?page=${currentpage && currentpage}&search=${
+      item && item
+    }&filter_id=${
+      filter_id && filter_id
+    }&category_id=${categoryId}&site=${siteId}`,
   );
   return response;
 };
