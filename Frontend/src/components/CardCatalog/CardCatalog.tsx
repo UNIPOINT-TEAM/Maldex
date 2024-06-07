@@ -104,7 +104,7 @@ const CardCatalog: React.FC<Catalog> = ({ item }) => {
             <p className="text-lg text-gray-600 mb-2">Размер:</p>
             <div className="flex justify-start items-center flex-wrap gap-1">
               {item.sizes &&
-                item.sizes.map((size) => (
+                item?.sizes?.map((size) => (
                   <button className="min-w-[33px] h-[33px] border border-gray-400 rounded-[17px] font-bold text-[10px]  hover:border-redPrimary hover:text-redPrimary">
                     {size.name.replace(/размер/g, "")}
                   </button>

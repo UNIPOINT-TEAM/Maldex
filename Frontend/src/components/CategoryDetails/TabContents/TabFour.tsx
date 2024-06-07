@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 const TabFour = ({ prints }) => {
   return (
     <div className="flex flex-col items-start gap-2">
-      {prints &&
-        prints.map(
+      {prints?.length > 0 &&
+        prints?.map(
           (item, i) =>
             item["@name"] == "Метод нанесения" && (
               <Link to={"/applying-type"} key={i}>

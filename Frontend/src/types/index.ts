@@ -17,7 +17,7 @@ export interface Catalog {
 export interface Product {
   id: number;
   name: string;
-  price: string;
+  price: number;
   circulation: number;
   total: string;
   image: string;
@@ -25,6 +25,11 @@ export interface Product {
   is_hit: boolean;
   discount_price: number;
   price_type: string;
+  article: number;
+  warehouse: {
+    name: string;
+    quantity: number;
+  };
   sizes?: {
     name: string;
     quantity: number;
@@ -40,6 +45,10 @@ export interface Product {
     material: string;
     width: string;
     available_application: string;
+  };
+  colorID: {
+    name: string;
+    hex: string;
   };
   description: string;
 }

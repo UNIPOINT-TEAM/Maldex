@@ -6,8 +6,6 @@ import {
   QuestForm,
   SaleSlider,
 } from "../../components";
-
-import CardCatalog from "../../components/CardCatalog/CardCatalog";
 import Close from "../../assets/icons/close.png";
 import Filter from "../../assets/icons/filtr.svg";
 import { IoIosArrowDown } from "react-icons/io";
@@ -17,6 +15,7 @@ import { useFetchHook } from "../../hooks/UseFetch";
 import { useLocation } from "react-router-dom";
 import { Spinner } from "@material-tailwind/react";
 import Pagination from "../../components/Pagination/Pagination";
+import ProductsCard from "../../components/MainProductFilter/ProductsCard";
 
 const FilterBtn: React.FC<{ filterCount?: number }> = ({ filterCount }) => {
   return (
@@ -62,7 +61,7 @@ const Catalog = () => {
       method: "GET",
       url: `/product/?page=${currentPage}&${search && search.replace("?", "")}`,
     });
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    !isLoading && window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, [search, currentPage]);
 
   useEffect(() => {
@@ -75,6 +74,8 @@ const Catalog = () => {
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
+
+  console.log(response);
 
   return (
     <div className="home px-2 md:px-0">
@@ -192,7 +193,7 @@ const Catalog = () => {
               NEW
             </button>
             <button
-              onClick={() => handleFilter("is_hit=true")}
+              onClick={() => handleFilter("?is_hit=true")}
               className="border border-greenPrimary text-[10px] text-greenPrimary rounded-xl px-2 h-[22px] flex items-center"
             >
               HIT
@@ -209,8 +210,7 @@ const Catalog = () => {
               ? response &&
                 response.results?.map((item) => (
                   <div className="w-full  mb-[40px]" key={item.id}>
-                    {/*@ts-expect-error: This */}
-                    <CardCatalog item={item} />
+                    <ProductsCard item={item} />
                   </div>
                 ))
               : !isLoading && (
@@ -224,7 +224,7 @@ const Catalog = () => {
           <div className="">
             <Pagination
               totalItems={response?.count || 0}
-              itemsPerPage={100}
+              itemsPerPage={40}
               onPageChange={handlePageChange}
               isLoading={isLoading}
             />

@@ -6,9 +6,16 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import SwiperCore from "swiper";
 import { IoClose } from "react-icons/io5";
 
-/*@ts-expect-error: This */
-const ProductPerviewModal = ({ images }) => {
-  console.log(images);
+interface ProductPerviewModalProps {
+  images: {
+    id: number;
+    image: string;
+    image_url: string;
+  }[];
+}
+const ProductPerviewModal: React.FC<ProductPerviewModalProps> = ({
+  images,
+}) => {
   const [open, setOpen] = React.useState(false);
   const [thumbsSwiper] = useState<SwiperCore>();
   const swiper1Ref = useRef<React.MutableRefObject<null>>(null);
@@ -21,18 +28,17 @@ const ProductPerviewModal = ({ images }) => {
   }, []);
 
   const handleOpen = () => setOpen((cur) => !cur);
-  console.log(images);
   return (
     <div>
       <Card
         placeholder={<div />}
-        className="h-auto w-full lg:w-96 border-0 shadow-none cursor-pointer overflow-hidden "
+        className="h-full bg-transparent w-full lg:w-96 border-0 shadow-none cursor-pointer overflow-hidden "
         onClick={handleOpen}
         style={{ mixBlendMode: "multiply" }}
       >
         <img
           alt="nature"
-          className="h-full w-[200px] lg:w-full object-contain object-center"
+          className="h-[400px] w-[200px] lg:w-full object-contain object-center"
           src={(images && images[0]?.image) || (images && images[0]?.image_url)}
         />
       </Card>
@@ -65,37 +71,16 @@ const ProductPerviewModal = ({ images }) => {
               className="w-full h-screen py-14"
             >
               {images &&
-                /*@ts-expect-error: This */
                 images.map((item) => (
                   <SwiperSlide key={item.id}>
                     <img
-                      src={item.image_url}
+                      src={item.image_url || item.image}
                       alt="slider-img"
                       className="w-full object-contain object-center h-full"
                     />
                   </SwiperSlide>
                 ))}
             </Swiper>
-
-            {/* <Swiper
-              onSwiper={setThumbsSwiper}
-              freeMode={true}
-              slidesPerView={2}
-              watchSlidesProgress={true}
-              direction="vertical"
-              modules={[FreeMode, Navigation, Thumbs]}
-              className="w-auto h-[200px] absolute left-0 top-0 flex flex-col bg-[#fff]"
-            >
-              {[0, 0, 0, 0].map((item) => (
-                <SwiperSlide className="">
-                  <img
-                    src={sliderImg}
-                    alt="slider-img"
-                    className="w-[50px] border object-contain object-center h-full"
-                  />
-                </SwiperSlide>
-              ))}
-            </Swiper> */}
             <div className="absolute top-[50%] left-0 text-black w-full flex justify-between -translate-y-[50%] z-[9999]">
               <button className="prev-arrow-description  bg-white rounded-xl w-[50px] h-[50px] border border-black flex items-center justify-center">
                 <FaArrowLeft className="text-fs_8 lg:text-fs_4" />

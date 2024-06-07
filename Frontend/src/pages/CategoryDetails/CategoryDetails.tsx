@@ -16,8 +16,6 @@ import {
   Tabs,
   TabsBody,
   TabsHeader,
-  Tooltip,
-  Typography,
 } from "@material-tailwind/react";
 import { IoMdHeart, IoMdHeartEmpty } from "react-icons/io";
 import ProductSize from "../../components/CategoryDetails/ProductSize";
@@ -26,7 +24,6 @@ import {
   TabDescription,
   TabFour,
 } from "../../components/CategoryDetails";
-import { ProductColor } from "../../mock/data";
 import ProductPerviewModal from "../../components/CategoryDetails/ProductPerviewModal";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../store/cartSlice";
@@ -39,6 +36,7 @@ const CategoryDetails = () => {
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const [productColor, setproductColor] = useState<number>(0);
   const [btnActiveSize, setbtnActiveSize] = useState<number>(1);
+  const [productId, setproductId] = useState<number>(id);
   const [product, setProduct] = useState({
     quantity: 50,
     price: 200,
@@ -54,11 +52,10 @@ const CategoryDetails = () => {
   });
 
   const dispatch = useDispatch();
-
   const { fetchData, response } = useFetchHook();
   useEffect(() => {
-    fetchData({ method: "GET", url: `/product/${id}` });
-  }, [id]);
+    fetchData({ method: "GET", url: `/product/${productId}` });
+  }, [id, productId]);
   console.log(response);
 
   useEffect(() => {
@@ -121,7 +118,7 @@ const CategoryDetails = () => {
       content: <TabFour prints={response?.prints} />,
     },
   ];
-  console.log(response);
+  const handleFiltre = (id: number) => setproductId(id);
 
   return (
     <div className="container_xxl tracking-wider overflow-hidden px-3">
@@ -181,27 +178,31 @@ const CategoryDetails = () => {
         </div>
         <div className=" order-1 lg:order-2  p-2 lg:p-5 col-span-3 lg:col-span-4 ">
           <div className="relative bg-white w-full h-[500px] flex items-center justify-center ">
-            <div className="absolute rounded-s-xl right-2 lg:right-5 lg:translate-y-[50%] top-[50%]  lg:top-[15%] bg-[#fff] px-3 py-5">
-              <div className="flex flex-col gap-2">
-                {ProductColor.map((item) => (
+            <div className="absolute h-full right-2 lg:right-5 top-0  flex items-center">
+              <div className="flex flex-col gap-2 bg-[#fff] px-3 py-5 rounded-s-xl">
+                {response?.colors?.map((item) => (
                   <input
                     key={item.id}
-                    onClick={() => setproductColor(item.id)}
-                    type="radio"
-                    name="input"
-                    style={{
-                      accentColor: item.color,
-                      background: item.color,
+                    onClick={() => {
+                      handleFiltre(item.product.id);
                     }}
-                    className={`w-4 lg:w-5 h-4 lg:h-5 bg-[${item.color}] ${
-                      productColor !== item.id && "appearance-none"
+                    type="radio"
+                    name="color"
+                    style={{
+                      accentColor: item.hex || "#000000",
+                      background: item.hex || "#000000",
+                    }}
+                    className={` ${
+                      item?.hex === "#FFFFFF" && "border border-lightSecondary"
+                    } w-4 lg:w-5 h-4 lg:h-5 bg-black ${
+                      productId !== item.product.id && "appearance-none"
                     } rounded-full  cursor-pointer`}
                   />
                 ))}
               </div>
             </div>
             <div
-              className={`flex justify-center mt-10 w-full h-full items-center `}
+              className={`flex  justify-center  w-full h-full items-center `}
             >
               {/*@ts-expect-error: This */}
               <ProductPerviewModal images={response?.images_set} />
@@ -246,66 +247,32 @@ const CategoryDetails = () => {
                 {response.name}
               </h2>
               {/* @ts-expect-error: This */}
-              {response.sizes && (
+              {response?.sizes && (
                 <div className=" mt-4">
                   <p className="text-darkSecondary text-fs_8 tracking-wide font-semibold">
                     РАЗМЕР:
                   </p>
                   <div className="flex space-x-2">
                     {/* @ts-expect-error: This */}
-                    {response.sizes &&
-                      response.sizes.map((item, i) => (
-                        <ProductSize
-                          {...item}
-                          onActiveSize={setbtnActiveSize}
-                          btnActiveSize={btnActiveSize}
-                          index={i}
-                          key={i}
-                        />
-                      ))}
+                    {response?.sizes.length > 0 &&
+                      response?.sizes?.map(
+                        (item, i) =>
+                          item.size && (
+                            <ProductSize
+                              {...item}
+                              onActiveSize={setbtnActiveSize}
+                              btnActiveSize={btnActiveSize}
+                              index={i}
+                              key={i}
+                            />
+                          )
+                      )}
                   </div>
                 </div>
               )}
             </div>
-            <div className="">
-              <div className="flex justify-between items-center mb-5">
-                <button className="text-greenPrimary font-bold">
-                  + Добавить нанесение
-                </button>
-                <Tooltip
-                  placement="bottom"
-                  className="border w-full lg:w-[380px] px-10 translate-x-0  lg:-translate-x-20 border-blue-gray-50 bg-white  py-3 shadow-xl shadow-black/10"
-                  content={
-                    <div className="w-full">
-                      <Typography
-                        placeholder={<h2 />}
-                        variant="small"
-                        color="blue-gray"
-                        className="font-medium font-Helvetica-Neue text-center"
-                      >
-                        Точную сумму нанесения вам сообщит менеджер после
-                        оформления заказа
-                      </Typography>
-                    </div>
-                  }
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                    className="h-5 w-5 cursor-pointer text-blue-gray-500"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"
-                    />
-                  </svg>
-                </Tooltip>
-              </div>
-              <div className="bg-gray-200 rounded-xs py-2 px-3 mb-5">
+            <div className="min-h-[500px]">
+              <div className="bg-white rounded-xs py-2 px-3 mb-5">
                 <div className="border-b border-gray-500">
                   <div className="flex justify-between items-center py-1">
                     <p className="font-normal ">Количество:</p>
