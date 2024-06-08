@@ -150,12 +150,12 @@ const EditProduct = () => {
       formdata.append(`images[${i}]image`, inputs[i].image);
     }
     {
-      sales.length < 0
+      sales.length > 0
         ? sales.forEach((item, index) => {
             formdata.append(`items[${index}][count]`, item.count);
             formdata.append(`items[${index}][name]`, item.name);
           })
-        : formdata.append('items', null);
+        : formdata.append('items', '');
     }
 
     UpdateWithFormData(`${BASE_URL}/product/${id}/`, formdata).then(() => {
@@ -517,6 +517,7 @@ const EditProduct = () => {
             </div>
             <button
               onClick={addNewItem}
+              type="button"
               className="bg-blue-400 mb-5 px-4 py-1 rounded-md text-white"
             >
               добавить скидку
