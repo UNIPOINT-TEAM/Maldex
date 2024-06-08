@@ -16,6 +16,7 @@ import { GetMainCatalog, GetSubSubCatalog } from '../../services/maincatalog';
 import { useNavigate, useParams } from 'react-router-dom';
 import { BASE_URL } from '../../utils/BaseUrl';
 import DeleteModal from '../../components/DeleteModal/DeleteModal';
+import { MdDelete } from 'react-icons/md';
 
 const EditProduct = () => {
   const { id } = useParams();
@@ -35,6 +36,8 @@ const EditProduct = () => {
   const [ondemand, setOndemand] = useState(false);
   const [moq, setMoq] = useState('');
   const [days, setDays] = useState('');
+  const [sales, setSales] = useState([]);
+  const [color, setColor] = useState('');
   const [pack, setPack] = useState({
     amount: '',
     weight: '',
@@ -89,7 +92,8 @@ const EditProduct = () => {
     }
     GetProductDetail(id).then((res) => {
       console.log(res);
-
+      setColor(res.data.colorID.name);
+      setSales(res.data.discounts);
       setWarehouse(res.data.warehouse);
       setSizes(res?.data?.sizes);
       setProductDetail(res.data);
@@ -139,11 +143,16 @@ const EditProduct = () => {
       formdata.append('is_hit', ishit),
       formdata.append('is_new', isnew),
       formdata.append('deleted_images', deletedIds),
+      formdata.append('color', color),
       formdata.append('categoryId', mainId);
     for (let i = 0; i < inputs.length; i++) {
       formdata.append(`images[${i}]color`, inputs[i].color);
       formdata.append(`images[${i}]image`, inputs[i].image);
     }
+    sales.forEach((item, index) => {
+      formdata.append(`items[${index}][count]`, item.count);
+      formdata.append(`items[${index}][name]`, item.name);
+    });
     UpdateWithFormData(`${BASE_URL}/product/${id}/`, formdata).then(() => {
       setStatus(!status), setSuccess(true);
       setTimeout(() => {
@@ -168,6 +177,24 @@ const EditProduct = () => {
     const newInputs = [...inputs];
     newInputs[index][name] = value;
     setInputs(newInputs);
+  };
+
+  const handleInputChange1 = (index, field, value) => {
+    const newSales = [...sales];
+    newSales[index][field] = value;
+    console.log(newSales);
+
+    setSales(newSales);
+  };
+
+  const deleteItem = (index) => {
+    const newSales = sales.filter((_, i) => i !== index);
+    setSales(newSales);
+  };
+
+  const addNewItem = () => {
+    const newItem = { count: '', name: '' }; // Adjust default values as necessary
+    setSales([...sales, newItem]);
   };
 
   const handleAddInput = () => {
@@ -250,6 +277,15 @@ const EditProduct = () => {
                 label="Артикуль"
                 defaultValue={productDetail?.article}
                 onChange={(e) => setArticle(e.target.value)}
+                placeholder=""
+              />
+            </div>
+            <div className="flex items-center justify-between w-1/2 mb-5 pr-5">
+              <Input
+                variant="standard"
+                label="Цвет"
+                defaultValue={color}
+                onChange={(e) => setColor(e.target.value)}
                 placeholder=""
               />
             </div>
@@ -474,6 +510,50 @@ const EditProduct = () => {
                 />
               </div>
             </div>
+            <button
+              onClick={addNewItem}
+              className="bg-blue-400 mb-5 px-4 py-1 rounded-md text-white"
+            >
+              добавить скидку
+            </button>
+            {sales?.map((item, index) => (
+              <div
+                key={index}
+                className="input-group flex w-full justify-between items-center gap-10 mb-5"
+              >
+                <div className="w-1/2 mb-4">
+                  <Input
+                    variant="standard"
+                    label="количество товаров"
+                    defaultValue={item.count}
+                    className="w-full"
+                    onChange={(e) =>
+                      handleInputChange1(index, 'count', e.target.value)
+                    }
+                  />
+                </div>
+
+                <div className="w-1/2 mb-4">
+                  <Input
+                    variant="standard"
+                    onChange={(e) =>
+                      handleInputChange1(index, 'name', e.target.value)
+                    }
+                    label="
+                  процент скидку"
+                    defaultValue={item.name}
+                    className="w-full"
+                  />
+                </div>
+                <button
+                  type="button"
+                  onClick={() => deleteItem(index)}
+                  className="h-[40px] w-[40px] bg-red-400 text-white rounded-md flex justify-center items-center"
+                >
+                  <MdDelete />
+                </button>
+              </div>
+            ))}
 
             <div className="flex items-center justify-between w-full mb-5">
               <Textarea
@@ -537,7 +617,7 @@ const EditProduct = () => {
                       </label>
                     </div>
 
-                    <div className="mb-5">
+                    {/* <div className="mb-5">
                       <Input
                         label="Цвет"
                         type="text"
@@ -545,7 +625,7 @@ const EditProduct = () => {
                         name="color"
                         onChange={(e) => handleInputChange(index, e)}
                       />
-                    </div>
+                    </div> */}
                   </div>
                 ))}
 
