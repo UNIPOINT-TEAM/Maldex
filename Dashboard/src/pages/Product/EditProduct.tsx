@@ -93,7 +93,7 @@ const EditProduct = () => {
     GetProductDetail(id).then((res) => {
       console.log(res);
       setColor(res.data.colorID.name);
-      setSales(res.data.discounts);
+      setSales(res.data.discounts != null ? res.data.discounts : []);
       setWarehouse(res.data.warehouse);
       setSizes(res?.data?.sizes);
       setProductDetail(res.data);
@@ -193,7 +193,7 @@ const EditProduct = () => {
   };
 
   const addNewItem = () => {
-    const newItem = { count: '', name: '' }; // Adjust default values as necessary
+    const newItem = { count: '', name: '' };
     setSales([...sales, newItem]);
   };
 
