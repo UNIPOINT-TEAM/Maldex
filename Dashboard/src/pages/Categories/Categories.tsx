@@ -31,6 +31,7 @@ import {
   Input,
 } from '@material-tailwind/react';
 import { BASE_URL } from '../../utils/BaseUrl';
+import { MdDelete } from 'react-icons/md';
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
@@ -86,8 +87,6 @@ const Categories = () => {
     return logos[site] || null;
   };
 
-
-
   useEffect(() => {
     GetMainCatalog().then((res) => {
       setCategories(res);
@@ -103,7 +102,6 @@ const Categories = () => {
   }, [status, subCategoryId, searchCategory]);
 
   console.log(categories);
-  
 
   const addSubCategory = (e, id) => {
     e.preventDefault();
@@ -167,7 +165,9 @@ const Categories = () => {
     });
   };
 
-
+  const handleDelete = (id: any) => {
+    DeleteItem(`/product/category/${id}`).then(() => setStatus(!status));
+  };
 
   return (
     <DefaultLayout>
@@ -404,7 +404,7 @@ const Categories = () => {
                               </p>
                             </button>
 
-                            {statusedit == childCategory.id ? (
+                            {/* {statusedit == childCategory.id ? (
                               <button
                                 className="bg-green-500 group-hover:text-white rounded w-[20px] h-[20px] flex justify-center items-center "
                                 onClick={() => saveItem(childCategory.id)}
@@ -412,32 +412,37 @@ const Categories = () => {
                                 <FaCheck size={12} color="white" />
                               </button>
                             ) : (
-                              <div className="flex items-center gap-2">
-                                <button
+
+                            )} */}
+                            <div className="flex items-center gap-2">
+                              {/* <button
                                   className="bg-yellow-500 group-hover:text-black rounded w-[20px] h-[20px] flex justify-center items-center "
                                   onClick={() =>
                                     handleEditStatus(childCategory.id)
                                   }
                                 >
                                   <FaRegEdit size={12} />
+                                </button> */}
+                              <button
+                                className=" bg-red-300 group-hover:text-white rounded p-2 text-white flex justify-center items-center"
+                                onClick={() => handleDelete(childCategory.id)}
+                              >
+                                <MdDelete size={12} />
+                              </button>
+                              <Link
+                                to={`/category/${childCategory.id}/products`}
+                              >
+                                <button className="bg-red-400 text-white rounded w-[70px] h-[20px] flex justify-center items-center text-[12px]">
+                                  продукты
                                 </button>
-                                <Link
-                                  to={`/category/${childCategory.id}/products`}
-                                >
-                                  <button className="bg-red-400 text-white rounded w-[70px] h-[20px] flex justify-center items-center text-[12px]">
-                                    продукты
-                                  </button>
-                                </Link>
-                                <button
-                                  onClick={() =>
-                                    DeleteCategory(childCategory.id)
-                                  }
-                                  className="bg-red-400 text-white rounded w-[70px] h-[20px] flex justify-center items-center text-[12px]"
-                                >
-                                  удалить
-                                </button>
-                              </div>
-                            )}
+                              </Link>
+                              <button
+                                onClick={() => DeleteCategory(childCategory.id)}
+                                className="bg-red-400 text-white rounded w-[70px] h-[20px] flex justify-center items-center text-[12px]"
+                              >
+                                удалить
+                              </button>
+                            </div>
                           </div>
                         </div>
                       ))}
@@ -559,7 +564,7 @@ const Categories = () => {
                             )}
                           </Link>
                           <div className="flex gap-2">
-                            {statusedit == childCategory.id ? (
+                            {/* {statusedit == childCategory.id ? (
                               <button
                                 className="bg-green-500 group-hover:text-white rounded w-[20px] h-[20px] flex justify-center items-center "
                                 onClick={() => saveItem(childCategory.id)}
@@ -567,30 +572,31 @@ const Categories = () => {
                                 <FaCheck size={12} color="white" />
                               </button>
                             ) : (
-                              <div className="flex items-center gap-2">
-                                <button
-                                  className="bg-yellow-500 group-hover:text-black rounded w-[20px] h-[20px] flex justify-center items-center "
-                                  onClick={() =>
-                                    handleEditStatus(childCategory.id)
-                                  }
-                                >
-                                  <FaRegEdit size={12} />
+
+                            )} */}
+                            <div className="flex items-center gap-2">
+                              {/* <button
+                                className="bg-yellow-500 group-hover:text-black rounded w-[20px] h-[20px] flex justify-center items-center "
+                                onClick={() =>
+                                  handleEditStatus(childCategory.id)
+                                }
+                              >
+                                <FaRegEdit size={12} />
+                              </button> */}
+                              <Link
+                                to={`/category/${childCategory.id}/products`}
+                              >
+                                <button className="bg-red-400 text-white rounded w-[70px] h-[20px] flex justify-center items-center text-[12px]">
+                                  продукты
                                 </button>
-                                <Link
-                                  to={`/category/${childCategory.id}/products`}
-                                >
-                                  <button className="bg-red-400 text-white rounded w-[70px] h-[20px] flex justify-center items-center text-[12px]">
-                                    продукты
-                                  </button>
-                                </Link>
-                                <button
-                                  onClick={() => handleOpen1(childCategory.id)}
-                                  className="bg-blue-400 text-white rounded w-[70px] h-[20px] flex justify-center items-center text-[12px]"
-                                >
-                                  переместит
-                                </button>
-                              </div>
-                            )}
+                              </Link>
+                              <button
+                                onClick={() => handleOpen1(childCategory.id)}
+                                className="bg-blue-400 text-white rounded w-[70px] h-[20px] flex justify-center items-center text-[12px]"
+                              >
+                                переместит
+                              </button>
+                            </div>
                           </div>
                         </div>
                       ))}

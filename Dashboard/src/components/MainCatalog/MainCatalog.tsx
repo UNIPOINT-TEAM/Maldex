@@ -8,7 +8,7 @@ import {
 } from '../../services/maincatalog';
 import '../../css/main.css';
 import { AddMainCatalog, EditMainCatalog } from '..';
-import { AddWithFormData } from '../../services/product';
+import { AddWithFormData, DeleteItem } from '../../services/product';
 import { FaCheck, FaPlus } from 'react-icons/fa6';
 import { FaRegEdit } from 'react-icons/fa';
 
@@ -24,6 +24,7 @@ import {
 import { BASE_URL } from '../../utils/BaseUrl';
 import DeleteModal from '../DeleteModal/DeleteModal';
 import { useLocation } from 'react-router-dom';
+import { MdDelete } from 'react-icons/md';
 
 const MainCatalog = () => {
   const [categories, setCategories] = useState([]);
@@ -126,6 +127,10 @@ const MainCatalog = () => {
     setStatus(!status);
   };
 
+  const handleDelete = (id: any) => {
+    DeleteItem(`/product/category/${id}`).then(() => setStatus(!status));
+  };
+
   return (
     <>
       <div className="w-full  flex items-center justify-between">
@@ -194,26 +199,34 @@ const MainCatalog = () => {
                     <p className="">{i.name}</p>
                   )
                 }
-                {
-                  // @ts-ignore
-                  statuseditSub == i.id ? (
-                    <button
-                      // @ts-ignore
-                      onClick={() => saveItemSub(i.id)}
-                      className="bg-green-500 p-2 rounded-md flex justify-center items-center"
-                    >
-                      <FaCheck size={12} color="white" />
-                    </button>
-                  ) : (
-                    <button
-                      // @ts-ignore
-                      onClick={() => handleEditStatusSub(i.id)}
-                      className="bg-yellow-500 p-2 rounded-md flex justify-center items-center"
-                    >
-                      <FaRegEdit size={12} />
-                    </button>
-                  )
-                }
+                <div className="flex gap-2">
+                  <button
+                    className=" bg-red-300 group-hover:text-white rounded p-2 text-white flex justify-center items-center"
+                    onClick={() => handleDelete(i.id)}
+                  >
+                    <MdDelete size={12} />
+                  </button>
+                  {
+                    // @ts-ignore
+                    statuseditSub == i.id ? (
+                      <button
+                        // @ts-ignore
+                        onClick={() => saveItemSub(i.id)}
+                        className="bg-green-500 p-2 rounded-md flex justify-center items-center"
+                      >
+                        <FaCheck size={12} color="white" />
+                      </button>
+                    ) : (
+                      <button
+                        // @ts-ignore
+                        onClick={() => handleEditStatusSub(i.id)}
+                        className="bg-yellow-500 p-2 rounded-md flex justify-center items-center"
+                      >
+                        <FaRegEdit size={12} />
+                      </button>
+                    )
+                  }
+                </div>
               </div>
             ))}
           </DialogBody>
@@ -359,11 +372,18 @@ const MainCatalog = () => {
                       </div>
                       <div className="flex">
                         <button
+                          className=" bg-red-300 group-hover:text-white rounded w-[20px] h-[20px] text-white flex justify-center items-center"
+                          onClick={() => handleDelete(childCategory.id)}
+                        >
+                          <MdDelete size={12} />
+                        </button>
+                        <button
                           className=" bg-blue-300 group-hover:text-white rounded w-[20px] h-[20px] text-white flex justify-center items-center"
                           onClick={() => handleOpen(childCategory.id)}
                         >
                           <FaPlus size={12} />
                         </button>
+
                         {statusedit == childCategory.id ? (
                           <button
                             className="bg-green-500 group-hover:text-white rounded w-[20px] h-[20px] flex justify-center items-center "
