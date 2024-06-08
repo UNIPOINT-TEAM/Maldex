@@ -149,10 +149,15 @@ const EditProduct = () => {
       formdata.append(`images[${i}]color`, inputs[i].color);
       formdata.append(`images[${i}]image`, inputs[i].image);
     }
-    sales.forEach((item, index) => {
-      formdata.append(`items[${index}][count]`, item.count);
-      formdata.append(`items[${index}][name]`, item.name);
-    });
+    {
+      sales.length < 0
+        ? sales.forEach((item, index) => {
+            formdata.append(`items[${index}][count]`, item.count);
+            formdata.append(`items[${index}][name]`, item.name);
+          })
+        : formdata.append('items', null);
+    }
+
     UpdateWithFormData(`${BASE_URL}/product/${id}/`, formdata).then(() => {
       setStatus(!status), setSuccess(true);
       setTimeout(() => {
