@@ -71,23 +71,11 @@ const Catalog = () => {
     fetchData({ method: "GET", url: `/product/${query}` });
   };
 
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-  };
-
-  console.log(response);
+  const handlePageChange = (page: number) => setCurrentPage(page);
 
   return (
     <div className="home px-2 md:px-0">
       <div className="w-full h-full">
-        <div className="border-b-2 py-3 hidden md:block">
-          <div className="container_xxl px-3">
-            <p className="m-0 p-0 text-darkSecondary">
-              Промо одежда / Портативные колонки / Беспроводная колонка Chubby /{" "}
-              <span className="text-redPrimary">Артикул 7557.30</span>
-            </p>
-          </div>
-        </div>
         <div className="card container_xxl px-3 my-0 sm:my-10 ">
           <h1 className="text-3xl mb-5 mt-5 md:mt-0">
             {/*@ts-expect-error: This */}

@@ -1,0 +1,21 @@
+.breadcrumb {
+     list-style: none;
+     display: flex;
+}
+
+.breadcrumb li {
+     margin-right: 8px;
+}
+
+.breadcrumb li.active {
+     font-weight: bold;
+}
+
+.breadcrumb li:not(.active) a {
+     text-decoration: none;
+     color: blue;
+}
+
+.breadcrumb li.active::after {
+     content: '';
+}
