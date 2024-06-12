@@ -53,8 +53,6 @@ const CategoryDetails = () => {
 
   const dispatch = useDispatch();
   const { fetchData, response } = useFetchHook();
-  // @ts-ignore
-  const [rengeValue, setRengeValue] = useState<number>(0);
   useEffect(() => {
     fetchData({ method: "GET", url: `/product/${productId}` });
   }, [id, productId]);

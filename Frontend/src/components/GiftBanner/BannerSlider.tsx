@@ -1,5 +1,4 @@
 
-
 const BannerSlider = () => {
   return (
     <div className="w-full h-full bg-greenPrimary flex  p-[20px] text-white">
