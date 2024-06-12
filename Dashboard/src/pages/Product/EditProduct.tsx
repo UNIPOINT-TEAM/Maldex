@@ -93,7 +93,7 @@ const EditProduct = () => {
     GetProductDetail(id).then((res) => {
       console.log(res);
       setColor(res.data.colorID.name);
-      setSales(res.data.discounts);
+      setSales(res.data.discounts != null ? res.data.discounts : []);
       setWarehouse(res.data.warehouse);
       setSizes(res?.data?.sizes);
       setProductDetail(res.data);
@@ -149,10 +149,15 @@ const EditProduct = () => {
       formdata.append(`images[${i}]color`, inputs[i].color);
       formdata.append(`images[${i}]image`, inputs[i].image);
     }
-    sales.forEach((item, index) => {
-      formdata.append(`items[${index}][count]`, item.count);
-      formdata.append(`items[${index}][name]`, item.name);
-    });
+    {
+      sales.length > 0
+        ? sales.forEach((item, index) => {
+            formdata.append(`items[${index}][count]`, item.count);
+            formdata.append(`items[${index}][name]`, item.name);
+          })
+        : formdata.append('items', '');
+    }
+
     UpdateWithFormData(`${BASE_URL}/product/${id}/`, formdata).then(() => {
       setStatus(!status), setSuccess(true);
       setTimeout(() => {
@@ -193,7 +198,7 @@ const EditProduct = () => {
   };
 
   const addNewItem = () => {
-    const newItem = { count: '', name: '' }; // Adjust default values as necessary
+    const newItem = { count: '', name: '' };
     setSales([...sales, newItem]);
   };
 
@@ -512,6 +517,7 @@ const EditProduct = () => {
             </div>
             <button
               onClick={addNewItem}
+              type="button"
               className="bg-blue-400 mb-5 px-4 py-1 rounded-md text-white"
             >
               добавить скидку
