@@ -3,7 +3,6 @@ import runicon from "../../assets/icons/runningtext.svg";
 
 const RunningText = () => {
   return (
-<<<<<<< HEAD
     <div className=" bg-greenPrimary py-2 lg:py-2">
       <Marquee>
         <span className="text-white text-left text-[18px] lg:text-[32px] font-medium tracking-wide uppercase m-5">
@@ -26,35 +25,6 @@ const RunningText = () => {
           Эксклюзив на Maldex ➔
         </span>
         <img src={runicon} alt="" className="h-6 lg:h-12"/>
-=======
-    <div className=" bg-greenPrimary py-4">
-      <Marquee>
-        <span className="text-white text-left text-[32px] font-[800] tracking-wide uppercase m-5">
-          Эксклюзив на Maldex ➔
-        </span>
-        <img src={runicon} alt="" />
-        <span className="text-white text-left text-[32px] font-[800] tracking-wide uppercase m-5">
-          Эксклюзив на Maldex ➔
-        </span>
-        <img src={runicon} alt="" />
-        <span className="text-white text-left text-[32px] font-[800] tracking-wide uppercase m-5">
-          Эксклюзив на Maldex ➔
-        </span>
-        <img src={runicon} alt="" />
-        <span className="text-white text-left text-[32px] font-[800] tracking-wide uppercase m-5">
-          Эксклюзив на Maldex ➔
-        </span>
-        <img src={runicon} alt="" />
-        <span className="text-white text-left text-[32px] font-[800] tracking-wide uppercase m-5">
-          Эксклюзив на Maldex ➔
-        </span>
-        <img src={runicon} alt="" />
-<<<<<<< HEAD
-
-
->>>>>>> bf64a73 (navbar100)
-=======
->>>>>>> 89fc5ef (product card 20% _ gift page 10%)
       </Marquee>
     </div>
   );

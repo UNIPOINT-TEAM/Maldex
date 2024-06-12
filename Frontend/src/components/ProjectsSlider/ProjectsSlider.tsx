@@ -1,29 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-<<<<<<< HEAD
-=======
-// import SwiperCore, { Navigation, Pagination } from "swiper";
->>>>>>> 0facdc4 (restart branch 2)
 import prev from "../../assets/icons/projectPrev.svg";
 import next from "../../assets/icons/projectNext.svg";
 import project1 from "../../assets/project 1.png";
 import project2 from "../../assets/project 2.png";
-<<<<<<< HEAD
 // import project3 from "../../assets/project 3.png";
 
 // 1import { ProductNav } from "..";
 import { Link } from "react-router-dom";
 import { Scrollbar } from "swiper/modules";
 import { GetProjects, GetTags } from "../../services/services";
-=======
-import project3 from "../../assets/project 3.png";
-import "swiper/css";
-import { ProductNav } from "..";
-<<<<<<< HEAD
->>>>>>> ddec433 (add page 404)
-=======
-import { Link } from "react-router-dom";
->>>>>>> 0facdc4 (restart branch 2)
 
 function ProjectsSlider() {
   const swiperRef = useRef(null);
@@ -46,36 +32,22 @@ function ProjectsSlider() {
   }, [selectedItem]);
 
   const goNext = () => {
-<<<<<<< HEAD
     // @ts-expect-error: This
     if (swiperRef.current && swiperRef.current.swiper) {
       // @ts-expect-error: This
-=======
-    // @ts-ignore
-    if (swiperRef.current && swiperRef.current.swiper) {
-      // @ts-ignore
->>>>>>> 0facdc4 (restart branch 2)
       swiperRef.current.swiper.slideNext();
     }
   };
 
   const goPrev = () => {
-<<<<<<< HEAD
     // @ts-expect-error: This
     if (swiperRef.current && swiperRef.current.swiper) {
       // @ts-expect-error: This
-=======
-    // @ts-ignore
-    if (swiperRef.current && swiperRef.current.swiper) {
-      // @ts-ignore
->>>>>>> 0facdc4 (restart branch 2)
       swiperRef.current.swiper.slidePrev();
     }
   };
 
   return (
-<<<<<<< HEAD
-<<<<<<< HEAD
     <div className="container_xxl px-3 md:mb-[100px]">
       <div>
         <div className="mb-6">
@@ -126,26 +98,6 @@ function ProjectsSlider() {
             <div className="h-[410px] flex items-center">
               <button className="absolute z-50 -ml-[16px] " onClick={goPrev}>
                 <img src={prev} alt="" className="w-[32px]" />
-=======
-    <div className="container_xxl">
-      <div className="mx-10">
-        <ProductNav />
-        <div className="my-5 h-[410px]">
-          <div className="flex h-full">
-            <div className="h-[100%] flex items-center">
-              <button className="absolute z-50 -ml-[20px] " onClick={goPrev}>
-                <img src={prev} alt="" />
->>>>>>> ddec433 (add page 404)
-=======
-    <div className="container_xxl">
-      <div className="mx-3">
-        <ProductNav title="ПРОЕКТЫ" color="gray"/>
-        <div className="my-5 lg:h-[410px]">
-          <div className="flex h-full hidden lg:flex">
-            <div className="h-[100%] flex items-center">
-              <button className="absolute z-50 -ml-[10px] " onClick={goPrev}>
-                <img src={prev} alt="" className="w-[32px]"/>
->>>>>>> 0facdc4 (restart branch 2)
               </button>
             </div>
             <Swiper
@@ -159,7 +111,6 @@ function ProjectsSlider() {
               modules={[Scrollbar]}
               scrollbar={{ draggable: true }}
             >
-<<<<<<< HEAD
               {projects.map((item) => (
                 // @ts-expect-error: This
                 <SwiperSlide key={item.id}>
@@ -190,58 +141,6 @@ function ProjectsSlider() {
             <div className="h-[410px] flex items-center">
               <button className="absolute z-50 -ml-[15px]" onClick={goNext}>
                 <img src={next} alt="" className="w-[32px]" />
-=======
-              <SwiperSlide>
-                <Link to="/portfolio">
-                  <div className="">
-                    <div>
-                      <img src={project1} alt="" />
-                    </div>
-                  </div>
-                </Link>
-              </SwiperSlide>
-              <SwiperSlide>
-                <Link to="/portfolio">
-                  <div className="">
-                    <div>
-                      <img src={project2} alt="" />
-                    </div>
-                  </div>
-                </Link>
-              </SwiperSlide>
-              <SwiperSlide>
-                <Link to="/portfolio">
-                  <div className="">
-                    <div>
-                      <img src={project3} alt="" />
-                    </div>
-                  </div>
-                </Link>
-              </SwiperSlide>
-              <SwiperSlide>
-                <Link to="/portfolio">
-                  <div className="">
-                    <div>
-                      <img src={project3} alt="" />
-                    </div>
-                  </div>
-                </Link>
-              </SwiperSlide>
-              <SwiperSlide>
-                <Link to="/portfolio">
-                  <div className="">
-                    <div>
-                      <img src={project3} alt="" />
-                    </div>
-                  </div>
-                </Link>
-              </SwiperSlide>
-              {/* Add more slides if needed */}
-            </Swiper>
-            <div className="h-[100%] flex items-center">
-              <button className="absolute z-50 -ml-[20px]" onClick={goNext}>
-                <img src={next} alt="" className="w-[32px]"/>
->>>>>>> 0facdc4 (restart branch 2)
               </button>
             </div>
           </div>
@@ -258,7 +157,6 @@ function ProjectsSlider() {
                 Мерч для компании Botanikals
               </p>
             </div>
-<<<<<<< HEAD
             <div className="h-[180px] relative">
               <img
                 src={project2}
@@ -268,10 +166,6 @@ function ProjectsSlider() {
               <p className="z-[999999] font-medium text-fs_6 left-0 ps-3 absolute bottom-1 tracking-wide text-[#fff]">
                 Упаковка Beaty бренда
               </p>
-=======
-            <div>
-              <img src={project2} alt="" />
->>>>>>> 0facdc4 (restart branch 2)
             </div>
           </div>
         </div>

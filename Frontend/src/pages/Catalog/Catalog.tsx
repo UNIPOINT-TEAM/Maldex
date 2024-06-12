@@ -7,17 +7,7 @@ import {
   SaleSlider,
 } from "../../components";
 import Close from "../../assets/icons/close.png";
-<<<<<<< HEAD
 import Filter from "../../assets/icons/filtr.svg";
-=======
-import { FaArrowLeftLong } from "react-icons/fa6";
-import { FaArrowRightLong } from "react-icons/fa6";
-// import SearchIcon from "../../assets/icons/searchIcon.png";
-// import { CiSearch } from "react-icons/ci";
-// import { CiHeart } from "react-icons/ci";
-// import { FaCheck } from "react-icons/fa";
-import Filter from "../../assets/icons/filtr.png";
->>>>>>> db87467 (restart branch 3)
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 import { Accordion } from "../../components";

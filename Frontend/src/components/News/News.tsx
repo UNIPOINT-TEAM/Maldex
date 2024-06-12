@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useEffect } from "react";
 import { GoArrowDownRight } from "react-icons/go";
 import { Badge } from "..";
@@ -11,14 +10,6 @@ const News: React.FC<{ title: string }> = ({ title }) => {
   useEffect(() => {
     fetchData({ method: "GET", url: "/articles/" });
   }, []);
-=======
-import { Badge } from "..";
-import image1 from "../../assets/article-bg-1.png";
-import image2 from "../../assets/article-bg-2.png";
-import image3 from "../../assets/article-bg-3.png";
-import image4 from "../../assets/article-bg-4.png";
-import arrowRight from "../../assets/icons/arrow-right.png";
->>>>>>> 0facdc4 (restart branch 2)
 
   return (
     <div className="articles container_xxl py-5 px-3  md:mb-[100px]">

@@ -29,14 +29,7 @@ import partner20 from "../../assets/partners/partner (20).png";
 import partner21 from "../../assets/partners/partner (21).png";
 
 import {
-<<<<<<< HEAD
   CompanyBanner,
-=======
-  BannerBottom,
-  BannerBottomMobile,
-  BannerSlider,
-  BannerTop,
->>>>>>> db87467 (restart branch 3)
   Printing,
   QuestForm,
   Steps,

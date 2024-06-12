@@ -7,16 +7,10 @@ import {
   Radio,
 } from "@material-tailwind/react";
 import Close from "../../assets/icons/close.png";
-<<<<<<< HEAD
 import { useFetchHook } from "../../hooks/UseFetch";
 import { Link } from "react-router-dom";
 const sizes = ["S", "M", "L", "XL", "XXL", "XXXL"];
 // @ts-ignore
-=======
-
-    // @ts-ignore
-
->>>>>>> db87467 (restart branch 3)
 function Icon({ id, open }) {
   return (
     <svg

@@ -20,22 +20,9 @@ function Gift() {
       <GiftBanner />
       <div>
         <div>
-<<<<<<< HEAD
           {giftCategories.map((category, index) => (
             <GiftsSlider key={index} category={category} />
           ))}
-=======
-          <div>
-            <div>
-              <GiftBanner />
-            </div>
-            <div>
-              <ProjectsSlider />
-              <TagBanner />
-              <QuestForm />
-            </div>
-          </div>
->>>>>>> 0facdc4 (restart branch 2)
         </div>
         <TagBanner />
         <QuestForm />
