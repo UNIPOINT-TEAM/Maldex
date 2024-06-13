@@ -91,7 +91,6 @@ const EditProduct = () => {
       setMainId(subSubcategoryId);
     }
     GetProductDetail(id).then((res) => {
-      console.log(res);
       setColor(res.data.colorID.name);
       setSales(res.data.discounts != null ? res.data.discounts : []);
       setWarehouse(res.data.warehouse);
@@ -106,6 +105,8 @@ const EditProduct = () => {
       setCode(res.data.code);
     });
   }, [categoryId, subcategoryId, subSubcategoryId, status]);
+
+  // console.log(ishit, isnew);
 
   const addCategoryId = (id: any) => {
     setCategoryId(id);
@@ -394,20 +395,22 @@ const EditProduct = () => {
               <Checkbox
                 color="blue"
                 label="популярный"
-                defaultChecked={productDetail?.is_popular}
+                checked={ispopular}
                 onChange={(e) => setIspopular(e.target.checked)}
               />
               <Checkbox
                 color="blue"
                 label="новый"
-                defaultChecked={productDetail?.is_new}
+                checked={isnew}
                 onChange={(e) => setIsnew(e.target.checked)}
               />
               <Checkbox
                 color="blue"
                 label="хит"
-                defaultChecked={productDetail?.is_hit}
-                onChange={(e) => setIshit(e.target.checked)}
+                checked={ishit}
+                onChange={(e) => {
+                  setIshit(e.target.checked), console.log(ishit);
+                }}
               />
             </div>
             <div className="w-full flex gap-1 mb-5">
