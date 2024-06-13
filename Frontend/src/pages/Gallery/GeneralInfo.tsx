@@ -1,6 +1,5 @@
 import upload from "../../assets/icons/upload.svg";
 import download from "../../assets/icons/rub.svg";
-import rub from "../../assets/icons/download.svg";
 import { Switch } from "@material-tailwind/react";
 
 import { AllDeleteModal } from "../../components/Gallery/AllDeleteModal";
@@ -26,10 +25,10 @@ const Checkdata: {
     title: "Альбомное КП",
     name: "landscape_visible",
   },
-  {
-    title: "Стандартное КП",
-    name: "standard_visible",
-  },
+  // {
+  //   title: "Стандартное КП",
+  //   name: "standard_visible",
+  // },
   {
     title: "Цены",
     name: "prices_visible",
@@ -105,10 +104,10 @@ const GeneralInfo = () => {
           <img src={download} alt="download-icon" />
           <span>Скачать PDF</span>
         </button>
-        <button className="flex items-center gap-3">
+        {/* <button className="flex items-center gap-3">
           <img src={rub} alt="rub-icon" />
           <span>Цены и услуги</span>
-        </button>
+        </button> */}
         <AllDeleteModal />
       </div>
       <div className="mt-10 flex flex-col gap-4">

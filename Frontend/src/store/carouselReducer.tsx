@@ -2,6 +2,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import DefaultTemplate from "../components/GalleryLayoutTemplate/DefaultTemplate";
+import PdfDefault from "../components/GalleryLayoutTemplate/PdfTemplate/DefaultTemplate";
 const products = JSON.parse(localStorage.getItem("cart") || "[]");
 
 interface CarouselState {
@@ -25,6 +26,7 @@ const initialState: CarouselState = {
     products.map((product) => ({
       data: product,
       template: <DefaultTemplate />,
+      pdfTemplate: <PdfDefault />,
       background: {
         color: "",
         image: "",

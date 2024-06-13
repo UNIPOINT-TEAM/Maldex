@@ -37,6 +37,7 @@ import {
   FileAndPrice,
   NewsDetail,
 } from "../components";
+import DefaultTemplate from "../components/GalleryLayoutTemplate/PdfTemplate/DefaultTemplate";
 
 export const router = createBrowserRouter([
   {
@@ -168,6 +169,10 @@ export const router = createBrowserRouter([
             element: <Tamplate />,
           },
         ],
+      },
+      {
+        path: "pdf",
+        element: <DefaultTemplate />,
       },
     ],
   },
