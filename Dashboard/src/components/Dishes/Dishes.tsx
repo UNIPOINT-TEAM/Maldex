@@ -43,7 +43,7 @@ const Dishes = () => {
     ).then((res) => {
       setSubcategories(res);
     });
-    GetProductSearch('', '', '', categoryId).then((res) => {
+    GetProductSearch('', '', '', categoryId,"").then((res) => {
       setAddProduct(res.data.results);
     });
   }, [status, categoryId]);
