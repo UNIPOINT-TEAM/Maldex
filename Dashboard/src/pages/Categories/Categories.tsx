@@ -3,7 +3,6 @@ import {
   GetLogo,
   GetMainCatalog,
   GetMainCatalogSite,
-  GetMainCatalogactive,
   GetSubCategories,
   PutData,
   PutWithFormData,
@@ -11,15 +10,10 @@ import {
 } from '../../services/maincatalog';
 import { Link } from 'react-router-dom';
 import '../../css/main.css';
-import {
-  AddMainCatalog,
-  DeleteMainCatalog,
-  EditMainCatalog,
-} from '../../components';
+import { AddMainCatalog, EditMainCatalog } from '../../components';
 import { AddWithFormData, DeleteItem } from '../../services/product';
-import { FaCheck, FaPlus } from 'react-icons/fa6';
-import { FaRegEdit } from 'react-icons/fa';
 import DefaultLayout from '../../layout/DefaultLayout';
+import { LuPin, LuPinOff } from 'react-icons/lu';
 
 import {
   Button,
@@ -27,11 +21,10 @@ import {
   DialogHeader,
   DialogBody,
   DialogFooter,
-  Checkbox,
   Input,
 } from '@material-tailwind/react';
 import { BASE_URL } from '../../utils/BaseUrl';
-import { MdDelete } from 'react-icons/md';
+import DeleteModal from '../../components/DeleteModal/DeleteModal';
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
@@ -39,6 +32,7 @@ const Categories = () => {
   const [nameSub, setNameSub] = useState('');
   const [open, setOpen] = useState(false);
   const [open1, setOpen1] = useState(false);
+  const [open2, setOpen2] = useState(false);
   const [subCategoryId, setSubCategoryId] = useState(0);
   const [availableCategories, setAvailableCategories] = useState([]);
   const [statusedit, setStatusedit] = useState(null);
@@ -52,6 +46,8 @@ const Categories = () => {
   const [searchCategory, setSearchCategory] = useState('');
   const [loader, setLoader] = useState(true);
   const [logos, setLogos] = useState([]);
+  const [availableId, setAvailableId] = useState(null);
+  const [titlemodal, setTitlemodal] = useState('');
 
   const changeStatus = (newState: any) => {
     setStatus(newState);
@@ -64,6 +60,12 @@ const Categories = () => {
   const handleOpen1 = (id) => {
     setOpen1(!open1);
     setReceiveId1(id);
+  };
+  const handleOpen2 = (id?, status?, text?) => {
+    setOpen2(!open2);
+    setIsAviable(status);
+    setAvailableId(id);
+    setTitlemodal(text);
   };
 
   useEffect(() => {
@@ -130,11 +132,12 @@ const Categories = () => {
     setStatus(!status);
   };
 
-  const ChangeIsAviable = (id: number) => {
+  const ChangeIsAviable = () => {
     const formdata = new FormData();
     formdata.append('is_available', isAviable);
-    PutWithFormData(`/product/category/${id}/`, formdata).then(() => {
+    PutWithFormData(`/product/category/${availableId}/`, formdata).then(() => {
       setStatus(!status);
+      setOpen2(!open2);
     });
   };
 
@@ -171,6 +174,34 @@ const Categories = () => {
 
   return (
     <DefaultLayout>
+      <Dialog
+        open={open2}
+        handler={handleOpen2}
+        size="sm"
+        animate={{
+          mount: { scale: 1, y: 0 },
+          unmount: { scale: 0.9, y: -100 },
+        }}
+      >
+        <DialogHeader>{titlemodal ? titlemodal : ''}</DialogHeader>
+        <DialogBody>
+          <div className=" overflow-x-scroll"></div>
+        </DialogBody>
+        <DialogFooter>
+          <Button
+            variant="text"
+            color="red"
+            onClick={handleOpen2}
+            className="mr-1"
+          >
+            <span>нет!</span>
+          </Button>
+          <Button variant="gradient" color="green" onClick={ChangeIsAviable}>
+            <span>Да!</span>
+          </Button>
+        </DialogFooter>
+      </Dialog>
+
       <AddMainCatalog status={status} onChange={changeStatus} />
       <Dialog
         open={open1}
@@ -327,7 +358,7 @@ const Categories = () => {
                       <img className="w-1/5 mb-5" src={category.icon} alt="" />
 
                       <div className="flex flex-col items-end gap-1">
-                        <div className="flex justify-center gap-[2px] items-center">
+                        {/* <div className="flex justify-center gap-[2px] items-center">
                           <Checkbox
                             defaultChecked={category.is_available}
                             onChange={(e) => setIsAviable(e.target.checked)}
@@ -339,17 +370,33 @@ const Categories = () => {
                           >
                             <FaCheck color="white" />
                           </button>
-                        </div>
+                        </div> */}
+                        <button
+                          className="bg-green-400  w-[30px] h-[30px] flex justify-center items-center rounded-md"
+                          onClick={() =>
+                            handleOpen2(
+                              category.id,
+                              false,
+                              'Вы уверены что хотите открепить ?',
+                            )
+                          }
+                        >
+                          <LuPinOff size={20} color={'white'} />
+                        </button>
                         <EditMainCatalog categoryId={category.id} />
 
-                        <button className="p-1 bg-red-600 h-[30px] w-[30px] rounded flex justify-center items-center">
-                          <DeleteMainCatalog />
-                        </button>
+                        {/* <DeleteMainCatalog /> */}
+                        <DeleteModal
+                          // @ts-ignore
+                          url={`/product/category/${category.id}/`}
+                          status={status}
+                          onChange={changeStatus}
+                        />
                       </div>
                     </div>
                     <p className="text-lg mb-3">{category?.name}</p>
                     <Link to={`/category/${category.id}/products`}>
-                      <button className="bg-red-400 text-white rounded w-full h-[30px] mb-2 flex justify-center items-center text-[12px]">
+                      <button className="bg-green-400 text-white rounded w-full h-[30px] mb-2 flex justify-center items-center text-[12px]">
                         продукты
                       </button>
                     </Link>
@@ -359,8 +406,8 @@ const Categories = () => {
                     >
                       <input
                         type="text"
-                        className="border border-dashed rounded-md w-[80%] outline-none px-1"
-                        placeholder="Добавить имя"
+                        className="border border-dashed rounded-md w-[80%] outline-none px-1 text-[10px]"
+                        placeholder="Создать подкатегорию"
                         value={nameSub}
                         onChange={(e) => setNameSub(e.target.value)}
                       />
@@ -400,14 +447,14 @@ const Categories = () => {
                               onClick={() => handleOpen(childCategory.id)}
                             >
                               <p className="text-[12px]">
-                                добавить новую категорию
+                                Добавить новых продуктов
                               </p>
                             </button>
 
                             {/* {statusedit == childCategory.id ? (
                               <button
                                 className="bg-green-500 group-hover:text-white rounded w-[20px] h-[20px] flex justify-center items-center "
-                                onClick={() => saveItem(childCategory.id)}
+                                onClick={() => saveItem(childCategory.id)}http://localhost:5173/print/apply
                               >
                                 <FaCheck size={12} color="white" />
                               </button>
@@ -423,16 +470,11 @@ const Categories = () => {
                                 >
                                   <FaRegEdit size={12} />
                                 </button> */}
-                              <button
-                                className=" bg-red-300 group-hover:text-white rounded p-2 text-white flex justify-center items-center"
-                                onClick={() => handleDelete(childCategory.id)}
-                              >
-                                <MdDelete size={12} />
-                              </button>
+
                               <Link
                                 to={`/category/${childCategory.id}/products`}
                               >
-                                <button className="bg-red-400 text-white rounded w-[70px] h-[20px] flex justify-center items-center text-[12px]">
+                                <button className="bg-green-400 text-white rounded w-[70px] h-[20px] flex justify-center items-center text-[12px]">
                                   продукты
                                 </button>
                               </Link>
@@ -496,7 +538,7 @@ const Categories = () => {
                       <img className="w-1/5 mb-5" src={category.icon} alt="" />
 
                       <div className="flex flex-col items-end gap-1">
-                        <div className="flex justify-center gap-[2px] items-center">
+                        {/* <div className="flex justify-center gap-[2px] items-center">
                           <Checkbox
                             defaultChecked={category.is_available}
                             onChange={(e) => setIsAviable(e.target.checked)}
@@ -508,17 +550,35 @@ const Categories = () => {
                           >
                             <FaCheck color="white" />
                           </button>
-                        </div>
+                        </div> */}
+                        <button
+                          className="w-[30px] h-[30px] bg-green-400 rounded-md flex justify-center items-center"
+                          onClick={() =>
+                            handleOpen2(
+                              category.id,
+                              true,
+                              'Вы уверены что хотите закрепить ?',
+                            )
+                          }
+                        >
+                          <LuPin size={20} color={'white'} />
+                        </button>
                         <EditMainCatalog categoryId={category.id} />
 
                         <button className="p-1 bg-red-600 h-[30px] w-[30px] rounded flex justify-center items-center">
-                          <DeleteMainCatalog />
+                          {/* <DeleteMainCatalog /> */}
+                          <DeleteModal
+                            // @ts-ignore
+                            url={`/product/category/${category.id}/`}
+                            status={status}
+                            onChange={changeStatus}
+                          />
                         </button>
                       </div>
                     </div>
                     <p className="text-lg mb-3">{category?.name}</p>
                     <Link to={`/category/${category.id}/products`}>
-                      <button className="bg-red-400 text-white rounded w-full h-[30px] mb-2 flex justify-center items-center text-[12px]">
+                      <button className="bg-green-400 text-white rounded w-full h-[30px] mb-2 flex justify-center items-center text-[12px]">
                         продукты
                       </button>
                     </Link>
@@ -529,8 +589,8 @@ const Categories = () => {
                     >
                       <input
                         type="text"
-                        className="border border-dashed rounded-md w-[70%] outline-none px-1"
-                        placeholder="Добавить имя"
+                        className="border border-dashed rounded-md w-[70%] outline-none px-1 text-[10px]"
+                        placeholder="Создать новый подкатегорию"
                         value={nameSub}
                         onChange={(e) => setNameSub(e.target.value)}
                       />
@@ -586,7 +646,7 @@ const Categories = () => {
                               <Link
                                 to={`/category/${childCategory.id}/products`}
                               >
-                                <button className="bg-red-400 text-white rounded w-[70px] h-[20px] flex justify-center items-center text-[12px]">
+                                <button className="bg-green-400 text-white rounded w-[70px] h-[20px] flex justify-center items-center text-[12px]">
                                   продукты
                                 </button>
                               </Link>

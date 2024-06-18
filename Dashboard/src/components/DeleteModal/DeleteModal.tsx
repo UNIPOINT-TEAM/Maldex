@@ -15,9 +15,9 @@ const DeleteModal = (props?: any) => {
     <>
       <button
         onClick={handleOpen}
-        className="rounded-md bg-danger py-2 px-3 text-center font-medium text-white hover:bg-opacity-90"
+        className="rounded-md bg-danger w-[30px] h-[30px] text-center flex justify-center items-center font-medium text-white hover:bg-opacity-90"
       >
-        <MdDelete />
+        <MdDelete size={20} color={'white'} />
       </button>
       <Dialog
         size="md"
@@ -31,7 +31,10 @@ const DeleteModal = (props?: any) => {
               Удалить этот элемент
             </h2>
             <div className=" flex items-center gap-5 py-2">
-              <p className="text-center">Вы уверены, что хотите удалить это?</p>
+              <p className="text-center">
+                При удалении этого элемента удаляются все продукты которые
+                находятся в нём ! Вы уверены что хотите удалить это ?
+              </p>
             </div>
           </CardBody>
           <CardFooter className="pt-0 font-satoshi flex justify-end gap-4">

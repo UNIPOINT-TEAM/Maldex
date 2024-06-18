@@ -85,7 +85,7 @@ const EditMainCatalog = (props?: any) => {
       <div className="flex gap-3">
         <button
           onClick={handleOpen}
-          className="p-1 bg-yellow-400 h-[30px] w-[30px] rounded flex justify-center items-center"
+          className="p-1 bg-yellow-400 h-[30px] w-[30px] rounded-md flex justify-center items-center"
         >
           <MdEdit color="black" />
         </button>
