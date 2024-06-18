@@ -2,6 +2,8 @@ import { Link, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { Badge, News, QuestForm, SliderProduct } from "../../components";
 import { useFetchHook } from "../../hooks/UseFetch";
+import { Helmet } from "react-helmet";
+
 
 function PortfolioDetail() {
   const { id } = useParams();
@@ -11,9 +13,17 @@ function PortfolioDetail() {
     fetchData({ method: "GET", url: `projects/${id}/` });
   }, [id, fetchData]);
 
-
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>
+          {response?.title
+            ? `${response.title} . Изготовление и
+            продажа. Каталог сувенирной продукции`
+            : "Загрузка..."}
+        </title>
+      </Helmet>
       <div className="container_xxl">
         <div className="mx-3">
           {/*@ts-expect-error: This */}
@@ -21,7 +31,7 @@ function PortfolioDetail() {
             <div
               className="p-3 mb-5 lg:p-5 bg-cover text-white h-[180px] sm:h-[550px]"
               style={{
-                //@ts-expect-error: This 
+                //@ts-expect-error: This
                 backgroundImage: `url(${response.images_set[0]})`,
               }}
             >

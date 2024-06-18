@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { GiftBanner, QuestForm, TagBanner } from "../../components";
 import GiftsSlider from "./components/GiftsSlider";
 import { GetGiftsCategory } from "../../services/services";
+import { Helmet } from "react-helmet";
 
 function Gift() {
   const [giftCategories, setGiftCategories] = useState([]);
@@ -17,6 +18,14 @@ function Gift() {
   }, []);
   return (
     <div>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>
+          Подарочные наборы с логотипом компании на заказ в Москве: широкий
+          ассортимент, выгодные цены | Maldex
+        </title>
+        <link rel="canonical" href="http://mysite.com/example" />
+      </Helmet>
       <GiftBanner />
       <div>
         <div>

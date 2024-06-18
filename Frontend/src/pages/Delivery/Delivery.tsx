@@ -8,6 +8,8 @@ import {
 } from "@material-tailwind/react";
 import { QuestForm } from "../../components";
 import { useLocation } from "react-router-dom";
+import { Helmet } from "react-helmet";
+
 const data = [
   {
     label: "доставка",
@@ -52,6 +54,18 @@ function Delivery() {
   };
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>
+          Доставка и оплата - Корпоративные сувениры с логотипом. Изготовление и
+          продажа. Каталог сувенирной продукции
+        </title>
+        <meta
+          name="description"
+          content="Сувениры с логотипом на заказ. Промоподарки для партнеров, инвесторов, клиентов. Продвинутые технологии брендирования, складирование, логистика. Бесплатный дизайн-макет, скидки до 5—10 %. Бизнес-сувениры из США, Европы, Китая, России
+          "
+        />
+      </Helmet>
       <div>
         <div className="container_xxl">
           <div className="mx-3">
@@ -156,9 +170,15 @@ function Delivery() {
                           {desc}
                         </p>
                         {/* @ts-ignore */}
-                        <p className="font-Helvetica-Neue font-normal " dangerouslySetInnerHTML={{ __html: desc1 }} />
+                        <p
+                          className="font-Helvetica-Neue font-normal "
+                          dangerouslySetInnerHTML={{ __html: desc1 }}
+                        />
                         {/* @ts-ignore */}
-                        <p className="font-Helvetica-Neue font-normal" dangerouslySetInnerHTML={{ __html: desc2 }} />
+                        <p
+                          className="font-Helvetica-Neue font-normal"
+                          dangerouslySetInnerHTML={{ __html: desc2 }}
+                        />
                       </div>
                     )}
                   </TabPanel>

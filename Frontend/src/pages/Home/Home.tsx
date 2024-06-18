@@ -10,9 +10,19 @@ import {
   MainProductFilter,
 } from "../../components";
 
+import { Helmet } from "react-helmet";
+
 const Home = () => {
   return (
     <div className="home">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>
+          Корпоративные сувениры с логотипом. Изготовление и продажа. Каталог
+          сувенирной продукции
+        </title>
+        <link rel="canonical" href="http://mysite.com/example" />
+      </Helmet>
       <GiftItem />
       <div className="banner container_xxl px-3">
         <Banner />
