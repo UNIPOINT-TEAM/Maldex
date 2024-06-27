@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useFetchHook } from "../../hooks/UseFetch";
 import { Link } from "react-router-dom";
 import EmptyContant from "../../components/EmptyContant/EmptyContant";
+import { Helmet } from "react-helmet";
 
 function Articles() {
   useEffect(() => {
@@ -15,11 +16,23 @@ function Articles() {
   }, []);
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>
+          Новости - Корпоративные сувениры с логотипом. Изготовление и продажа.
+          Каталог сувенирной продукции
+        </title>
+        <meta
+          name="description"
+          content="Сувениры с логотипом на заказ. Промоподарки для партнеров, инвесторов, клиентов. Продвинутые технологии брендирования, складирование, логистика. Бесплатный дизайн-макет, скидки до 5—10 %. Бизнес-сувениры из США, Европы, Китая, России
+          "
+        />
+      </Helmet>
       {/* <TagList /> */}
       <div className="articles container_xxl py-5 px-3">
         <div className="flex flex-col gap-3">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 ">
-          {response && response.length > 0 ? (
+            {response && response.length > 0 ? (
               response.map((article) => (
                 <Link
                   key={article.id}

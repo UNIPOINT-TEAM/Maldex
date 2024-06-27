@@ -28,6 +28,7 @@ import { addToCart } from "../../store/cartSlice";
 import { useFetchHook } from "../../hooks/UseFetch";
 import { useParams } from "react-router-dom";
 import { formatPrice } from "../../utils/FormatPrice";
+import { Helmet } from "react-helmet";
 
 const CategoryDetails = () => {
   const { id } = useParams();
@@ -143,6 +144,14 @@ const CategoryDetails = () => {
 
   return (
     <div className="container_xxl tracking-wider overflow-hidden px-3">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>
+          {response?.name
+            ? `${response.name} . Нанесения логотипа компании`
+            : "Загрузка..."}
+        </title>
+      </Helmet>
       <div className="grid grid-cols-3 lg:grid-cols-10 my-5">
         <div className="h-full py-5 lg:pr-6 col-span-3 order-3 lg:order-1">
           <img src={tabImages} alt="icon" className="w-[70px] py-5" />

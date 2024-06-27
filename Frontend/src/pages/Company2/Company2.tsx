@@ -27,6 +27,7 @@ import partner18 from "../../assets/partners/partner (18).png";
 import partner19 from "../../assets/partners/partner (19).png";
 import partner20 from "../../assets/partners/partner (20).png";
 import partner21 from "../../assets/partners/partner (21).png";
+import { Helmet } from "react-helmet";
 
 import {
   CompanyBanner,
@@ -69,6 +70,17 @@ function Company2() {
   }, []);
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>
+          Корпоративные подарки с логотипом на заказ. Поставка из Китая, США,
+          Европы, России. Скидки до 10 % и более
+        </title>
+        <meta
+          name="description"
+          content="Корпоративные сувениры с логотипом заказать в Москве со скидкой до 10 % и более. Индивидуальная комплектация наборов, изготовление фирменной упаковки, свыше 10 млн позиций в каталоге сувенирной продукции, производство уникальных подарков"
+        />
+      </Helmet>
       <div className="container_xxl">
         <div className="px-3">
           {/* <div className="flex gap-3">

@@ -3,6 +3,7 @@ import error from "../../assets/images/box404.png";
 import { QuestForm } from "../../components";
 import { useFetchHook } from "../../hooks/UseFetch";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 function NotFound() {
   const [selectedCategory, setSelectedCategory] = useState("Для неё");
@@ -10,7 +11,7 @@ function NotFound() {
   const { fetchData, response: categories } = useFetchHook();
   const { fetchData: fetchSubcategories, response: subcategories } =
     useFetchHook();
-console.log(subcategories)
+  console.log(subcategories);
   useEffect(() => {
     fetchData({ method: "GET", url: `/link-tags/categories` });
   }, []);
@@ -26,6 +27,14 @@ console.log(subcategories)
 
   return (
     <div>
+      {" "}
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>
+        Страница не найдена - Корпоративные сувениры с логотипом. Изготовление и продажа. Каталог сувенирной продукции
+        </title>
+  
+      </Helmet>
       <div>
         <div className="flex flex-col lg:flex-row justify-center items-center gap-3 lg:gap-24 my-10">
           <div className="px-[84px]">
@@ -62,7 +71,8 @@ console.log(subcategories)
             <div>
               <ul className="mb-10  flex-wrap gap-y-5  hidden lg:flex">
                 {/* @ts-expect-error: This */}
-                {selectedCategory && selectedCategory?.tags?.map((tag) => (
+                {selectedCategory &&
+                  selectedCategory?.tags?.map((tag) => (
                     <Link
                       to={tag.link}
                       target="_blank"

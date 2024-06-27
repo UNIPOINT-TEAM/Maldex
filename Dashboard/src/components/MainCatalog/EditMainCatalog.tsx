@@ -118,7 +118,7 @@ const EditMainCatalog = (props?: any) => {
               </div>
               <div className="col-span-1  flex items-end">
                 <Checkbox
-                  label="Is hit"
+                  label="hit!"
                   color="blue"
                   // @ts-ignore
                   defaultChecked={statusCategory.hit}
@@ -131,7 +131,7 @@ const EditMainCatalog = (props?: any) => {
                   }
                 />
                 <Checkbox
-                  label="Is new"
+                  label="new!"
                   color="blue"
                   // @ts-ignore
                   defaultChecked={statusCategory.isnew}
@@ -144,7 +144,7 @@ const EditMainCatalog = (props?: any) => {
                   }
                 />
                 <Checkbox
-                  label="Is popular"
+                  label="Добавить в хедер"
                   color="blue"
                   // @ts-ignore
                   defaultChecked={statusCategory.popular}
@@ -185,7 +185,7 @@ const EditMainCatalog = (props?: any) => {
                   // @ts-ignore
                   onChange={(e) => setLogo(e.target.files[0])}
                 />
-                <p className="text-fs-6">изменять логотип категории</p>
+                <p className="text-fs-6">Изменять логотип в хедере</p>
                 <div className="flex items-center">
                   {logo == null ? (
                     <img src={`${logofake}`} className="w-[50px]" alt="" />
@@ -210,7 +210,7 @@ const EditMainCatalog = (props?: any) => {
                   // @ts-ignore
                   onChange={(e) => setIcon(e.target.files[0])}
                 />
-                <p className="text-fs-6">изменять икона категории</p>
+                <p className="text-fs-6">Изменять логотип в категории</p>
                 <div className="flex items-center">
                   {icon == null ? (
                     <img src={`${iconfake}`} className="w-[50px]" alt="" />

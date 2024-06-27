@@ -77,19 +77,19 @@ const AddMainCatalog = ({ status, onChange }) => {
               </div>
               <div className="col-span-1  flex items-end">
                 <Checkbox
-                  label="Is hit"
+                  label="hit!"
                   color="blue"
                   checked={isHit}
                   onChange={(e) => setIsHit(e.target.checked)}
                 />
                 <Checkbox
-                  label="Is new"
+                  label="new!"
                   color="blue"
                   checked={isNew}
                   onChange={(e) => setIsNew(e.target.checked)}
                 />
                 <Checkbox
-                  label="Is popular"
+                  label="Добавить в хедер"
                   color="blue"
                   checked={isPopular}
                   onChange={(e) => setIsPopular(e.target.checked)}
@@ -125,7 +125,7 @@ const AddMainCatalog = ({ status, onChange }) => {
                     setLogo(e.target.files[0]), console.log(e.target.files[0]);
                   }}
                 />
-                <p className="text-fs-6"> Добавить логотип в категорию</p>
+                <p className="text-fs-6"> Добавить логотип в хедере</p>
                 <img src={''} alt="" />
               </label>
             </div>
@@ -142,7 +142,7 @@ const AddMainCatalog = ({ status, onChange }) => {
                   // @ts-ignore
                   onChange={(e) => setIcon(e.target.files[0])}
                 />
-                <p className="text-fs-6">Добавить икона категории</p>
+                <p className="text-fs-6">Добавить логотип в  категории</p>
               </label>
             </div>
           </CardBody>
