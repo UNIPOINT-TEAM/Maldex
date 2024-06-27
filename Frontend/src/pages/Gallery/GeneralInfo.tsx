@@ -1,12 +1,14 @@
 import upload from "../../assets/icons/upload.svg";
 import download from "../../assets/icons/rub.svg";
 import { Switch } from "@material-tailwind/react";
-
+import { jsPDF } from "jspdf";
 import { AllDeleteModal } from "../../components/Gallery/AllDeleteModal";
 import { updateStatus } from "../../store/carouselReducer";
 import { useDispatch, useSelector } from "react-redux";
 import React from "react";
 import SavePdf from "../../components/Gallery/SavePdf";
+import ExcelJS from "exceljs";
+import { saveAs } from "file-saver";
 
 const Checkdata: {
   title: string;
@@ -62,8 +64,10 @@ const Checkdata: {
 const GeneralInfo = () => {
   /*@ts-expect-error: This */
   const itemsStatus = useSelector((state) => state.carousel.status);
+  const items = useSelector((state) => state.carousel.items);
+  console.log(items[0]?.data);
   const dispatch = useDispatch();
-
+  console.log(items);
   const handleSwitchChange = (
     name:
       | "landscape_visible"
@@ -79,7 +83,119 @@ const GeneralInfo = () => {
   ) => {
     dispatch(updateStatus({ name, isChacked }));
   };
+
   const pdfExportComponent = React.useRef(null);
+  const generatePDF = () => {
+    // var rep = new jsPDF("p", "pt", "a4");
+    // rep.setLanguage("ru");
+    // rep.addFont(
+    //   "/Frontend/public/fonts/HelveticaNeue-01.ttf",
+    //   "HelveticaNeue",
+    //   "normal"
+    // );
+    // rep.html(document.querySelector("#rep1"), {
+    //   callback: function (pdf) {
+    //     pdf.save("report.pdf");
+    //   },
+    // });
+  };
+
+  const exportToExcel = async () => {
+    const wb = new ExcelJS.Workbook();
+    const ws = wb.addWorksheet("Sheet1");
+    ws.addRow([`Коммерческое предложение №126417`]);
+    ws.addRow([]);
+    ws.addRow([
+      "Имя",
+      "Цвет",
+      "Артикул",
+      "Изображение",
+      "Цена",
+      "Всего",
+      "Материал",
+      "Сайт",
+    ]);
+
+    for (let product of items) {
+      const productRow = ws.addRow([
+        product?.data?.name,
+        product?.data?.colorID?.name,
+        product?.data?.article,
+        "",
+        product?.data?.discount_price > 0
+          ? product?.data?.discount_price
+          : product?.data?.price,
+        product?.data?.totalPrice,
+        product?.data?.material,
+        product?.data?.site,
+      ]);
+
+      if (product?.data?.images_set[0]?.image_url) {
+        try {
+          const imageUrl = product?.data?.images_set[0]?.image_url;
+          const response = await fetch(imageUrl, { mode: "cors" });
+
+          if (!response.ok) {
+            throw new Error(`Failed to fetch image: ${response.statusText}`);
+          }
+
+          const imageBlob = await response.blob();
+          const imageBuffer = await imageBlob.arrayBuffer();
+          const imageId = wb.addImage({
+            buffer: imageBuffer,
+            extension: "jpeg",
+          });
+          ws.addImage(imageId, {
+            tl: { col: 3, row: productRow.number - 1 },
+            ext: { width: 100, height: 100 },
+          });
+          ws.getRow(productRow.number).height = 100;
+          ws.getRow(productRow.number).alignment = {
+            vertical: "middle",
+          };
+        } catch (error) {
+          console.error("Error fetching image:", error);
+        }
+      }
+    }
+
+    // Set styles for the first row
+    ws.getRow(1).font = {
+      size: 18,
+      bold: true,
+      color: { argb: "FFFFFFFF" },
+    };
+    ws.getRow(1).height = 80;
+    ws.getRow(1).alignment = {
+      vertical: "middle",
+    };
+    ws.getRow(1).fill = {
+      type: "pattern",
+      pattern: "solid",
+      fgColor: { argb: "EC1026" },
+    };
+
+    // Set column widths
+    ws.columns = [
+      { width: 30 },
+      { width: 15 },
+      { width: 15 },
+      { width: 25 },
+      { width: 10 },
+      { width: 10 },
+      { width: 15 },
+    ];
+
+    // Merge cells for the title
+    ws.mergeCells("A1:F1");
+
+    // Generate the Excel file
+    const buffer = await wb.xlsx.writeBuffer();
+    const blob = new Blob([buffer], {
+      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    });
+    saveAs(blob, "Коммерческое предложение.xlsx");
+  };
 
   return (
     <div className="px-5 pb-16 col-span-4 py-3 h-full  border-0 border-r border-lightSecondary">
@@ -89,18 +205,11 @@ const GeneralInfo = () => {
           <img src={upload} alt="upload-icon" />
           <span>Отправить КП</span>
         </button>
-        <button className="flex items-center gap-3">
+        <button onClick={exportToExcel} className="flex items-center gap-3">
           <img src={download} alt="download-icon" />
           <span>Скачать XLSXП</span>
         </button>
-        <button
-          className="flex items-center gap-3"
-          onClick={() => {
-            if (pdfExportComponent.current) {
-              pdfExportComponent.current.save();
-            }
-          }}
-        >
+        <button className="flex items-center gap-3" onClick={generatePDF}>
           <img src={download} alt="download-icon" />
           <span>Скачать PDF</span>
         </button>
@@ -138,13 +247,7 @@ const GeneralInfo = () => {
       <button className="w-[210px] text-fs_8 font-bold   text-darkSecondary rounded-[10px] h-[50px] mt-8 bg-white border border-darkSecondary outline-none uppercase">
         сохранить
       </button>
-      <div
-        style={{
-          position: "absolute",
-          left: "-1000%",
-          top: 0,
-        }}
-      >
+      <div style={{ visibility: "hidden", height: 0 }}>
         <SavePdf pdfExportComponent={pdfExportComponent} />
       </div>
     </div>

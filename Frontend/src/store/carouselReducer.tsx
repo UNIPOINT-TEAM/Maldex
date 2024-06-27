@@ -1,10 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import DefaultTemplate from "../components/GalleryLayoutTemplate/DefaultTemplate";
-import PdfDefault from "../components/GalleryLayoutTemplate/PdfTemplate/DefaultTemplate";
-const products = JSON.parse(localStorage.getItem("cart") || "[]");
-
 interface CarouselState {
   items: any[];
   status: {
@@ -22,21 +18,7 @@ interface CarouselState {
 }
 
 const initialState: CarouselState = {
-  items:
-    products.map((product) => ({
-      data: product,
-      template: <DefaultTemplate />,
-      pdfTemplate: <PdfDefault />,
-      background: {
-        color: "",
-        image: "",
-        currentSlide: true,
-        allSlider: false,
-      },
-      applying: {
-        image: "",
-      },
-    })) || [],
+  items: [],
   status: {
     landscape_visible: true,
     standard_visible: false,
@@ -55,6 +37,9 @@ const carouselSlice = createSlice({
   name: "carousel",
   initialState,
   reducers: {
+    getItems: (state, action) => {
+      state.items = action.payload;
+    },
     addItem: (state) => {
       state.items.push({
         template: null,
@@ -130,6 +115,7 @@ export const {
   updateStatus,
   updateItem,
   clearItems,
+  getItems,
 } = carouselSlice.actions;
 
 export default carouselSlice.reducer;

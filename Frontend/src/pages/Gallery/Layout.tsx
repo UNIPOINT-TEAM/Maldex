@@ -1,36 +1,66 @@
 import { LuListFilter } from "react-icons/lu";
-import { Galleryslider, LayoutSideCard } from "../../components";
+import { debounce } from "lodash";
+import { LayoutSideCard, MoreFilter } from "../../components";
 import { useDispatch } from "react-redux";
 import { updateItem } from "../../store/carouselReducer";
 import DefaultTemplate from "../../components/GalleryLayoutTemplate/DefaultTemplate";
-const LayoutItems = [
-  {
-    id: "1",
-    name: "Инновационный очиститель, обеззараживатель, озонатор воздуха",
-    price: "15 185.52 ₽",
-    circulation: 25,
-    total: "1 125.00",
-    image:
-      "https://s3-alpha-sig.figma.com/img/d77d/8e91/1b1b0cbce5edb9f56fa540413c1d843a?Expires=1715558400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=OJ67nt-GqeDd-8ZQ6jWXj7Mb~iVYdw62sQ5G4mKkrJmkHUXWm6KkoMJSpdbqICxiT944CwZfxPqaJsfqEDmTn96a-BTVKGclP9V7U4ld3BoSh3702MmowA6KyBxT22t7HxXelUFCLwBLTkeaFFRpXH63lfQMudgZ9OHIUUyjSfr~SSORFkZRblM7O55IHEMtjBXRPn1ShTrNnAstOzRhDuh9uDEC3wZkWsC690zkpKJb7ZWbaASGYZfUxYw4~2dx7VpoBXJTHSypQ1aVi52e4h5Kxzas-pn9pa-qt-Dsxi7nKl4EETB7xzy1FmA6Cn-Gku0-gwYeTbhwjxqt8dfvsQ__",
-    characteristics: {
-      vendor_code: "47583957",
-      size: "20х25х10 см",
-      material: "сатин, картон, 120 г/м2",
-      width: "(1 шт.): 39,04 г ",
-      available_application:
-        "DTF-Полноцвет с трансфером, SH-Шелкография (не более 1 цвета)",
-    },
-    description:
-      "Если вы думаете о s'mores как о чем-то, что нельзя отправить по почте, подумайте еще раз! Этот подарочный набор превращает всеми любимую закуску у костра в изысканную форму искусства, и он не для случайных любителей. Конечно, потребуется некоторая сборка, но все знают, что это часть удовольствия.",
-  },
-];
+import { useCallback, useEffect, useState } from "react";
+import axios from "axios";
+import { BASE_URL } from "../../utils";
+import AddProductModal from "../../components/Gallery/AddProductModal";
+
+const FilterBtn: React.FC<{ filterCount?: number }> = ({ filterCount }) => {
+  return (
+    <button className="flex items-center gap-2 border text-darkSecondary border-lightSecondary h-[34px] rounded-lg font-normal px-3">
+      Все фильтры {filterCount > 0 && `(${filterCount})`}
+      <LuListFilter />
+    </button>
+  );
+};
 const Layout = () => {
   const dispatch = useDispatch();
-  /*@ts-expect-error: This */
-  const updateItems = (item) => {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get(`${BASE_URL}/product/`)
+      .then((res) => {
+        setProducts(res.data.results.slice(0, 20));
+        setLoading(false);
+      })
+      .finally(() => setLoading(false));
+  }, []);
+  const debouncedSearch = useCallback(
+    debounce(async (searchTerm: string) => {
+      try {
+        const [productResponse] = await Promise.all([
+          axios.get(`${BASE_URL}/product/?search=${searchTerm}`),
+        ]);
+
+        setProducts(productResponse.data.results);
+      } catch (error) {
+        console.error("Error fetching search results", error);
+      }
+    }, 200),
+    []
+  );
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    debouncedSearch(e.target.value);
+  };
+
+  const handleFilter = (query: string) => {
+    axios.get(`${BASE_URL}/product/${query}`).then((res) => {
+      setProducts(res.data.results);
+    });
+  };
+
+  const updateItems = (item: any) => {
     dispatch(
       updateItem({
-        data: item,
+        data: { ...item, quantity: 1, totalPrice: item.price },
         template: <DefaultTemplate />,
         background: {
           color: "",
@@ -42,16 +72,14 @@ const Layout = () => {
     );
   };
   return (
-    <div className="px-5  py-3 h-full min-h-screen  border-0 border-r border-lightSecondary">
+    <div className="px-5 relative py-3 h-full min-h-screen  border-0 border-r border-lightSecondary">
       <div className="heading">
         <div className="border text-darkSecondary text-[9px] font-bold border-lightSecondary rounded-lg px-3 py-2 flex justify-between">
           <div className="flex gap-2">
             <button className="border px-[14px] py-2 border-darkSecondary uppercase rounded-lg">
               объединить
             </button>
-            <button className="border px-[14px] py-2 border-darkSecondary uppercase rounded-lg">
-              Добавить товар
-            </button>
+            <AddProductModal setProducts={setProducts} />
           </div>
           <button className="border px-[14px] py-2 border-darkSecondary uppercase rounded-lg">
             сохранить
@@ -63,6 +91,7 @@ const Layout = () => {
               className="border text-base  border-lightSecondary  placeholder:text-darkSecondary h-[34px] ps-8  rounded-lg font-normal focus:outline-none"
               name="search"
               placeholder="Поиск"
+              onChange={handleInputChange}
             />
             <button
               type="submit"
@@ -86,17 +115,23 @@ const Layout = () => {
             </button>
           </div>
           <div className="col-span-2  pt-2 flex items-center justify-end">
-            <button className="flex items-center gap-2 border text-darkSecondary border-lightSecondary h-[34px] rounded-lg font-normal px-3">
-              <LuListFilter />
-              <span className="text-base">Все фильтры</span>
-            </button>
+            <MoreFilter
+              FilterBtn={<FilterBtn />}
+              type={"ALL_FILTR"}
+              onFilter={handleFilter}
+              presentation={true}
+            />
           </div>
         </div>
       </div>
-      <div className="body flex flex-wrap gap-y-8 justify-between mt-4">
-        {LayoutItems.map((item, index) => (
-          <div onClick={() => updateItems(item)} key={index}>
-            <LayoutSideCard {...item} />
+      <div className="body grid grid-cols-2 gap-y-8 mt-4 overflow-y-auto ">
+        {products?.map((item, index) => (
+          <div
+            className="flex items-center justify-center"
+            onClick={() => updateItems(item)}
+            key={index}
+          >
+            <LayoutSideCard {...item} loading={loading} />
           </div>
         ))}
       </div>

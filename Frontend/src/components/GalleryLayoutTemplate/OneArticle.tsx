@@ -37,13 +37,18 @@ const OneArticle: React.FC<TemplateData> = ({ data, background }) => {
       id="one-aticle"
     >
       <div className="heading grid grid-cols-12 items-center w-full h-[20%]">
-        <div className={"col-span-7 relative h-[80%]   "}>
-          <Rnd className={`${!data?.name ? "bg-[#eeede9]" : "bg-transparent"}`}>
-            <input
-              type="text"
+        <div
+          className={`col-span-12 relative h-[80%] ${
+            !data?.name ? "w-[65%]" : "w-full"
+          }`}
+        >
+          <Rnd
+            className={` ${!data?.name ? "bg-[#eeede9]" : "bg-transparent"}`}
+          >
+            <textarea
+              name="name"
               value={data?.name}
               onChange={handleChangeItem}
-              name="name"
               className="text-[36px] h-full w-full font-medium p-[4px] bg-transparent rounded-lg focus:outline outline-[#e99125]"
             />
           </Rnd>
@@ -63,28 +68,33 @@ const OneArticle: React.FC<TemplateData> = ({ data, background }) => {
                 className="sr-only"
                 onChange={handleChangeItem}
               />
-              {!data?.image && (
-                <div className=" h-full flex items-center justify-center bg-[#eeede9]">
-                  <img
-                    src={templateTShirt}
-                    alt="template T-shirt"
-                    className="object-contain w-[80%] h-[90%]"
-                  />
-                </div>
-              )}
-              {data?.image && (
-                <div className="relative h-full col-span-3 flex justify-center items-center">
-                  <div className="absolute top-[50%] ">
-                    {/*@ts-expect-error: This */}
-                    <AddAplying productData={data} />
+              {!data?.images_set[0].image ||
+                (!data.images_set[0].image_url && (
+                  <div className=" h-full flex items-center justify-center bg-[#eeede9]">
+                    <img
+                      src={templateTShirt}
+                      alt="template T-shirt"
+                      className="object-contain w-[80%] h-[90%]"
+                    />
                   </div>
-                  <img
-                    src={data?.image}
-                    alt=""
-                    className=" h-[90%] object-contain"
-                  />
-                </div>
-              )}
+                ))}
+              {data?.images_set[0].image ||
+                (data.images_set[0].image_url && (
+                  <div className="relative h-full col-span-3 flex justify-center items-center">
+                    <div className="absolute top-[50%] ">
+                      {/*@ts-expect-error: This */}
+                      <AddAplying productData={data} />
+                    </div>
+                    <img
+                      src={
+                        data?.images_set[0].image_url ||
+                        data?.images_set[0].image
+                      }
+                      alt=""
+                      className=" h-[90%] object-contain"
+                    />
+                  </div>
+                ))}
             </label>
           </Rnd>
         </div>

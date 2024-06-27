@@ -17,10 +17,7 @@ import html2canvas from "html2canvas";
 
 const Galleryslider = () => {
   const dispatch = useDispatch();
-  // @ts-expect-error: This
   const items = useSelector((state) => state.carousel.items);
-
-  // @ts-expect-error: This
   const activeIndex = useSelector((state) => state.carousel.activeCaruselIndex);
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperCore>();
   const swiperRef = React.useRef(null);
@@ -33,7 +30,6 @@ const Galleryslider = () => {
         items.map(async (item, i) => {
           const container = containerRefs.current[i];
           if (!container) return "";
-
           const canvas = await html2canvas(container);
           const blob = await new Promise<Blob | null>((resolve) =>
             canvas.toBlob(resolve)
@@ -48,8 +44,10 @@ const Galleryslider = () => {
       setThumbnails(newThumbnails);
     };
 
-    generateThumbnails();
+    const timeoutId = setTimeout(generateThumbnails, 1000);
+    return () => clearTimeout(timeoutId);
   }, [items]);
+
   return (
     <div className="w-full h-full relative">
       <div className="flex mt-4 w-full">
@@ -124,7 +122,6 @@ const Galleryslider = () => {
             modules={[FreeMode, Navigation, Thumbs, Controller]}
             className="w-full h-[500px] bg-[#eaebea] rounded-lg "
           >
-            {/*@ts-expect-error: This */}
             {items.map((item, i) => (
               <SwiperSlide
                 key={i}
@@ -141,7 +138,7 @@ const Galleryslider = () => {
             ))}
           </Swiper>
         )}
-        {items.length > 0 && (
+        {thumbnails.length > 0 && (
           <>
             <Swiper
               spaceBetween={20}
@@ -152,14 +149,14 @@ const Galleryslider = () => {
               modules={[FreeMode, Navigation, Thumbs]}
               className="w-full cursor-pointer border relative border-lightSecondary my-4 rounded-lg p-4"
             >
-              {thumbnails.map((item, i) => (
+              {items.map((_item, i) => (
                 <SwiperSlide
                   key={i}
-                  className="h-[90px] rounded-lg w-[145px] border"
+                  className="h-[90px] rounded-lg w-[145px] border p-1"
                 >
                   <img
-                    src={item}
-                    alt="slider-img"
+                    src={thumbnails[i]}
+                    alt=""
                     className="object-cover rounded-lg object-center h-full"
                   />
                 </SwiperSlide>

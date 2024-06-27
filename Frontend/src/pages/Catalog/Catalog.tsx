@@ -78,7 +78,6 @@ const Catalog = () => {
       <div className="w-full h-full">
         <div className="card container_xxl px-3 my-0 sm:my-10 ">
           <h1 className="text-3xl mb-5 mt-5 md:mt-0">
-            {/*@ts-expect-error: This */}
             {response && response?.name}
           </h1>
           <div className="flex justify-between items-center md:border-b-[1px] pb-2 mb-3">

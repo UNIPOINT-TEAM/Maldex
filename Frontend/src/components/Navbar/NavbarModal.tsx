@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import Arrow from "../../assets/icons/arrow-right.png";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoClose } from "react-icons/io5";
-import { Spinner } from "@material-tailwind/react";
 
 const NavbarModal = () => {
   const [activeItem, setActiveItem] = useState<number | null>(null);
@@ -24,11 +23,7 @@ const NavbarModal = () => {
   };
   const handleCategoryItemClick = (id: number) => setActiveCategoryItem(id);
   const { fetchData, response } = useFetchHook();
-  const {
-    fetchData: fetchData2,
-    response: response2,
-    isLoading: isLoading2,
-  } = useFetchHook();
+  const { fetchData: fetchData2, response: response2 } = useFetchHook();
   const [activeCategoryId, setActiveCategoryId] = useState<null | number>(null);
   useEffect(() => {
     fetchData({ method: "GET", url: "/product/categories/?is_available=true" });
@@ -52,7 +47,6 @@ const NavbarModal = () => {
     setActiveCategoryId(id);
     fetchData2({ method: "GET", url: `product/?category_id=${id}` });
   };
-
   return (
     <>
       <button

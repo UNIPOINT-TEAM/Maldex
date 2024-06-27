@@ -73,8 +73,9 @@ const CardModal = () => {
                           style={{ mixBlendMode: "multiply" }}
                           className="w-full h-full rounded-xl p-3 object-cover"
                           src={
-                            item.images_set[0].image_url ||
-                            item.images_set[0].image
+                            (item?.images_set &&
+                              item?.images_set[0]?.image_url) ||
+                            (item?.images_set && item?.images_set[0]?.image)
                           }
                           alt=""
                         />

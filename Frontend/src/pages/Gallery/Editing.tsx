@@ -1,9 +1,9 @@
 import { Checkbox } from "@material-tailwind/react";
-import { Galleryslider } from "../../components";
 import { MdOutlineAdd } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { updateItem } from "../../store/carouselReducer";
+import defaultBg from "../../assets/Gallery/default-bg.jpg";
 
 const colors = ["#ffff", "#bfedee", "#bbe3de", "#fcf2e5", "#fed4d4", "#e4d3f2"];
 const buttons = [
@@ -34,7 +34,6 @@ const Editing = () => {
     };
     dispatch(updateItem(updatedItem));
   };
-  console.log(items[activeIndex]);
 
   return (
     <div className="px-5 col-span-4 py-3 h-full min-h-screen  border-0 border-r border-lightSecondary">
@@ -174,8 +173,7 @@ const Editing = () => {
                     ...items[activeIndex],
                     background: {
                       ...items[activeIndex]?.background,
-                      image:
-                        "https://s3-alpha-sig.figma.com/img/4435/2dc8/607387b2f6ff21170b7e0dc90d9785ba?Expires=1715558400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ls~w8yo4BJ3i5qQsDB3TOjXwkJ1U59j76Otn9JvRgvHpzKDRXz~F8UgSveIn89-yg0Inqf-oGHjScdAUq7WconBED6MeHHhrynugK2mkfjUlPc2~yEyU7lRNFECkqsxCwkmlIffgOzTSGa29BFmAwTUe1EzrGN2isBxO3cSPui9urBi5ZdlPQ-0NF7PWoU0IYSvmoCcmohlEAhzDCaAOGU7TOXhgvkMM0fydGny-kJ53jNkOU9R1o0zWssoqVsSr0pYD17KXhtcZz958PmWJVlMnm-qmeUN0XockSL6Ht7OL4B4KOVDdi7PiB9kLzOBiYxvdg-8jiIB9Z3lwBbnQfg__",
+                      image: defaultBg,
                     },
                   })
                 )
@@ -183,9 +181,7 @@ const Editing = () => {
               className="card border-2 cursor-pointer rounded-xl border-lightSecondary  w-[120px] h-[64px]"
             >
               <img
-                src={
-                  "https://s3-alpha-sig.figma.com/img/4435/2dc8/607387b2f6ff21170b7e0dc90d9785ba?Expires=1715558400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ls~w8yo4BJ3i5qQsDB3TOjXwkJ1U59j76Otn9JvRgvHpzKDRXz~F8UgSveIn89-yg0Inqf-oGHjScdAUq7WconBED6MeHHhrynugK2mkfjUlPc2~yEyU7lRNFECkqsxCwkmlIffgOzTSGa29BFmAwTUe1EzrGN2isBxO3cSPui9urBi5ZdlPQ-0NF7PWoU0IYSvmoCcmohlEAhzDCaAOGU7TOXhgvkMM0fydGny-kJ53jNkOU9R1o0zWssoqVsSr0pYD17KXhtcZz958PmWJVlMnm-qmeUN0XockSL6Ht7OL4B4KOVDdi7PiB9kLzOBiYxvdg-8jiIB9Z3lwBbnQfg__"
-                }
+                src={defaultBg}
                 alt="slider-img"
                 className="h-full w-full object-cover rounded-xl object-center"
               />
@@ -268,7 +264,7 @@ const Editing = () => {
         <textarea
           name="description"
           onChange={handleInputChange}
-          value={items[activeIndex].data?.description}
+          value={items[activeIndex]?.data?.description}
           className="border-2 border-redPrimary w-full rounded-xl resize-none p-2 outline-0"
           cols={30}
           rows={5}
@@ -285,7 +281,9 @@ const Editing = () => {
             </label>
             <input
               id="material"
-              value={items[activeIndex]?.data?.characteristics?.material}
+              name="material"
+              onChange={handleInputChange}
+              value={items[activeIndex]?.data?.material}
               className="w-auto h-4 px-1 border border-lightSecondary outline-0 rounded-[10px]"
             />
           </div>
@@ -294,8 +292,10 @@ const Editing = () => {
               размер
             </label>
             <input
-              id="material"
-              value={items[activeIndex]?.data?.characteristics?.size}
+              id="size"
+              name="product_size"
+              onChange={handleInputChange}
+              value={items[activeIndex]?.data?.product_size}
               className="w-auto px-1 h-4 border border-lightSecondary outline-0 rounded-[10px]"
             />
           </div>
@@ -304,8 +304,10 @@ const Editing = () => {
               вес
             </label>
             <input
-              id="material"
-              value={items[activeIndex]?.data?.characteristics?.width}
+              id="weight"
+              name="weight"
+              onChange={handleInputChange}
+              value={items[activeIndex]?.data?.weight}
               className="w-[66px] px-1 h-4 border border-lightSecondary outline-0 rounded-[10px]"
             />
           </div>
@@ -314,7 +316,9 @@ const Editing = () => {
               артикул
             </label>
             <input
-              id="material"
+              id="article"
+              name="article"
+              onChange={handleInputChange}
               value={items[activeIndex]?.data?.article}
               className="w-[66px] px-1 h-4 border border-lightSecondary outline-0 rounded-[10px]"
             />
@@ -326,7 +330,9 @@ const Editing = () => {
               цена
             </h2>
             <input
-              id="material"
+              id="price"
+              name="price"
+              onChange={handleInputChange}
               value={items[activeIndex]?.data?.price}
               className="w-[110px] text-fs_8 h-[26px] px-1 border border-lightSecondary outline-0 rounded-[10px]"
             />
@@ -336,7 +342,9 @@ const Editing = () => {
               тираж
             </h2>
             <input
-              id="material"
+              id="quantity"
+              name="quantity"
+              onChange={handleInputChange}
               value={items[activeIndex]?.data?.quantity}
               className="w-[110px] text-fs_8 h-[26px] px-1 border border-lightSecondary outline-0 rounded-[10px]"
             />

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Rnd } from "react-rnd";
 import { TemplateData } from "../../types";
 import AddAplying from "../Gallery/AddAplying";
+import { updateItem } from "../../store/carouselReducer";
 
 const DefaultTemplate: React.FC<TemplateData> = ({
   data,
@@ -17,24 +18,23 @@ const DefaultTemplate: React.FC<TemplateData> = ({
     total_visible,
     circulationAmount_visible,
     codeArticle_visible,
-    // @ts-expect-error: This
   } = useSelector((state) => state.carousel.status);
-  const [productData, setProductData] = useState({
-    name: data?.name,
-    price: data?.price,
-    circulation: data?.quantity,
-    total: data?.totalPrice,
-    description: data?.description,
-    characteristics: data?.characteristics,
-    image: data?.images_set[0].image_url || data?.images_set[0].image,
-  });
-  const defaultRef = React.useRef(null);
 
+  const items = useSelector((state) => state.carousel.items);
+  const defaultRef = React.useRef(null);
+  const dispatch = useDispatch();
+  const activeIndex = useSelector((state) => state.carousel.activeCaruselIndex);
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ): void => {
-    const { name, value } = event.target;
-    setProductData((prevData) => ({ ...prevData, [name]: value }));
+    const updatedItem = {
+      ...items[activeIndex],
+      data: {
+        ...items[activeIndex]?.data,
+        [event.target.name]: event.target.value,
+      },
+    };
+    dispatch(updateItem(updatedItem));
   };
   const inputStyle =
     "bg-transparent font-medium p-[6px] rounded-lg focus:outline outline-[#e99125]";
@@ -70,7 +70,6 @@ const DefaultTemplate: React.FC<TemplateData> = ({
         } p-8 flex relative justify-center items-center w-full`}
       >
         <div className="absolute top-[50%] ">
-          {/*@ts-expect-error: This */}
           <AddAplying productData={data} />
         </div>
         <img
@@ -105,7 +104,7 @@ const DefaultTemplate: React.FC<TemplateData> = ({
                 </h3>
                 <input
                   name="price"
-                  value={productData.price}
+                  value={data?.price}
                   onChange={handleInputChange}
                   className={`${inputStyle} text-fs_4 w-full`}
                 />
@@ -119,8 +118,8 @@ const DefaultTemplate: React.FC<TemplateData> = ({
                   Тираж (шт)
                 </h3>
                 <input
-                  name="circulation"
-                  value={productData.circulation}
+                  name="quantity"
+                  value={data?.quantity}
                   className={`${inputStyle} text-fs_4 w-full`}
                   onChange={handleInputChange}
                 />
@@ -134,10 +133,8 @@ const DefaultTemplate: React.FC<TemplateData> = ({
                   Итого
                 </h3>
                 <input
-                  name="circulation"
-                  value={productData.total + "₽"}
+                  value={data?.totalPrice + "₽"}
                   className={`${inputStyle} text-fs_4 w-[150px]`}
-                  onChange={handleInputChange}
                 />
               </div>
             )}
@@ -150,8 +147,9 @@ const DefaultTemplate: React.FC<TemplateData> = ({
               <div className="flex items-center gap-1">
                 <label htmlFor="vendor-code">Артикул:</label>
                 <input
-                  id="vendor-code"
-                  name="vendor-code"
+                  id="article"
+                  name="article"
+                  onChange={handleInputChange}
                   className={"outline-[#e99125] px-2 rounded-xl bg-transparent"}
                   value={data?.article}
                 />
@@ -162,12 +160,13 @@ const DefaultTemplate: React.FC<TemplateData> = ({
                 <div className="flex items-center gap-1">
                   <label htmlFor="size">Размер:</label>
                   <input
-                    id="size"
-                    name="size"
+                    id="product_size"
+                    name="product_size"
+                    onChange={handleInputChange}
                     className={
                       "outline-[#e99125] px-2 rounded-xl bg-transparent"
                     }
-                    value={0}
+                    value={data?.product_size}
                   />
                 </div>
                 <div className="flex items-center gap-1">
@@ -175,21 +174,23 @@ const DefaultTemplate: React.FC<TemplateData> = ({
                   <input
                     id="material"
                     name="material"
+                    onChange={handleInputChange}
                     className={
                       "outline-[#e99125] px-2 rounded-xl bg-transparent"
                     }
-                    value={0}
+                    value={data?.material}
                   />
                 </div>
                 <div className="flex items-center gap-1">
                   <label htmlFor="color">Вес:</label>
                   <input
-                    id="color"
-                    name="color"
+                    id="weight"
+                    name="weight"
+                    onChange={handleInputChange}
                     className={
                       "outline-[#e99125] px-2 rounded-xl bg-transparent"
                     }
-                    value={0}
+                    value={data?.weight}
                   />
                 </div>
                 <div className="flex items-center gap-1">
@@ -207,18 +208,19 @@ const DefaultTemplate: React.FC<TemplateData> = ({
             )}
           </Rnd>
         </div>
-
         {description_visible && landscape_visible! && (
           <div className="relative w-full">
-            <Rnd>
-              <textarea
-                name="description"
-                value={data?.description}
-                onChange={handleInputChange}
-                rows={6}
-                className="w-full bg-transparent mt-2 resize-none rounded-lg max-h-[300px] font-normal p-[6px] overflow-hidden leading-tight focus:outline outline-[#e99125]"
-              />
-            </Rnd>
+            {data?.description && (
+              <Rnd>
+                <textarea
+                  name="description"
+                  value={data?.description}
+                  onChange={handleInputChange}
+                  rows={6}
+                  className="w-full bg-transparent mt-2 resize-none rounded-lg max-h-[300px] font-normal p-[6px] overflow-hidden leading-tight focus:outline outline-[#e99125]"
+                />
+              </Rnd>
+            )}
           </div>
         )}
       </div>

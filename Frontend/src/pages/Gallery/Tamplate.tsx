@@ -1,7 +1,6 @@
 import { IoMdAdd } from "react-icons/io";
 import { useDispatch } from "react-redux";
 import { SAMPLE_TEMPLATES } from "../../constants/editor";
-import { Galleryslider } from "../../components";
 import { updateTemplate } from "../../store/carouselReducer";
 
 const Tamplate = () => {

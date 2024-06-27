@@ -10,7 +10,6 @@ import Close from "../../assets/icons/close.png";
 import { useFetchHook } from "../../hooks/UseFetch";
 import { Link } from "react-router-dom";
 const sizes = ["S", "M", "L", "XL", "XXL", "XXXL"];
-// @ts-ignore
 function Icon({ id, open }) {
   return (
     <svg
@@ -32,7 +31,12 @@ function Icon({ id, open }) {
   );
 }
 
-const MoreFilter = ({ FilterBtn, type }) => {
+const MoreFilter: React.FC<any> = ({
+  FilterBtn,
+  type,
+  onFilter,
+  presentation,
+}) => {
   const [activeCard, setActiveCard] = useState(false);
   const [filter, setFilter] = useState(false);
   const [open, setOpen] = useState(1);
@@ -181,6 +185,11 @@ const MoreFilter = ({ FilterBtn, type }) => {
       gender: "",
       print_type: "",
     });
+  };
+
+  const combinetShow = () => {
+    onFilter(generateQueryString());
+    setActiveCard(false);
   };
 
   return (
@@ -648,13 +657,22 @@ const MoreFilter = ({ FilterBtn, type }) => {
                   >
                     Сбросить
                   </button>
-                  <Link
-                    onClick={() => setActiveCard(false)}
-                    to={`/catalog/${generateQueryString()}`}
-                    className="bg-white  h-[48px] w-[160px] capitalize  flex items-center justify-center font-bold rounded-lg border border-darkPrimary"
-                  >
-                    показать {countFilters() > 0 && `(${countFilters()})`}
-                  </Link>
+                  {presentation ? (
+                    <button
+                      onClick={combinetShow}
+                      className="bg-white  h-[48px] w-[160px] capitalize  flex items-center justify-center font-bold rounded-lg border border-darkPrimary"
+                    >
+                      показать {countFilters() > 0 && `(${countFilters()})`}
+                    </button>
+                  ) : (
+                    <Link
+                      onClick={() => setActiveCard(false)}
+                      to={`/catalog/${generateQueryString()}`}
+                      className="bg-white  h-[48px] w-[160px] capitalize  flex items-center justify-center font-bold rounded-lg border border-darkPrimary"
+                    >
+                      показать {countFilters() > 0 && `(${countFilters()})`}
+                    </Link>
+                  )}
                 </div>
               </div>
             </div>
