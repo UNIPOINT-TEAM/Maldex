@@ -5,6 +5,7 @@ import QuestionIcon from "../../assets/icons/questionIcon.png";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCarts, removeFromCart, updateCart } from "../../store/cartSlice";
 import { Link } from "react-router-dom";
+import axios from "axios"; // Импортируем axios
 
 const Cart = () => {
   const carts = useSelector(getAllCarts);
@@ -29,6 +30,34 @@ const Cart = () => {
     /*@ts-expect-error: This */
     dispatch(updateCart({ id, quantity, totalPrice }));
   };
+
+  const handleCheckout = async () => {
+    try {
+      const url = 'https://maldex.bitrix24.ru/rest/1/ej9v1l5jpvxpzi8s/';
+  
+      // Пример добавления токена доступа, если требуется
+      const params = new URLSearchParams({
+        // 'auth': 'your_auth_token',
+        'action': 'add_order' // пример действия, если требуется
+      });
+  
+      const response = await axios.post(url, {
+        carts,
+        totalAmount,
+        totalQuantity
+      }, {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        params: params // Добавление параметров к URL
+      });
+  
+      console.log('Response from Bitrix24:', response.data);
+    } catch (error) {
+      console.error('Error sending data to Bitrix24:', error);
+    }
+  };
+  
 
   return (
     <>
@@ -205,7 +234,10 @@ const Cart = () => {
                 <p className="text-[16px] font-bold">Итоговая стоимость:</p>
                 <p className="text-[16px] font-bold">{totalAmount} ₽ </p>
               </div>
-              <button className="w-full rounded-xl bg-black text-white p-3 text-lg mb-2">
+              <button
+                onClick={handleCheckout}
+                className="w-full rounded-xl bg-black text-white p-3 text-lg mb-2"
+              >
                 оформить
               </button>
               <div className="flex justify-center items-center w-full mb-5 gap-4">

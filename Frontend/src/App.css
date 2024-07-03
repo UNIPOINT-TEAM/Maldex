@@ -550,3 +550,25 @@
     width: 100% !important;
     height: 100% !important;
 }
+
+
+/* buttons */
+
+.an_btn {
+    outline: 0 !important;
+    border: 0 !important;
+    /* width: 40px;
+    height: 40px; */
+    /* border-radius: 50%; */
+    background-color: transparent;
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
+    /* color: #fff; */
+    transition: all ease-in-out 0.2s;
+    cursor: pointer;
+  }
+  
+  .an_btn:hover {
+    transform: translateY(-3px);
+  }

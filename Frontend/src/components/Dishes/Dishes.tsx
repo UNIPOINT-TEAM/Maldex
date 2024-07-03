@@ -118,12 +118,12 @@ const Dishes = () => {
         </div>
         <div className="row-span-3 col-span-3 hidden lg:block">
           <div className="grid grid-rows-2 grid-cols-1 gap-4 ">
-            <div className="row-span-2 col-span-1 flex flex-col gap-[3px]">
+            <div className="row-span-2 col-span-1 flex flex-col gap-[3px] ">
               {/*@ts-expect-error: This */}
               {detail?.children &&
               // @ts-expect-error: This
                 detail?.children.map((i) => (
-                  <p key={i.id} className="text-[14px] font-medium">
+                  <p key={i.id} className="text-[14px] font-medium an_btn hover:text-darkSecondary">
                     {i.name}
                     <b className="text-sm text-redPrimary ms-1 font-medium">
                       {i.count}

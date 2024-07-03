@@ -33,11 +33,11 @@ const AccordionMaldex = () => {
           placeholder={<div />}
         >
           <AccordionHeader
-            className="border-0 p-4"
+            className="border-0 p-4 hover:text-gray-700 text-darkSecondary"
             onClick={() => handleOpen(item.id)}
             placeholder={<div />}
           >
-            <h3 className="font-normal font-Helvetica-Neue text-fs_8 lg:text-fs_4 text-darkSecondary ">
+            <h3 className="font-normal font-Helvetica-Neue text-fs_8 lg:text-fs_4  ">
               {item.title}
             </h3>
           </AccordionHeader>
