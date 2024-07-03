@@ -1,24 +1,32 @@
-import React from "react";
+import { usePDF } from "react-to-pdf";
+import download from "../../assets/icons/rub.svg";
 import { useSelector } from "react-redux";
-interface IProps {
-  pdfExportComponent: any;
-}
-const SavePdf: React.FC<IProps> = ({ pdfExportComponent }) => {
+import React from "react";
+
+const SavePdf = () => {
+  const { toPDF, targetRef } = usePDF({ filename: "page.pdf" });
   const items = useSelector((state) => state.carousel.items);
   return (
-    <div id="rep1" ref={pdfExportComponent}>
-      {items.map((item, i) => (
-        <h1>Шариковая ручка Tesoro, черная/позолота</h1>
-        // <div
-        //   key={i}
-        //   className="h-full w-full cursor-pointer gallery-slide rounded-lg bg-[#fff]"
-        // >
-        //   <div className="w-full h-full">
-        //     {item.pdfTemplate &&
-        //       React.cloneElement(item.pdfTemplate, { ...item })}
-        //   </div>
-        // </div>
-      ))}
+    <div>
+      <button className="flex items-center gap-3" onClick={() => toPDF()}>
+        <img src={download} alt="download-icon" />
+        <span>Скачать PDF</span>
+      </button>
+      <div className="absolute w-full top-0 -left-[1000%]">
+        <div className="p-3" ref={targetRef}>
+          {items.map((item, i) => (
+            <div
+              key={i}
+              className="h-[650px] w-full cursor-pointer gallery-slide  "
+            >
+              <div className="w-full h-full ">
+                {item.pdfTemplate &&
+                  React.cloneElement(item.pdfTemplate, { ...item })}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

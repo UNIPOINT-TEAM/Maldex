@@ -1,13 +1,14 @@
 import { LuListFilter } from "react-icons/lu";
 import { debounce } from "lodash";
 import { LayoutSideCard, MoreFilter } from "../../components";
-import { useDispatch } from "react-redux";
-import { updateItem } from "../../store/carouselReducer";
+import { useDispatch, useSelector } from "react-redux";
+import { addNewFilledItem, updateItem } from "../../store/carouselReducer";
 import DefaultTemplate from "../../components/GalleryLayoutTemplate/DefaultTemplate";
 import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "../../utils";
 import AddProductModal from "../../components/Gallery/AddProductModal";
+import CombineTemplate from "../../components/GalleryLayoutTemplate/CombineTemplate";
 
 const FilterBtn: React.FC<{ filterCount?: number }> = ({ filterCount }) => {
   return (
@@ -18,9 +19,14 @@ const FilterBtn: React.FC<{ filterCount?: number }> = ({ filterCount }) => {
   );
 };
 const Layout = () => {
+  const { ref, items, activeCaruselIndex } = useSelector(
+    (state) => state.carousel
+  );
   const dispatch = useDispatch();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [combine, setCombine] = useState(false);
+  const [combineSellectItem, setCombineSellectItem] = useState(null);
 
   useEffect(() => {
     setLoading(true);
@@ -57,26 +63,51 @@ const Layout = () => {
     });
   };
 
-  const updateItems = (item: any) => {
-    dispatch(
-      updateItem({
-        data: { ...item, quantity: 1, totalPrice: item.price },
-        template: <DefaultTemplate />,
-        background: {
-          color: "",
-          image: "",
-          allSlider: false,
-          currentSlide: true,
-        },
-      })
-    );
+  const addNewItem = async (item: any) => {
+    if (combine) {
+      setCombineSellectItem(item);
+    } else {
+      await dispatch(
+        addNewFilledItem({
+          data: { ...item, quantity: 1, totalPrice: item.price },
+          template: <DefaultTemplate />,
+          background: {
+            color: "",
+            image: "",
+            allSlider: false,
+            currentSlide: true,
+          },
+        })
+      );
+      const lastIndex = items.length;
+      if (ref?.current) {
+        await ref.current?.swiper?.slideTo(lastIndex);
+      }
+    }
+  };
+  console.log(items[activeCaruselIndex]);
+  const handleCombine = () => {
+    // setCombine(false);
+    // setCombineSellectItem(null);
+    const combineItem = {
+      data: [items[activeCaruselIndex].data, combineSellectItem],
+      template: <CombineTemplate />,
+    };
+    dispatch(updateItem(combineItem));
   };
   return (
     <div className="px-5 relative py-3 h-full min-h-screen  border-0 border-r border-lightSecondary">
       <div className="heading">
         <div className="border text-darkSecondary text-[9px] font-bold border-lightSecondary rounded-lg px-3 py-2 flex justify-between">
           <div className="flex gap-2">
-            <button className="border px-[14px] py-2 border-darkSecondary uppercase rounded-lg">
+            <button
+              onClick={() => setCombine((prev) => !prev)}
+              className={`border px-[14px] py-2 uppercase rounded-lg ${
+                combine
+                  ? "border-redPrimary text-redPrimary"
+                  : "border-darkSecondary text-darkSecondary"
+              }`}
+            >
               объединить
             </button>
             <AddProductModal setProducts={setProducts} />
@@ -127,11 +158,17 @@ const Layout = () => {
       <div className="body grid grid-cols-2 gap-y-8 mt-4 overflow-y-auto ">
         {products?.map((item, index) => (
           <div
-            className="flex items-center justify-center"
-            onClick={() => updateItems(item)}
+            className={`flex  items-center justify-center`}
+            onClick={() => addNewItem(item)}
             key={index}
           >
-            <LayoutSideCard {...item} loading={loading} />
+            <LayoutSideCard
+              onCombine={handleCombine}
+              {...item}
+              loading={loading}
+              combine={combine}
+              combineSellectItem={combineSellectItem}
+            />
           </div>
         ))}
       </div>

@@ -5,20 +5,37 @@ import { Product } from "../../types";
 import { useDispatch, useSelector } from "react-redux";
 import { updateItem } from "../../store/carouselReducer";
 import { Rnd } from "react-rnd";
+import { IoMdClose } from "react-icons/io";
+import uploadIcon from "../../assets/icons/upload-img-icon.svg";
+import textLeftIcon from "../../assets/icons/text-left.svg";
+import textCenterIcon from "../../assets/icons/text-center.svg";
+import textRightIcon from "../../assets/icons/text-right.svg";
 
-/*@ts-expect-error: This */
-const AddAplying: React.FC<Product> = ({ productData }) => {
+const editorConfig = {
+  fontFamily: "Times New Roman",
+  fontSize: "11px",
+  fontWeight: [
+    { label: "Ж", value: "bold" },
+    { label: "К", value: "italic" },
+    { label: "Ч", value: "underline" },
+    { label: "T", value: "line-through" },
+  ],
+  textAlign: [
+    { label: textLeftIcon, value: "left" },
+    { label: textCenterIcon, value: "center" },
+    { label: textRightIcon, value: "right" },
+  ],
+};
+
+const AddAplying: React.FC<{ productData: any }> = ({ productData }) => {
   const [open, setOpen] = useState(false);
   const [text, setText] = useState("");
   const [fontFamily, setFontFamily] = useState("Times New Roman");
   const [fontSize, setFontSize] = useState("11px");
-  const [bold, setBold] = useState(false);
-  const [italic, setItalic] = useState(false);
-
+  const [fontWeight, setFontWeight] = useState<string[]>([]);
+  const [textAlign, setTextAlign] = useState("left");
   const dispatch = useDispatch();
-  // @ts-expect-error: This
   const items = useSelector((state) => state.carousel.items);
-  // @ts-expect-error: This
   const activeIndex = useSelector((state) => state.carousel.activeCaruselIndex);
 
   const handleOpen = () => setOpen(!open);
@@ -28,7 +45,6 @@ const AddAplying: React.FC<Product> = ({ productData }) => {
       ...items[activeIndex],
       applying: {
         ...items[activeIndex]?.applying,
-        /*@ts-expect-error: This */
         image: URL.createObjectURL(files[0]),
       },
     };
@@ -51,12 +67,15 @@ const AddAplying: React.FC<Product> = ({ productData }) => {
     setFontSize(event.target.value);
   };
 
-  const handleBoldChange = () => {
-    setBold(!bold);
+  const handleFontWeightChange = (value: string) => {
+    setFontWeight((prev) =>
+      prev.includes(value) ? prev.filter((w) => w !== value) : [...prev, value]
+    );
   };
+  const handleTextAlignChange = (value: string) => setTextAlign(value);
 
-  const handleItalicChange = () => {
-    setItalic(!italic);
+  const handleSaveInfo = () => {
+    setOpen(false);
   };
 
   return (
@@ -69,14 +88,14 @@ const AddAplying: React.FC<Product> = ({ productData }) => {
       </button>
       <Dialog
         size="xl"
-        className="h-[550px] p-6"
+        className="h-[550px] p-6 rounded-none"
         placeholder={""}
         open={open}
         handler={handleOpen}
       >
-        <div className="grid grid-cols-12 gap-5 h-full">
+        <div className="grid grid-cols-12 gap-5 h-full font-Helvetica-Neue">
           <div className="col-span-8 border border-[#9d9c98] flex justify-center items-center h-full rounded-md relative">
-            <div className="absolute top-0 left-0">
+            <div className="absolute w-[200px] h-[200px]">
               <Rnd>
                 <img
                   src={items[activeIndex]?.applying?.image}
@@ -91,8 +110,16 @@ const AddAplying: React.FC<Product> = ({ productData }) => {
                   style={{
                     fontFamily,
                     fontSize,
-                    fontWeight: bold ? "bold" : "normal",
-                    fontStyle: italic ? "italic" : "normal",
+                    textAlign: textAlign,
+                    fontWeight: fontWeight.includes("bold") ? "bold" : "normal",
+                    fontStyle: fontWeight.includes("italic")
+                      ? "italic"
+                      : "normal",
+                    textDecoration: fontWeight
+                      .filter((weight) =>
+                        ["underline", "line-through"].includes(weight)
+                      )
+                      .join(" "),
                   }}
                 >
                   {text}
@@ -100,111 +127,142 @@ const AddAplying: React.FC<Product> = ({ productData }) => {
               </Rnd>
             </div>
             <img
-              src={productData?.image}
+              src={
+                productData?.images_set[0]?.image_url ||
+                productData?.images_set[0]?.image
+              }
               alt="product-image"
               className="w-[300px] object-contain"
             />
           </div>
-          <div className="col-span-4">
-            <div className="">
-              <h2 className="text-black text-[28px] font-medium">Нанесение</h2>
-            </div>
-
-            <label htmlFor="upload-url" className="relative w-full h-full ">
-              <span className="text-[10px] uppercase font-medium tracking-wide">
-                Загрузка файла
-              </span>
-              <input
-                type="file"
-                name="upload-url"
-                id="upload-url"
-                className="sr-only"
-                onChange={handleChangeItem}
-              />
-              <div className="h-[40px] rounded-lg w-full border gap-2 flex justify-center items-center border-greenPrimary">
-                <img
-                  width={20}
-                  height={20}
-                  className="object-contain"
-                  src="https://s3-alpha-sig.figma.com/img/8b16/1e05/b9ab666cf2620a1ff302292956c7f087?Expires=1715558400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=pSCyTnQ0B0mWKDg8McYo4fbXNs1d8ef4RVLgD4uO6Z~cYftWySAUFh2qsZ2wXhQSMfedNMAPpE-MQbFcvRHTOhnHdES5cE7r4GkuwakQ-NofLesYn0FX0yzgOV9GxLm4OsJlATO6BdLEP0P~rDVlu~zvTytqWkKzV5Xm64Ll6Mn3uAZ6Bc0imcUIEYpd~38Vn9vj~6VtT-WHWSfB9pVQtj2WRXdg82OsaBUbv~m2ABn2Rrfmc~kPShVmvhfvrppOoWP6QeEysMjIUwU4ZNqbqltXRq1-58BIDXjQi7Y7YZivccoz5I3WbypQrvrX3003E6fM1wuNdMBlI2bcxsPcVQ__"
-                  alt="upload-input-img"
+          <div className="col-span-4 flex flex-col">
+            <div className="flex-1">
+              <div className="flex items-center">
+                <h2 className="text-black text-[28px] font-medium flex-1">
+                  Нанесение
+                </h2>
+                <IoMdClose
+                  className="cursor-pointer text-fs_2 text-darkPrimary"
+                  onClick={handleOpen}
                 />
-                <span className="text-[10px] tracking-wider text-greenPrimary font-medium uppercase">
-                  загрузить картинку
-                </span>
               </div>
-            </label>
-            <div className="mt-4">
-              <label
-                htmlFor="text"
-                className="text-[10px] uppercase font-medium tracking-wide"
-              >
-                Добавление текста
+              <label htmlFor="upload-url" className="relative w-full h-full ">
+                <span className="text-[10px] uppercase font-medium tracking-wide text-darkSecondary">
+                  Загрузка файла
+                </span>
+                <input
+                  type="file"
+                  name="upload-url"
+                  id="upload-url"
+                  className="sr-only"
+                  onChange={handleChangeItem}
+                />
+                <div className="h-[40px] cursor-pointer rounded-lg w-full border gap-2 flex justify-center items-center border-greenPrimary">
+                  <img
+                    width={20}
+                    height={20}
+                    className="object-contain"
+                    src={uploadIcon}
+                    alt="upload-input-img"
+                  />
+                  <span className="text-[10px]  tracking-wider text-greenPrimary font-medium uppercase">
+                    загрузить картинку
+                  </span>
+                </div>
               </label>
-              <textarea
-                name="text"
-                id="text"
-                placeholder="Введите текст..."
-                value={text}
-                onChange={handleTextChange}
-                className="w-full text-[11px] text-darkPrimary font-normal h-[100px] border border-gray-400 rounded-xl resize-none p-2 outline-0"
-              ></textarea>
-            </div>
-            <div className="mt-4">
+              <div className="mt-4">
+                <label
+                  htmlFor="text"
+                  className="text-[10px] uppercase font-medium tracking-wide text-darkSecondary"
+                >
+                  Добавление текста
+                </label>
+                <textarea
+                  name="text"
+                  id="text"
+                  placeholder="Введите текст..."
+                  value={text}
+                  onChange={handleTextChange}
+                  className="w-full text-[11px] placeholder:text-darkSecondary text-darkPrimary font-normal h-[65px] border border-darkSecondary rounded-lg resize-none py-1 px-2 outline-0"
+                ></textarea>
+              </div>
               <label
                 htmlFor="font-family"
-                className="text-[10px] uppercase font-medium tracking-wide"
+                className="text-[10px] mt-4 uppercase text-darkSecondary font-medium tracking-wide"
               >
-                Шрифт
+                Добавить
               </label>
-              <select
-                id="font-family"
-                value={fontFamily}
-                onChange={handleFontFamilyChange}
-                className="w-full border border-gray-400 rounded-xl p-2"
-              >
-                <option value="Times New Roman">Times New Roman</option>
-                <option value="Arial">Arial</option>
-                <option value="Courier New">Courier New</option>
-              </select>
+              <div className="grid grid-cols-12 gap-3 text-darkSecondary">
+                <div className=" col-span-9">
+                  <select
+                    id="font-family"
+                    value={fontFamily}
+                    onChange={handleFontFamilyChange}
+                    className="w-full border border-darkSecondary rounded-lg p-2 h-8 text-fs_9 "
+                  >
+                    <option value="Times New Roman">Times New Roman</option>
+                    <option value="Arial">Arial</option>
+                    <option value="Courier New">Courier New</option>
+                  </select>
+                </div>
+                <div className=" col-span-3">
+                  <select
+                    id="font-size"
+                    value={fontSize}
+                    onChange={handleFontSizeChange}
+                    className="w-full border text-fs_9 border-darkSecondary rounded-lg p-2"
+                  >
+                    <option value="11px">11 px</option>
+                    <option value="14px">14 px</option>
+                    <option value="18px">18 px</option>
+                  </select>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 justify-between mt-2">
+                <div className="flex items-center gap-2">
+                  {editorConfig.textAlign.map((item, i) => (
+                    <button
+                      onClick={() => handleTextAlignChange(item.value)}
+                      key={i}
+                      className="text-[10px] h-8 w-8 rounded-[6px] uppercase text-darkSecondary border border-darkSecondary flex items-center justify-center"
+                    >
+                      <img src={item.label} alt={item.value} />
+                    </button>
+                  ))}
+                </div>
+                <div className="flex items-center gap-2">
+                  {editorConfig.fontWeight.map((item, i) => (
+                    <button
+                      key={i}
+                      onClick={() => handleFontWeightChange(item.value)}
+                      style={{
+                        fontWeight: item.value === "bold" ? "bold" : "normal",
+                        fontStyle:
+                          item.value === "italic" ? "italic" : "normal",
+                        textDecoration: item.value,
+                      }}
+                      className={`text-[10px] h-8 w-8 rounded-[6px] uppercase text-darkSecondary border ${
+                        fontWeight.includes(item.value)
+                          ? "border-greenPrimary text-greenPrimary"
+                          : "border-darkSecondary"
+                      } `}
+                    >
+                      {item.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
-            <div className="mt-4">
-              <label
-                htmlFor="font-size"
-                className="text-[10px] uppercase font-medium tracking-wide"
+            <div className="flex justify-between items-center">
+              <button className="text-fs_6 text-[#d3d3d3] font-medium">
+                Сбросить
+              </button>
+              <button
+                onClick={handleSaveInfo}
+                className="uppercase border border-darkSecondary text-darkSecondary w-[170px] h-[50px] font-Articulat -tracking-tight rounded-xl text-fs_8 font-semibold"
               >
-                Размер шрифта
-              </label>
-              <select
-                id="font-size"
-                value={fontSize}
-                onChange={handleFontSizeChange}
-                className="w-full border border-gray-400 rounded-xl p-2"
-              >
-                <option value="11px">11 px</option>
-                <option value="14px">14 px</option>
-                <option value="18px">18 px</option>
-              </select>
-            </div>
-            <div className="mt-4 flex items-center gap-2">
-              <label className="text-[10px] uppercase font-medium tracking-wide">
-                <input
-                  type="checkbox"
-                  checked={bold}
-                  onChange={handleBoldChange}
-                  className="mr-2"
-                />
-                Ж
-              </label>
-              <label className="text-[10px] uppercase font-medium tracking-wide">
-                <input
-                  type="checkbox"
-                  checked={italic}
-                  onChange={handleItalicChange}
-                  className="mr-2"
-                />
-                К
-              </label>
+                сохранить
+              </button>
             </div>
           </div>
         </div>

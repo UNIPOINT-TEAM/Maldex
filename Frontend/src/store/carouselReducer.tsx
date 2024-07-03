@@ -15,6 +15,7 @@ interface CarouselState {
     total_visible: boolean;
   };
   activeCaruselIndex: number;
+  ref: any;
 }
 
 const initialState: CarouselState = {
@@ -31,6 +32,7 @@ const initialState: CarouselState = {
     total_visible: true,
   },
   activeCaruselIndex: 0,
+  ref: null,
 };
 
 const carouselSlice = createSlice({
@@ -60,6 +62,9 @@ const carouselSlice = createSlice({
           image: "",
         },
       });
+    },
+    addNewFilledItem: (state, action: PayloadAction<any>) => {
+      state.items.push(action.payload);
     },
     updateItem: (state, action: PayloadAction<any>) => {
       const { activeCaruselIndex } = state;
@@ -93,6 +98,10 @@ const carouselSlice = createSlice({
     onActiveCarusel: (state, action: PayloadAction<number>) => {
       state.activeCaruselIndex = action.payload;
     },
+    getSlideRef: (state, action: PayloadAction<any>) => {
+      state.ref = action.payload;
+    },
+
     updateStatus: (
       state,
       action: PayloadAction<{
@@ -116,6 +125,8 @@ export const {
   updateItem,
   clearItems,
   getItems,
+  addNewFilledItem,
+  getSlideRef
 } = carouselSlice.actions;
 
 export default carouselSlice.reducer;

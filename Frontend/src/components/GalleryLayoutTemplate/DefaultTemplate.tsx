@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Rnd } from "react-rnd";
 import { TemplateData } from "../../types";
@@ -20,17 +20,16 @@ const DefaultTemplate: React.FC<TemplateData> = ({
     codeArticle_visible,
   } = useSelector((state) => state.carousel.status);
 
-  const items = useSelector((state) => state.carousel.items);
-  const defaultRef = React.useRef(null);
+  const { items, activeCaruselIndex } = useSelector((state) => state.carousel);
   const dispatch = useDispatch();
-  const activeIndex = useSelector((state) => state.carousel.activeCaruselIndex);
+
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ): void => {
     const updatedItem = {
-      ...items[activeIndex],
+      ...items[activeCaruselIndex],
       data: {
-        ...items[activeIndex]?.data,
+        ...items[activeCaruselIndex]?.data,
         [event.target.name]: event.target.value,
       },
     };
@@ -41,7 +40,6 @@ const DefaultTemplate: React.FC<TemplateData> = ({
 
   return (
     <div
-      ref={defaultRef}
       style={{
         backgroundColor: background?.color,
         backgroundImage: `url(${background?.image})`,

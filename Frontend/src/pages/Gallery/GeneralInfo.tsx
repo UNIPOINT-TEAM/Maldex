@@ -9,6 +9,7 @@ import React from "react";
 import SavePdf from "../../components/Gallery/SavePdf";
 import ExcelJS from "exceljs";
 import { saveAs } from "file-saver";
+import html2canvas from "html2canvas";
 
 const Checkdata: {
   title: string;
@@ -86,18 +87,16 @@ const GeneralInfo = () => {
 
   const pdfExportComponent = React.useRef(null);
   const generatePDF = () => {
-    // var rep = new jsPDF("p", "pt", "a4");
-    // rep.setLanguage("ru");
-    // rep.addFont(
-    //   "/Frontend/public/fonts/HelveticaNeue-01.ttf",
-    //   "HelveticaNeue",
-    //   "normal"
-    // );
-    // rep.html(document.querySelector("#rep1"), {
-    //   callback: function (pdf) {
-    //     pdf.save("report.pdf");
-    //   },
-    // });
+    const input = pdfExportComponent;
+    html2canvas(input).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF();
+      const imgProps = pdf.getImageProperties(imgData);
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+      pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+      pdf.save("download.pdf");
+    });
   };
 
   const exportToExcel = async () => {
@@ -129,16 +128,13 @@ const GeneralInfo = () => {
         product?.data?.material,
         product?.data?.site,
       ]);
-
       if (product?.data?.images_set[0]?.image_url) {
         try {
           const imageUrl = product?.data?.images_set[0]?.image_url;
           const response = await fetch(imageUrl, { mode: "cors" });
-
           if (!response.ok) {
             throw new Error(`Failed to fetch image: ${response.statusText}`);
           }
-
           const imageBlob = await response.blob();
           const imageBuffer = await imageBlob.arrayBuffer();
           const imageId = wb.addImage({
@@ -158,14 +154,12 @@ const GeneralInfo = () => {
         }
       }
     }
-
-    // Set styles for the first row
     ws.getRow(1).font = {
-      size: 18,
+      size: 17,
       bold: true,
       color: { argb: "FFFFFFFF" },
     };
-    ws.getRow(1).height = 80;
+    ws.getRow(1).height = 60;
     ws.getRow(1).alignment = {
       vertical: "middle",
     };
@@ -209,10 +203,7 @@ const GeneralInfo = () => {
           <img src={download} alt="download-icon" />
           <span>Скачать XLSXП</span>
         </button>
-        <button className="flex items-center gap-3" onClick={generatePDF}>
-          <img src={download} alt="download-icon" />
-          <span>Скачать PDF</span>
-        </button>
+        <SavePdf />
         {/* <button className="flex items-center gap-3">
           <img src={rub} alt="rub-icon" />
           <span>Цены и услуги</span>
@@ -247,9 +238,6 @@ const GeneralInfo = () => {
       <button className="w-[210px] text-fs_8 font-bold   text-darkSecondary rounded-[10px] h-[50px] mt-8 bg-white border border-darkSecondary outline-none uppercase">
         сохранить
       </button>
-      <div style={{ visibility: "hidden", height: 0 }}>
-        <SavePdf pdfExportComponent={pdfExportComponent} />
-      </div>
     </div>
   );
 };

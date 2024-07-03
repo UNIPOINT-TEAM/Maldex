@@ -11,6 +11,7 @@ import {
   addItem,
   copyItem,
   deleteItem,
+  getSlideRef,
   onActiveCarusel,
 } from "../../store/carouselReducer";
 import html2canvas from "html2canvas";
@@ -27,7 +28,7 @@ const Galleryslider = () => {
   useEffect(() => {
     const generateThumbnails = async () => {
       const newThumbnails = await Promise.all(
-        items.map(async (item, i) => {
+        items.map(async (_item, i) => {
           const container = containerRefs.current[i];
           if (!container) return "";
           const canvas = await html2canvas(container);
@@ -42,11 +43,22 @@ const Galleryslider = () => {
         })
       );
       setThumbnails(newThumbnails);
+      if (swiperRef) {
+        dispatch(getSlideRef(swiperRef));
+      }
     };
 
     const timeoutId = setTimeout(generateThumbnails, 1000);
     return () => clearTimeout(timeoutId);
   }, [items]);
+  const handleChangeItem = async () => {
+    await dispatch(addItem());
+    const lastIndex = items.length;
+    console.log(lastIndex);
+    if (swiperRef?.current) {
+      await swiperRef.current?.swiper.slideTo(lastIndex);
+    }
+  };
 
   return (
     <div className="w-full h-full relative">
@@ -55,7 +67,7 @@ const Galleryslider = () => {
           <span className="border border-darkPrimary px-3 rounded-lg font-medium">
             {activeIndex + 1}/{items.length}
           </span>
-          <button onClick={() => dispatch(addItem())}>
+          <button onClick={handleChangeItem}>
             <svg
               width="27"
               height="27"
