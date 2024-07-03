@@ -93,7 +93,7 @@ const EditProduct = () => {
     GetProductDetail(id).then((res) => {
       setColor(res.data.colorID.name);
       setSales(res.data.discounts != null ? res.data.discounts : []);
-      setWarehouse(res.data.warehouse);
+      setWarehouse(res?.data?.warehouse);
       setSizes(res?.data?.sizes);
       setProductDetail(res.data);
       setIshit(res.data.is_hit);
@@ -233,14 +233,19 @@ const EditProduct = () => {
           className="flex w-full justify-around items-start px-10 gap-20 mb-5"
         >
           <div className="w-2/3 flex flex-wrap  justify-start items-start">
-            <div className="w-full py-3 mb-5 flex">
-              {warehouse?.map((ware) => (
-                <div className="flex w-1/2 h-[20px] justify-between pr-10">
-                  <p>Cклад : {ware.name}</p>
-                  <p>количество : {ware.quantity}</p>
-                </div>
-              ))}
-            </div>
+            {warehouse.length <= 0 ? (
+              <div className="w-full py-3 mb-5 flex">
+                {warehouse?.map((ware) => (
+                  <div className="flex w-1/2 h-[20px] justify-between pr-10">
+                    <p>Cклад : {ware?.name}</p>
+                    <p>количество : {ware?.quantity}</p>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              ''
+            )}
+
             {sizes?.length > 0 ? (
               <div className="w-2/3 py-3 mb-5 flex flex-col">
                 {sizes?.map((ware) => (
