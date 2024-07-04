@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import Arrow from "../../assets/icons/arrow-right.png";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoClose } from "react-icons/io5";
+import { Spinner } from "@material-tailwind/react";
+import "./burger.css";
 
 const NavbarModal = () => {
   const [activeItem, setActiveItem] = useState<number | null>(null);
@@ -47,17 +49,31 @@ const NavbarModal = () => {
     setActiveCategoryId(id);
     fetchData2({ method: "GET", url: `product/?category_id=${id}` });
   };
+
+  const [isOpen, toggle] = useState(true);
+  const c = isOpen ? "burger" : "burger open";
+
+
+  const handleButtonClick = () => {
+    modalToggle();
+    toggle(!isOpen);
+  };
   return (
     <>
       <button
-        onClick={modalToggle}
+        onClick={handleButtonClick}
         className="px-3 h-[36px] w-auto lg:w-[125px] bg-redPrimary rounded-lg flex items-center gap-2"
       >
-        {modal ? (
+        {/* {modal ? (
           <IoClose size={20} color="#fff" />
         ) : (
           <GiHamburgerMenu size={20} color="#fff" />
-        )}
+        )} */}
+        <div className={c} onClick={() => toggle(!isOpen)}>
+          <span className="bar1 text-black"></span>
+          <span className="bar2"></span>
+          <span className="bar3"></span>
+        </div>
         <span className="text-white tracking-widest hidden lg:block font-helvetica-neue">
           Каталог
         </span>
@@ -403,7 +419,19 @@ const NavbarModal = () => {
                                     }`}
                     >
                       <div>
+                        {/* <img
+                          className="w-[18px] h-[18px] object-contain"
+                          src={i.icon}
+                          alt=""
+                          
+                        /> */}
                         <img
+                          style={{
+                            filter:
+                              hoveredIndex === index || activeItem === index
+                                ? "brightness(0) saturate(100%) invert(99%) sepia(5%) saturate(994%) hue-rotate(302deg) brightness(121%) contrast(100%)"
+                                : "invert(17%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(100%)",
+                          }}
                           className="w-[18px] h-[18px] object-contain"
                           src={i.icon}
                           alt=""

@@ -5,6 +5,7 @@ import QuestionIcon from "../../assets/icons/questionIcon.png";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCarts, removeFromCart, updateCart } from "../../store/cartSlice";
 import { Link } from "react-router-dom";
+import axios from "axios"; // Импортируем axios
 
 const Cart = () => {
   const carts = useSelector(getAllCarts);
@@ -29,6 +30,38 @@ const Cart = () => {
     /*@ts-expect-error: This */
     dispatch(updateCart({ id, quantity, totalPrice }));
   };
+
+  const handleCheckout = async () => {
+    try {
+      const url = 'https://maldex.bitrix24.ru/rest/1/ej9v1l5jpvxpzi8s/crm.lead.add'; // Пример правильного URL
+  
+      const data = {
+        fields: {
+          TITLE: 'New Order',
+          NAME: 'Customer Name',
+          PHONE: [{ VALUE: '123456789', VALUE_TYPE: 'WORK' }],
+          // Добавьте другие поля в соответствии с вашими требованиями
+          PRODUCTS: carts.map((cartItem) => ({
+            PRODUCT_NAME: cartItem.name,
+            QUANTITY: cartItem.quantity,
+            PRICE: cartItem.discount_price > 0 ? cartItem.discount_price : cartItem.price,
+          })),
+        },
+      };
+  
+      const response = await axios.post(url, data, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+  
+      console.log('Response from Bitrix24:', response.data);
+    } catch (error) {
+      console.error('Error sending data to Bitrix24:', error);
+    }
+  };
+  
+  
 
   return (
     <>
@@ -205,7 +238,10 @@ const Cart = () => {
                 <p className="text-[16px] font-bold">Итоговая стоимость:</p>
                 <p className="text-[16px] font-bold">{totalAmount} ₽ </p>
               </div>
-              <button className="w-full rounded-xl bg-black text-white p-3 text-lg mb-2">
+              <button
+                onClick={handleCheckout}
+                className="w-full rounded-xl bg-black text-white p-3 text-lg mb-2"
+              >
                 оформить
               </button>
               <div className="flex justify-center items-center w-full mb-5 gap-4">

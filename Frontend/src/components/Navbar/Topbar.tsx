@@ -32,9 +32,9 @@ const Topbar = () => {
           </Link>
           <ul className="flex items-center gap-1 lg:gap-5 ">
             {TopbarLink?.Topbar_l?.map((item, i) => (
-              <li key={i} className={`${i == 2 && "hidden lg:block"}`}>
+              <li key={i} className={`${i == 2 && "hidden lg:block"} an_btn`}>
                 <Link to={item.path} className="flex items-center">
-                  <img src={item.icon} className="mr-2 w-[20px]" />
+                  <img src={item.icon} className="mr-2 w-[20px] " />
                   <span className="hidden text-darkPrimary text-fs_8 tracking-wider lg:block ">
                     {item.name}
                   </span>
@@ -52,7 +52,7 @@ const Topbar = () => {
           <div className="me-2">
             <ul className="hidden items-center md:flex gap-1 ">
               {TopbarLink.Topbar_r.map((item, i) => (
-                <li key={i}>
+                <li key={i} className="an_btn">
                   <Link
                     to={item?.link}
                     className="text-darkPrimary  text-fs_8 tracking-wider font-normal hover:text-redPrimary px-2"
@@ -64,7 +64,7 @@ const Topbar = () => {
               <div className=" w-[60px]  flex items-center justify-center gap-3">
                 {location.pathname === "/admin" && (
                   <>
-                    <li>
+                    <li className="an_btn">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="20"
@@ -83,7 +83,7 @@ const Topbar = () => {
                       </svg>
                     </li>
                     <Link to="/admin">
-                      <li>
+                      <li className="an_btn">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="18"

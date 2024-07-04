@@ -57,12 +57,12 @@ const Navbar = () => {
             </span>
           </div>
           <div className="items-center justify-between text-fs_3 gap-5 hidden md:flex font-medium">
-            <Link to={"catalog/?is_new=true"} className="text-redPrimary ">
+            <Link to={"catalog/?is_new=true"} className="text-redPrimary an_btn">
               <span className="underline mr-2">new</span>
               {/* @ts-expect-error: This */}
               <sup className="font-bold text-fs_7">{response?.new}</sup>
             </Link>
-            <Link to={"catalog/?is_hit=true"} className="text-greenPrimary ">
+            <Link to={"catalog/?is_hit=true"} className="text-greenPrimary an_btn">
               <span className="underline mr-2">hits</span>
               {/* @ts-expect-error: This */}
               <sup className="font-bold text-fs_7">{response?.hit}</sup>

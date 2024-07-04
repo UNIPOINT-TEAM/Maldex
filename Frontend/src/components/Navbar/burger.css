@@ -1,0 +1,38 @@
+.burger.open .bar1 {
+  transform: rotate(var(--bar-1-rotation)) translate(-5px, 4px);
+}
+
+.burger.open .bar2 {
+  opacity: 0;
+}
+
+.burger.open .bar3 {
+  transform: rotate(var(--bar-3-rotation)) translate(-4px, -3px);
+}
+
+
+.burger {
+  --icon-color: #ffffff;
+  --bar-height: 2px;
+  --bar-1-rotation: -45deg;
+  --bar-3-rotation: 45deg;
+  --x: -10px;
+  --y: -1px;
+  --neg-y: 1px;
+  width: 30px;
+  height: 23px;
+  cursor: pointer;
+}
+
+.bar1,
+.bar2,
+.bar3 {
+  background: var(--icon-color);
+  border-radius: var(--bar-height);
+  display: block;
+  /* height: var(--bar-height); */
+  height: 2px;
+  margin: 4px 0;
+  width: 100%;
+  transition: 0.4s;
+}
