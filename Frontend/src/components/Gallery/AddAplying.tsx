@@ -79,10 +79,10 @@ const AddAplying: React.FC<{ productData: any }> = ({ productData }) => {
   };
 
   return (
-    <>
+    <div>
       <button
         onClick={handleOpen}
-        className="bg-greenPrimary flex items-center tracking-wide gap-1 px-2 py-1 font-bold text-white rounded-[5px] uppercase text-[12px]"
+        className=" bg-greenPrimary flex  items-center tracking-wide gap-1 px-2 py-1 font-bold text-white rounded-[5px] uppercase text-[12px]"
       >
         <IoAddOutline className="text-fs_6 font-bold" /> Добавить нанесение
       </button>
@@ -267,7 +267,7 @@ const AddAplying: React.FC<{ productData: any }> = ({ productData }) => {
           </div>
         </div>
       </Dialog>
-    </>
+    </div>
   );
 };
 

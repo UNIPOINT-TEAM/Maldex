@@ -4,6 +4,7 @@ import { Rnd } from "react-rnd";
 import { TemplateData } from "../../types";
 import AddAplying from "../Gallery/AddAplying";
 import { updateItem } from "../../store/carouselReducer";
+import CustomRnd from "../Gallery/CustomRnd";
 
 const DefaultTemplate: React.FC<TemplateData> = ({
   data,
@@ -65,9 +66,9 @@ const DefaultTemplate: React.FC<TemplateData> = ({
       <div
         className={`${
           landscape_visible ? "col-span-3" : "col-span-7"
-        } p-8 flex relative justify-center items-center w-full`}
+        } p-8 group flex relative justify-center items-center w-full`}
       >
-        <div className="absolute top-[50%] ">
+        <div className="group-hover:block absolute top-[50%] hidden">
           <AddAplying productData={data} />
         </div>
         <img
@@ -207,17 +208,17 @@ const DefaultTemplate: React.FC<TemplateData> = ({
           </Rnd>
         </div>
         {description_visible && landscape_visible! && (
-          <div className="relative w-full">
+          <div className="relative w-full ">
             {data?.description && (
-              <Rnd>
+              <CustomRnd>
                 <textarea
-                  name="description"
+                  name="description "
                   value={data?.description}
                   onChange={handleInputChange}
                   rows={6}
-                  className="w-full bg-transparent mt-2 resize-none rounded-lg max-h-[300px] font-normal p-[6px] overflow-hidden leading-tight focus:outline outline-[#e99125]"
+                  className="w-full relative bg-transparent mt-2 resize-none rounded-lg max-h-[300px] font-normal p-[6px] overflow-hidden leading-tight focus:outline outline-[#e99125]"
                 />
-              </Rnd>
+              </CustomRnd>
             )}
           </div>
         )}

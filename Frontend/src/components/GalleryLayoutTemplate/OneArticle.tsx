@@ -24,9 +24,9 @@ const OneArticle: React.FC<TemplateData> = ({ data, background }) => {
         [name]: files ? URL.createObjectURL(files[0]) : value,
       },
     };
-
     dispatch(updateItem(updatedItem));
   };
+  console.log(items);
   return (
     <div
       style={{
@@ -56,46 +56,62 @@ const OneArticle: React.FC<TemplateData> = ({ data, background }) => {
       </div>
       <div className="body grid grid-cols-12 items-center w-full h-[80%]">
         <div className="col-span-5 h-full relative">
-          <Rnd className="w-full">
-            <label
-              htmlFor="upload-url"
-              className="w-full h-full flex items-center justify-center"
-            >
-              <input
-                type="file"
-                name="image"
-                id="upload-url"
-                className="sr-only"
-                onChange={handleChangeItem}
-              />
-              {!data?.images_set[0].image ||
-                (!data.images_set[0].image_url && (
-                  <div className=" h-full flex items-center justify-center bg-[#eeede9]">
-                    <img
-                      src={templateTShirt}
-                      alt="template T-shirt"
-                      className="object-contain w-[80%] h-[90%]"
-                    />
+          <Rnd className="w-full  ">
+            {!data?.images_set && (
+              <label
+                htmlFor="upload-url"
+                className="w-full h-full flex items-center justify-center"
+              >
+                <input
+                  type="file"
+                  name="image"
+                  id="upload-url"
+                  className="sr-only"
+                  onChange={(e) => {
+                    dispatch(
+                      updateItem({
+                        ...items[activeIndex],
+                        data: {
+                          ...items[activeIndex]?.data,
+
+                          images_set: {
+                            ...items[activeIndex]?.data?.images_set,
+                            [0]: {
+                              image_url: URL.createObjectURL(e.target.files[0]),
+                            },
+                          },
+                        },
+                      })
+                    );
+                  }}
+                />
+
+                <div className=" h-full flex items-center justify-center bg-[#eeede9]">
+                  <img
+                    src={templateTShirt}
+                    alt="template T-shirt"
+                    className="object-contain w-[80%] h-[90%]"
+                  />
+                </div>
+              </label>
+            )}
+            <div className="h-full ">
+              {data?.images_set && data?.images_set[0]?.image_url && (
+                <div className="relative h-full col-span-3 flex justify-center items-center">
+                  <div className="absolute top-50 ">
+                    <AddAplying productData={data} />
                   </div>
-                ))}
-              {data?.images_set[0].image ||
-                (data.images_set[0].image_url && (
-                  <div className="relative h-full col-span-3 flex justify-center items-center">
-                    <div className="absolute top-[50%] ">
-                      {/*@ts-expect-error: This */}
-                      <AddAplying productData={data} />
-                    </div>
-                    <img
-                      src={
-                        data?.images_set[0].image_url ||
-                        data?.images_set[0].image
-                      }
-                      alt=""
-                      className=" h-[90%] object-contain"
-                    />
-                  </div>
-                ))}
-            </label>
+                  <img
+                    src={
+                      data?.images_set[0]?.image_url ||
+                      data?.images_set[0]?.image
+                    }
+                    alt=""
+                    className="h-[90%] object-contain"
+                  />
+                </div>
+              )}
+            </div>
           </Rnd>
         </div>
       </div>

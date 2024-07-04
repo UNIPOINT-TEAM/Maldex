@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Product } from "../../types";
 
 interface TemplateData {
-  data: Product[];
+  data?: Product[];
   background?: {
     color: string;
     image: string;
@@ -105,7 +105,9 @@ const CombineTemplate: React.FC<TemplateData> = ({
           ))}
         </div>
         <div>
-          <h2 className="text-fs_5 font-medium text-gray-900">{data[1].name}</h2>
+          <h2 className="text-fs_5 font-medium text-gray-900">
+            {data[1].name}
+          </h2>
           <p className="text-darkPrimary text-fs_8">
             Артикул {data[1].article}
           </p>
