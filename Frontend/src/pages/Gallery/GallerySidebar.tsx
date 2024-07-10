@@ -1,11 +1,9 @@
 import { NavLink, Outlet } from "react-router-dom";
 import "./Gallery.css";
 import { Galleryslider } from "../../components";
-
 import { useEffect, useState } from "react";
-
 import { getItems } from "../../store/carouselReducer";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Product } from "../../types";
 import DefaultTemplate from "../../components/GalleryLayoutTemplate/DefaultTemplate";
 import PdfDefault from "../../components/GalleryLayoutTemplate/PdfTemplate/DefaultTemplate";
@@ -91,7 +89,6 @@ const GalleryNavs = [
 
 const GallerySidebar = () => {
   const dispatch = useDispatch();
-  const items = useSelector((state) => state.carousel.items);
   const [product1] = useState(JSON.parse(localStorage.getItem("cart") || "[]"));
   useEffect(() => {
     dispatch(
@@ -106,9 +103,7 @@ const GallerySidebar = () => {
             currentSlide: true,
             allSlider: false,
           },
-          applying: {
-            image: "",
-          },
+          applying: {},
         })) || []
       )
     );

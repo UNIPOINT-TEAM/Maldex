@@ -85,7 +85,6 @@ const Layout = () => {
       }
     }
   };
-  console.log(items[activeCaruselIndex]);
   const handleCombine = () => {
     // setCombine(false);
     // setCombineSellectItem(null);

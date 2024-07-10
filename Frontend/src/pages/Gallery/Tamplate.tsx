@@ -1,16 +1,21 @@
 import { IoMdAdd } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { SAMPLE_TEMPLATES } from "../../constants/editor";
-import { addNewFilledItem } from "../../store/carouselReducer";
+import { addNewFilledItem, CarouselState } from "../../store/carouselReducer";
 
 const Tamplate = () => {
   const dispatch = useDispatch();
-  const { ref, items } = useSelector((state) => state.carousel);
+  const { ref, items } = useSelector(
+    (state: { carousel: CarouselState }) => state.carousel
+  );
   const handleAddTemplate = async (item: any) => {
     await dispatch(
       addNewFilledItem({
-        data: {},
+        data: {
+          name: "",
+        },
         template: item?.template,
+        pdfTemplate: item?.pdfTemplate,
         background: {
           color: "",
           image: "",

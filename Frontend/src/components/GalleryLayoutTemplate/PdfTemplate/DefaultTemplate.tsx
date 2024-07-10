@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { Rnd } from "react-rnd";
 import { TemplateData } from "../../../types";
+import { Rnd } from "react-rnd";
 const DefaultTemplate: React.FC<TemplateData> = ({
   data,
   background,
@@ -27,7 +27,7 @@ const DefaultTemplate: React.FC<TemplateData> = ({
     image: data?.images_set[0].image_url || data?.images_set[0].image,
   });
   const defaultRef = React.useRef(null);
-
+  const { items, activeCaruselIndex } = useSelector((state) => state.carousel);
   return (
     <div
       ref={defaultRef}
@@ -37,18 +37,39 @@ const DefaultTemplate: React.FC<TemplateData> = ({
       }}
       className={`grid ${
         landscape_visible ? "w-full" : "w-[400px]"
-      }  grid-cols-7 bg-cover bg-center  h-full border px-5  border-darkSecondary 
+      }  grid-cols-7 bg-cover bg-center relative  h-full border p-5  border-darkSecondary 
       }]`}
     >
-      {applying?.image && (
-        <div className="absolute top-0 z-[99]">
-          <div className="relative w-[200px] h-[200px]">
+      {items[activeCaruselIndex]?.applying?.image_1 && (
+        <div className="absolute top-0 left-0 z-[99]">
+          <Rnd
+            size={{
+              width: items[activeCaruselIndex]?.applying?.imagePosition?.width,
+              height:
+                items[activeCaruselIndex]?.applying?.imagePosition?.height,
+            }}
+            position={{
+              x: items[activeCaruselIndex]?.applying.image_1?.imagePosition?.x,
+              y: items[activeCaruselIndex]?.applying.image_1?.imagePosition?.y,
+            }}
+            enableResizing={{
+              top: true,
+              right: true,
+              bottom: true,
+              left: true,
+              topRight: true,
+              bottomRight: true,
+              bottomLeft: true,
+              topLeft: true,
+            }}
+            className="min-w-[200px] min-h-[200px] border border-[#9d9c98] cursor-move"
+          >
             <img
-              src={applying?.image}
-              className={` object-contain object-center w-full h-full`}
-              alt="applying-image"
+              src={items[activeCaruselIndex].applying.image_1?.image}
+              alt="aplying-img"
+              className="w-full  object-contain"
             />
-          </div>
+          </Rnd>
         </div>
       )}
       <div
@@ -76,7 +97,7 @@ const DefaultTemplate: React.FC<TemplateData> = ({
         >
           {data?.name}
         </h1>
-        <div className="grid grid-cols-12 gap-4 w-full mt-4 my-2 relative">
+        <div className="grid grid-cols-12 gap-4 w-full  my-2 relative">
           <div className="col-span-3">
             {prices_visible && (
               <>
@@ -110,7 +131,7 @@ const DefaultTemplate: React.FC<TemplateData> = ({
         </div>
 
         <div className="relative w-full h-[150px]">
-          <Rnd>
+          <div>
             {codeArticle_visible && (
               <div className="flex items-center gap-1">
                 <label htmlFor="vendor-code">Артикул:</label>
@@ -137,13 +158,13 @@ const DefaultTemplate: React.FC<TemplateData> = ({
                 </div>
               </>
             )}
-          </Rnd>
+          </div>
         </div>
         {description_visible && landscape_visible! && (
           <div className="relative w-full mt-3">
-            <Rnd>
-              <p cl>{data?.description}</p>
-            </Rnd>
+            <div>
+              <p>{data?.description}</p>
+            </div>
           </div>
         )}
       </div>

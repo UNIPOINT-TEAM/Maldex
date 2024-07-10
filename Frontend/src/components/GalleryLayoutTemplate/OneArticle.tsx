@@ -1,27 +1,25 @@
-import { Rnd } from "react-rnd";
 import templateTShirt from "../../assets/Gallery/default-image.png";
 import { TemplateData } from "../../types";
 import AddAplying from "../Gallery/AddAplying";
 import { useDispatch, useSelector } from "react-redux";
-import { updateItem } from "../../store/carouselReducer";
+import { CarouselState, updateItem } from "../../store/carouselReducer";
 const OneArticle: React.FC<TemplateData> = ({ data, background }) => {
   const dispatch = useDispatch();
+  console.log(data);
 
-  /*@ts-expect-error: This */
-  const items = useSelector((state) => state.carousel.items);
-  // @ts-expect-error: This
-  const activeIndex = useSelector((state) => state.carousel.activeCaruselIndex);
+  const { items, activeCaruselIndex } = useSelector(
+    (state: { carousel: CarouselState }) => state.carousel
+  );
 
   const handleChangeItem = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    /*@ts-expect-error: This */
-    const { name, files, value } = event.target;
+    const { value } = event.target;
     const updatedItem = {
-      ...items[activeIndex],
+      ...items[activeCaruselIndex],
       data: {
         ...data,
-        [name]: files ? URL.createObjectURL(files[0]) : value,
+        name: value,
       },
     };
     dispatch(updateItem(updatedItem));
@@ -33,35 +31,31 @@ const OneArticle: React.FC<TemplateData> = ({ data, background }) => {
         backgroundColor: background?.color,
         backgroundImage: `url(${background?.image})`,
       }}
-      className="w-full rounded-lg h-full p-5 relative border border-darkSecondary"
-      id="one-aticle"
+      className="w-full flex flex-col  justify-between rounded-lg h-full p-5 relative border "
     >
-      <div className="heading grid grid-cols-12 items-center w-full h-[20%]">
-        <div
-          className={`col-span-12 relative h-[80%] ${
-            !data?.name ? "w-[65%]" : "w-full"
-          }`}
-        >
-          <Rnd
-            className={` ${!data?.name ? "bg-[#eeede9]" : "bg-transparent"}`}
+      <div className="heading grid grid-cols-12 items-center w-full h-[20%] ">
+        <div className={`col-span-12 relative h-full  ${"w-[65%]"}`}>
+          <div
+            className={`h-full ${
+              !data?.name ? "bg-[#eeede9]" : "bg-transparent"
+            }`}
           >
             <textarea
               name="name"
               value={data?.name}
+              cols={6}
+              rows={2}
               onChange={handleChangeItem}
-              className="text-[36px] h-full w-full font-medium p-[4px] bg-transparent rounded-lg focus:outline outline-[#e99125]"
+              className="text-[36px] border-0 resize-none leading-none h-full w-full font-medium p-[4px] bg-transparent rounded-lg focus:outline outline-[#e99125]"
             />
-          </Rnd>
+          </div>
         </div>
       </div>
-      <div className="body grid grid-cols-12 items-center w-full h-[80%]">
-        <div className="col-span-5 h-full relative">
-          <Rnd className="w-full  ">
+      <div className="body grid grid-cols-12 items-center  w-full h-[75%]">
+        <div className="col-span-5 h-full ">
+          <div className="w-full h-full">
             {!data?.images_set && (
-              <label
-                htmlFor="upload-url"
-                className="w-full h-full flex items-center justify-center"
-              >
+              <label htmlFor="upload-url" className="">
                 <input
                   type="file"
                   name="image"
@@ -70,12 +64,12 @@ const OneArticle: React.FC<TemplateData> = ({ data, background }) => {
                   onChange={(e) => {
                     dispatch(
                       updateItem({
-                        ...items[activeIndex],
+                        ...items[activeCaruselIndex],
                         data: {
-                          ...items[activeIndex]?.data,
+                          ...items[activeCaruselIndex]?.data,
 
                           images_set: {
-                            ...items[activeIndex]?.data?.images_set,
+                            ...items[activeCaruselIndex]?.data?.images_set,
                             [0]: {
                               image_url: URL.createObjectURL(e.target.files[0]),
                             },
@@ -86,33 +80,31 @@ const OneArticle: React.FC<TemplateData> = ({ data, background }) => {
                   }}
                 />
 
-                <div className=" h-full flex items-center justify-center bg-[#eeede9]">
+                <div className="h-full flex items-center justify-center  bg-[#eeede9]">
                   <img
                     src={templateTShirt}
                     alt="template T-shirt"
-                    className="object-contain w-[80%] h-[90%]"
+                    className="object-contain w-[80%] "
                   />
                 </div>
               </label>
             )}
-            <div className="h-full ">
-              {data?.images_set && data?.images_set[0]?.image_url && (
-                <div className="relative h-full col-span-3 flex justify-center items-center">
-                  <div className="absolute top-50 ">
-                    <AddAplying productData={data} />
-                  </div>
+
+            {data?.images_set && data?.images_set[0]?.image_url && (
+              <div className="w-full group h-full col-span-3 relative">
+                <div className="absolute left-0  top-[50%] hidden group-hover:flex justify-center w-full ">
+                  <AddAplying productData={data} />
+                </div>
+                <div className="h-[340px] w-full">
                   <img
-                    src={
-                      data?.images_set[0]?.image_url ||
-                      data?.images_set[0]?.image
-                    }
+                    src={data?.images_set[0]?.image_url}
                     alt=""
-                    className="h-[90%] object-contain"
+                    className="object-contain   h-full"
                   />
                 </div>
-              )}
-            </div>
-          </Rnd>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
