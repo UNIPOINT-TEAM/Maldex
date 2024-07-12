@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Arrow from "../../assets/icons/arrow-right.png";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoClose } from "react-icons/io5";
-import { Spinner } from "@material-tailwind/react";
+import { Button, Spinner } from "@material-tailwind/react";
 import "./burger.css";
 
 const NavbarModal = () => {
@@ -60,7 +60,7 @@ const NavbarModal = () => {
   };
   return (
     <>
-      <button
+      <Button
         onClick={handleButtonClick}
         className="px-3 h-[36px] w-auto lg:w-[125px] bg-redPrimary rounded-lg flex items-center gap-2"
       >
@@ -77,7 +77,7 @@ const NavbarModal = () => {
         <span className="text-white tracking-widest hidden lg:block font-helvetica-neue">
           Каталог
         </span>
-      </button>
+      </Button>
       {modal && (
         <div className="">
           <div className="modal top-[115px] absolute bg-[#fff] left-0 h-[95vh] w-full z-[9999]  hidden md:flex mb-5">

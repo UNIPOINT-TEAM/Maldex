@@ -3,12 +3,13 @@ import { useEffect, useState } from "react";
 import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
 import {
+  MainProductFilter,
   // Banner,
   // MainProductFilter,
   QuestForm,
   TabList,
 } from "../../components";
-//@ts-expect-error: This 
+//@ts-expect-error: This
 import Tshirt from "../../assets/t-shirt.svg";
 import nasilnenie_l from "../../assets/t-shirt.png";
 import nasilnenie_r from "../../assets/t-shirt.png";
@@ -16,6 +17,11 @@ import tabImages from "../../assets/images/tab-image.png";
 import arrowT from "../../assets/icons/arrow-t.svg";
 import arrowB from "../../assets/icons/arrow-b.svg";
 import {
+  Tab,
+  TabPanel,
+  Tabs,
+  TabsBody,
+  TabsHeader,
   // Tab,
   // TabPanel,
   // Tabs,
@@ -28,7 +34,7 @@ import { IoMdHeart, IoMdHeartEmpty } from "react-icons/io";
 import ProductSize from "../../components/CategoryDetails/ProductSize";
 import {
   FreeSample,
-  TabDescription,
+  // TabDescription,
   TabFour,
 } from "../../components/CategoryDetails";
 import { ProductColor } from "../../mock/data";
@@ -39,6 +45,9 @@ import { useFetchHook } from "../../hooks/UseFetch";
 import { useParams } from "react-router-dom";
 // import ProductPerviewModal from "./ProductPerviewModalGift";
 import ProductPerviewModalGift from "./ProductPerviewModalGift";
+import GiftTabDescription from "./GiftTabDescription";
+import GiftTabList from "./GiftTabList";
+import GiftTabFour from "./GiftTabFour";
 
 const btnSize = [
   { id: 1, size: "XS" },
@@ -50,7 +59,7 @@ const btnSize = [
 
 const CategoryDetails = () => {
   const { id } = useParams<{ id: string }>();
-  // @ts-expect-error: This 
+  // @ts-expect-error: This
   const [activeTab, setActiveTab] = useState("Описание");
   const [isActive] = useState<number>(1);
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
@@ -115,34 +124,37 @@ const CategoryDetails = () => {
   useEffect(() => {
     calculateTotal();
   }, [product.quantity]);
-// @ts-expect-error: This 
+  // @ts-expect-error: This
   const CategoryTabs = [
     {
       label: "Описание",
       value: "Описание",
-      /*@ts-expect-error: This */
-      content: <TabDescription description={response?.description} />,
+      content: (
+        <GiftTabDescription
+          description={response?.description}
+          products={response?.gift_basket_product}
+        />
+      ),
     },
     {
-      label: "Характеристики",
-      value: "Характеристики",
+      label: "изменить набор",
+      value: "изменить набор",
       /*@ts-expect-error: This */
-      content: <TabList pack={response?.pack} />,
+      content: <GiftTabList description={response?.description}
+      products={response?.gift_basket_product} />,
     },
 
     {
-      label: "виды нанесения",
-      value: "виды нанесения",
+      label: "добавить товар",
+      value: "добавить товар",
       /*@ts-expect-error: This */
-      content: <TabFour prints={response?.prints} />,
+      content: <GiftTabFour prints={response?.prints} />,
     },
   ];
 
   // const imageSrc = response.gift_basket_images[0].images;
 
-
   // console.log(imageSrc);
-  
 
   return (
     <div className="container_xxl tracking-wider overflow-hidden px-3">
@@ -206,16 +218,16 @@ const CategoryDetails = () => {
         </div>
         <div className="bg-white order-1 lg:order-2 flex flex-col items-start p-2 lg:p-5 col-span-3 lg:col-span-4 relative">
           <div className="flex justify-end w-full">
-            <div className="flex gap-1">
+            {/* <div className="flex gap-1">
               <button className="rounded-full w-[27px] h-[27px] bg-[#fff] flex items-center justify-center">
                 <img src={arrowT} alt="img" />
               </button>
               <button className="rounded-full w-[27px] h-[27px] bg-redPrimary flex items-center justify-center">
                 <img src={arrowB} alt="img" />
               </button>
-            </div>
+            </div> */}
           </div>
-          <div className="absolute rounded-s-xl right-2 lg:right-5 lg:translate-y-[50%] top-[30%]  lg:top-[15%] bg-[#fff] px-3 py-5">
+          {/* <div className="absolute rounded-s-xl right-2 lg:right-5 lg:translate-y-[50%] top-[30%]  lg:top-[15%] bg-[#fff] px-3 py-5">
             <div className="flex flex-col gap-2">
               {ProductColor.map((item) => (
                 <input
@@ -233,7 +245,7 @@ const CategoryDetails = () => {
                 />
               ))}
             </div>
-          </div>
+          </div> */}
           <div
             className={`flex justify-center mt-10 w-full h-full items-center ${
               isActive !== 1 && "hidden"
@@ -260,21 +272,27 @@ const CategoryDetails = () => {
             } flex justify-center items-center mt-10 w-full h-full`}
           >
             {/* @ts-expect-error: This */}
-            <img src={response.gift_basket_images && response?.gift_basket_images[0]?.images} alt="" />
+            <img
+              src={
+                response.gift_basket_images &&
+                response?.gift_basket_images[0]?.images
+              }
+              alt=""
+            />
             <div className="color-panel"></div>
           </div>
         </div>
         <div className="py-3 px-0 order-1 lg:order-2 lg:px-5 col-span-3">
           <div>
             <div className="flex justify-between">
-              <div>
+              {/* <div>
                 <span className="border tracking-normal  text-redPrimary border-redPrimary py-[2px] px-1 me-1 rounded-[15px] text-[12px] font-bold ">
                   NEW
                 </span>
                 <span className="border tracking-normal border-darkPrimary py-[2px] px-[6px]  rounded-[15px] text-[12px] font-bold">
                   HIT
                 </span>
-              </div>
+              </div> */}
               <div className="cursor-pointer">
                 {isFavorite ? (
                   <IoMdHeart
@@ -299,7 +317,7 @@ const CategoryDetails = () => {
                 <p className="text-darkSecondary text-fs_8 tracking-wide font-semibold">
                   РАЗМЕР:
                 </p>
-                <div className="flex space-x-2">
+                {/* <div className="flex space-x-2">
                   {btnSize.map((item, i) => (
                     // @ts-expect-error: This
                     <ProductSize
@@ -309,7 +327,7 @@ const CategoryDetails = () => {
                       key={i}
                     />
                   ))}
-                </div>
+                </div> */}
               </div>
             </div>
             <div className="">
@@ -402,7 +420,7 @@ const CategoryDetails = () => {
                 </div>
               </div>
               <button
-              // @ts-expect-error: This 
+                // @ts-expect-error: This
                 onClick={() => dispatch(addToCart(product))}
                 className="w-full py-4 bg-redPrimary text-white text-[11px] lg:text-xs tracking-wide rounded-lg"
               >
@@ -418,9 +436,59 @@ const CategoryDetails = () => {
           </div>
         </div>
       </div>
-      {/* <div className="mb-16 mt-16">
-        <MainProductFilter status="new" />
-      </div> */}
+      <div className="mb-16 mt-16">
+        {/* <MainProductFilter status="new" /> */}
+        <Tabs value={activeTab}>
+          <TabsHeader
+            placeholder={<div />}
+            className="bg-transparent"
+            indicatorProps={{
+              className:
+                "bg-transparent border-b-2 border-redPrimary shadow-none rounded-none",
+            }}
+          >
+            {CategoryTabs.map(({ label, value }) => (
+              <Tab
+                placeholder={<div />}
+                key={value}
+                value={value}
+                onClick={() => setActiveTab(value)}
+                activeClassName="text-[#fff]"
+                className="text-[9px] p-0 me-[8px] font-Helvetica-Neue uppercase h-[25px] text-darkSecondary w-auto font-helvetica-neue font-bold text-start"
+              >
+                <p
+                  className={`${
+                    activeTab === value
+                      ? "text-redPrimary"
+                      : "text-darkSecondary"
+                  }`}
+                >
+                  {label}
+                </p>
+              </Tab>
+            ))}
+          </TabsHeader>
+          <TabsBody
+            animate={{
+              initial: { y: 250 },
+              mount: { y: 0 },
+              unmount: { y: 250 },
+            }}
+            placeholder={<div />}
+            className="p-0 m-0"
+          >
+            {CategoryTabs.map((item, i) => (
+              <TabPanel
+                key={i}
+                value={item.value}
+                className="p-0 m-0 py-2 mt-4 font-Helvetica-Neue"
+              >
+                {item.content}
+              </TabPanel>
+            ))}
+          </TabsBody>
+        </Tabs>
+      </div>
       {/* <div className="my-5">
         <Banner />
       </div> */}
