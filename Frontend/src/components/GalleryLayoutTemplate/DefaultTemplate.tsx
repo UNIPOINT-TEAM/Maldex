@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Rnd } from "react-rnd";
 import { TemplateData } from "../../types";
 import AddAplying from "../Gallery/AddAplying";
 import { updateItem } from "../../store/carouselReducer";
-import CustomRnd from "../Gallery/CustomRnd";
+import { Rnd } from "react-rnd";
 
 const DefaultTemplate: React.FC<TemplateData> = ({
   data,
@@ -20,9 +19,23 @@ const DefaultTemplate: React.FC<TemplateData> = ({
     circulationAmount_visible,
     codeArticle_visible,
   } = useSelector((state) => state.carousel.status);
-
+  console.log(data, applying);
+  const [isFocus, setIsFocus] = useState({ title: false, description: false });
   const { items, activeCaruselIndex } = useSelector((state) => state.carousel);
   const dispatch = useDispatch();
+  const [apllyingData, setApllyingData] = useState({
+    imagePosition: { x: 0, y: 0, width: 200, height: 200 },
+    textPosition: { x: 0, y: 0, width: 200, height: 100 },
+    content: {
+      text: "",
+    },
+  });
+
+  useEffect(() => {
+    if (items[activeCaruselIndex]?.applying?.image_1) {
+      setApllyingData(items[activeCaruselIndex].applying.image_1);
+    }
+  }, [activeCaruselIndex, items]);
 
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -32,6 +45,17 @@ const DefaultTemplate: React.FC<TemplateData> = ({
       data: {
         ...items[activeCaruselIndex]?.data,
         [event.target.name]: event.target.value,
+      },
+    };
+    dispatch(updateItem(updatedItem));
+  };
+
+  const handleApplyingChange = (image, name, updatedData = null) => {
+    const updatedItem = {
+      ...items[activeCaruselIndex],
+      applying: {
+        ...items[activeCaruselIndex]?.applying,
+        [name]: updatedData || image,
       },
     };
     dispatch(updateItem(updatedItem));
@@ -47,20 +71,69 @@ const DefaultTemplate: React.FC<TemplateData> = ({
       }}
       className={`grid ${
         landscape_visible ? "w-full" : "w-[400px]"
-      }  grid-cols-7 bg-cover bg-center  h-full border p-3 rounded-lg border-darkSecondary 
+      }  grid-cols-7 bg-cover bg-center   border p-3 rounded-lg border-darkSecondary 
       }]`}
     >
-      {applying?.image && (
-        <div className="absolute top-0 z-[99]">
-          <div className="relative w-[200px] h-[200px]">
-            <Rnd style={{ backgroundColor: background?.color }}>
-              <img
-                src={applying?.image}
-                className={` object-contain object-center w-full h-full`}
-                alt="applying-image"
-              />
-            </Rnd>
-          </div>
+      {items[activeCaruselIndex]?.applying?.image_1 && (
+        <div className="absolute top-0 left-0 z-[99]">
+          <Rnd
+            size={{
+              width: apllyingData.imagePosition?.width,
+              height: apllyingData.imagePosition?.height,
+            }}
+            position={{
+              x: apllyingData.imagePosition?.x - 160,
+              y: apllyingData.imagePosition?.y,
+            }}
+            onDragStop={(e, d) => {
+              const newPosition = {
+                ...apllyingData.imagePosition,
+                x: d.x,
+                y: d.y,
+              };
+              setApllyingData((prev) => ({
+                ...prev,
+                imagePosition: newPosition,
+              }));
+              handleApplyingChange(null, "image_1", {
+                ...apllyingData,
+                imagePosition: newPosition,
+              });
+            }}
+            onResizeStop={(e, direction, ref, delta, position) => {
+              const newPosition = {
+                ...apllyingData.imagePosition,
+                width: ref.style.width,
+                height: ref.style.height,
+                ...position,
+              };
+              setApllyingData((prev) => ({
+                ...prev,
+                imagePosition: newPosition,
+              }));
+              handleApplyingChange(null, "image_1", {
+                ...apllyingData,
+                imagePosition: newPosition,
+              });
+            }}
+            enableResizing={{
+              top: true,
+              right: true,
+              bottom: true,
+              left: true,
+              topRight: true,
+              bottomRight: true,
+              bottomLeft: true,
+              topLeft: true,
+            }}
+            className="min-w-[200px] min-h-[200px] border border-[#9d9c98]"
+          >
+            <img
+              src={items[activeCaruselIndex].applying.image_1?.image}
+              alt="aplying-img"
+              className="w-full object-contain"
+            />
+          </Rnd>
         </div>
       )}
       <div
@@ -68,8 +141,14 @@ const DefaultTemplate: React.FC<TemplateData> = ({
           landscape_visible ? "col-span-3" : "col-span-7"
         } p-8 group flex relative justify-center items-center w-full`}
       >
-        <div className="group-hover:block absolute top-[50%] hidden">
-          <AddAplying productData={data} />
+        <div className="group-hover:block absolute top-[50%] hidden z-[99999]">
+          <AddAplying
+            name={"image_1"}
+            onChange={handleApplyingChange}
+            productData={
+              data?.images_set[0].image_url || data?.images_set[0].image
+            }
+          />
         </div>
         <img
           src={data?.images_set[0].image_url || data?.images_set[0].image}
@@ -88,9 +167,17 @@ const DefaultTemplate: React.FC<TemplateData> = ({
       >
         <textarea
           name="name"
+          onFocus={() => setIsFocus({ title: true })}
+          onBlur={() => setIsFocus({ title: false })}
           onChange={handleInputChange}
-          value={data?.name}
-          className={`${inputStyle} ${
+          value={
+            isFocus.title
+              ? data?.name
+              : `${data?.name?.slice(0, 40)}${
+                  data?.name?.length > 40 ? "..." : ""
+                }`
+          }
+          className={`leading-tight resize-none ${inputStyle} ${
             landscape_visible ? "text-[36px]" : "text-[30px]"
           }`}
         />
@@ -120,7 +207,6 @@ const DefaultTemplate: React.FC<TemplateData> = ({
                   name="quantity"
                   value={data?.quantity}
                   className={`${inputStyle} text-fs_4 w-full`}
-                  onChange={handleInputChange}
                 />
               </>
             )}
@@ -140,85 +226,81 @@ const DefaultTemplate: React.FC<TemplateData> = ({
           </div>
         </div>
 
-        <div className="relative w-full h-[150px]">
-          <Rnd>
-            {codeArticle_visible && (
+        <div className=" w-full">
+          {codeArticle_visible && (
+            <div className="flex items-center gap-1">
+              <label htmlFor="vendor-code">Артикул:</label>
+              <input
+                id="article"
+                name="article"
+                onChange={handleInputChange}
+                className={"outline-[#e99125] px-2 rounded-xl bg-transparent"}
+                value={data?.article}
+              />
+            </div>
+          )}
+          {characteristic_visible && (
+            <>
               <div className="flex items-center gap-1">
-                <label htmlFor="vendor-code">Артикул:</label>
+                <label htmlFor="size">Размер:</label>
                 <input
-                  id="article"
-                  name="article"
+                  id="product_size"
+                  name="product_size"
                   onChange={handleInputChange}
                   className={"outline-[#e99125] px-2 rounded-xl bg-transparent"}
-                  value={data?.article}
+                  value={data?.product_size}
                 />
               </div>
-            )}
-            {characteristic_visible && (
-              <>
-                <div className="flex items-center gap-1">
-                  <label htmlFor="size">Размер:</label>
-                  <input
-                    id="product_size"
-                    name="product_size"
-                    onChange={handleInputChange}
-                    className={
-                      "outline-[#e99125] px-2 rounded-xl bg-transparent"
-                    }
-                    value={data?.product_size}
-                  />
-                </div>
-                <div className="flex items-center gap-1">
-                  <label htmlFor="material">Материал:</label>
-                  <input
-                    id="material"
-                    name="material"
-                    onChange={handleInputChange}
-                    className={
-                      "outline-[#e99125] px-2 rounded-xl bg-transparent"
-                    }
-                    value={data?.material}
-                  />
-                </div>
-                <div className="flex items-center gap-1">
-                  <label htmlFor="color">Вес:</label>
-                  <input
-                    id="weight"
-                    name="weight"
-                    onChange={handleInputChange}
-                    className={
-                      "outline-[#e99125] px-2 rounded-xl bg-transparent"
-                    }
-                    value={data?.weight}
-                  />
-                </div>
-                <div className="flex items-center gap-1">
-                  <label htmlFor="color">Доступное нанесение:</label>
-                  <input
-                    id="available_application"
-                    name="available_application"
-                    className={
-                      "outline-[#e99125] px-2 rounded-xl bg-transparent"
-                    }
-                    value={""}
-                  />
-                </div>
-              </>
-            )}
-          </Rnd>
+              <div className="flex items-center gap-1">
+                <label htmlFor="material">Материал:</label>
+                <input
+                  id="material"
+                  name="material"
+                  onChange={handleInputChange}
+                  className={"outline-[#e99125] px-2 rounded-xl bg-transparent"}
+                  value={data?.material}
+                />
+              </div>
+              <div className="flex items-center gap-1">
+                <label htmlFor="color">Вес:</label>
+                <input
+                  id="weight"
+                  name="weight"
+                  onChange={handleInputChange}
+                  className={"outline-[#e99125] px-2 rounded-xl bg-transparent"}
+                  value={data?.weight}
+                />
+              </div>
+              <div className="flex items-center gap-1">
+                <label htmlFor="color">Доступное нанесение:</label>
+                <input
+                  id="available_application"
+                  name="available_application"
+                  className={"outline-[#e99125] px-2 rounded-xl bg-transparent"}
+                  value={""}
+                />
+              </div>
+            </>
+          )}
         </div>
         {description_visible && landscape_visible! && (
-          <div className="relative w-full ">
+          <div className="w-full mt-2 -ms-2">
             {data?.description && (
-              <CustomRnd>
-                <textarea
-                  name="description "
-                  value={data?.description}
-                  onChange={handleInputChange}
-                  rows={6}
-                  className="w-full relative bg-transparent mt-2 resize-none rounded-lg max-h-[300px] font-normal p-[6px] overflow-hidden leading-tight focus:outline outline-[#e99125]"
-                />
-              </CustomRnd>
+              <textarea
+                onFocus={() => setIsFocus({ description: true })}
+                onBlur={() => setIsFocus({ description: false })}
+                name="description "
+                value={
+                  isFocus.description
+                    ? data?.description
+                    : `${data.description.slice(0, 330)}${
+                        data?.description?.length > 330 ? "..." : ""
+                      }`
+                }
+                onChange={handleInputChange}
+                rows={7}
+                className="w-full  bg-[#fff]  resize-none rounded-lg max-h-[300px] font-normal p-[6px]  leading-tight focus:outline outline-[#e99125]"
+              />
             )}
           </div>
         )}

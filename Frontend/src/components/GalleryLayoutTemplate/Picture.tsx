@@ -1,42 +1,45 @@
 import { useDispatch, useSelector } from "react-redux";
-import { updateItem } from "../../store/carouselReducer";
-import templateTShirt from "../../assets/Gallery/default-image.png";
-import { Rnd } from "react-rnd";
+import { CarouselState, updateItem } from "../../store/carouselReducer";
 import { TemplateData } from "../../types";
+import templateTShirt from "../../assets/Gallery/default-image.png";
+import AddAplying from "../Gallery/AddAplying";
 
 const Picture: React.FC<TemplateData> = ({ data }) => {
   const dispatch = useDispatch();
-  // @ts-expect-error: This
-  const items = useSelector((state) => state.carousel.items);
-  // @ts-expect-error: This
-  const activeIndex = useSelector((state) => state.carousel.activeCaruselIndex);
+
+  const { items, activeCaruselIndex } = useSelector(
+    (state: { carousel: CarouselState }) => state.carousel
+  );
 
   const handleChangeItem = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, files, value } = event.target;
+    const { files } = event.target;
     const updatedItem = {
-      ...items[activeIndex],
+      ...items[activeCaruselIndex],
       data: {
-        ...data,
-        [name]: files ? URL.createObjectURL(files[0]) : value,
+        ...items[activeCaruselIndex]?.data,
+        images_set: {
+          ...items[activeCaruselIndex]?.data?.images_set,
+          [0]: {
+            image_url: URL.createObjectURL(files[0]),
+          },
+        },
       },
     };
     dispatch(updateItem(updatedItem));
   };
 
   return (
-    <div className="w-full h-full p-10">
+    <div className="w-full h-full p-10 border rounded-lg border-darkSecondary">
       <div className="body grid grid-cols-2 gap-10 items-center w-full h-full">
         <div className="col-span-1 h-full relative">
-          <Rnd
-            className={`${
-              !items[activeIndex]?.data?.image
-                ? "bg-[#eeede9]"
-                : "bg-transparent"
+          <div
+            className={`h-full ${
+              !data?.images_set ? "bg-[#eeede9]" : "bg-transparent"
             }`}
           >
             <label
               htmlFor="upload-url"
-              className="w-full h-full flex items-center justify-center"
+              className="w-full h-full cursor-pointer  flex items-center justify-center"
             >
               <input
                 type="file"
@@ -45,22 +48,27 @@ const Picture: React.FC<TemplateData> = ({ data }) => {
                 className="sr-only"
                 onChange={handleChangeItem}
               />
-              {!items[activeIndex]?.data?.image && (
+              {!data?.images_set && (
                 <img
                   src={templateTShirt}
                   alt="template T-shirt"
                   className="object-contain w-[80%] h-[90%]"
                 />
               )}
-              {items[activeIndex]?.data?.image && (
-                <img
-                  src={items[activeIndex]?.data?.image}
-                  alt="template T-shirt"
-                  className="object-contain w-[80%] h-[90%]"
-                />
+              {data?.images_set && data?.images_set[0]?.image_url && (
+                <div className="h-[420px] relative group w-full">
+                  <div className="absolute left-0 top-[50%] hidden group-hover:flex justify-center w-full ">
+                    <AddAplying productData={data} />
+                  </div>
+                  <img
+                    src={data?.images_set[0]?.image_url}
+                    alt="template T-shirt"
+                    className="object-contain h-full "
+                  />
+                </div>
               )}
             </label>
-          </Rnd>
+          </div>
         </div>
       </div>
     </div>

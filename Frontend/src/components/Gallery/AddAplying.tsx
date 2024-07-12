@@ -1,15 +1,13 @@
 import React, { useState } from "react";
 import { Dialog } from "@material-tailwind/react";
 import { IoAddOutline } from "react-icons/io5";
-import { Product } from "../../types";
-import { useDispatch, useSelector } from "react-redux";
-import { updateItem } from "../../store/carouselReducer";
 import { Rnd } from "react-rnd";
 import { IoMdClose } from "react-icons/io";
 import uploadIcon from "../../assets/icons/upload-img-icon.svg";
 import textLeftIcon from "../../assets/icons/text-left.svg";
 import textCenterIcon from "../../assets/icons/text-center.svg";
 import textRightIcon from "../../assets/icons/text-right.svg";
+import { useSelector } from "react-redux";
 
 const editorConfig = {
   fontFamily: "Times New Roman",
@@ -27,54 +25,99 @@ const editorConfig = {
   ],
 };
 
-const AddAplying: React.FC<{ productData: any }> = ({ productData }) => {
+interface IProps {
+  productData: any;
+  name: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+const AddAplying: React.FC<IProps> = ({ productData, name, onChange }) => {
   const [open, setOpen] = useState(false);
-  const [text, setText] = useState("");
-  const [fontFamily, setFontFamily] = useState("Times New Roman");
-  const [fontSize, setFontSize] = useState("11px");
-  const [fontWeight, setFontWeight] = useState<string[]>([]);
-  const [textAlign, setTextAlign] = useState("left");
-  const dispatch = useDispatch();
-  const items = useSelector((state) => state.carousel.items);
-  const activeIndex = useSelector((state) => state.carousel.activeCaruselIndex);
+
+  const [apllyingData, setApllyingData] = useState({
+    image: null,
+    imagePosition: { x: 0, y: 0, width: 200, height: 200 },
+    textPosition: { x: 0, y: 0, width: 200, height: 100 },
+    content: {
+      text: "",
+      fontFamily: "Times New Roman",
+      fontSize: "11px",
+      fontWeight: [],
+      textAlign: "left",
+    },
+  });
+  const [selectedElement, setSelectedElement] = useState<string | null>(null);
 
   const handleOpen = () => setOpen(!open);
-  const handleChangeItem = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { files } = event.target;
-    const updatedItem = {
-      ...items[activeIndex],
-      applying: {
-        ...items[activeIndex]?.applying,
-        image: URL.createObjectURL(files[0]),
-      },
-    };
-    dispatch(updateItem(updatedItem));
+
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setApllyingData((prev) => ({
+      ...prev,
+      image: URL.createObjectURL(event.target.files[0]),
+    }));
   };
 
   const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setText(event.target.value);
+    setApllyingData((prev) => ({
+      ...prev,
+      content: { ...prev.content, text: event.target.value },
+    }));
   };
 
   const handleFontFamilyChange = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
-    setFontFamily(event.target.value);
+    setApllyingData((prev) => ({
+      ...prev,
+      content: { ...prev.content, fontFamily: event.target.value },
+    }));
   };
 
   const handleFontSizeChange = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
-    setFontSize(event.target.value);
+    setApllyingData((prev) => ({
+      ...prev,
+      content: { ...prev.content, fontSize: event.target.value },
+    }));
   };
 
   const handleFontWeightChange = (value: string) => {
-    setFontWeight((prev) =>
-      prev.includes(value) ? prev.filter((w) => w !== value) : [...prev, value]
-    );
+    setApllyingData((prev) => ({
+      ...prev,
+      content: {
+        ...prev.content,
+        fontWeight: prev.content.fontWeight.includes(value)
+          ? prev.content.fontWeight.filter((w) => w !== value)
+          : [...prev.content.fontWeight, value],
+      },
+    }));
   };
-  const handleTextAlignChange = (value: string) => setTextAlign(value);
+
+  const handleTextAlignChange = (value: string) =>
+    setApllyingData((prev) => ({
+      ...prev,
+      content: { ...prev.content, textAlign: value },
+    }));
 
   const handleSaveInfo = () => {
+    setOpen(false);
+    onChange(apllyingData, name);
+  };
+
+  const handleCancelInfo = () => {
+    setApllyingData({
+      image: null,
+      imagePosition: { x: 0, y: 0, width: 200, height: 200 },
+      textPosition: { x: 0, y: 0, width: 200, height: 100 },
+      content: {
+        text: "",
+        fontFamily: "Times New Roman",
+        fontSize: "11px",
+        fontWeight: [],
+        textAlign: "left",
+      },
+    });
     setOpen(false);
   };
 
@@ -94,43 +137,133 @@ const AddAplying: React.FC<{ productData: any }> = ({ productData }) => {
         handler={handleOpen}
       >
         <div className="grid grid-cols-12 gap-5 h-full font-Helvetica-Neue">
-          <div className="col-span-8 border border-[#9d9c98] flex justify-center items-center h-full rounded-md relative">
-            <div className="absolute w-[200px] h-[200px]">
-              <Rnd>
-                <img
-                  src={items[activeIndex]?.applying?.image}
-                  alt=""
-                  className="w-full h-full object-contain"
-                />
+          <div className="col-span-8 relative border border-[#9d9c98] flex justify-center items-center h-full rounded-md ">
+            <div className="absolute top-0 left-0">
+              <Rnd
+                size={{
+                  width: apllyingData.imagePosition.width,
+                  height: apllyingData.imagePosition.height,
+                }}
+                position={{
+                  x: apllyingData.imagePosition.x,
+                  y: apllyingData.imagePosition.y,
+                }}
+                onDragStop={(e, d) => {
+                  setApllyingData((prev) => ({
+                    ...prev,
+                    imagePosition: { ...prev.imagePosition, x: d.x, y: d.y },
+                  }));
+                }}
+                onResizeStop={(e, direction, ref, delta, position) => {
+                  setApllyingData((prev) => ({
+                    ...prev,
+                    imagePosition: {
+                      ...prev.imagePosition,
+                      width: ref.style.width,
+                      height: ref.style.height,
+                      ...position,
+                    },
+                  }));
+                }}
+                enableResizing={{
+                  top: true,
+                  right: true,
+                  bottom: true,
+                  left: true,
+                  topRight: true,
+                  bottomRight: true,
+                  bottomLeft: true,
+                  topLeft: true,
+                }}
+                onClick={() => setSelectedElement("image")}
+                className="min-w-[200px] min-h-[200px] border border-[#9d9c98] cursor-move"
+                style={{
+                  border:
+                    selectedElement === "image"
+                      ? "2px solid red"
+                      : "2px solid transparent",
+                }}
+              >
+                {apllyingData.image && (
+                  <img
+                    src={apllyingData.image}
+                    alt="aplying-img"
+                    className="w-full h-full object-contain"
+                  />
+                )}
               </Rnd>
             </div>
+
             <div className="absolute top-0 left-0">
-              <Rnd>
-                <div
+              <Rnd
+                size={{
+                  width: apllyingData.textPosition.width,
+                  height: apllyingData.textPosition.height,
+                }}
+                position={{
+                  x: apllyingData.textPosition.x,
+                  y: apllyingData.textPosition.y,
+                }}
+                onDragStop={(e, d) => {
+                  setApllyingData((prev) => ({
+                    ...prev,
+                    textPosition: { ...prev.textPosition, x: d.x, y: d.y },
+                  }));
+                }}
+                onResizeStop={(e, direction, ref, delta, position) => {
+                  setApllyingData((prev) => ({
+                    ...prev,
+                    textPosition: {
+                      ...prev.textPosition,
+                      width: ref.style.width,
+                      height: ref.style.height,
+                      ...position,
+                    },
+                  }));
+                }}
+                enableResizing={{
+                  top: true,
+                  right: true,
+                  bottom: true,
+                  left: true,
+                  topRight: true,
+                  bottomRight: true,
+                  bottomLeft: true,
+                  topLeft: true,
+                }}
+                onClick={() => setSelectedElement("text")}
+                style={{}}
+              >
+                <span
                   style={{
-                    fontFamily,
-                    fontSize,
-                    textAlign: textAlign,
-                    fontWeight: fontWeight.includes("bold") ? "bold" : "normal",
-                    fontStyle: fontWeight.includes("italic")
+                    border:
+                      selectedElement === "text"
+                        ? "2px solid red"
+                        : "2px solid transparent",
+                    fontFamily: apllyingData.content.fontFamily,
+                    fontSize: apllyingData.content.fontSize,
+                    textAlign: apllyingData.content.textAlign,
+                    fontWeight: apllyingData.content.fontWeight.includes("bold")
+                      ? "bold"
+                      : "normal",
+                    fontStyle: apllyingData.content.fontWeight.includes(
+                      "italic"
+                    )
                       ? "italic"
                       : "normal",
-                    textDecoration: fontWeight
+                    textDecoration: apllyingData.content.fontWeight
                       .filter((weight) =>
                         ["underline", "line-through"].includes(weight)
                       )
                       .join(" "),
                   }}
                 >
-                  {text}
-                </div>
+                  {apllyingData.content.text}
+                </span>
               </Rnd>
             </div>
             <img
-              src={
-                productData?.images_set[0]?.image_url ||
-                productData?.images_set[0]?.image
-              }
+              src={productData}
               alt="product-image"
               className="w-[300px] object-contain"
             />
@@ -155,7 +288,7 @@ const AddAplying: React.FC<{ productData: any }> = ({ productData }) => {
                   name="upload-url"
                   id="upload-url"
                   className="sr-only"
-                  onChange={handleChangeItem}
+                  onChange={handleImageChange}
                 />
                 <div className="h-[40px] cursor-pointer rounded-lg w-full border gap-2 flex justify-center items-center border-greenPrimary">
                   <img
@@ -181,7 +314,7 @@ const AddAplying: React.FC<{ productData: any }> = ({ productData }) => {
                   name="text"
                   id="text"
                   placeholder="Введите текст..."
-                  value={text}
+                  value={apllyingData.content.text}
                   onChange={handleTextChange}
                   className="w-full text-[11px] placeholder:text-darkSecondary text-darkPrimary font-normal h-[65px] border border-darkSecondary rounded-lg resize-none py-1 px-2 outline-0"
                 ></textarea>
@@ -196,7 +329,7 @@ const AddAplying: React.FC<{ productData: any }> = ({ productData }) => {
                 <div className=" col-span-9">
                   <select
                     id="font-family"
-                    value={fontFamily}
+                    value={apllyingData.content.fontFamily}
                     onChange={handleFontFamilyChange}
                     className="w-full border border-darkSecondary rounded-lg p-2 h-8 text-fs_9 "
                   >
@@ -208,7 +341,7 @@ const AddAplying: React.FC<{ productData: any }> = ({ productData }) => {
                 <div className=" col-span-3">
                   <select
                     id="font-size"
-                    value={fontSize}
+                    value={apllyingData.content.fontSize}
                     onChange={handleFontSizeChange}
                     className="w-full border text-fs_9 border-darkSecondary rounded-lg p-2"
                   >
@@ -242,7 +375,7 @@ const AddAplying: React.FC<{ productData: any }> = ({ productData }) => {
                         textDecoration: item.value,
                       }}
                       className={`text-[10px] h-8 w-8 rounded-[6px] uppercase text-darkSecondary border ${
-                        fontWeight.includes(item.value)
+                        apllyingData.content.fontWeight.includes(item.value)
                           ? "border-greenPrimary text-greenPrimary"
                           : "border-darkSecondary"
                       } `}
@@ -254,7 +387,10 @@ const AddAplying: React.FC<{ productData: any }> = ({ productData }) => {
               </div>
             </div>
             <div className="flex justify-between items-center">
-              <button className="text-fs_6 text-[#d3d3d3] font-medium">
+              <button
+                onClick={handleCancelInfo}
+                className="text-fs_6 text-[#d3d3d3] font-medium"
+              >
                 Сбросить
               </button>
               <button

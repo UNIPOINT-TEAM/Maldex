@@ -132,15 +132,15 @@ const Galleryslider = () => {
               dispatch(onActiveCarusel(swiper?.activeIndex))
             }
             modules={[FreeMode, Navigation, Thumbs, Controller]}
-            className="w-full h-[500px] bg-[#eaebea] rounded-lg "
+            className="w-full h-[500px] bg-[#eaebea] rounded-lg border-0 "
           >
             {items.map((item, i) => (
               <SwiperSlide
                 key={i}
-                className="h-full w-full cursor-pointer gallery-slide rounded-lg bg-[#fff]"
+                className="h-full w-full  cursor-pointer gallery-slide rounded-lg bg-[#fff]"
               >
                 <div
-                  className="w-full h-full"
+                  className="w-full h-full relative "
                   ref={(el) => (containerRefs.current[i] = el)}
                 >
                   {item.template &&

@@ -15,11 +15,8 @@ const SavePdf = () => {
       <div className="absolute w-full top-0 -left-[1000%]">
         <div className="p-3" ref={targetRef}>
           {items.map((item, i) => (
-            <div
-              key={i}
-              className="h-[650px] w-full cursor-pointer gallery-slide  "
-            >
-              <div className="w-full h-full ">
+            <div key={i} className="w-full cursor-pointer gallery-slide  ">
+              <div className="w-full h-[680px] my-8">
                 {item.pdfTemplate &&
                   React.cloneElement(item.pdfTemplate, { ...item })}
               </div>

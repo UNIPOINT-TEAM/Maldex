@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface CarouselState {
+export interface CarouselState {
   items: any[];
   status: {
     landscape_visible: boolean;
@@ -126,7 +126,7 @@ export const {
   clearItems,
   getItems,
   addNewFilledItem,
-  getSlideRef
+  getSlideRef,
 } = carouselSlice.actions;
 
 export default carouselSlice.reducer;
