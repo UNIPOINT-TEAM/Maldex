@@ -27,6 +27,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import { GetProductSearch } from '../../../services/product';
 import PaginationCard from '../../../components/Pagination/Pagination';
+import SearchComponent from './SearchComponent ';
 
 const AddGifts = () => {
   const navigate = useNavigate();
@@ -49,9 +50,12 @@ const AddGifts = () => {
   const [selectedProducts, setSelectedProducts] = useState<number[]>([]);
   const [quantities, setQuantities] = useState({});
   const [inputVal, setInputVal] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+
   const [uploadedPhotos, setUploadedPhotos] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+
 
   const handleFileInputChange = (
     index: number,
@@ -109,6 +113,29 @@ const AddGifts = () => {
     });
   }, [inputVal, currentPage]);
 
+  // const debouncedSearch = useCallback(
+  //   debounce(async (searchTerm, page) => {
+  //     if (searchTerm) {
+  //       try {
+  //         const res = await GetProductSearch(searchTerm, page);
+  //         setSearchResults(res.data.results);
+  //         const residual = res.data.count % 10;
+  //         const pages = (res.data.count - residual) / 10;
+  //         setTotalPages(pages % 2 === 0 && pages === 1 ? pages : pages + 1);
+  //       } catch (error) {
+  //         console.error('Error fetching search results', error);
+  //       }
+  //     } else {
+  //       setSearchResults([]);
+  //     }
+  //   }, 1000),
+  //   []
+  // );
+
+  // useEffect(() => {
+  //   debouncedSearch(inputVal, currentPage);
+  // }, [inputVal, currentPage, debouncedSearch]);
+
   const handleChange = async (selectedId: string) => {
     try {
       const details = await GetGiftsCategoryDetail(selectedId);
@@ -151,7 +178,7 @@ const AddGifts = () => {
       .then((response) => {
         console.log(response);
         navigate('/gifts');
-        window.location.reload();
+        // window.location.reload();
       })
       .catch((error) => {
         console.error('Error adding new product:', error);
@@ -483,10 +510,14 @@ const AddGifts = () => {
             <CardBody className="flex flex-col gap-4">
               <p>поиск нужного товара</p>
               <div className="w-1/3">
-                <Input
+                {/* <Input
                   label="что-нибудь"
                   onChange={(e) => setInputVal(e.target.value)}
-                />
+                /> */}
+                  <SearchComponent 
+              setAddProduct={setAddProduct} 
+              setTotalPages={setTotalPages} 
+            />
               </div>
               <div className="flex flex-wrap justify-center gap-5 py-5 overflow-y-scroll h-[700px]">
                 {/* @ts-ignore */}

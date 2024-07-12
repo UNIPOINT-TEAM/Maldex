@@ -40,22 +40,38 @@ export const GetProductGifts = async (id: number) => {
   return response;
 };
 
+// export const GetProductSearch = async (
+//   item?: string,
+//   currentpage?: number,
+//   filter_id?: string,
+//   categoryId?: number,
+//   siteId?: string,
+// ) => {
+//   const response = await axios.get(
+//     `${BASE_URL}/product/?page=${currentpage && currentpage}&search=${
+//       item && item
+//     }&filter_id=${
+//       filter_id && filter_id
+//     }&category_id=${categoryId}&site=${siteId}`,
+//   );
+//   return response;
+// };
+
+
+
 export const GetProductSearch = async (
-  item?: string,
-  currentpage?: number,
-  filter_id?: string,
-  categoryId?: number,
-  siteId?: string,
+  item = '',
+  currentPage = 1,
+  filter_id = '',
+  categoryId = 0,
+  siteId = ''
 ) => {
   const response = await axios.get(
-    `${BASE_URL}/product/?page=${currentpage && currentpage}&search=${
-      item && item
-    }&filter_id=${
-      filter_id && filter_id
-    }&category_id=${categoryId}&site=${siteId}`,
+    `${BASE_URL}/product/?page=${currentPage}&search=${item}&filter_id=${filter_id}&category_id=${categoryId}&site=${siteId}`
   );
   return response;
 };
+
 export const GetProductIsNew = async () => {
   const response = await axios.get(`${BASE_URL}/product/?is_new=true`);
   return response;
