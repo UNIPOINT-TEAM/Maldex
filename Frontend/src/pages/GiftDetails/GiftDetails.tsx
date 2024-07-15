@@ -3,9 +3,7 @@ import { useEffect, useState } from "react";
 import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
 import {
-  MainProductFilter,
-  // Banner,
-  // MainProductFilter,
+
   QuestForm,
   TabList,
 } from "../../components";
@@ -13,25 +11,18 @@ import {
 import Tshirt from "../../assets/t-shirt.svg";
 import nasilnenie_l from "../../assets/t-shirt.png";
 import nasilnenie_r from "../../assets/t-shirt.png";
-import tabImages from "../../assets/images/tab-image.png";
-import arrowT from "../../assets/icons/arrow-t.svg";
-import arrowB from "../../assets/icons/arrow-b.svg";
+
 import {
   Tab,
   TabPanel,
   Tabs,
   TabsBody,
   TabsHeader,
-  // Tab,
-  // TabPanel,
-  // Tabs,
-  // TabsBody,
-  // TabsHeader,
+
   Tooltip,
   Typography,
 } from "@material-tailwind/react";
 import { IoMdHeart, IoMdHeartEmpty } from "react-icons/io";
-import ProductSize from "../../components/CategoryDetails/ProductSize";
 import {
   FreeSample,
   // TabDescription,
@@ -160,57 +151,7 @@ const CategoryDetails = () => {
     <div className="container_xxl tracking-wider overflow-hidden px-3">
       <div className="grid grid-cols-3 lg:grid-cols-10 my-5">
         <div className="h-full py-5 lg:pr-6 col-span-3 order-3 lg:order-1 ">
-          <img src={tabImages} alt="icon" className="w-[70px] py-5" />
-          {/* <Tabs value={activeTab}>
-            <TabsHeader
-              placeholder={<div />}
-              className="bg-transparent"
-              indicatorProps={{
-                className:
-                  "bg-transparent border-b-2 border-redPrimary shadow-none rounded-none",
-              }}
-            >
-              {CategoryTabs.map(({ label, value }) => (
-                <Tab
-                  placeholder={<div />}
-                  key={value}
-                  value={value}
-                  onClick={() => setActiveTab(value)}
-                  activeClassName="text-[#fff]"
-                  className="text-[9px] p-0 me-[8px] font-Helvetica-Neue uppercase h-[25px] text-darkSecondary w-auto font-helvetica-neue font-bold text-start"
-                >
-                  <p
-                    className={`${
-                      activeTab === value
-                        ? "text-redPrimary"
-                        : "text-darkSecondary"
-                    }`}
-                  >
-                    {label}
-                  </p>
-                </Tab>
-              ))}
-            </TabsHeader>
-            <TabsBody
-              animate={{
-                initial: { y: 250 },
-                mount: { y: 0 },
-                unmount: { y: 250 },
-              }}
-              placeholder={<div />}
-              className="p-0 m-0"
-            >
-              {CategoryTabs.map((item, i) => (
-                <TabPanel
-                  key={i}
-                  value={item.value}
-                  className="p-0 m-0 py-2 mt-4 font-Helvetica-Neue"
-                >
-                  {item.content}
-                </TabPanel>
-              ))}
-            </TabsBody>
-          </Tabs> */}
+
           <div>
             {/* @ts-expect-error: This */}
             {response.description}
@@ -218,34 +159,9 @@ const CategoryDetails = () => {
         </div>
         <div className="bg-white order-1 lg:order-2 flex flex-col items-start p-2 lg:p-5 col-span-3 lg:col-span-4 relative">
           <div className="flex justify-end w-full">
-            {/* <div className="flex gap-1">
-              <button className="rounded-full w-[27px] h-[27px] bg-[#fff] flex items-center justify-center">
-                <img src={arrowT} alt="img" />
-              </button>
-              <button className="rounded-full w-[27px] h-[27px] bg-redPrimary flex items-center justify-center">
-                <img src={arrowB} alt="img" />
-              </button>
-            </div> */}
+
           </div>
-          {/* <div className="absolute rounded-s-xl right-2 lg:right-5 lg:translate-y-[50%] top-[30%]  lg:top-[15%] bg-[#fff] px-3 py-5">
-            <div className="flex flex-col gap-2">
-              {ProductColor.map((item) => (
-                <input
-                  key={item.id}
-                  onClick={() => setproductColor(item.id)}
-                  type="radio"
-                  name="input"
-                  style={{
-                    accentColor: item.color,
-                    background: item.color,
-                  }}
-                  className={`w-4 lg:w-5 h-4 lg:h-5 bg-[${item.color}] ${
-                    productColor !== item.id && "appearance-none"
-                  } rounded-full  cursor-pointer`}
-                />
-              ))}
-            </div>
-          </div> */}
+
           <div
             className={`flex justify-center mt-10 w-full h-full items-center ${
               isActive !== 1 && "hidden"
@@ -285,14 +201,7 @@ const CategoryDetails = () => {
         <div className="py-3 px-0 order-1 lg:order-2 lg:px-5 col-span-3">
           <div>
             <div className="flex justify-between">
-              {/* <div>
-                <span className="border tracking-normal  text-redPrimary border-redPrimary py-[2px] px-1 me-1 rounded-[15px] text-[12px] font-bold ">
-                  NEW
-                </span>
-                <span className="border tracking-normal border-darkPrimary py-[2px] px-[6px]  rounded-[15px] text-[12px] font-bold">
-                  HIT
-                </span>
-              </div> */}
+    
               <div className="cursor-pointer">
                 {isFavorite ? (
                   <IoMdHeart
@@ -317,17 +226,7 @@ const CategoryDetails = () => {
                 <p className="text-darkSecondary text-fs_8 tracking-wide font-semibold">
                   РАЗМЕР:
                 </p>
-                {/* <div className="flex space-x-2">
-                  {btnSize.map((item, i) => (
-                    // @ts-expect-error: This
-                    <ProductSize
-                      {...item}
-                      onActiveSize={setbtnActiveSize}
-                      btnActiveSize={btnActiveSize}
-                      key={i}
-                    />
-                  ))}
-                </div> */}
+
               </div>
             </div>
             <div className="">
@@ -454,7 +353,7 @@ const CategoryDetails = () => {
                 value={value}
                 onClick={() => setActiveTab(value)}
                 activeClassName="text-[#fff]"
-                className="text-[9px] p-0 me-[8px] font-Helvetica-Neue uppercase h-[25px] text-darkSecondary w-auto font-helvetica-neue font-bold text-start"
+                className="text-[19px] p-0 me-[8px] font-Helvetica-Neue uppercase h-[25px] text-darkSecondary w-auto font-helvetica-neue font-bold text-start"
               >
                 <p
                   className={`${
@@ -489,9 +388,7 @@ const CategoryDetails = () => {
           </TabsBody>
         </Tabs>
       </div>
-      {/* <div className="my-5">
-        <Banner />
-      </div> */}
+
       <QuestForm />
     </div>
   );

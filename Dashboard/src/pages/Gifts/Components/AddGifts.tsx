@@ -267,7 +267,7 @@ const AddGifts = () => {
 
                 <div className="flex items-center justify-between  mb-5 pr-5">
                   <Input
-                    required
+                    // required
                     variant="standard"
                     label="Цена со скидкой"
                     onChange={(e) => setDiscount_price(e.target.value)}
