@@ -17,6 +17,8 @@ export { default as Applying } from "./Applying/Applying";
 export { default as AdminLogin } from "./AdminLogin/AdminLogin";
 export { default as AdminPanel } from "./AdminPanel/AdminPanel";
 export { default as Articles } from "./Articles/Articles";
+export { default as SignIn } from "./Auth/SignIn";
+export { default as SignUp } from "./Auth/SignUp";
 // Admin
 export { default as Gallery } from "./Gallery/GeneralInfo";
 export { default as GalleryLayout } from "./Gallery/Layout";
