@@ -112,8 +112,9 @@
 
 // export default SettingsPanel
 
-import { useState } from 'react'
+import { useEffect, useState } from "react";
 import { Input, Button } from "@material-tailwind/react";
+import { GetData, PutDataJson } from "../../pages/Auth/service";
 
 function SettingsPanel() {
     // const [firstName, setFirstName] = useState('');
@@ -122,27 +123,45 @@ function SettingsPanel() {
     // const [number, setNumber] = useState('');
 
     const [formData, setFormData] = useState({
-        firstName: '',
-        lastName: '',
-        email: '',
-        number: ''
+        firstName: "",
+        lastName: "",
+        email: "",
+        number: "",
     });
 
-    const { firstName, lastName, email, number } = formData;
-// @ts-expect-error: This
+    // @ts-expect-error: This
     const onChange = (e) => {
         setFormData((prevState) => ({
             ...prevState,
-            [e.target.id]: e.target.value
-        }))
-    }
+            [e.target.id]: e.target.value,
+        }));
+    };
+
+    const updateProfile = () => {
+        const data = {
+            email: formData.email,
+            first_name: formData.firstName,
+            last_name: formData.lastName,
+            phone_number: formData.number,
+        };
+        PutDataJson("auth/profile/", data).then((res) => console.log(res));
+    };
+
+    useEffect(() => {
+        GetData("auth/profile/").then((res) => setFormData(res));
+    }, []);
+
     return (
         <div className="py-[30px] p-2 w-min md:pl-[33px]">
-            <h1 className="tracking-[-4%] text-[28px] text-[#666666] mb-12">Настройки</h1>
+            <h1 className="tracking-[-4%] text-[28px] text-[#666666] mb-12">
+                Настройки
+            </h1>
 
             <div className="flex flex-col gap-y-[60px]">
                 <div>
-                    <p className="leading-[64px] tracking-[-4%] text-fs_6 font-medium text-[#666666]">Персональные данные</p>
+                    <p className="leading-[64px] tracking-[-4%] text-fs_6 font-medium text-[#666666]">
+                        Персональные данные
+                    </p>
                     <div className="flex gap-5 flex-wrap md:flex-nowrap">
                         <div className="w-[285px] ">
                             <Input
@@ -150,11 +169,10 @@ function SettingsPanel() {
                                 type="text"
                                 // @ts-expect-error: This
                                 color="lightBlue"
-                                placeholder="Владимир"
-                                label="Владимир"
-                                value={firstName}
+                                placeholder={formData?.first_name}
+                                label={formData?.first_name}
                                 onChange={onChange}
-                            // onChange={(e) => setFirstName(e.target.value)}
+                                // onChange={(e) => setFirstName(e.target.value)}
                             />
                         </div>
                         <div className="w-[285px] ">
@@ -163,19 +181,19 @@ function SettingsPanel() {
                                 type="text"
                                 // @ts-expect-error: This
                                 color="lightBlue"
-                                placeholder="Куликов"
-                                label="Куликов"
-                                value={lastName}
+                                placeholder={formData?.last_name}
+                                label={formData?.last_name}
                                 onChange={onChange}
-                            // onChange={(e) => setFirstName(e.target.value)}
+                                // onChange={(e) => setFirstName(e.target.value)}
                             />
                         </div>
-
                     </div>
                 </div>
 
                 <div>
-                    <p className="leading-[64px] tracking-[-4%] text-fs_6 font-medium text-[#666666]">Контактная информация</p>
+                    <p className="leading-[64px] tracking-[-4%] text-fs_6 font-medium text-[#666666]">
+                        Контактная информация
+                    </p>
                     <div className="flex gap-5 flex-wrap md:flex-nowrap">
                         <div className="w-[285px]">
                             <Input
@@ -183,11 +201,10 @@ function SettingsPanel() {
                                 type="email"
                                 // @ts-expect-error: This
                                 color="lightBlue"
-                                placeholder="v.kulikov@maldex.ru"
-                                label="v.kulikov@maldex.ru"
-                                value={email}
+                                placeholder={formData?.email}
+                                label={formData?.email}
                                 onChange={onChange}
-                            // onChange={(e) => setEmail(e.target.value)}
+                                // onChange={(e) => setEmail(e.target.value)}
                             />
                         </div>
 
@@ -197,18 +214,16 @@ function SettingsPanel() {
                                 type="text"
                                 // @ts-expect-error: This
                                 color="lightBlue"
-                                placeholder="8-925-194-50-40"
-                                label="8-925-194-50-40"
-                                value={number}
+                                label={formData?.phone_number}
                                 onChange={onChange}
-                            // onChange={(e) => setNumber(e.target.value)}
+                                // onChange={(e) => setNumber(e.target.value)}
                             />
                         </div>
-
                     </div>
 
                     <div>
                         <Button
+                            onClick={updateProfile}
                             variant="outlined"
                             // @ts-expect-error: This
                             size="regular"
@@ -221,7 +236,7 @@ function SettingsPanel() {
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
-export default SettingsPanel
+export default SettingsPanel;
