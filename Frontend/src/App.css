@@ -2,7 +2,10 @@
     max-width: 1445px;
     width: 100%;
     margin: 0 auto;
+}
 
+.signup-modal {
+    border-radius: 0 !important;
 }
 .scrollbar-custom {
     scrollbar-color: red;
@@ -60,8 +63,7 @@
 
 .catalog:hover .swiper-top-container {
     background-color: #fff;
-  }
-  
+}
 
 .catalog .catalog_btns {
     opacity: 0;
@@ -296,7 +298,7 @@
     height: 400px;
 }
 
-.collapse-arrow>.collapse-title:after {
+.collapse-arrow > .collapse-title:after {
     color: #dfc38e;
 }
 
@@ -540,11 +542,11 @@
     background-color: #ec1026 !important;
 }
 .product-nav::-webkit-scrollbar {
-    display: none
+    display: none;
 }
 .gallery a.active {
     fill: #ec1026;
-    color: #ec1026
+    color: #ec1026;
 }
 .react-draggable {
     width: 100% !important;
