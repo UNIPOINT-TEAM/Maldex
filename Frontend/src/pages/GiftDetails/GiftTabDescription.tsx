@@ -30,18 +30,22 @@ interface TabDescriptionProps {
   }>;
 }
 
+
+
 const GiftTabDescription: React.FC<TabDescriptionProps> = ({
   description,
   products,
 }) => {
+  // console.log(products);
+  
   return (
-    <div>
-      <p className="font-normal text-fs_7 text-black mt-1">{description}</p>
+    <div > 
+      <p className="font-normal text-fs_7 text-black mt-1 ">{description}</p>
       {products && products.length > 0 && (
-        <div className="products-list mt-4">
+        <div className="products-list mt-24">
           {products.map((product) => (
             <div key={product.id} className="product-card mb-4 flex">
-              <div className="w-1/3">
+              <div className="w-1/4">
                 <div className="images-set">
                   {/* {product.product_sets.images_set.map((image) => (
                   <img
@@ -90,12 +94,13 @@ const GiftTabDescription: React.FC<TabDescriptionProps> = ({
                     ))}
                   </Swiper>
                 </div>
-              </div>
-              <div className="w-1/3">
-                <h3>{product.product_sets.name}</h3>
-                <p>Article: {product.product_sets.article}</p>
-                <p>Description: {product.product_sets.description}</p>
-                <p>Quantity: {product.quantity}</p>
+              </div>       
+              <div className="ml-16">
+                <h3 className="font-semibold">{product.product_sets.name}</h3>
+                <p className="text-[12px] mb-4">{product.product_sets.article}</p>
+                <p className="text-2xl font-semibold mb-4">{product.product_sets.price}</p>
+                <p>{product.product_sets.description}</p>
+                {/* <p>Quantity: {product.quantity}</p> */}
               </div>
             </div>
           ))}

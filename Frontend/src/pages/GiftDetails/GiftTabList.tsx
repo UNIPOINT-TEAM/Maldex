@@ -30,28 +30,23 @@ interface TabDescriptionProps {
   }>;
 }
 
-const GiftTabList: React.FC<TabDescriptionProps> = ({
+
+
+const GiftTabDescription: React.FC<TabDescriptionProps> = ({
   description,
   products,
 }) => {
+  // console.log(products);
+  
   return (
-    <div>
-      <p className="font-normal text-fs_7 text-black mt-1">{description}</p>
+    <div > 
+      <p className="font-normal text-fs_7 text-black mt-1 ">{description}</p>
       {products && products.length > 0 && (
-        <div className="products-list mt-4">
+        <div className="products-list mt-24 grid grid-cols-1 md:grid-cols-2 gap-16">
           {products.map((product) => (
             <div key={product.id} className="product-card mb-4 flex">
-              <div className="w-1/3">
+              <div className="w-full md:w-[50%] ">
                 <div className="images-set">
-                  {/* {product.product_sets.images_set.map((image) => (
-                  <img
-                    key={image.id}
-                    src={image.image_url}
-                    alt={product.product_sets.name}
-                    className="product-image"
-                  />
-                ))} */}
-
                   <Swiper
                     autoplay={{
                       delay: 3500,
@@ -63,26 +58,15 @@ const GiftTabList: React.FC<TabDescriptionProps> = ({
                     className="h-full"
                     style={{ mixBlendMode: "multiply" }}
                   >
-                    {product.product_sets.images_set.map((image) => (
-                      <SwiperSlide
-                        // key={e.id}
-                        className="w-full h-full "
-                        // @ts-expect-error: This
-                        onClick={() => handleOpen(item)}
-                      >
+                    {product.product_sets.images_set.map((image, index) => (
+                      <SwiperSlide key={index} className="w-full h-full">
                         <div className="relative h-full">
-                          <div className="flex justify-center items-center h-full ">
-                            {/* <img
-                            className="mb-2 w-[50px] h-[50px] object-contain product-img "
-                            src={e?.image_url ? e?.image_url : e?.image}
-                            alt=""
-                            loading="lazy"
-                          /> */}
+                          <div className="flex justify-center items-center h-full">
                             <img
                               key={image.id}
                               src={image.image_url}
                               alt={product.product_sets.name}
-                              className="product-image"
+                              className="product-image w-2/3"
                             />
                           </div>
                         </div>
@@ -90,12 +74,20 @@ const GiftTabList: React.FC<TabDescriptionProps> = ({
                     ))}
                   </Swiper>
                 </div>
+              </div>       
+              <div className="w-full md:w-1/2 ml-4 md:ml-2">
+                <h3 className="font-semibold">{product.product_sets.name}</h3>
+                <p className="text-[12px] mb-4">{product.product_sets.article}</p>
+                <p className="text-2xl font-semibold mb-4">{product.product_sets.price}</p>
+                {/* <p>{product.product_sets.description}</p> */}
               </div>
-              <div className="w-1/3">
-                <h3>{product.product_sets.name}</h3>
-                <p>Article: {product.product_sets.article}</p>
-                <p>Description: {product.product_sets.description}</p>
-                <p>Quantity: {product.quantity}</p>
+              <div className="flex flex-col justify-center gap-5">
+                <div>
+                  x
+                </div>
+                <div>
+                  +
+                </div>
               </div>
             </div>
           ))}
@@ -105,4 +97,5 @@ const GiftTabList: React.FC<TabDescriptionProps> = ({
   );
 };
 
-export default GiftTabList;
+export default GiftTabDescription;
+

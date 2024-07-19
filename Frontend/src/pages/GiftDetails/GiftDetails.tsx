@@ -145,7 +145,7 @@ const CategoryDetails = () => {
 
   // const imageSrc = response.gift_basket_images[0].images;
 
-  // console.log(imageSrc);
+  console.log(response);
 
   return (
     <div className="container_xxl tracking-wider overflow-hidden px-3">
@@ -224,7 +224,7 @@ const CategoryDetails = () => {
               </h2>
               <div className=" mt-4">
                 <p className="text-darkSecondary text-fs_8 tracking-wide font-semibold">
-                  РАЗМЕР:
+                {/* {response.gift_basket_product} */}
                 </p>
 
               </div>
@@ -335,12 +335,12 @@ const CategoryDetails = () => {
           </div>
         </div>
       </div>
-      <div className="mb-16 mt-16">
+      <div className="mb-16 mt-16 w-[70%]">
         {/* <MainProductFilter status="new" /> */}
         <Tabs value={activeTab}>
           <TabsHeader
             placeholder={<div />}
-            className="bg-transparent"
+            className="bg-transparent "
             indicatorProps={{
               className:
                 "bg-transparent border-b-2 border-redPrimary shadow-none rounded-none",
@@ -353,7 +353,7 @@ const CategoryDetails = () => {
                 value={value}
                 onClick={() => setActiveTab(value)}
                 activeClassName="text-[#fff]"
-                className="text-[19px] p-0 me-[8px] font-Helvetica-Neue uppercase h-[25px] text-darkSecondary w-auto font-helvetica-neue font-bold text-start"
+                className="text-[19px] p-0 me-[58px] font-Helvetica-Neue uppercase h-[25px] text-darkSecondary w-auto font-helvetica-neue font- text-start"
               >
                 <p
                   className={`${

@@ -152,16 +152,16 @@ const CategoryDetails = () => {
             : "Загрузка..."}
         </title>
       </Helmet>
-      <div className="grid grid-cols-3 lg:grid-cols-10 my-5">
+      <div className="grid grid-cols-3 lg:grid-cols-10 mt-5">
         <div className="h-full py-5 lg:pr-6 col-span-3 order-3 lg:order-1">
-          <img src={tabImages} alt="icon" className="w-[70px] py-5" />
+          {/* <img src={tabImages} alt="icon" className="w-[70px] py-5" /> */}
           <Tabs value={activeTab}>
             <TabsHeader
               placeholder={<div />}
               className="bg-transparent"
               indicatorProps={{
                 className:
-                  "bg-transparent border-b-2 border-redPrimary shadow-none rounded-none",
+                  "bg-transparent border-b-2 border-redPrimary shadow-none rounded-none ",
               }}
             >
               {CategoryTabs.map(({ label, value }) => (
@@ -171,7 +171,7 @@ const CategoryDetails = () => {
                   value={value}
                   onClick={() => setActiveTab(value)}
                   activeClassName="text-[#fff]"
-                  className="text-[9px] p-0 me-3 font-Helvetica-Neue uppercase h-[25px] text-darkSecondary w-auto font-bold text-start"
+                  className="text-[9px] p-0 me-3 font-Helvetica-Neue uppercase h-[25px] text-darkSecondary w-auto font-bold text-start "
                 >
                   <p
                     className={`${
@@ -185,7 +185,7 @@ const CategoryDetails = () => {
                 </Tab>
               ))}
             </TabsHeader>
-            <TabsBody placeholder={<div />} className="p-0 m-0">
+            <TabsBody placeholder={<div />} className="p-0 m-0 ">
               {CategoryTabs.map((item, i) => (
                 <TabPanel
                   key={i}
@@ -357,7 +357,7 @@ const CategoryDetails = () => {
           </div>
         </div>
       </div>
-      <div className="mb-16 mt-16">
+      <div className="mb-16 mt-0">
         <MainProductFilter status="new" />
       </div>
       <div className="my-5">
