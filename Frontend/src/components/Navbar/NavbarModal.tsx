@@ -2,9 +2,7 @@ import { useEffect, useState } from "react";
 import { useFetchHook } from "../../hooks/UseFetch";
 import { Link } from "react-router-dom";
 import Arrow from "../../assets/icons/arrow-right.png";
-import { GiHamburgerMenu } from "react-icons/gi";
-import { IoClose } from "react-icons/io5";
-import { Button, Spinner } from "@material-tailwind/react";
+import { Button } from "@material-tailwind/react";
 import "./burger.css";
 
 const NavbarModal = () => {

@@ -21,7 +21,6 @@ const Home = () => {
           Корпоративные сувениры с логотипом. Изготовление и продажа. Каталог
           сувенирной продукции
         </title>
-        <link rel="canonical" href="http://mysite.com/example" />
       </Helmet>
       <GiftItem />
       <div className="banner container_xxl px-3">

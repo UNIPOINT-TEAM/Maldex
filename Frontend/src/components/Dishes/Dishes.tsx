@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { getData } from "../../services/services";
 import { useFetchHook } from "../../hooks/UseFetch";
+import { Link } from "react-router-dom";
 
 const Dishes = () => {
-  const [detail, setDetail] = useState(null);
+  const [detail, setDetail] = useState<any>(null);
   useEffect(() => {
     getData("product/home-category").then((res) => {
       setDetail(res);
@@ -26,109 +27,129 @@ const Dishes = () => {
       <div className="grid grid-rows-3  grid-cols-12  gap-4">
         <div className="col-span-12  lg:col-span-9 h-[360px] row-span-3">
           <div className="grid grid-cols-5 md:grid-cols-11 h-full gap-[10px]">
-            <div className="col-span-3 bg-white flex items-center justify-center">
-              <div style={{ mixBlendMode: "multiply" }}>
+            <Link
+              to={`${
+                detail?.products[0] && `category/${detail?.products[0]?.id}`
+              }`}
+              className="col-span-3 bg-white flex items-center justify-center cursor-pointer"
+            >
+              <div style={{ mixBlendMode: "multiply" }} className="">
                 <img
                   src={
-                    // @ts-expect-error: This
                     detail?.products &&
-                    /*@ts-expect-error: This */
                     detail?.products[0]?.images_set[0]?.image_url
                   }
                   alt=""
                   className="h-[220px] object-contain"
                 />
               </div>
-            </div>
+            </Link>
             <div className="col-span-2 lg:col-span-4">
               <div className="grid grid-rows-2 grid-cols-1 lg:grid-cols-2 h-full gap-[10px]">
-                <div className="bg-white flex items-center justify-center">
+                <Link
+                  to={`${
+                    detail?.products[1] && `category/${detail?.products[1]?.id}`
+                  }`}
+                  className="bg-white flex items-center justify-center cursor-pointer"
+                >
                   <div style={{ mixBlendMode: "multiply" }}>
                     <img
                       src={
-                        // @ts-expect-error: This
                         detail?.products &&
-                        //@ts-expect-error: This
                         detail?.products[1]?.images_set[0]?.image_url
                       }
                       alt=""
                       className="w-[140px] object-contain"
                     />
                   </div>
-                </div>
-                <div className="bg-white flex items-center justify-center">
+                </Link>
+                <Link
+                  to={`${
+                    detail?.products[2] && `category/${detail?.products[2]?.id}`
+                  }`}
+                  className="bg-white flex items-center justify-center cursor-pointer"
+                >
                   <div style={{ mixBlendMode: "multiply" }}>
                     <img
                       src={
-                        // @ts-expect-error: This
                         detail?.products &&
-                        // @ts-expect-error: This
                         detail?.products[2]?.images_set[0]?.image_url
                       }
                       alt=""
                       className="w-[140px] object-contain"
                     />
                   </div>
-                </div>
-                <div className="bg-white items-center justify-center hidden lg:flex">
+                </Link>
+                <Link
+                  to={`${
+                    detail?.products[3] && `category/${detail?.products[3]?.id}`
+                  }`}
+                  className="bg-white items-center justify-center hidden lg:flex cursor-pointer"
+                >
                   <div style={{ mixBlendMode: "multiply" }}>
                     <img
                       src={
-                        // @ts-expect-error: This
                         detail?.products &&
-                        // @ts-expect-error: This
                         detail?.products[3]?.images_set[0]?.image_url
                       }
                       alt=""
                       className="w-[140px] object-contain"
                     />
                   </div>
-                </div>
-                <div className="bg-white items-center justify-center hidden lg:flex">
+                </Link>
+                <Link
+                  to={`${
+                    detail?.products[4] && `category/${detail?.products[4]?.id}`
+                  }`}
+                  className="bg-white items-center justify-center hidden lg:flex cursor-pointer"
+                >
                   <div style={{ mixBlendMode: "multiply" }}>
                     <img
                       src={
-                        // @ts-expect-error: This
                         detail?.products &&
-                        // @ts-expect-error: This
                         detail?.products[4]?.images_set[0]?.image_url
                       }
                       alt=""
                       className="w-[140px] object-contain"
                     />
                   </div>
-                </div>
+                </Link>
               </div>
             </div>
-            <div className="col-span-4 bg-white  items-center justify-center hidden md:flex">
+            <Link
+              to={`${
+                detail?.products[5] && `category/${detail?.products[5]?.id}`
+              }`}
+              className="col-span-4 bg-white  items-center justify-center hidden md:flex cursor-pointer"
+            >
               <div style={{ mixBlendMode: "multiply" }}>
                 <img
                   src={
-                    // @ts-expect-error: This
                     detail?.products &&
-                    // @ts-expect-error: This
                     detail?.products[5]?.images_set[0]?.image_url
                   }
                   alt=""
                   className="w-[300px] object-contain"
                 />
               </div>
-            </div>
+            </Link>
           </div>
         </div>
         <div className="row-span-3 col-span-3 hidden lg:block">
           <div className="grid grid-rows-2 grid-cols-1 gap-4 ">
             <div className="row-span-2 col-span-1 flex flex-col gap-[3px] ">
-              {/*@ts-expect-error: This */}
               {detail?.children &&
-              // @ts-expect-error: This
                 detail?.children.map((i) => (
-                  <p key={i.id} className="text-[14px] font-medium an_btn hover:text-darkSecondary">
+                  <Link
+                    to={`catalog/?category_id=${i?.id}`}
+                    key={i.id}
+                    className="text-[14px] font-medium an_btn hover:text-darkSecondary"
+                  >
                     {i.name}
                     <b className="text-sm text-redPrimary ms-1 font-medium">
                       {i.count}
                     </b>
-                  </p>
+                  </Link>
                 ))}
             </div>
           </div>

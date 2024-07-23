@@ -217,7 +217,7 @@ const SliderProduct = ({ products }) => {
             >
                 {/*@ts-expect-error: This */}
                 {products?.map((item) => (
-                    <SwiperSlide key={item.id} className="w-full">
+                    <SwiperSlide key={item.id} className="w-full bg-re">
                         <ProductsCard item={item} handleOpen={handleOpen} />
                     </SwiperSlide>
                 ))}

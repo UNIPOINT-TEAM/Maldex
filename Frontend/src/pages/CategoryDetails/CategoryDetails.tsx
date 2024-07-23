@@ -7,7 +7,6 @@ import {
   QuestForm,
   TabList,
 } from "../../components";
-import tabImages from "../../assets/images/tab-image.png";
 import {
   Tab,
   TabPanel,
@@ -29,13 +28,35 @@ import { useFetchHook } from "../../hooks/UseFetch";
 import { useParams } from "react-router-dom";
 import { formatPrice } from "../../utils/FormatPrice";
 import { Helmet } from "react-helmet";
+import { DeleteLike, PostDataToken } from "../Auth/service";
 
+const TOKEN = localStorage.getItem("token");
 const CategoryDetails = () => {
   const { id } = useParams();
-  const [activeTab, setActiveTab] = useState("Описание");
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [btnActiveSize, setbtnActiveSize] = useState(1);
   const [productId, setproductId] = useState(Number(id));
+  const dispatch = useDispatch();
+  const { fetchData, response } = useFetchHook();
+  const isLike = response?.is_liked;
+  useEffect(() => {
+    if (TOKEN) {
+      fetchData({
+        method: "GET",
+        url: `/product/${productId}`,
+        headers: { Authorization: `Bearer ${TOKEN}` },
+      });
+    } else {
+      fetchData({ method: "GET", url: `/product/${productId}` });
+    }
+  }, [id, productId]);
+  useEffect(() => {
+    setIsFavorite(response.is_liked);
+  }, [id, response.is_liked]);
+
+  const [activeTab, setActiveTab] = useState("Описание");
+  const [isFavorite, setIsFavorite] = useState(isLike);
+  console.log(isFavorite);
+  const [btnActiveSize, setbtnActiveSize] = useState(1);
+
   const [productItem, setProductItem] = useState({
     quantity: 1,
     totalPrice: 0,
@@ -44,12 +65,19 @@ const CategoryDetails = () => {
     discounts: [{ name: 0, count: 0 }],
   });
 
-  const dispatch = useDispatch();
-  const { fetchData, response } = useFetchHook();
-
-  useEffect(() => {
-    fetchData({ method: "GET", url: `/product/${productId}` });
-  }, [id, productId]);
+  const handleFavorite = (id: number) => {
+    const data = {
+      is_liked: true,
+    };
+    PostDataToken(`product/${id}/like/`, data)
+      .then(() => setIsFavorite(true))
+      .catch((err) => console.log(err));
+  };
+  const HandleDeleteLike = (id: number) => {
+    DeleteLike(`product/${id}/like/`)
+      .then(() => setIsFavorite(false))
+      .catch((err) => console.log(err));
+  };
 
   useEffect(() => {
     if (response?.discounts) {
@@ -238,20 +266,22 @@ const CategoryDetails = () => {
                   </span>
                 )}
               </div>
-              <div className="cursor-pointer">
-                {isFavorite ? (
-                  <IoMdHeart
-                    color="red"
-                    size={20}
-                    onClick={() => setIsFavorite((prev) => !prev)}
-                  />
-                ) : (
-                  <IoMdHeartEmpty
-                    size={20}
-                    onClick={() => setIsFavorite((prev) => !prev)}
-                  />
-                )}
-              </div>
+              {TOKEN && (
+                <div className="cursor-pointer">
+                  {isFavorite ? (
+                    <IoMdHeart
+                      color="red"
+                      size={20}
+                      onClick={() => HandleDeleteLike(response?.id)}
+                    />
+                  ) : (
+                    <IoMdHeartEmpty
+                      size={20}
+                      onClick={() => handleFavorite(response?.id)}
+                    />
+                  )}
+                </div>
+              )}
             </div>
             <div className="container mx-auto lg:px-4 py-4">
               <h2 className="text-base font-semibold tracking-wider">
