@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
   CompanyBanner,
   News,
@@ -7,6 +8,9 @@ import {
 import { Helmet } from "react-helmet";
 
 function Portfolio() {
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  });
   return (
     <>
       <div className="container_xxl">

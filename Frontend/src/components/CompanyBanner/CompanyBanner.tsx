@@ -13,10 +13,10 @@ function CompanyBanner() {
       <div className="container_xxl">
         <div className="flex flex-col gap-5">
           <div className="flex items-center justify-center gap-3 mt-3">
-            <div className="w-[40%]">
+            <div className="w-[40%] h-full">
               <CompanyBannerTop BannerData={response} />
             </div>
-            <div className="w-[60%]">
+            <div className="w-[60%] h-full bg-red-100">
               <CompanyBannerSlider />
             </div>
           </div>

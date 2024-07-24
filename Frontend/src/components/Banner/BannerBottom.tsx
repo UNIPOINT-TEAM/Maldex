@@ -4,6 +4,7 @@ import Slider from "./Slider";
 import arrowRight from "../../assets/icons/arrow-right.png";
 import statya from "../../assets/statya.png";
 import statya2 from "../../assets/statya2.png";
+import { Link } from "react-router-dom";
 
 const BannerBottom: React.FC<any> = ({ BannerData }) => {
   return (
@@ -68,10 +69,7 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
           </div>
           <div className="grid grid-cols-1 grid-rows-2 col-span-2 gap-2">
             <div className="group h-full relative row-span-1 col-span-2 bg-white flex items-center justify-between cursor-pointer hover:bg-[#fff] duration-200">
-              <div
-                className="w-full "
-                style={{ mixBlendMode: "multiply" }}
-              >
+              <div className="w-full " style={{ mixBlendMode: "multiply" }}>
                 <Slider
                   SliderItems={BannerData && BannerData[9]}
                   sliderTime={3000}
@@ -106,7 +104,8 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
       </div>
       <div className="col-span-4 row-span-4">
         <div className="grid grid-cols-2 h-full gap-[9px]">
-          <div
+          <Link
+            to={"/portfolio"}
             className="bg-cover bg-center flex p-3"
             data-aos="fade-left"
             data-aos-delay="50"
@@ -117,8 +116,9 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
             <p className="text-[#fff] mt-auto tracking-wider text-fs_3 m-0">
               Идеи подарков
             </p>
-          </div>
-          <div
+          </Link>
+          <Link
+            to={"/portfolio"}
             data-aos="fade-down"
             data-aos-delay="50"
             className="bg-cover bg-center flex p-3"
@@ -129,7 +129,7 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
             <p className="text-[#fff] tracking-wider text-fs_3">
               Разработка дизайна
             </p>
-          </div>
+          </Link>
         </div>
       </div>
     </div>

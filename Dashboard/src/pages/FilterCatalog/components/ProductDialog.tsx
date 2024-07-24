@@ -6,32 +6,47 @@ import {
   CardFooter,
   Input,
   Checkbox,
+  Select,
+  Option,
 } from '@material-tailwind/react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 // import { Navigation, Pagination } from 'swiper';
 import { Navigation, Pagination } from 'swiper/modules';
-import { GetProductSearch } from '../../../services/product';
+import { GetFilters, GetProductSearch } from '../../../services/product';
 import PaginationCard from '../../../components/Pagination/Pagination';
+import { GetActiveCategory } from '../../../services/main';
+import { GetMainCatalogactive } from '../../../services/maincatalog';
 
-const ProductDialog = ({
-  open,
-  handleOpen,
-
-  handleCheckboxChange,
-}) => {
+const ProductDialog = ({ open, handleOpen, setOpen, handleCheckboxChange }) => {
   const [products, setProducts] = useState([]);
   const [inputVal, setInputVal] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [filterId, setFilterId] = useState('');
+  const [categoryId, setCategoryId] = useState('');
+  const [filter, setFilter] = useState([]);
+  const [filterCategories, setFilterCategories] = useState([]);
+  const [availableCategories, setAvailableCategories] = useState([]);
 
   useEffect(() => {
-    GetProductSearch(inputVal, currentPage, '').then((res) => {
-      setProducts(res.data.results);
-      const residual = res.data.count % 10;
-      const pages = (res.data.count - residual) / 10;
-      setTotalPages(pages % 2 == 0 && pages === 1 ? pages : pages + 1);
+    GetProductSearch(inputVal, currentPage, filterId, categoryId).then(
+      (res) => {
+        setProducts(res.data.results);
+        const residual = res.data.count % 10;
+        const pages = (res.data.count - residual) / 10;
+        setTotalPages(pages % 2 == 0 && pages === 1 ? pages : pages + 1);
+      },
+    );
+    GetFilters().then((res) => {
+      setFilter(res.data);
     });
-  }, [inputVal, currentPage]);
+    GetActiveCategory().then((res) => {
+      setFilterCategories(res);
+    });
+    GetMainCatalogactive().then((res) => {
+      setAvailableCategories(res);
+    });
+  }, [inputVal, currentPage, filterId, categoryId]);
 
   return (
     <Dialog
@@ -43,11 +58,63 @@ const ProductDialog = ({
       <Card className="mx-auto w-full font-satoshi">
         <CardBody className="flex flex-col gap-4">
           <p>поиск нужного товара</p>
-          <div className="w-1/3">
-            <Input
-              label="что-нибудь"
-              onChange={(e) => setInputVal(e.target.value)}
-            />
+          <div className="w-full flex items-center justify-between">
+            <div className="w-[25%]">
+              <Input
+                className=""
+                label="что-нибудь"
+                onChange={(e) => setInputVal(e.target.value)}
+              />
+            </div>
+            <div className="w-[25%]">
+              <Select label="Выберите категорию">
+                {filterCategories?.map((category) => (
+                  <Option
+                    onClick={() => {
+                      setCategoryId(category?.id), setCurrentPage(1);
+                    }}
+                  >
+                    <span>{category?.name} / </span>
+                    <span className="text-blue-400">{category?.count} / </span>
+                    <span className="text-red-400 text-xs">
+                      {category?.site}{' '}
+                    </span>
+                  </Option>
+                ))}
+              </Select>
+            </div>
+            <div className="w-1/6">
+              {filter?.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => {
+                    setFilterId(item.id), setCurrentPage(1);
+                  }}
+                  className={`border rounded-md px-2 py-1 ${
+                    item.id == filterId && ' border-red-400 text-red-400'
+                  }`}
+                >
+                  {item.title}
+                </button>
+              ))}
+            </div>
+
+            <div className="w-1/6">
+              {' '}
+              <PaginationCard
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+                totalPages={totalPages}
+              />
+            </div>
+            <button
+              onClick={() => {
+                setCategoryId(''), setFilterId(''), setCurrentPage(1);
+              }}
+              className="bg-red-primary text-white px-2 h-[40px] rounded-md"
+            >
+              clear filter
+            </button>
           </div>
           <div className="flex flex-wrap justify-center gap-5 py-5 overflow-y-scroll h-[400px]">
             {/* @ts-ignore */}
@@ -147,11 +214,6 @@ const ProductDialog = ({
                 </div>
               </div>
             ))}
-            <PaginationCard
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
-              totalPages={totalPages}
-            />
           </div>
         </CardBody>
         <CardFooter className="pt-0 font-satoshi flex justify-end gap-4">
@@ -164,6 +226,9 @@ const ProductDialog = ({
             Отмена
           </button>
           <button
+            onClick={() => {
+              setOpen(!open);
+            }}
             form="form-post"
             className="inline-flex tracking-wide items-center justify-center rounded-md bg-success py-2 px-6 text-center font-medium text-white hover:bg-opacity-90 "
           >

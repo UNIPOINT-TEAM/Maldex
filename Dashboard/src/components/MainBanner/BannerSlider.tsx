@@ -21,6 +21,7 @@ const BannerSlider = () => {
   useEffect(() => {
     GetMainBannerSlider().then((res) => {
       setSliderData(res);
+      console.log(res);
     });
   }, []);
   return (
@@ -52,15 +53,15 @@ const BannerSlider = () => {
                   </div>
                 </div>
                 <div className="w-[45%] h-full flex justify-end ps-2">
-                  {item?.video ? (
+                  {item?.media_type == 'video' ? (
                     <video width="640" height="360" controls>
-                      <source src={item?.video} type="video/mp4" />
+                      <source src={item?.media} type="video/mp4" />
                       Your browser does not support the video tag.
                     </video>
                   ) : (
                     <img
                       className="h-[250px] w-[200px]"
-                      src={item.product.images_set[0].image_url}
+                      src={item?.media}
                       alt=""
                     />
                   )}
@@ -119,17 +120,14 @@ export const AddBannerCarousel = () => {
   const AddCarousel = () => {
     const formdata = new FormData();
     formdata.append('name', nameCarousel);
-    formdata.append('video', fileCarousel);
+    formdata.append('media', fileCarousel);
     formdata.append('title1', title1);
     formdata.append('url1', url1);
     formdata.append('title2', title2);
     formdata.append('url2', url2);
     formdata.append('product_id', product);
 
-    PostData('/banner/carousel/', formdata).then(
-      () => setSize(null),
-      window.location.reload(),
-    );
+    PostData('/banner/carousel/', formdata).then(() => setSize(null));
   };
 
   const handleOpen = (value) => setSize(value);
@@ -180,7 +178,6 @@ export const AddBannerCarousel = () => {
                     required
                     type="file"
                     className="sr-only"
-                    accept="image/*"
                   />
                   <p className="text-fs-6">Добавить Фото</p>
                 </label>

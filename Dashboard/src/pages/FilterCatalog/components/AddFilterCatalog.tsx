@@ -33,6 +33,8 @@ function AddBuildSet() {
       : [...selectedProductsIds, id];
     setSelectedProductsIds(newSelected);
 
+    console.log(selectedProductsIds);
+
     const newQuantities = { ...quantities };
     if (!newSelected.includes(id)) {
       delete newQuantities[id];
@@ -193,15 +195,18 @@ function AddBuildSet() {
                             </span>
                           </p>
                         </div>
-                        <Input
-                          type="number"
-                          min="1"
-                          name="count"
-                          value={quantities[item.id] || ''}
-                          onChange={(e) =>
-                            handleQuantityChange(item.id, e.target.value)
-                          }
-                        />
+                        <div className="w-full ">
+                          <input
+                            className="w-full border border-blue-gray-400 px-2 rounded-md"
+                            type="number"
+                            min="1"
+                            name="count"
+                            value={quantities[item.id] || ''}
+                            onChange={(e) =>
+                              handleQuantityChange(item.id, e.target.value)
+                            }
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -223,6 +228,7 @@ function AddBuildSet() {
             open={open}
             handleOpen={handleOpen}
             handleCheckboxChange={handleCheckboxChange}
+            setOpen={setOpen}
           />
           <button
             type="submit"

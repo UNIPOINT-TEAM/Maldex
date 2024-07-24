@@ -11,6 +11,7 @@ const BannerSlider = () => {
   useEffect(() => {
     fetchData({ method: "GET", url: "/banner/carousel/" });
   }, []);
+  console.log(response);
 
   return (
     <div className="banner-carusel relative w-full h-full bg-greenPrimary flex  p-[12px] lg:p-[20px] text-white font-helvetica-neue">
@@ -50,12 +51,27 @@ const BannerSlider = () => {
                   ))}
                 </div>
               </div>
-              <div className="w-[45%] pt-4  flex items-end">
-                <img
-                  src={item?.product?.images_set[0].image_url}
-                  alt="img"
-                  className="w-[75%] h-[300px] object-contain"
-                />
+              <div className="w-[45%] pt-4  flex items-center justify-center">
+                {item.media_type === "image" ? (
+                  <img
+                    src={item.media}
+                    alt="img"
+                    className="w-[75%] h-[300px] object-contain"
+                  />
+                ) : (
+                  <video
+                    src={item.media}
+                    controls
+                    height="300"
+                    className="w-[85%] h-[230px] bg-darkPrimary flex justify-center items-start"
+                  >
+                    <source
+                      src={item.media}
+                      type="video/mp4"
+                      className="w-full h-full object-cover"
+                    />
+                  </video>
+                )}
               </div>
             </SwiperSlide>
           ))}
