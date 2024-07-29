@@ -1,21 +1,64 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useState, useCallback } from "react";
+import { toBlob } from "html-to-image";
+import debounce from "lodash.debounce";
 
-const GalleryThumbs = ({ item }) => {
-  const canvasRef = useRef(null);
+const GalleryThumb = ({ containerRef, item }) => {
+  const [thumbnail, setThumbnail] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+
+  const htmlToImageConvert = useCallback(
+    debounce(() => {
+      if (containerRef?.current) {
+        toBlob(containerRef.current, {
+          cacheBust: false,
+          useCORS: true,
+          allowTaint: true,
+          quality: 0.92, // Add quality parameter to reduce processing time
+          width: containerRef.current.offsetWidth,
+          height: containerRef.current.offsetHeight,
+        })
+          .then((blob) => {
+            const imageUrl = URL.createObjectURL(blob);
+            console.log(imageUrl);
+            setThumbnail(imageUrl);
+            setIsLoading(false);
+          })
+          .catch((err) => {
+            console.log(err);
+            setIsLoading(false);
+          });
+      }
+    }, 500), // Reduce debounce time
+    [containerRef, item]
+  );
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    const context = canvas.getContext("2d");
-    context.fillRect(0, 0, canvas.width, canvas.height);
+    const timer = setTimeout(() => {
+      htmlToImageConvert();
+    }, 2000);
 
-    context.font = "16px Arial";
-    context.fillText(item?.name, 10, 50);
-  }, [item]);
+    return () => {
+      clearTimeout(timer);
+      htmlToImageConvert.cancel();
+    };
+  }, [containerRef, item, htmlToImageConvert]);
+
   return (
-    <div className="w-full h-full">
-      <canvas ref={canvasRef} className="w-full h-full" />
+    <div className="thumbnail-container w-full h-full flex justify-center items-center overflow-hidden">
+      {isLoading ? (
+        <div className="loading-spinner">Loading...</div>
+      ) : (
+        thumbnail && (
+          <img
+            loading="lazy"
+            src={thumbnail}
+            className="thumbnail w-full h-full object-cover rounded-lg"
+            alt="thumbnail"
+          />
+        )
+      )}
     </div>
   );
 };
 
-export default GalleryThumbs;
+export default GalleryThumb;

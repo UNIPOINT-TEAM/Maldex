@@ -13,7 +13,7 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
         <div className="h-full w-full" style={{ mixBlendMode: "multiply" }}>
           <Slider
             SliderItems={BannerData && BannerData[5]}
-            sliderTime={3000}
+            sliderTime={5000}
             titleLength={30}
           />
         </div>
@@ -29,7 +29,7 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
             <div className="w-full h-full" style={{ mixBlendMode: "multiply" }}>
               <Slider
                 SliderItems={BannerData && BannerData[6]}
-                sliderTime={4000}
+                sliderTime={5500}
                 titleLength={40}
               />
             </div>
@@ -43,7 +43,7 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
             <div className="w-full h-full" style={{ mixBlendMode: "multiply" }}>
               <Slider
                 SliderItems={BannerData && BannerData[7]}
-                sliderTime={4000}
+                sliderTime={6000}
                 titleLength={20}
               />
             </div>
@@ -57,7 +57,7 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
             <div className="w-full h-full" style={{ mixBlendMode: "multiply" }}>
               <Slider
                 SliderItems={BannerData && BannerData[8]}
-                sliderTime={3000}
+                sliderTime={6500}
                 titleLength={25}
               />
             </div>
@@ -72,7 +72,7 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
               <div className="w-full " style={{ mixBlendMode: "multiply" }}>
                 <Slider
                   SliderItems={BannerData && BannerData[9]}
-                  sliderTime={3000}
+                  sliderTime={7000}
                   titleLength={15}
                 />
               </div>
@@ -89,7 +89,7 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
               >
                 <Slider
                   SliderItems={BannerData && BannerData[10]}
-                  sliderTime={3000}
+                  sliderTime={7500}
                   titleLength={15}
                 />
               </div>

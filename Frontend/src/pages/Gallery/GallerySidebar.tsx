@@ -1,10 +1,9 @@
 import { NavLink, Outlet } from "react-router-dom";
 import "./Gallery.css";
 import { Galleryslider } from "../../components";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { getItems } from "../../store/carouselReducer";
 import { useDispatch } from "react-redux";
-import { Product } from "../../types";
 import DefaultTemplate from "../../components/GalleryLayoutTemplate/DefaultTemplate";
 import PdfDefault from "../../components/GalleryLayoutTemplate/PdfTemplate/DefaultTemplate";
 const GalleryNavs = [
@@ -89,11 +88,15 @@ const GalleryNavs = [
 
 const GallerySidebar = () => {
   const dispatch = useDispatch();
-  const [product1] = useState(JSON.parse(localStorage.getItem("cart") || "[]"));
+  const products = useMemo(
+    () => JSON.parse(localStorage.getItem("cart") || "[]"),
+    [window.location]
+  );
+
   useEffect(() => {
     dispatch(
       getItems(
-        product1.map((product: Product) => ({
+        products.map((product) => ({
           data: product,
           template: <DefaultTemplate />,
           pdfTemplate: <PdfDefault />,
@@ -103,19 +106,20 @@ const GallerySidebar = () => {
             currentSlide: true,
             allSlider: false,
           },
-          applying: {},
-        })) || []
+          applying: [],
+        }))
       )
     );
-  }, [window.location]);
+  }, [dispatch, products]);
+
   return (
     <div className="flex gallery">
-      <div className="w-[100px] gap-10 pb-12 flex flex-col  py-5 px-2 border-0 border-r border-lightSecondary">
+      <div className="w-[100px] gap-10 pb-12 flex flex-col py-5 px-2 border-0 border-r border-lightSecondary">
         {GalleryNavs.map((item, i) => (
           <NavLink
             key={i}
             to={item.path}
-            className="w-full cursor-pointer text-[#666666] fill-[#666666]  gap-[6px] flex flex-col items-center justify-center"
+            className="w-full cursor-pointer text-[#666666] fill-[#666666] gap-[6px] flex flex-col items-center justify-center"
           >
             {item.icon}
             <p className="text-[9px] leading-tight text-center uppercase font-bold ">

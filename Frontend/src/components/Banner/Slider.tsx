@@ -1,7 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Autoplay, Navigation, Pagination } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
+
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 interface SliderProps {
   SliderItems: {
     id: string;
@@ -20,29 +22,28 @@ interface SliderProps {
   titleLength: number;
 }
 
-const Slider: React.FC<SliderProps> = ({
+const SliderCustom: React.FC<SliderProps> = ({
   SliderItems,
   sliderTime,
   titleLength,
 }) => {
+  const settings = {
+    dots: false,
+    infinite: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: sliderTime,
+  };
   return (
-    <Swiper
-      centeredSlides
-      loop
-      autoplay={{
-        delay: sliderTime,
-        disableOnInteraction: false,
-      }}
-      modules={[Navigation, Pagination, Autoplay]}
-      className="w-full h-full "
+    <Slider
+      {...settings}
+      className="h-full w-full banner-slider"
       style={{ mixBlendMode: "multiply" }}
     >
       {SliderItems?.product_set.map((item) => (
-        <SwiperSlide
-          key={item.id}
-          className="w-full group relative h-full flex flex-col "
-        >
-          <div className="pt-1 ps-2 h-[20%]">
+        <div key={item.id} className="w-full group h-full flex flex-col px-2 ">
+          <div className="pt-1 ps-2">
             <h2 className="text-fs_7 font-medium text-[#ffffff] group-hover:text-darkPrimary">
               {item?.productID?.name.length > titleLength
                 ? item?.productID?.name.slice(0, titleLength) + "..."
@@ -51,7 +52,7 @@ const Slider: React.FC<SliderProps> = ({
           </div>
           <Link
             to={`/category/${item?.productID?.id}`}
-            className="w-[80%] mx-auto h-[80%] flex items-center justify-center"
+            className="w-[80%] h-[70%] mx-auto flex items-center justify-center"
           >
             <img
               src={item?.productID?.images_set[0]?.image_url}
@@ -60,10 +61,10 @@ const Slider: React.FC<SliderProps> = ({
               loading="lazy"
             />
           </Link>
-        </SwiperSlide>
+        </div>
       ))}
-    </Swiper>
+    </Slider>
   );
 };
 
-export default Slider;
+export default SliderCustom;

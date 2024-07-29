@@ -22,11 +22,11 @@ const BannerTop: React.FC<BannerProp> = ({ BannerData }) => {
   return (
     <div className="grid grid-cols-4 gap-[9px]">
       <div className="group relative flex items-center col-span-4 bg-white h-[220px] cursor-pointer hover:bg-[#fff] transition-all duration-200">
-        <div className="h-full  w-full mx-auto  flex items-center justify-center">
+        <div className="h-full w-full mx-auto  flex items-center justify-center">
           <Slider
             SliderItems={BannerData && BannerData[0]}
             titleLength={30}
-            sliderTime={2500}
+            sliderTime={2000}
           />
         </div>
         <div className="absolute right-3 bottom-3 opacity-0 group-hover:opacity-100 duration-200">
@@ -67,7 +67,7 @@ const BannerTop: React.FC<BannerProp> = ({ BannerData }) => {
         <div className="mx-auto h-full w-full flex items-center justify-center">
           <Slider
             SliderItems={BannerData && BannerData[3]}
-            sliderTime={2000}
+            sliderTime={4000}
             titleLength={10}
           />
         </div>
@@ -81,7 +81,7 @@ const BannerTop: React.FC<BannerProp> = ({ BannerData }) => {
         <div className="mx-auto h-full w-full flex items-center justify-center">
           <Slider
             SliderItems={BannerData && BannerData[4]}
-            sliderTime={4000}
+            sliderTime={4500}
             titleLength={10}
           />
         </div>
