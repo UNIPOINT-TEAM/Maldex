@@ -10,14 +10,14 @@ const Banner = () => {
 
   return (
     <>
-      <div className="flex gap-[9px]">
-        <div className="w-2/5 hidden lg:block">
+      <div className="flex gap-[9px] h-full">
+        <div className="w-2/5 hidden md:block">
           <BannerTop BannerData={response} />
         </div>
         <div
-          className="w-full lg:w-3/5 "
-          data-aos="fade-left"
-          data-aos-delay="100"
+          className="w-full md:w-3/5 h-[180px] sm:h-[250px]  md:h-[359px]"
+          // data-aos="fade-left"
+          // data-aos-delay="100"
         >
           <BannerSlider />
         </div>

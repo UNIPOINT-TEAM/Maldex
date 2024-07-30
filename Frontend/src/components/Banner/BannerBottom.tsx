@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 const BannerBottom: React.FC<any> = ({ BannerData }) => {
   return (
-    <div className="hidden lg:grid grid-rows-9 h-[760px] grid-cols-5  gap-[9px] my-[9px] ">
+    <div className="hidden md:grid grid-rows-9 h-[760px] grid-cols-5  gap-[9px] my-[9px] ">
       <div className="group relative row-span-9 bg-white  flex items-center cursor-pointer hover:bg-[#fff] duration-200">
         <div className="h-full w-full" style={{ mixBlendMode: "multiply" }}>
           <Slider

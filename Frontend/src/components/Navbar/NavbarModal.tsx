@@ -51,31 +51,25 @@ const NavbarModal = () => {
   const [isOpen, toggle] = useState(true);
   const c = isOpen ? "burger" : "burger open";
 
-
   const handleButtonClick = () => {
     modalToggle();
     toggle(!isOpen);
   };
   return (
     <>
-      <Button
+      <button
         onClick={handleButtonClick}
         className="px-3 h-[36px] w-auto lg:w-[125px] bg-redPrimary rounded-lg flex items-center gap-2"
       >
-        {/* {modal ? (
-          <IoClose size={20} color="#fff" />
-        ) : (
-          <GiHamburgerMenu size={20} color="#fff" />
-        )} */}
         <div className={c} onClick={() => toggle(!isOpen)}>
           <span className="bar1 text-black"></span>
           <span className="bar2"></span>
           <span className="bar3"></span>
         </div>
-        <span className="text-white tracking-widest hidden lg:block font-helvetica-neue">
+        <span className="text-white tracking-wide font-normal text-fs_6 hidden lg:block capitalize">
           Каталог
         </span>
-      </Button>
+      </button>
       {modal && (
         <div className="">
           <div className="modal top-[115px] absolute bg-[#fff] left-0 h-[95vh] w-full z-[9999]  hidden md:flex mb-5">

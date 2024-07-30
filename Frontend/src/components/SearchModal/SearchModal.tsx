@@ -53,10 +53,10 @@ const SearchModal = () => {
 
   return (
     <div className="hidden lg:flex items-center w-full rounded-xl bg-redPrimary h-[36px] relative">
-      <div className="rounded-xl w-full h-full px-2 bg-white flex items-center border-2 border-redPrimary gap-2">
+      <div className="rounded-xl w-full h-full px-2 bg-[#fff] flex items-center border-2 border-redPrimary gap-2">
         <p className="font-medium text-fs_9 lg:text-fs_7">Поиск</p>
         <input
-          className="rounded-xl w-full h-full text-darkPrimary focus:outline-none font-medium text-fs_9 lg:text-fs_7 tracking-wide"
+          className="rounded-xl w-full h-full text-darkPrimary focus:outline-none font-normal   tracking-wide placeholder:text-fs_8"
           id="search"
           type="text"
           placeholder="(Например: термоноски)"

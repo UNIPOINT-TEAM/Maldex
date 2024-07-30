@@ -29,10 +29,7 @@ import {
 import CardSet from "../pages/CardSet/CardSet";
 import Company2 from "../pages/Company2/Company2";
 import { PadPrinting } from "../pages/Applying";
-
 import GallerySidebar from "../pages/Gallery/GallerySidebar";
-
-// admin panel
 import {
   SettingsPanel,
   ConstructorPanel,
@@ -79,10 +76,7 @@ export const router = createBrowserRouter([
         path: "/company",
         element: <Company2 />,
       },
-      {
-        path: "/tags",
-        element: <Tags />,
-      },
+
       {
         path: "*",
         element: <NotFound />,
@@ -149,10 +143,6 @@ export const router = createBrowserRouter([
       {
         path: "/error",
         element: <NotFound />,
-      },
-      {
-        path: "/delivery",
-        element: <Delivery />,
       },
     ],
   },

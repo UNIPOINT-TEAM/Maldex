@@ -7,11 +7,9 @@ import { useFetchHook } from "../../hooks/UseFetch";
 
 const BannerSlider = () => {
   const { fetchData, response } = useFetchHook();
-
   useEffect(() => {
     fetchData({ method: "GET", url: "/banner/carousel/" });
   }, []);
-  console.log(response);
 
   return (
     <div className="banner-carusel relative w-full h-full bg-greenPrimary flex  p-[12px] lg:p-[20px] text-white font-helvetica-neue">
@@ -40,7 +38,6 @@ const BannerSlider = () => {
                   </h2>
                 </div>
                 <div className="mt-auto flex gap-1 lg:gap-3 text-fs_8 font-semibold">
-                  {/* @ts-expect-error: This */}
                   {item?.buttons.map((item) => (
                     <Link
                       to={"/gift"}
@@ -62,8 +59,16 @@ const BannerSlider = () => {
                   <video
                     src={item.media}
                     controls
-                    height="300"
-                    className="w-[85%] h-[230px] bg-darkPrimary flex justify-center items-start"
+                    loop
+                    muted
+                    autoPlay
+                    playsInline
+                    preload="auto"
+                    poster={item?.media}
+                    controlsList="nodownload"
+                    disablePictureInPicture
+                    disableRemotePlayback
+                    className="w-[85%] h-full bg-darkPrimary flex justify-center items-start object-cover"
                   >
                     <source
                       src={item.media}
@@ -88,5 +93,4 @@ const BannerSlider = () => {
     </div>
   );
 };
-
 export default BannerSlider;

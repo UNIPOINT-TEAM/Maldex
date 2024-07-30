@@ -96,21 +96,17 @@ const ProductsCard: React.FC<ProductsCardProps> = ({ item, handleOpen }) => {
   };
 
   return (
-    <div className="catalog group">
+    <div className="catalog group ">
       <div
         ref={carouselRef}
         onMouseMove={handleMouseMove}
-        className="relative swiper-top-container h-[250px] cursor-pointer mb-4 bg-white hover:bg-[#fff]"
+        className="relative swiper-top-container h-[180px] md:h-[250px] cursor-pointer mb-4 bg-white hover:bg-[#fff]"
       >
-        <div
-          className="w-full h-full "
-          // @ts-expect-error: This
-          onClick={() => handleOpen(item)}
-        >
-          <div className="relative h-full">
-            <div className="flex justify-center items-center h-full ">
+        <div className="w-full h-full" onClick={() => handleOpen(item)}>
+          <div className="relative w-full h-full">
+            <div className="flex w-full justify-center items-center  h-full mix-blend-multiply">
               <img
-                className="mb-2 w-[50px] h-[50px] object-contain product-img "
+                className="mb-2 w-[75%] md:h-[75%] h-[65%] object-contain  "
                 src={
                   productItem.images[currentIndex]?.image_url
                     ? productItem.images[currentIndex]?.image_url

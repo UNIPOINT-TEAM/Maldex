@@ -10,7 +10,6 @@
   transform: rotate(var(--bar-3-rotation)) translate(-4px, -3px);
 }
 
-
 .burger {
   --icon-color: #ffffff;
   --bar-height: 2px;
@@ -19,7 +18,7 @@
   --x: -10px;
   --y: -1px;
   --neg-y: 1px;
-  width: 30px;
+  width: 23px;
   height: 23px;
   cursor: pointer;
 }
@@ -30,7 +29,6 @@
   background: var(--icon-color);
   border-radius: var(--bar-height);
   display: block;
-  /* height: var(--bar-height); */
   height: 2px;
   margin: 4px 0;
   width: 100%;
