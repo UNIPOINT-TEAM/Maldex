@@ -3,11 +3,8 @@ interface TabDescriptionProps {
 }
 const TabDescription: React.FC<TabDescriptionProps> = ({ description }) => {
   return (
-    <p className=" font-normal text-fs_7 text-black mt-1 max-h-[450px] overflow-y-auto scrollbar-custom">{description}</p>
+    <p className="hover-position font-normal text-fs_7 text-black mt-1 max-h-[450px] overflow-y-auto scrollbar-custom">{description}</p>
   );
 };
 
 export default TabDescription;
-
-
-

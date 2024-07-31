@@ -588,3 +588,19 @@
     color: #ec1026;
     transition: 300ms;
 }
+
+.hovered-icon {
+    transition: 300ms;
+}
+
+.main-category-header:hover .hovered-icon {
+    transition: 300ms;
+    filter: brightness(0.5);
+}
+
+.main-category-header:hover .hovered-title {
+    background-color: #00b6ba;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+}

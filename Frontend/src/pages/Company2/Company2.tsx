@@ -110,11 +110,11 @@ function Company2() {
               <div className="flex lg:flex-col justify-center gap-8 lg:w-1/3">
                 <div>
                   <img src={task} alt="" />
-                  <h1 className="my-5 text-[22px] font-medium text-[#52B5A1]">
+                  <h1 className="my-5 text-[22px] font-medium text-[#52B5A1] hover-position">
                     Сборные заказы (gifts case)
                   </h1>
                   <ul>
-                    <li>
+                    <li className="hover-position">
                       <span style={{ color: "#52B5A1", marginRight: "5px" }}>
                         &bull;
                       </span>
@@ -125,10 +125,10 @@ function Company2() {
                 </div>
                 <div>
                   <img src={giftPurple} alt="" />
-                  <h1 className="my-5 text-[22px] font-medium text-[#BD43F6]">
+                  <h1 className="my-5 text-[22px] font-medium text-[#BD43F6] hover-position">
                     При заказе от 50 000 рублей
                   </h1>
-                  <ul>
+                  <ul className="hover-position">
                     <li>
                       <span style={{ color: "#BD43F6", marginRight: "5px" }}>
                         &bull;
@@ -147,10 +147,10 @@ function Company2() {
               <div className="flex  lg:flex-col justify-center  gap-8 lg:w-1/3">
                 <div>
                   <img src={comment} alt="" />
-                  <h1 className="my-5 text-[22px] font-medium text-[#F7CE46]">
+                  <h1 className="my-5 text-[22px] font-medium text-[#F7CE46] hover-position">
                     Персональный менеджер
                   </h1>
-                  <ul>
+                  <ul className="hover-position">
                     <li>
                       <span style={{ color: "#F7CE46", marginRight: "5px" }}>
                         &bull;
@@ -162,10 +162,10 @@ function Company2() {
                 </div>
                 <div>
                   <img src={guarant} alt="" />
-                  <h1 className="my-5 text-[22px] font-medium text-[#0000B0]">
+                  <h1 className="my-5 text-[22px] font-medium text-[#0000B0] hover-position">
                     Чем больше заказов, <br /> тем больше скидки
                   </h1>
-                  <ul>
+                  <ul className="hover-position">
                     <li>
                       <span style={{ color: "#0000B0", marginRight: "5px" }}>
                         &bull;
@@ -178,10 +178,10 @@ function Company2() {
               <div className="flex flex-col gap-8 lg:w-1/3">
                 <div>
                   <img src={country} alt="" />
-                  <h1 className="my-5 text-[22px] font-medium text-[#E94B67]">
+                  <h1 className="my-5 text-[22px] font-medium text-[#E94B67] hover-position">
                     Индивидуальные <br /> заказы в Китае
                   </h1>
-                  <ul>
+                  <ul className="hover-position">
                     <li>
                       <span style={{ color: "#E94B67", marginRight: "5px" }}>
                         &bull;
