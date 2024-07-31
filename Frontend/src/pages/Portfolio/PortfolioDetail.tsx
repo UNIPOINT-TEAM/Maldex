@@ -4,7 +4,6 @@ import { Badge, News, QuestForm, SliderProduct } from "../../components";
 import { useFetchHook } from "../../hooks/UseFetch";
 import { Helmet } from "react-helmet";
 
-
 function PortfolioDetail() {
   const { id } = useParams();
   const { fetchData, response } = useFetchHook();
@@ -13,6 +12,7 @@ function PortfolioDetail() {
     fetchData({ method: "GET", url: `projects/${id}/` });
   }, [id, fetchData]);
 
+  console.log(response);
   return (
     <>
       <Helmet>
@@ -92,7 +92,6 @@ function PortfolioDetail() {
           </div>
           <div className="w-full mt-28">
             <h3 className="section-title ">Товары из набора</h3>
-            {/*@ts-expect-error: This */}
             <SliderProduct products={response?.products} />
           </div>
           <News title="Новинки" />

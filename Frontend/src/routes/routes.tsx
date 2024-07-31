@@ -9,7 +9,6 @@ import {
   Card,
   Catalog,
   CategoryDetails,
-  // Company,
   Delivery,
   Gallery,
   GalleryEditing,
@@ -98,10 +97,6 @@ export const router = createBrowserRouter([
         element: <CardSet />,
       },
       {
-        path: "/admin",
-        element: <AdminLogin />,
-      },
-      {
         path: "/sign-in",
         element: <SignIn />,
       },
@@ -139,10 +134,6 @@ export const router = createBrowserRouter([
       {
         path: "/tags",
         element: <Tags />,
-      },
-      {
-        path: "/error",
-        element: <NotFound />,
       },
     ],
   },

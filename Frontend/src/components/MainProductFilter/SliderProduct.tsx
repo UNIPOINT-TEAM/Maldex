@@ -1,7 +1,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Scrollbar } from "swiper/modules";
 import { useState } from "react";
-import Close from "../../assets/icons/close.png";
+import Close from "../../assets/icons/close.svg";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { Dialog } from "@material-tailwind/react";
@@ -10,10 +10,13 @@ import { MdOutlineAdd } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../store/cartSlice";
 import { Product } from "../../types";
+import { formatPrice } from "../../utils/FormatPrice";
+import ProductSize from "../CategoryDetails/ProductSize";
 
 const SliderProduct: React.FC<{ products: Product[] }> = ({ products }) => {
   const [open, setOpen] = useState(false);
   const [activeProduct, setactiveProduct] = useState<any>({});
+  const [btnActiveSize, setbtnActiveSize] = useState(1);
   const [addToCartData, setaddToCartData] = useState({
     quantity: 1,
     size: null,
@@ -47,125 +50,142 @@ const SliderProduct: React.FC<{ products: Product[] }> = ({ products }) => {
         open={open}
         size={"xl"}
         handler={handleOpen}
-        className="px-4 py-5 rounded-none text-black font-Helvetica-Neue bg-[#fff]"
+        className="px-4 py-5 max-h-screen flex items-center overflow-y-auto scrollbar-custom rounded-none text-black font-Helvetica-Neue bg-[#fff] "
       >
-        <button className="flex ml-auto outline-none" onClick={handleOpen}>
-          <img src={Close} alt="" />
-        </button>
-        <div className="grid grid-cols-3">
-          <div className="w-full h-full flex relative justify-center col-span-1 ">
-            <div className="card-product w-[200px] ">
-              <div className="heading bg-white h-[200px] w-full relative">
-                <div className="prevModal absolute top-[40%] z-[999] -left-14 flex justify-center items-center">
-                  <FaArrowLeftLong />
+        <div className="w-full md:max-h-[450px]">
+          <button
+            className="flex ml-auto outline-none z-20 sticky top-5 md:right-5"
+            onClick={handleOpen}
+          >
+            <img src={Close} alt="close-icon" />
+          </button>
+          <div className="grid  md:grid-cols-3">
+            <div className="w-full h-full flex relative justify-center md:col-span-1 ">
+              <div className="card-product w-[200px]">
+                <div className="heading bg-white h-[200px] w-full relative">
+                  <div className="prevModal absolute top-[40%] z-[999] -left-14 flex justify-center items-center">
+                    <FaArrowLeftLong />
+                  </div>
+                  <div className="nextModal absolute top-[40%] z-[999] -right-14 flex justify-center items-center">
+                    <FaArrowRightLong />
+                  </div>
+                  <Swiper
+                    navigation={{
+                      prevEl: ".prevModal",
+                      nextEl: ".nextModal",
+                    }}
+                    modules={[Navigation]}
+                    className="swiper-item-modal w-[200px] h-[200px]"
+                  >
+                    {/* @ts-expect-error: This */}
+                    {activeProduct?.images_set?.map((item) => (
+                      <SwiperSlide className="mix-blend-multiply flex items-center justify-center">
+                        <img
+                          className="object-contain p-2 mix-blend-multiply"
+                          src={item.image_url || item.image}
+                          alt="no img"
+                        />
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
                 </div>
-                <div className="nextModal absolute top-[40%] z-[999] -right-14 flex justify-center items-center">
-                  <FaArrowRightLong />
+                <div className="w-full">
+                  <div className="flex w-full justify-between pt-3">
+                    <p className="text-base font-normal">Количество</p>
+                    <input
+                      value={addToCartData.quantity}
+                      onChange={(e) =>
+                        setaddToCartData({
+                          ...addToCartData,
+                          quantity: Number(e.target.value),
+                        })
+                      }
+                      className="border placeholder:text-darkPrimary border-darkPrimary font-bold text-center rounded-lg w-[50px] px-2 text-sm py-[2px]"
+                      type="text"
+                    />
+                  </div>
+                  <p className="text-[16px] font-medium md:text-fs_4 relative mt-2">
+                    {activeProduct?.discount_price > 0
+                      ? formatPrice(activeProduct?.discount_price)
+                      : formatPrice(activeProduct?.price)}
+                    <span className="ml-4 mr-1">
+                      {activeProduct?.price_type}
+                    </span>
+                    <span className="text-xs absolute top-0 line-through text-redPrimary">
+                      {activeProduct?.discount_price > 0 &&
+                        activeProduct?.price}
+                    </span>
+                  </p>
+                  <button
+                    onClick={() => addToCartHandler(activeProduct)}
+                    className="bg-redPrimary flex justify-between mt-1 items-center uppercase p-2 text-white rounded-lg font-bold tracking-wider text-fs_8 lg:text-sm gap-1 lg:w-[130px]"
+                  >
+                    <MdOutlineAdd className="text-fs_4" />В корзину
+                  </button>
                 </div>
-                <Swiper
-                  navigation={{
-                    prevEl: ".prevModal",
-                    nextEl: ".nextModal",
-                  }}
-                  modules={[Navigation]}
-                  className="swiper-item-modal w-[200px]"
-                >
-                  {/* @ts-expect-error: This */}
-                  {activeProduct?.images_set?.map((item) => (
-                    <SwiperSlide>
-                      <img
-                        className=""
-                        src={item.image_url || item.image}
-                        alt="no img"
-                      />
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
               </div>
-              <div className="w-full">
-                <div className=" flex w-full justify-between pt-3">
-                  <p className="text-base font-normal ">Количество</p>
-                  <input
-                    value={addToCartData.quantity}
-                    onChange={(e) =>
-                      setaddToCartData({
-                        ...addToCartData,
-                        quantity: Number(e.target.value),
-                      })
+            </div>
+            <div className="w-full  md:col-span-2 py-2 md:px-10 h-[400px] md:h-auto ">
+              <p className="text-fs_6 font-medium mb-3">
+                {activeProduct?.name}
+              </p>
+              <p className="text-fs_8 text-[#222220] font-medium mb-4 tracking-wide">
+                {activeProduct?.article}
+              </p>
+              <p className="text-fs_6 mb-3 font-normal">Выбор цвета</p>
+              <div className="flex gap-3 mb-3">
+                {activeProduct?.colors?.map((item, idx) => (
+                  <div
+                    onClick={() =>
+                      setaddToCartData({ ...addToCartData, color: item.color })
                     }
-                    className="border placeholder:text-darkPrimary border-darkPrimary font-bold text-center rounded-lg w-[50px] px-2 text-sm py-[2px]"
-                    type="text"
-                  />
+                    key={idx}
+                    style={{
+                      backgroundColor: item.hex,
+                      borderColor: item.hex !== "white" && item.hex,
+                    }}
+                    className={`w-[20px] h-[20px] md:w-[30px] md:h-[30px] rounded-full border cursor-pointer ${
+                      addToCartData.color === item.color && "p-[1px]"
+                    }`}
+                  >
+                    {addToCartData.color === item.color && (
+                      <div className="w-full h-full border-[3px] md:border-[5px] border-[#fff] rounded-full"></div>
+                    )}
+                  </div>
+                ))}
+              </div>
+              {activeProduct.sizes && (
+                <div className="">
+                  <p className="text-sm  mb-3 text-gray-400">Размер:</p>
+                  <div className="flex space-x-2">
+                    {activeProduct?.sizes?.map(
+                      (item, i) =>
+                        item.name && (
+                          <ProductSize
+                            {...item}
+                            onActiveSize={setbtnActiveSize}
+                            btnActiveSize={btnActiveSize}
+                            index={i}
+                            key={i}
+                          />
+                        )
+                    )}
+                  </div>
                 </div>
-                <p className="text-[16px] font-medium md:text-fs_4">
-                  {activeProduct?.discount_price > 0
-                    ? activeProduct?.discount_price
-                    : activeProduct?.price}
-                  <span className="ml-4 mr-1">{activeProduct?.price_type}</span>
-                  <span className="text-xs absolute top-0 line-through text-redPrimary">
-                    {activeProduct?.discount_price > 0 && activeProduct?.price}
-                  </span>
+              )}
+              {activeProduct.material && (
+                <p className="text-fs_6 font-normal mb-3">
+                  Материал: <span className="font-bold">Сатин</span>
                 </p>
-                <button
-                  onClick={() => addToCartHandler(activeProduct)}
-                  className="bg-redPrimary flex justify-between items-center uppercase p-2 text-white rounded-lg font-bold tracking-wider text-fs_8 lg:text-sm gap-1 lg:w-[130px]"
-                >
-                  <MdOutlineAdd className="text-fs_4" />В корзину
-                </button>
-              </div>
+              )}
+
+              <p className="text-fs_6 font-normal mb-3">
+                Вес: <span className="font-bold">157 гр.</span>
+              </p>
+              <p className="text-fs_7 font-normal">
+                {activeProduct?.description}
+              </p>
             </div>
-          </div>
-          <div className="w-full  col-span-2 py-2 md:px-10 h-[400px] md:h-auto overflow-y-scroll scrollbar-custom">
-            <p className="text-fs_6 font-medium mb-3">{activeProduct?.name}</p>
-            <p className="text-fs_8 text-darkSecondary font-medium mb-4 tracking-wide">
-              {activeProduct?.article}
-            </p>
-            <p className="text-fs_6 mb-3 font-normal">Выбор цвета</p>
-            <div className="flex gap-3 mb-3">
-              <button className="bg-[#2b395c] w-[30px] h-[30px] rounded-[15px]"></button>
-              <button className="bg-[#ece04c] w-[30px] h-[30px] rounded-[15px]"></button>
-              <button className="bg-[#43ad58] w-[30px] h-[30px] rounded-[15px]"></button>
-              <button className="bg-[#d9d9d9] w-[30px] h-[30px] rounded-[15px]"></button>
-              <button className="bg-[#f0503b] w-[30px] h-[30px] rounded-[15px]"></button>
-              <button className="bg-[#2b395c] w-[30px] h-[30px] rounded-[15px]"></button>
-              <button className="bg-[#1017c2] w-[30px] h-[30px] rounded-[15px]"></button>
-              <button className="bg-[#13bca8] w-[30px] h-[30px] rounded-[15px]"></button>
-              <button className="bg-[#e99125] w-[30px] h-[30px] rounded-[15px]"></button>
-            </div>
-            {activeProduct.sizes && (
-              <div className="">
-                <p className="text-sm  mb-3 text-gray-400">Размер:</p>
-                <div className="flex justify-start items-center gap-1 mb-3">
-                  <button className="w-[34px] h-[34px] border border-gray-400 rounded-[17px] text-xs hover:border-redPrimary hover:text-redPrimary">
-                    XS
-                  </button>
-                  <button className="w-[34px] h-[34px] border border-gray-400 rounded-[17px] text-xs hover:border-redPrimary hover:text-redPrimary">
-                    S
-                  </button>
-                  <button className="w-[34px] h-[34px] border border-gray-400 rounded-[17px] text-xs hover:border-redPrimary hover:text-redPrimary">
-                    M
-                  </button>
-                  <button className="w-[34px] h-[34px] border border-gray-400 rounded-[17px] text-xs hover:border-redPrimary hover:text-redPrimary">
-                    L
-                  </button>
-                  <button className="w-[34px] h-[34px] border border-gray-400 rounded-[17px] text-xs hover:border-redPrimary hover:text-redPrimary">
-                    XL
-                  </button>
-                  <button className="w-[34px] h-[34px] border border-gray-400 rounded-[17px] text-xs hover:border-redPrimary hover:text-redPrimary">
-                    2XL
-                  </button>
-                </div>
-              </div>
-            )}
-            <p className="text-2xl font-light mb-3">
-              Материал: <span className="font-bold">Сатин</span>
-            </p>
-            <p className="text-2xl font-light mb-3">
-              Вес: <span className="font-bold">157 гр.</span>
-            </p>
-            <p className="text-fs_7 font-normal">
-              {activeProduct?.description}
-            </p>
           </div>
         </div>
       </Dialog>

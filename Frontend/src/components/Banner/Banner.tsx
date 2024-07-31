@@ -16,8 +16,8 @@ const Banner = () => {
         </div>
         <div
           className="w-full md:w-3/5 h-[180px] sm:h-[250px]  md:h-[359px]"
-          // data-aos="fade-left"
-          // data-aos-delay="100"
+          data-aos="fade-left"
+          data-aos-delay="100"
         >
           <BannerSlider />
         </div>

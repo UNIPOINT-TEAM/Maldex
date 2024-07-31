@@ -20,7 +20,6 @@ interface BannerProp {
 }
 
 const BannerTop: React.FC<BannerProp> = ({ BannerData }) => {
-  console.log(BannerData[2]);
   return (
     <div className="grid grid-cols-4 gap-[9px]">
       <div className="group relative flex items-center col-span-4 bg-white h-[220px] cursor-pointer hover:bg-[#fff] transition-all duration-200">

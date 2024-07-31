@@ -18,7 +18,6 @@ const Dishes = () => {
   return (
     <div className="w-full mb-[80px]">
       <div className="flex items-center justify-between">
-        {/* @ts-expect-error: This */}
         <h3 className="section-title">{response?.category}</h3>
         <button className="mx-3 uppercase text-fs_8 font-bold p-[6px] tracking-wide  border border-redPrimary rounded-lg text-redPrimary block ss:hidden">
           Все товары
@@ -31,9 +30,15 @@ const Dishes = () => {
               to={`${
                 detail?.products[0] && `category/${detail?.products[0]?.id}`
               }`}
-              className="col-span-3 bg-white flex items-center justify-center cursor-pointer"
+              className="col-span-3 group  bg-white flex flex-col items-center cursor-pointer hover:bg-[#fff] duration-150"
             >
-              <div style={{ mixBlendMode: "multiply" }} className="">
+              <h2 className="text-fs_7 my-2 line-clamp-1 hidden md:block font-medium text-white group-hover:text-darkPrimary">
+                {detail?.products[0]?.name}
+              </h2>
+              <div
+                style={{ mixBlendMode: "multiply" }}
+                className="flex-1 flex justify-center items-center"
+              >
                 <img
                   src={
                     detail?.products &&
@@ -50,9 +55,15 @@ const Dishes = () => {
                   to={`${
                     detail?.products[1] && `category/${detail?.products[1]?.id}`
                   }`}
-                  className="bg-white flex items-center justify-center cursor-pointer"
+                  className="bg-white group  flex flex-col items-center  cursor-pointer hover:bg-[#fff] duration-150"
                 >
-                  <div style={{ mixBlendMode: "multiply" }}>
+                  <h2 className="text-fs_7 my-2 line-clamp-1 hidden md:block font-medium text-white group-hover:text-darkPrimary">
+                    {detail?.products[1]?.name.slice(0, 20)}
+                  </h2>
+                  <div
+                    style={{ mixBlendMode: "multiply" }}
+                    className="flex-1 flex justify-center items-center"
+                  >
                     <img
                       src={
                         detail?.products &&
@@ -67,9 +78,15 @@ const Dishes = () => {
                   to={`${
                     detail?.products[2] && `category/${detail?.products[2]?.id}`
                   }`}
-                  className="bg-white flex items-center justify-center cursor-pointer"
+                  className="bg-white relative group flex flex-col items-center justify-center cursor-pointer  hover:bg-[#fff] duration-150"
                 >
-                  <div style={{ mixBlendMode: "multiply" }}>
+                  <h2 className="text-fs_7 my-2 line-clamp-1 hidden md:block font-medium text-white group-hover:text-darkPrimary">
+                    {detail?.products[2]?.name.slice(0, 20)}
+                  </h2>
+                  <div
+                    style={{ mixBlendMode: "multiply" }}
+                    className="flex-1 flex justify-center items-center py-1"
+                  >
                     <img
                       src={
                         detail?.products &&
@@ -84,9 +101,15 @@ const Dishes = () => {
                   to={`${
                     detail?.products[3] && `category/${detail?.products[3]?.id}`
                   }`}
-                  className="bg-white items-center justify-center hidden lg:flex cursor-pointer"
+                  className="bg-white flex-col group items-center justify-center hidden lg:flex cursor-pointer  hover:bg-[#fff] duration-150"
                 >
-                  <div style={{ mixBlendMode: "multiply" }}>
+                  <h2 className="text-fs_7 my-2 line-clamp-1 hidden md:block font-medium text-white group-hover:text-darkPrimary">
+                    {detail?.products[3]?.name.slice(0, 20)}
+                  </h2>
+                  <div
+                    style={{ mixBlendMode: "multiply" }}
+                    className="flex-1 flex justify-center items-center"
+                  >
                     <img
                       src={
                         detail?.products &&
@@ -101,9 +124,15 @@ const Dishes = () => {
                   to={`${
                     detail?.products[4] && `category/${detail?.products[4]?.id}`
                   }`}
-                  className="bg-white items-center justify-center hidden lg:flex cursor-pointer"
+                  className="bg-white flex-col group items-center justify-center hidden lg:flex cursor-pointer  hover:bg-[#fff] duration-150"
                 >
-                  <div style={{ mixBlendMode: "multiply" }}>
+                  <h2 className="text-fs_7 flec my-2 line-clamp-1 hidden md:block font-medium text-white group-hover:text-darkPrimary">
+                    {detail?.products[4]?.name.slice(0, 20)}
+                  </h2>
+                  <div
+                    style={{ mixBlendMode: "multiply" }}
+                    className="flex-1 flex justify-center items-center"
+                  >
                     <img
                       src={
                         detail?.products &&
@@ -120,9 +149,15 @@ const Dishes = () => {
               to={`${
                 detail?.products[5] && `category/${detail?.products[5]?.id}`
               }`}
-              className="col-span-4 bg-white  items-center justify-center hidden md:flex cursor-pointer"
+              className="col-span-4 group bg-white flex-col  items-center justify-center hidden md:flex cursor-pointer  hover:bg-[#fff] duration-150"
             >
-              <div style={{ mixBlendMode: "multiply" }}>
+              <h2 className="text-fs_7 my-2 line-clamp-1 text-start hidden md:block font-medium text-white group-hover:text-darkPrimary">
+                {detail?.products[5]?.name.slice(0, 40)}
+              </h2>
+              <div
+                style={{ mixBlendMode: "multiply" }}
+                className="flex-1 flex justify-center items-center"
+              >
                 <img
                   src={
                     detail?.products &&

@@ -6,7 +6,7 @@ import {
   QuestForm,
   SaleSlider,
 } from "../../components";
-import Close from "../../assets/icons/close.png";
+import Close from "../../assets/icons/close.svg";
 import Filter from "../../assets/icons/filtr.svg";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";

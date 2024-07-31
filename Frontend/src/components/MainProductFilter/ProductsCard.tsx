@@ -18,13 +18,14 @@ interface ProductsCardProps {
   handleOpen?: (product?: Product) => void;
 }
 const ProductsCard: React.FC<ProductsCardProps> = ({ item, handleOpen }) => {
+  console.log(item);
   const [token, setToken] = useState(null);
   const dispatch = useDispatch();
   const [defaultCard, setDefaultCard] = useState<boolean>(true);
   const [addToCartVisible, setaddToCartVisible] = useState<boolean>(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const carouselRef = useRef(null);
-  const [productItem, setproductItem] = useState({
+  const [productItem, setproductItem] = useState<Product>({
     size: null,
     quantity: 1,
     color: item?.colorID?.name,
@@ -37,6 +38,16 @@ const ProductsCard: React.FC<ProductsCardProps> = ({ item, handleOpen }) => {
     article: item.article,
     id: item.id,
     is_liked: item.is_liked,
+    price: item?.discount_price > 0 ? item?.discount_price : item?.price,
+    is_hit: item.is_hit,
+    is_new: item.is_new,
+    description: item.description,
+    characteristics: item.characteristics,
+    price_type: item.price_type,
+    discount_price: item.discount_price,
+    colorID: item.colorID,
+    sizes: item.sizes,
+    circulation: item.circulation,
   });
 
   useEffect(() => {
@@ -62,15 +73,26 @@ const ProductsCard: React.FC<ProductsCardProps> = ({ item, handleOpen }) => {
       })
     );
   };
-  const handleFiltreColor = (item: any) => {
+  const handleFiltreColor = (item: Product) => {
     setproductItem({
       ...productItem,
-      id: item?.product?.id,
-      name: item?.product?.name,
-      color: item.color,
-      article: item?.product.article,
-      images: item?.product.images_set,
-      warehouse: item?.product.warehouse,
+      id: item?.id,
+      name: item?.name,
+      color: item?.colorID?.name,
+      article: item?.article,
+      images: item?.images_set,
+      warehouse: item?.warehouse,
+      is_liked: item?.is_liked,
+      price: item?.discount_price > 0 ? item?.discount_price : item?.price,
+      is_hit: item?.is_hit,
+      is_new: item?.is_new,
+      description: item?.description,
+      characteristics: item?.characteristics,
+      price_type: item?.price_type,
+      discount_price: item?.discount_price,
+      colorID: item?.colorID,
+      sizes: item?.sizes,
+      circulation: item?.circulation,
     });
   };
 
@@ -120,6 +142,7 @@ const ProductsCard: React.FC<ProductsCardProps> = ({ item, handleOpen }) => {
               <div className="w-full h-2 flex gap-1 justify-center items-center">
                 {productItem.images.map((_item, index) => (
                   <div
+                    key={index}
                     className={`max-w-4 w-full h-[3px] rounded-md ${
                       index === currentIndex
                         ? "bg-red-500"
@@ -132,21 +155,22 @@ const ProductsCard: React.FC<ProductsCardProps> = ({ item, handleOpen }) => {
           </div>
         </div>
         <div className="absolute  z-[9999] bottom-[25px] right-[15px] flex flex-col justify-center items-center gap-1 swiper-opacity">
-          {/*@ts-expect-error: This */}
           {item?.colors?.length > 0 &&
-            item?.colors.slice(0, 5).map((el) => (
+            item?.colors?.map((el) => (
               <button
-                onClick={() => handleFiltreColor(el)}
+                onMouseOver={() => handleFiltreColor(el.product)}
                 style={{
                   backgroundColor: el.hex ? el.hex : "#000000",
                 }}
-                className={`w-[8px] h-[8px] rounded-full ${
-                  productItem.id === el.product.id ? "h-[10px] w-[10px]" : ""
+                className={` rounded-full ${
+                  productItem?.id === el.product.id
+                    ? "min-h-[10px] min-w-[10px]"
+                    : "w-[8px] h-[8px]"
                 }`}
               ></button>
             ))}
         </div>
-        <div className="absolute z-[999] top-2 left-2 flex gap-2">
+        <div className="absolute z-[999] top-2 left-2  gap-2 hidden md:flex">
           {item.is_new && <Badge name="NEW" type="NEW" />}
           {item.is_hit && <Badge name="HIT" type="HIT" />}
         </div>
@@ -176,14 +200,16 @@ const ProductsCard: React.FC<ProductsCardProps> = ({ item, handleOpen }) => {
               {item?.name}
             </h2>
             <div className="hidden group-hover:block">
-              {/*@ts-expect-error: This */}
               {item?.warehouse?.length > 0 &&
                 productItem?.warehouse?.map((item, i) => (
                   <p key={i} className="text-fs_8 opacity-70 font-medium ">
                     {item?.name}: {item.quantity}
                   </p>
                 ))}
-              <p className="opacity-70 text-fs_8">{productItem?.article}</p>
+              <p className="opacity-70 text-fs_8">
+                <span className="font-medium">Артикул: </span>
+                {productItem?.article}
+              </p>
             </div>
           </div>
           <p className="text-[16px] font-medium md:text-fs_4 relative">
@@ -195,14 +221,14 @@ const ProductsCard: React.FC<ProductsCardProps> = ({ item, handleOpen }) => {
               {item?.discount_price > 0 && item?.price}
             </span>
           </p>
-          <div className="flex justify-between catalog_btns mt-2">
+          <div className="flex justify-between catalog_btns gap-2 mt-2">
             <button
               onClick={() => setDefaultCard(!defaultCard)}
-              className="bg-redPrimary uppercase font-medium flex items-center justify-center gap-1 py-2  text-white rounded-lg text-sm w-[130px]"
+              className="bg-redPrimary uppercase font-medium flex items-center justify-center gap-1 py-2  text-white tracking-wider rounded-lg text-fs_8 mdtext-sm w-[130px]"
             >
               <MdAdd className="text-fs_4" /> В корзину
             </button>
-            <button className="bg-white px-3 py-1 rounded-lg text-gray-700">
+            <button className="bg-white px-2 md:px-3 py-1 rounded-lg text-gray-700">
               <Link
                 to={`/category/${productItem?.id}`}
                 className="w-full h-full flex justify-center items-center"

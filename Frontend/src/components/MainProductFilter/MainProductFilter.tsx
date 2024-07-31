@@ -55,7 +55,6 @@ const MainProductFilter: React.FC<{ status: StatusType }> = ({ status }) => {
         setActiveCategoryId={setActiveCategoryId}
         query={filterData[status].query}
       />
-      {/*@ts-expect-error: This */}
       <SliderProduct products={products?.results} />
     </>
   );

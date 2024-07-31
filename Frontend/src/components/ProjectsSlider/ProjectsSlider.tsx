@@ -128,10 +128,7 @@ function ProjectsSlider() {
                         alt=""
                       />
                       <p className="z-[999999] text-fs_6 left-0 ps-5 absolute bottom-2 text-[#fff]">
-                        {
-                          // @ts-expect-error: This
-                          item.title
-                        }
+                        {item.title}
                       </p>
                     </div>
                   </Link>

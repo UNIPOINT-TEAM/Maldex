@@ -106,7 +106,7 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
         <div className="grid grid-cols-2 h-full gap-[9px]">
           <Link
             to={"/portfolio"}
-            className="bg-cover bg-center flex p-3"
+            className="bg-cover bg-center flex p-3 filter hover:brightness-75 duration-200"
             data-aos="fade-left"
             data-aos-delay="50"
             style={{
@@ -121,7 +121,7 @@ const BannerBottom: React.FC<any> = ({ BannerData }) => {
             to={"/portfolio"}
             data-aos="fade-down"
             data-aos-delay="50"
-            className="bg-cover bg-center flex p-3"
+            className="bg-cover bg-center flex p-3 filter hover:brightness-75 duration-200"
             style={{
               backgroundImage: `url(${statya2})`,
             }}

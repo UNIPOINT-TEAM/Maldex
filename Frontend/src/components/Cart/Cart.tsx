@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import Close from "../../assets/icons/close.png";
+import { Link, useNavigate } from "react-router-dom";
+import Close from "../../assets/icons/close.svg";
 import Trash from "../../assets/icons/trash.png";
 import QuestionIcon from "../../assets/icons/questionIcon.png";
 
@@ -10,6 +10,7 @@ import { MdAdd } from "react-icons/md";
 import CartProductCarusel from "./CartProductCarusel";
 
 const CardModal = () => {
+  const navigate = useNavigate();
   const [activeCard, setActiveCard] = useState(false);
   const carts = useSelector(getAllCarts);
   const { itemsCount, totalAmount, totalQuantity } = useSelector(
@@ -33,6 +34,11 @@ const CardModal = () => {
     }
     /* @ts-expect-error: This */
     dispatch(updateCart({ id, quantity: quantityNumber, totalPrice }));
+  };
+
+  const handleNavigate = (id: number) => {
+    setActiveCard(false);
+    navigate(`/category/${id}`);
   };
 
   return (
@@ -68,7 +74,10 @@ const CardModal = () => {
                 {carts?.map((item) => (
                   <div className="CardItem border-t w-full border-[#cbcac6] mt-2 mb-[40px] py-3">
                     <div className="grid grid-cols-12 grid-rows-1 gap-4">
-                      <div className="col-span-2 h-[100px] border border-lightPrimary rounded-xl  flex justify-center items-center">
+                      <div
+                        onClick={() => handleNavigate(item?.id)}
+                        className="cursor-pointer col-span-2 h-[100px] border border-lightPrimary rounded-xl  flex justify-center items-center"
+                      >
                         <img
                           style={{ mixBlendMode: "multiply" }}
                           className="w-full h-full rounded-xl p-3 object-cover"

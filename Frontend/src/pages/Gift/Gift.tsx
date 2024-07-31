@@ -10,7 +10,6 @@ function Gift() {
     GetGiftsCategory()
       .then((res) => {
         setGiftCategories(res);
-        console.log(res);
       })
       .catch((error) => {
         console.error("Error fetching FAQ data:", error);

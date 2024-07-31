@@ -6,7 +6,7 @@ import {
   Checkbox,
   Radio,
 } from "@material-tailwind/react";
-import Close from "../../assets/icons/close.png";
+import Close from "../../assets/icons/close.svg";
 import { useFetchHook } from "../../hooks/UseFetch";
 import { Link } from "react-router-dom";
 const sizes = ["S", "M", "L", "XL", "XXL", "XXXL"];

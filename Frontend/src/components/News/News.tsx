@@ -18,7 +18,7 @@ const News: React.FC<{ title: string }> = ({ title }) => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
           <Link
             to={`/articles/${response[4]?.id}`}
-            className="bg-cover overflow-hidden text-white h-[180px] sm:h-[340px]"
+            className="bg-cover overflow-hidden filter hover:brightness-90 duration-200   text-white h-[180px] sm:h-[340px]"
             style={{
               backgroundImage: `url(${response[4]?.image})`,
             }}
@@ -42,7 +42,7 @@ const News: React.FC<{ title: string }> = ({ title }) => {
 
           <Link
             to={`/articles/${response[3]?.id}`}
-            className=" overflow-hidden bg-cover text-white h-[180px] sm:h-[340px]"
+            className=" overflow-hidden bg-cover text-white h-[180px] sm:h-[340px] filter hover:brightness-90 duration-200 "
             style={{
               backgroundImage: `url(${response[3]?.image})`,
             }}
@@ -67,7 +67,7 @@ const News: React.FC<{ title: string }> = ({ title }) => {
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 h-[180px] sm:h-[340px]">
           <Link
             to={`/articles/${response[2]?.id}`}
-            className=" bg-cover text-white hidden lg:block h-full"
+            className=" bg-cover text-white hidden lg:block h-full filter hover:brightness-90 duration-200 "
             style={{
               backgroundImage: `url(${response[2]?.image})`,
             }}
@@ -78,7 +78,7 @@ const News: React.FC<{ title: string }> = ({ title }) => {
                   {response[2]?.pub_date}
                 </h3>
 
-                <h3 className="text-fs_6 lg:text-[28px]">
+                <h3 className="text-fs_6 lg:text-[28px] line-clamp-2">
                   {response[2]?.title}
                 </h3>
                 <Badge name="NEW" />
@@ -90,7 +90,7 @@ const News: React.FC<{ title: string }> = ({ title }) => {
           </Link>
           <Link
             to={`/articles/${response[1]?.id}`}
-            className=" bg-cover text-white hidden lg:block h-full"
+            className=" bg-cover text-white  lg:block h-full filter hover:brightness-90 duration-200 "
             style={{
               backgroundImage: `url(${response[1]?.image})`,
             }}
@@ -101,7 +101,7 @@ const News: React.FC<{ title: string }> = ({ title }) => {
                   {response[1]?.pub_date}
                 </h3>
 
-                <h3 className="text-fs_6 lg:text-[28px]">
+                <h3 className="text-fs_6 lg:text-[28px] line-clamp-2">
                   {response[1]?.title}
                 </h3>
                 <Badge name="NEW" />
@@ -113,7 +113,7 @@ const News: React.FC<{ title: string }> = ({ title }) => {
           </Link>
           <Link
             to={`/articles/${response[0]?.id}`}
-            className=" bg-cover text-white hidden lg:block h-full"
+            className=" bg-cover text-white hidden lg:block h-full filter hover:brightness-90 duration-200 "
             style={{
               backgroundImage: `url(${response[0]?.image})`,
             }}
@@ -137,7 +137,7 @@ const News: React.FC<{ title: string }> = ({ title }) => {
             to={"/articles"}
             className="group p-3 lg:p-5 h-full flex flex-col justify-between bg-white hover:bg-redPrimary cursor-pointer duration-300"
           >
-            <h2 className="group-hover:text-[#fff] mt-7 text-fs_6 lg:text-[28px] leading-tight font-medium tracking-wide text-redPrimary">
+            <h2 className="group-hover:text-[#fff] md:mt-7 text-fs_6 lg:text-[28px] leading-tight font-medium tracking-wide text-redPrimary">
               Все <br /> статьи
             </h2>
             <div className="flex justify-end">

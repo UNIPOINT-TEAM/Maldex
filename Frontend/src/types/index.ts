@@ -26,6 +26,7 @@ export interface Product {
   discount_price: number;
   price_type: string;
   article: number;
+  colors: { name: string; hex: string; product: Product }[];
   warehouse: {
     name: string;
     quantity: number;
@@ -51,6 +52,7 @@ export interface Product {
     hex: string;
   };
   description: string;
+  is_liked: boolean;
 }
 
 export interface Template {
