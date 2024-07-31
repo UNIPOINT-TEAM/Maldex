@@ -581,7 +581,10 @@
     height: 100% !important;
 }
 
-p:hover {
+.hover-position {
+    transition: 300ms;
+}
+.hover-position:hover {
     color: #ec1026;
     transition: 300ms;
 }
