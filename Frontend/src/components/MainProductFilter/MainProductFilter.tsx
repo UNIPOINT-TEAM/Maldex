@@ -3,7 +3,6 @@ import { useFetchHook } from "../../hooks/UseFetch";
 import ProductNav from "./ProductNav";
 import SliderProduct from "./SliderProduct";
 const TOKEN = localStorage.getItem("token");
-console.log(TOKEN);
 // Define a type for the status
 type StatusType = "hit" | "new";
 const filterData: Record<
@@ -25,7 +24,10 @@ const filterData: Record<
     color: "red",
   },
 };
-const MainProductFilter: React.FC<{ status: StatusType }> = ({ status }) => {
+const MainProductFilter: React.FC<{
+  status: StatusType;
+  subCategories?: any;
+}> = ({ status, subCategories }) => {
   const [activeCategoryId, setActiveCategoryId] = useState<number | null>(null);
   const { fetchData: productsFetch, response: products } = useFetchHook();
 
@@ -55,7 +57,12 @@ const MainProductFilter: React.FC<{ status: StatusType }> = ({ status }) => {
         setActiveCategoryId={setActiveCategoryId}
         query={filterData[status].query}
       />
-      <SliderProduct products={products?.results} />
+      <SliderProduct
+        products={products?.results}
+        activeCategoryId={activeCategoryId}
+        subCategories={subCategories}
+        y
+      />
     </>
   );
 };

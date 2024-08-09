@@ -1,121 +1,104 @@
 import { useEffect, useState } from "react";
-// @ts-ignore
 import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
-import {
-
-  QuestForm,
-  TabList,
-} from "../../components";
-//@ts-expect-error: This
-import Tshirt from "../../assets/t-shirt.svg";
+import { QuestForm } from "../../components";
 import nasilnenie_l from "../../assets/t-shirt.png";
 import nasilnenie_r from "../../assets/t-shirt.png";
-
 import {
+  Option,
+  Select,
   Tab,
   TabPanel,
   Tabs,
   TabsBody,
   TabsHeader,
-
-  Tooltip,
-  Typography,
 } from "@material-tailwind/react";
-import { IoMdHeart, IoMdHeartEmpty } from "react-icons/io";
-import {
-  FreeSample,
-  // TabDescription,
-  TabFour,
-} from "../../components/CategoryDetails";
-import { ProductColor } from "../../mock/data";
-// import ProductPerviewModal from "../../components/CategoryDetails/ProductPerviewModal";
+import { FreeSample } from "../../components/CategoryDetails";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../store/cartSlice";
 import { useFetchHook } from "../../hooks/UseFetch";
 import { useParams } from "react-router-dom";
-// import ProductPerviewModal from "./ProductPerviewModalGift";
 import ProductPerviewModalGift from "./ProductPerviewModalGift";
 import GiftTabDescription from "./GiftTabDescription";
 import GiftTabList from "./GiftTabList";
 import GiftTabFour from "./GiftTabFour";
-
-const btnSize = [
-  { id: 1, size: "XS" },
-  { id: 2, size: "S" },
-  { id: 3, size: "M" },
-  { id: 4, size: "L" },
-  { id: 5, size: "XL" },
-];
+import ProductSize from "../../components/CategoryDetails/ProductSize";
+import { formatPrice } from "../../utils/FormatPrice";
+import { IoAddSharp, IoCloseSharp } from "react-icons/io5";
 
 const CategoryDetails = () => {
   const { id } = useParams<{ id: string }>();
-  // @ts-expect-error: This
   const [activeTab, setActiveTab] = useState("Описание");
   const [isActive] = useState<number>(1);
-  const [isFavorite, setIsFavorite] = useState<boolean>(false);
-  const [productColor, setproductColor] = useState<number>(0);
   const [btnActiveSize, setbtnActiveSize] = useState<number>(1);
-  const [product, setProduct] = useState({
-    quantity: 50,
-    price: 200,
-    discount: 0,
-    discountedPrice: 0,
-    discountRange: 0,
+  const [quantityVisible, setQuantityVisible] = useState(null);
+  const [cardSetproduct, setCardSetproduct] = useState([]);
+  const [productItem, setProductItem] = useState({
+    quantity: 1,
     totalPrice: 0,
-    color: "",
-    size: "",
-    image: "",
-    name: " Футболка женская T-bolka Lady, оранжевая",
-    description: "",
+    discountRange: 0,
+    discount: 0,
+    discounts: [{ name: 0, count: 0 }],
+    application: null,
   });
-
   const dispatch = useDispatch();
-
   const { fetchData, response } = useFetchHook();
+  const { fetchData: fetchPrinting, response: responsePrint } = useFetchHook();
+  useEffect(() => {
+    fetchPrinting({
+      method: "GET",
+      url: `/print-categories/`,
+    });
+  }, []);
   useEffect(() => {
     fetchData({ method: "GET", url: `/gifts/baskets/${id}` });
   }, [id]);
-  console.log(response);
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0 });
   }, []);
+
+  useEffect(() => {
+    setCardSetproduct(response?.gift_basket_product);
+  }, [response]);
+  console.log(cardSetproduct);
   function calculateDiscount(quantity: number, price: number) {
     let discount = 0;
     if (quantity >= 300) {
       discount = 0.07;
-      setProduct((prev) => ({
+      setProductItem((prev) => ({
         ...prev,
         discount: 7,
         discountRange: 100,
       }));
     } else if (quantity >= 100) {
       discount = 0.05;
-      setProduct((prev) => ({ ...prev, discount: 5, discountRange: 50 }));
+      setProductItem((prev) => ({ ...prev, discount: 5, discountRange: 50 }));
     } else if (quantity >= 30) {
       discount = 0.03;
-      setProduct((prev) => ({ ...prev, discount: 3, discountRange: 0 }));
+      setProductItem((prev) => ({ ...prev, discount: 3, discountRange: 0 }));
     } else if (quantity < 30) {
       discount = 0.03;
-      setProduct((prev) => ({ ...prev, discount: 3, discountRange: 0 }));
+      setProductItem((prev) => ({ ...prev, discount: 3, discountRange: 0 }));
     }
     const discountedPrice = price * (1 - discount);
     return discountedPrice;
   }
 
   function calculateTotal() {
-    const discountedPrice = calculateDiscount(product.quantity, product.price);
-    const discountedTotalPrice = discountedPrice * product.quantity;
-    setProduct((prev) => ({
+    const discountedPrice = calculateDiscount(
+      setProductItem.quantity,
+      setProductItem.price
+    );
+    const discountedTotalPrice = discountedPrice * setProductItem.quantity;
+    setProductItem((prev) => ({
       ...prev,
       discountedPrice: discountedTotalPrice,
     }));
   }
   useEffect(() => {
     calculateTotal();
-  }, [product.quantity]);
-  // @ts-expect-error: This
+  }, [productItem.quantity, productItem.discounts]);
   const CategoryTabs = [
     {
       label: "Описание",
@@ -130,44 +113,87 @@ const CategoryDetails = () => {
     {
       label: "изменить набор",
       value: "изменить набор",
-      /*@ts-expect-error: This */
-      content: <GiftTabList description={response?.description}
-      products={response?.gift_basket_product} />,
+      content: (
+        <GiftTabList
+          setCardSetproduct={setCardSetproduct}
+          cardSetproduct={cardSetproduct}
+        />
+      ),
     },
 
     {
       label: "добавить товар",
       value: "добавить товар",
-      /*@ts-expect-error: This */
-      content: <GiftTabFour prints={response?.prints} />,
-    },
+      content: <GiftTabFour setCardSetproduct={setCardSetproduct} />,
+    },  
   ];
-
-  // const imageSrc = response.gift_basket_images[0].images;
-
-  console.log(response);
+  const calculateDiscountPercentage = (quantity, discountData) => {
+    discountData?.sort((a, b) => a?.count - b?.count);
+    if (quantity >= discountData[2]?.count) {
+      return discountData[2].name;
+    } else if (quantity >= discountData[1]?.count) {
+      return discountData[1].name;
+    } else if (quantity >= discountData[0]?.count) {
+      return discountData[0].name;
+    }
+    return 0;
+  };
+  const addToCartHandler = (product) => {
+    if (productItem.quantity < 1) return;
+    const totalPrice = calculateTotalCost(
+      productItem.quantity,
+      response?.discount_price > 0 ? response?.discount_price : response?.price,
+      productItem.discounts
+    );
+    dispatch(
+      addToCart({
+        ...product,
+        quantity: Number(productItem.quantity),
+        totalPrice: Number(totalPrice),
+      })
+    );
+  };
+  const handleRangeChange = (value) => {
+    const maxQuantity =
+      productItem.discounts[productItem.discounts.length - 1].count;
+    const newQuantity = Math.floor((value[1] / 100) * maxQuantity);
+    setProductItem((prev) => ({
+      ...prev,
+      quantity: newQuantity,
+    }));
+  };
+  const calculateTotalCost = (quantity, unitPrice, discountData) => {
+    if (!discountData) return 0;
+    const discountPercentage = calculateDiscountPercentage(
+      quantity,
+      discountData
+    );
+    const discountAmount = unitPrice * quantity * (discountPercentage / 100);
+    const discountPrice = unitPrice * quantity - discountAmount;
+    return discountPrice.toFixed(2);
+  };
+  const updateItemQuantity = (id: number, quantity: number) => {
+    setCardSetproduct(
+      cardSetproduct.map((item) =>
+        item.id === id ? { ...item, quantity } : item
+      )
+    );
+  };
 
   return (
     <div className="container_xxl tracking-wider overflow-hidden px-3">
       <div className="grid grid-cols-3 lg:grid-cols-10 my-5">
         <div className="h-full py-5 lg:pr-6 col-span-3 order-3 lg:order-1 ">
-
-          <div>
-            {/* @ts-expect-error: This */}
-            {response.description}
-          </div>
+          <div>{response.description}</div>
         </div>
         <div className="bg-white order-1 lg:order-2 flex flex-col items-start p-2 lg:p-5 col-span-3 lg:col-span-4 relative">
-          <div className="flex justify-end w-full">
-
-          </div>
+          <div className="flex justify-end w-full"></div>
 
           <div
             className={`flex justify-center mt-10 w-full h-full items-center ${
               isActive !== 1 && "hidden"
             }`}
           >
-            {/*@ts-expect-error: This */}
             <ProductPerviewModalGift images={response?.gift_basket_images} />
           </div>
           <div
@@ -187,7 +213,6 @@ const CategoryDetails = () => {
               isActive !== 3 && "hidden"
             } flex justify-center items-center mt-10 w-full h-full`}
           >
-            {/* @ts-expect-error: This */}
             <img
               src={
                 response.gift_basket_images &&
@@ -199,128 +224,171 @@ const CategoryDetails = () => {
           </div>
         </div>
         <div className="py-3 px-0 order-1 lg:order-2 lg:px-5 col-span-3">
-          <div>
-            <div className="flex justify-between">
-    
-              <div className="cursor-pointer">
-                {isFavorite ? (
-                  <IoMdHeart
-                    color="red"
-                    size={20}
-                    onClick={() => setIsFavorite((prev) => !prev)}
-                  />
-                ) : (
-                  <IoMdHeartEmpty
-                    size={20}
-                    onClick={() => setIsFavorite((prev) => !prev)}
-                  />
-                )}
-              </div>
+          <div className="border-0 border-l ps-8">
+            <div className="font-medium text-fs_4 flex items-center gap-4 mb-4">
+              <h2 className="font-Articulat">Ваш набор</h2>
+              <h2>Майя</h2>
             </div>
-            <div className="container mx-auto lg:px-4 py-4">
-              <h2 className="text-base font-semibold  tracking-wider">
-                {/*@ts-expect-error: This */}
-                {response.title}
-              </h2>
-              <div className=" mt-4">
-                <p className="text-darkSecondary text-fs_8 tracking-wide font-semibold">
-                {/* {response.gift_basket_product} */}
-                </p>
+            <ul className="divide-y divide-lightSecondary">
+              {cardSetproduct?.map((item) => (
+                <li className="group grid grid-cols-12  py-5 ">
+                  <div className="col-span-3 h-[56px]">
+                    {item?.product_sets?.images_set?.length > 0 && (
+                      <img
+                        src={
+                          item?.product_sets?.images_set[0]?.image ||
+                          item?.product_sets?.images_set[0]?.image_url
+                        }
+                        className="w-full h-full object-contain"
+                        alt=""
+                      />
+                    )}
+                  </div>
+                  <div className="col-span-6 h-full w-full text-fs_8 flex flex-col justify-between ">
+                    <h4 className="font-medium leading-4 line-clamp-2 tracking-wide text-fs_8">
+                      {item?.product_sets?.name}
+                    </h4>
+                    <p className="font-normal mt-1">
+                      {item?.product_sets?.price}{" "}
+                      {item?.product_sets?.price_type}
+                    </p>
+                  </div>
+                  <div className="opacity-0 group-hover:opacity-100 duration-300 col-span-3 h-full flex justify-end">
+                    <div className="flex w-full flex-col justify-between items-end h-full text-darkSecondary ">
+                      <IoCloseSharp
+                        className="cursor-pointer"
+                        onClick={() =>
+                          setCardSetproduct((prev) =>
+                            prev.filter(
+                              (el) =>
+                                el?.product_sets?.id !== item?.product_sets.id
+                            )
+                          )
+                        }
+                      />
 
-              </div>
+                      {quantityVisible === item.id ? (
+                        <input
+                          value={item.quantity}
+                          onChange={(e) =>
+                            updateItemQuantity(item?.id, Number(e.target.value))
+                          }
+                          className="w-[50px] px-2 text-black border border-black rounded-lg focus: outline-none"
+                        />
+                      ) : (
+                        <IoAddSharp
+                          className="cursor-pointer"
+                          onClick={() => setQuantityVisible(item.id)}
+                        />
+                      )}
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <>
+            <div className="py-4">
+              {response?.sizes?.length >= 0 && (
+                <div className="mt-4">
+                  <p className="text-darkSecondary text-fs_8 tracking-wide font-semibold">
+                    РАЗМЕР:
+                  </p>
+                  <div className="flex space-x-2">
+                    {response?.sizes?.map(
+                      (item, i) =>
+                        item.name && (
+                          <ProductSize
+                            {...item}
+                            onActiveSize={setbtnActiveSize}
+                            btnActiveSize={btnActiveSize}
+                            index={i}
+                            key={i}
+                          />
+                        )
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+            <div className="my-2 w-full add-applying font-Helvetica-Neue ">
+              <Select
+                placeholder={"Select Version"}
+                label="Добавить нанесение"
+                onChange={(e) =>
+                  setProductItem((prev) => ({ ...prev, application: e }))
+                }
+              >
+                {responsePrint?.map((item) => (
+                  <Option key={item.id}>{item.title}</Option>
+                ))}
+              </Select>
             </div>
             <div className="">
-              <div className="flex justify-between items-center mb-5">
-                <button className="text-greenPrimary font-bold">
-                  + Добавить нанесение
-                </button>
-                <Tooltip
-                  placement="bottom"
-                  className="border w-full lg:w-[380px] px-10 translate-x-0  lg:-translate-x-20 border-blue-gray-50 bg-white  py-3 shadow-xl shadow-black/10"
-                  content={
-                    <div className="w-full">
-                      <Typography
-                        placeholder={<h2 />}
-                        variant="small"
-                        color="blue-gray"
-                        className="font-medium font-Helvetica-Neue text-center"
-                      >
-                        Точную сумму нанесения вам сообщит менеджер после
-                        оформления заказа
-                      </Typography>
-                    </div>
-                  }
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                    className="h-5 w-5 cursor-pointer text-blue-gray-500"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"
-                    />
-                  </svg>
-                </Tooltip>
-              </div>
-              <div className="bg-gray-200 rounded-xs py-2 px-3 mb-5">
+              <div className="bg-white rounded-xs py-2 px-3 mb-5">
                 <div className="border-b border-gray-500">
                   <div className="flex justify-between items-center py-1">
-                    <p className="font-normal ">Количество:</p>
+                    <p className="font-normal">Количество:</p>
                     <input
-                      value={product.quantity}
+                      value={productItem.quantity}
                       onChange={(e) =>
-                        setProduct((prev: any) => ({
+                        setProductItem((prev) => ({
                           ...prev,
-                          quantity: e.target.value,
+                          quantity: Number(e.target.value),
                         }))
                       }
-                      className="border w-[50px] bg-transparent text-fs_7 border-black rounded-md outline-none px-2 tracking-wider font-normal"
+                      className={`${
+                        productItem.quantity < 1 ? "border-redPrimary" : ""
+                      } border w-[50px] bg-transparent text-fs_7 border-black rounded-md outline-none px-2 tracking-wider font-normal`}
                     />
                   </div>
                   <div className="w-full px-2 py-2">
                     <RangeSlider
-                      color={"red"}
-                      value={[0, product.discountRange]}
-                      thumbsDisabled={[false, false]}
-                      rangeSlideDisabled={true}
+                      min={0}
+                      max={100}
+                      value={[0]}
+                      onInput={handleRangeChange}
+                      className="range-slider"
                     />
                     <div className="flex justify-between text-[10px] font-normal py-2">
-                      <p>
-                        3% <br />
-                        30 шт.
-                      </p>
-                      <p className="text-center">
-                        5% <br />
-                        100 шт.
-                      </p>
-                      <p className="text-end">
-                        7% <br />
-                        300 шт.
-                      </p>
+                      {productItem?.discounts?.map((item, i) => (
+                        <p key={i}>
+                          {item?.name}% <br />
+                          {item?.count} шт.
+                        </p>
+                      ))}
                     </div>
                   </div>
                   <div className="flex justify-between items-center py-1 font-normal">
                     <p>Стоимость тиража:</p>
-                    <p>{product.totalPrice} ₽ </p>
+                    <div>
+                      {response?.discount_price > 0
+                        ? formatPrice(response?.discount_price)
+                        : formatPrice(response?.price)}
+                      <span className="ml-1">{response?.price_type}</span>
+                    </div>
                   </div>
                   <div className="flex justify-between items-center py-1">
                     <p>Скидка:</p>
-                    <p>{product.discount}% </p>
+                    <p>{productItem.discount}% </p>
                   </div>
                 </div>
                 <div className="flex justify-between items-center px-3 py-1 text-base">
                   <b className="">Итоговая стоимость:</b>
-                  <b className="">{product.discountedPrice} ₽ </b>
+                  <b className="">
+                    {calculateTotalCost(
+                      productItem.quantity,
+                      response?.discount_price > 0
+                        ? response?.discount_price
+                        : response?.price,
+                      productItem.discounts
+                    )}
+                    ₽
+                  </b>
                 </div>
               </div>
               <button
-                // @ts-expect-error: This
-                onClick={() => dispatch(addToCart(product))}
+                onClick={() => addToCartHandler(response)}
                 className="w-full py-4 bg-redPrimary text-white text-[11px] lg:text-xs tracking-wide rounded-lg"
               >
                 В КОРЗИНУ
@@ -332,18 +400,17 @@ const CategoryDetails = () => {
                 </span>
               </div>
             </div>
-          </div>
+          </>
         </div>
       </div>
       <div className="mb-16 mt-16 w-[70%]">
-        {/* <MainProductFilter status="new" /> */}
         <Tabs value={activeTab}>
           <TabsHeader
             placeholder={<div />}
-            className="bg-transparent "
+            className="bg-transparent border-0 border-b-2 gap-16 rounded-none p-0 m-0"
             indicatorProps={{
               className:
-                "bg-transparent border-b-2 border-redPrimary shadow-none rounded-none",
+                "bg-transparent border-0 border-b-4 border-redPrimary  shadow-none rounded-none",
             }}
           >
             {CategoryTabs.map(({ label, value }) => (
@@ -353,7 +420,7 @@ const CategoryDetails = () => {
                 value={value}
                 onClick={() => setActiveTab(value)}
                 activeClassName="text-[#fff]"
-                className="text-[19px] p-0 me-[58px] font-Helvetica-Neue uppercase h-[25px] text-darkSecondary w-auto font-helvetica-neue font- text-start"
+                className="text-[18px] font-medium p-0  font-Helvetica-Neue uppercase h-[60px] text-darkSecondary w-auto  text-start tracking-normal"
               >
                 <p
                   className={`${
@@ -382,7 +449,7 @@ const CategoryDetails = () => {
                 value={item.value}
                 className="p-0 m-0 py-2 mt-4 font-Helvetica-Neue"
               >
-                {item.content}
+                {item?.content}
               </TabPanel>
             ))}
           </TabsBody>

@@ -14,14 +14,10 @@ function CompanyBannerTop({ BannerData }) {
             to={`category/${BannerData[0]?.product_set[0]?.productID?.id}`}
             className="group flex flex-col justify-between col-span-4 bg-white h-[200px] cursor-pointer hover:bg-[#fff] transition-all duration-200"
           >
-            <h2 className="text-fs_7 tracking-wider font-semibold opacity-0 group-hover:opacity-100 duration-200 ">
-              {BannerData && BannerData[0]?.product_set[0]?.productID?.name}
-            </h2>
             <div
               className="h-[110px]  w-[300px] mx-auto  flex items-center justify-center"
               style={{ mixBlendMode: "multiply" }}
             >
-              {/*  @ts-expect-error: This */}
               <Slider
                 SliderItems={BannerData && BannerData[0]}
                 sliderTime={2500}

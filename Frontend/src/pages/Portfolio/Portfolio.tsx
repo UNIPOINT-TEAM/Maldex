@@ -30,11 +30,8 @@ function Portfolio() {
           <CompanyBanner />
         </div>
         <div className="mx-3">
-          {/* <PortfolioBanner /> */}
           <News title="Новинки" />
-          <div className="container_xxl px-3">
-            {/* <ProductNav title="sale!" color="red" /> */}
-          </div>
+          <div className="container_xxl px-3"></div>
           <ProjectsSlider />
           <QuestForm />
         </div>

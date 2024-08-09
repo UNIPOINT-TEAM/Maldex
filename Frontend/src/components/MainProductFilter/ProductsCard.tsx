@@ -1,5 +1,3 @@
-import { Autoplay, Navigation, Pagination } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
 import Badge from "../Badge/Badge";
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
@@ -18,7 +16,6 @@ interface ProductsCardProps {
   handleOpen?: (product?: Product) => void;
 }
 const ProductsCard: React.FC<ProductsCardProps> = ({ item, handleOpen }) => {
-  console.log(item);
   const [token, setToken] = useState(null);
   const dispatch = useDispatch();
   const [defaultCard, setDefaultCard] = useState<boolean>(true);
@@ -80,7 +77,7 @@ const ProductsCard: React.FC<ProductsCardProps> = ({ item, handleOpen }) => {
       name: item?.name,
       color: item?.colorID?.name,
       article: item?.article,
-      images: item?.images_set,
+      images_set: item?.images_set,
       warehouse: item?.warehouse,
       is_liked: item?.is_liked,
       price: item?.discount_price > 0 ? item?.discount_price : item?.price,
@@ -175,7 +172,7 @@ const ProductsCard: React.FC<ProductsCardProps> = ({ item, handleOpen }) => {
           {item.is_hit && <Badge name="HIT" type="HIT" />}
         </div>
         {token ? (
-          <div className="absolute z-[999] top-1 right-3 flex gap-2">
+          <div className="absolute z-[9] top-1 right-3 flex gap-2">
             {productItem?.is_liked ? (
               <IoMdHeart
                 size={20}

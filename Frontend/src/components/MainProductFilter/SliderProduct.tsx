@@ -12,8 +12,14 @@ import { addToCart } from "../../store/cartSlice";
 import { Product } from "../../types";
 import { formatPrice } from "../../utils/FormatPrice";
 import ProductSize from "../CategoryDetails/ProductSize";
+import { Link } from "react-router-dom";
+import SendForm from "../QuestForm/SendForm";
 
-const SliderProduct: React.FC<{ products: Product[] }> = ({ products }) => {
+const SliderProduct: React.FC<{
+  products: Product[];
+  activeCategoryId: number;
+  subCategories?: any;
+}> = ({ products, activeCategoryId, subCategories }) => {
   const [open, setOpen] = useState(false);
   const [activeProduct, setactiveProduct] = useState<any>({});
   const [btnActiveSize, setbtnActiveSize] = useState(1);
@@ -22,6 +28,7 @@ const SliderProduct: React.FC<{ products: Product[] }> = ({ products }) => {
     size: null,
     color: null,
   });
+
   const handleOpen = (product: any) => {
     setOpen(!open);
     setactiveProduct(product);
@@ -44,7 +51,7 @@ const SliderProduct: React.FC<{ products: Product[] }> = ({ products }) => {
   };
 
   return (
-    <div className="container_xxl  relative ">
+    <div className="container_xxl relative bg-re">
       <Dialog
         placeholder={<div />}
         open={open}
@@ -189,43 +196,77 @@ const SliderProduct: React.FC<{ products: Product[] }> = ({ products }) => {
           </div>
         </div>
       </Dialog>
-      <Swiper
-        slidesPerView={2}
-        spaceBetween={8}
-        pagination={{
-          clickable: true,
-        }}
-        navigation={{
-          prevEl: ".prev",
-          nextEl: ".next",
-        }}
-        breakpoints={{
-          640: {
-            slidesPerView: 2,
-          },
-          768: {
-            slidesPerView: 4,
-          },
-          1024: {
-            slidesPerView: 5.5,
-          },
-        }}
-        scrollbar={{ draggable: true }}
-        modules={[Navigation, Scrollbar]}
-        className=" w-full overscroll-x-auto h-[430px] md:h-[500px]"
-      >
-        {products?.map((item) => (
-          <SwiperSlide key={item.id} className="w-full ">
-            <ProductsCard item={item} handleOpen={handleOpen} />
-          </SwiperSlide>
-        ))}
-      </Swiper>
-      <div className="hidden lg:flex bg-white prev text-black  hover:text-white">
-        <FaArrowLeftLong />
-      </div>
-      <div className="hidden lg:flex bg-white next text-black hover:text-white">
-        <FaArrowRightLong />
-      </div>
+      {activeCategoryId > 0 && (
+        <>
+          <Swiper
+            slidesPerView={2}
+            spaceBetween={8}
+            pagination={{
+              clickable: true,
+            }}
+            navigation={{
+              prevEl: ".prev",
+              nextEl: ".next",
+            }}
+            breakpoints={{
+              640: {
+                slidesPerView: 2,
+              },
+              768: {
+                slidesPerView: 4,
+              },
+              1024: {
+                slidesPerView: 5.5,
+              },
+            }}
+            scrollbar={{ draggable: true }}
+            modules={[Navigation, Scrollbar]}
+            className=" w-full overscroll-x-auto h-[430px] md:h-[500px]"
+          >
+            {products?.map((item) => (
+              <SwiperSlide key={item.id} className="w-full ">
+                <ProductsCard item={item} handleOpen={handleOpen} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+          <div className="hidden lg:flex bg-white prev text-black  hover:text-white">
+            <FaArrowLeftLong />
+          </div>
+          <div className="hidden lg:flex bg-white next text-black hover:text-white">
+            <FaArrowRightLong />
+          </div>
+        </>
+      )}
+
+      {activeCategoryId < 0 && (
+        <div className="w-full min-h-[350px] h-full">
+          {activeCategoryId == -1 && (
+            <div className=" grid grid-cols-5 h-full">
+              {subCategories?.children?.slice(0, 5).map((item) => (
+                <div className=" h-full">
+                  <h2 className="font-bold text-fs_8 uppercase">
+                    {item?.name}
+                  </h2>
+                  <ul className="mt-3">
+                    {item?.children.slice(0, 9).map((e) => (
+                      <li>
+                        <Link to={""} className="text-fs_8 font-medium">
+                          {e?.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          )}
+          {activeCategoryId == -2 && (
+            <div className="">
+              <SendForm productDetails={true} />
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };

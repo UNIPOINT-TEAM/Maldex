@@ -5,8 +5,9 @@ import { FaArrowLeftLong, FaArrowRightLong } from "react-icons/fa6";
 import CaruselCard from "./CaruselCard";
 const BuildSetCarusel: React.FC<{
   buildSetProducts: any;
-  addToCartHandler: any;
-}> = ({ buildSetProducts, addToCartHandler }) => {
+  setBuildCart: any;
+  buildCart: any;
+}> = ({ buildSetProducts, setBuildCart, buildCart }) => {
   return (
     <div className="container_xxl relative px-3">
       <Swiper
@@ -39,17 +40,15 @@ const BuildSetCarusel: React.FC<{
         modules={[Navigation, Scrollbar]}
         className=" w-full overscroll-x-auto h-[430px] md:h-[500px]"
       >
-        {
-          // @ts-expect-error: This
-          buildSetProducts?.map((item) => (
-            <SwiperSlide key={item?.id} className="w-full">
-              <CaruselCard
-                addToCartHandler={addToCartHandler}
-                item={item.product_sets}
-              />
-            </SwiperSlide>
-          ))
-        }
+        {buildSetProducts?.map((item) => (
+          <SwiperSlide key={item?.id} className="w-full">
+            <CaruselCard
+              item={item.product_sets}
+              setBuildCart={setBuildCart}
+              buildCart={buildCart}
+            />
+          </SwiperSlide>
+        ))}
       </Swiper>
       <div className="hidden cursor-pointer lg:flex bg-white prev text-black  hover:text-white">
         <FaArrowLeftLong />

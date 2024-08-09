@@ -1,108 +1,108 @@
-import { Autoplay, Navigation, Pagination } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
+import SearchIcon from "../../assets/icons/searchIcon.png";
+import MenuIcon from "../../assets/icons/menuIcon.png";
+import React, { useCallback, useEffect, useState } from "react";
+import axios from "axios";
+import { BASE_URL } from "../../utils";
+import GiftProductCard from "./GiftProductCard";
+import { debounce } from "lodash";
+import { MoreFilter } from "../../components";
+import { LuListFilter } from "react-icons/lu";
+import AddProductCatalog from "./AddProductCatalog";
 
+const FilterBtn: React.FC<{ filterCount: number }> = ({ filterCount }) => {
+  return (
+    <button className="flex items-center gap-2 border text-darkSecondary border-lightSecondary h-[34px] rounded-lg font-normal px-3">
+      <LuListFilter /> Все фильтры {filterCount > 0 && `(${filterCount})`}
+    </button>
+  );
+};
 interface TabDescriptionProps {
-  description: string;
-  products: Array<{
-    id: number;
-    product_sets: {
-      id: number;
-      article: string;
-      name: string;
-      description: string;
-      images_set: Array<{
-        id: string;
-        image_url: string;
-      }>;
-    };
-    quantity: number;
-  }>;
+  setCardSetproduct: React.Dispatch<React.SetStateAction<any>>;
 }
 
-const GiftTabFour: React.FC<TabDescriptionProps> = ({
-  description,
-  products,
-}) => {
+const GiftTabFour: React.FC<TabDescriptionProps> = ({ setCardSetproduct }) => {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get(`${BASE_URL}/product/`)
+      .then((res) => {
+        setProducts(res.data.results.slice(0, 20));
+        setLoading(false);
+      })
+      .finally(() => setLoading(false));
+  }, []);
+  const debouncedSearch = useCallback(
+    debounce(async (searchTerm: string) => {
+      try {
+        setLoading(true);
+        const [productResponse] = await Promise.all([
+          axios.get(`${BASE_URL}/product/?search=${searchTerm}`),
+        ]);
+        setProducts(productResponse.data.results);
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+      }
+    }, 400),
+    []
+  );
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    debouncedSearch(e.target.value);
+  };
+  const handleFilter = (query: string) => {
+    console.log(query);
+  };
   return (
-    <div className="max-w-md mx-auto flex items-center space-x-4">
-      <form className="flex-grow relative">
-        <label
-          htmlFor="default-search"
-          className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
-        >
-          Search
-        </label>
-        <div className="relative">
-          <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-            <svg
-              className="w-4 h-4 text-gray-500 dark:text-gray-400"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 20 20"
-            >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+    <div className="">
+      <div>
+        <div className="flex mb-5">
+          <div className="w-full flex flex-col md:flex-row gap-5 justify-between">
+            <div className="w-full md:w-[70%] border border-lightSecondary h-[35px] rounded-lg p-1 flex">
+              <div className="h-full w-[30px] flex justify-center items-center">
+                <img src={SearchIcon} alt="" />
+              </div>
+              <input
+                className="w-[95%] outline-0 font-normal"
+                placeholder="Поиск"
+                onChange={handleInputChange}
               />
-            </svg>
+            </div>
+            <div className="flex items-center md:w-[30%] gap-5">
+              <div className="">
+                <AddProductCatalog
+                  setProducts={setProducts}
+                  setLoading={setLoading}
+                />
+              </div>
+              <div className="">
+                <MoreFilter
+                  FilterBtn={<FilterBtn />}
+                  type={"ALL_FILTR"}
+                  onFilter={handleFilter}
+                  presentation={true}
+                />
+              </div>
+            </div>
           </div>
-          <input
-            type="search"
-            id="default-search"
-            className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Search Mockups, Logos..."
-            required
-          />
         </div>
-      </form>
-      <button
-        type="button"
-        className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-      >
-        <svg
-          className="w-4 h-4 mr-2"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 20 20"
-          aria-hidden="true"
-        >
-          <path
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M4 6h12M4 10h12M4 14h12"
+      </div>
+      <div className="grid grid-cols-3 gap-5">
+        {products.map((item) => (
+          <GiftProductCard
+            key={item.id}
+            item={item}
+            loading={loading}
+            setCardSetproduct={setCardSetproduct}
           />
-        </svg>
-        Каталог
-      </button>
-      <button
-        type="button"
-        className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-      >
-        <svg
-          className="w-4 h-4 mr-2"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 20 20"
-          aria-hidden="true"
-        >
-          <path
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M4 6h12M4 10h12M4 14h12"
-          />
-        </svg>
-        Все фильтры
-      </button>
+        ))}
+      </div>
     </div>
   );
 };
 
 export default GiftTabFour;
+``;

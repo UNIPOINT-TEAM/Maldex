@@ -27,7 +27,7 @@ const Topbar = () => {
             <img
               src={MaldexLogo}
               alt="maldex-logo"
-              className="mr-5 w-[100px] lg:w-[130px]"
+              className="mr-5 h-[20px] w-[100px] lg:w-[130px]"
             />
           </Link>
           <ul className="flex items-center gap-1 lg:gap-5 ">
@@ -35,7 +35,7 @@ const Topbar = () => {
               <li key={i} className={`${i == 2 && "hidden lg:block"} an_btn`}>
                 <Link to={item.path} className="flex items-center">
                   <img src={item.icon} className="mr-2 w-[20px] " />
-                  <span className="hidden text-darkPrimary text-fs_8 tracking-wider lg:block ">
+                  <span className="hidden text-darkPrimary text-fs_8  lg:block ">
                     {item.name}
                   </span>
                 </Link>
@@ -44,7 +44,7 @@ const Topbar = () => {
           </ul>
         </div>
         <div className="text-darkSecondary hidden md:block">
-          <span className=" text-fs_8 tracking-wider font-medium font-Articulat">
+          <span className=" text-fs_8  font-medium font-Articulat">
             Минимальная сумма заказа от 30 тыс рублей
           </span>
         </div>
@@ -55,7 +55,7 @@ const Topbar = () => {
                 <li key={i} className="an_btn">
                   <Link
                     to={item?.link}
-                    className="text-darkPrimary  text-fs_8 tracking-wider font-normal hover:text-redPrimary px-2"
+                    className="text-darkPrimary  text-fs_8 font-normal hover:text-redPrimary px-2"
                   >
                     {item.name}
                   </Link>

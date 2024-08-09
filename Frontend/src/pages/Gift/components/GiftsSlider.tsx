@@ -1,11 +1,11 @@
-import { Swiper, SwiperSlide } from 'swiper/react';
-import prev from '../../../assets/icons/projectPrev.svg';
-import next from '../../../assets/icons/projectNext.svg';
-import { Link } from 'react-router-dom';
-import { Scrollbar } from 'swiper/modules';
-import GiftsNav from './GiftsNav';
-import { GetGiftsCategory } from '../../../services/services';
-import { useEffect, useRef, useState } from 'react';
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Scrollbar } from "swiper/modules";
+import { Link } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import prev from "../../../assets/icons/projectPrev.svg";
+import next from "../../../assets/icons/projectNext.svg";
+import GiftsNav from "./GiftsNav";
+import { GetGiftsCategory } from "../../../services/services";
 
 function GiftsSlider({ category }) {
   const swiperRef = useRef(null);
@@ -13,52 +13,65 @@ function GiftsSlider({ category }) {
   const [activeCategoryIds, setActiveCategoryIds] = useState({});
   const [selectedCategoryData, setSelectedCategoryData] = useState(null);
 
+  // Function to navigate to the next slide
   const goNext = () => {
     if (swiperRef.current && swiperRef.current.swiper) {
       swiperRef.current.swiper.slideNext();
     }
   };
 
+  // Function to navigate to the previous slide
   const goPrev = () => {
     if (swiperRef.current && swiperRef.current.swiper) {
       swiperRef.current.swiper.slidePrev();
     }
   };
 
+  // Fetch gift categories and set the state
   useEffect(() => {
     GetGiftsCategory()
       .then((res) => {
-        const nonEmptyCategories = res.map(cat => ({
-          ...cat,
-          children: cat.children.filter(sub => sub.product_set.length > 0),
-        })).filter(cat => cat.children.length > 0);
+        const nonEmptyCategories = res
+          .map((cat) => ({
+            ...cat,
+            children: cat.children.filter((sub) => sub.product_set.length > 0),
+          }))
+          .filter((cat) => cat.children.length > 0);
 
         setGiftCategory(nonEmptyCategories);
 
-        const initialActiveCategoryIds = nonEmptyCategories.reduce((acc, cat) => {
-          if (cat.children.length > 0) {
-            acc[cat.id] = cat.children[0].id;
-          }
-          return acc;
-        }, {});
+        const initialActiveCategoryIds = nonEmptyCategories.reduce(
+          (acc, cat) => {
+            if (cat.children.length > 0) {
+              acc[cat.id] = cat.children[0].id;
+            }
+            return acc;
+          },
+          {}
+        );
 
         setActiveCategoryIds(initialActiveCategoryIds);
       })
       .catch((error) => {
-        console.error('Error fetching gift categories:', error);
+        console.error("Error fetching gift categories:", error);
       });
   }, []);
 
+  // Update selected category data when active category changes
   useEffect(() => {
     if (activeCategoryIds[category.id] !== undefined) {
-      const selectedCategory = giftCategory.find(cat => cat.id === category.id);
-      const subCategory = selectedCategory?.children.find(sub => sub.id === activeCategoryIds[category.id]);
+      const selectedCategory = giftCategory.find(
+        (cat) => cat.id === category.id
+      );
+      const subCategory = selectedCategory?.children.find(
+        (sub) => sub.id === activeCategoryIds[category.id]
+      );
       setSelectedCategoryData(subCategory);
     }
   }, [activeCategoryIds, category.id, giftCategory]);
 
   const handleSetActiveCategoryId = (catId, subId) => {
-    setActiveCategoryIds(prevState => ({ ...prevState, [catId]: subId }));
+    setActiveCategoryIds((prevState) => ({ ...prevState, [catId]: subId }));
   };
 
   return (
@@ -69,14 +82,16 @@ function GiftsSlider({ category }) {
           color="gray"
           subcategories={category.children}
           activeCategoryId={activeCategoryIds[category.id] || null}
-          setActiveCategoryId={(subId) => handleSetActiveCategoryId(category.id, subId)}
+          setActiveCategoryId={(subId) =>
+            handleSetActiveCategoryId(category.id, subId)
+          }
         />
 
         <div className="my-5 lg:h-[400px]">
           <div className="h-full hidden lg:flex">
             <div className="h-[400px] flex items-center">
               <button className="absolute z-50 -ml-[16px]" onClick={goPrev}>
-                <img src={prev} alt="" className="w-[32px]" />
+                <img src={prev} alt="Previous" className="w-[32px]" />
               </button>
             </div>
             <Swiper
@@ -93,13 +108,13 @@ function GiftsSlider({ category }) {
               {selectedCategoryData?.product_set.map((product) => (
                 <SwiperSlide key={product.id}>
                   <Link to={`/gift/${product.id}`}>
-                    <div className="relative">
+                    <div className="relative w-full border h-full">
                       {product.gift_basket_images?.map((image) => (
                         <img
                           key={image.id}
                           src={image.images}
                           alt={product.title}
-                          className=""
+                          className="w-full h-full object-cover"
                         />
                       ))}
                       <p className="z-[999999] text-fs_6 left-0 ps-5 absolute bottom-2 text-[#fff]">
@@ -112,7 +127,7 @@ function GiftsSlider({ category }) {
             </Swiper>
             <div className="h-[410px] flex items-center">
               <button className="absolute z-50 -ml-[15px]" onClick={goNext}>
-                <img src={next} alt="" className="w-[32px]" />
+                <img src={next} alt="Next" className="w-[32px]" />
               </button>
             </div>
           </div>

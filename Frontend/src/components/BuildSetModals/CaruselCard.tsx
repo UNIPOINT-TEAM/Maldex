@@ -1,184 +1,245 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from "react";
-import { CgSearch } from "react-icons/cg";
+import React, { useEffect, useRef, useState } from "react";
 import { CiHeart, CiSearch } from "react-icons/ci";
 import { FaCheck } from "react-icons/fa6";
-import { MdOutlineAdd } from "react-icons/md";
+import { MdAdd } from "react-icons/md";
 import { Link } from "react-router-dom";
-import { Autoplay, Navigation, Pagination } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
 import Badge from "../Badge/Badge";
 import { Product } from "../../types";
-import { calculateDiscountedPrice } from "../../utils/CalculatedDiscount";
+import { IoMdAdd } from "react-icons/io";
+import { formatPrice } from "../../utils/FormatPrice";
+import { IoCheckmarkSharp } from "react-icons/io5";
 interface CaruselCardProps {
   item: Product;
-  addToCartHandler: (
-    product: Product,
-    quantity: number,
-    totalPrice: number
-  ) => void;
+  setBuildCart: any;
+  buildCart: any;
 }
 const CaruselCard: React.FC<CaruselCardProps> = ({
   item,
-  addToCartHandler,
+  setBuildCart,
+  buildCart,
 }) => {
-  const [addCard, setAddCard] = useState(false);
-  const [defaultProduct, setDefaultProduct] = useState(true);
-  const [quantity] = useState(1);
+  const [defaultCard, setDefaultCard] = useState<boolean>(true);
+  const [addToCartVisible, setaddToCartVisible] = useState<boolean>(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const carouselRef = useRef(null);
+  const [productItem, setproductItem] = useState<Product>({
+    size: null,
+    quantity: 1,
+    color: item?.colorID?.name,
+    warehouse: item.warehouse,
+    name: item.name,
+    images_set:
+      item.images_set.length > 5
+        ? item.images_set.slice(0, 5)
+        : item.images_set,
+    article: item.article,
+    id: item.id,
+    is_liked: item.is_liked,
+    price: item?.price,
+    discount_price: item?.discount_price,
+    is_hit: item.is_hit,
+    is_new: item.is_new,
+    description: item.description,
+    characteristics: item.characteristics,
+    price_type: item.price_type,
+    colorID: item.colorID,
+    sizes: item.sizes,
+    circulation: item.circulation,
+  });
+  const isInCart = buildCart?.some(
+    (cartItem: Product) => cartItem?.id === item?.id
+  );
+  console.log(isInCart);
+  const increaseQuantity = () => {
+    setproductItem({ ...productItem, quantity: productItem.quantity + 1 });
+  };
 
-  const changeStatus = () => {
-    const { discountedPriceFixed, discount } = calculateDiscountedPrice(
-      item.discount_price,
-      quantity
-    );
-    console.log(discountedPriceFixed, discount);
-    const totalPrice = quantity * item?.discount_price;
-    addToCartHandler(item, quantity, totalPrice);
-    setDefaultProduct(!defaultProduct);
+  const decreaseQuantity = () => {
+    if (productItem.quantity <= 1) return;
+    setproductItem({ ...productItem, quantity: productItem.quantity - 1 });
   };
-  const formatPriceWithSup = (price: number) => {
-    if (!price) return null;
-    const [integerPart, decimalPart] = price.toString().split(".");
-    return (
-      <span>
-        {integerPart}.{decimalPart && <sup>{decimalPart}</sup>}
-      </span>
-    );
+  const handleFiltreColor = (item: Product) => {
+    setproductItem({
+      ...productItem,
+      id: item?.id,
+      name: item?.name,
+      color: item?.colorID?.name,
+      article: item?.article,
+      images_set: item?.images_set,
+      warehouse: item?.warehouse,
+      is_liked: item?.is_liked,
+      price: item?.price,
+      is_hit: item?.is_hit,
+      is_new: item?.is_new,
+      description: item?.description,
+      characteristics: item?.characteristics,
+      price_type: item?.price_type,
+      discount_price: item?.discount_price,
+      colorID: item?.colorID,
+      sizes: item?.sizes,
+      circulation: item?.circulation,
+      colors: item?.colors,
+    });
   };
+
+  const handleMouseMove = (event: React.MouseEvent) => {
+    const rect = carouselRef?.current?.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const percentage = x / rect.width;
+    const newIndex = Math.floor(percentage * productItem.images_set.length);
+    if (newIndex >= 0) setCurrentIndex(newIndex);
+  };
+  const handleAddBuildCart = () => {
+    setBuildCart((prev) => [...prev, productItem]);
+    setDefaultCard(true);
+  };
+
   return (
-    <div className="catalog cursor-pointer">
-      <div className="relative swiper-top-container h-[220px] mb-4 bg-gray-200">
-        <Swiper
-          autoplay={{
-            delay: 3000,
-            disableOnInteraction: false,
-          }}
-          loop={true}
-          pagination={{ clickable: true }}
-          modules={[Navigation, Pagination, Autoplay]}
-          className="h-full"
-        >
-          {item?.images_set?.map((item) => (
-            <SwiperSlide key={item?.id} className="w-full h-full ">
-              <div className="relative  h-full">
-                <div className="flex justify-center items-center h-full">
-                  <img
-                    loading="lazy"
-                    className="mb-2 w-[50px] h-[50px] object-contain product-img"
-                    src={item?.image ? item?.image : item?.image_url}
-                    alt="product-image"
-                  />
-                </div>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-        <div className="absolute z-[9999] bottom-[25px] right-[15px] flex flex-col gap-1 swiper-opacity">
-          <button
-            className={`w-[8px] h-[8px] bg-redPrimary rounded-[4px]`}
-          ></button>
-          <button
-            className={`w-[8px] h-[8px] bg-orange-600 rounded-[4px]`}
-          ></button>
-          <button
-            className={`w-[8px] h-[8px] bg-green-600 rounded-[4px]`}
-          ></button>
-          <button
-            className={`w-[8px] h-[8px] bg-greenPrimary rounded-[4px]`}
-          ></button>
-          <button
-            className={`w-[8px] h-[8px] bg-blue-600 rounded-[4px]`}
-          ></button>
-          <button
-            className={`w-[8px] h-[8px] bg-purple-600 rounded-[4px]`}
-          ></button>
-          <button
-            className={`w-[8px] h-[8px] bg-indigo-600 rounded-[4px]`}
-          ></button>
-        </div>
+    <div className="catalog group ">
+      <div
+        ref={carouselRef}
+        onMouseMove={handleMouseMove}
+        className="relative swiper-top-container h-[180px] md:h-[250px] cursor-pointer mb-4 bg-white hover:bg-[#fff]"
+      >
+        {isInCart && (
+          <button className="w-7 h-7 text-[#fff] top-2 right-2 absolute z-[9] bg-redPrimary flex items-center justify-center rounded-md">
+            <IoCheckmarkSharp />
+          </button>
+        )}
 
-        <div className="absolute z-[999] top-2 left-2 flex gap-2">
-          {item?.is_new && <Badge name="NEW" type="NEW" />}
-          {item?.is_hit && <Badge name="HIT" type="HIT" />}
+        <div className="w-full h-full">
+          <div className="relative w-full h-full">
+            <div className="flex w-full justify-center items-center  h-full mix-blend-multiply">
+              <img
+                className="mb-2 w-[75%] md:h-[75%] h-[65%] object-contain  "
+                src={
+                  productItem.images_set[currentIndex]?.image_url
+                    ? productItem.images_set[currentIndex]?.image_url
+                    : productItem.images_set[currentIndex]?.image
+                }
+                alt={`product-image-${currentIndex}`}
+                loading="lazy"
+              />
+            </div>
+            <div className=" group-hover:block hidden w-full h-2 bottom-4 left-0 absolute">
+              <div className="w-full h-2 flex gap-1 justify-center items-center">
+                {productItem.images_set.map((_item, index) => (
+                  <div
+                    key={index}
+                    className={`max-w-4 w-full h-[3px] rounded-md ${
+                      index === currentIndex
+                        ? "bg-red-500"
+                        : " bg-darkSecondary"
+                    }`}
+                  ></div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="absolute  z-[9999] bottom-[25px] right-[15px] flex flex-col justify-center items-center gap-1 swiper-opacity">
+          {item?.colors?.length > 0 &&
+            item?.colors?.map((el) => (
+              <button
+                onMouseOver={() => handleFiltreColor(el.product)}
+                style={{
+                  backgroundColor: el.hex ? el.hex : "#000000",
+                }}
+                className={` rounded-full ${
+                  productItem?.id === el.product.id
+                    ? "min-h-[10px] min-w-[10px]"
+                    : "w-[8px] h-[8px]"
+                }`}
+              ></button>
+            ))}
+        </div>
+        <div className="absolute z-[999] top-2 left-2  gap-2 hidden md:flex">
+          {productItem.is_new && <Badge name="NEW" type="NEW" />}
+          {productItem.is_hit && <Badge name="HIT" type="HIT" />}
         </div>
       </div>
-      {defaultProduct ? (
-        <div className="default font-Helvetica-Neue">
-          <div className="mb-2 md:mb-5  min-h-[70px] ">
-            <h2 className="text-fs_7 text-darkPrimary  font-medium tracking-wide">
-              {item?.name}
+      {defaultCard ? (
+        <div className=" min-h-[180px] flex flex-col justify-between">
+          <div className="min-h-[100px]">
+            <h2 className="text-black text-fs_7 mb-2 font-medium">
+              {productItem?.name}
             </h2>
+            <div className="hidden group-hover:block">
+              {productItem?.warehouse?.length > 0 &&
+                productItem?.warehouse?.map((item, i) => (
+                  <p key={i} className="text-fs_8 opacity-70 font-medium ">
+                    {item?.name}: {item.quantity}
+                  </p>
+                ))}
+              <p className="opacity-70 text-fs_8">
+                <span className="font-medium">Артикул: </span>
+                {productItem?.article}
+              </p>
+            </div>
           </div>
-          <div className="relative mb-2">
-            <p className="text-[16px] md:text-fs_4 text-darkPrimary font-medium">
-              {item?.discount_price
-                ? formatPriceWithSup(item?.discount_price)
-                : "-"}
-              <span className="ml-4 mr-1">{item?.price_type}</span>
-              <span className="text-xs absolute top-0 line-through text-redPrimary">
-                {item?.price}
-              </span>
-            </p>
-          </div>
-          <div className="flex justify-between catalog_btns">
+          <p className="text-[16px] font-medium md:text-fs_4 relative">
+            {productItem?.discount_price > 0
+              ? formatPrice(productItem?.discount_price)
+              : formatPrice(productItem?.price)}
+            <span className="ml-4 mr-1">{productItem?.price_type}</span>
+            <span className="text-xs absolute top-0 line-through text-redPrimary">
+              {productItem?.discount_price > 0 && productItem?.price}
+            </span>
+          </p>
+          <div className="flex justify-between catalog_btns gap-2 mt-2">
             <button
-              onClick={changeStatus}
-              className="bg-redPrimary flex justify-between items-center uppercase  p-2 text-white rounded-lg font-bold tracking-wider text-fs_8 lg:text-sm gap-1 lg:w-[130px]"
+              disabled={isInCart}
+              onClick={() => setDefaultCard(!defaultCard)}
+              className="bg-redPrimary disabled:opacity-60 disabled:cursor-not-allowed uppercase font-medium flex items-center justify-center gap-1 py-2  text-white tracking-wider rounded-lg text-fs_8 mdtext-sm w-[130px]"
             >
-              <MdOutlineAdd className="text-fs_4" />В корзину
+              <MdAdd className="text-fs_4" /> В корзину
             </button>
-            <button className="bg-white px-2 lg:px-3 py-1 rounded-lg text-darkSecondary">
+            <button className="bg-white px-2 md:px-3 py-1 rounded-lg text-gray-700">
               <Link
-                to={`/category/${item?.id}`}
+                to={`/category/${productItem?.id}`}
                 className="w-full h-full flex justify-center items-center"
               >
-                <CgSearch className="text-fs_4" />
+                <CiSearch className="text-fs_4" />
               </Link>
             </button>
           </div>
         </div>
       ) : (
-        <div className="default">
+        <div className="min-h-[180px] flex flex-col justify-between">
           <div className="flex flex-col items-start mb-3">
-            <p className="text-lg text-gray-600 mb-2">Количество:</p>
-            <div className="flex justify-around items-center gap-2 rounded-xl p-2 border border-gray-400 mb-2">
-              <button>-</button>
-              <p>1</p>
-              <button>+</button>
+            <p className="text-fs_9 text-darkSecondary mb-2 uppercase">
+              Количество:
+            </p>
+            <div className="flex text-darkPrimary font-medium justify-around items-center gap-2 rounded-xl p-2 border border-gray-400 mb-2">
+              <button onClick={decreaseQuantity}>-</button>
+              <p className="text-fs_7 font-medium">{productItem?.quantity}</p>
+              <button onClick={increaseQuantity}>+</button>
             </div>
-            <p className="text-lg text-gray-600 mb-2">Размер:</p>
-            <div className="flex justify-start items-center gap-1">
-              <button className="w-[34px] h-[34px] border border-gray-400 rounded-[17px] text-xs hover:border-redPrimary hover:text-redPrimary">
-                XS
-              </button>
-              <button className="w-[34px] h-[34px] border border-gray-400 rounded-[17px] text-xs hover:border-redPrimary hover:text-redPrimary">
-                S
-              </button>
-              <button className="w-[34px] h-[34px] border border-gray-400 rounded-[17px] text-xs hover:border-redPrimary hover:text-redPrimary">
-                M
-              </button>
-              <button className="w-[34px] h-[34px] border border-gray-400 rounded-[17px] text-xs hover:border-redPrimary hover:text-redPrimary">
-                L
-              </button>
-              <button className="w-[34px] h-[34px] border border-gray-400 rounded-[17px] text-xs hover:border-redPrimary hover:text-redPrimary">
-                XL
-              </button>
-              <button className="w-[34px] h-[34px] border border-gray-400 rounded-[17px] text-xs hover:border-redPrimary hover:text-redPrimary">
-                2XL
-              </button>
-            </div>
+            {item?.sizes?.length > 0 && item?.sizes[0]?.size && (
+              <div className="">
+                <p className="text-lg text-gray-600 mb-2">Размер:</p>
+                <div className="flex justify-start items-center flex-wrap gap-1">
+                  {item.sizes.map((size) => (
+                    <button className="min-w-[33px] h-[33px] border border-gray-400 rounded-[17px] font-bold text-[10px]  hover:border-redPrimary hover:text-redPrimary">
+                      {size?.name?.replace(/размер/g, "")}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
-          {addCard ? (
+          {addToCartVisible ? (
             <div className="flex justify-between catalog_btns">
               <button
-                onClick={() => setAddCard(true)}
-                className=" bg-redPrimary px-3 py-3 text-white rounded-lg shadow-lg shadow-gray-400"
+                onClick={handleAddBuildCart}
+                className=" bg-redPrimary px-3 py-3 text-white rounded-lg "
               >
                 <FaCheck />
               </button>
               <button className="bg-gray-300 px-3 py-1 rounded-lg text-gray-700">
                 <Link
-                  to={"category/1"}
+                  to={`category/${item.id}`}
                   className="w-full h-full flex justify-center items-center"
                 >
                   <CiSearch />
@@ -186,15 +247,14 @@ const CaruselCard: React.FC<CaruselCardProps> = ({
               </button>
             </div>
           ) : (
-            <div className="flex justify-between catalog_btns">
+            <div className="flex justify-between items-center catalog_btns">
               <button
-                onClick={() => setAddCard(true)}
-                className="bg-redPrimary px-4 py-2 text-white rounded-lg shadow-lg text-sm shadow-gray-400 w-[120px]"
+                onClick={() => {
+                  setaddToCartVisible(true);
+                }}
+                className="bg-redPrimary justify-center gap-2 uppercase font-bold flex  items-center text-white rounded-lg text-fs_7 w-[140px] h-[40px]"
               >
-                + добавить
-              </button>
-              <button className="px-3 py-1 flex justify-center items-center rounded-lg text-gray-700">
-                <CiHeart />
+                <IoMdAdd className="text-fs_3" /> добавить
               </button>
             </div>
           )}

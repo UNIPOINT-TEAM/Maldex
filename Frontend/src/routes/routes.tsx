@@ -37,6 +37,7 @@ import {
 } from "../components";
 import DefaultTemplate from "../components/GalleryLayoutTemplate/PdfTemplate/DefaultTemplate";
 import Liked from "../components/AdminSidebar/Liked";
+import SilkscreenPrinting from "../pages/Applying/Silkscreen-printing";
 
 export const router = createBrowserRouter([
   {
@@ -126,10 +127,7 @@ export const router = createBrowserRouter([
       {
         path: "/applying-type",
         element: <Sidebar />,
-        children: [
-          { path: "apply", element: <Applying /> },
-          { path: "pad-printing", element: <PadPrinting /> },
-        ],
+        children: [{ path: ":id", element: <SilkscreenPrinting /> }],
       },
       {
         path: "/tags",

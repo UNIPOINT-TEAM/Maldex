@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useFetchHook } from "../../hooks/UseFetch";
 import { Link } from "react-router-dom";
 
@@ -17,6 +17,7 @@ const ProductNav: React.FC<ProductNavProps> = ({
   activeCategoryId,
   setActiveCategoryId,
 }) => {
+  const [isCategories, setIsCategories] = useState([]);
   let titleStyle = "text-4xl traking-wide";
   if (color === "green") {
     titleStyle +=
@@ -27,12 +28,22 @@ const ProductNav: React.FC<ProductNavProps> = ({
     titleStyle += " font-medium text-base lg:text-[28px] text-darkSecondary";
   }
   const { fetchData: categoriesFetch, response: categories } = useFetchHook();
-
   useEffect(() => {
     categoriesFetch({ method: "GET", url: `product/categories/?${query}` });
   }, [query, categoriesFetch]);
   useEffect(() => {
-    if (categories) setActiveCategoryId(categories[0]?.id);
+    if (categories) {
+      setActiveCategoryId(categories[0]?.id);
+      setIsCategories(categories);
+
+      if (window.location.pathname.includes("category")) {
+        setIsCategories((prev) => [
+          ...prev,
+          { id: -1, name: "товар в смежных разделах" },
+          { id: -2, name: "задать вопрос о товаре" },
+        ]);
+      }
+    }
   }, [categories]);
 
   return (
@@ -47,7 +58,7 @@ const ProductNav: React.FC<ProductNavProps> = ({
         <div className="flex justify-between items-center px-3 lg:px-7 py-0">
           <div className="overflow-x-auto product-nav">
             <ul className="flex gap-5 whitespace-nowrap">
-              {categories?.map((item) => (
+              {isCategories?.map((item) => (
                 <li
                   key={item.id}
                   className={`cursor-pointer font-medium text-[10px] lg:text-fs_8 py-4 border-b-2 ${

@@ -8,9 +8,8 @@ import {
   TabList,
 } from "../../components";
 import {
-  Accordion,
-  AccordionBody,
-  AccordionHeader,
+  Option,
+  Select,
   Tab,
   TabPanel,
   Tabs,
@@ -32,23 +31,33 @@ import { useParams } from "react-router-dom";
 import { formatPrice } from "../../utils/FormatPrice";
 import { Helmet } from "react-helmet";
 import { DeleteLike, PostDataToken } from "../Auth/service";
-import { MdAdd } from "react-icons/md";
 
 const TOKEN = localStorage.getItem("token");
 const CategoryDetails = () => {
   const { id } = useParams();
-  const [open, setOpen] = useState(false);
   const [productId, setproductId] = useState(Number(id));
   const dispatch = useDispatch();
   const { fetchData, response } = useFetchHook();
   const { fetchData: fetchPrinting, response: responsePrint } = useFetchHook();
+  const { fetchData: fetchSubCategories, response: responseSubCategories } =
+    useFetchHook();
   useEffect(() => {
     fetchPrinting({
       method: "GET",
       url: `/print-categories/`,
     });
   }, []);
-  console.log(responsePrint);
+  const categoryId = response?.categories && response?.categories[0]?.id;
+
+  useEffect(() => {
+    console.log(categoryId);
+    if (categoryId) {
+      fetchSubCategories({
+        method: "GET",
+        url: `/product/category/${categoryId}/`,
+      });
+    }
+  }, [id, categoryId]);
   const isLike = response?.is_liked;
   useEffect(() => {
     if (TOKEN) {
@@ -75,6 +84,7 @@ const CategoryDetails = () => {
     discountRange: 0,
     discount: 0,
     discounts: [{ name: 0, count: 0 }],
+    application: null,
   });
 
   const handleFavorite = (id: number) => {
@@ -247,9 +257,9 @@ const CategoryDetails = () => {
           </Tabs>
         </div>
         <div className="order-1 lg:order-2 p-2 lg:p-5 col-span-3 lg:col-span-4">
-          <div className="relative bg-white w-full h-[500px] flex items-center justify-center">
+          <div className="relative bg-white w-full h-full min-h-[500px] flex items-center justify-center">
             <div className="absolute h-full right-2 lg:right-5 top-0 flex items-center">
-              <div className="flex flex-col gap-2 bg-white px-3 py-5 rounded-s-xl">
+              <div className="flex flex-col gap-2 px-3 py-5 rounded-s-xl">
                 {response?.colors?.map((item) => (
                   <input
                     key={item.id}
@@ -272,7 +282,7 @@ const CategoryDetails = () => {
           </div>
         </div>
         <div className="py-3 px-0 order-1 lg:order-2 lg:px-5 col-span-3">
-          <div>
+          <>
             <div className="flex justify-between">
               <div>
                 {response?.is_new && (
@@ -303,11 +313,14 @@ const CategoryDetails = () => {
                 </div>
               )}
             </div>
-            <div className="container mx-auto lg:px-4 py-4">
+            <div className="py-4">
               <h2 className="text-base font-semibold tracking-wider">
                 {response?.name}
               </h2>
-              {response?.sizes && (
+              <p className="text-fs_8 text-darkSecondary">
+                Артикул: {response?.article}
+              </p>
+              {response?.sizes?.length >= 0 && (
                 <div className="mt-4">
                   <p className="text-darkSecondary text-fs_8 tracking-wide font-semibold">
                     РАЗМЕР:
@@ -329,27 +342,20 @@ const CategoryDetails = () => {
                 </div>
               )}
             </div>
-            <div className="my-2">
-              <Accordion placeholder={<div />} open={open}>
-                <AccordionHeader
-                  placeholder={<div />}
-                  onClick={() => setOpen(!open)}
-                  className="border-0 p-0"
-                >
-                  <h2 className="text-fs_8 gap-2 font-semibold uppercase font-Helvetica-Neue text-greenPrimary flex items-center">
-                    <MdAdd className="text-fs_4" /> Добавить нанесение
-                  </h2>
-                </AccordionHeader>
-                <AccordionBody>
-                  <div className="ms-2">
-                    {responsePrint.map((item, i) => (
-                      <p key={i}>{item?.title}</p>
-                    ))}
-                  </div>
-                </AccordionBody>
-              </Accordion>
+            <div className="my-2 w-full add-applying font-Helvetica-Neue ">
+              <Select
+                placeholder={"Select Version"}
+                label="Добавить нанесение"
+                onChange={(e) =>
+                  setProductItem((prev) => ({ ...prev, application: e }))
+                }
+              >
+                {responsePrint?.map((item) => (
+                  <Option key={item.id}>{item.title}</Option>
+                ))}
+              </Select>
             </div>
-            <div className="min-h-[500px]">
+            <div className="">
               <div className="bg-white rounded-xs py-2 px-3 mb-5">
                 <div className="border-b border-gray-500">
                   <div className="flex justify-between items-center py-1">
@@ -371,11 +377,14 @@ const CategoryDetails = () => {
                     <RangeSlider
                       min={0}
                       max={100}
-                      value={[0, productItem.discountRange]} // Boshlang‘ich qiymatini 0 qilib belgilash
+                      value={[0]}
                       onInput={handleRangeChange}
                       className="range-slider"
                     />
                     <div className="flex justify-between text-[10px] font-normal py-2">
+                      <p>
+                        0% <br />0 шт.
+                      </p>
                       {productItem?.discounts?.map((item, i) => (
                         <p key={i}>
                           {item?.name}% <br />
@@ -425,11 +434,11 @@ const CategoryDetails = () => {
                 </span>
               </div>
             </div>
-          </div>
+          </>
         </div>
       </div>
-      <div className="mb-16 mt-0">
-        <MainProductFilter status="new" />
+      <div className="mb-16 mt-4">
+        <MainProductFilter status="new" subCategories={responseSubCategories} />
       </div>
       <div className="my-5">
         <Banner />

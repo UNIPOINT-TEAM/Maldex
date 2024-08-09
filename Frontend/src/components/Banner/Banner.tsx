@@ -10,7 +10,7 @@ const Banner = () => {
 
   return (
     <>
-      <div className="flex gap-[9px] h-full">
+      <div className="flex gap-[9px] h-full main-banner">
         <div className="w-2/5 hidden md:block">
           <BannerTop BannerData={response} />
         </div>

@@ -33,8 +33,8 @@ const Navbar = () => {
   return (
     <header className="lg:px-0">
       <Topbar />
-      <nav className="container_xxl px-3">
-        <div className="flex justify-between items-center py-2 gap-0 lg:gap-5">
+      <nav className="container_xxl px-3 flex items-center  my-2">
+        <div className="flex justify-between  items-center py-2 gap-0 lg:gap-5 w-full">
           <div className="flex justify-around gap-5 ">
             <NavbarModal />
             <MoreFilter FilterBtn={<FiltrBtn />} type={"LESS_FILTER"} />
@@ -57,14 +57,20 @@ const Navbar = () => {
             </span>
           </div>
           <div className="items-center justify-between text-fs_3 gap-5 hidden md:flex font-normal">
-            <Link to={"catalog/?is_new=true"} className="text-redPrimary an_btn">
-              <span className="border-b-2 border-redPrimary mr-2 text-fs_3">new</span>
-              {/* @ts-expect-error: This */}
+            <Link
+              to={"catalog/?is_new=true"}
+              className="text-redPrimary an_btn"
+            >
+              <span className="border-b-2 border-redPrimary mr-2 text-fs_3">
+                new
+              </span>
               <sup className="font-light text-fs_6">{response?.new}</sup>
             </Link>
-            <Link to={"catalog/?is_hit=true"} className="text-greenPrimary  an_btn">
+            <Link
+              to={"catalog/?is_hit=true"}
+              className="text-greenPrimary  an_btn"
+            >
               <span className="border-b-2 border-greenPrimary mr-2">hits</span>
-              {/* @ts-expect-error: This */}
               <sup className="font-light text-fs_6">{response?.hit}</sup>
             </Link>
           </div>

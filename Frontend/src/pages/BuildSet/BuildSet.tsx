@@ -8,7 +8,6 @@ import {
 import accordionIcon from "../../assets/icons/accordion-icon.png";
 import { CatalogModal } from "../../components";
 import GiftBanner from "../../assets/gift_builder_banner.png";
-import ProductCart from "../../assets/images/machine.png";
 import { IoAddSharp, IoCloseSharp, IoSearchOutline } from "react-icons/io5";
 import { useFetchHook } from "../../hooks/UseFetch";
 import BuildSetCarusel from "../../components/BuildSetModals/BuildSetCarusel";
@@ -19,16 +18,14 @@ import { addToCart } from "../../store/cartSlice";
 
 const BuildSet = () => {
   const [open, setOpen] = useState<number>(0);
-  const [buildCart] = useState([]);
+  const [buildCart, setBuildCart] = useState([]);
   const [handleCustomVisible, setHandleCustomVisible] =
     useState<boolean>(false);
-  const [quantityVisible, setQuantityVisible] = useState<boolean>(false);
+  const [quantityVisible, setQuantityVisible] = useState(null);
   const { fetchData, response } = useFetchHook();
   const { fetchData: filterFetch, response: filterProduct } = useFetchHook();
   const dispatch = useDispatch();
-
   const handleOpen = (value: number) => setOpen(open === value ? 0 : value);
-
   useEffect(() => {
     fetchData({ method: "GET", url: "/gifts/baskets/set/catalogs/" });
   }, []);
@@ -36,14 +33,27 @@ const BuildSet = () => {
   const handleFilterProduct = (query: string) => {
     filterFetch({ method: "GET", url: `product/?${query}` });
   };
-  const addToCartHandler = (
-    product: any,
-    quantity: number,
-    totalPrice: number
-  ) => {
-    dispatch(addToCart({ ...product, quantity: quantity, totalPrice }));
+  const addToCartHandler = () => {
+    const totalPrice = calculateTotalPrice();
+    const quantity = buildCart.reduce(
+      (total, item) => total + Number(item.quantity),
+      0
+    );
+    dispatch(addToCart({ ...buildCart, quantity, totalPrice }));
+    setBuildCart([]);
   };
-
+  const calculateTotalPrice = () => {
+    return buildCart.reduce(
+      (total, item) => total + Number(item.price) * Number(item.quantity),
+      0
+    );
+  };
+  const updateItemQuantity = (id: number, quantity: number) => {
+    setBuildCart(
+      buildCart.map((item) => (item.id === id ? { ...item, quantity } : item))
+    );
+  };
+  console.log(response);
   return (
     <div className="">
       <div className="grid grid-cols-10">
@@ -79,8 +89,9 @@ const BuildSet = () => {
                 </AccordionHeader>
                 <AccordionBody className="p-4" placeholder={<div />}>
                   <BuildSetCarusel
-                    addToCartHandler={addToCartHandler}
                     buildSetProducts={item?.product_sets}
+                    setBuildCart={setBuildCart}
+                    buildCart={buildCart}
                   />
                 </AccordionBody>
               </Accordion>
@@ -119,15 +130,10 @@ const BuildSet = () => {
                 </div>
               </AccordionHeader>
               <AccordionBody className="p-4" placeholder={<div />}>
-                {/* @ts-expect-error: This */}
                 {filterProduct?.results?.length > 0 ? (
                   <div className="grid grid-cols-4 gap-y-16 gap-3">
-                    {/* @ts-expect-error: This */}
                     {filterProduct?.results?.map((item) => (
-                      <CaruselCard
-                        item={item}
-                        addToCartHandler={addToCartHandler}
-                      />
+                      <CaruselCard item={item} setBuildCart={setBuildCart} />
                     ))}
                   </div>
                 ) : (
@@ -159,30 +165,55 @@ const BuildSet = () => {
                 </span>
               </div>
               <div className="flex flex-col gap-3">
-                {[0, 0].map(() => (
+                {buildCart.map((item) => (
                   <div className="group grid grid-cols-12  py-5 border-b border-darkSecondary">
-                    <div className="col-span-3 h-full">
-                      <img
-                        src={ProductCart}
-                        className="w-full h-full object-contain"
-                        alt=""
-                      />
+                    <div className="col-span-3 h-[56px]">
+                      {item?.images_set?.length > 0 && (
+                        <img
+                          src={
+                            item?.images_set[0]?.image ||
+                            item?.images_set[0]?.image_url
+                          }
+                          className="w-full h-full object-contain"
+                          alt=""
+                        />
+                      )}
                     </div>
                     <div className="col-span-6 h-full w-full text-fs_8 flex flex-col justify-between ">
-                      <h4 className="font-medium">Инновационный очиститель</h4>
-                      <p className="font-normal">15 185.55 ₽</p>
+                      <h4 className="font-medium leading-4 line-clamp-2">
+                        {item?.name}
+                      </h4>
+                      <p className="font-normal mt-1">
+                        {item?.price} {item?.price_type}
+                      </p>
                     </div>
                     <div className="opacity-0 group-hover:opacity-100 duration-300 col-span-3 h-full flex justify-end">
                       <div className="flex w-full flex-col justify-between items-end h-full text-darkSecondary ">
-                        <IoCloseSharp className="cursor-pointer" />
-                        {!quantityVisible && (
+                        <IoCloseSharp
+                          className="cursor-pointer"
+                          onClick={() =>
+                            setBuildCart((prev) =>
+                              prev.filter((el) => el.id !== item.id)
+                            )
+                          }
+                        />
+
+                        {quantityVisible === item.id ? (
+                          <input
+                            value={item.quantity}
+                            onChange={(e) =>
+                              updateItemQuantity(
+                                item.id,
+                                Number(e.target.value)
+                              )
+                            }
+                            className="w-[50px] px-2 text-black border border-black rounded-lg focus: outline-none"
+                          />
+                        ) : (
                           <IoAddSharp
                             className="cursor-pointer"
-                            onClick={() => setQuantityVisible(true)}
+                            onClick={() => setQuantityVisible(item.id)}
                           />
-                        )}
-                        {quantityVisible && (
-                          <input className="w-[50px] px-2 text-black border border-black rounded-lg focus: outline-none" />
                         )}
                       </div>
                     </div>
@@ -191,10 +222,11 @@ const BuildSet = () => {
               </div>
               <div className="mt-10 flex items-center justify-between font-bold">
                 <h4 className="text-fs_8 uppercase">Итоговая стоимость:</h4>
-                <h4 className="text-base ">14 619,00 ₽</h4>
+                <h4 className="text-base ">{calculateTotalPrice()} ₽</h4>
               </div>
               <div className="w-full flex flex-col">
                 <Button
+                  onClick={addToCartHandler}
                   placeholder={<button />}
                   className="my-2 hover:shadow-none tracking-wider mt-6 bg-greenPrimary h-[50px] text-fs_7 text-[#fff] shadow-none rounded-lg p-2 w-full"
                 >
