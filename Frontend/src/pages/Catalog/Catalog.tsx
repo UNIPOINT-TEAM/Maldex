@@ -15,11 +15,7 @@ import { useLocation } from "react-router-dom";
 import { Spinner } from "@material-tailwind/react";
 import Pagination from "../../components/Pagination/Pagination";
 import ProductsCard from "../../components/MainProductFilter/ProductsCard";
-import {
-  deleteFilter,
-  resetFilters,
-  setFilterData,
-} from "../../store/filterSlice";
+import { deleteFilter } from "../../store/filterSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { IoClose } from "react-icons/io5";
 import { generateQueryString } from "../../utils/generateQueryString";
@@ -74,7 +70,6 @@ const Catalog = () => {
   ) => {
     dispatch(deleteFilter({ filterCategory, filterKey }));
   };
-  console.log(filterData);
   return (
     <div className="home px-2 md:px-0">
       <div className="w-full h-full">

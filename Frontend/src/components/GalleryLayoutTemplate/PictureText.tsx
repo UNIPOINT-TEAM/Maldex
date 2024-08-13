@@ -51,7 +51,7 @@ const PictureText: React.FC<TemplateData> = ({ data, background }) => {
         backgroundColor: background?.color,
         backgroundImage: `url(${background?.image})`,
       }}
-      className="w-full h-full flex flex-col gap-3 p-10 border rounded-lg border-darkSecondary "
+      className="w-full h-[650px] flex flex-col gap-3 p-10 border rounded-lg border-darkSecondary "
     >
       <div className="heading grid grid-cols-12 items-center w-full h-[20%]">
         <div className="col-span-7 relative h-full">

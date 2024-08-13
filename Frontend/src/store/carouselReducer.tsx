@@ -21,8 +21,8 @@ export interface CarouselState {
 const initialState: CarouselState = {
   items: [],
   status: {
-    landscape_visible: true,
-    standard_visible: false,
+    landscape_visible: false,
+    standard_visible: true,
     prices_visible: true,
     sender_visible: false,
     codeArticle_visible: true,

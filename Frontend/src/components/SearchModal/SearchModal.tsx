@@ -39,7 +39,7 @@ const SearchModal = () => {
         setSearchCategory([]);
         setSearchProducts([]);
       }
-    }, 1000),
+    }, 400),
     []
   );
 

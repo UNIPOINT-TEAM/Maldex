@@ -1,20 +1,18 @@
 import upload from "../../assets/icons/upload.svg";
 import download from "../../assets/icons/rub.svg";
 import { Switch } from "@material-tailwind/react";
-import { jsPDF } from "jspdf";
 import { AllDeleteModal } from "../../components/Gallery/AllDeleteModal";
-import { updateStatus } from "../../store/carouselReducer";
+import { CarouselState, updateStatus } from "../../store/carouselReducer";
 import { useDispatch, useSelector } from "react-redux";
-import React from "react";
 import SavePdf from "../../components/Gallery/SavePdf";
 import ExcelJS from "exceljs";
 import { saveAs } from "file-saver";
-import html2canvas from "html2canvas";
 
 const Checkdata: {
   title: string;
   name:
     | "landscape_visible"
+    | "standard_visible"
     | "standard_visible"
     | "prices_visible"
     | "sender_visible"
@@ -28,10 +26,10 @@ const Checkdata: {
     title: "Альбомное КП",
     name: "landscape_visible",
   },
-  // {
-  //   title: "Стандартное КП",
-  //   name: "standard_visible",
-  // },
+  {
+    title: "Стандартное КП",
+    name: "standard_visible",
+  },
   {
     title: "Цены",
     name: "prices_visible",
@@ -63,12 +61,13 @@ const Checkdata: {
 ];
 
 const GeneralInfo = () => {
-  /*@ts-expect-error: This */
-  const itemsStatus = useSelector((state) => state.carousel.status);
-  const items = useSelector((state) => state.carousel.items);
-  console.log(items[0]?.data);
+  const itemsStatus = useSelector(
+    (state: { carousel: CarouselState }) => state.carousel.status
+  );
+  const items = useSelector(
+    (state: { carousel: CarouselState }) => state.carousel.items
+  );
   const dispatch = useDispatch();
-  console.log(items);
   const handleSwitchChange = (
     name:
       | "landscape_visible"
@@ -82,21 +81,19 @@ const GeneralInfo = () => {
       | "total_visible",
     isChacked: boolean
   ) => {
-    dispatch(updateStatus({ name, isChacked }));
-  };
-
-  const pdfExportComponent = React.useRef(null);
-  const generatePDF = () => {
-    const input = pdfExportComponent;
-    html2canvas(input).then((canvas) => {
-      const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF();
-      const imgProps = pdf.getImageProperties(imgData);
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-      pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
-      pdf.save("download.pdf");
-    });
+    if (name === "landscape_visible") {
+      dispatch(
+        updateStatus({ name: "standard_visible", isChacked: !isChacked })
+      );
+      dispatch(updateStatus({ name, isChacked }));
+    } else if (name === "standard_visible") {
+      dispatch(
+        updateStatus({ name: "landscape_visible", isChacked: !isChacked })
+      );
+      dispatch(updateStatus({ name, isChacked }));
+    } else {
+      dispatch(updateStatus({ name, isChacked }));
+    }
   };
 
   const exportToExcel = async () => {
@@ -204,10 +201,6 @@ const GeneralInfo = () => {
           <span>Скачать XLSXП</span>
         </button>
         <SavePdf />
-        {/* <button className="flex items-center gap-3">
-          <img src={rub} alt="rub-icon" />
-          <span>Цены и услуги</span>
-        </button> */}
         <AllDeleteModal />
       </div>
       <div className="mt-10 flex flex-col gap-4">

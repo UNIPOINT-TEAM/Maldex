@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import { FaBars } from "react-icons/fa6";
 import { IoMdClose } from "react-icons/io";
 import { useFetchHook } from "../../hooks/UseFetch";
+import axios from "axios";
+import { BASE_URL } from "../../utils";
 interface IProps {
-  handleFilterProduct: (query: string) => void;
+  setFilterSearch: React.Dispatch<React.SetStateAction<[]>>;
 }
-const CatalogModal: React.FC<IProps> = ({ handleFilterProduct }) => {
+const CatalogModal: React.FC<IProps> = ({ setFilterSearch }) => {
   const [open, setOpen] = useState(false);
   const [sellectedCategory, setSellectedCategory] = useState(null);
   const { fetchData, response } = useFetchHook();
@@ -14,6 +16,14 @@ const CatalogModal: React.FC<IProps> = ({ handleFilterProduct }) => {
     fetchData({ method: "GET", url: "/product/categories/?is_available=true" });
   }, []);
 
+  const handleFilter = async (query: string) => {
+    try {
+      const res = await axios.get(`${BASE_URL}/product/?category_id=${query}`);
+      setFilterSearch(res.data.results);
+    } catch (error) {
+      setFilterSearch([]);
+    }
+  };
   const handleSellectedCategory = (id: number) => {
     const subCategory = response.filter((item) => item?.id === id);
     setSellectedCategory(subCategory[0]);
@@ -45,7 +55,7 @@ const CatalogModal: React.FC<IProps> = ({ handleFilterProduct }) => {
                 onClick={(e) => handleToggle(e)}
               />
             </div>
-            <div className="body grid grid-cols-5 w-full ">
+            <div className="body grid grid-cols-5 w-full items-start ">
               <div className="category py-3 gap-2 px-5 col-span-2 flex flex-col items-start bg-white">
                 {response.map((item) => (
                   <button
@@ -55,7 +65,6 @@ const CatalogModal: React.FC<IProps> = ({ handleFilterProduct }) => {
                       e.stopPropagation();
                     }}
                     className={`text-fs_6 flex items-center gap-3 h-[33px] px-3 rounded-lg  font-medium ${
-                      /* @ts-expect-error: This */
                       item.id == sellectedCategory?.id
                         ? "bg-redPrimary text-[#ffff]"
                         : ""
@@ -70,19 +79,23 @@ const CatalogModal: React.FC<IProps> = ({ handleFilterProduct }) => {
                   </button>
                 ))}
               </div>
-              <div className="subcategory max-h-svh scrollbar-custom overflow-auto grid grid-cols-2  gap-7 font-medium text-fs_8 col-span-3 p-5">
-                {/* @ts-expect-error: This */}
+              <div className="subcategory max-h-svh scrollbar-custom overflow-auto items-start  flex  flex-wrap font-medium text-fs_8 col-span-3 p-5">
                 {sellectedCategory?.children?.map((item) => (
-                  <div className="" key={item?.id}>
-                    <h2 className="text-fs_8 mb-3 font-bold uppercase font-Helvetica-Neue">
+                  <div className=" w-[50%] " key={item?.id}>
+                    <h2
+                      className="text-fs_8 mb-3 font-bold uppercase font-Helvetica-Neue"
+                      onClick={() => {
+                        handleFilter(item?.id);
+                        setOpen(false);
+                      }}
+                    >
                       {item?.name}
                     </h2>
                     <div className="flex flex-col">
-                      {/* @ts-expect-error: This */}
                       {item?.children?.map((item) => (
                         <p
                           onClick={() => {
-                            handleFilterProduct(`category_id=${item?.id}`);
+                            handleFilter(item?.id);
                             setOpen(false);
                           }}
                           className="font-medium text-fs_8 m-0 leading-normal hover:text-redPrimary"

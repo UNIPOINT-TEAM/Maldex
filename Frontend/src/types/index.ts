@@ -66,9 +66,9 @@ export interface Template {
 export interface TemplateData {
   data?: Product;
   background?: {
-    color: string;
+    text_color: string;
+    bg_color: string;
     image: string;
-
     currentSlide: boolean;
     allSlider: boolean;
   };

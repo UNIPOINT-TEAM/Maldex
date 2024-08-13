@@ -9,10 +9,11 @@ import axios from "axios";
 import { BASE_URL } from "../../utils";
 import AddProductModal from "../../components/Gallery/AddProductModal";
 import CombineTemplate from "../../components/GalleryLayoutTemplate/CombineTemplate";
+import CombineTemplatePDF from "../../components/GalleryLayoutTemplate/PdfTemplate/CombineTemplate";
 
 const FilterBtn: React.FC<{ filterCount?: number }> = ({ filterCount }) => {
   return (
-    <button className="flex items-center gap-2 border text-darkSecondary border-lightSecondary h-[34px] rounded-lg font-normal px-3">
+    <button className="flex items-center gap-2 border text-darkSecondary border-lightSecondary h-[34px] rounded-lg text-fs_7 font-normal px-3">
       Все фильтры {filterCount > 0 && `(${filterCount})`}
       <LuListFilter />
     </button>
@@ -86,11 +87,10 @@ const Layout = () => {
     }
   };
   const handleCombine = () => {
-    // setCombine(false);
-    // setCombineSellectItem(null);
     const combineItem = {
       data: [items[activeCaruselIndex].data, combineSellectItem],
       template: <CombineTemplate />,
+      pdfTemplate: <CombineTemplatePDF />,
     };
     dispatch(updateItem(combineItem));
   };
@@ -116,9 +116,9 @@ const Layout = () => {
           </button>
         </div>
         <div className="grid grid-cols-5">
-          <div className="pt-2 col-span-3 relative text-darkSecondary">
+          <div className="pt-2 col-span-3 relative flex  text-darkSecondary">
             <input
-              className="border text-base  border-lightSecondary  placeholder:text-darkSecondary h-[34px] ps-8  rounded-lg font-normal focus:outline-none"
+              className="border text-base  max-w-[200px] w-full  border-lightSecondary  placeholder:text-darkSecondary h-[34px] ps-8  rounded-lg font-normal focus:outline-none"
               name="search"
               placeholder="Поиск"
               onChange={handleInputChange}
@@ -154,10 +154,10 @@ const Layout = () => {
           </div>
         </div>
       </div>
-      <div className="body grid grid-cols-2 gap-y-8 mt-4 overflow-y-auto ">
+      <div className="body grid grid-cols-2 gap-y-8 gap-x-2 mt-4 overflow-y-auto ">
         {products?.map((item, index) => (
           <div
-            className={`flex  items-center justify-center`}
+            className={`flex  items-center  justify-center`}
             onClick={() => addNewItem(item)}
             key={index}
           >

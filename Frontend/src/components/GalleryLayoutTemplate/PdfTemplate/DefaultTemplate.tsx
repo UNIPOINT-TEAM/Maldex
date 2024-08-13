@@ -1,172 +1,93 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React from "react";
 import { TemplateData } from "../../../types";
-import { Rnd } from "react-rnd";
-const DefaultTemplate: React.FC<TemplateData> = ({
-  data,
-  background,
-  applying,
-}) => {
-  const {
-    landscape_visible,
-    prices_visible,
-    description_visible,
-    characteristic_visible,
-    total_visible,
-    circulationAmount_visible,
-    codeArticle_visible,
-    // @ts-expect-error: This
-  } = useSelector((state) => state.carousel.status);
-  const [productData, setProductData] = useState({
-    name: data?.name,
-    price: data?.price,
-    circulation: data?.quantity,
-    total: data?.totalPrice,
-    description: data?.description,
-    characteristics: data?.characteristics,
-    image: data?.images_set[0].image_url || data?.images_set[0].image,
-  });
-  const defaultRef = React.useRef(null);
-  const { items, activeCaruselIndex } = useSelector((state) => state.carousel);
+import { useSelector } from "react-redux";
+import { CarouselState } from "../../../store/carouselReducer";
+
+const DefaultTemplate: React.FC<TemplateData> = ({ data, background }) => {
+  const { status } = useSelector(
+    (state: { carousel: CarouselState }) => state.carousel
+  );
   return (
     <div
-      ref={defaultRef}
       style={{
-        backgroundColor: background?.color,
-        backgroundImage: `url(${background?.image})`,
+        background: background?.bg_color,
+        color: background?.text_color,
       }}
-      className={`grid ${
-        landscape_visible ? "w-full" : "w-[400px]"
-      }  grid-cols-7 bg-cover bg-center relative  h-full border p-5  border-darkSecondary 
-      }]`}
+      className="wrapper w-full border px-5 py-10  "
     >
-      {items[activeCaruselIndex]?.applying?.image_1 && (
-        <div className="absolute top-0 left-0 z-[99]">
-          <Rnd
-            size={{
-              width: items[activeCaruselIndex]?.applying?.imagePosition?.width,
-              height:
-                items[activeCaruselIndex]?.applying?.imagePosition?.height,
-            }}
-            position={{
-              x: items[activeCaruselIndex]?.applying.image_1?.imagePosition?.x,
-              y: items[activeCaruselIndex]?.applying.image_1?.imagePosition?.y,
-            }}
-            enableResizing={{
-              top: true,
-              right: true,
-              bottom: true,
-              left: true,
-              topRight: true,
-              bottomRight: true,
-              bottomLeft: true,
-              topLeft: true,
-            }}
-            className="min-w-[200px] min-h-[200px] border border-[#9d9c98] cursor-move"
-          >
+      <div className="grid grid-cols-2 gap-8 w-full h-full">
+        <div className="flex flex-col">
+          <div className="main-data bg-[#FFFFFF1A] p-5 rounded-[20px]">
+            <h1 className="text-base font-bold">{data?.name}</h1>
+            {status.prices_visible && (
+              <h2 className="text-fs_7 font-medium my-3">
+                Цена: {data?.price} {data?.price_type}
+              </h2>
+            )}
+            {status.codeArticle_visible && (
+              <p className="text-fs_9 font-normal">Артикул {data?.article}</p>
+            )}
+          </div>
+          <div className="h-full">
+            {status.characteristic_visible && (
+              <ul className="text-fs_9 font-normal flex flex-col gap-2 p-5 mt-8 ">
+                <li>
+                  <span className="font-bold">Размеры : </span>
+                  {data?.product_size}
+                </li>
+                <li>
+                  <span className="font-bold">Материал : </span>
+                  {data?.material}
+                </li>
+                <li>
+                  <span className="font-bold">Вес (1 шт.) : </span>
+                  {data?.weight}
+                </li>
+                <li>
+                  <span className="font-bold">Доступное нанесение : </span>
+                  {data?.printing}
+                </li>
+                <li>
+                  <div className="flex items-center flex-wrap gap-1 ">
+                    {data?.colors?.map((color, i) => (
+                      <div
+                        key={i}
+                        style={{ backgroundColor: color?.hex }}
+                        className={`min-w-[15px] h-[15px] rounded-full shadow-[0_5px_5px_1px] shadow-[#00000079] ${
+                          color?.hex === "white" &&
+                          "border border-darkSecondary"
+                        }`}
+                      ></div>
+                    ))}
+                  </div>
+                </li>
+              </ul>
+            )}
+            {status.description_visible && (
+              <p className="text-fs_9 font-normal">{data?.description}</p>
+            )}
+          </div>
+        </div>
+        <div className="flex flex-col ">
+          <div className="h-[65%]">
             <img
-              src={items[activeCaruselIndex].applying.image_1?.image}
-              alt="aplying-img"
-              className="w-full  object-contain"
+              className=" h-full object-contain"
+              src={data?.images_set[0]?.image || data?.images_set[0]?.image_url}
+              alt=""
             />
-          </Rnd>
-        </div>
-      )}
-      <div
-        className={`${
-          landscape_visible ? "col-span-3" : "col-span-7"
-        } p-8 flex relative justify-center items-center w-full`}
-      >
-        <img
-          src={data?.images_set[0].image_url || data?.images_set[0].image}
-          alt="slider-img"
-          className={`${
-            landscape_visible ? "w-[350px]" : "w-[100px]"
-          } object-contain object-center h-[350px]`}
-        />
-      </div>
-      <div
-        className={`${
-          landscape_visible ? "col-span-4" : "col-span-7"
-        } flex flex-col`}
-      >
-        <h1
-          className={`leading-tight tracking-tight ${
-            landscape_visible ? "text-[50px]" : "text-[40px]"
-          }`}
-        >
-          {data?.name}
-        </h1>
-        <div className="grid grid-cols-12 gap-4 w-full  my-2 relative">
-          <div className="col-span-3">
-            {prices_visible && (
-              <>
-                <h3 className="text-[#222220] text-[20px] opacity-70 font-medium mb-2">
-                  Цена (руб)
-                </h3>
-                <h4 className="text-fs_3">{productData.price}</h4>
-              </>
-            )}
           </div>
-          <div className="col-span-3">
-            {circulationAmount_visible && (
-              <>
-                <h3 className="text-[#222220] text-[20px] opacity-70 font-medium mb-2">
-                  Тираж (шт)
-                </h3>
-                <h4 className="text-fs_3">{productData.circulation}</h4>
-              </>
-            )}
-          </div>
-          <div className="col-span-6 flex flex-col items-end">
-            {total_visible && (
-              <div>
-                <h3 className="text-[#222220] text-[20px] opacity-70 font-medium mb-2">
-                  Итого
-                </h3>
-                <h4 className="text-fs_3">{productData.total}</h4>
+          <div className="flex flex-1 items-center gap-3">
+            {data?.images_set?.slice(1, 3)?.map((image, i) => (
+              <div key={i} className="flex-1 h-[100px]">
+                <img
+                  src={image?.image || image?.image_url}
+                  alt="product-image"
+                  className="h-full object-contain"
+                />
               </div>
-            )}
+            ))}
           </div>
         </div>
-
-        <div className="relative w-full h-[150px]">
-          <div>
-            {codeArticle_visible && (
-              <div className="flex items-center gap-1">
-                <label htmlFor="vendor-code">Артикул:</label>
-                <h4>{data?.article}</h4>
-              </div>
-            )}
-            {characteristic_visible && (
-              <>
-                <div className="flex items-center gap-1">
-                  <label htmlFor="size">Размер:</label>
-                  <h4>{data?.size || 0}</h4>
-                </div>
-                <div className="flex items-center gap-1">
-                  <label htmlFor="material">Материал:</label>
-                  <h4>{data?.material || 0}</h4>
-                </div>
-                <div className="flex items-center gap-1">
-                  <label htmlFor="color">Вес:</label>
-                  <h4>{data?.weight || 0}</h4>
-                </div>
-                <div className="flex items-center gap-1">
-                  <label htmlFor="color">Доступное нанесение:</label>
-                  <h4>{data?.applying || ""}</h4>
-                </div>
-              </>
-            )}
-          </div>
-        </div>
-        {description_visible && landscape_visible! && (
-          <div className="relative w-full mt-3">
-            <div>
-              <p>{data?.description}</p>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );

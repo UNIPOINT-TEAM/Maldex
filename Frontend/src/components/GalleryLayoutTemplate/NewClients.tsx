@@ -51,7 +51,7 @@ const NewClients: React.FC<TemplateData> = ({ data }) => {
     return text;
   };
   return (
-    <div className="w-full h-full flex flex-col gap-6 p-10 border rounded-lg border-darkSecondary">
+    <div className="w-full h-[650px] flex flex-col gap-6 p-10 border rounded-lg border-darkSecondary">
       <div className="heading  grid grid-cols-12 items-center w-full h-[20%]">
         <div className="col-span-7 h-full  relative">
           <div

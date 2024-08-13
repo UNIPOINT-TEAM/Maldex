@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Card, Dialog, DialogBody } from "@material-tailwind/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Controller, FreeMode, Navigation, Thumbs } from "swiper/modules";
@@ -14,15 +14,11 @@ const ProductPerviewModalGift = ({ images }) => {
   const swiper2Ref = useRef();
   useLayoutEffect(() => {
     if (swiper1Ref.current !== null) {
-      // @ts-ignore
       swiper1Ref.current.controller.control = swiper2Ref.current;
     }
   }, []);
 
   const handleOpen = () => setOpen((cur) => !cur);
-
-  console.log(images);
-  
 
   return (
     <div>
@@ -79,25 +75,6 @@ const ProductPerviewModalGift = ({ images }) => {
                 ))}
             </Swiper>
 
-            {/* <Swiper
-              onSwiper={setThumbsSwiper}
-              freeMode={true}
-              slidesPerView={2}
-              watchSlidesProgress={true}
-              direction="vertical"
-              modules={[FreeMode, Navigation, Thumbs]}
-              className="w-auto h-[200px] absolute left-0 top-0 flex flex-col bg-[#fff]"
-            >
-              {[0, 0, 0, 0].map((item) => (
-                <SwiperSlide className="">
-                  <img
-                    src={sliderImg}
-                    alt="slider-img"
-                    className="w-[50px] border object-contain object-center h-full"
-                  />
-                </SwiperSlide>
-              ))}
-            </Swiper> */}
             <div className="absolute top-[50%] left-0 text-black w-full flex justify-between -translate-y-[50%] z-[9999]">
               <button className="prev-arrow-description  bg-white rounded-xl w-[50px] h-[50px] border border-black flex items-center justify-center">
                 <FaArrowLeft className="text-fs_8 lg:text-fs_4" />

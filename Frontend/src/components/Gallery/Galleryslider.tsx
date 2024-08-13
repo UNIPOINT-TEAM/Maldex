@@ -15,6 +15,7 @@ import {
   onActiveCarusel,
 } from "../../store/carouselReducer";
 import html2canvas from "html2canvas";
+import GalleryThumb from "./GalleryThumbs";
 
 const Galleryslider = () => {
   const dispatch = useDispatch();
@@ -56,7 +57,7 @@ const Galleryslider = () => {
     const lastIndex = items.length;
     console.log(lastIndex);
     if (swiperRef?.current) {
-      await swiperRef.current?.swiper.slideTo(lastIndex);
+      await swiperRef.current?.swiper?.slideTo(lastIndex);
     }
   };
 
@@ -113,9 +114,7 @@ const Galleryslider = () => {
 
       <div className="mt-8 relative h-[500px] mb-52">
         {items.length == 0 ? (
-          <div className="w-full h-[500px] bg-[#eaebea] rounded-lg flex items-center justify-center">
-            <h3 className="text-[25px]">No content</h3>
-          </div>
+          <div className="w-full h-[500px] bg-[#eaebea] rounded-lg flex items-center justify-center"></div>
         ) : (
           <Swiper
             thumbs={{
@@ -132,15 +131,15 @@ const Galleryslider = () => {
               dispatch(onActiveCarusel(swiper?.activeIndex))
             }
             modules={[FreeMode, Navigation, Thumbs, Controller]}
-            className="w-full h-[500px] bg-[#eaebea] rounded-lg border-0 "
+            className="w-full  bg-[#fff] rounded-lg border-none"
           >
             {items.map((item, i) => (
               <SwiperSlide
                 key={i}
-                className="h-full w-full  cursor-pointer gallery-slide rounded-lg bg-[#fff]"
+                className=" w-full  cursor-pointer gallery-slide rounded-lg bg-[#fff]"
               >
                 <div
-                  className="w-full h-full relative "
+                  className="w-full relative "
                   ref={(el) => (containerRefs.current[i] = el)}
                 >
                   {item.template &&
@@ -161,15 +160,14 @@ const Galleryslider = () => {
               modules={[FreeMode, Navigation, Thumbs]}
               className="w-full cursor-pointer border relative border-lightSecondary my-4 rounded-lg p-4"
             >
-              {items.map((_item, i) => (
+              {items.map((item, i) => (
                 <SwiperSlide
                   key={i}
-                  className="h-[90px] rounded-lg w-[145px] border p-1"
+                  className="h-[100px] rounded-lg border flex justify-center p-1"
                 >
-                  <img
-                    src={thumbnails[i]}
-                    alt=""
-                    className="object-cover rounded-lg object-center h-full"
+                  <GalleryThumb
+                    containerRef={containerRefs.current[i]}
+                    item={item}
                   />
                 </SwiperSlide>
               ))}

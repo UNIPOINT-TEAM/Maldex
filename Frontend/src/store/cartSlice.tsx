@@ -73,7 +73,16 @@ const cartSlice = createSlice({
       }
       storeInLocalStorage(state.carts);
     },
-
+    replaceCart: (state, action: PayloadAction<CartItem[]>) => {
+      const tempCart = action.payload.map((item) => {
+        return {
+          ...item,
+          totalPrice: item.quantity * item.price,
+        };
+      });
+      state.carts = tempCart;
+      storeInLocalStorage(state.carts);
+    },
     removeFromCart: (state, action: PayloadAction<number>) => {
       const tempCart = state.carts.filter((item) => item.id !== action.payload);
       state.carts = tempCart;
@@ -130,6 +139,7 @@ export const {
   clearCart,
   removeFromCart,
   updateCart,
+  replaceCart,
 } = cartSlice.actions;
 export const getAllCarts = (state: { cart: CartState }) => state.cart.carts;
 export const getCartItemsCount = (state: { cart: CartState }) =>

@@ -6,45 +6,74 @@ import {
   Button,
 } from "@material-tailwind/react";
 import accordionIcon from "../../assets/icons/accordion-icon.png";
-import { CatalogModal } from "../../components";
+import { CatalogModal, MoreFilter, QuestForm } from "../../components";
 import GiftBanner from "../../assets/gift_builder_banner.png";
 import { IoAddSharp, IoCloseSharp, IoSearchOutline } from "react-icons/io5";
 import { useFetchHook } from "../../hooks/UseFetch";
 import BuildSetCarusel from "../../components/BuildSetModals/BuildSetCarusel";
 import EmptyContant from "../../components/EmptyContant/EmptyContant";
 import CaruselCard from "../../components/BuildSetModals/CaruselCard";
-import { useDispatch } from "react-redux";
-import { addToCart } from "../../store/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, getAllCarts, replaceCart } from "../../store/cartSlice";
+import axios from "axios";
+import { BASE_URL } from "../../utils";
+import filterIcon from "../../assets/icons/FIlter.svg";
+import { generateQueryString } from "../../utils/generateQueryString";
+import { useNavigate } from "react-router-dom";
 
+const FilterBtn: React.FC<{ filterCount?: number }> = () => {
+  return (
+    <div className="flex items-center gap-2 w-[150px] min-h-[33px] justify-center  border border-darkPrimary rounded-[6px] px-3 ">
+      <img src={filterIcon} alt="" />
+      Все фильтры
+    </div>
+  );
+};
 const BuildSet = () => {
+  const navigation = useNavigate();
   const [open, setOpen] = useState<number>(0);
   const [buildCart, setBuildCart] = useState([]);
   const [handleCustomVisible, setHandleCustomVisible] =
     useState<boolean>(false);
   const [quantityVisible, setQuantityVisible] = useState(null);
   const { fetchData, response } = useFetchHook();
-  const { fetchData: filterFetch, response: filterProduct } = useFetchHook();
+  const [filterSearch, setFilterSearch] = useState([]);
   const dispatch = useDispatch();
+  const filterData = useSelector((state) => state.filter);
   const handleOpen = (value: number) => setOpen(open === value ? 0 : value);
   useEffect(() => {
     fetchData({ method: "GET", url: "/gifts/baskets/set/catalogs/" });
   }, []);
 
-  const handleFilterProduct = (query: string) => {
-    filterFetch({ method: "GET", url: `product/?${query}` });
+  const handleFilterProduct = async (query: string) => {
+    if (!query) {
+      setFilterSearch([]);
+    } else {
+      try {
+        const res = await axios.get(`${BASE_URL}/product/?search=${query}`);
+        setFilterSearch(res.data.results);
+      } catch (error) {
+        setFilterSearch([]);
+      }
+    }
   };
+
+  useEffect(() => {
+    const filterQuery = generateQueryString(filterData);
+    if (filterQuery) {
+      axios.get(`${BASE_URL}/product/?${filterQuery}`).then((res) => {
+        setFilterSearch(res.data.results);
+      });
+    }
+  }, [filterData]);
   const addToCartHandler = () => {
-    const totalPrice = calculateTotalPrice();
-    const quantity = buildCart.reduce(
-      (total, item) => total + Number(item.quantity),
-      0
-    );
-    dispatch(addToCart({ ...buildCart, quantity, totalPrice }));
+    dispatch(replaceCart(buildCart));
     setBuildCart([]);
+    navigation("/cart");
   };
   const calculateTotalPrice = () => {
     return buildCart.reduce(
-      (total, item) => total + Number(item.price) * Number(item.quantity),
+      (total, item) => total + item.price * item.quantity,
       0
     );
   };
@@ -53,10 +82,10 @@ const BuildSet = () => {
       buildCart.map((item) => (item.id === id ? { ...item, quantity } : item))
     );
   };
-  console.log(response);
+
   return (
     <div className="">
-      <div className="grid grid-cols-10">
+      <div className="grid grid-cols-10 mb-10">
         <div className="col-span-10 lg:col-span-8">
           <div className="bg-greenPrimary h-[75px] flex items-center justify-center ">
             <h1 className=" text-[22px] lg:text-[30px] text-[#fff]">
@@ -66,7 +95,7 @@ const BuildSet = () => {
           <div className="w-full">
             {response.map((item, index) => (
               <Accordion
-                className=" border border-l-0 px-5 border-lightPrimary my-4"
+                className=" border border-l-0 md:px-5 border-lightPrimary my-4"
                 open={open === item?.id}
                 icon={
                   <img
@@ -98,41 +127,42 @@ const BuildSet = () => {
             ))}
 
             <Accordion
-              className=" border border-l-0 static border-lightPrimary px-5 my-4"
+              className=" border border-l-0 static border-lightPrimary md:px-5 my-4"
               open={handleCustomVisible}
               placeholder={<div />}
             >
               <AccordionHeader
-                className="border-0 justify-start p-4 static"
+                className="border-0 flex-col md:flex-row justify-start items-start p-4 static"
                 onClick={() => setHandleCustomVisible(!handleCustomVisible)}
                 placeholder={<div />}
               >
                 <h2 className="font-Helvetica-Neue tracking-wide text-fs_6 font-normal text-greenPrimary ">
                   {response.length + 1}. Добавьте еще что-то
                 </h2>
-                <div className="ms-16 font-Helvetica-Neue text-base font-normal text-darkPrimary flex gap-4 items-center">
+                <div className="md:ms-16 mt-6 md:mt-0 flex-2 font-Helvetica-Neue text-base font-normal text-darkPrimary flex flex-col md:flex-row gap-4 items-center">
                   <div
                     onClick={(e) => e.stopPropagation()}
-                    className="w-[300px] h-[33px] flex items-center gap-3 search border border-darkPrimary px-2 rounded-lg"
+                    className="md:w-[300px] w-full h-[33px] flex items-center gap-3 search border border-darkPrimary px-2 rounded-lg"
                   >
                     <IoSearchOutline className="text-fs_4" />
                     <input
                       onFocus={() => setHandleCustomVisible(true)}
-                      onChange={(e) =>
-                        handleFilterProduct(`search=${e.target.value}`)
-                      }
+                      onChange={(e) => handleFilterProduct(`${e.target.value}`)}
                       type="text"
                       placeholder="Поиск"
                       className="placeholder:text-darkPrimary border-0 outline-none w-full h-full "
                     />
                   </div>
-                  <CatalogModal handleFilterProduct={handleFilterProduct} />
+                  <div className="flex items-center gap-4">
+                    <CatalogModal setFilterSearch={setFilterSearch} />
+                    <MoreFilter FilterBtn={<FilterBtn />} type={"ALL_FILTR"} />
+                  </div>
                 </div>
               </AccordionHeader>
               <AccordionBody className="p-4" placeholder={<div />}>
-                {filterProduct?.results?.length > 0 ? (
+                {filterSearch?.length > 0 ? (
                   <div className="grid grid-cols-4 gap-y-16 gap-3">
-                    {filterProduct?.results?.map((item) => (
+                    {filterSearch?.map((item) => (
                       <CaruselCard item={item} setBuildCart={setBuildCart} />
                     ))}
                   </div>
@@ -222,13 +252,16 @@ const BuildSet = () => {
               </div>
               <div className="mt-10 flex items-center justify-between font-bold">
                 <h4 className="text-fs_8 uppercase">Итоговая стоимость:</h4>
-                <h4 className="text-base ">{calculateTotalPrice()} ₽</h4>
+                <h4 className="text-base ">
+                  {calculateTotalPrice().toFixed(2)} ₽
+                </h4>
               </div>
               <div className="w-full flex flex-col">
                 <Button
+                  disabled={buildCart.length < 1}
                   onClick={addToCartHandler}
                   placeholder={<button />}
-                  className="my-2 hover:shadow-none tracking-wider mt-6 bg-greenPrimary h-[50px] text-fs_7 text-[#fff] shadow-none rounded-lg p-2 w-full"
+                  className="my-2 hover:shadow-none disabled:cursor-not-allowed tracking-wider mt-6 bg-greenPrimary h-[50px] text-fs_7 text-[#fff] shadow-none rounded-lg p-2 w-full"
                 >
                   оформить
                 </Button>
@@ -245,6 +278,7 @@ const BuildSet = () => {
           )}
         </div>
       </div>
+      <QuestForm />
     </div>
   );
 };

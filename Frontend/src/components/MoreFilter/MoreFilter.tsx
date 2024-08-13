@@ -118,7 +118,7 @@ const MoreFilter: React.FC<any> = ({ FilterBtn, type }) => {
   };
   return (
     <>
-      <div>
+      <div onClick={(e) => e.stopPropagation()}>
         <div
           className={`overLay fixed w-full h-full bg-[#00000083] ${
             activeCard ? "block" : "hidden"
@@ -131,7 +131,7 @@ const MoreFilter: React.FC<any> = ({ FilterBtn, type }) => {
           } top-0 right-0 z-10`}
           onClick={() => setFilter(false)}
         ></div>
-        <button className="filter-btn h-full rounded-lg hidden lg:block relative">
+        <button className="filter-btn h-full rounded-lg relative">
           <div onClick={handleFilter}>
             {React.cloneElement(FilterBtn, { filterCount: countFilters() })}
           </div>

@@ -4,9 +4,8 @@ import {
   AccordionBody,
   AccordionHeader,
   Button,
-
 } from '@material-tailwind/react';
-import { Reorder } from 'framer-motion'; 
+import { Reorder } from 'framer-motion';
 import accordionIcon from '../../assets/icons/accordion-icon.png';
 
 import DefaultLayout from '../../layout/DefaultLayout';
@@ -22,7 +21,7 @@ const BuildSet = () => {
 
   const [accordionData, setAccordionData] = useState<any[]>([]);
 
-  const [order, setOrder] = useState(() => [...Array(accordionCount).keys()]); 
+  const [order, setOrder] = useState(() => [...Array(accordionCount).keys()]);
 
   const handleOpen = (value: number) => setOpen(open === value ? 0 : value);
 
@@ -49,7 +48,6 @@ const BuildSet = () => {
   const deleteAccordion = async (id: number) => {
     try {
       await DelGiftSet(id);
-
       setAccordionData((prevData) => prevData.filter((item) => item.id !== id));
     } catch (error) {
       console.error('Ошибка при удалении аккордеона:', error);
@@ -70,8 +68,6 @@ const BuildSet = () => {
                   <Button
                     color="green"
                     className="w-[400px] h-[60px]  mb-10 text-[24px] text-white rounded-lg"
-
-         
                   >
                     Добавить
                   </Button>
@@ -252,26 +248,21 @@ const BuildSet = () => {
                       </Accordion>
                       <div className="flex  justify-center items-center gap-4 ml-2">
                         <Link to={`/build-set-edit/${item.id}`}>
-                          <Button
-                            className="bg-warning py-4"
-                          >
-                            <MdEdit size={30}/>
+                          <Button className="bg-warning py-4">
+                            <MdEdit size={30} />
                           </Button>
                         </Link>
                         <Button
-                          className='bg-danger py-4'
-                        
+                          className="bg-danger py-4"
                           onClick={() => deleteAccordion(item.id)}
                         >
-                          <MdDelete size={30}/>
+                          <MdDelete size={30} />
                         </Button>
                       </div>
                     </div>
                   </Reorder.Item>
                 ))}
               </Reorder.Group>
-
-
             </div>
           </div>
         </div>

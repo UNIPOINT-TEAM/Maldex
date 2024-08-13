@@ -1,11 +1,9 @@
 import { CartProductCarusel, QuestForm } from "../../components";
 import Product1 from "../../assets/images/machine.png";
 import Trash from "../../assets/icons/trash.png";
-import QuestionIcon from "../../assets/icons/questionIcon.png";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCarts, removeFromCart, updateCart } from "../../store/cartSlice";
 import { Link } from "react-router-dom";
-import axios from "axios"; // Импортируем axios
 
 const Cart = () => {
   const carts = useSelector(getAllCarts);
@@ -21,50 +19,15 @@ const Cart = () => {
   ) => {
     const totalPrice =
       discount_price > 0 ? quantity * discount_price : quantity * price;
-
+    if (!quantity) {
+      return dispatch(updateCart({ id, quantity: 0, totalPrice: 0 }));
+    }
     if (isNaN(quantity)) {
-      /* @ts-expect-error: This */
       return dispatch(updateCart({ id, quantity: 1, totalPrice }));
     }
-    console.log("we");
-    /*@ts-expect-error: This */
     dispatch(updateCart({ id, quantity, totalPrice }));
   };
-
-  const handleCheckout = async () => {
-    try {
-      const url =
-        "https://maldex.bitrix24.ru/rest/1/ej9v1l5jpvxpzi8s/crm.lead.add"; // Пример правильного URL
-
-      const data = {
-        fields: {
-          TITLE: "New Order",
-          NAME: "Customer Name",
-          PHONE: [{ VALUE: "123456789", VALUE_TYPE: "WORK" }],
-          // Добавьте другие поля в соответствии с вашими требованиями
-          PRODUCTS: carts.map((cartItem) => ({
-            PRODUCT_NAME: cartItem.name,
-            QUANTITY: cartItem.quantity,
-            PRICE:
-              cartItem.discount_price > 0
-                ? cartItem.discount_price
-                : cartItem.price,
-          })),
-        },
-      };
-
-      const response = await axios.post(url, data, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      console.log("Response from Bitrix24:", response.data);
-    } catch (error) {
-      console.error("Error sending data to Bitrix24:", error);
-    }
-  };
-
+  console.log(carts);
   return (
     <>
       <div className="home">
@@ -89,16 +52,10 @@ const Cart = () => {
                           alt="product-img"
                         />
                       </Link>
-                      <div className="col-span-5 grid grid-rows-3">
+                      <div className="col-span-5 grid grid-rows-2">
                         <div className="row-span-1">
-                          {/* @ts-expect-error: This */}
                           <p className="text-[16px] font-bold hover-position">
                             {item?.name}
-                          </p>
-                        </div>
-                        <div className="row-span-1">
-                          <p className="text-fs_7 teext-slate-950 row-span-1 hover-position">
-                            Артикул: {item.article}
                           </p>
                         </div>
                         <div className="row-span-1">
@@ -131,14 +88,15 @@ const Cart = () => {
                             Размер
                           </p>
                         </div>
-                        <div className="row-span-1">
-                          <p className="text-sm hover-position">
-                            {/* @ts-expect-error: This */}
-                            {item?.size ? item?.size : "no sellected size"}
-                          </p>
-                        </div>
+                        {item?.size && (
+                          <div className="row-span-1">
+                            <p className="text-sm hover-position">
+                              {item?.size}
+                            </p>
+                          </div>
+                        )}
                         <div className="row-span-2">
-                          <p className="text-xs teext-slate-950 row-span-1 mb-1 hover-position">
+                          <p className="text-base teext-slate-950 row-span-1 mb-1 hover-position">
                             Количество
                           </p>
                           <div className="w-[50px] flex justify-center items-center rounded-xl">
@@ -222,7 +180,7 @@ const Cart = () => {
               </div>
             </div>
             <div className="w-full sm:w-1/4 mx-0 sm:mx-5 ">
-              <p className="text-[22px] font-[400] mb-5 hover-position">
+              <p className="text-[22px] font-normal mb-5 hover-position">
                 Ваш заказ
               </p>
               <div className="flex justify-between items-center w-full mb-3 hover-position">
@@ -247,26 +205,21 @@ const Cart = () => {
                 </p>
                 <p className="text-sm font-[400] hover-position">5% </p>
               </div>
-              <div className="flex justify-between items-center w-full pb-8 mb-5 border-b-2 border-gray-500">
-                <button>
-                  <p className="text-[12px] font-bold text-teal-200 hover-position">
-                    + Добавить нанесение
-                  </p>
-                </button>
-                <img src={QuestionIcon} alt="" />
-              </div>
+
               <div className="flex justify-between items-center w-full mb-5">
                 <p className="text-[16px] font-bold hover-position">
                   Итоговая стоимость:
                 </p>
-                <p className="text-[16px] font-bold">{totalAmount} ₽ </p>
+                <p className="text-[16px] font-bold">
+                  {totalAmount?.toFixed(2)} ₽{" "}
+                </p>
               </div>
-              <button
-                onClick={handleCheckout}
-                className="w-full rounded-xl bg-black text-white p-3 text-lg mb-2"
+              <Link
+                to={"/checkout"}
+                className="w-full block text-center rounded-xl bg-black uppercase text-white p-3 text-fs_7 font-semibold tracking-wider mb-2"
               >
                 оформить
-              </button>
+              </Link>
               <div className="flex justify-center items-center w-full mb-5 gap-4">
                 <button className="text-[10px] rounded-lg border px-2 py-1 border-teal-200 text-teal-200 font-bold">
                   Поделиться корзиной

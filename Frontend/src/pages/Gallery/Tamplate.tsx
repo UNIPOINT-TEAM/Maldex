@@ -37,7 +37,7 @@ const Tamplate = () => {
       </h2>
       <div className="body flex flex-wrap  gap-3 mt-4">
         {SAMPLE_TEMPLATES.map((item, i) => (
-          <div key={i} className="w-[185px]">
+          <div key={i} className="w-[165px]">
             <div className="group relative p-3 h-[105px] rounded-xl">
               <div className="absolute border-lightSecondary top-0 left-0 w-full h-full rounded-xl group-hover:opacity-100 cursor-pointer border-2 group-hover:border-redPrimary duration-300 grid place-items-center">
                 <button
@@ -52,7 +52,7 @@ const Tamplate = () => {
                 className="w-full h-full object-contain pointer-events-none align-middle"
               />
             </div>
-            <h3 className="text-fs_6 font-medium">{item.title}</h3>
+            <h3 className="text-fs_7 font-medium">{item.title}</h3>
           </div>
         ))}
       </div>

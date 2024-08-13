@@ -7,7 +7,7 @@ import { CarouselState } from "../../store/carouselReducer";
 
 const SavePdf = () => {
   const items = useSelector((state) => state.carousel.items);
-  const wrapperRef = useRef();
+  const wrapperRef = useRef(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const { status } = useSelector(
     (state: { carousel: CarouselState }) => state.carousel
@@ -15,13 +15,12 @@ const SavePdf = () => {
 
   useEffect(() => {
     if (!items) return;
-    const images = wrapperRef.current.querySelectorAll("img");
+
+    const images = wrapperRef?.current?.querySelectorAll("img");
     const totalImages = images.length;
     let loadedImages = 0;
 
-    console.log("Images to be loaded:", totalImages);
-
-    images.forEach((img) => {
+    images?.forEach((img) => {
       img.onload = () => {
         loadedImages += 1;
         console.log(`Image loaded: ${loadedImages}/${totalImages}`);
@@ -37,22 +36,48 @@ const SavePdf = () => {
         }
       };
     });
+
+    // If there are no images, consider the loading as complete
+    if (totalImages === 0) {
+      setIsLoaded(true);
+    }
   }, [items]);
 
   const openPDF = async () => {
-    if (!isLoaded) return;
+    if (!isLoaded) {
+      console.log("Images are not fully loaded yet.");
+      return;
+    }
+
     const input = wrapperRef.current;
+
+    if (!input) {
+      console.error("PDF wrapper element not found.");
+      return;
+    }
+
     const opt = {
       margin: 1,
       filename: "download.pdf",
       image: { type: "jpeg", quality: 0.98 },
-      html2canvas: { scale: 2, useCORS: true, allowTaint: true },
-      jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+      html2canvas: { scale: 2, useCORS: true, allowTaint: false },
+      jsPDF: {
+        unit: "mm",
+        format: "a4",
+        orientation: `${status.landscape_visible ? "landscape" : "portrait"}`,
+      },
     };
+
     try {
-      await html2pdf().from(input).set(opt).save();
+      console.log("Generating PDF...");
+      await html2pdf()?.from(input)?.set(opt)?.save();
+      console.log("PDF generated successfully.");
     } catch (error) {
       console.error("Error generating PDF:", error);
+      // If an error occurs, log the message to help diagnose the problem
+      if (error.message) {
+        console.error("Error message:", error.message);
+      }
     }
   };
 
@@ -81,15 +106,19 @@ const SavePdf = () => {
             </div>
           )}
 
-          {items &&
-            items.map((item, i) => (
-              <div key={i} className="w-full cursor-pointer gallery-slide">
-                <div className="w-full h-[670px] my-3">
-                  {item.pdfTemplate &&
-                    React.cloneElement(item.pdfTemplate, { ...item })}
+          {items?.map((item, i) => {
+            console.log(item); // Log the item to inspect its properties
+            return (
+              item && (
+                <div key={i} className="w-full cursor-pointer gallery-slide">
+                  <div className="w-full  my-3">
+                    {item?.pdfTemplate &&
+                      React.cloneElement(item?.pdfTemplate, { ...item })}
+                  </div>
                 </div>
-              </div>
-            ))}
+              )
+            );
+          })}
         </div>
       </div>
     </div>

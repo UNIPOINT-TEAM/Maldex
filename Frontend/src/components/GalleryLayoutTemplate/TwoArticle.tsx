@@ -33,7 +33,7 @@ const TwoArticle: React.FC<TemplateData> = ({ data, background }) => {
         backgroundColor: background?.color,
         backgroundImage: `url(${background?.image})`,
       }}
-      className="w-full h-full p-5 border border-darkSecondary rounded-lg"
+      className="w-full h-[650px] p-5 border border-darkSecondary rounded-lg"
     >
       <div className="body grid grid-cols-2 gap-5 items-center w-full h-full">
         <div className="col-span-1 h-full relative">

@@ -5,7 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateItem } from "../../store/carouselReducer";
 import defaultBg from "../../assets/Gallery/default-bg.jpg";
 
-const colors = ["#ffff", "#bfedee", "#bbe3de", "#fcf2e5", "#fed4d4", "#e4d3f2"];
+const colors = [
+  { bg_color: "#fff", text_color: "#000" },
+  { bg_color: "#583E26", text_color: "#fff" },
+  { bg_color: "#77201A", text_color: "#fff" },
+  { bg_color: "#787878", text_color: "#fff" },
+  { bg_color: "#262626", text_color: "#fff" },
+];
 const buttons = [
   "В-Шелкография на тек...",
   "DTF-Полноцвет с тран...",
@@ -55,14 +61,17 @@ const Editing = () => {
               Фото товара
             </h3>
             <div className="card relative group py-1 border-2 rounded-xl border-lightSecondary hover:border-redPrimary duration-300 hover:bg-[#d9d9d9] w-[120px] h-[64px]">
-              <img
-                src={
-                  items[activeIndex]?.data?.images_set[0]?.image ||
-                  items[activeIndex]?.data?.images_set[0]?.image_url
-                }
-                alt="slider-img"
-                className="h-full w-full object-contain object-center mix-blend-multiply"
-              />
+              {items[activeIndex]?.data?.images_set && (
+                <img
+                  src={
+                    items[activeIndex]?.data?.images_set[0]?.image ||
+                    items[activeIndex]?.data?.images_set[0]?.image_url
+                  }
+                  alt="slider-img"
+                  className="h-full w-full object-contain object-center mix-blend-multiply"
+                />
+              )}
+
               <label
                 htmlFor="cover"
                 className="flex absolute top-0 left-0 col-span-1 w-full h-full cursor-pointer items-center justify-center gap-2 rounded-xl text-sm font-medium  hover:bg-opacity-90 "
@@ -195,20 +204,25 @@ const Editing = () => {
           {colors.map((item, i) => (
             <button
               key={i}
-              style={{ background: item }}
+              style={{ background: item.bg_color, color: item.text_color }}
               onClick={() =>
                 dispatch(
                   updateItem({
                     ...items[activeIndex],
                     background: {
                       ...items[activeIndex]?.background,
-                      color: item,
+                      bg_color: item.bg_color,
+                      text_color: item.text_color,
                       image: "",
                     },
                   })
                 )
               }
-              className={`border-2 w-14 h-14 duration-200 hover:border-redPrimary border-[#eeede9] rounded-[11px]`}
+              className={`${
+                item.bg_color == items[activeIndex]?.background?.bg_color
+                  ? "border-redPrimary"
+                  : "border-[#eeede9]"
+              } border-2 w-14 h-14 duration-200 hover:border-redPrimary  rounded-[11px]`}
             ></button>
           ))}
         </div>

@@ -92,6 +92,7 @@ const GallerySidebar = () => {
     () => JSON.parse(localStorage.getItem("cart") || "[]"),
     [window.location]
   );
+  console.log(products);
 
   useEffect(() => {
     dispatch(
@@ -101,7 +102,8 @@ const GallerySidebar = () => {
           template: <DefaultTemplate />,
           pdfTemplate: <PdfDefault />,
           background: {
-            color: "",
+            bg_color: "#fff",
+            text_color: "#000",
             image: "",
             currentSlide: true,
             allSlider: false,
@@ -128,11 +130,11 @@ const GallerySidebar = () => {
           </NavLink>
         ))}
       </div>
-      <div className="grid grid-cols-12 gap-5">
-        <div className="h-full w-full col-span-4">
+      <div className="grid grid-cols-7 gap-5">
+        <div className="h-full w-full col-span-2">
           <Outlet />
         </div>
-        <div className="col-span-8 pe-4">
+        <div className="col-span-5 pe-4">
           <Galleryslider />
         </div>
       </div>

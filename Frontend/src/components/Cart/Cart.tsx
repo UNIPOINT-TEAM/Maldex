@@ -29,10 +29,8 @@ const CardModal = () => {
       discount_price > 0 ? quantity * discount_price : quantity * price;
 
     if (isNaN(quantityNumber)) {
-      /* @ts-expect-error: This */
       return dispatch(updateCart({ id, quantity: 1 }));
     }
-    /* @ts-expect-error: This */
     dispatch(updateCart({ id, quantity: quantityNumber, totalPrice }));
   };
 
@@ -58,7 +56,7 @@ const CardModal = () => {
             <span className="text-white">{itemsCount}</span>
           </div>
           <span className="text-darkPrimary text-fs_8 font-bold ml-1 me-3">
-            {totalAmount} ₽
+            {totalAmount.toFixed(2)} ₽
           </span>
         </button>
         {activeCard && (

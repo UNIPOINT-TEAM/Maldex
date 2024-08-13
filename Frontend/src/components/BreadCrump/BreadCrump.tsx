@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 const Breadcrumbs = () => {
   const breadcrumbs = useSelector((state) => state.breadcrumbs.breadcrumbs);
-  console.log(breadcrumbs);
   return (
     <nav>
       <ul className="breadcrumb">

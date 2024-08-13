@@ -11,7 +11,7 @@ import Filtr from "../../assets/icons/filtr.svg";
 const FiltrBtn = () => {
   return (
     <>
-      <div className="w-[30px] px-2  h-[34px] flex items-center rounded-[6px] border border-darkPrimary">
+      <div className="w-[30px] px-2 hidden  h-[34px] md:flex items-center rounded-[6px] border border-darkPrimary">
         <img src={Filtr} alt="filtr-icon" className="mx-auto" />
       </div>
       <div className=" hidden md:block w-[70px] h-[30px] border border-gray-400 z-50 absolute bg-white rounded-lg shadow-md top-[45px] left-0 filter-opac">

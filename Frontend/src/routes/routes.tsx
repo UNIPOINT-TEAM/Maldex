@@ -38,6 +38,7 @@ import {
 import DefaultTemplate from "../components/GalleryLayoutTemplate/PdfTemplate/DefaultTemplate";
 import Liked from "../components/AdminSidebar/Liked";
 import SilkscreenPrinting from "../pages/Applying/Silkscreen-printing";
+import CheckoutPage from "../pages/Cart/Checkout";
 
 export const router = createBrowserRouter([
   {
@@ -55,6 +56,10 @@ export const router = createBrowserRouter([
       {
         path: "/cart",
         element: <Card />,
+      },
+      {
+        path: "/checkout",
+        element: <CheckoutPage />,
       },
       {
         path: "category/:id",

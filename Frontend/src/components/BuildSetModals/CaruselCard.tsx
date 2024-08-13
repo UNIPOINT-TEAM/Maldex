@@ -50,7 +50,6 @@ const CaruselCard: React.FC<CaruselCardProps> = ({
   const isInCart = buildCart?.some(
     (cartItem: Product) => cartItem?.id === item?.id
   );
-  console.log(isInCart);
   const increaseQuantity = () => {
     setproductItem({ ...productItem, quantity: productItem.quantity + 1 });
   };
@@ -142,6 +141,7 @@ const CaruselCard: React.FC<CaruselCardProps> = ({
           {item?.colors?.length > 0 &&
             item?.colors?.map((el) => (
               <button
+                key={el.id}
                 onMouseOver={() => handleFiltreColor(el.product)}
                 style={{
                   backgroundColor: el.hex ? el.hex : "#000000",

@@ -31,7 +31,7 @@ const OneArticle: React.FC<TemplateData> = ({ data, background }) => {
         backgroundColor: background?.color,
         backgroundImage: `url(${background?.image})`,
       }}
-      className="w-full flex flex-col  justify-between rounded-lg h-full p-5 relative border "
+      className="w-full h-[650px] flex flex-col  justify-between rounded-lg  p-5 relative border "
     >
       <div className="heading grid grid-cols-12 items-center w-full h-[20%] ">
         <div className={`col-span-12 relative h-full  ${"w-[65%]"}`}>
@@ -92,9 +92,9 @@ const OneArticle: React.FC<TemplateData> = ({ data, background }) => {
 
             {data?.images_set && data?.images_set[0]?.image_url && (
               <div className="w-full group h-full col-span-3 relative">
-                <div className="absolute left-0  top-[50%] hidden group-hover:flex justify-center w-full ">
+                {/* <div className="absolute left-0  top-[50%] hidden group-hover:flex justify-center w-full ">
                   <AddAplying productData={data} />
-                </div>
+                </div> */}
                 <div className="h-[340px] w-full">
                   <img
                     src={data?.images_set[0]?.image_url}

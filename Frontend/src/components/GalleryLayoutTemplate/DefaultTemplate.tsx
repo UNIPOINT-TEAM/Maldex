@@ -1,63 +1,58 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { TemplateData } from "../../types";
-import AddAplying from "../Gallery/AddAplying";
-import { updateItem } from "../../store/carouselReducer";
-import { Rnd } from "react-rnd";
+import { CarouselState, updateItem } from "../../store/carouselReducer";
 
-const DefaultTemplate: React.FC<TemplateData> = ({
-  data,
-  background,
-  applying,
-}) => {
-  const {
-    landscape_visible,
-    prices_visible,
-    description_visible,
-    characteristic_visible,
-    total_visible,
-    circulationAmount_visible,
-    codeArticle_visible,
-  } = useSelector((state) => state.carousel.status);
-  const [isFocus, setIsFocus] = useState({ title: false, description: false });
-  const { items, activeCaruselIndex } = useSelector((state) => state.carousel);
+const DefaultTemplate: React.FC<TemplateData> = ({ data, background }) => {
+  const { items, activeCaruselIndex, status } = useSelector(
+    (state: { carousel: CarouselState }) => state.carousel
+  );
+
   const dispatch = useDispatch();
-
-  const [position, setPosition] = useState({
-    x: 400,
-    y: items[activeCaruselIndex]?.applying[0]?.imagePosition.y || 0,
-  });
+  const [textareaHeights, setTextareaHeights] = useState<{
+    [key: string]: string;
+  }>({});
+  const textareaRefs = useRef<{ [key: string]: HTMLTextAreaElement | null }>(
+    {}
+  );
 
   const handleInputChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    event: React.ChangeEvent<HTMLTextAreaElement>
   ): void => {
+    const { name, value } = event.target;
+
     const updatedItem = {
       ...items[activeCaruselIndex],
       data: {
         ...items[activeCaruselIndex]?.data,
-        [event.target.name]: event.target.value,
+        [name]: value,
       },
     };
     dispatch(updateItem(updatedItem));
+
+    adjustTextareaHeight(name);
   };
 
-  const handleDragStop = (e, d) => {
-    setPosition({ x: d.x, y: d.y });
-    const updatedItem = {
-      ...items[activeCaruselIndex],
-      applying: [
-        {
-          ...items[activeCaruselIndex]?.applying[0],
-          imagePosition: {
-            ...items[activeCaruselIndex]?.applying[0]?.imagePosition,
-            x: d.x,
-            y: d.y,
-          },
-        },
-      ],
-    };
-    dispatch(updateItem(updatedItem));
+  const adjustTextareaHeight = (name: string) => {
+    const textarea = textareaRefs.current[name];
+    if (textarea) {
+      setTextareaHeights((prevHeights) => ({
+        ...prevHeights,
+        [name]: "auto",
+      }));
+
+      setTextareaHeights((prevHeights) => ({
+        ...prevHeights,
+        [name]: `${textarea.scrollHeight}px`,
+      }));
+    }
   };
+
+  useEffect(() => {
+    Object.keys(textareaRefs.current).forEach((name) => {
+      adjustTextareaHeight(name);
+    });
+  }, [data]);
 
   const inputStyle =
     "bg-transparent font-medium p-[6px] rounded-lg focus:outline outline-[#e99125]";
@@ -65,245 +60,95 @@ const DefaultTemplate: React.FC<TemplateData> = ({
   return (
     <div
       style={{
-        backgroundColor: background?.color,
-        backgroundImage: `url(${background?.image})`,
+        background: background?.bg_color,
+        color: background?.text_color,
       }}
-      className={`grid ${
-        landscape_visible ? "w-full" : "w-[400px]"
-      }  grid-cols-7 h-full bg-cover bg-center border p-3 rounded-lg border-darkSecondary 
-      }]`}
+      className="wrapper w-full h-[650px] border px-5 py-10 rounded-lg "
     >
-      <div
-        className={`${
-          landscape_visible ? "col-span-3 p-8" : "col-span-7 h-[160px] p-3"
-        }  group flex relative   justify-center items-center w-full`}
-      >
-        <div className="bg-red-600 relative">
-          <div className="relative w-full h-full top-0 left-0 z-[99]">
-            <Rnd
-              size={{
-                width:
-                  items[activeCaruselIndex]?.applying[0]?.imagePosition.width,
-                height:
-                  items[activeCaruselIndex]?.applying[0]?.imagePosition.height,
-              }}
-              position={{
-                x: items[activeCaruselIndex]?.applying[0]?.imagePosition.x || 0,
-                y: items[activeCaruselIndex]?.applying[0]?.imagePosition.y || 0,
-              }}
-              enableResizing={{
-                top: false,
-                right: false,
-                bottom: false,
-                left: false,
-                topRight: false,
-                bottomRight: false,
-                bottomLeft: false,
-                topLeft: false,
-              }}
-            >
-              <div
-                className="w-full h-full bg-cover bg-center"
-                style={{
-                  backgroundImage: `url(${items[activeCaruselIndex]?.applying[0]?.image})`,
-                }}
-              ></div>
-            </Rnd>
-            <Rnd
-              size={{
-                width:
-                  items[activeCaruselIndex]?.applying[0]?.textPosition.width,
-                height:
-                  items[activeCaruselIndex]?.applying[0]?.textPosition.height,
-              }}
-              position={{
-                x: items[activeCaruselIndex]?.applying[0]?.textPosition.x || 0,
-                y: items[activeCaruselIndex]?.applying[0]?.textPosition.y || 0,
-              }}
-              enableResizing={{
-                top: false,
-                right: false,
-                bottom: false,
-                left: false,
-                topRight: false,
-                bottomRight: false,
-                bottomLeft: false,
-                topLeft: false,
-              }}
-            >
-              <span
-                className="text-darkPrimary"
-                style={{
-                  fontFamily:
-                    items[activeCaruselIndex]?.applying[0]?.content.fontFamily,
-                  fontSize:
-                    items[activeCaruselIndex]?.applying[0]?.content.fontSize,
-                  textAlign:
-                    items[activeCaruselIndex]?.applying[0]?.content.textAlign,
-                  fontWeight: items[
-                    activeCaruselIndex
-                  ]?.applying[0]?.content.fontWeight.includes("bold")
-                    ? "bold"
-                    : "normal",
-                  fontStyle: items[
-                    activeCaruselIndex
-                  ]?.applying[0]?.content.fontWeight.includes("italic")
-                    ? "italic"
-                    : "normal",
-                  textDecoration: items[
-                    activeCaruselIndex
-                  ]?.applying[0]?.content.fontWeight
-                    .filter((weight) =>
-                      ["underline", "line-through"].includes(weight)
-                    )
-                    .join(" "),
-                }}
-              >
-                {items[activeCaruselIndex]?.applying[0]?.content.text}
-              </span>
-            </Rnd>
+      <div className="grid grid-cols-2 gap-8 w-full h-full">
+        <div className="flex flex-col">
+          <div className="main-data bg-[#FFFFFF1A] p-5 rounded-[20px]">
+            <textarea
+              name="name"
+              value={data?.name}
+              onChange={handleInputChange}
+              className={`${inputStyle} resize-none w-full text-base font-bold`}
+              style={{ height: textareaHeights["name"] || "auto" }}
+              ref={(el) => (textareaRefs.current["name"] = el)}
+            ></textarea>
+            {status.prices_visible && (
+              <h2 className="text-fs_7 font-medium my-3">
+                Цена: {data?.price} {data?.price_type}
+              </h2>
+            )}
+            {status.codeArticle_visible && (
+              <p className="text-fs_9 font-normal">Артикул {data?.article}</p>
+            )}
           </div>
-          <div className="group-hover:block absolute top-[50%] hidden z-[99999]">
-            <AddAplying
-              productData={
-                data?.images_set[0].image_url || data?.images_set[0].image
-              }
+          <div className="h-full">
+            {status.characteristic_visible && (
+              <ul className="text-fs_9 font-normal flex flex-col gap-2 p-5 mt-8 ">
+                <li>
+                  <span className="font-bold">Размеры : </span>
+                  {data?.product_size}
+                </li>
+                <li>
+                  <span className="font-bold">Материал : </span>
+                  {data?.material}
+                </li>
+                <li>
+                  <span className="font-bold">Вес (1 шт.) : </span>
+                  {data?.weight}
+                </li>
+                <li>
+                  <span className="font-bold">Доступное нанесение : </span>
+                  {data?.printing}
+                </li>
+                <li>
+                  <div className="flex items-center flex-wrap gap-1 ">
+                    {data?.colors?.map((color, i) => (
+                      <div
+                        key={i}
+                        style={{ backgroundColor: color?.hex }}
+                        className={`min-w-[15px] h-[15px] rounded-full shadow-[0_5px_5px_1px] shadow-[#00000079] ${
+                          color.hex === "white" && "border border-darkSecondary"
+                        }`}
+                      ></div>
+                    ))}
+                  </div>
+                </li>
+              </ul>
+            )}
+            {status.description_visible && (
+              <textarea
+                name="description"
+                value={data?.description}
+                onChange={handleInputChange}
+                className={`${inputStyle} resize-none w-full text-fs_9 font-normal h-[55%]  px-5`}
+              ></textarea>
+            )}
+          </div>
+        </div>
+        <div className="flex flex-col ">
+          <div className="h-[65%]">
+            <img
+              className=" h-full object-contain"
+              src={data?.images_set[0]?.image || data?.images_set[0]?.image_url}
+              alt=""
             />
           </div>
-          <img
-            src={data?.images_set[0].image_url || data?.images_set[0].image}
-            alt="slider-img"
-            className={`${
-              landscape_visible ? "w-full h-[300px]" : "w-[150px] h-full"
-            } object-contain object-center `}
-          />
-        </div>
-      </div>
-      <div
-        className={`${
-          landscape_visible ? "col-span-4" : "col-span-7"
-        } flex flex-col`}
-      >
-        <textarea
-          name="name"
-          onFocus={() => setIsFocus({ title: true })}
-          onBlur={() => setIsFocus({ title: false })}
-          onChange={handleInputChange}
-          rows={landscape_visible ? 0 : 1}
-          value={
-            isFocus.title
-              ? data?.name
-              : `${data?.name?.slice(0, landscape_visible ? 40 : 20)}${
-                  data?.name?.length > 40 ? "..." : ""
-                }`
-          }
-          className={`leading-tight resize-none ${inputStyle} ${
-            landscape_visible ? "text-[36px]" : "text-[28px] text-center"
-          }`}
-        />
-        <div className="grid grid-cols-12 gap-4  w-full my-2">
-          <div className="col-span-3">
-            {prices_visible && (
-              <>
-                <h3 className="text-[#222220] text-[12px] opacity-70 font-medium mb-2">
-                  Цена (руб)
-                </h3>
-                <input
-                  name="price"
-                  value={data?.price}
-                  onChange={handleInputChange}
-                  className={`${inputStyle} ${
-                    landscape_visible ? "text-fs_4" : "text-fs_6"
-                  } w-full`}
-                />
-              </>
-            )}
-          </div>
-          <div className="col-span-3">
-            {circulationAmount_visible && (
-              <>
-                <h3 className="text-[#222220] text-[12px] opacity-70 font-medium mb-2">
-                  Тираж (шт)
-                </h3>
-                <input
-                  name="quantity"
-                  value={data?.quantity}
-                  className={`${inputStyle} ${
-                    landscape_visible ? "text-fs_4" : "text-fs_6"
-                  } w-full`}
-                />
-              </>
-            )}
-          </div>
-          <div className="col-span-6 flex flex-col items-end">
-            {total_visible && (
-              <div>
-                <h3 className="text-[#222220] text-[12px] opacity-70 font-medium mb-2">
-                  Итого
-                </h3>
-                <input
-                  value={data?.totalPrice + "₽"}
-                  className={`${inputStyle} ${
-                    landscape_visible ? "text-fs_4" : "text-fs_6"
-                  } w-[150px]`}
+          <div className="flex flex-1 items-center gap-3">
+            {data?.images_set.slice(1, 3).map((image, i) => (
+              <div key={i} className="flex-1 h-[100px]">
+                <img
+                  src={image?.image || image?.image_url}
+                  alt="product-image"
+                  className="h-full object-contain"
                 />
               </div>
-            )}
+            ))}
           </div>
         </div>
-
-        <div
-          className={`w-full ${
-            landscape_visible ? "text-[16px]" : "text-fs_7"
-          } `}
-        >
-          {codeArticle_visible && (
-            <div className="flex items-center gap-1">
-              <label htmlFor="vendor-code">Артикул:</label>
-              <p>{data?.article}</p>
-            </div>
-          )}
-          {characteristic_visible && (
-            <>
-              <div className="flex items-center gap-1">
-                <p>{data?.product_size}</p>
-              </div>
-              <div className="flex items-center gap-1">
-                <label htmlFor="material">Материал:</label>
-                <p>{data?.material}</p>
-              </div>
-              <div className="flex items-center gap-1">
-                <label htmlFor="color">Вес:</label>
-                <p>{data?.weight}</p>
-              </div>
-              <div className="flex items-center gap-1">
-                <label htmlFor="color">Доступное нанесение:</label>
-                <p>{data?.available_application}</p>
-              </div>
-            </>
-          )}
-        </div>
-        {description_visible && landscape_visible! && (
-          <div className="w-full mt-2 -ms-2">
-            {data?.description && (
-              <textarea
-                onFocus={() => setIsFocus({ description: true })}
-                onBlur={() => setIsFocus({ description: false })}
-                name="description "
-                value={
-                  isFocus.description
-                    ? data?.description
-                    : `${data.description.slice(0, 330)}${
-                        data?.description?.length > 330 ? "..." : ""
-                      }`
-                }
-                onChange={handleInputChange}
-                rows={7}
-                className="w-full bg-transparent resize-none rounded-lg max-h-[300px] font-normal p-[6px]  leading-tight focus:outline outline-[#e99125]"
-              />
-            )}
-          </div>
-        )}
       </div>
     </div>
   );

@@ -61,7 +61,7 @@ const CategoryDetails = () => {
   useEffect(() => {
     setCardSetproduct(response?.gift_basket_product);
   }, [response]);
-  console.log(cardSetproduct);
+
   function calculateDiscount(quantity: number, price: number) {
     let discount = 0;
     if (quantity >= 300) {
@@ -125,7 +125,7 @@ const CategoryDetails = () => {
       label: "добавить товар",
       value: "добавить товар",
       content: <GiftTabFour setCardSetproduct={setCardSetproduct} />,
-    },  
+    },
   ];
   const calculateDiscountPercentage = (quantity, discountData) => {
     discountData?.sort((a, b) => a?.count - b?.count);
@@ -182,48 +182,98 @@ const CategoryDetails = () => {
 
   return (
     <div className="container_xxl tracking-wider overflow-hidden px-3">
-      <div className="grid grid-cols-3 lg:grid-cols-10 my-5">
-        <div className="h-full py-5 lg:pr-6 col-span-3 order-3 lg:order-1 ">
-          <div>{response.description}</div>
-        </div>
-        <div className="bg-white order-1 lg:order-2 flex flex-col items-start p-2 lg:p-5 col-span-3 lg:col-span-4 relative">
-          <div className="flex justify-end w-full"></div>
+      <div className="flex">
+        <div className=" w-[70%]">
+          <div className="grid grid-cols-2 lg:grid-cols-10 my-5">
+            <div className="h-full py-5 lg:pr-6 col-span-4 ">
+              <div>{response.description}</div>
+            </div>
+            <div
+              iv
+              className="bg-white  flex flex-col items-start p-2 lg:p-5 col-span-2 lg:col-span-6 relative"
+            >
+              <div className="flex justify-end w-full"></div>
 
-          <div
-            className={`flex justify-center mt-10 w-full h-full items-center ${
-              isActive !== 1 && "hidden"
-            }`}
-          >
-            <ProductPerviewModalGift images={response?.gift_basket_images} />
-          </div>
-          <div
-            className={`${
-              isActive !== 2 && "hidden"
-            } grid grid-cols-2 items-center my-3 h-full w-full`}
-          >
-            <div className="box-l flex justify-end">
-              <img src={nasilnenie_r} alt="" className="w-[260px]" />
+              <div
+                className={`flex justify-center mt-10 w-full h-full items-center ${
+                  isActive !== 1 && "hidden"
+                }`}
+              >
+                <ProductPerviewModalGift
+                  images={response?.gift_basket_images}
+                />
+              </div>
+
+              <div
+                className={`${
+                  isActive !== 3 && "hidden"
+                } flex justify-center items-center mt-10 w-full h-full`}
+              >
+                <img
+                  src={
+                    response.gift_basket_images &&
+                    response?.gift_basket_images[0]?.images
+                  }
+                  alt=""
+                />
+                <div className="color-panel"></div>
+              </div>
             </div>
-            <div className="box-r flex justify-start">
-              <img src={nasilnenie_l} alt="" className="w-[200px] " />
-            </div>
           </div>
-          <div
-            className={`${
-              isActive !== 3 && "hidden"
-            } flex justify-center items-center mt-10 w-full h-full`}
-          >
-            <img
-              src={
-                response.gift_basket_images &&
-                response?.gift_basket_images[0]?.images
-              }
-              alt=""
-            />
-            <div className="color-panel"></div>
+          <div className="mb-16 mt-16 w-full">
+            <Tabs value={activeTab}>
+              <TabsHeader
+                placeholder={<div />}
+                className="bg-transparent border-0 border-b-2 gap-16 rounded-none p-0 m-0"
+                indicatorProps={{
+                  className:
+                    "bg-transparent border-0 border-b-4 border-redPrimary  shadow-none rounded-none",
+                }}
+              >
+                {CategoryTabs.map(({ label, value }) => (
+                  <Tab
+                    placeholder={<div />}
+                    key={value}
+                    value={value}
+                    onClick={() => setActiveTab(value)}
+                    activeClassName="text-[#fff]"
+                    className="text-[18px] font-medium p-0  font-Helvetica-Neue uppercase h-[60px] text-darkSecondary w-auto  text-start tracking-normal"
+                  >
+                    <p
+                      className={`${
+                        activeTab === value
+                          ? "text-redPrimary"
+                          : "text-darkSecondary"
+                      }`}
+                    >
+                      {label}
+                    </p>
+                  </Tab>
+                ))}
+              </TabsHeader>
+              <TabsBody
+                animate={{
+                  initial: { y: 250 },
+                  mount: { y: 0 },
+                  unmount: { y: 250 },
+                }}
+                placeholder={<div />}
+                className="p-0 m-0"
+              >
+                {CategoryTabs.map((item, i) => (
+                  <TabPanel
+                    key={i}
+                    value={item.value}
+                    className="p-0 m-0 py-2 mt-4 font-Helvetica-Neue"
+                  >
+                    {item?.content}
+                  </TabPanel>
+                ))}
+              </TabsBody>
+            </Tabs>
           </div>
         </div>
-        <div className="py-3 px-0 order-1 lg:order-2 lg:px-5 col-span-3">
+        <div className="py-3 px-0  lg:px-5 flex-1">
           <div className="border-0 border-l ps-8">
             <div className="font-medium text-fs_4 flex items-center gap-4 mb-4">
               <h2 className="font-Articulat">Ваш набор</h2>
@@ -403,59 +453,6 @@ const CategoryDetails = () => {
           </>
         </div>
       </div>
-      <div className="mb-16 mt-16 w-[70%]">
-        <Tabs value={activeTab}>
-          <TabsHeader
-            placeholder={<div />}
-            className="bg-transparent border-0 border-b-2 gap-16 rounded-none p-0 m-0"
-            indicatorProps={{
-              className:
-                "bg-transparent border-0 border-b-4 border-redPrimary  shadow-none rounded-none",
-            }}
-          >
-            {CategoryTabs.map(({ label, value }) => (
-              <Tab
-                placeholder={<div />}
-                key={value}
-                value={value}
-                onClick={() => setActiveTab(value)}
-                activeClassName="text-[#fff]"
-                className="text-[18px] font-medium p-0  font-Helvetica-Neue uppercase h-[60px] text-darkSecondary w-auto  text-start tracking-normal"
-              >
-                <p
-                  className={`${
-                    activeTab === value
-                      ? "text-redPrimary"
-                      : "text-darkSecondary"
-                  }`}
-                >
-                  {label}
-                </p>
-              </Tab>
-            ))}
-          </TabsHeader>
-          <TabsBody
-            animate={{
-              initial: { y: 250 },
-              mount: { y: 0 },
-              unmount: { y: 250 },
-            }}
-            placeholder={<div />}
-            className="p-0 m-0"
-          >
-            {CategoryTabs.map((item, i) => (
-              <TabPanel
-                key={i}
-                value={item.value}
-                className="p-0 m-0 py-2 mt-4 font-Helvetica-Neue"
-              >
-                {item?.content}
-              </TabPanel>
-            ))}
-          </TabsBody>
-        </Tabs>
-      </div>
-
       <QuestForm />
     </div>
   );

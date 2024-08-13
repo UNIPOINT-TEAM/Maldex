@@ -29,7 +29,7 @@ const Picture: React.FC<TemplateData> = ({ data }) => {
   };
 
   return (
-    <div className="w-full h-full p-10 border rounded-lg border-darkSecondary">
+    <div className="w-full h-[650px] p-10 border rounded-lg border-darkSecondary">
       <div className="body grid grid-cols-2 gap-10 items-center w-full h-full">
         <div className="col-span-1 h-full relative">
           <div

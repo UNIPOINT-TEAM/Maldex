@@ -27,13 +27,14 @@ const LayoutSideCard: React.FC<{
     <div
       className={`w-[200px] h-full cursor-pointer flex flex-col 
         ${
-          combine == true && combineSellectItem?.id === id
-            ? "border border-redPrimary"
-            : "border border-greenPrimary"
+          combine == true &&
+          combineSellectItem?.id === id &&
+          "border border-redPrimary"
         }
+          ${combine == true && "border border-greenPrimary"}
         `}
     >
-      <div className="head group w-full h-[200px] flex justify-center relative bg-white">
+      <div className="head group w-full h-[170px] flex justify-center relative bg-white">
         {combineSellectItem?.id === id && (
           <button
             onClick={onCombine}

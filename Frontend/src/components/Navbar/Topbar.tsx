@@ -19,6 +19,7 @@ const Topbar = () => {
     dispatch(getCartTotal());
     dispatch(getAllQuantity());
   }, [carts]);
+
   return (
     <nav className="border-0 lg:border-b border-lightSecondary">
       <div className="p-3 container_xxl flex justify-between items-center">
